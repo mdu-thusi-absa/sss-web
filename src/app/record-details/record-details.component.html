@@ -1,0 +1,101 @@
+<!-- <div [class.alert] = "showApplyAlert" 
+[class.alert-warning]="showApplyAlert" 
+[hidden] = "!showApplyAlert" (closed.bs.alert)="showApplyAlert=false">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Warning!</strong> Are you sure you ant to apply the changes?
+</div> -->
+
+<table
+  class="table table-condensed table-bordered table-hover less-bottom"
+  style="font-size: smaller;"
+>
+  <thead class="info">
+    <tr class="info">
+      <th>Attribute</th>
+      <th>
+        Change from
+        <div class="btn-group pull-right">
+          <a
+            href="#"
+            class="btn btn-info btn-xs"
+            (click)="showConfirm('Change from','')"
+            >Apply All <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </th>
+      <th>
+        Change to'
+        <div class="btn-group pull-right">
+          <a href="#" class="btn btn-info btn-xs"
+          (click)="showConfirm('Change to','')"
+            >Apply All <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Appointmnet Date: Smith, John</td>
+      <td>no appointment date
+        <div class="btn-group pull-right">
+            <a href="#" class="btn btn-info btn-xs"
+            (click)="showConfirm('Appointment Date: Smith, John','no appointment date')"
+              >Apply <span class="glyphicon glyphicon-cloud-upload"></span
+            ></a>
+          </div>
+      </td>
+      <td>
+        2020/02/13
+        <div class="btn-group pull-right">
+          <a href="#" class="btn btn-info btn-xs"
+          (click)="showConfirm('Appointment Date: Smith, John','2020/02/13')"
+            >Apply <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Legal Name</td>
+      <td>
+        New Co
+        <div class="btn-group pull-right">
+          <a href="#" class="btn btn-info btn-xs"
+          (click)="showConfirm('Legal Name','New Co')"
+            >Apply <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </td>
+      <td>
+        Steady Bank (Pty) Ltd
+        <div class="btn-group pull-right">
+          <a href="#" class="btn btn-info btn-xs"
+          (click)="showConfirm('Legal Name','Steady Bank (Pty) Ltd')"
+            >Apply <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Share Issue</td>
+      <td>
+        Ordinary: 1,000,000
+        <div class="btn-group pull-right">
+          <a href="#" class="btn btn-info btn-xs"
+          (click)="showConfirm('Share Issue','Ordinary: 1,000,000')"
+            >Apply <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </td>
+      <td>
+        Ordinary: 1,500,000
+        <div class="btn-group pull-right">
+          <a href="#" class="btn btn-info btn-xs"
+          (click)="showConfirm('Share Issue','Ordinary: 1,500,000')"
+            >Apply <span class="glyphicon glyphicon-cloud-upload"></span
+          ></a>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

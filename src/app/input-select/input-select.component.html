@@ -1,0 +1,80 @@
+<div
+  class="form-group input-group-sm nobottom"
+  [hidden]="hideByFilter()"
+  style="margin-top: 5px;margin-right: 1px;"
+>
+  <label class="nobottom text-primary">{{ title }}</label>
+  <div class="btn-group pull-right">
+    <a href="#" class="btn btn-primary primary-color btn-xs" (click)="showEdit()"
+      
+      ><span
+        class="glyphicon"
+        [class.glyphicon-remove]="isDoInput"
+        [class.glyphicon-pencil]="!isDoInput"
+        data-toggle="tooltip" data-placement="bottom" 
+        [title]="isDoInput ? 'Cancel changes' : 'Edit the selected item'"
+      ></span
+    ></a>
+    <a href="#" class="btn btn-primary primary-color btn-xs" (click)="showNew()">
+      <span
+        class="glyphicon"
+        [class.glyphicon-cloud-upload]="isDoInput"
+        [class.glyphicon-plus]="!isDoInput"
+        data-toggle="tooltip" data-placement="bottom" 
+        [title]="isDoInput ? 'Save changes' : 'Add an item to the list'"
+      ></span>
+    </a>
+    <a href="#" class="btn btn-primary primary-color btn-xs" (click)="deleteItem()">
+        <span
+          class="glyphicon"
+          [class.glyphicon-minus]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          title="Delete the selected item"
+        ></span>
+      </a>
+
+      <a href="#" class="btn btn-primary primary-color btn-xs" >
+        <span
+          class="glyphicon"
+          [class.glyphicon-paperclip]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          [title]="'Source documents for ' + title"
+        ></span>
+      </a>
+      <a href="#" class="btn btn-primary primary-color btn-xs" >
+        <span
+          class="glyphicon"
+          [class.glyphicon-cd]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          [title]="'Record of changes for ' + title"
+        ></span>
+      </a>
+  </div>
+  <div class="input-group-sm" [hidden]="isDoInput">
+    <select
+      class="form-control input-sm"
+      style="font-size: small;"
+      name="option"
+      [(ngModel)]="option"
+      style="padding-left: 6px; padding-right: 6px;"
+    >
+      <option
+        *ngFor="let e of options; let i = index"
+        [value]="i"
+        [selected]="i == option"
+        ><small>{{ e }}</small></option
+      >
+    </select>
+  </div>
+
+  <div class="input-group-sm" [hidden]="!isDoInput">
+    <input
+      type="text"
+      class="form-control"
+      placeholder=""
+      #inputText
+      name="text"
+      [(ngModel)]="text"
+    />
+  </div>
+</div>

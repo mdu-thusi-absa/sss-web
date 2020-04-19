@@ -1,144 +1,38 @@
-<!-- <nav class="navbar navbar-defai;t">
-  <div class="container-flex">
-    <div class="navbar-header">
-      <a href="#" class="navbar-brand"><strong>SSS</strong></a>
-    </div>
-
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="#" class="btn">Legal Entities</a></li>
-        <li><a href="#" class="btn btn-primary">Natural Entities</a></li>
-        <li><a href="#">Tasks</a></li>
-        <li><a href="#">Docs</a></li>
-        <li><a href="#">Reports</a></li>
-      </ul>
-    </div>
-  </div>
-</nav> -->
-
-<div class="btn-group wide input-group-sm" data-toggle="buttons"
-  style="margin-left:1px;margin-right:1px;margin-bottom:2px">
-  <label 
-    class="btn btn-primary primary-color"
-    (click)="rdoMenu = 'Legal Entities'"
-    [class.active]="rdoMenu == 'Legal Entities'"
-    [class.focus]="rdoMenu == 'Legal Entities'"
-  >
-    <input
-      type="radio"
-      name="rdoChoice"
-      [checked]="rdoMenu == 'Legal Entities'"
-      class="input-sm"
-      [class.active]="rdoMenu == 'Legal Entities'"
-    />
-    <span class="glyphicon glyphicon-home"></span> 
-      Entities 
-  </label>
-
-  <label
-    class="btn btn-primary primary-color"
-    (click)="rdoMenu = 'Natural Entities'"
-    [class.active]="rdoMenu == 'Natural Entities'"
-  >
-    <input
-      type="radio"
-      name="rdoChoice"
-      value="Active"
-      [checked]="rdoMenu == 'Natural Entities'"
-      class="input-sm"
-    />
-    <span class="glyphicon glyphicon-user"></span> 
-    People
-      
-  </label>
-
-  <label
-    class="btn btn-primary primary-color"
-    (click)="rdoMenu = 'Tasks'"
-    [class.active]="rdoMenu == 'Tasks'"
-  >
-    <input
-      type="radio"
-      name="rdoChoice"
-      value="Dormant"
-      [checked]="rdoMenu == 'Tasks'"
-      class="input-sm"
-    />
-    <span class="glyphicon glyphicon-flash"></span> Tasks 
-    
-  </label>
-
-  <label
-    class="btn btn-primary primary-color"
-    [class.active]="rdoMenu == 'Reports'"
-    (click)="rdoMenu = 'Reports'"
-  >
-    <input
-      type="radio"
-      name="rdoChoice"
-      value="All"
-      [checked]="rdoMenu == 'Reports'"
-    />
-    <span class="glyphicon glyphicon-print"></span> 
-    Reports 
-    
-  </label>
-
-  <label
-  class="btn btn-primary primary-color"
-  [class.active]="rdoMenu == 'Admin'"
-  (click)="rdoMenu = 'Admin'"
->
-  <input
-    type="radio"
-    name="rdoChoice"
-    value="All"
-    [checked]="rdoMenu == 'Admin'"
-  />
-  <span class="glyphicon glyphicon-cog"></span> Admin 
-  
-  <span class="caret"></span> 
-  
-</label>
-</div>
-
-<app-entities-container></app-entities-container>
-
-<!-- <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="drop-toggle" role="button" >Manage<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Lists</a></li>
-            <li><a href="#">Users</a></li>
-          </ul>
-        </li>
-      </ul> -->
-<!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown link
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div> -->
-
-<!-- <div>
+<div>
   <div class="container-fluid">
     <div class="row no-gutter">
-      <div class="col-xs-3 col-lg-2 ">
+      <div class="col-xs-3 col-lg-2">
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3">Entities <span class="glyphicon glyphicon-piggy-bank"></span>
+          <div class="panel-heading mt3">
+            <span class="glyphicon glyphicon-home"></span> Entities
             <div class="btn-group pull-right">
-              <a href="#" class="btn btn-info btn-xs">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Refresh"
+              >
                 <span class="glyphicon glyphicon-refresh"></span>
               </a>
-              <a href="#" class="btn btn-info btn-xs" (click)="showHideTasks()">
+
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideTasks()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideTasks ? 'Show' : 'Hide') + ' Tasks panel'"
+              >
                 <span class="glyphicon glyphicon-flash"></span>
               </a>
               <a
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showHideHistory()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideHistory ? 'Show' : 'Hide') + ' Records panel'"
               >
                 <span class="glyphicon glyphicon-cd"></span>
               </a>
@@ -154,8 +48,12 @@
             Last refresh: 14:31
           </div>
         </div>
-        <div class="panel panel-primary no-gutter nobottom" [hidden]="hideTasks">
-          <div class="panel-heading mt3">Tasks <span class="glyphicon glyphicon-flash"></span>
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideTasks"
+        >
+          <div class="panel-heading mt3">
+            Tasks <span class="glyphicon glyphicon-flash"></span>
             <div class="btn-group pull-right">
               <a href="#" class="btn btn-info btn-xs">
                 <span class="glyphicon glyphicon-refresh"></span>
@@ -183,8 +81,12 @@
           </div>
         </div>
 
-        <div class="panel panel-primary no-gutter nobottom" [hidden]="hideHistory">
-          <div class="panel-heading mt3">Records <span class="glyphicon glyphicon-cd"></span>
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideHistory"
+        >
+          <div class="panel-heading mt3">
+            Records <span class="glyphicon glyphicon-cd"></span>
             <div class="btn-group pull-right">
               <a href="#" class="btn btn-info btn-xs">
                 <span class="glyphicon glyphicon-refresh"></span>
@@ -211,11 +113,17 @@
             Last refresh: 14:32
           </div>
         </div>
-
-
       </div>
-      <div [class.col-xs-6]="showPosts" [class.col-xs-9]="!showPosts" [class.col-lg-7]="showPosts" [class.col-lg-10]="!showPosts">
-        <div class="panel panel-primary no-gutter nobottom">
+      <div
+        [class.col-xs-6]="showPosts"
+        [class.col-xs-9]="!showPosts"
+        [class.col-lg-7]="showPosts"
+        [class.col-lg-10]="!showPosts"
+      >
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="(expandTaskDetail || expandHistoryDetail) && (!hideTasks || !hideHistory)"
+        >
           <div class="panel-heading mt3">
             Entity Details
             <div class="btn-group pull-right">
@@ -223,6 +131,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
               >
                 <span
                   class="glyphicon"
@@ -233,31 +144,52 @@
             </div>
             <div class="btn-group pull-right">
               <a href="#" class="btn btn-info btn-xs"
-                >Cancel <span class="glyphicon glyphicon-remove"></span
-              ></a>
+                ><span class="glyphicon glyphicon-remove"></span> Cancel
+              </a>
               <a href="#" class="btn btn-info btn-xs"
-                >Save <span class="glyphicon glyphicon-cloud-upload"></span
-              ></a>
+                ><span class="glyphicon glyphicon-cloud-upload"></span> Save</a
+              >
             </div>
-
           </div>
           <div
             class="panel-body mt3 panel-body-full"
             [class.panel-body-half]="panelRows == 2"
-            style="overflow-x:hidden"
+            style="overflow-x: hidden;"
           >
             <app-entity-details [panelRows]="panelRows"></app-entity-details>
           </div>
           <div class="panel-footer mt3">1 detail is not complete</div>
         </div>
-        <div class="panel panel-primary no-gutter nobottom" [hidden]="hideTasks">
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideTasks"
+        >
           <div class="panel-heading mt3">
             Task Details
             <div class="btn-group pull-right">
               <a
                 href="#"
                 class="btn btn-info btn-xs"
+                (click)="expandTaskDetail = !expandTaskDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandTaskDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-down]="expandTaskDetail"
+                  [class.glyphicon-menu-up]="!expandTaskDetail"
+                ></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
                 (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
               >
                 <span
                   class="glyphicon"
@@ -269,39 +201,60 @@
 
             <div class="btn-group pull-right">
               <a href="#" class="btn btn-info btn-xs"
-                >Cancel <span class="glyphicon glyphicon-remove"></span
-              ></a>
+                ><span class="glyphicon glyphicon-remove"></span> Cancel</a
+              >
               <a href="#" class="btn btn-info btn-xs"
-                >Save <span class="glyphicon glyphicon-cloud-upload"></span
-              ></a>
-            </div>
-
-            <div class="form-group nobottom pull-right" >
-              <label class="checkbox-inline" style="padding-right:8px"
-                ><input type="checkbox" value="" /><strong>Done</strong></label
+                ><span class="glyphicon glyphicon-cloud-upload"></span> Save</a
               >
             </div>
 
-            
-
+            <div class="form-group nobottom pull-right">
+              <label class="checkbox-inline" style="padding-right: 8px;"
+                ><input type="checkbox" value="" /><strong>Done</strong></label
+              >
+            </div>
           </div>
           <div
             class="panel-body mt3 panel-body-full"
-            [class.panel-body-half]="panelRows == 2" style="overflow-y: auto;overflow-x:hidden;"
+            [class.panel-body-half]="panelRows == 2 && !expandTaskDetail"
+            [class.panel-body-full]="panelRows == 2 && expandTaskDetail"
+            style="overflow-y: auto; overflow-x: hidden;"
           >
             <app-task-details [panelRows]="panelRows"></app-task-details>
           </div>
           <div class="panel-footer mt3">2 details are not complete</div>
         </div>
 
-        <div class="panel panel-primary no-gutter nobottom" [hidden]="hideHistory">
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideHistory"
+        >
           <div class="panel-heading mt3">
             Record Details
             <div class="btn-group pull-right">
               <a
                 href="#"
                 class="btn btn-info btn-xs"
+                (click)="expandHistoryDetail = !expandHistoryDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandHistoryDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-down]="expandHistoryDetail"
+                  [class.glyphicon-menu-up]="!expandHistoryDetail"
+                ></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
                 (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
               >
                 <span
                   class="glyphicon"
@@ -310,17 +263,17 @@
                 ></span>
               </a>
             </div>
-
           </div>
           <div
             class="panel-body mt3 panel-body-full"
-            [class.panel-body-half]="panelRows == 2" style="overflow-y: auto;overflow-x:hidden;"
+            [class.panel-body-half]="panelRows == 2 && !expandHistoryDetail"
+            [class.panel-body-full]="panelRows == 2 && expandHistoryDetail"
+            style="overflow-y: auto; overflow-x: hidden;"
           >
             <app-record-details [panelRows]="panelRows"></app-record-details>
           </div>
           <div class="panel-footer mt3">2 details are not complete</div>
         </div>
-
       </div>
       <div class="col-lg-3" [class.col-xs-3]="showPosts" [hidden]="!showPosts">
         <div class="panel panel-primary no-gutter nobottom">
@@ -331,6 +284,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
               >
                 <span
                   class="glyphicon"
@@ -348,4 +304,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

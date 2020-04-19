@@ -1,0 +1,76 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { Entity } from '../models/models'
+
+@Component({
+  selector: 'app-entity-details',
+  templateUrl: './entity-details.component.html',
+  styleUrls: ['./entity-details.component.css']
+})
+export class EntityDetailsComponent implements OnInit {
+  filterText = '';
+  isCountryInput = false;
+  isPositionInput = false;
+  isAppointeeInput = false;
+  isAppointeeNewInput =false;
+  @Input() panelRows = 2;
+  entity: Entity;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  hideByFilter(caption: string){
+    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
+  }
+
+  isFullScreen(){
+    return this.panelRows == 1;
+  }
+
+  isHalfScreen(){
+    return this.panelRows == 2;
+  }
+
+  isThirdScreen(){
+    return this.panelRows == 3;
+  }
+
+  showCountryEdit(){
+    this.isCountryInput = !this.isCountryInput
+  }
+
+  showCountryNew(){
+    this.isCountryInput = !this.isCountryInput
+  }
+
+  showPositionEdit(){
+    this.isPositionInput = !this.isPositionInput
+  }
+
+  showPositionNew(){
+    this.isPositionInput = !this.isPositionInput
+  }
+
+  showAppointeeEdit(){
+    this.isAppointeeInput = !this.isAppointeeInput
+  }
+
+  showAppointeeNew(){
+    this.isAppointeeInput = !this.isAppointeeInput
+  }
+
+  showAppointeeNewEdit(){ this.isAppointeeNewInput = !this.isAppointeeNewInput   }
+
+  showAppointeeNewNew(){ this.isAppointeeNewInput = !this.isAppointeeNewInput   }
+
+
+  showAppointmentNew(){
+
+  }
+
+  showAppointmentEdit(){
+
+  }
+
+}

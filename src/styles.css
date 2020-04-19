@@ -1,1 +1,269 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import "/node_modules/bootstrap/dist/css/bootstrap.css"*/
+
+body {
+  overflow: hidden;
+  /* min-width: 900px; */
+}
+
+.panel.nobottom {
+  margin-bottom: 0px;
+}
+.nobottom {
+  margin-bottom: 0px;
+}
+
+.less-bottom {
+  margin-bottom: 10px;
+}
+
+.panel-heading.message {
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: x-small;
+}
+.panel-body.message {
+  padding: 3px;
+}
+
+.panel.narrow {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.panel.less-padding {
+  padding: 5px;
+}
+
+.btn.btn-xs {
+  font-size: x-small;
+}
+
+.no-gutter > [class*="col-"] {
+  padding-right: 1px;
+  padding-left: 1px;
+  margin-bottom: 0px;
+}
+
+.mt3 {
+  padding-right: 3px;
+  padding-left: 3px;
+  padding: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+/* .mt-0 {
+    margin-top: 0 !important;
+  } */
+
+/*main content of entities in full screen*/
+.panel-body-full {
+  height: calc(100vh - 90px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+/*for entities, tasks, records: halfs*/
+.panel-body-half {
+  height: calc(100vh / 2 - 71.5px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.entities-full {
+  height: calc(100vh - 188px);
+  overflow-y: auto;
+}
+
+.entities-half {
+  height: calc(50vh - 170px);
+  overflow-y: auto;
+}
+
+.details-full {
+  height: calc(100vh - 125px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.details-half {
+  height: calc(50vh - 107px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* .tasks-full {
+    height: calc(100vh - 117px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  } */
+  
+  .tasks-half {
+    height: calc(50vh - 169px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+.tasks-details-full {
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tasks-details-half {
+  height: calc(50vh - 152px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* .records-full {
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  } */
+  
+  .records-half {
+    height: calc(50vh - 133px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+.record-details-full {
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.record-details-half {
+  height: calc(50vh - 152px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+hr {
+  margin: 5px;
+}
+
+.btn-group.wide {
+  display: flex;
+}
+
+.wide .btn {
+  flex: 1;
+}
+
+.primary-color {
+  background-color: rgb(51, 122, 183);
+  color: white;
+}
+
+.btn-primary.primary-color {
+  background-color: rgb(55, 130, 190);
+  color: white;
+}
+
+.info-color {
+  background-color: rgb(81, 145, 201);
+  color: white;
+}
+
+textarea {
+  resize: none;
+}
+
+/* .p-5{
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.p-7{
+  padding-top:7px;
+  padding-bottom:7px;
+}
+
+.navbar-nav.li.a{
+  padding-top:5px;
+  padding-bottom:5px;
+} */
+
+
+
+/* (80px - line-height of 27px) / 2 = 26.5px */
+/* @media (min-width: 768px) {
+  .navbar-nav > li > a {
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 5px;
+  }
+} */
+
+/*narrow navbar: works but only for big screens*/
+/* .navbar.narrow {
+  
+  height:40px;
+  min-height: 40px;
+} */
+/* max-height: 20px; */
+
+/* .navbar-brand {
+  padding: 0 15px;
+  height: 30px;
+  line-height: 30px;
+} */
+
+/* .navbar-toggle {
+  margin-top: 23px;
+  padding: 9px 10px !important;
+} */
+/* (80px - button height 34px) / 2 = 23px */
+
+/* .nav-tabs{
+  padding: 5px;
+} */
+
+.navbar {
+  min-height: 20px;
+  margin-bottom: 0px;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.navbar {
+  min-height: 20px;
+  margin-bottom: 0px;
+}
+
+.navbar-collapse{
+  padding-left:0px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 23px;
+  padding: 9px 10px !important;
+}
+
+/* (80px - line-height of 27px) / 2 = 26.5px */
+/* @media (min-width: 768px) {
+  .navbar-nav > li > a {
+    
+    padding-top: 5px;
+    padding-bottom: 5px;
+    line-height: 10px;
+  }
+} */
+
+.navbar-nav > li > a {
+  /* (80px - line-height of 27px) / 2 = 26.5px */
+  padding-top: 7px;
+  padding-bottom: 7px;
+  line-height: 10px;
+}

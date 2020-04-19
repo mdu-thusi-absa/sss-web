@@ -1,0 +1,12 @@
+
+
+<div class="panel panel-success nobottom" [class.panel-danger] = "!task.mainGoal.isDone">
+  <div class="panel panel-heading message nobottom" >
+      <small>
+          <a href="#">{{task.mainGoal.whenStringDue() + ': ' + task.mainGoal.taskType}}</a>
+      </small>
+  </div>
+  <div class="panel panel-body message nobottom">
+      <small>{{task.mainGoal.text}}</small>
+  </div>
+</div>

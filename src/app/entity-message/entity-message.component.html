@@ -1,0 +1,29 @@
+<div class="panel panel-success narrow" [class.panel-danger]="!message.isRead">
+  <div class="panel-heading message">
+    <a href="#" (click)="toggleReadUnread()"
+      ><small>
+        {{message.whenString()}} : {{ message.who }}
+      </small>
+    </a>
+    <!-- <a href="#" class="btn btn-link btn-xs pull-right">Reply</a> -->
+    <!-- <a href="#" class="pull-right">Reply</a> -->
+    <a href="#"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+  </div>
+  <div class="panel-body message">
+    <small>
+        
+      {{ message.text }}
+    </small>
+  </div>
+  <!-- <div class="btn-group btn-group-justified">
+    <a href="#" class="btn btn-primary primary-color btn-xs">Reply</a>
+    <a
+      href="#"
+      class="btn btn-primary primary-color btn-xs"
+      [class.btn-danger]="!message.isRead"
+      >
+        {{message.isRead ? 'Mark Unread' : 'Mark Read' }}
+      </a
+    >
+  </div> -->
+</div>

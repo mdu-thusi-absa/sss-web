@@ -1,0 +1,81 @@
+<div class="btn-group wide input-group-sm" data-toggle="buttons">
+  <label
+    class="btn btn-primary primary-color btn-xs active"
+    (click)="rdoUnReadReadAll = 'UnRead'"
+    [class.active]="rdoUnReadReadAll == 'UnRead'"
+    [class.focus]="rdoUnReadReadAll == 'UnRead'"
+  >
+    <input
+      type="radio"
+      name="rdoChoice"
+      value="UnRead"
+      [checked]="rdoUnReadReadAll == 'UnRead'"
+      class="input-sm"
+    />
+    <span class="glyphicon glyphicon-eye-close"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs"
+      ><small>{{ getCount_Unread() }}</small></span
+    >
+  </label>
+  <label 
+  class="btn btn-primary primary-color btn-xs" [class.active] = "rdoUnReadReadAll == 'Done'"
+  (click)="rdoUnReadReadAll = 'Read'">
+    <input 
+    type="radio"
+    name="rdoChoice" 
+    value="Read" />
+    <span class="glyphicon glyphicon-eye-open"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs"
+      ><small>{{ getCount_Read() }}</small></span
+    >
+  </label>
+  <label 
+  class="btn btn-primary primary-color btn-xs" [class.active] = "rdoUnReadReadAll == 'Done'"
+  (click)="rdoUnReadReadAll = 'All'">
+    <input 
+    type="radio"
+    name="rdoChoice" 
+    value="All" />
+    <small>All </small>
+    <span class="badge badge-xs"
+      ><small>{{ getCount_All() }}</small></span
+    >
+  </label>
+</div>
+
+<input
+  type="text"
+  class="form-control input-sm"
+  placeholder="Filter posts"
+  [(ngModel)]="filterText"
+/>
+
+<div 
+style="height: calc(100vh - 210px); overflow-y: auto; ">
+  <div
+    *ngFor="let msg of messages"
+    [hidden]="shouldHideMessage(msg)"
+  >
+    <app-entity-message [message]="msg"></app-entity-message>
+  </div>
+</div>
+
+<div class="form-group">
+  <textarea
+    class="form-control"
+    rows="4"
+    id="new-message"
+    style="padding: 6px;"
+    placeholder="Type new post or special instruction for the entity"
+  ></textarea>
+  <div class="btn-group btn-group-justified">
+    <a href="#" class="btn btn-primary primary-color btn-xs">
+      <span class="glyphicon glyphicon-paperclip"></span>
+    </a>
+    <a href="#" class="btn btn-primary primary-color btn-xs">
+      <span class="glyphicon glyphicon-send"></span>
+    </a>
+  </div>
+</div>
