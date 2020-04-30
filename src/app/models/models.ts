@@ -17,8 +17,9 @@ export class Message {
   constructor(
     public when: Date,
     public who: string,
-    public text: string,
-    public isRead: boolean
+    public title: string,
+    public isRead: boolean,
+    public text: string
   ) {}
 
   public whenString() {
@@ -128,4 +129,27 @@ export class Record {
       ('0' + m.getMinutes()).slice(-2)
     );
   }
+}
+
+export class FileDoc{
+  constructor(when: Date, who: string, filePurpose: string, 
+    isUsed: boolean,
+    associations: FileDoc_Use[]
+    ){}
+}
+
+export class FileDoc_Use{
+  constructor(field: string, isLinked: boolean, isUsed: boolean){}
+}
+
+export class Person{
+  surname = ''; firstName = ''; suffix = '';
+  constructor(surname: string, firstName: string, suffix: string){
+    this.surname = surname; this.firstName = firstName; this.suffix = suffix;
+  }
+
+  get fullName(){
+    return this.surname + ', ' + this.firstName + ' - ' + this.suffix;
+  }
+  
 }

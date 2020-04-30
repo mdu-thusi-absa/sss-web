@@ -1,0 +1,26 @@
+<div class="container-flex">
+    <div class="row">
+      <div class="col-xs-6">
+        <app-input-select
+          [filterText]="filterText"
+          [doHideByFilter]="doHideByFilter"
+          [title]="titleLeft"
+          [value]="valueLeft"
+          [options] = "optionsLeft"
+          (onFile)="doFileLeft()"
+          (onRecord)="doRecordLeft()"
+        ></app-input-select>
+      </div>
+      <div class="col-xs-6">
+          <app-input-select
+            [filterText]="filterText"
+            [doHideByFilter]="doHideByFilter"
+            [title]="titleRight"
+            [value]="valueRight"
+            [options] = "optionsRight"
+            (onFile)="doFileRight()"
+            (onRecord)="doRecordRight()"
+          ></app-input-select>
+        </div>
+    </div>
+  </div>

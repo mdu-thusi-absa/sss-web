@@ -1,0 +1,32 @@
+<div class="btn-group pull-right" >
+  <a *ngIf = "showFlash" href="#" class="btn btn-primary primary-color btn-xs">
+    <span
+      class="glyphicon"
+      [class.glyphicon-flash]="true"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      [title]="'Manage tasks for ' + title"
+      (click)="doTask()"
+    ></span>
+  </a>
+  <a  *ngIf = "showPaperclip" href="#" class="btn btn-primary primary-color btn-xs">
+    <span
+      class="glyphicon"
+      [class.glyphicon-paperclip]="true"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      [title]="'Source documents for ' + title"
+      (click)="doFile()"
+    ></span>
+  </a>
+  <a  *ngIf = "showCD" href="#" class="btn btn-primary primary-color btn-xs">
+    <span
+      class="glyphicon"
+      [class.glyphicon-cd]="true"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      [title]="'Record of changes for ' + title"
+      (click)="doRecord()"
+    ></span>
+  </a>
+</div>

@@ -1,0 +1,13 @@
+th{
+    /* border-top: 2px solid lightgray;
+    border-left: 2px solid lightgray; */
+}
+
+td{
+    /* border-top: 1px solid lightgray;
+    border-left: 1px solid lightgray; */
+}
+
+table{
+    border-spacing: 0;
+}

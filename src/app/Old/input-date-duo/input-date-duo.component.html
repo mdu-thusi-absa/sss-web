@@ -1,0 +1,22 @@
+<div class="container-flex">
+    <div class="row">
+      <div class="col-xs-6">
+        <app-input-date [title]="titleLeft" [filterText]='filterText'
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()"
+        [showFlash] = "showFlashLeft"
+        [showPaperclip] = "showPaperclipLeft"
+        [showCD] = "showCDLeft"
+        ></app-input-date>
+      </div>
+      <div class="col-xs-6">
+        <app-input-date [title]="titleRight" [filterText] = 'filterText'
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()"
+        [showFlash] = "showFlashRight"
+        [showPaperclip] = "showPaperclipRight"
+        [showCD] = "showCDRight"
+        ></app-input-date>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,230 @@
+<div *ngIf="showRadio">
+  <div class="btn-group wide input-group-sm" data-toggle="buttons">
+    <label
+      *ngIf="showFlash"
+      class="btn btn-primary primary-color btn-xs"
+      (click)="doRadio('flash')"
+      [class.focus]="radioChoice == 'flash'"
+      [class.active]="radioChoice == 'flash'"
+      [title]="titleFlash"
+    >
+      <input
+        type="radio"
+        name="radioChoice"
+        value="flash"
+        [checked]="radioChoice == 'flash'"
+        [class.active]="true"
+        [class.focus]="radioChoice == 'flash'"
+      />
+      <span class="glyphicon glyphicon-flash"></span>
+      <small>&nbsp;</small>
+      <span class="badge badge-xs progress-bar-primary"
+        ><small>{{ countFlash }}</small></span
+      >
+    </label>
+
+    <label
+      *ngIf="showPlay"
+      class="btn btn-primary primary-color btn-xs"
+      (click)="doRadio('play')"
+      [class.focus]="radioChoice == 'play'"
+      [class.active]="radioChoice == 'play'"
+      [title]="titlePlay"
+    >
+      <input
+        type="radio"
+        name="radioChoice"
+        value="play"
+        [checked]="radioChoice == 'play'"
+      />
+      <span class="glyphicon glyphicon-play"></span>
+      <small>&nbsp;</small>
+      <span class="badge badge-xs bg-primary"
+        ><small>{{ countPlay }}</small></span
+      >
+    </label>
+
+    <label
+      *ngIf="showPause"
+      class="btn btn-primary primary-color btn-xs"
+      (click)="doRadio('pause')"
+      [class.focus]="radioChoice == 'pause'"
+      [class.active]="radioChoice == 'pause'"
+      [title]="titlePause"
+    >
+      <input
+        type="radio"
+        name="radioChoice"
+        value="pause"
+        [checked]="radioChoice == 'pause'"
+      />
+      <span class="glyphicon glyphicon-pause"></span>
+      <small>&nbsp;</small>
+      <span class="badge badge-xs"
+        ><small>{{ countPause }}</small></span
+      >
+    </label>
+
+    <label
+      *ngIf="showOk"
+      class="btn btn-primary primary-color btn-xs"
+      (click)="doRadio('ok')"
+      [class.focus]="radioChoice == 'ok'"
+      [class.active]="radioChoice == 'ok'"
+      [title]="titleOk"
+    >
+      <input
+        type="radio"
+        name="radioChoice"
+        value="ok"
+        [checked]="radioChoice == 'ok'"
+      />
+      <span class="glyphicon glyphicon-ok"></span>
+      <small>&nbsp;</small>
+      <span class="badge badge-xs"
+        ><small>{{ countOk }}</small></span
+      >
+    </label>
+
+    <label
+    *ngIf="showEyeClose"
+    class="btn btn-primary primary-color btn-xs"
+    (click)="doRadio('eye-close')"
+    [class.focus]="radioChoice == 'eye-close'"
+    [class.active]="radioChoice == 'eye-close'"
+    [title]="titleEyeClose"
+  >
+    <input
+      type="radio"
+      name="radioChoice"
+      value="eye-close"
+      [checked]="radioChoice == 'eye-close'"
+    />
+    <span class="glyphicon glyphicon-eye-close"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs"
+      ><small>{{ countEyeClose }}</small></span
+    >
+  </label>
+
+  <label
+  *ngIf="showEyeOpen"
+  class="btn btn-primary primary-color btn-xs"
+  (click)="doRadio('eye-open')"
+  [class.focus]="radioChoice == 'eye-open'"
+  [class.active]="radioChoice == 'eye-open'"
+  [title]="titleEyeOpen"
+>
+  <input
+    type="radio"
+    name="radioChoice"
+    value="eye-open"
+    [checked]="radioChoice == 'eye-open'"
+  />
+  <span class="glyphicon glyphicon-eye-open"></span>
+  <small>&nbsp;</small>
+  <span class="badge badge-xs"
+    ><small>{{ countEyeOpen }}</small></span
+  >
+</label>
+
+    <label
+      *ngIf="showAll"
+      class="btn btn-primary primary-color btn-xs"
+      [class.focus]="radioChoice == 'all'"
+      [class.active]="radioChoice == 'all'"
+      (click)="doRadio('all')"
+      [title]="titleAll"
+    >
+      <input
+        type="radio"
+        name="radioChoice"
+        value="all"
+        [checked]="radioChoice == 'all'"
+      />
+      <small>All </small>
+      <span class="badge badge-xs"
+        ><small>{{ countAll }}</small></span
+      >
+    </label>
+  </div>
+</div>
+
+<div class="input-group input-group-sm" style="width: 100%;">
+  <select
+    *ngIf="showList"
+    class="form-control input-sm wide"
+    style="font-size: small;"
+  >
+    <option *ngFor="let e of listOptions">{{ e }}</option>
+  </select>
+</div>
+
+<div class="input-group input-group-sm">
+  <input
+    type="text"
+    class="form-control input-sm"
+    [placeholder]="'Filter ' + titlePlural"
+    [(ngModel)]="filterText"
+    (keyup)="onKey($event)"
+    style="font-weight: normal;"
+  />
+
+  <span
+    *ngIf="filterText.length > 0"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doFilterClear()"
+  >
+    <span class="glyphicon glyphicon-erase"></span>
+  </span>
+
+  <span class="input-group-addon" title="Number of items">
+    {{ filterCount }}
+  </span>
+
+  <span
+    *ngIf="showTick"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doTick()"
+  >
+    <span class="glyphicon" [class.glyphicon-ok]="true"></span>
+  </span>
+
+  <span
+    *ngIf="showT"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doT()"
+    [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
+  >
+    <span
+      class="glyphicon"
+      [class.glyphicon-text-height]="isT"
+      [class.glyphicon-text-width]="!isT"
+    ></span>
+  </span>
+
+  <span
+  *ngIf="showSave && isAdd && !isSaved"
+  class="input-group-addon btn primary-color-reverse"
+  (click)="doSave()"
+  [title]="'Save ' + title"
+>
+  <span
+    class="glyphicon"
+    [class.glyphicon-cloud-upload]="true"
+  ></span>
+</span>
+
+  <span
+    *ngIf="showAdd"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doAdd()"
+    [title]="'Add ' + title"
+  >
+    <span
+      class="glyphicon"
+      [class.glyphicon-plus]="!isAdd"
+      [class.glyphicon-remove]="isAdd"
+    ></span>
+  </span>
+</div>

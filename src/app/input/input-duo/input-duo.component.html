@@ -1,0 +1,150 @@
+<div class="container-flex">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <app-input-text
+        *ngIf="typeLeft == 'text'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleLeft"
+        [placeholder]="placeholderLeft"
+        [disabled]="disabledLeft"
+        [value]="valueLeft"
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
+        [showFlash] = "showFlashLeft"
+        [showPaperclip] = "showPaperclipLeft"
+        [showCD] = "showCDLeft"
+      ></app-input-text>
+
+      <app-input-checkbox
+        *ngIf="typeLeft == 'checkbox'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleLeft"
+        [disabled]="disabledLeft"
+        [value]="valueLeft"
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
+        [showFlash] = "showFlashLeft"
+        [showPaperclip] = "showPaperclipLeft"
+        [showCD] = "showCDLeft"
+      ></app-input-checkbox>
+
+      <app-input-date 
+        *ngIf="typeLeft == 'date'"
+        [title]="titleLeft" 
+        [filterText] = "filterText"
+        [doHideByFilter]="true"
+        [placeholder]="placeholderLeft"
+        [disabled]="disabledLeft"
+        [value] = 'valueLeft'
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
+        [showFlash] = "showFlashLeft"
+        [showPaperclip] = "showPaperclipLeft"
+        [showCD] = "showCDLeft"
+        ></app-input-date>
+
+      <app-input-select
+        *ngIf="typeLeft == 'select'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleLeft"
+        [value]="valueLeft"
+        [options]="optionsLeft"
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
+        [showFlash] = "showFlashLeft"
+        [showPaperclip] = "showPaperclipLeft"
+        [showCD] = "showCDLeft"
+      ></app-input-select>
+
+      <app-input-person
+        *ngIf="typeLeft == 'person'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleLeft"
+        [value]="valueLeft"
+        [options]="optionsLeft"
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()"
+        [showFlash] = "showFlashLeft"
+        [showPaperclip] = "showPaperclipLeft"
+        [showCD] = "showCDLeft"
+      ></app-input-person>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <app-input-text
+        *ngIf="typeRight == 'text'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleRight"
+        [placeholder]="placeholderRight"
+        [disabled]="disabledRight"
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
+        [showFlash] = "showFlashRight"
+        [showPaperclip] = "showPaperclipRight"
+        [showCD] = "showCDRight"
+      ></app-input-text>
+
+      <app-input-checkbox
+        *ngIf="typeRight == 'checkbox'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleRight"
+        [disabled]="disabledRight"
+        [value]="valueRight"
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
+        [showFlash] = "showFlashRight"
+        [showPaperclip] = "showPaperclipRight"
+        [showCD] = "showCDRight"
+      ></app-input-checkbox>
+
+      <app-input-date
+        *ngIf="typeRight == 'date'"
+        [title]="titleRight"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [placeholder]="placeholderRight"
+        [value]="valueRight"
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
+        [showFlash] = "showFlashRight"
+        [showPaperclip] = "showPaperclipRight"
+        [showCD] = "showCDRight"
+      ></app-input-date>
+
+      <app-input-select
+        *ngIf="typeRight == 'select'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleRight"
+        [value]="valueRight"
+        [options]="optionsRight"
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
+        [showFlash] = "showFlashRight"
+        [showPaperclip] = "showPaperclipRight"
+        [showCD] = "showCDRight"
+      ></app-input-select>
+
+      <app-input-person
+        *ngIf="typeRight == 'person'"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleRight"
+        [value]="valueRight"
+        [options]="optionsRight"
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
+        [showFlash] = "showFlashRight"
+        [showPaperclip] = "showPaperclipRight"
+        [showCD] = "showCDRight"
+      ></app-input-person>
+
+    </div>
+  </div>
+</div>

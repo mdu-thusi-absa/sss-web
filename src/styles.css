@@ -61,7 +61,7 @@ body {
 
 /*main content of entities in full screen*/
 .panel-body-full {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 93px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
@@ -74,17 +74,17 @@ body {
 }
 
 .entities-full {
-  height: calc(100vh - 188px);
+  height: calc(100vh - 175px);
   overflow-y: auto;
 }
 
 .entities-half {
-  height: calc(50vh - 170px);
+  height: calc(50vh - 152px);
   overflow-y: auto;
 }
 
 .details-full {
-  height: calc(100vh - 125px);
+  height: calc(100vh - 128px);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -100,12 +100,12 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
   } */
-  
-  .tasks-half {
-    height: calc(50vh - 169px);
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+
+.tasks-half {
+  height: calc(50vh - 152px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 .tasks-details-full {
   height: calc(100vh - 90px);
@@ -114,9 +114,55 @@ body {
 }
 
 .tasks-details-half {
-  height: calc(50vh - 152px);
+  height: calc(50vh - 143px);
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.files-attributes-half {
+  height: calc(50vh - 105px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.files-details-full {
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.files-details-half {
+  height: calc(50vh - 143px);
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* .table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+} */
+
+.tableFixHead {
+  height: 100.7%;
+  /* width: 100.2%; */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+  z-index: 990;
 }
 
 /* .records-full {
@@ -124,12 +170,22 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
   } */
-  
-  .records-half {
-    height: calc(50vh - 133px);
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+/* 
+  .headcol-1 {
+    position:absolute; 
+    width:5em; 
+    left:0;
+    top:auto;
+    border-right: 0px none black; 
+    border-top-width:3px; 
+    margin-top:-3px; 
+} */
+
+.records-half {
+  height: calc(50vh - 133px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 .record-details-full {
   height: calc(100vh - 90px);
@@ -160,6 +216,11 @@ hr {
   color: white;
 }
 
+.primary-color-reverse {
+  color: rgb(51, 122, 183);
+  background-color: white;
+}
+
 .btn-primary.primary-color {
   background-color: rgb(55, 130, 190);
   color: white;
@@ -188,8 +249,6 @@ textarea {
   padding-top:5px;
   padding-bottom:5px;
 } */
-
-
 
 /* (80px - line-height of 27px) / 2 = 26.5px */
 /* @media (min-width: 768px) {
@@ -241,8 +300,8 @@ textarea {
   margin-bottom: 0px;
 }
 
-.navbar-collapse{
-  padding-left:0px;
+.navbar-collapse {
+  padding-left: 0px;
 }
 
 .navbar-toggle {
@@ -266,4 +325,79 @@ textarea {
   padding-top: 7px;
   padding-bottom: 7px;
   line-height: 10px;
+}
+
+.vericaltext {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* .sturdy td:nth-child(1),
+.sturdy td:nth-child(3) {
+  width: 25%;
+}
+.sturdy td:nth-child(2) {
+  width: 50%;
+} */
+
+.label-buttons-3 {
+  /*display: block;*/
+  white-space: nowrap;
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100% - 67px);
+}
+
+.label-buttons-6 {
+  /*display: block;*/
+  white-space: nowrap;
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100% - 130px);
+}
+
+
+/*checkbox sizes*/
+/* .checkbox-lg .custom-control-label::before, 
+.checkbox-lg .custom-control-label::after {
+  top: .8rem;
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.checkbox-lg .custom-control-label {
+  padding-top: 13px;
+  padding-left: 6px;
+}
+
+.checkbox-xl .custom-control-label::before, 
+.checkbox-xl .custom-control-label::after {
+  top: 1.2rem;
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.checkbox-xl .custom-control-label {
+  padding-top: 23px;
+  padding-left: 10px;
+} */
+
+.label-checkbox {
+  /* display: block; */
+  padding-left: 15px;
+  text-indent: 0px;
+  font-weight: bold;
+}
+input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: 1px;
+  *overflow: hidden;
 }

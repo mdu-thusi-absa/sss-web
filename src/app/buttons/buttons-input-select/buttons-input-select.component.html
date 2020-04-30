@@ -1,0 +1,56 @@
+<div class="btn-group pull-right"style="min-width:100px" >
+    <a href="#" class="btn btn-primary primary-color btn-xs" (click)="showEdit()"
+      
+      ><span
+        class="glyphicon"
+        [class.glyphicon-remove]="isDoInput"
+        [class.glyphicon-pencil]="!isDoInput"
+        data-toggle="tooltip" data-placement="bottom" 
+        [title]="isDoInput ? 'Cancel changes' : 'Edit the selected item'"
+      ></span
+    ></a>
+    <a href="#" class="btn btn-primary primary-color btn-xs" (click)="showNew()">
+      <span
+        class="glyphicon"
+        [class.glyphicon-cloud-upload]="isDoInput"
+        [class.glyphicon-plus]="!isDoInput"
+        data-toggle="tooltip" data-placement="bottom" 
+        [title]="isDoInput ? 'Save changes' : 'Add an item to the list'"
+      ></span>
+    </a>
+    <a href="#" class="btn btn-primary primary-color btn-xs" (click)="deleteItem()">
+        <span
+          class="glyphicon"
+          [class.glyphicon-minus]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          title="Delete the selected item"
+        ></span>
+      </a>
+
+      <a *ngIf="showFlash" href="#" class="btn btn-primary primary-color btn-xs" >
+        <span
+          class="glyphicon"
+          [class.glyphicon-flash]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          [title]="'Manage tasks for ' + title"
+          (click) = "doTask()"
+        ></span>
+      </a>
+
+      <a *ngIf="showPaperclip" href="#" class="btn btn-primary primary-color btn-xs" (click)="doFile()">
+        <span
+          class="glyphicon"
+          [class.glyphicon-paperclip]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          [title]="'Source documents for ' + title"
+        ></span>
+      </a>
+      <a *ngIf="showCD" href="#" class="btn btn-primary primary-color btn-xs" (click)="doRecord()">
+        <span
+          class="glyphicon"
+          [class.glyphicon-cd]="true"
+          data-toggle="tooltip" data-placement="bottom" 
+          [title]="'Record of changes for ' + title"
+        ></span>
+      </a>
+  </div>

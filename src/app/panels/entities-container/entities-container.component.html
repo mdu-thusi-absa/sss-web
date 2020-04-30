@@ -1,0 +1,458 @@
+<div>
+  <div class="container-fluid">
+    <div class="row no-gutter">
+      <!--column 1: Entities, Tasks, Records, Files-->
+      <div class="col-xs-3 col-sm-3">
+        <!-- Entities -->
+        <div class="panel panel-primary no-gutter nobottom">
+          <div class="panel-heading mt3">
+            <span class="glyphicon glyphicon-home"></span
+            ><small> Entities</small>
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Refresh"
+              >
+                <span class="glyphicon glyphicon-refresh"></span>
+              </a>
+
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideTasks('')"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideTasks ? 'Show' : 'Hide') + ' Tasks panel'"
+              >
+                <span class="glyphicon glyphicon-flash"></span>
+              </a>
+
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showFilesAll()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideFiles ? 'Show' : 'Hide') + ' Files panel'"
+              >
+                <span class="glyphicon glyphicon-paperclip"></span>
+              </a>
+
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideHistory()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideHistory ? 'Show' : 'Hide') + ' Records panel'"
+              >
+                <span class="glyphicon glyphicon-cd"></span>
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2"
+          >
+            <app-entities [panelRows]="panelRows"></app-entities>
+          </div>
+          <div class="panel-footer mt3">
+            <small>Last refresh: 14:31</small>
+          </div>
+        </div>
+
+        <!-- Tasks -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideTasks"
+        >
+          <div class="panel-heading mt3">
+            <span class="glyphicon glyphicon-flash"></span><small> Tasks</small>
+            <div class="btn-group pull-right">
+              <a href="#" class="btn btn-info btn-xs">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </a>
+              <a href="#" class="btn btn-info btn-xs" (click)="showHideTasks('')">
+                <span class="glyphicon glyphicon-flash"></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showFilesAll()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideFiles ? 'Show' : 'Hide') + ' Files panel'"
+              >
+                <span class="glyphicon glyphicon-paperclip"></span>
+              </a>
+
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideHistory()"
+              >
+                <span class="glyphicon glyphicon-cd"></span>
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2"
+          >
+            <app-tasks [panelRows]="panelRows"></app-tasks>
+          </div>
+          <div class="panel-footer mt3">
+            <small>Last refresh: 14:32</small>
+          </div>
+        </div>
+
+        <!-- Records -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideHistory"
+        >
+          <div class="panel-heading mt3">
+            <span class="glyphicon glyphicon-cd"></span><small> Records</small>
+            <div class="btn-group pull-right">
+              <a href="#" class="btn btn-info btn-xs">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </a>
+              <a href="#" class="btn btn-info btn-xs" (click)="showHideTasks('')">
+                <span class="glyphicon glyphicon-flash"></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showFilesAll()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideFiles ? 'Show' : 'Hide') + ' Files panel'"
+              >
+                <span class="glyphicon glyphicon-paperclip"></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideHistory()"
+              >
+                <span class="glyphicon glyphicon-cd"></span>
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2"
+          >
+            <app-records [panelRows]="panelRows"></app-records>
+          </div>
+          <div class="panel-footer mt3">
+            Last refresh: 14:32
+          </div>
+        </div>
+
+        <!-- Files -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideFiles"
+        >
+          <div class="panel-heading mt3">
+            <span class="glyphicon glyphicon-paperclip"></span
+            ><small> Files</small>
+            <div class="btn-group pull-right">
+              <a href="#" class="btn btn-info btn-xs">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </a>
+              <a href="#" class="btn btn-info btn-xs" (click)="showHideTasks('')">
+                <span class="glyphicon glyphicon-flash"></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showFilesAll()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(hideFiles ? 'Show' : 'Hide') + ' Files panel'"
+              >
+                <span class="glyphicon glyphicon-paperclip"></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideHistory()"
+              >
+                <span class="glyphicon glyphicon-cd"></span>
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2"
+          >
+            <app-files-attributes
+              [panelRows]="panelRows"
+              [isShowAll]="isShowAllFiles"
+              (onSelectFields)="doSelectFields($event)"
+              [showFileFields] = "showFileFields"
+            ></app-files-attributes>
+          </div>
+          <div class="panel-footer mt3">
+            Last refresh: 14:32
+          </div>
+        </div>
+      </div>
+      <!--column 2: Details of Entities, Tasks, Records, Files-->
+      <div [class.col-sm-4]="showPosts" [class.col-sm-9]="!showPosts">
+        <!-- col 2: Entity Detail -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="
+            (expandTaskDetail || expandHistoryDetail || expandFilesDetail) &&
+            (!hideTasks || !hideHistory || !hideFiles)
+          "
+        >
+          <div class="panel-heading mt3">
+            <small>Entity Details</small>
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-right]="showPosts"
+                  [class.glyphicon-menu-left]="!showPosts"
+                ></span>
+              </a>
+            </div>
+
+            <app-buttons-cancel-save
+              (clickCancel)="doCancel_EntityDetail()"
+              (clickSave)="doSave_EntityDetail()"
+            ></app-buttons-cancel-save>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2"
+            style="overflow-x: hidden;"
+          >
+            <app-entity-details
+              [panelRows]="panelRows"
+              (onFile)="doFile($event)"
+              (onRecord)="doRecord($event)"
+              (onTask)="doTask($event)"
+            ></app-entity-details>
+          </div>
+          <div class="panel-footer mt3">
+            <small>1 detail is not complete</small>
+          </div>
+        </div>
+
+        <!-- col 2: Task Detail -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideTasks"
+        >
+          <div class="panel-heading mt3">
+            <small>Task Details</small>
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="expandTaskDetail = !expandTaskDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandTaskDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-down]="expandTaskDetail"
+                  [class.glyphicon-menu-up]="!expandTaskDetail"
+                ></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-right]="showPosts"
+                  [class.glyphicon-menu-left]="!showPosts"
+                ></span>
+              </a>
+            </div>
+
+            <div class="btn-group pull-right">
+              <a href="#" class="btn btn-info btn-xs"
+                ><span class="glyphicon glyphicon-remove"></span> Cancel</a
+              >
+              <a href="#" class="btn btn-info btn-xs"
+                ><span class="glyphicon glyphicon-cloud-upload"></span> Save</a
+              >
+            </div>
+
+            <div class="form-group nobottom pull-right">
+              <label class="checkbox-inline" style="padding-right: 8px;"
+                ><input type="checkbox" value="" /><strong>Done</strong></label
+              >
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2 && !expandTaskDetail"
+            [class.panel-body-full]="panelRows == 2 && expandTaskDetail"
+            style="overflow-y: auto; overflow-x: hidden;"
+          >
+            <app-task-details [panelRows]="panelRows"></app-task-details>
+          </div>
+          <div class="panel-footer mt3">2 details are not complete</div>
+        </div>
+
+        <!-- col 2: Record Detail -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideHistory"
+        >
+          <div class="panel-heading mt3">
+            <small>Record Details</small>
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="expandHistoryDetail = !expandHistoryDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandHistoryDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-down]="expandHistoryDetail"
+                  [class.glyphicon-menu-up]="!expandHistoryDetail"
+                ></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-right]="showPosts"
+                  [class.glyphicon-menu-left]="!showPosts"
+                ></span>
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2 && !expandHistoryDetail"
+            [class.panel-body-full]="panelRows == 2 && expandHistoryDetail"
+            style="overflow-y: auto; overflow-x: hidden;"
+          >
+            <app-record-details [panelRows]="panelRows"></app-record-details>
+          </div>
+          <div class="panel-footer mt3">2 details are not complete</div>
+        </div>
+
+        <!-- col 2: Files Detail -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideFiles"
+        >
+          <div class="panel-heading mt3">
+            <small>Files Associations</small>
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="expandFilesDetail = !expandFilesDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandFilesDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-down]="expandFilesDetail"
+                  [class.glyphicon-menu-up]="!expandFilesDetail"
+                ></span>
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-right]="showPosts"
+                  [class.glyphicon-menu-left]="!showPosts"
+                ></span>
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3 panel-body-full"
+            [class.panel-body-half]="panelRows == 2 && !expandFilesDetail"
+            [class.panel-body-full]="panelRows == 2 && expandFilesDetail"
+            style="overflow-y: hidden; overflow-x: auto;"
+          >
+            <app-files-details
+              [panelRows]="panelRows"
+              [showFileFields]="showFileFields"
+            ></app-files-details>
+          </div>
+          <div class="panel-footer mt3">2 new files</div>
+        </div>
+      </div>
+      <!-- column 3: Notes/Posts -->
+      <div class="col-xs-5 col-sm-5" [hidden]="!showPosts">
+        <div class="panel panel-primary no-gutter nobottom">
+          <div class="panel-heading mt3">
+            <span class="glyphicon glyphicon-comment"></span> Articles
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPosts = !showPosts"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPosts ? 'Hide' : 'Show') + ' Posts panel'"
+              >
+                <span
+                  class="glyphicon"
+                  [class.glyphicon-menu-right]="showPosts"
+                  [class.glyphicon-menu-left]="!showPosts"
+                ></span>
+              </a>
+            </div>
+          </div>
+          <div class="panel-body mt3 panel-body-full">
+            <app-entity-messages></app-entity-messages>
+          </div>
+          <div class="panel-footer mt3">Last post: 3 days ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

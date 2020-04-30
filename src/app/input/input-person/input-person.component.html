@@ -1,0 +1,58 @@
+<div
+  class="form-group input-group-sm nobottom"
+  [hidden]="hideByFilter()"
+  style="margin-top: 5px;margin-right: 1px;"
+>
+  <label class="nobottom text-primary label-buttons-6 ">{{ title }}</label>
+
+  <app-buttons-input-select [title] = "title"
+    (onEdit)="showEdit()"
+    (onAdd)="showNew()"
+    (onDelete)="deleteItem"
+    [isDoInput]="isDoInput"
+    (onFile) = "doFile()"
+    (onRecord) = "doRecord()"
+    [showFlash] = "showFlash"
+    [showPaperclip] = "showPaperclip"
+    [showCD] = "showCD"
+  ></app-buttons-input-select>
+
+  <div class="input-group-sm" [hidden]="isDoInput">
+    <select
+      class="form-control input-sm"
+      style="font-size: small;"
+      name="option"
+      [(ngModel)]="option"
+      style="padding-left: 6px; padding-right: 6px;"
+    >
+      <option
+        *ngFor="let e of options; let i = index"
+        [value]="i"
+        [selected]="i == option"
+        ><small>{{ e.fullName }}</small></option
+      >
+    </select>
+  </div>
+
+  <div class="panel panel-primary no-gutter nobottom" [hidden]="!isDoInput">
+    <div class="panel panel-body mt3 nobottom">
+      <div class="input-group-sm">
+        <label class="nobottom text-primary">Surname</label>
+        <input type="text" class="form-control" placeholder="" #inputText  
+        [(ngModel)] = "value.surname"
+        />
+        <label class="nobottom text-primary">First Name</label>
+        <input type="text" class="form-control" placeholder="" 
+        [(ngModel)] = "value.firstName"
+        />
+        <label class="nobottom text-primary">Optional Suffix</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Optional suffix to differenciate same names"
+          [(ngModel)] = "value.suffix"
+        />
+      </div>
+    </div>
+  </div>
+</div>

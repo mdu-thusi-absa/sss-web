@@ -1,0 +1,27 @@
+<div [hidden]="hideByFilter()">
+  <div class="checkbox" style="margin-bottom:5px;margin-top:10px;vertical-align: middle;">
+    <label class="nobottom text-primary label-checkbox label-buttons-3"
+      ><input
+        type="checkbox"
+        value=""
+        [checked]="value"
+        [disabled]="disabled"
+      /><span  style="padding-top:10px;margin-top:10px;font-weight: bold;">&nbsp;{{ title }}</span></label
+    >
+
+    <!-- <div class="custom-control custom-checkbox checkbox-lg">
+      <input type="checkbox" class="custom-control-input" id="checkbox" checked="">
+      <label class="custom-control-label" for="checkbox">{{ title }}</label>
+    </div> -->
+
+    <app-buttons-input-text
+      [title]="title"
+      (onTask) = "doTask()"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      [showFlash] = "showFlash"
+      [showPaperclip] = "showPaperclip"
+      [showCD] = "showCD"
+    ></app-buttons-input-text>
+  </div>
+</div>

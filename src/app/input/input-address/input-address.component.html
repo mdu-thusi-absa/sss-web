@@ -1,0 +1,45 @@
+<div class="panel panel-info" style="margin-bottom:10px;margin-top:10px"
+[hidden] = "hideByFilter()"
+>
+    <div class="panel panel-heading nobottom less-padding" >
+      <a href="#" data-toggle="collapse" 
+      [attr.data-target]="'#address-' + getID()"
+      style = "white-space:nowrap;display:inline-block;width:calc(100% - 145px);overflow:hidden"
+      >
+        <strong>{{title}}</strong>
+      </a>
+
+      <div class="form-group pull-right nobottom" [hidden]="!allowDefaultAddressOption">
+        <label class="checkbox-inline" style="padding-right: 8px;"
+          ><input type="checkbox" value="" /><strong>Default address</strong></label
+        >
+      </div>
+
+      <div class="form-group pull-right nobottom" [hidden]="!allowCopyOption">
+        <label class="checkbox-inline" style="padding-right: 8px;"
+          ><input type="checkbox" value="" /><strong>Copy from above</strong></label
+        >
+      </div>
+    </div>
+  
+    <div class="panel panel-body nobottom less-padding collapse"
+      [class.in] = "hideBody"
+      id="{{ 'address-' + getID()}}"
+      style="margin-top:0px"
+      >
+      <app-input-textarea [title] = "'Address'" [placeholder]="'Apartment, Building, Street, suburb'"></app-input-textarea>
+
+      <app-input-duo
+        [typeLeft] = "'select'"
+        [typeRight] = "'select'"
+        [titleLeft]="'Country'"
+        [optionsLeft]="['USA', 'South Africa', 'Kenya']"
+        [valueLeft]="'South Africa'"
+        [titleRight]="'City'"
+        [optionsRight]="['Johannesburg', 'Pretoria', 'Cape Town', 'Durban']"
+        [valueRight]="'Cape Town'"
+      ></app-input-duo>
+
+    </div>
+  </div>
+  

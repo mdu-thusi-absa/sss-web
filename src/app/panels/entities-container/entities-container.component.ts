@@ -1,0 +1,206 @@
+import { Component, OnInit } from '@angular/core';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
+
+@Component({
+  selector: 'app-entities-container',
+  templateUrl: './entities-container.component.html',
+  styleUrls: ['./entities-container.component.css'],
+})
+export class EntitiesContainerComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit(): void {
+    this.panelRows = this.hideHistory && this.hideTasks && this.hideFiles ? 1 : 2;
+    this.showFileFields = [];
+  }
+
+  title = 'SSS';
+  name: string = 'Max';
+
+  showPosts = false;
+  isHalf = false;
+
+  hideTasks = true;
+  hideHistory = true;
+  hideFiles = true;
+  panelRows = 1;
+
+  expandTaskDetail = false;
+  expandHistoryDetail = false;
+  expandFilesDetail = false;
+  
+  innerWidth: any;
+  showFileFields: string[];
+  isShowAllFiles = true;
+
+  entities= ['Entity Name',
+  'Registration Number',
+  'Previous Name',
+  'Code',
+  'Suffix',
+  'Country',
+  'Industry',
+  'Representative Office',
+  'Foreign branch',
+  'Incorporation Date',
+  'Anniversary (month)',
+  'Business Start Date',
+  'Financial year end (month)',
+  'Income Tax Number',
+  'VAT Number',
+  'Registered office address',
+  'Postal address',
+  'Business Area',
+  'Business Division',
+  'Legal classification',
+  'Consolidated',
+  'Entity status',
+  'Entity status tiering',
+  'Accounting classification',
+  'Accounting classification tiering',
+  'Direct parent/ownership',
+  'Absa shareholding in entity (%)',
+  'Appointed company secretary',
+  'Internal secretary representative',
+  'Entity Executive',
+  'Entity Financial Officer',
+  'Public Officer (income tax)']
+
+  doSelectFields(selectedFields: string[]){
+    this.showFileFields = selectedFields;
+  }
+
+  showFilesAll(){
+    this.isShowAllFiles = true;
+    this.showHideFiles('');
+  }
+
+  doFile(event: any) {
+    //console.log('Fire File: ' + event);
+    this.isShowAllFiles = false;
+    this.showHideFiles(event);
+  }
+  doRecord(event: any) {
+    this.showHideHistory();
+  }
+
+  doTask(event: any) {
+    this.showHideTasks(event);
+  }
+
+  doSave_EntityDetail() {
+    //console.log('Saving...');
+  }
+  doCancel_EntityDetail() {
+    //console.log('Canceling changes...');
+  }
+
+  private max(v: number, w: number) {
+    if (v > w) return v;
+    else return w;
+  }
+
+  showHideTasks(attribute: string, doShow: boolean = null) {
+    this.showHide_(0, doShow);
+    this.setPaneRowCount();
+  }
+
+  showHideFiles(attribute: string, doShow: boolean = null) {
+    console.log(this.isShowAllFiles);
+    this.showHide_(2, doShow);
+    this.setPaneRowCount();
+    if (attribute.length>0) this.showFileFields = [attribute];
+    else{
+      this.showFileFields = this.entities;
+    }
+  }
+
+  showHideHistory(doShow: boolean = null) {
+    this.showHide_(1, doShow);
+    this.setPaneRowCount();
+  }
+
+  private showHide_(hideIndex: number, doShow: boolean = null) {
+    let b0 = false;
+    let b1 = false;
+    let b2 = false;
+    let bD0 = false;
+    let bD1 = false;
+    let bD2 = false;
+
+    if (hideIndex == 0) {
+      b0 = this.hideTasks;
+      b1 = this.hideHistory;
+      b2 = this.hideFiles;
+      bD0 = this.expandTaskDetail;
+      bD1 = this.expandHistoryDetail;
+      bD2 = this.expandFilesDetail;
+    } else if (hideIndex == 1) {
+      b1 = this.hideTasks;
+      b0 = this.hideHistory;
+      b2 = this.hideFiles;
+      bD1 = this.expandTaskDetail;
+      bD0 = this.expandHistoryDetail;
+      bD2 = this.expandFilesDetail;
+    } else if (hideIndex == 2) {
+      b2 = this.hideTasks;
+      b1 = this.hideHistory;
+      b0 = this.hideFiles;
+      bD2 = this.expandTaskDetail;
+      bD1 = this.expandHistoryDetail;
+      bD0 = this.expandFilesDetail;
+    }
+
+    //console.log('doShow', doShow);
+    b0 = !b0;
+
+    if (!b0) {
+      b1 = true;
+      b2 = true;
+    }
+    bD0 = bD1 || bD2;
+
+    if (hideIndex == 0) {
+      this.hideTasks = b0;
+      this.hideHistory = b1;
+      this.hideFiles = b2;
+      this.expandTaskDetail = bD0;
+      this.expandHistoryDetail = bD1;
+      this.expandFilesDetail = bD2;
+    } else if (hideIndex == 1) {
+      this.hideTasks = b1;
+      this.hideHistory = b0;
+      this.hideFiles = b2;
+      this.expandTaskDetail = bD1;
+      this.expandHistoryDetail = bD0;
+      this.expandFilesDetail = bD2;
+    } else if (hideIndex == 2) {
+      this.hideTasks = b2;
+      this.hideHistory = b1;
+      this.hideFiles = b0;
+      this.expandTaskDetail = bD2;
+      this.expandHistoryDetail = bD1;
+      this.expandFilesDetail = bD0;
+    }
+  }
+
+  setPaneRowCount() {
+
+    if (this.hideTasks && this.hideHistory && this.hideFiles)
+      this.panelRows = 1;
+
+    if (this.hideTasks && !this.hideHistory && !this.hideFiles)
+      this.panelRows = 1;
+    if (!this.hideTasks && !this.hideHistory && this.hideFiles)
+      this.panelRows = 1;
+    if (!this.hideTasks && this.hideHistory && !this.hideFiles)
+      this.panelRows = 1;
+
+    if (!this.hideTasks && this.hideHistory && this.hideFiles)
+      this.panelRows = 2;
+    if (this.hideTasks && !this.hideHistory && this.hideFiles)
+      this.panelRows = 2;
+    if (this.hideTasks && this.hideHistory && !this.hideFiles)
+      this.panelRows = 2;
+  }
+}

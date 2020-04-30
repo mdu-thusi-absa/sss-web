@@ -1,0 +1,169 @@
+<!-- <div class="btn-group wide input-group-sm" data-toggle="buttons">
+  <label 
+    class="btn btn-primary primary-color btn-xs active"
+
+    >
+    <input
+      type="radio"
+      id="q156"
+      name="quality[25]"
+      value="1"
+      class="input-sm"
+      checked="true"
+    />
+    <span class="glyphicon glyphicon-play"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs"><small>154</small></span>
+  </label>
+  <label class="btn btn-primary primary-color btn-xs">
+    <input type="radio" id="q157" name="quality[25]" value="2" />
+    <span class="glyphicon glyphicon-pause"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs"><small>486</small></span>
+  </label>
+  <label class="btn btn-primary primary-color btn-xs">
+    <input type="radio" id="q158" name="quality[25]" value="3" />
+    <small>All </small>
+    <span class="badge badge-xs"><small>640</small></span>
+  </label>
+</div> -->
+
+<!-- <div class="btn-group wide input-group-sm" data-toggle="buttons">
+
+  <label
+    class="btn btn-primary primary-color btn-xs"
+    (click)="rdoActiveDormantAll = 'Tasks'"
+    [class.focus]="rdoActiveDormantAll == 'Tasks'"
+    [class.active]="rdoActiveDormantAll == 'Tasks'"
+  >
+    <input
+      type="radio"
+      name="rdoChoice"
+      value="Tasks"
+      [checked]="rdoActiveDormantAll == 'Tasks'"
+      [class.active]="true"
+      [class.focus]="rdoActiveDormantAll == 'Tasks'"
+      
+    />
+    <span class="glyphicon glyphicon-flash"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs progress-bar-primary"
+      ><small>{{ getCount_Tasks() }}</small></span
+    >
+  </label>
+
+  <label
+    class="btn btn-primary primary-color btn-xs"
+    (click)="rdoActiveDormantAll = 'Active'"
+    [class.active]="rdoActiveDormantAll == 'Active'"
+  >
+    <input
+      type="radio"
+      name="rdoChoice"
+      value="Active"
+      [checked]="rdoActiveDormantAll == 'Active'"
+    />
+    <span class="glyphicon glyphicon-play"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs bg-primary"
+      ><small>{{ getCount_Active() }}</small></span
+    >
+  </label>
+
+  <label
+    class="btn btn-primary primary-color btn-xs"
+    (click)="rdoActiveDormantAll = 'Dormant'"
+    [class.active]="rdoActiveDormantAll == 'Dormant'"
+  >
+    <input
+      type="radio"
+      name="rdoChoice"
+      value="Dormant"
+      [checked]="rdoActiveDormantAll == 'Dormant'"
+    />
+    <span class="glyphicon glyphicon-pause"></span>
+    <small>&nbsp;</small>
+    <span class="badge badge-xs"
+      ><small>{{ getCount_Dormant() }}</small></span
+    >
+  </label>
+
+  <label
+    class="btn btn-primary primary-color btn-xs"
+    [class.active]="rdoActiveDormantAll == 'All'"
+    (click)="rdoActiveDormantAll = 'All'"
+  >
+    <input
+      type="radio"
+      name="rdoChoice"
+      value="All"
+      [checked]="rdoActiveDormantAll == 'All'"
+    />
+    <small>All </small>
+    <span class="badge badge-xs"
+      ><small>{{ getCount_All() }}</small></span
+    >
+  </label>
+</div> -->
+
+<div class="form-group">
+  <app-input-filter-add
+  [filterCount]="getCountFiltered()"
+  [showAdd] = "true"
+  [isAdd]="isNewMessage"
+  (onFilter)="doFilter($event)"
+  (onAdd)="doAdd(isNewMessage)"
+  [title] = "'Entity'"
+  [titlePlural] = "'Entities'"
+  [showList] = "true"
+  [listOptions] = "['All','Africa','SPV','Others']"
+  [showFlash] = "true"
+  [showPlay] = "true"
+  [showPause] = "true"
+  [showAll] = "true"
+  [radioChoice] = "rdoActiveDormantAll"
+  [countFlash] = "getCount_Tasks()"
+  [countPause] = "getCount_Dormant()"
+  [countPlay] = "getCount_Active()"
+  [countAll] = "getCount_All()"
+  (onChoice) = "rdoActiveDormantAll = $event"
+
+  [titleFlash] = "'Entities with active tasks'"
+  [titlePlay] = "'Active Entities'"
+  [titleAll] = "'All Entities'"
+  [titlePause] = "'Dormant Entities'"
+></app-input-filter-add>
+
+  <div
+    [class.entities-full]="isFullScreen()"
+    [class.entities-half]="isHalfScreen()"
+    style="overflow-y: scroll; scrollbar-width: thin;"
+  >
+    <table
+      class="table table-condensed table-bordered table-hover less-bottom"
+      style="font-size: smaller;"
+    >
+      <thead class="info">
+        <tr class="info">
+          <th>Name</th>
+          <th>Tasks</th>
+          <th>Suffix</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let e of entities"
+          [hidden]="shouldBeHidden(e)"
+          [class.info]="e.isActive"
+        >
+          <td>
+            <a [href]="e.name">{{ e.name }}</a>
+          </td>
+          <td>{{ e.tasksCount }}</td>
+          <td>{{ e.suffix }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

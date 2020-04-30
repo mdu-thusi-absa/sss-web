@@ -1,0 +1,32 @@
+<div
+  class="form-group less-bottom"
+  style="margin-top: 5px; margin-bottom: 2px;"
+>
+  <label
+    for="text"
+    class="text-primary"
+    style="margin-bottom: 2px;"
+    [hidden]="noTitle"
+    >{{ title }}
+  </label>
+
+
+    <div *ngIf="!noButtons" class="btn-group pull-right" style="margin-right: 1px;" >
+      <a *ngIf="showFlash" href="#" class="btn btn-primary primary-color btn-xs">
+        <span class="glyphicon" [class.glyphicon-flash]="true"></span>
+      </a>
+      <a href="#" class="btn btn-primary primary-color btn-xs">
+        <span class="glyphicon" [class.glyphicon-paperclip]="true"></span>
+      </a>
+      <a href="#" class="btn btn-primary primary-color btn-xs">
+        <span class="glyphicon" [class.glyphicon-cd]="true"></span>
+      </a>
+    </div> 
+
+  <textarea
+    class="form-control"
+    [rows]="rows"
+    [value] = "text"
+    [placeholder]="placeholder"
+  ></textarea>
+</div>
