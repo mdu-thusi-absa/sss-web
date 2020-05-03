@@ -25,6 +25,11 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showList = false;
   @Input() listOptions = ['Yes', 'No'];
 
+  @Input() showDelete = false;
+  @Input() showCancel = false;
+  @Input() showFilterCount = false;
+  @Output() onDelete = new EventEmitter();
+
   showRadio = false;
   @Input() radioChoice = 'all';
 
@@ -89,8 +94,17 @@ export class InputFilterAddComponent implements OnInit {
     //this.isAdd = !this.isAdd;
     // if (this.isAdd) this.isSaved = false;
     // else this.isSaved = true;
-    if (this.isAdd) this.onCancel.emit();
-    else this.onAdd.emit();
+    //if (this.isAdd) this.onCancel.emit();
+    //else 
+    this.onAdd.emit();
+  }
+
+  doCancel(){
+    this.onCancel.emit();
+  }
+
+  doDelete(){
+    this.onDelete.emit();
   }
 
   doSave(){

@@ -19,10 +19,10 @@ export class FilesDetailsComponent implements OnInit {
   colspanFile = 3;
   thTop = '67px';
   colWidth = 0;
-  colLeft0 = "0px"
-  colLeft1 = "82.74px";
-  colLeft2 = "165.3px";
-  isSaved = false;
+  colLeft0 = "25px"
+  colLeft1 = "100px"; //"82.74px";
+  colLeft2 = "175px"; //"165.3px";
+  isDirty = false;
   isAdd = false;
 
   @ViewChild('thRow1') thRow1: ElementRef;
@@ -662,7 +662,7 @@ ngAfterContentInit (){
 
   doAdd() {
     this.isAdd = true;
-    this.isSaved = false;
+    //this.isDirty = false;
     //console.log('doAdd');
   }
 
@@ -670,14 +670,19 @@ ngAfterContentInit (){
     //console.log('saving');
     //save to DB
     //if saved then mark it so
-    this.isAdd = false;
-    this.isSaved = true;
+    //this.isAdd = false;
+    this.isDirty = false;
   }
 
   doCancel(){
     //console.log('reset');
     this.isAdd = false;
-    this.isSaved = true;
+    this.isDirty = false;
+  }
+
+  doChangeCheckbox(event: any){
+    console.log('doChangeCheckbox')
+    this.isDirty = true;
   }
 
   isCheckedField(dataFields: string[], fieldName: string) {

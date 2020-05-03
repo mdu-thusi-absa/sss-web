@@ -38,8 +38,6 @@ export class InputDuoComponent implements OnInit {
 
   @Input() showCDLeft = true;
   @Input() showCDRight = true;
-  // @Output() onFileRight = new EventEmitter();
-  // @Output() onRecordRight = new EventEmitter();
 
   constructor() { }
 

@@ -182,7 +182,6 @@ Torsten Titze	Senior Manager: Public Affairs	info@de.sasol.com	T: +49 40 63 684 
   }
 
   shouldHideMessage(msg: Message) {
-    //console.log('in');
     let inFilter = true;
     let inText = true;
     let inTitle = true;
@@ -207,35 +206,32 @@ Torsten Titze	Senior Manager: Public Affairs	info@de.sasol.com	T: +49 40 63 684 
     }
 
     let doShow = inFilter && inReadChoice;
-    //console.log(doShow, inText, inWhen, inWho, inReadChoice);
     return !doShow;
   }
 
-  onAdd(event: any){
-    this.isNewMessage = !this.isNewMessage;
+  doAdd(){
+    this.isNewMessage = true;
   }
 
-  // doAddPost(){
-  //   this.isNewMessage = !this.isNewMessage;
-  // }
-
-  doAddPost_Close(){
-    //console.log('Add');
+  doCancel(){
     this.isNewMessage = false;
   }
 
-  onKey(event: any) { // without type info
-    //this.values += event.target.value + ' | ';
-    //console.log(event.key);
-    if (event.key == 'Escape') this.filterText = '';
+  doAddPost_Close(){
+    this.isNewMessage = false;
   }
+
+  // onKey(event: any) { // without type info
+  //   //this.values += event.target.value + ' | ';
+  //   //console.log(event.key);
+  //   if (event.key == 'Escape') this.filterText = '';
+  // }
 
   getCountFiltered(){
     return this.messages.filter(e => !this.shouldHideMessage(e)).length;
   }
 
   doFilter(event: any){
-    //console.log(event);
     this.filterText = event;
   }
 }

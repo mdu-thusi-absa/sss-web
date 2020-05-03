@@ -1,31 +1,28 @@
 <div
   class="form-group input-group-sm nobottom"
   [hidden]="hideByFilter()"
-  style="margin-top: 5px; margin-right: 1px;height:60px;max-height:60px;"
+  style="margin-top: 5px; margin-right: 1px; height: 60px; max-height: 60px;"
   #divText
 >
-<div >
-  <label class="nobottom text-primary label-buttons-3"
-  >{{ title }}</label>
+  <div>
+    <label class="nobottom text-primary label-buttons-3">{{ title }}</label>
 
-
-
-  <app-buttons-input-text
-    [title]="title"
-    (onFile)="doFile()"
-    (onRecord)="doRecord()"
-    (onTask)="doTask()"
-    [showFlash] = "showFlash"
-    [showPaperclip] = "showPaperclip"
-    [showCD] = "showCD"
-  ></app-buttons-input-text>
-</div>
+    <app-buttons-input-text
+      [title]="title"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+    ></app-buttons-input-text>
+  </div>
   <input
     type="text"
     class="form-control"
     [placeholder]="placeholder"
     [disabled]="disabled"
-    [value] = "value"
+    [value]="value"
     autocomplete="nope"
     #inputText
   />

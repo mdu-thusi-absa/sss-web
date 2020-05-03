@@ -50,6 +50,7 @@ export enum StepDateType {
 
 export class Step {
   constructor(
+    public title: string,
     public whenCreated: Date,
     public whenWarn: Date,
     public whenDue: Date,
@@ -84,6 +85,7 @@ export class Step {
     let dy: string = d.getDate().toString();
     if (dy.length == 1) dy = '0' + dy;
     let m = d;
+    //return '-'
     return (
       m.getFullYear() +
       '/' +

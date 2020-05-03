@@ -24,22 +24,18 @@ export class InputTextDuoComponent implements OnInit {
   }
 
   doFileLeft(){
-    //console.log('app-input-text-duo: doFileLeft');
     this.onFileLeft.emit(this.titleLeft);
   }
 
   doFileRight(){
-    //console.log('app-input-text-duo: doFileRight');
     this.onFileRight.emit(this.titleRight);
   }
   
   doRecordLeft(){
-    //console.log('app-input-text-duo: doRecordLeft');
     this.onRecordLeft.emit(this.titleLeft);
   }
 
   doRecordRight(){
-    //console.log('app-input-text-duo: doRecordRight');
     this.onRecordRight.emit(this.titleRight);
   }
 }

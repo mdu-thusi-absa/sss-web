@@ -49,11 +49,9 @@ export class InputPersonComponent implements OnInit {
   // }
 
   doFile() {
-    //console.log('app-input-select: file');
     this.onFile.emit(this.title);
   }
   doRecord() {
-    //console.log('app-input-select: record');
     this.onRecord.emit(this.title);
   }
 

@@ -1,5 +1,6 @@
 <div class="panel panel-success narrow" [class.panel-danger]="!message.isRead">
   <div class="panel-heading mt3">
+    <span class="glyphicon glyphicon-comment"></span>
     <a href="#" (click)="toggleReadUnread()">
       {{ message.whenString() }} : {{ message.title }}
     </a>

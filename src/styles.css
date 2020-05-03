@@ -66,10 +66,68 @@ body {
   scrollbar-width: thin;
 }
 
+.entities-detail-full{
+  height: calc(100vh - 93px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.entities-detail-half{
+  height: calc(50vh - 72px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.container-panel-right{
+  height: calc(100vh - 91px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.container-panel-left-full{
+  height: calc(100vh - 93px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.container-panel-left-half{
+  height: calc(50vh - 74px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.container-panel-center-full{
+  height: calc(100vh - 93px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.container-panel-center-half{
+  height: calc(50vh - 74px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+
+
+
+
+.entities-detail-form-full{
+  height: calc(100vh - 127px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.entities-detail-form-half{
+  height: calc(50vh - 105px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
 /*for entities, tasks, records: halfs*/
 .panel-body-half {
   height: calc(100vh / 2 - 71.5px);
-  overflow-y: hidden;
+  overflow-y: auto;
   scrollbar-width: thin;
 }
 
@@ -85,13 +143,13 @@ body {
 
 .details-full {
   height: calc(100vh - 128px);
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
 .details-half {
   height: calc(50vh - 107px);
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -153,17 +211,7 @@ body {
   border-bottom-width: 0;
 } */
 
-.tableFixHead {
-  height: 100.7%;
-  /* width: 100.2%; */
-  overflow-y: auto;
-  overflow-x: auto;
-}
-.tableFixHead thead th {
-  position: sticky;
-  top: 0;
-  z-index: 990;
-}
+
 
 /* .records-full {
     height: calc(100vh - 120px);
@@ -213,6 +261,11 @@ hr {
 
 .primary-color {
   background-color: rgb(51, 122, 183);
+  color: white;
+}
+
+.primary-color-active { 
+  background-color: rgb(32, 77, 116);
   color: white;
 }
 
@@ -358,6 +411,15 @@ textarea {
   width: calc(100% - 130px);
 }
 
+.label-buttons-7 {
+  /*display: block;*/
+  white-space: nowrap;
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100% - 153px);
+}
+
 
 /*checkbox sizes*/
 /* .checkbox-lg .custom-control-label::before, 
@@ -400,4 +462,8 @@ input[type=checkbox] {
   position: relative;
   top: 1px;
   *overflow: hidden;
+}
+
+.highlight{
+  background-color: blue;
 }

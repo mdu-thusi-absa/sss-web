@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./step.component.css']
 })
 export class StepComponent implements OnInit {
+  @Input() title = 'Step'
   @Input() stepNumber = 1;
   @Input() noHeader = false;
   @Input() hideBody = true;

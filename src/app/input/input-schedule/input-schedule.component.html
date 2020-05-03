@@ -1,0 +1,83 @@
+<div class="panel panel-info" style="margin-bottom: 0px; margin-top: 5px;">
+  <div class="panel panel-heading nobottom less-padding" [hidden]="false">
+    <a
+      href="#"
+      data-toggle="collapse"
+      [attr.data-target]="'#schedule-' + stepNumber"
+      (click)="hideBody = !hideBody"
+    >
+      Repeating schedule {{ title.length > 0 ? "for: " + title : "" }}
+    </a>
+  </div>
+
+  <div
+    class="panel panel-body nobottom less-padding collapse"
+    [class.in]="!hideBody"
+    id="{{ 'step-' + stepNumber }}"
+  >
+    <app-input-duo
+      [typeLeft]="'select'"
+      [titleLeft]="'Period'"
+      [placeholderLeft]="'Repead every ... period'"
+      [optionsLeft]="['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annualy']"
+      [valueLeft]="'Monthly'"
+      [typeRight]="'select'"
+      [titleRight]="'How often'"
+      [optionsRight]="[
+        '01',
+        '02',
+        '03',
+        '04',
+        '05',
+        '06',
+        '07',
+        '08',
+        '09',
+        '10'
+      ]"
+      [valueRight]="'01'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+    >
+    </app-input-duo>
+
+    <app-input-duo
+      [typeLeft]="'date'"
+      [titleLeft]="'Starting Due Date'"
+      [placeholderLeft]="'First due date'"
+      [typeRight]="'date'"
+      [titleRight]="'Final due date'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+    >
+    </app-input-duo>
+
+    <app-input-duo
+    [typeRight]="'select'"
+    [titleRight]="'Remind ... period before'"
+    [placeholderRight]="'Remind ... period before'"
+    [optionsRight]="[
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10'
+    ]"
+    [valueRight]="'01'"
+
+    [typeLeft]="'select'"
+    [titleLeft]="'Remind period'"
+    [optionsLeft]="['Day(s)', 'Week(s)', 'Month(s)', 'Quarter(s)', 'Year(s)']"
+    [valueLeft]="'Week(s)'"
+    (onFile)="doFile($event)"
+    (onRecord)="doRecord($event)"
+  >
+  </app-input-duo>
+    
+  </div>
+</div>

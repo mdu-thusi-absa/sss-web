@@ -22,7 +22,6 @@ export class InputDateComponent implements OnInit {
   @Input() showCD = true;
 
   doFile(){
-    //console.log('app-input-date: file')
     this.onFile.emit(this.title);
   }
   doRecord(){

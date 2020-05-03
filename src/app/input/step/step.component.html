@@ -1,8 +1,11 @@
+
 <div class="panel panel-info" style="margin-bottom:10px;">
   <div class="panel panel-heading nobottom less-padding" 
   [hidden]="noHeader">
     <a href="#" data-toggle="collapse" 
-    [attr.data-target]="'#step-' + stepNumber">
+    [attr.data-target]="'#step-' + stepNumber"
+    (click)="hideBody = !hideBody"
+    >
       Step {{ stepNumber }}
     </a>
     <div class="btn-group pull-right">
@@ -39,10 +42,28 @@
     </div>
   </div>
 
-  <div class="panel panel-body nobottom less-padding collapse"
+  <div class="panel panel-body nobottom less-padding collapse in"
     [class.in] = "!hideBody"
     id="{{ 'step-' + stepNumber }}"
     >
+
+    <!-- <app-input-text
+    [title]="title"
+    [value]="title"
+    [showFlash] = "false"
+  ></app-input-text> -->
+
+  <app-input-duo
+      [typeLeft] = "'text'"
+      [typeRight] = "'checkbox'"
+      [titleLeft]="'Title'"
+      [valueLeft]="'title'"
+      [titleRight]="'Is Done'"
+      [valueRight]="false"
+      [showFlashLeft] = "false"
+      [showFlashRight] = "false"
+    ></app-input-duo>
+
     <app-input-duo
       [typeLeft] = "'select'"
       [typeRight] = "'select'"
@@ -74,5 +95,7 @@
       [showFlashLeft] = "false"
       [showFlashRight] = "false"
     ></app-input-duo>
+
+    <app-input-schedule [title]="title"></app-input-schedule>
   </div>
 </div>

@@ -16,13 +16,16 @@
   </div>
 </nav> -->
 
-<div class="btn-group wide input-group-sm" data-toggle="buttons"
-  style="margin-left:1px;margin-right:1px;margin-bottom:1px">
-  <label 
-    class="btn btn-primary primary-color"
+<div
+  class="btn-group wide input-group-sm"
+  data-toggle="buttons"
+  style="margin-left: 1px; margin-right: 1px; margin-bottom: 1px;"
+>
+  <label
+    class="btn btn-primary"
     (click)="rdoMenu = 'Legal Entities'"
-    [class.active]="rdoMenu == 'Legal Entities'"
-    [class.focus]="rdoMenu == 'Legal Entities'"
+    [class.primary-color-active]="rdoMenu == 'Legal Entities'"
+    [class.primary-color]="rdoMenu != 'Legal Entities'"
   >
     <input
       type="radio"
@@ -31,14 +34,15 @@
       class="input-sm"
       [class.active]="rdoMenu == 'Legal Entities'"
     />
-    <span class="glyphicon glyphicon-home"></span> 
-      Entities 
+    <span class="glyphicon glyphicon-home"></span>
+    Entities
   </label>
 
   <label
     class="btn btn-primary primary-color"
     (click)="rdoMenu = 'Natural Entities'"
-    [class.active]="rdoMenu == 'Natural Entities'"
+    [class.primary-color-active]="rdoMenu == 'Natural Entities'"
+    [class.primary-color]="rdoMenu != 'Natural Entities'"
   >
     <input
       type="radio"
@@ -47,15 +51,16 @@
       [checked]="rdoMenu == 'Natural Entities'"
       class="input-sm"
     />
-    <span class="glyphicon glyphicon-user"></span> 
+    <span class="glyphicon glyphicon-user"></span>
     People
-      
   </label>
 
   <label
-    class="btn btn-primary primary-color"
+    class="btn btn-primary"
     (click)="rdoMenu = 'Tasks'"
     [class.active]="rdoMenu == 'Tasks'"
+    [class.primary-color-active]="rdoMenu == 'Tasks'"
+    [class.primary-color]="rdoMenu != 'Tasks'"
   >
     <input
       type="radio"
@@ -64,13 +69,13 @@
       [checked]="rdoMenu == 'Tasks'"
       class="input-sm"
     />
-    <span class="glyphicon glyphicon-flash"></span> Tasks 
-    
+    <span class="glyphicon glyphicon-flash"></span> Tasks
   </label>
 
   <label
-    class="btn btn-primary primary-color"
-    [class.active]="rdoMenu == 'Reports'"
+    class="btn btn-primary"
+    [class.primary-color-active]="rdoMenu == 'Reports'"
+    [class.primary-color]="rdoMenu != 'Reports'"
     (click)="rdoMenu = 'Reports'"
   >
     <input
@@ -79,28 +84,26 @@
       value="All"
       [checked]="rdoMenu == 'Reports'"
     />
-    <span class="glyphicon glyphicon-print"></span> 
-    Reports 
-    
+    <span class="glyphicon glyphicon-print"></span>
+    Reports
   </label>
 
   <label
-  class="btn btn-primary primary-color"
-  [class.active]="rdoMenu == 'Admin'"
-  (click)="rdoMenu = 'Admin'"
->
-  <input
-    type="radio"
-    name="rdoChoice"
-    value="All"
-    [checked]="rdoMenu == 'Admin'"
-  />
-  <span class="glyphicon glyphicon-cog"></span> Admin 
-  
-  <span class="caret"></span> 
-  
-</label>
+    class="btn btn-primary"
+    [class.primary-color-active]="rdoMenu == 'Admin'"
+    [class.primary-color]="rdoMenu != 'Admin'"
+    (click)="rdoMenu = 'Admin'"
+  >
+    <input
+      type="radio"
+      name="rdoChoice"
+      value="All"
+      [checked]="rdoMenu == 'Admin'"
+    />
+    <span class="glyphicon glyphicon-cog"></span> Admin
+
+    <span class="caret"></span>
+  </label>
 </div>
 
 <app-entities-container></app-entities-container>
-

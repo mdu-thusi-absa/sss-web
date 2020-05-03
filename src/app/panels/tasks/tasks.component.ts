@@ -14,305 +14,307 @@ export class TasksComponent implements OnInit {
   rdoActiveInActiveAll = 'Active';
   listTaskType = 'all';
 
-  entities: Task[] = [
-    new Task(
-      new Step(
-        new Date(),
-        new Date(),
-        new Date(),
-        new Date(),
-        'vlad',
-        'dean',
-        'Appointment',
-        'Smith, Jordan',
-        true
-      ),
-      [
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'dean',
-          'vlad',
-          'Resolution',
-          'Obtain signed copy and upload',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'dean',
-          '',
-          'Resolution',
-          'Contact Appointee, get acknowledgement',
-          false
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'dean',
-          '',
-          'SSS',
-          'Update appointment details',
-          false
-        ),
-      ]
-    ),
-    new Task(
-      new Step(
-        new Date(),
-        new Date(),
-        new Date(),
-        new Date(),
-        'dean',
-        '',
-        'Resignation',
-        'Monroe, Merry',
-        false
-      ),
-      [
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          '',
-          'Resolution',
-          'Obtain signed copy and upload',
-          false
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          '',
-          'Resolution',
-          'Contact Appointee, get acknowledgement',
-          false
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          '',
-          'SSS',
-          'Update appointment details',
-          false
-        ),
-      ]
-    ),
-    new Task(
-      new Step(
-        new Date(),
-        new Date(),
-        new Date(),
-        new Date(),
-        'dean',
-        '',
-        'Publish',
-        'AFS: 2019',
-        true
-      ),
-      [
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'AFS',
-          'Obtain from Finance',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'AFS',
-          'Confirm to auditors',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'AFS',
-          'Sen to publisher',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'AFS',
-          'Confirm publicastion',
-          true
-        ),
-      ]
-    ),
-    new Task(
-      new Step(
-        new Date(),
-        new Date(),
-        new Date(),
-        new Date(),
-        'dean',
-        '',
-        'Rename',
-        'Fancy (Pty) Ltd',
-        false
-      ),
-      [
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Resolution',
-          'Obtain signed copy and upload',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Application',
-          'Send application to CIPC',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Application',
-          'Follow up with CIPC',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Application',
-          'Get CIPC notice',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          '',
-          'SSS',
-          'Update company name details',
-          false
-        ),
-      ]
-    ),
+  // entities: Task[] = [
+  //   new Task(
+  //     new Step(
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       'vlad',
+  //       'dean',
+  //       'Appointment',
+  //       'Smith, Jordan',
+  //       true
+  //     ),
+  //     [
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'dean',
+  //         'vlad',
+  //         'Resolution',
+  //         'Obtain signed copy and upload',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'dean',
+  //         '',
+  //         'Resolution',
+  //         'Contact Appointee, get acknowledgement',
+  //         false
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'dean',
+  //         '',
+  //         'SSS',
+  //         'Update appointment details',
+  //         false
+  //       ),
+  //     ]
+  //   ),
+  //   new Task(
+  //     new Step(
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       'dean',
+  //       '',
+  //       'Resignation',
+  //       'Monroe, Merry',
+  //       false
+  //     ),
+  //     [
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         '',
+  //         'Resolution',
+  //         'Obtain signed copy and upload',
+  //         false
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         '',
+  //         'Resolution',
+  //         'Contact Appointee, get acknowledgement',
+  //         false
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         '',
+  //         'SSS',
+  //         'Update appointment details',
+  //         false
+  //       ),
+  //     ]
+  //   ),
+  //   new Task(
+  //     new Step(
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       'dean',
+  //       '',
+  //       'Publish',
+  //       'AFS: 2019',
+  //       true
+  //     ),
+  //     [
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'AFS',
+  //         'Obtain from Finance',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'AFS',
+  //         'Confirm to auditors',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'AFS',
+  //         'Sen to publisher',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'AFS',
+  //         'Confirm publicastion',
+  //         true
+  //       ),
+  //     ]
+  //   ),
+  //   new Task(
+  //     new Step(
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       'dean',
+  //       '',
+  //       'Rename',
+  //       'Fancy (Pty) Ltd',
+  //       false
+  //     ),
+  //     [
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Resolution',
+  //         'Obtain signed copy and upload',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Application',
+  //         'Send application to CIPC',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Application',
+  //         'Follow up with CIPC',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Application',
+  //         'Get CIPC notice',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         '',
+  //         'SSS',
+  //         'Update company name details',
+  //         false
+  //       ),
+  //     ]
+  //   ),
     
-    new Task(
-      new Step(
-        new Date(),
-        new Date(),
-        new Date(),
-        new Date(),
-        'dean',
-        '',
-        'Appointment',
-        'Jones, Tom',
-        true
-      ),
-      [
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Resolution',
-          'Obtain signed copy and upload',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Application',
-          'Send application to CIPC',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Application',
-          'Follow up with CIPC',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          'dean',
-          'Application',
-          'Get CIPC notice',
-          true
-        ),
-        new Step(
-          new Date(),
-          new Date(),
-          new Date(),
-          new Date(),
-          'vlad',
-          '',
-          'SSS',
-          'Update company name details',
-          false
-        ),
-      ]
-    ),
+  //   new Task(
+  //     new Step(
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       new Date(),
+  //       'dean',
+  //       '',
+  //       'Appointment',
+  //       'Jones, Tom',
+  //       true
+  //     ),
+  //     [
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Resolution',
+  //         'Obtain signed copy and upload',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Application',
+  //         'Send application to CIPC',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Application',
+  //         'Follow up with CIPC',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         'dean',
+  //         'Application',
+  //         'Get CIPC notice',
+  //         true
+  //       ),
+  //       new Step(
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         new Date(),
+  //         'vlad',
+  //         '',
+  //         'SSS',
+  //         'Update company name details',
+  //         false
+  //       ),
+  //     ]
+  //   ),
 
-  ];
+  // ];
+
+  entities: Task[] = [];
 
   constructor() {}
 

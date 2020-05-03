@@ -36,6 +36,10 @@ import { InputDuoComponent } from './input/input-duo/input-duo.component';
 import { InputAddressComponent } from './input/input-address/input-address.component';
 import { InputPersonComponent } from './input/input-person/input-person.component';
 import { InputFilterAddComponent } from './input/input-filter-add/input-filter-add.component';
+import { EntityTasksComponent } from './panels/entity-tasks/entity-tasks.component';
+import { EntityTaskComponent } from './panels/entity-task/entity-task.component';
+import { InputScheduleComponent } from './input/input-schedule/input-schedule.component';
+import { InputSelectCheckboxComponent } from './input/input-select-checkbox/input-select-checkbox.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +71,11 @@ import { InputFilterAddComponent } from './input/input-filter-add/input-filter-a
     InputDuoComponent,
     InputAddressComponent,
     InputPersonComponent,
-    InputFilterAddComponent
+    InputFilterAddComponent,
+    EntityTasksComponent,
+    EntityTaskComponent,
+    InputScheduleComponent,
+    InputSelectCheckboxComponent
   ],
   imports: [
     BrowserModule,

@@ -11,3 +11,15 @@ td{
 table{
     border-spacing: 0;
 }
+
+.tableFixHead {
+    height: 100.7%;
+    /* width: 100.2%; */
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  .tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    z-index: 990;
+  }

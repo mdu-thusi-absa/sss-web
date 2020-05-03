@@ -3,7 +3,8 @@
   [hidden]="hideByFilter()"
   style="margin-top: 5px;margin-right: 1px;"
 >
-  <label class="nobottom text-primary label-buttons-6">{{ title }}</label>
+<div class="input-group-sm">
+  <label class="nobottom text-primary label-buttons-7">{{ title }}</label>
   <!-- <div class="btn-group pull-right">
     <a href="#" class="btn btn-primary primary-color btn-xs" (click)="showEdit()"
       
@@ -62,6 +63,8 @@
     [showFlash] = "showFlash"
     [showPaperclip] = "showPaperclip"
     [showCD] = "showCD"
+    [showFilter] = "true"
+    (onFilter) = "doFilter($event)"
   ></app-buttons-input-select>
 
   <div class="input-group-sm" [hidden]="isDoInput">
@@ -72,14 +75,17 @@
       [(ngModel)]="option"
       style="padding-left: 6px; padding-right: 6px;"
     >
-      <option
+      <option 
         *ngFor="let e of options; let i = index"
         [value]="i"
         [selected]="i == option"
+        [hidden] = "hideItem(e)"
         ><small>{{ e }}</small></option
       >
     </select>
   </div>
+
+</div>
 
   <div class="input-group-sm" [hidden]="!isDoInput">
     <input

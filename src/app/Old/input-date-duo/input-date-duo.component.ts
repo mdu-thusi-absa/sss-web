@@ -16,7 +16,6 @@ export class InputDateDuoComponent implements OnInit {
   @Output() onRecordRight = new EventEmitter();
 
   doFileLeft(){
-    //console.log('app-input-text: file')
     this.onFileLeft.emit(this.titleLeft);
   }
   doRecordLeft(){

@@ -94,7 +94,10 @@ export class EntitiesComponent implements OnInit {
     return this.entities.filter(e => !this.shouldBeHidden(e)).length;
   }
 
-  doAdd(event: any){
-    this.isNewMessage = !this.isNewMessage;
+  doAdd(){
+    this.isNewMessage = true;
+  }
+  doCancel(){
+    this.isNewMessage = false;
   }
 }

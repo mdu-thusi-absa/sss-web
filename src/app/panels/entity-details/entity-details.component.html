@@ -1,4 +1,4 @@
-<div class="form-group nobottom">
+<!-- <div class="form-group nobottom">
   <input
     type="text"
     class="form-control input-sm"
@@ -6,15 +6,35 @@
     style="margin-bottom: 2px;"
     [(ngModel)]="filterText"
   />
-</div>
+</div> -->
 
-<form autocomplete="off">
-  <div
-    [class.details-full]="isFullScreen()"
-    [class.details-half]="isHalfScreen()"
-    style="overflow-y: scroll; scrollbar-width: thin;"
+<app-input-filter-add
+  [showSave] = "true"
+  [showCancel] = "true"
+  (onFilter) = "doFilter($event)"
+></app-input-filter-add>
+
+
+<form autocomplete="off"
+  
   >
-    <!-- <app-input-text-duo
+  <app-input-text
+    [filterText]="filterText"
+      [doHideByFilter]="false"  
+      
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)" (onTask)="doTask($event)" 
+      [title]="'Entity Name*'"
+      [placeholder]="'Legal name of the entity (required)'"
+    ></app-input-text>
+  <div
+  [class.entities-detail-form-full] = "isFullScreen()"
+  [class.entities-detail-form-half] = "isHalfScreen()"
+  
+  >
+    <!-- 
+      
+      <app-input-text-duo
       [titleLeft]="'Entity Name*'"
       [placeHolderLeft]="'Registration legal name (required)'"
       [titleRight]="'Suffix'"
@@ -29,15 +49,55 @@
     >
     </app-input-text-duo> -->
 
-    <app-input-text
-    [filterText]="filterText"
-      [doHideByFilter]="true"  
-      
+    
+
+
+    <app-input-duo
+      [typeLeft]="'text'"
+      [typeRight]="'date'"
+      [titleLeft]="'Suffix'"
+      [titleRight]="'Curr. Name Effective Date'"
+      [placeholderLeft] = "'Suffix - used to differenciate entities with the same name'"
+      [doHideByFilter]="false"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)" (onTask)="doTask($event)" 
-      [title]="'Entity Name*'"
-      [placeholder]="'Legal name of the entity (required)'"
-    ></app-input-text>
+    >
+    </app-input-duo>
+
+
+    <app-input-duo
+      [typeLeft]="'text'"
+      [typeRight]="'date'"
+      [titleLeft]="'Previous Name'"
+      [titleRight]="'Prev. Name Effective Date'"
+      
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)" (onTask)="doTask($event)" 
+    >
+    </app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"  
+      
+      [typeLeft]="'select'"
+      [titleLeft]="'Entity Type'"
+      [optionsLeft] = "['Trust','Company','Regulator','Regulation','Person','Government Agency']"
+      [valueLeft] = "'Company'"
+      
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Entity Lists'"
+      [optionsRight] = "['- Default -','Africa','Europe','Asia']"
+      [valueRight] = "'- Default -'"
+      
+      
+
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)" (onTask)="doTask($event)" 
+    >
+    </app-input-duo>
 
     <app-input-duo
       [filterText]="filterText"
@@ -48,14 +108,13 @@
       [placeholderLeft]="'Entity registration number'"
       
       [typeRight]="'text'"
-      [titleRight]="'Previous Name'"
-      [placeholderRight]="'Previous name, if exists'"
+      [titleRight]="'Internal Code'"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)" (onTask)="doTask($event)" 
     >
     </app-input-duo>
 
-    <app-input-duo
+    <!-- <app-input-duo
       [typeLeft]="'text'"
       [typeRight]="'text'"
       [titleLeft]="'Code'"
@@ -69,7 +128,7 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)" (onTask)="doTask($event)" 
     >
-    </app-input-duo>
+    </app-input-duo> -->
 
     <app-input-duo
       [typeLeft]="'select'"

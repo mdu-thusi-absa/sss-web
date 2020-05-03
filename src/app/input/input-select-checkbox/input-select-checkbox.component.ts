@@ -1,21 +1,13 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-input-select',
-  templateUrl: './input-select.component.html',
-  styleUrls: ['./input-select.component.css'],
+  selector: 'app-input-select-checkbox',
+  templateUrl: './input-select-checkbox.component.html',
+  styleUrls: ['./input-select-checkbox.component.css']
 })
-export class InputSelectComponent implements OnInit {
+export class InputSelectCheckboxComponent implements OnInit {
   @Input() title = '';
-  @Input() options: string[];
+  @Input() options: string[] = [];
   @Input() filterText = '';
   @Input() value = '';
   @Input() doHideByFilter = false;
@@ -44,6 +36,7 @@ export class InputSelectComponent implements OnInit {
   text = '';
   doAdd = false;
   listFilterText = '';
+  isShowingFilter = false;
 
   @ViewChild('inputText') inputElement: ElementRef;
   constructor() {}
@@ -55,12 +48,13 @@ export class InputSelectComponent implements OnInit {
   }
 
   setItem(text: string) {
-    //this.options.sort();
+    //console.log('setItem: b');
     this.options.sort(function (a, b) {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
     this.option = this.options.indexOf(text).toString();
+    //console.log('setItem: e');
   }
 
   hideByFilter() {
@@ -72,7 +66,7 @@ export class InputSelectComponent implements OnInit {
 
   showEdit() {
     this.doAdd = false;
-    console.log(this.option);
+    //console.log(this.option);
     this.text = this.options[+this.option];
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
@@ -118,6 +112,7 @@ export class InputSelectComponent implements OnInit {
   }
 
   doFilter(event: any){
+    //console.log('isc',event);
     this.listFilterText = event.toLowerCase();
   }
 
@@ -126,7 +121,14 @@ export class InputSelectComponent implements OnInit {
     if (this.listFilterText.length>0){
       r = text.toLowerCase().indexOf(this.listFilterText)==-1;
     }
+    //console.log(r,text);
     return r;
+    
+  }
+
+  showingFilter(event:any){
+    this.isShowingFilter = event;
+    console.log(this.isShowingFilter);
   }
 
 }

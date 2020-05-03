@@ -13,7 +13,7 @@ export class EntityDetailsComponent implements OnInit {
   isAppointeeInput = false;
   isAppointeeNewInput =false;
   persons: Person[];
-  @Input() panelRows = 2;
+  @Input() panelRows = 1;
   entity: Entity;
 
   @Output() onFile = new EventEmitter();
@@ -26,18 +26,19 @@ export class EntityDetailsComponent implements OnInit {
     this.persons = [new Person('Smith','John','ABSA'), new Person('Dean','Diana','Chechia')];
   }
 
+  doFilter(event: any){
+    this.filterText = event;
+  }
+
   doFile(inputTitle: string){
-    //console.log('app-entity-details: doFile: ' + inputTitle);
     this.onFile.emit(inputTitle);
   }
 
   doRecord(inputTitle: string){
-    //console.log('app-entity-details: doRecord: ' + inputTitle);
     this.onRecord.emit(inputTitle);
   }
 
   doTask(inputTitle: string){
-    //console.log('app-entity-details: doRecord: ' + inputTitle);
     this.onTask.emit(inputTitle);
   }
 
@@ -45,15 +46,17 @@ export class EntityDetailsComponent implements OnInit {
     return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
   }
 
-  isFullScreen(){
-    return this.panelRows == 1;
+  isFullScreen(): boolean{
+    //console.log('IsFullScreen',this.panelRows)
+    
+    return this.panelRows==0 ? true : this.panelRows == 1;
   }
 
-  isHalfScreen(){
-    return this.panelRows == 2;
+  isHalfScreen(): boolean{
+    return this.panelRows==0 ? false : this.panelRows == 2;
   }
 
-  isThirdScreen(){
+  isThirdScreen(): boolean{
     return this.panelRows == 3;
   }
 
