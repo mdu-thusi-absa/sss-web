@@ -1,5 +1,5 @@
 {
-    "appService.deploySubpath": "",
+    "appService.deploySubpath": "dist\\sss",
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
