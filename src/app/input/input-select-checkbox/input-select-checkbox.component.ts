@@ -171,7 +171,7 @@ export class InputSelectCheckboxComponent implements OnInit {
 
     let p = +event.target.value;
     let q = this.selectedItems.indexOf(p);
-    console.log(c,p,q);
+    //console.log(c,p,q);
     if (c){
       let q = this.selectedItems.indexOf(p);
       if (q==-1) this.selectedItems.push(p) ;

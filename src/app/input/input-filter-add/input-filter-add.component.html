@@ -18,9 +18,11 @@
       />
       <span class="glyphicon glyphicon-flash"></span>
       <small>&nbsp;</small>
-      <span class="badge badge-xs progress-bar-primary"
-        ><small>{{ countFlash }}</small></span
-      >
+      <span class="hidden-xs hidden-sm hidden-sm">
+        <span class="badge badge-xs progress-bar-primary"
+          ><small>{{ countFlash }}</small></span
+        >
+      </span>
     </label>
 
     <label
@@ -37,10 +39,12 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <span class="glyphicon glyphicon-play"></span>
-      <small>&nbsp;</small>
-      <span class="badge badge-xs bg-primary"
-        ><small>{{ countPlay }}</small></span
+      <small><span class="glyphicon glyphicon-play"></span>
+      &nbsp;</small>
+      <span class="hidden-xs hidden-sm hidden-sm">
+        <span class="badge badge-xs bg-primary"
+          ><small>{{ countPlay }}</small></span
+        ></span
       >
     </label>
 
@@ -60,8 +64,10 @@
       />
       <span class="glyphicon glyphicon-pause"></span>
       <small>&nbsp;</small>
-      <span class="badge badge-xs"
-        ><small>{{ countPause }}</small></span
+      <span class="hidden-xs hidden-sm hidden-sm">
+        <span class="badge badge-xs"
+          ><small>{{ countPause }}</small></span
+        ></span
       >
     </label>
 
@@ -81,8 +87,11 @@
       />
       <span class="glyphicon glyphicon-ok"></span>
       <small>&nbsp;</small>
+      <span class="hidden-xs hidden-sm hidden-sm">
       <span class="badge badge-xs"
-        ><small>{{ countOk }}</small></span
+        >
+          <small>{{ countOk }}</small></span
+        ></span
       >
     </label>
 
@@ -103,7 +112,9 @@
       <span class="glyphicon glyphicon-eye-close"></span>
       <small>&nbsp;</small>
       <span class="badge badge-xs"
-        ><small>{{ countEyeClose }}</small></span
+        ><span class="hidden-xs hidden-sm hidden-sm">
+          <small>{{ countEyeClose }}</small></span
+        ></span
       >
     </label>
 
@@ -124,7 +135,9 @@
       <span class="glyphicon glyphicon-eye-open"></span>
       <small>&nbsp;</small>
       <span class="badge badge-xs"
-        ><small>{{ countEyeOpen }}</small></span
+        ><span class="hidden-xs hidden-sm hidden-sm">
+          <small>{{ countEyeOpen }}</small></span
+        ></span
       >
     </label>
 
@@ -143,8 +156,11 @@
         [checked]="radioChoice == 'all'"
       />
       <small>All </small>
+      <span class="hidden-xs hidden-sm hidden-sm">
       <span class="badge badge-xs"
-        ><small>{{ countAll }}</small></span
+        >
+          <small>{{ countAll }}</small></span
+        ></span
       >
     </label>
   </div>
@@ -175,7 +191,7 @@
     [placeholder]="'Filter ' + titlePlural"
     [(ngModel)]="filterText"
     (keyup)="onKey($event)"
-    style="font-weight: normal; "
+    style="font-weight: normal;"
     autocomplete="nope"
   />
 
@@ -189,7 +205,7 @@
 
   <span
     *ngIf="showFilterCount"
-    class="input-group-addon"
+    class="input-group-addon hidden-xs"
     title="Number of items"
     style="position: relative; left: 0.01px;"
   >

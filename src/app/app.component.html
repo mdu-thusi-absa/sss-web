@@ -33,9 +33,10 @@
       [checked]="rdoMenu == 'Legal Entities'"
       class="input-sm"
       [class.active]="rdoMenu == 'Legal Entities'"
-    />
+    /><small>
     <span class="glyphicon glyphicon-home"></span>
-    Entities
+    <span class="hidden-xs hidden-sm">&nbsp;
+    Entities</span></small>
   </label>
 
   <label
@@ -51,8 +52,10 @@
       [checked]="rdoMenu == 'Natural Entities'"
       class="input-sm"
     />
-    <span class="glyphicon glyphicon-user"></span>
-    People
+    <small>
+      <span class="glyphicon glyphicon-user"></span>
+      <span class="hidden-xs hidden-sm">&nbsp;
+      People</span></small>
   </label>
 
   <label
@@ -68,8 +71,10 @@
       value="Dormant"
       [checked]="rdoMenu == 'Tasks'"
       class="input-sm"
-    />
-    <span class="glyphicon glyphicon-flash"></span> Tasks
+    /><small>
+      <span class="glyphicon glyphicon-flash"></span>
+      <span class="hidden-xs hidden-sm">&nbsp;
+      Tasks</span></small>
   </label>
 
   <label
@@ -84,8 +89,10 @@
       value="All"
       [checked]="rdoMenu == 'Reports'"
     />
-    <span class="glyphicon glyphicon-print"></span>
-    Reports
+    <small>
+      <span class="glyphicon glyphicon-print"></span>
+      <span class="hidden-xs hidden-sm">&nbsp;
+      Reports</span></small>
   </label>
 
   <label
@@ -100,7 +107,10 @@
       value="All"
       [checked]="rdoMenu == 'Admin'"
     />
-    <span class="glyphicon glyphicon-cog"></span> Admin
+    <small>
+      <span class="glyphicon glyphicon-cog"></span>
+      <span class="hidden-xs hidden-sm">&nbsp;
+      Admin</span>&nbsp;</small>
 
     <span class="caret"></span>
   </label>
