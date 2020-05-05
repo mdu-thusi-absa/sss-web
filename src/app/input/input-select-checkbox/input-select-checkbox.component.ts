@@ -50,8 +50,8 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   setItem(text: string) {
     //console.log('setItem: b');
-    this.options.sort(function (a, b) {
-      return a.toLowerCase().localeCompare(b.toLowerCase());
+    this.options.sort(function (a:string, b:string) {
+      return String(a).toLowerCase().localeCompare(b.toLowerCase());
     });
 
     this.option = this.options.indexOf(text).toString();

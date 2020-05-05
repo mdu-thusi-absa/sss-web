@@ -129,8 +129,7 @@
         style="padding-top: 2px; padding-bottom: 2px;"
         title="Number of items"
         ><small>
-          {{ countItemsSelected == -1 ? "" : countItemsSelected + ":" }}
-          {{ countItems }}</small
+          {{ (countItemsSelected == -1 ? "" : countItemsSelected + ":") + countItems}}</small
         >
       </span>
       <input

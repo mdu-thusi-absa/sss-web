@@ -62,7 +62,14 @@ export class InputSelectComponent implements OnInit {
   setItem(text: string) {
     //this.options.sort();
     this.options.sort(function (a, b) {
-      return a.toLowerCase().localeCompare(b.toLowerCase());
+      if (typeof(a)=='string' && typeof(b) == 'string'){
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      } else {
+        let r = 0;
+        if (a > b) r = 1;
+        else if (a < b) r = -1;
+        return r;
+      }
     });
 
     this.option = this.options.indexOf(text).toString();

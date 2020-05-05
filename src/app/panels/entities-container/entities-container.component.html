@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row no-gutter">
       <!--column 1: Entities, Tasks, Records, Files-->
-      <div class="col-xs-2">
+      <div class="col-xs-3 col-sm-2">
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3" style="min-width: 130px;">
+          <div class="panel-heading mt3" >
             <span class="glyphicon glyphicon-home"></span
-            ><small> Entities</small>
+            ><small>&nbsp;<span class="hidden-xs hidden-sm">Entities</span></small>
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-info btn-xs"
                 data-toggle="tooltip"
@@ -17,7 +17,7 @@
                 title="Refresh"
               >
                 <span class="glyphicon glyphicon-refresh"></span>
-              </a>
+              </a> -->
 
               <a
                 href="#"
@@ -102,9 +102,9 @@
           <div class="panel-heading mt3">
             <span class="glyphicon glyphicon-cd"></span><small> Records</small>
             <div class="btn-group pull-right">
-              <a href="#" class="btn btn-info btn-xs">
+              <!-- <a href="#" class="btn btn-info btn-xs">
                 <span class="glyphicon glyphicon-refresh"></span>
-              </a>
+              </a> -->
               <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -142,12 +142,12 @@
         >
           <div class="panel-heading mt3">
             <span class="glyphicon glyphicon-folder-open"></span>&nbsp;<small>
-              Doc Links</small
+              Doc Types</small
             >
             <div class="btn-group pull-right">
-              <a href="#" class="btn btn-info btn-xs">
+              <!-- <a href="#" class="btn btn-info btn-xs">
                 <span class="glyphicon glyphicon-refresh"></span>
-              </a>
+              </a> -->
               <!-- <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -210,49 +210,86 @@
           "
         >
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-th-large"></span>
+            <span
+              class="glyphicon glyphicon-th-large"
+              style="height: 20px;"
+            ></span>
             <small>
-              Entity Details:
+              <span class="hidden-xs hidden-sm hidden-md">Entity Details:</span>&nbsp;
               <!-- <div class="btn-group"> -->
-              <div class="btn-group" style="vertical-align: top;">
-                <label style="margin-bottom: 0px;"
+              <div class="btn-group" style="vertical-align: top; height: 20px;">
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
                   ><input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hidePrimary"
                     (change)="hidePrimary = !hidePrimary"
                   />
-                  Primary</label
+                  <span class="hidden-md hidden-lg"> 1</span>
+                  <span class="hidden-xs hidden-sm ">
+                    Primary</span
+                  ></label
                 >
                 &nbsp;
-                <label style="margin-bottom: 0px;"
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
                   ><input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hideSecondary"
                     (change)="hideSecondary = !hideSecondary"
                   />
-                  Secondary</label
+                  <span class="hidden-md hidden-lg"> 2</span>
+                  <span class="hidden-xs hidden-sm"> Secondary</span></label
                 >&nbsp;
-                <label style="margin-bottom: 0px;"
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
                   ><input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hideOptional"
                     (change)="hideOptional = !hideOptional"
                   />
-                  Optional</label
+                  <span class="hidden-md hidden-lg"> 3</span>
+                  <span class="hidden-xs hidden-sm"> Optional</span></label
                 >
                 &nbsp;
-                <label style="margin-bottom: 0px;"
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
                   ><input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hideCustom"
                     (change)="hideCustom = !hideCustom"
                   />
-                  Custom</label
-                >
+                  <span class="hidden-md hidden-lg"> 4</span>
+                  <span class="hidden-xs hidden-sm "> Custom</span>
+                </label>
               </div>
 
               <!-- </div> -->
@@ -294,7 +331,7 @@
               [hidePrimary]="hidePrimary"
               [hideSecondary]="hideSecondary"
               [hideOptional]="hideOptional"
-              [hideCustom] = "hideCustom"
+              [hideCustom]="hideCustom"
             ></app-entity-details>
           </div>
           <div class="panel-footer mt3">
@@ -477,7 +514,7 @@
         </div>
       </div>
       <!-- column 3: Articles -->
-      <div class="col-xs-5" [hidden]="!showPanelRight">
+      <div class="col-xs-4 col-sm-5" [hidden]="!showPanelRight">
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3">
             <span

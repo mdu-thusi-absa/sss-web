@@ -4,5 +4,5 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/cb5dbc3e-609d-4dff-9c07-a74258fc8b85/resourceGroups/icCoSec/providers/Microsoft.Web/sites/sss01"
+    "appService.defaultWebAppToDeploy": "/subscriptions/cb5dbc3e-609d-4dff-9c07-a74258fc8b85/resourceGroups/icCoSec/providers/Microsoft.Web/sites/sss03"
 }

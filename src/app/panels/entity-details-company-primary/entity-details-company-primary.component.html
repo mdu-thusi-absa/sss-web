@@ -1,6 +1,18 @@
 <hr class="primary-color" style='height: 1px;margin:0px'>
 <div class="h4 text-primary" style="margin-top: 5px;"><u>Primary Details</u></div>
 <app-input-duo
+[typeLeft]="'text'"
+[typeRight]="'date'"
+[titleLeft]="'Previous Name'"
+[titleRight]="'Prev. Name Effective Date'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+>
+</app-input-duo>
+<app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'select-checkbox'"
