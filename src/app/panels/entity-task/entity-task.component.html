@@ -2,18 +2,20 @@
   class="panel panel-success narrow"
   [class.panel-danger]="!task.mainGoal.isDone"
 >
-  <div class="panel-heading mt3">
+  <div class="panel-heading mt3" >
     <span class="glyphicon glyphicon-flash"></span>
-    <a href="#" (click)="toggleDone()">
+    <a href="#"  (click)="isEdit = !isEdit"
+    >
       {{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }} :
       {{ task.mainGoal.title }}
     </a>
-    <a href="#" (click)="doEdit()" [hidden]="isEdit"
+    <!-- toggleDone() <a href="#" (click)="doEdit()" [hidden]="isEdit"
       ><span class="glyphicon glyphicon-pencil pull-right"></span
-    ></a>
+    ></a> -->
 
     <app-buttons-cancel-save
       [hidden]="!isEdit"
+      [glyphOnly] = "true"
       (onCancel)="doClose()"
       (onSave)="doClose()"
     ></app-buttons-cancel-save>

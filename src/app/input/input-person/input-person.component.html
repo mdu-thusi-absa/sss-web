@@ -1,11 +1,12 @@
 <div
   class="form-group input-group-sm nobottom"
   [hidden]="hideByFilter()"
-  style="margin-top: 5px;margin-right: 1px;"
+  style="margin-top: 5px; margin-right: 1px;"
 >
-  <label class="nobottom text-primary label-buttons-6 ">{{ title }}</label>
+  <div>
+    <label class="nobottom text-primary label-buttons-6">{{ title }}</label>
 
-  <app-buttons-input-select [title] = "title"
+    <!-- <app-buttons-input-select [title] = "title"
     (onEdit)="showEdit()"
     (onAdd)="showNew()"
     (onDelete)="deleteItem"
@@ -15,42 +16,101 @@
     [showFlash] = "showFlash"
     [showPaperclip] = "showPaperclip"
     [showCD] = "showCD"
-  ></app-buttons-input-select>
+  ></app-buttons-input-select> -->
 
-  <div class="input-group-sm" [hidden]="isDoInput">
-    <select
-      class="form-control input-sm"
-      style="font-size: small;"
-      name="option"
-      [(ngModel)]="option"
-      style="padding-left: 6px; padding-right: 6px;"
-    >
-      <option
-        *ngFor="let e of options; let i = index"
-        [value]="i"
-        [selected]="i == option"
-        ><small>{{ e.fullName }}</small></option
+    <app-buttons-input-select
+      [title]="title"
+      [isDoInput]="isDoInput"
+      [showAdd]="false"
+      [showEdit]="false"
+      [showDelete]="false"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showFilter]="true"
+      [showCancel]="false"
+      [showSave]="false"
+      (onAdd)="showNew()"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      (onFilter)="doFilter($event)"
+      (onShowingFilter)="showingFilter($event)"
+    ></app-buttons-input-select>
+  </div>
+  <br [hidden]="!isShowingFilter" />
+  <div [hidden]="isDoInput">
+    <div class="input-group">
+      <select
+        class="form-control input-sm"
+        style="font-size: small;"
+        name="option"
+        [(ngModel)]="option"
+        style="padding-left: 6px; padding-right: 6px;"
       >
-    </select>
+        <option
+          *ngFor="let e of options; let i = index"
+          [value]="i"
+          [selected]="i == option"
+          ><small>{{ e.fullName }}</small></option
+        >
+      </select>
+      <span
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDelete()"
+        [title]="'Delete the ' + title"
+      >
+        <span class="glyphicon glyphicon-minus"></span>
+      </span>
+      <span
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doEdit()"
+        [title]="'Edit the ' + title"
+      >
+        <span class="glyphicon glyphicon-pencil"></span>
+      </span>
+      <span
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doAdd()"
+        [title]="'Add an ' + title"
+      >
+        <span class="glyphicon glyphicon-plus"></span>
+      </span>
+    </div>
   </div>
 
   <div class="panel panel-primary no-gutter nobottom" [hidden]="!isDoInput">
     <div class="panel panel-body mt3 nobottom">
+      <app-buttons-cancel-save
+        [glyphOnly]="true"
+        (onSave)="doSave()"
+        (onCancel)="doCancel()"
+      ></app-buttons-cancel-save>
       <div class="input-group-sm">
         <label class="nobottom text-primary">Surname</label>
-        <input type="text" class="form-control" placeholder="" #inputText  
-        [(ngModel)] = "value.surname"
+        <input
+          type="text"
+          class="form-control"
+          placeholder=""
+          #inputText
+          [(ngModel)]="value.surname"
+          autocomplete="nope"
         />
         <label class="nobottom text-primary">First Name</label>
-        <input type="text" class="form-control" placeholder="" 
-        [(ngModel)] = "value.firstName"
+        <input
+          type="text"
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="value.firstName"
+          autocomplete="nope"
         />
         <label class="nobottom text-primary">Optional Suffix</label>
         <input
           type="text"
           class="form-control"
           placeholder="Optional suffix to differenciate same names"
-          [(ngModel)] = "value.suffix"
+          [(ngModel)]="value.suffix"
+          autocomplete="nope"
         />
       </div>
     </div>

@@ -1,10 +1,17 @@
-import { Component, OnInit, Input, Output,EventEmitter, ViewChild, ElementRef } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-buttons-input-select',
   templateUrl: './buttons-input-select.component.html',
-  styleUrls: ['./buttons-input-select.component.css']
+  styleUrls: ['./buttons-input-select.component.css'],
 })
 export class ButtonsInputSelectComponent implements OnInit {
   @Input() title = '';
@@ -24,48 +31,61 @@ export class ButtonsInputSelectComponent implements OnInit {
   @Input() showPaperclip = true;
   @Input() showCD = true;
   @Input() showFilter = true;
+  @Input() showEdit = true;
+  @Input() showDelete = true;
+  @Input() showCancel = true;
+  @Input() showSave = true;
+  @Input() showAdd = true;
+
+  @Input() countItemsSelected = -1;
+  @Input() countItems = 0;
+
   isFilter = false;
   filterText = '';
-
 
   @Input() isDoInput = false;
 
   @ViewChild('inputFilter') inputFilter: ElementRef;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  showEdit(){
+  doEdit() {
     this.onEdit.emit();
   }
-  showNew(){
+  showNew() {
     this.onAdd.emit();
   }
 
-  doFilter(){
+  doFilter() {
     //console.log('buttons: doFilter')
     this.onFilter.emit(this.filterText);
   }
 
-  showHideFilterInput(){
+  showHideFilterInput() {
     this.isFilter = !this.isFilter;
     if (this.isFilter) this.setFocus();
+    else {
+      this.filterText = '';
+      this.doFilter();
+    }
+    //console.log('showHideFilterInput',this.isFilter);
     this.onShowingFilter.emit(this.isFilter);
+    //console.log('showHideFilterInput',this.isFilter);
   }
 
-  deleteItem(){
+  deleteItem() {
     this.onDelete.emit();
   }
-  doFile(){
-    this.onFile.emit()
+  doFile() {
+    this.onFile.emit();
   }
-  doRecord(){
-    this.onRecord.emit()
+  doRecord() {
+    this.onRecord.emit();
   }
 
-  doTask(){
+  doTask() {
     this.onTask.emit();
   }
 
@@ -75,8 +95,7 @@ export class ButtonsInputSelectComponent implements OnInit {
       this.filterText = '';
       //this.isFilter = false;
       this.showHideFilterInput();
-    }
-    this.doFilter();
+    } else this.doFilter();
   }
 
   setFocus() {
@@ -87,4 +106,39 @@ export class ButtonsInputSelectComponent implements OnInit {
     }, 0);
   }
 
+  lostFocus() {
+    // this.isFilter = true;
+    // this.filterText='';
+    // this.showHideFilterInput()
+  }
+
+  filterInputWidth() {
+    return (
+      21.2 *
+      ((this.showFlash ? 1 : 0) +
+        (this.showPaperclip ? 1 : 0) +
+        (this.showCD ? 1 : 0) +
+        (this.showFilter ? 1 : 0) +
+        (this.showEdit ? 1 : 0) +
+        (this.showDelete ? 1 : 0) +
+        (this.showCancel ? 1 : 0) +
+        (this.showSave ? 1 : 0) +
+        (this.showAdd ? 1 : 0)) + 'px'
+    );
+  }
+
+  filterInputTotalWidth() {
+    return (
+      21.2 *
+      ((this.showFlash ? 1 : 0) +
+        (this.showPaperclip ? 1 : 0) +
+        (this.showCD ? 1 : 0) +
+        (this.showFilter ? 1 : 0) +
+        (this.showEdit ? 1 : 0) +
+        (this.showDelete ? 1 : 0) +
+        (this.showCancel ? 1 : 0) +
+        (this.showSave ? 1 : 0) +
+        (this.showAdd ? 1 : 0)) + 30 + 'px'
+    );
+  }
 }

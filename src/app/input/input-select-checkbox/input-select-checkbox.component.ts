@@ -37,8 +37,9 @@ export class InputSelectCheckboxComponent implements OnInit {
   doAdd = false;
   listFilterText = '';
   isShowingFilter = false;
+  selectedItems: number [] = [0];
 
-  @ViewChild('inputText') inputElement: ElementRef;
+  // @ViewChild('inputText') inputElement: ElementRef;
   constructor() {}
 
   ngOnInit(): void {
@@ -54,6 +55,7 @@ export class InputSelectCheckboxComponent implements OnInit {
     });
 
     this.option = this.options.indexOf(text).toString();
+    this.selectedItems.push(+this.option);
     //console.log('setItem: e');
   }
 
@@ -64,11 +66,13 @@ export class InputSelectCheckboxComponent implements OnInit {
       : false;
   }
 
+  
+
   showEdit() {
     this.doAdd = false;
     //console.log(this.option);
     this.text = this.options[+this.option];
-    if (!this.isDoInput) this.setFocus();
+    // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
 
@@ -80,6 +84,7 @@ export class InputSelectCheckboxComponent implements OnInit {
         //save for a new item
         this.options.push(this.text);
         this.doAdd = false;
+        //this.selectedItems.push(this.options.length);
       } else {
         //save for old item
         //console.log(this.option, this.text);
@@ -91,22 +96,21 @@ export class InputSelectCheckboxComponent implements OnInit {
       //new is clicked
       this.doAdd = true;
       this.text = '';
-      if (!this.isDoInput) this.setFocus();
+      // if (!this.isDoInput) this.setFocus();
     }
     this.isDoInput = !this.isDoInput;
   }
 
-  setFocus() {
-    setTimeout(() => {
-      this.inputElement.nativeElement.focus();
-      // this will make the execution after the above boolean has changed
-      //this.searchElement.nativeElement.focus();
-    }, 0);
-  }
+  // setFocus() {
+  //   setTimeout(() => {
+  //     this.inputElement.nativeElement.focus();
+  //     // this will make the execution after the above boolean has changed
+  //     //this.searchElement.nativeElement.focus();
+  //   }, 0);
+  // }
 
   deleteItem() {
     let r = confirm('Are you sure you want to delete this item?');
-    //console.log(r);
     if (r) this.options.splice(+this.option, 1);
     this.option = '0';
   }
@@ -126,9 +130,57 @@ export class InputSelectCheckboxComponent implements OnInit {
     
   }
 
+  countItems(){
+    return this.options.filter(e => !this.hideItem(e)).length;
+  }
+  countSelected(){
+    return this.selectedItems.length;
+  }
+
   showingFilter(event:any){
     this.isShowingFilter = event;
-    console.log(this.isShowingFilter);
+    //console.log(this.isShowingFilter);
+  }
+
+  doEdit(index: any){
+    this.option = index;
+    this.showEdit()
+  }
+
+  doDelete(index: any){
+    //console.log(index);                       
+    this.option = index;
+    this.deleteItem()
+  }
+
+  doSave(event: any){
+    //console.log(event);
+    this.text = event;
+    this.showNew()
+  }
+
+  doCancel(){
+    this.isDoInput = false;
+  }
+
+  doCheckField(event: any){
+    
+    // let f = event.target.value;
+    let c = event.target.checked;
+    // let p = this.selectedItems.indexOf(f);
+
+    let p = +event.target.value;
+    let q = this.selectedItems.indexOf(p);
+    console.log(c,p,q);
+    if (c){
+      let q = this.selectedItems.indexOf(p);
+      if (q==-1) this.selectedItems.push(p) ;
+    }
+    else{
+      if (q>-1)  this.selectedItems.splice(q,1) 
+    }
+    //console.log(this.selectedItems);
+    //console.log('doCheckField');
   }
 
 }

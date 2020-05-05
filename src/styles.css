@@ -107,18 +107,15 @@ body {
 }
 
 
-
-
-
 .entities-detail-form-full{
-  height: calc(100vh - 127px);
-  overflow-y: auto;
+  height: calc(100vh - 192px);
+  overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 
 .entities-detail-form-half{
-  height: calc(50vh - 105px);
+  height: calc(50vh - 170px);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -467,3 +464,7 @@ input[type=checkbox] {
 .highlight{
   background-color: blue;
 }
+/* 
+.input-group-addon-xs{
+  padding: 3px, 6px;
+} */

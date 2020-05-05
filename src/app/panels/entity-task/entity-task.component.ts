@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
-import { Task } from 'src/app/models/models';
+import { Task } from 'src/app/models';
 
 @Component({
   selector: 'app-entity-task',
@@ -50,6 +50,7 @@ export class EntityTaskComponent implements OnInit {
   doClose(){
     this.isEdit = false;
     this.onClose.emit();
+    console.log(this.isEdit);
   }
 
   showDocs(){

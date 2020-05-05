@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Person } from '../../models/models'
+import { Entity, Person } from '../../models'
 
 @Component({
   selector: 'app-entity-details',
@@ -10,8 +10,12 @@ export class EntityDetailsComponent implements OnInit {
   filterText = '';
   isCountryInput = false;
   isPositionInput = false;
-  isAppointeeInput = false;
-  isAppointeeNewInput =false;
+  @Input() hidePrimary = false;
+  @Input() hideSecondary = false;
+  @Input() hideOptional = false;
+  @Input() hideCustom = false;
+  // isAppointeeInput = false;
+  // isAppointeeNewInput =false;
   persons: Person[];
   @Input() panelRows = 1;
   entity: Entity;
@@ -39,6 +43,7 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   doTask(inputTitle: string){
+    //console.log('doTask')
     this.onTask.emit(inputTitle);
   }
 
@@ -76,25 +81,6 @@ export class EntityDetailsComponent implements OnInit {
     this.isPositionInput = !this.isPositionInput
   }
 
-  showAppointeeEdit(){
-    this.isAppointeeInput = !this.isAppointeeInput
-  }
-
-  showAppointeeNew(){
-    this.isAppointeeInput = !this.isAppointeeInput
-  }
-
-  showAppointeeNewEdit(){ this.isAppointeeNewInput = !this.isAppointeeNewInput   }
-
-  showAppointeeNewNew(){ this.isAppointeeNewInput = !this.isAppointeeNewInput   }
-
-
-  showAppointmentNew(){
-
-  }
-
-  showAppointmentEdit(){
-
-  }
+  
 
 }

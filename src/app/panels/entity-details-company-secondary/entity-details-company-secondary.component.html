@@ -1,0 +1,122 @@
+<hr class="primary-color" style='height: 1px;margin:0px'>
+<div class="h4 text-primary" style="margin-top: 5px;"><u>Secondary Details</u></div>
+<app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'text'"
+      [titleLeft]="'Income Tax Number'"
+      [optionsLeft]="[]"
+      [valueLeft]=""
+      [typeRight]="'text'"
+      [titleRight]="'VAT Number'"
+      [optionsRight]="[]"
+      [valueRight]="''"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-duo>
+
+    <app-input-address
+      [title]="'Registered office address'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [hideBody]="false"
+      [allowCopyOption]="false"
+      [allowDefaultAddressOption]="true"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-address>
+
+    <app-input-address
+      [title]="'Postal address'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [hideBody]="false"
+      [allowCopyOption]="true"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-address>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'select'"
+      [titleLeft]="'Business Area'"
+      [optionsLeft]="['Banking', 'Asset Management', 'Property']"
+      [valueLeft]="'Banking'"
+      [typeRight]="'select'"
+      [titleRight]="'Business Division'"
+      [optionsRight]="['Div 1', 'Div 2', 'Div 3', 'Div 4']"
+      [valueRight]="'Div 1'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'select'"
+      [titleLeft]="'Legal classification'"
+      [optionsLeft]="['Legal', 'Illigal']"
+      [valueLeft]="'Legal'"
+      [typeRight]="'checkbox'"
+      [titleRight]="'Consolidated'"
+      [optionsRight]="[]"
+      [valueRight]="true"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'select'"
+      [titleLeft]="'Entity status'"
+      [optionsLeft]="['Active', 'Dormant', 'Closed']"
+      [valueLeft]="'Active'"
+      [typeRight]="'select'"
+      [titleRight]="'Entity status tiering'"
+      [optionsRight]="['Top', 'Middle', 'Low']"
+      [valueRight]="'Top'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'select'"
+      [titleLeft]="'Accounting classification'"
+      [optionsLeft]="['Active', 'Dormant', 'Closed']"
+      [valueLeft]="'Active'"
+      [typeRight]="'select'"
+      [titleRight]="'Accounting classification tiering'"
+      [optionsRight]="['Top', 'Middle', 'Low']"
+      [valueRight]="'Top'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'select'"
+      [titleLeft]="'Direct parent/ownership'"
+      [optionsLeft]="['Company 1', 'Company 2', 'Company 3']"
+      [valueLeft]="'Company 1'"
+      [typeRight]="'text'"
+      [titleRight]="'Absa shareholding in entity (%)'"
+      [optionsRight]="[]"
+      [valueRight]="'0.00%'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    ></app-input-duo>
+
+    

@@ -23,6 +23,7 @@ export class InputSelectComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   @Input() showFlash = true;
   @Input() showPaperclip = true;
@@ -42,10 +43,14 @@ export class InputSelectComponent implements OnInit {
   isDoInput = false;
   option = '0';
   text = '';
-  doAdd = false;
+  isAdd = false;
   listFilterText = '';
+  showSave = true;
+  showCancel = true;
+  isShowingFilter = false;
+  
 
-  @ViewChild('inputText') inputElement: ElementRef;
+  // @ViewChild('inputText') inputElement: ElementRef;
   constructor() {}
 
   ngOnInit(): void {
@@ -70,11 +75,11 @@ export class InputSelectComponent implements OnInit {
       : false;
   }
 
-  showEdit() {
-    this.doAdd = false;
+  doEdit() {
+    this.isAdd = false;
     console.log(this.option);
     this.text = this.options[+this.option];
-    if (!this.isDoInput) this.setFocus();
+    // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
 
@@ -82,10 +87,10 @@ export class InputSelectComponent implements OnInit {
     //dubs as save button for edit and new
     if (this.isDoInput) {
       //save is pressed
-      if (this.doAdd) {
+      if (this.isAdd) {
         //save for a new item
         this.options.push(this.text);
-        this.doAdd = false;
+        this.isAdd = false;
       } else {
         //save for old item
         //console.log(this.option, this.text);
@@ -95,22 +100,36 @@ export class InputSelectComponent implements OnInit {
       this.setItem(this.text);
     } else {
       //new is clicked
-      this.doAdd = true;
+      this.isAdd = true;
       this.text = '';
-      if (!this.isDoInput) this.setFocus();
+      // if (!this.isDoInput) this.setFocus();
     }
     this.isDoInput = !this.isDoInput;
   }
 
-  setFocus() {
-    setTimeout(() => {
-      this.inputElement.nativeElement.focus();
-      // this will make the execution after the above boolean has changed
-      //this.searchElement.nativeElement.focus();
-    }, 0);
+  doSave(event: any){
+    //console.log(event);
+    this.text = event;
+    this.showNew()
   }
 
-  deleteItem() {
+  doCancel(){
+    this.isDoInput = false;
+  }
+
+  doAdd(){
+    this.showNew()
+  }
+
+  // setFocus() {
+  //   setTimeout(() => {
+  //     this.inputElement.nativeElement.focus();
+  //     // this will make the execution after the above boolean has changed
+  //     //this.searchElement.nativeElement.focus();
+  //   }, 0);
+  // }
+
+  doDelete() {
     let r = confirm('Are you sure you want to delete this item?');
     //console.log(r);
     if (r) this.options.splice(+this.option, 1);
@@ -127,6 +146,19 @@ export class InputSelectComponent implements OnInit {
       r = text.toLowerCase().indexOf(this.listFilterText)==-1;
     }
     return r;
+  }
+
+  countItems(){
+    return this.options.filter(e => !this.hideItem(e)).length;
+  }
+
+  showingFilter(event:any){
+    this.isShowingFilter = event;
+  }
+
+  doChange(event: any){
+    //console.log(event);
+    this.onChange.emit(this.options[event.target.value]);
   }
 
 }

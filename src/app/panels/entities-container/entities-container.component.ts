@@ -34,6 +34,11 @@ export class EntitiesContainerComponent implements OnInit {
   showFileFields: string[];
   isShowAllFiles = true;
 
+  hidePrimary = false;
+  hideSecondary = true;
+  hideOptional = true;
+  hideCustom = true;
+
   entities= ['Entity Name',
   'Registration Number',
   'Previous Name',
@@ -85,6 +90,7 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   doTask(event: any) {
+    //console.log('doTask');
     this.showHideTasks();
   }
 
@@ -103,7 +109,7 @@ export class EntitiesContainerComponent implements OnInit {
     //console.log(this.showPanelRight);
     this.hideTasks = !this.hideTasks;
     this.hidePosts = !this.hideTasks;
-    //this.showPanelRight = !this.hideTasks || !this.hidePosts;
+    this.showPanelRight = !this.hideTasks;
     // this.showHide_(0, doShow);
     // this.setPaneRowCount();
     //console.log(this.showPanelRight);
@@ -111,13 +117,14 @@ export class EntitiesContainerComponent implements OnInit {
   showHidePosts() {
     this.hidePosts = !this.hidePosts;
     this.hideTasks = !this.hidePosts;
+    this.showPanelRight = !this.hidePosts;
     //this.showPanelRight = !this.hideTasks || !this.hidePosts;
     // this.showHide_(0, doShow);
     // this.setPaneRowCount();
   }
 
   showHideFiles(attribute: string, doShow: boolean = null) {
-    console.log(this.isShowAllFiles);
+    //console.log(this.isShowAllFiles);
     this.showHide_(2, doShow);
     this.setPaneRowCount();
     if (attribute.length>0) this.showFileFields = [attribute];

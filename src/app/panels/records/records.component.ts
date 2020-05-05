@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Record } from '../../models/models';
+import { Record } from '../../models';
 
 @Component({
   selector: 'app-records',

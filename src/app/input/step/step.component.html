@@ -1,10 +1,10 @@
-
-<div class="panel panel-info" style="margin-bottom:10px;">
-  <div class="panel panel-heading nobottom less-padding" 
-  [hidden]="noHeader">
-    <a href="#" data-toggle="collapse" 
-    [attr.data-target]="'#step-' + stepNumber"
-    (click)="hideBody = !hideBody"
+<div class="panel panel-info" style="margin-bottom: 10px;">
+  <div class="panel panel-heading nobottom less-padding" [hidden]="noHeader">
+    <a
+      href="#"
+      data-toggle="collapse"
+      [attr.data-target]="'#step-' + stepNumber"
+      (click)="hideBody = !hideBody"
     >
       Step {{ stepNumber }}
     </a>
@@ -42,58 +42,65 @@
     </div>
   </div>
 
-  <div class="panel panel-body nobottom less-padding collapse in"
-    [class.in] = "!hideBody"
+  <div
+    class="panel panel-body nobottom less-padding collapse in"
+    [class.in]="!hideBody"
     id="{{ 'step-' + stepNumber }}"
-    >
-
+  >
     <!-- <app-input-text
     [title]="title"
     [value]="title"
     [showFlash] = "false"
   ></app-input-text> -->
 
-  <app-input-duo
-      [typeLeft] = "'text'"
-      [typeRight] = "'checkbox'"
+    <app-input-duo
+      [typeLeft]="'text'"
+      [typeRight]="'select'"
       [titleLeft]="'Title'"
-      [valueLeft]="'title'"
-      [titleRight]="'Is Done'"
-      [valueRight]="false"
-      [showFlashLeft] = "false"
-      [showFlashRight] = "false"
+      [valueLeft]="title"
+      [titleRight]="'Progress Status'"
+      [optionsRight]="['0: To Do', '1: Doing', '2: Done']"
+      [valueRight]="'0: To Do'"
+      [showFlashLeft]="false"
+      [showFlashRight]="false"
     ></app-input-duo>
 
     <app-input-duo
-      [typeLeft] = "'select'"
-      [typeRight] = "'select'"
+      [typeLeft]="'select'"
+      [typeRight]="'select'"
       [titleLeft]="'Task Type'"
       [optionsLeft]="['Appointment', 'Resignation', 'Rename', 'General']"
       [valueLeft]="'Appointment'"
       [titleRight]="'Assigned to'"
       [optionsRight]="['-General-', 'vlad', 'dean', 'sasha', 'ulrich']"
       [valueRight]="'-General-'"
-      [showFlashLeft] = "false"
-      [showFlashRight] = "false"
+      [showFlashLeft]="false"
+      [showFlashRight]="false"
     ></app-input-duo>
 
-    <app-input-textarea [title]="'Notes'" [placeholder]="'Description, instructions, status, etc.'" [showFlash]="false"></app-input-textarea>
+    <app-input-textarea
+      [title]="'Notes'"
+      [placeholder]="'Description, instructions, status, etc.'"
+      [showFlash]="false"
+      [showPaperclip]="true"
+      [showCD] = "true"
+    ></app-input-textarea>
 
     <app-input-duo
-      [typeLeft] = "'date'"
-      [typeRight] = "'date'"
+      [typeLeft]="'date'"
+      [typeRight]="'date'"
       [titleLeft]="'Creation Date'"
       [titleRight]="'Done Date'"
-      [showFlashLeft] = "false"
-      [showFlashRight] = "false"
+      [showFlashLeft]="false"
+      [showFlashRight]="false"
     ></app-input-duo>
     <app-input-duo
-      [typeLeft] = "'date'"
-      [typeRight] = "'date'"
+      [typeLeft]="'date'"
+      [typeRight]="'date'"
       [titleLeft]="'Check Progress Date'"
       [titleRight]="'Due Date'"
-      [showFlashLeft] = "false"
-      [showFlashRight] = "false"
+      [showFlashLeft]="false"
+      [showFlashRight]="false"
     ></app-input-duo>
 
     <app-input-schedule [title]="title"></app-input-schedule>

@@ -1,0 +1,39 @@
+<hr class="primary-color" style='height: 1px;margin:0px'>
+<div class="h4 text-primary" style="margin-top: 5px;">
+  <u>Custom Details</u>
+</div>
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'select'"
+  [titleLeft]="'Number of Custom fields'"
+  [optionsLeft]="[5,10, 20, 30, 40, 50]"
+  [valueLeft]="5"
+  [typeRight]="''"
+  (onChangeLeft)="doChangeCount($event)"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+>
+</app-input-duo>
+
+<div *ngFor="let e of elements; let i = index">
+  <app-input-duo
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [typeLeft]="'select'"
+    [titleLeft]="'Custom ' + (i + 1) + ': Type'"
+    [optionsLeft]="['text', 'date', 'checkbox','textarea','person']"
+    [valueLeft]="'text'"
+    (onChangeLeft)="doChangeCustomType(i, $event)"
+
+    [typeRight]="elementsType[i]"
+    [titleRight]="'Custom ' + (i + 1) + ': Value'"
+    [optionsRight]="persons"
+    [valueRight] = "persons[0]"
+    
+    (onFile)="doFile($event)"
+    (onRecord)="doRecord($event)"
+    (onTask)="doTask($event)"
+  ></app-input-duo>
+</div>

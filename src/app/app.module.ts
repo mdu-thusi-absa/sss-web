@@ -40,6 +40,11 @@ import { EntityTasksComponent } from './panels/entity-tasks/entity-tasks.compone
 import { EntityTaskComponent } from './panels/entity-task/entity-task.component';
 import { InputScheduleComponent } from './input/input-schedule/input-schedule.component';
 import { InputSelectCheckboxComponent } from './input/input-select-checkbox/input-select-checkbox.component';
+import { InputSelectTextComponent } from './input/input-select-text/input-select-text.component';
+import { EntityDetailsCompanyPrimaryComponent } from './panels/entity-details-company-primary/entity-details-company-primary.component';
+import { EntityDetailsCompanySecondaryComponent } from './panels/entity-details-company-secondary/entity-details-company-secondary.component';
+import { EntityDetailsCustomComponent } from './panels/entity-details-custom/entity-details-custom.component';
+import { EntityDetailsCompanyOptionalComponent } from './panels/entity-details-company-optional/entity-details-company-optional.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +80,12 @@ import { InputSelectCheckboxComponent } from './input/input-select-checkbox/inpu
     EntityTasksComponent,
     EntityTaskComponent,
     InputScheduleComponent,
-    InputSelectCheckboxComponent
+    InputSelectCheckboxComponent,
+    InputSelectTextComponent,
+    EntityDetailsCompanyPrimaryComponent,
+    EntityDetailsCompanySecondaryComponent,
+    EntityDetailsCustomComponent,
+    EntityDetailsCompanyOptionalComponent
   ],
   imports: [
     BrowserModule,

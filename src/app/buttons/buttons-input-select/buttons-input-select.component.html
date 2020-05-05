@@ -1,8 +1,8 @@
-<div class="btn-group pull-right" style="min-width: 100px;">
-  <div>
+<div class="btn-group pull-right" [style.width]="filterInputTotalWidth()">
+  <div class="pull-right">
     <a
       href="#"
-      class="btn btn-primary primary-color btn-xs"
+      class="btn btn-primary primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"
       ><span
         class="glyphicon glyphicon-filter"
@@ -13,47 +13,76 @@
     ></a>
 
     <a
+      *ngIf="showCancel"
       href="#"
-      class="btn btn-primary primary-color btn-xs"
-      (click)="showEdit()"
+      class="btn btn-primary primary-color-reverse btn-xs"
+      (click)="doEdit()"
       ><span
-        class="glyphicon"
-        [class.glyphicon-remove]="isDoInput"
-        [class.glyphicon-pencil]="!isDoInput"
+        class="glyphicon glyphicon-remove"
         data-toggle="tooltip"
         data-placement="bottom"
-        [title]="isDoInput ? 'Cancel changes' : 'Edit the selected item'"
+        [title]="'Cancel the changes'"
+      ></span
+    ></a>
+
+    <a
+      *ngIf="showEdit"
+      href="#"
+      class="btn btn-primary primary-color-reverse btn-xs"
+      (click)="doEdit()"
+      ><span
+        class="glyphicon glyphicon-pencil"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        [title]="'Edit the selected item'"
       ></span
     ></a>
     <a
+      *ngIf="showSave"
       href="#"
-      class="btn btn-primary primary-color btn-xs"
+      class="btn btn-primary primary-color-reverse btn-xs"
       (click)="showNew()"
     >
       <span
-        class="glyphicon"
-        [class.glyphicon-cloud-upload]="isDoInput"
-        [class.glyphicon-plus]="!isDoInput"
+        class="glyphicon glyphicon-cloud-upload"
         data-toggle="tooltip"
         data-placement="bottom"
-        [title]="isDoInput ? 'Save changes' : 'Add an item to the list'"
+        [title]="'Save'"
+      ></span>
+    </a>
+
+    <a
+      *ngIf="showAdd"
+      href="#"
+      class="btn btn-primary primary-color-reverse btn-xs"
+      (click)="showNew()"
+    >
+      <span
+        class="glyphicon glyphicon-plus"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        [title]="'Add an item to the list'"
       ></span>
     </a>
     <a
+      *ngIf="showDelete"
       href="#"
-      class="btn btn-primary primary-color btn-xs"
+      class="btn btn-primary primary-color-reverse btn-xs"
       (click)="deleteItem()"
     >
       <span
-        class="glyphicon"
-        [class.glyphicon-minus]="true"
+        class="glyphicon glyphicon-minus"
         data-toggle="tooltip"
         data-placement="bottom"
         title="Delete the selected item"
       ></span>
     </a>
 
-    <a *ngIf="showFlash" href="#" class="btn btn-primary primary-color btn-xs">
+    <a
+      *ngIf="showFlash"
+      href="#"
+      class="btn btn-primary primary-color-reverse btn-xs"
+    >
       <span
         class="glyphicon"
         [class.glyphicon-flash]="true"
@@ -67,7 +96,7 @@
     <a
       *ngIf="showPaperclip"
       href="#"
-      class="btn btn-primary primary-color btn-xs"
+      class="btn btn-primary primary-color-reverse btn-xs"
       (click)="doFile()"
     >
       <span
@@ -81,7 +110,7 @@
     <a
       *ngIf="showCD"
       href="#"
-      class="btn btn-primary primary-color btn-xs"
+      class="btn btn-primary primary-color-reverse btn-xs"
       (click)="doRecord()"
     >
       <span
@@ -93,12 +122,28 @@
       ></span>
     </a>
   </div>
-  <div [hidden] = "!isFilter">
-    <input class="form-control" 
-      style="width: 148px; height: 20px;" 
-      [(ngModel)]="filterText"
-      (keyup)="onKey($event)" 
-      (focusout) = "this.showHideFilterInput();"
-      #inputFilter/>
+  <div class="pull-right" [hidden]="!isFilter">
+    <div class="input-group">
+      <span
+        class="input-group-addon progress-bar-default"
+        style="padding-top: 2px; padding-bottom: 2px;"
+        title="Number of items"
+        ><small>
+          {{ countItemsSelected == -1 ? "" : countItemsSelected + ":" }}
+          {{ countItems }}</small
+        >
+      </span>
+      <input
+        class="form-control"
+        style="height: 20px;"
+        [style.width]="filterInputWidth()"
+        [(ngModel)]="filterText"
+        (keyup)="onKey($event)"
+        (focusout)="lostFocus()"
+        #inputFilter
+      />
+
+      
+    </div>
   </div>
 </div>

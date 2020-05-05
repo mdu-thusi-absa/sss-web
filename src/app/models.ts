@@ -145,13 +145,17 @@ export class FileDoc_Use{
 }
 
 export class Person{
-  surname = ''; firstName = ''; suffix = '';
-  constructor(surname: string, firstName: string, suffix: string){
-    this.surname = surname; this.firstName = firstName; this.suffix = suffix;
+  //surname = ''; firstName = ''; suffix = '';
+  constructor(public surname: string, public firstName: string, public suffix: string){
+    // this.surname = surname; this.firstName = firstName; this.suffix = suffix;
   }
 
   get fullName(){
     return this.surname + ', ' + this.firstName + ' - ' + this.suffix;
   }
   
+}
+
+export class CustomField{
+  constructor(name: string, type: string, value: any){}
 }

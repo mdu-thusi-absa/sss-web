@@ -1,12 +1,12 @@
 <div
   class="form-group input-group-sm nobottom"
   [hidden]="hideByFilter()"
-  style="margin-top: 5px; margin-right: 1px;"
+  style="margin-top: 5px; margin-right: 1px;margin-bottom: 5px;"
 >
   <div class="input-group-sm" style="display: block;">
-    <label class="nobottom text-primary label-buttons-7">{{ title }}</label>
+    <label class="nobottom text-primary label-buttons-7">{{ title }} </label>
 
-    <app-buttons-input-select
+    <!-- <app-buttons-input-select
       [title]="title"
       (onEdit)="showEdit()"
       (onAdd)="showNew()"
@@ -21,10 +21,32 @@
       [showFilter]="true"
       (onFilter)="doFilter($event)"
       (onShowingFilter) = "showingFilter($event)"
+    ></app-buttons-input-select> -->
+
+    <app-buttons-input-select
+      [title]="title"
+      [isDoInput]="isDoInput"
+      [showAdd]="true"
+      [showEdit]="false"
+      [showDelete]="false"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showFilter]="true"
+      [showCancel]="false"
+      [showSave]="false"
+      [countItems]="countItems()"
+      [countItemsSelected]="countSelected()"
+      (onAdd)="showNew()"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      (onFilter)="doFilter($event)"
+      (onShowingFilter)="showingFilter($event)"
     ></app-buttons-input-select>
   </div>
 
-  <div class="input-group-sm" [hidden]="!isDoInput">
+  <!-- <div class="input-group-sm" [hidden]="!isDoInput">
     <input
       type="text"
       class="form-control"
@@ -33,15 +55,25 @@
       name="text"
       [(ngModel)]="text"
     />
-  </div>
-  <br [hidden] = "!isShowingFilter" />
+  </div> -->
+
+  <app-input-select-text
+      [isDoInput]="isDoInput"
+      [showSave]="true"
+      [showCancel]="true"
+      [text]="text"
+      (onSave)="doSave($event)"
+      (onCancel)="doCancel()"
+    ></app-input-select-text>
+
+  <br [hidden]="!isShowingFilter" />
   <!-- <div style="display:block;height:0px;max-height:0px"></div> -->
 
   <div style="display: block; width: 100%;">
     <div class="input-group-sm">
       <ul
         class="list-group"
-        style="margin-bottom: 0px; overflow-y: auto; max-height: 100px;"
+        style="margin-bottom: 0px; overflow-y: auto; max-height: 90px;"
       >
         <div *ngFor="let e of options; let i = index" [hidden]="hideItem(e)">
           <li
@@ -58,12 +90,35 @@
               ><input
                 type="checkbox"
                 [value]="i"
-                [checked]="i == option"
+                [checked]="selectedItems.indexOf(i)>-1"
+                (change)="doCheckField($event)"
               /><span
                 style="padding-top: 0px; margin-top: 10px; font-weight: bold;"
-                >&nbsp;{{ e }}</span
+                >&nbsp;{{  e }}</span
               ></label
             >
+            <a
+              href="#"
+              class="btn btn-default btn-xs pull-right"
+              (click)="doEdit(i)"
+              ><span
+                class="glyphicon glyphicon-pencil"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="'Edit the ' + e"
+              ></span
+            ></a>
+            <a
+              href="#"
+              class="btn btn-default btn-xs pull-right"
+              (click)="doDelete(i)"
+              ><span
+                class="glyphicon glyphicon-minus"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="'Delete ' + e"
+              ></span
+            ></a>
           </li>
         </div>
       </ul>

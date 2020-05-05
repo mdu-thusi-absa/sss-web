@@ -10,11 +10,14 @@
         [disabled]="disabledLeft"
         [value]="valueLeft"
         (onFile)="doFileLeft()"
-        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
-        [showFlash] = "showFlashLeft"
-        [showPaperclip] = "showPaperclipLeft"
-        [showCD] = "showCDLeft"
+        (onRecord)="doRecordLeft()"
+        (onTask)="doTaskLeft()"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
       ></app-input-text>
+
+      <app-input-textarea *ngIf="typeLeft == 'textarea'"> </app-input-textarea>
 
       <app-input-checkbox
         *ngIf="typeLeft == 'checkbox'"
@@ -24,26 +27,28 @@
         [disabled]="disabledLeft"
         [value]="valueLeft"
         (onFile)="doFileLeft()"
-        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
-        [showFlash] = "showFlashLeft"
-        [showPaperclip] = "showPaperclipLeft"
-        [showCD] = "showCDLeft"
+        (onRecord)="doRecordLeft()"
+        (onTask)="doTaskLeft()"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
       ></app-input-checkbox>
 
-      <app-input-date 
+      <app-input-date
         *ngIf="typeLeft == 'date'"
-        [title]="titleLeft" 
-        [filterText] = "filterText"
+        [title]="titleLeft"
+        [filterText]="filterText"
         [doHideByFilter]="true"
         [placeholder]="placeholderLeft"
         [disabled]="disabledLeft"
-        [value] = 'valueLeft'
+        [value]="valueLeft"
         (onFile)="doFileLeft()"
-        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
-        [showFlash] = "showFlashLeft"
-        [showPaperclip] = "showPaperclipLeft"
-        [showCD] = "showCDLeft"
-        ></app-input-date>
+        (onRecord)="doRecordLeft()"
+        (onTask)="doTaskLeft()"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
+      ></app-input-date>
 
       <app-input-select
         *ngIf="typeLeft == 'select'"
@@ -52,11 +57,13 @@
         [title]="titleLeft"
         [value]="valueLeft"
         [options]="optionsLeft"
+        (onChange)="doChangeLeft($event)"
         (onFile)="doFileLeft()"
-        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
-        [showFlash] = "showFlashLeft"
-        [showPaperclip] = "showPaperclipLeft"
-        [showCD] = "showCDLeft"
+        (onRecord)="doRecordLeft()"
+        (onTask)="doTaskLeft()"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
       ></app-input-select>
 
       <app-input-select-checkbox
@@ -67,10 +74,11 @@
         [value]="valueLeft"
         [options]="optionsLeft"
         (onFile)="doFileLeft()"
-        (onRecord)="doRecordLeft()" (onTask)="doTaskLeft()" 
-        [showFlash] = "showFlashLeft"
-        [showPaperclip] = "showPaperclipLeft"
-        [showCD] = "showCDLeft"
+        (onRecord)="doRecordLeft()"
+        (onTask)="doTaskLeft()"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
       ></app-input-select-checkbox>
 
       <app-input-person
@@ -82,9 +90,9 @@
         [options]="optionsLeft"
         (onFile)="doFileLeft()"
         (onRecord)="doRecordLeft()"
-        [showFlash] = "showFlashLeft"
-        [showPaperclip] = "showPaperclipLeft"
-        [showCD] = "showCDLeft"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
       ></app-input-person>
     </div>
 
@@ -97,11 +105,15 @@
         [placeholder]="placeholderRight"
         [disabled]="disabledRight"
         (onFile)="doFileRight()"
-        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
-        [showFlash] = "showFlashRight"
-        [showPaperclip] = "showPaperclipRight"
-        [showCD] = "showCDRight"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        [showFlash]="showFlashRight"
+        [showPaperclip]="showPaperclipRight"
+        [showCD]="showCDRight"
       ></app-input-text>
+
+      <app-input-textarea *ngIf="typeRight == 'textarea'" [title]="titleRight">
+      </app-input-textarea>
 
       <app-input-checkbox
         *ngIf="typeRight == 'checkbox'"
@@ -111,10 +123,11 @@
         [disabled]="disabledRight"
         [value]="valueRight"
         (onFile)="doFileRight()"
-        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
-        [showFlash] = "showFlashRight"
-        [showPaperclip] = "showPaperclipRight"
-        [showCD] = "showCDRight"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        [showFlash]="showFlashRight"
+        [showPaperclip]="showPaperclipRight"
+        [showCD]="showCDRight"
       ></app-input-checkbox>
 
       <app-input-date
@@ -125,10 +138,11 @@
         [placeholder]="placeholderRight"
         [value]="valueRight"
         (onFile)="doFileRight()"
-        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
-        [showFlash] = "showFlashRight"
-        [showPaperclip] = "showPaperclipRight"
-        [showCD] = "showCDRight"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        [showFlash]="showFlashRight"
+        [showPaperclip]="showPaperclipRight"
+        [showCD]="showCDRight"
       ></app-input-date>
 
       <app-input-select
@@ -138,11 +152,13 @@
         [title]="titleRight"
         [value]="valueRight"
         [options]="optionsRight"
+        (onChange)="doChangeRight($event)"
         (onFile)="doFileRight()"
-        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
-        [showFlash] = "showFlashRight"
-        [showPaperclip] = "showPaperclipRight"
-        [showCD] = "showCDRight"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        [showFlash]="showFlashRight"
+        [showPaperclip]="showPaperclipRight"
+        [showCD]="showCDRight"
       ></app-input-select>
 
       <app-input-select-checkbox
@@ -153,10 +169,11 @@
         [value]="valueRight"
         [options]="optionsRight"
         (onFile)="doFileRight()"
-        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
-        [showFlash] = "showFlashRight"
-        [showPaperclip] = "showPaperclipRight"
-        [showCD] = "showCDRight"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        [showFlash]="showFlashRight"
+        [showPaperclip]="showPaperclipRight"
+        [showCD]="showCDRight"
       ></app-input-select-checkbox>
 
       <app-input-person
@@ -167,12 +184,12 @@
         [value]="valueRight"
         [options]="optionsRight"
         (onFile)="doFileRight()"
-        (onRecord)="doRecordRight()" (onTask)="doTaskRight()" 
-        [showFlash] = "showFlashRight"
-        [showPaperclip] = "showPaperclipRight"
-        [showCD] = "showCDRight"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        [showFlash]="showFlashRight"
+        [showPaperclip]="showPaperclipRight"
+        [showCD]="showCDRight"
       ></app-input-person>
-
     </div>
   </div>
 </div>

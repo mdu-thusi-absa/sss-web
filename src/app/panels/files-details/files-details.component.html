@@ -173,7 +173,7 @@
     <tbody>
       <ng-container *ngFor="let d of data; let i = index">
         <ng-container *ngIf="showDataRow(d[4]) && showIfInFilter(d)">
-          <tr style="border-bottom: none;">
+          <tr style="border-bottom: 1px solid black;">
             <td
               class="info"
               style="
@@ -189,21 +189,35 @@
             >
               <input style="padding-bottom: 0px;" type="checkbox" value="" />
             </td>
-            <td
+            <!-- <td
               class="info"
-              [attr.colspan]="colspanFile"
               style="
                 vertical-align: middle;
-                position: sticky;
-                z-index: 990;
                 border-bottom: none;
                 border-left: none;
-                left:0px
+                position: sticky;
+                z-index: 990;
+                border-bottom: none
               "
               [style.left]="colLeft0"
+              [attr.colspan]="colspanFile"
             >
-              <!-- file name: <a href="#" class="btn btn-primary primary-color btn-xs">@ </a> -->
-              <a href="#" style="vertical-align: middle;"> {{ d[2] }}</a>
+              <a href="#" style="vertical-align: middle;border-bottom: none"> {{ d[2] }}</a>
+            </td> -->
+
+            <td
+              class="info"
+              style="
+                vertical-align: middle;
+                border-bottom: none;
+                border-left: none;
+                position: sticky;
+                z-index: 990;
+              "
+              [style.left]="colLeft0"
+              [attr.colspan]="colspanFile"
+            >
+              <a href="#" >{{ d[2] }}</a>
             </td>
 
             <td
@@ -236,7 +250,7 @@
 
             <td
               *ngFor="let f of showFileFields"
-              style="padding-bottom: 0px; border-bottom: none;"
+              style="padding-bottom: 0px; border-bottom: none"
             >
               <input
                 style="padding-bottom: 0px;"

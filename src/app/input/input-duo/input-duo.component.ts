@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { InputTextComponent } from '../input-text/input-text.component';
-import { Person } from '../../models/models'
+import { Person } from '../../models'
 
 @Component({
   selector: 'app-input-duo',
@@ -29,6 +29,8 @@ export class InputDuoComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  @Output() onChangeLeft = new EventEmitter();
+  @Output() onChangeRight = new EventEmitter();
 
   @Input() showFlashLeft = true;
   @Input() showFlashRight = true;
@@ -68,6 +70,15 @@ export class InputDuoComponent implements OnInit {
   }
 
   doTaskRight(){
+    //console.log('doTaskRight')
     this.onTask.emit(this.titleRight);
+  }
+
+  doChangeLeft(event: any){
+    //console.log(event);
+    this.onChangeLeft.emit(event);
+  }
+  doChangeRight(event: any){
+    this.onChangeRight.emit(event);
   }
 }

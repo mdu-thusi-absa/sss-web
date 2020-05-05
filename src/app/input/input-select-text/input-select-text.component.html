@@ -1,0 +1,30 @@
+<div [hidden]="!isDoInput">
+  <div class="input-group input-group-sm">
+    <input
+      type="text"
+      class="form-control"
+      placeholder=""
+      #inputText
+      name="text"
+      [(ngModel)]="text"
+      (keyup)="onKey($event)"
+      autocomplete="nope"
+    />
+    <span
+      *ngIf="showSave"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doSave()"
+      [title]="'Save'"
+    >
+      <span class="glyphicon glyphicon-cloud-upload"></span>
+    </span>
+    <span
+      *ngIf="showCancel"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doCancel()"
+      [title]="'Save'"
+    >
+      <span class="glyphicon glyphicon-remove"></span>
+    </span>
+  </div>
+</div>

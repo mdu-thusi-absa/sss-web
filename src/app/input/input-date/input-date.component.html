@@ -1,12 +1,12 @@
 <div [hidden]="hideByFilter()">
-  <div style="margin-top: 5px; margin-right: 0px;" >
+  <div style="margin-top: 5px; margin-right: 0px;">
     <app-buttons-input-text
       (onFile)="doFile()"
       (onRecord)="doRecord()"
       (onTask)="doTask()"
-      [showFlash] = "showFlash"
-      [showPaperclip] = "showPaperclip"
-      [showCD] = "showCD"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
     ></app-buttons-input-text>
     <label class="nobottom text-primary label-buttons-3">{{ title }}</label>
 
@@ -28,13 +28,8 @@
         autocomplete="nope"
       />
 
-      <span
-        class="input-group-addon  "
-        (click)="dpDate.toggle()"
-      >
-        <span class="glyphicon glyphicon-calendar primary-color-reverse"
-          
-        ></span>
+      <span class="input-group-addon" (click)="dpDate.toggle()">
+        <span class="glyphicon glyphicon-calendar primary-color-reverse"></span>
       </span>
     </div>
   </div>

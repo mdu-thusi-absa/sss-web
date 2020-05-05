@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input-textarea',
@@ -13,10 +13,28 @@ export class InputTextareaComponent implements OnInit {
   @Input() noTitle = false;
   @Input() noButtons = false;
   @Input() showFlash = true;
+  @Input() showPaperclip = true;
+  @Input() showCD = true;
+
+  @Output() onTask = new EventEmitter();
+  @Output() onRecord = new EventEmitter();
+  @Output() onFile = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  doTask(){
+    this.onTask.emit(this.title);
+  }
+
+  doRecord(){
+    this.onRecord.emit(this.title);
+  }
+
+  doFile(){
+    this.onFile.emit(this.title);
   }
 
 }

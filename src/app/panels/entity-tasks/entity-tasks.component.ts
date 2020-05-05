@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Task, Step } from 'src/app/models/models';
+import { Task, Step } from 'src/app/models';
 
 @Component({
   selector: 'app-entity-tasks',

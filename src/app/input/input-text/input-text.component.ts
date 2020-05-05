@@ -29,7 +29,7 @@ export class InputTextComponent implements OnInit {
   }
 
   doTask(){
-    console.log('app-input-text: doTask');
+    //console.log('app-input-text: doTask');
     this.onTask.emit(this.title);
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Entity } from '../../models/models'
+import { Entity } from '../../models'
 
 
 @Component({

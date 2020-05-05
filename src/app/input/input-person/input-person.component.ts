@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Person } from '../../models/models';
+import { Person } from '../../models';
 
 @Component({
   selector: 'app-input-person',
@@ -27,11 +27,14 @@ export class InputPersonComponent implements OnInit {
   @Input() value = new Person('', '', '');
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
+  @Output() onTask = new EventEmitter();
   fullNames = [];
   isDoInput = false;
   option = '0';
   //text = '';
-  doAdd = false;
+  isAdd = false;
+  listFilterText = '';
+  isShowingFilter = false;
 
   @ViewChild('inputText') inputElement: ElementRef;
 
@@ -71,9 +74,9 @@ export class InputPersonComponent implements OnInit {
   }
 
   showEdit() {
-    console.log('edit')
-    this.doAdd = false;
-    console.log(this.option);
+    //console.log('edit')
+    this.isAdd = false;
+    //console.log(this.option);
     //this.text = this.options[+this.option].fullName;
     this.value = this.options[+this.option];
     if (!this.isDoInput) this.setFocus();
@@ -84,10 +87,10 @@ export class InputPersonComponent implements OnInit {
     //dubs as save button for edit and new
     if (this.isDoInput) {
       //save is pressed
-      if (this.doAdd) {
+      if (this.isAdd) {
         //save for a new item
         this.options.push(this.value);
-        this.doAdd = false;
+        this.isAdd = false;
       } else {
         //save for old item
         //console.log(this.option, this.text);
@@ -97,7 +100,7 @@ export class InputPersonComponent implements OnInit {
       this.setItem(this.value);
     } else {
       //new is clicked
-      this.doAdd = true;
+      this.isAdd = true;
       //this.text = '';
       this.value = new Person('','','');
       if (!this.isDoInput) this.setFocus();
@@ -119,4 +122,47 @@ export class InputPersonComponent implements OnInit {
     if (r) this.options.splice(+this.option, 1);
     this.option = '0';
   }
+
+  doFilter(event: any){
+    this.listFilterText = event.toLowerCase();
+  }
+
+  doTask() {
+    this.onTask.emit(this.title);
+  }
+
+  showingFilter(event:any){
+    this.isShowingFilter = event;
+    //console.log(this.isShowingFilter);
+  }
+
+  doDelete() {
+    let r = confirm('Are you sure you want to delete this person from the list?');
+    //console.log(r);
+    if (r) this.options.splice(+this.option, 1);
+    this.option = '0';
+  }
+
+  doEdit() {
+    // this.isAdd = false;
+    // console.log(this.option);
+    // this.text = this.options[+this.option];
+    // // if (!this.isDoInput) this.setFocus();
+    // this.isDoInput = !this.isDoInput;
+    this.showEdit();
+  }
+
+  doAdd(){
+    this.showNew()
+  }
+
+  doSave(){
+    //this.text = event;
+    this.showNew()
+  }
+
+  doCancel(){
+    this.isDoInput = false;
+  }
+
 }
