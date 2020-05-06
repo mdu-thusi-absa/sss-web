@@ -86,6 +86,7 @@ body {
 .container-panel-left-full{
   height: calc(100vh - 92px);
   overflow-y: hidden;
+  overflow-x: hidden;
   scrollbar-width: thin;
 }
 .container-panel-center-full{
@@ -97,6 +98,7 @@ body {
 .container-panel-left-half{
   height: calc(50vh - 74px);
   overflow-y: hidden;
+  overflow-x: hidden;
   scrollbar-width: thin;
 }
 .container-panel-center-half{
