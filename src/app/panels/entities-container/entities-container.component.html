@@ -6,11 +6,10 @@
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3">
-            
-              <small>
-                <span class="glyphicon glyphicon-home"></span
-                ><span class="hidden-xs hidden-sm">&nbsp;Entities</span></small
-              >
+            <small>
+              <span class="glyphicon glyphicon-home"></span
+              ><span class="hidden-xs hidden-sm">&nbsp;Entities</span></small
+            >
             <div class="btn-group pull-right">
               <!-- <a
                 href="#"
@@ -103,7 +102,10 @@
           [hidden]="hideHistory"
         >
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-cd"></span><small> Records</small>
+            <span class="glyphicon glyphicon-cd"></span
+            ><small
+              ><span class="hidden-xs hidden-sm">&nbsp;Records</span></small
+            >
             <div class="btn-group pull-right">
               <!-- <a href="#" class="btn btn-info btn-xs">
                 <span class="glyphicon glyphicon-refresh"></span>
@@ -135,7 +137,7 @@
             <app-records [panelRows]="panelRows"></app-records>
           </div>
           <div class="panel-footer mt3">
-          <small>Last refresh: 14:32</small>
+            <small>Last refresh: 14:32</small>
           </div>
         </div>
 
@@ -146,7 +148,7 @@
         >
           <div class="panel-heading mt3">
             <span class="glyphicon glyphicon-folder-open"></span>&nbsp;<small>
-              Doc Types</small
+              <span class="hidden-xs hidden-sm">&nbsp;Doc Types</span></small
             >
             <div class="btn-group pull-right">
               <!-- <a href="#" class="btn btn-info btn-xs">
@@ -190,8 +192,8 @@
               [showFileFields]="showFileFields"
             ></app-files-attributes>
           </div>
-          <div class="panel-footer mt3"><small>
-            Last refresh: 14:32</small>
+          <div class="panel-footer mt3">
+            <small> Last refresh: 14:32</small>
           </div>
         </div>
       </div>
@@ -199,7 +201,6 @@
       <div
         [class.hidden-xs]="showPanelRight"
         [class.col-xs-8]="!showPanelRight"
-
         [class.col-sm-5]="showPanelRight"
         [class.col-sm-10]="!showPanelRight"
       >
@@ -236,7 +237,9 @@
                     (change)="hidePrimary = !hidePrimary"
                   />
                   <span class="hidden-md hidden-lg"> 1</span>
-                  <span class="hidden-xs hidden-sm"> <small>Primary</small></span></label
+                  <span class="hidden-xs hidden-sm">
+                    <small>Primary</small></span
+                  ></label
                 >
                 &nbsp;
                 <label
@@ -254,7 +257,9 @@
                     (change)="hideSecondary = !hideSecondary"
                   />
                   <span class="hidden-md hidden-lg"> 2</span>
-                  <span class="hidden-xs hidden-sm"> <small>Secondary</small></span></label
+                  <span class="hidden-xs hidden-sm">
+                    <small>Secondary</small></span
+                  ></label
                 >&nbsp;
                 <label
                   style="
@@ -271,7 +276,9 @@
                     (change)="hideOptional = !hideOptional"
                   />
                   <span class="hidden-md hidden-lg"> 3</span>
-                  <span class="hidden-xs hidden-sm"> <small>Optional</small></span></label
+                  <span class="hidden-xs hidden-sm">
+                    <small>Optional</small></span
+                  ></label
                 >
                 &nbsp;
                 <label
@@ -289,7 +296,9 @@
                     (change)="hideCustom = !hideCustom"
                   />
                   <span class="hidden-md hidden-lg"> 4</span>
-                  <span class="hidden-xs hidden-sm"> <small>Custom</small></span>
+                  <span class="hidden-xs hidden-sm">
+                    <small>Custom</small></span
+                  >
                 </label>
               </div>
 
@@ -393,7 +402,9 @@
           >
             <app-record-details [panelRows]="panelRows"></app-record-details>
           </div>
-          <div class="panel-footer mt3"><small>2 details are not complete</small></div>
+          <div class="panel-footer mt3">
+            <small>2 details are not complete</small>
+          </div>
         </div>
 
         <!-- col 2: Files Detail -->
@@ -439,8 +450,12 @@
           </div>
           <div
             class="panel-body mt3"
-            [class.container-panel-center-half]="panelRows == 2 && !expandFilesDetail"
-            [class.container-panel-center-full]="panelRows == 2 && expandFilesDetail"
+            [class.container-panel-center-half]="
+              panelRows == 2 && !expandFilesDetail
+            "
+            [class.container-panel-center-full]="
+              panelRows == 2 && expandFilesDetail
+            "
             style="overflow-y: hidden; overflow-x: auto;"
           >
             <app-files-details
@@ -452,23 +467,23 @@
         </div>
       </div>
       <!-- column 3: Articles -->
-      <div 
-      class="col-xs-8" 
-      [class.hidden-xs] = "!showPanelRight"
-      [hidden]="!showPanelRight"
-      [class.col-sm-5]="showPanelRight"
-      
+      <div
+        class="col-xs-8"
+        [class.hidden-xs]="!showPanelRight"
+        [hidden]="!showPanelRight"
+        [class.col-sm-5]="showPanelRight"
       >
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3">
-            <small><span
-              class="glyphicon"
-              [class.glyphicon-comment]="!hidePosts"
-              [class.glyphicon-flash]="!hideTasks"
-            ></span
-            >
-            <span class="hidden-xs hidden-sm">&nbsp;
-              {{ hidePosts ? "Tasks" : "Articles" }}
+            <small
+              ><span
+                class="glyphicon"
+                [class.glyphicon-comment]="!hidePosts"
+                [class.glyphicon-flash]="!hideTasks"
+              ></span>
+              <span class="hidden-xs hidden-sm"
+                >&nbsp;
+                {{ hidePosts ? "Tasks" : "Articles" }}
               </span>
             </small>
             <div class="btn-group pull-right">
@@ -520,7 +535,9 @@
           >
             <app-entity-tasks></app-entity-tasks>
           </div>
-          <div class="panel-footer mt3"><small>Last post: 3 days ago</small></div>
+          <div class="panel-footer mt3">
+            <small>Last post: 3 days ago</small>
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@
             border-bottom: none;
           "
           [style.left]="'0px'"
-          
         ></th>
         <th
           colspan="3"
@@ -24,53 +23,52 @@
             vertical-align: top;
             z-index: 995;
             border-bottom: none;
-            width:225px;
+            width: 225px;
             min-width: 225px;
             position: sticky;
             left: 25px;
-            padding-top:0px;
-            padding-bottom:0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
           "
         >
-        <div
-        class="checkbox pull-right"
-        style="
-          height: 20px;
-          margin-bottom: 0px;
-          margin-top: 5px;
-          vertical-align: middle;
-          z-index: 995;
-        "
-      >
-        <label
-          class="nobottom text-primary label-checkbox"
-          style="padding-right: 10px;"
-          ><input
-            type="checkbox"
-            value=""
-            (change)="doCheckField('when')"
-          /><span
-            style="padding-top: 10px; margin-top: 10px; font-weight: bold;"
-            >&nbsp;<small>When</small></span
-          ></label
-        >
-        <label class="nobottom text-primary label-checkbox"
-          ><input
-            type="checkbox"
-            value=""
-            (change)="doCheckField('who')"
-          /><span
-            style="padding-top: 10px; margin-top: 10px; font-weight: bold;"
-            >&nbsp;<small>Who</small></span
-          ></label
-        >
-      </div>
-      </th>
+          <div
+            class="checkbox pull-right"
+            style="
+              height: 20px;
+              margin-bottom: 0px;
+              margin-top: 5px;
+              vertical-align: middle;
+              z-index: 995;
+            "
+          >
+            <label
+              class="nobottom text-primary label-checkbox"
+              style="padding-right: 10px;"
+              ><input
+                type="checkbox"
+                value=""
+                (change)="doCheckField('when')"
+              /><span
+                style="padding-top: 10px; margin-top: 10px; font-weight: bold;"
+                >&nbsp;<small>When</small></span
+              ></label
+            >
+            <label class="nobottom text-primary label-checkbox"
+              ><input
+                type="checkbox"
+                value=""
+                (change)="doCheckField('who')"
+              /><span
+                style="padding-top: 10px; margin-top: 10px; font-weight: bold;"
+                >&nbsp;<small>Who</small></span
+              ></label
+            >
+          </div>
+        </th>
         <th
           rowspan="3"
           *ngFor="let f of showFileFields"
           style="vertical-align: text-top; width: 70px;"
-          
         >
           <small>{{ f }}</small>
         </th>
@@ -85,10 +83,10 @@
             z-index: 999;
             border-bottom: none;
             border-top: none;
-            left:0px;
-            top:25px;
-            padding-top:0px;
-            padding-bottom:0px;
+            left: 0px;
+            top: 25px;
+            padding-top: 0px;
+            padding-bottom: 0px;
           "
           #thRow1
         >
@@ -105,11 +103,10 @@
             [title]="'Doc'"
             [titlePlural]="'Docs'"
           ></app-input-filter-add>
-
         </th>
       </tr>
       <tr class="info">
-        <th
+        <!-- <th
           style="
             vertical-align: text-top;
             width: 25px;
@@ -122,7 +119,7 @@
             top: 55px
           "
           
-        ></th>
+        ></th> -->
         <th
           style="
             vertical-align: text-top;
@@ -130,10 +127,10 @@
             position: sticky;
             border-top: none;
             width: 100px;
-            top: 55px
+            top: 55px;
           "
-          [attr.colspan]="colspanFile"
-          [style.left]="colLeft0"
+          [attr.colspan]="colspanFile + 1"
+          [style.left]="'0px'"
         >
           <small>File Name</small>
         </th>
@@ -170,7 +167,7 @@
           [hidden]="hideWho"
           [style.left]="colLeft2"
         >
-      <small>Who</small>
+          <small>Who</small>
         </th>
       </tr>
     </thead>
@@ -186,8 +183,8 @@
                 border-bottom: none;
                 border-left: none;
                 width: 32px;
-                position:sticky;
-                left:0px;
+                position: sticky;
+                left: 0px;
                 z-index: 990;
               "
             >
@@ -221,7 +218,9 @@
               [style.left]="colLeft0"
               [attr.colspan]="colspanFile"
             >
-              <a href="#" ><small>{{ d[2] }}</small></a>
+              <a href="#"
+                ><small>{{ d[2] }}</small></a
+              >
             </td>
 
             <td
@@ -254,7 +253,7 @@
 
             <td
               *ngFor="let f of showFileFields"
-              style="padding-bottom: 0px; border-bottom: none"
+              style="padding-bottom: 0px; border-bottom: none;"
             >
               <input
                 style="padding-bottom: 0px;"
