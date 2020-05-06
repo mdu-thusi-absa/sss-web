@@ -20,8 +20,8 @@ export class FilesDetailsComponent implements OnInit {
   thTop = '67px';
   colWidth = 0;
   colLeft0 = "25px"
-  colLeft1 = "100px"; //"82.74px";
-  colLeft2 = "175px"; //"165.3px";
+  colLeft1 = "75px"; //"82.74px";
+  colLeft2 = "125px"; //"165.3px";
   isDirty = false;
   isAdd = false;
 
@@ -81,7 +81,7 @@ ngAfterContentInit (){
 
   data = [
     [
-      '1982/03/13',
+      '82/03/13',
       'vlad',
       'MOI.pdf',
       'Savings her pleased are several started females met.',
@@ -109,7 +109,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2020/02/27',
+      '20/02/27',
       'sasha',
       '‡.pdf',
       'Short her not among being any.',
@@ -128,7 +128,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2018/10/27',
+      '18/10/27',
       'dean',
       'q.pdf',
       'Thing of judge fruit charm views do.',
@@ -149,7 +149,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2017/05/27',
+      '17/05/27',
       'ulrich',
       '=.pdf',
       'Miles mr an forty along as he.',
@@ -170,7 +170,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2015/07/27',
+      '15/07/27',
       'dean',
       'q.pdf',
       'She education get middleton day agreement performed preserved unwilling.',
@@ -196,7 +196,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2014/07/27',
+      '14/07/27',
       'vlad',
       '.pdf',
       'Do however as pleased offence outward beloved by present.',
@@ -218,7 +218,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2014/12/27',
+      '14/12/27',
       'sasha',
       '.pdf',
       'By outward neither he so covered amiable greater.',
@@ -237,7 +237,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2014/12/27',
+      '14/12/27',
       'dean',
       'R.pdf',
       'Juvenile proposal betrayed he an informed weddings followed.',
@@ -262,7 +262,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2014/11/27',
+      '14/11/27',
       'ulrich',
       'E.pdf',
       'Precaution day see imprudence sympathize principles.',
@@ -285,7 +285,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2017/04/27',
+      '17/04/27',
       'dean',
       '“.pdf',
       'At full leaf give quit to in they up. ',
@@ -313,7 +313,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2014/06/27',
+      '14/06/27',
       'vlad',
       '.pdf',
       'Do in laughter securing smallest sensible no mr hastened.',
@@ -342,7 +342,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2018/10/27',
+      '18/10/27',
       'sasha',
       'B.pdf',
       'As perhaps proceed in in brandon of limited unknown greatly.',
@@ -366,7 +366,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2014/11/27',
+      '14/11/27',
       'dean',
       'š.pdf',
       'Distrusts fulfilled happiness unwilling as explained of difficult.',
@@ -388,7 +388,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2017/07/27',
+      '17/07/27',
       'ulrich',
       'Z.pdf',
       'No landlord of peculiar ladyship attended if contempt ecstatic.',
@@ -408,7 +408,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2015/09/27',
+      '15/09/27',
       'dean',
       'n.pdf',
       'Loud wish made on is am as hard.',
@@ -433,7 +433,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2012/04/27',
+      '12/04/27',
       'vlad',
       '….pdf',
       'Court so avoid in plate hence.',
@@ -457,7 +457,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2018/08/27',
+      '18/08/27',
       'sasha',
       'I.pdf',
       'Of received mr breeding concerns peculiar securing landlord.',
@@ -484,7 +484,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2013/02/27',
+      '13/02/27',
       'dean',
       'y.pdf',
       'Spot to many it four bred soon well to.',
@@ -513,7 +513,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2012/11/27',
+      '12/11/27',
       'ulrich',
       '˜.pdf',
       'Or am promotion in no departure abilities.',
@@ -537,7 +537,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2015/11/27',
+      '15/11/27',
       'dean',
       'o.pdf',
       'Whatever landlord yourself at by pleasure of children be. ',
@@ -560,7 +560,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2012/06/27',
+      '12/06/27',
       'vlad',
       'l.pdf',
       'Mind what no by kept.',
@@ -586,7 +586,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2020/01/27',
+      '20/01/27',
       'sasha',
       'L.pdf',
       'Celebrated no he decisively thoroughly.',
@@ -608,7 +608,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2020/01/27',
+      '20/01/27',
       'dean',
       '[.pdf',
       'Our asked sex point her she seems.',
@@ -630,7 +630,7 @@ ngAfterContentInit (){
       ],
     ],
     [
-      '2019/12/27',
+      '19/12/27',
       'ulrich',
       'C.pdf',
       'New plenty she horses parish design you.',

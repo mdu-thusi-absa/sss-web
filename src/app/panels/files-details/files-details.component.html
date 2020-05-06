@@ -23,8 +23,8 @@
             vertical-align: top;
             z-index: 995;
             border-bottom: none;
-            width: 225px;
-            min-width: 225px;
+            width: 150px;
+            min-width: 150px;
             position: sticky;
             left: 25px;
             padding-top: 0px;
@@ -78,7 +78,7 @@
           colspan="4"
           style="
             vertical-align: text-top;
-            width: 250px;
+            width: 150px;
             position: sticky;
             z-index: 999;
             border-bottom: none;
@@ -126,7 +126,7 @@
             z-index: 999;
             position: sticky;
             border-top: none;
-            width: 100px;
+            width: 50px;
             top: 55px;
           "
           [attr.colspan]="colspanFile + 1"
@@ -134,7 +134,6 @@
         >
           <small>File Name</small>
         </th>
-
         <th
           style="
             vertical-align: text-top;
@@ -148,11 +147,11 @@
           [hidden]="hideWhen"
         >
           <small>When</small>
-          <a href="#">
+          <!-- <a href="#">
             <span [class.dropup]="false">
               <span class="caret"></span>
             </span>
-          </a>
+          </a> -->
         </th>
         <th
           style="
@@ -235,7 +234,7 @@
               "
               [style.left]="hideWho ? colLeft2 : colLeft1"
             >
-              {{ d[0] }}
+              <small>{{ d[0] }}</small>
             </td>
             <td
               class="info"
@@ -248,7 +247,7 @@
               "
               [style.left]="colLeft2"
             >
-              {{ d[1] }}
+              <small>{{ d[1] }}</small>
             </td>
 
             <td
