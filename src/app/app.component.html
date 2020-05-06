@@ -34,9 +34,9 @@
       class="input-sm"
       [class.active]="rdoMenu == 'Legal Entities'"
     /><small>
-    <span class="glyphicon glyphicon-home"></span>
-    <span class="hidden-xs hidden-sm">&nbsp;
-    Entities</span></small>
+      <span class="glyphicon glyphicon-home"></span>
+      <span class="hidden-xs hidden-sm">&nbsp; Entities</span></small
+    >
   </label>
 
   <label
@@ -54,11 +54,11 @@
     />
     <small>
       <span class="glyphicon glyphicon-user"></span>
-      <span class="hidden-xs hidden-sm">&nbsp;
-      People</span></small>
+      <span class="hidden-xs hidden-sm">&nbsp; People</span></small
+    >
   </label>
 
-  <label
+  <!-- <label
     class="btn btn-primary"
     (click)="rdoMenu = 'Tasks'"
     [class.active]="rdoMenu == 'Tasks'"
@@ -75,7 +75,7 @@
       <span class="glyphicon glyphicon-flash"></span>
       <span class="hidden-xs hidden-sm">&nbsp;
       Tasks</span></small>
-  </label>
+  </label> -->
 
   <label
     class="btn btn-primary"
@@ -91,8 +91,8 @@
     />
     <small>
       <span class="glyphicon glyphicon-print"></span>
-      <span class="hidden-xs hidden-sm">&nbsp;
-      Reports</span></small>
+      <span class="hidden-xs hidden-sm">&nbsp; Reports</span></small
+    >
   </label>
 
   <label
@@ -109,11 +109,27 @@
     />
     <small>
       <span class="glyphicon glyphicon-cog"></span>
-      <span class="hidden-xs hidden-sm">&nbsp;
-      Admin</span>&nbsp;</small>
+      <span class="hidden-xs hidden-sm">&nbsp; Admin</span>&nbsp;</small
+    >
 
     <span class="caret"></span>
   </label>
+  <div [hidden]="isLogedIn">
+    <a href="#" class="btn btn-primary" (click)="login()">
+      <small>
+        <span class="glyphicon glyphicon-log-in"></span>
+        <span class="hidden-xs hidden-sm">&nbsp; Log in</span>&nbsp;</small
+      >
+    </a>
+  </div>
+  <div [hidden]="!isLogedIn">
+    <a href="#" class="btn btn-primary" (click)="logout()">
+      <small>
+        <span class="glyphicon glyphicon-log-out"></span>
+        <span class="hidden-xs hidden-sm">&nbsp; Log Out</span>&nbsp;</small
+      >
+    </a>
+  </div>
 </div>
 
 <app-entities-container></app-entities-container>

@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -46,6 +47,7 @@ import { EntityDetailsCompanySecondaryComponent } from './panels/entity-details-
 import { EntityDetailsCustomComponent } from './panels/entity-details-custom/entity-details-custom.component';
 import { EntityDetailsCompanyOptionalComponent } from './panels/entity-details-company-optional/entity-details-company-optional.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,13 +87,16 @@ import { EntityDetailsCompanyOptionalComponent } from './panels/entity-details-c
     EntityDetailsCompanyPrimaryComponent,
     EntityDetailsCompanySecondaryComponent,
     EntityDetailsCustomComponent,
-    EntityDetailsCompanyOptionalComponent
+    EntityDetailsCompanyOptionalComponent,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
