@@ -60,52 +60,50 @@ body {
   } */
 
 /*main content of entities in full screen*/
-.panel-body-full {
+/* .panel-body-full {
   height: calc(100vh - 93px);
   overflow-y: hidden;
   scrollbar-width: thin;
-}
+} */
 
-.entities-detail-full{
-  height: calc(100vh - 93px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-}
-
-.entities-detail-half{
-  height: calc(50vh - 72px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-}
-
-.container-panel-right{
+/* .entities-detail-full{
   height: calc(100vh - 91px);
   overflow-y: hidden;
   scrollbar-width: thin;
-}
+} */
 
+/* .entities-detail-half{
+  height: calc(50vh - 72px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+} */
+
+.container-panel-right{
+  height: calc(100vh - 92px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
 .container-panel-left-full{
-  height: calc(100vh - 93px);
+  height: calc(100vh - 92px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
-.container-panel-left-half{
-  height: calc(50vh - 74px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-}
-
 .container-panel-center-full{
   height: calc(100vh - 93px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
-.container-panel-center-half{
+
+.container-panel-left-half{
   height: calc(50vh - 74px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
-
+.container-panel-center-half{
+  height: calc(50vh - 74.5px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
 
 .entities-detail-form-full{
   height: calc(100vh - 192px);
@@ -122,11 +120,11 @@ body {
 }
 
 /*for entities, tasks, records: halfs*/
-.panel-body-half {
+/* .panel-body-half {
   height: calc(100vh / 2 - 71.5px);
   overflow-y: auto;
   scrollbar-width: thin;
-}
+} */
 
 .entities-full {
   height: calc(100vh - 175px);

@@ -128,13 +128,14 @@
             </div>
           </div>
           <div
-            class="panel-body mt3 panel-body-full"
+            class="panel-body mt3"
+            [class.container-panel-left-full]="panelRows == 1"
             [class.container-panel-left-half]="panelRows == 2"
           >
             <app-records [panelRows]="panelRows"></app-records>
           </div>
           <div class="panel-footer mt3">
-            Last refresh: 14:32
+          <small>Last refresh: 14:32</small>
           </div>
         </div>
 
@@ -178,7 +179,8 @@
             </div>
           </div>
           <div
-            class="panel-body mt3 panel-body-full"
+            class="panel-body mt3"
+            [class.container-panel-left-full]="panelRows == 1"
             [class.container-panel-left-half]="panelRows == 2"
           >
             <app-files-attributes
@@ -188,8 +190,8 @@
               [showFileFields]="showFileFields"
             ></app-files-attributes>
           </div>
-          <div class="panel-footer mt3">
-            Last refresh: 14:32
+          <div class="panel-footer mt3"><small>
+            Last refresh: 14:32</small>
           </div>
         </div>
       </div>
@@ -233,7 +235,7 @@
                     [checked]="!hidePrimary"
                     (change)="hidePrimary = !hidePrimary"
                   />
-                  <span class="hidden-xs hidden-md hidden-lg"> 1</span>
+                  <span class="hidden-md hidden-lg"> 1</span>
                   <span class="hidden-xs hidden-sm"> <small>Primary</small></span></label
                 >
                 &nbsp;
@@ -251,7 +253,7 @@
                     [checked]="!hideSecondary"
                     (change)="hideSecondary = !hideSecondary"
                   />
-                  <span class="hidden-xs hidden-md hidden-lg"> 2</span>
+                  <span class="hidden-md hidden-lg"> 2</span>
                   <span class="hidden-xs hidden-sm"> <small>Secondary</small></span></label
                 >&nbsp;
                 <label
@@ -268,7 +270,7 @@
                     [checked]="!hideOptional"
                     (change)="hideOptional = !hideOptional"
                   />
-                  <span class="hidden-xs hidden-md hidden-lg"> 3</span>
+                  <span class="hidden-md hidden-lg"> 3</span>
                   <span class="hidden-xs hidden-sm"> <small>Optional</small></span></label
                 >
                 &nbsp;
@@ -286,7 +288,7 @@
                     [checked]="!hideCustom"
                     (change)="hideCustom = !hideCustom"
                   />
-                  <span class="hidden-xs hidden-md hidden-lg"> 4</span>
+                  <span class="hidden-md hidden-lg"> 4</span>
                   <span class="hidden-xs hidden-sm"> <small>Custom</small></span>
                 </label>
               </div>
@@ -380,7 +382,7 @@
             </div>
           </div>
           <div
-            class="panel-body mt3 panel-body-full"
+            class="panel-body mt3"
             [class.container-panel-center-half]="
               panelRows == 2 && !expandHistoryDetail
             "
@@ -391,7 +393,7 @@
           >
             <app-record-details [panelRows]="panelRows"></app-record-details>
           </div>
-          <div class="panel-footer mt3">2 details are not complete</div>
+          <div class="panel-footer mt3"><small>2 details are not complete</small></div>
         </div>
 
         <!-- col 2: Files Detail -->
@@ -436,9 +438,9 @@
             </div>
           </div>
           <div
-            class="panel-body mt3 panel-body-full"
-            [class.panel-body-half]="panelRows == 2 && !expandFilesDetail"
-            [class.panel-body-full]="panelRows == 2 && expandFilesDetail"
+            class="panel-body mt3"
+            [class.container-panel-center-half]="panelRows == 2 && !expandFilesDetail"
+            [class.container-panel-center-full]="panelRows == 2 && expandFilesDetail"
             style="overflow-y: hidden; overflow-x: auto;"
           >
             <app-files-details
@@ -446,7 +448,7 @@
               [showFileFields]="showFileFields"
             ></app-files-details>
           </div>
-          <div class="panel-footer mt3">2 new docs</div>
+          <div class="panel-footer mt3"><small>2 new docs</small></div>
         </div>
       </div>
       <!-- column 3: Articles -->
@@ -518,7 +520,7 @@
           >
             <app-entity-tasks></app-entity-tasks>
           </div>
-          <div class="panel-footer mt3">Last post: 3 days ago</div>
+          <div class="panel-footer mt3"><small>Last post: 3 days ago</small></div>
         </div>
       </div>
     </div>
