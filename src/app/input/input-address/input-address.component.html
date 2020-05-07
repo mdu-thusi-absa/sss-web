@@ -3,8 +3,10 @@
   style="margin-bottom: 5px; margin-top: 5px;"
   [hidden]="hideByFilter()"
 >
-  <div class="panel panel-heading panel-info nobottom less-padding"
-    style="vertical-align: middle;padding-bottom:0px">
+  <div
+    class="panel panel-heading panel-info nobottom less-padding"
+    style="vertical-align: middle; padding-bottom: 0px;"
+  >
     <a
       href="#"
       data-toggle="collapse"
@@ -16,7 +18,7 @@
         overflow: hidden;
       "
     >
-      {{ title }}
+      <small>{{ title }}</small>
     </a>
 
     <div
@@ -24,13 +26,13 @@
       [hidden]="!allowDefaultAddressOption"
     >
       <label class="checkbox-inline" style="padding-right: 8px;"
-        ><input type="checkbox" value="" />Default address</label
+        ><input type="checkbox" value="" /><small>Default address</small></label
       >
     </div>
 
     <div class="form-group pull-right nobottom" [hidden]="!allowCopyOption">
       <label class="checkbox-inline" style="padding-right: 8px;"
-        ><input type="checkbox" value="" />Copy from above</label
+        ><input type="checkbox" value="" /><small>Copy from above</small></label
       >
     </div>
   </div>
@@ -41,20 +43,40 @@
     id="{{ 'address-' + getID() }}"
     style="margin-top: 0px;"
   >
-    <app-input-textarea
-      [title]="'Address'"
-      [placeholder]="'Apartment, Building, Street, suburb'"
-    ></app-input-textarea>
+    <div class="container-flex">
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-textarea
+            [title]="'Address'"
+            [placeholder]="'Apartment, Building, Street, suburb'"
+            (onTask) = 'doTask()'
+            (onFile) = 'doFile()'
+            (onRecord) = 'doRecord()'
+            
+          ></app-input-textarea>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-select
+            [title]="'Country'"
+            [options]="countries"
+            [value]="'South Africa'"
+            [showFlash] = "false"
+            [showPaperclip] = "false"
+            [showCD] = "false"
+            (onChange) = 'doChange($event)'
+          ></app-input-select>
 
-    <app-input-duo
-      [typeLeft]="'select'"
-      [typeRight]="'select'"
-      [titleLeft]="'Country'"
-      [optionsLeft]="['USA', 'South Africa', 'Kenya']"
-      [valueLeft]="'South Africa'"
-      [titleRight]="'City'"
-      [optionsRight]="['Johannesburg', 'Pretoria', 'Cape Town', 'Durban']"
-      [valueRight]="'Cape Town'"
-    ></app-input-duo>
+          <app-input-select
+            [title]="'City'"
+            [options]="cities"
+            [value]="cities[0]"
+            [showFlash] = "false"
+            [showPaperclip] = "false"
+            [showCD] = "false"
+            >
+          </app-input-select>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

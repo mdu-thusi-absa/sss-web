@@ -159,3 +159,7 @@ export class Person{
 export class CustomField{
   constructor(name: string, type: string, value: any){}
 }
+
+export class CountryCities{
+  constructor(public name: string, public cities: string[]){}
+}

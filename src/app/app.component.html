@@ -22,7 +22,7 @@
   style="margin-left: 1px; margin-right: 1px; margin-bottom: 1px;"
 >
   <label
-    class="btn btn-primary"
+    class="btn"
     (click)="rdoMenu = 'Legal Entities'"
     [class.primary-color-active]="rdoMenu == 'Legal Entities'"
     [class.primary-color]="rdoMenu != 'Legal Entities'"
@@ -40,7 +40,7 @@
   </label>
 
   <label
-    class="btn btn-primary primary-color"
+    class="btn primary-color"
     (click)="rdoMenu = 'Natural Entities'"
     [class.primary-color-active]="rdoMenu == 'Natural Entities'"
     [class.primary-color]="rdoMenu != 'Natural Entities'"
@@ -78,7 +78,7 @@
   </label> -->
 
   <label
-    class="btn btn-primary"
+    class="btn"
     [class.primary-color-active]="rdoMenu == 'Reports'"
     [class.primary-color]="rdoMenu != 'Reports'"
     (click)="rdoMenu = 'Reports'"
@@ -96,7 +96,7 @@
   </label>
 
   <label
-    class="btn btn-primary"
+    class="btn"
     [class.primary-color-active]="rdoMenu == 'Admin'"
     [class.primary-color]="rdoMenu != 'Admin'"
     (click)="rdoMenu = 'Admin'"
@@ -115,7 +115,7 @@
     <span class="caret"></span>
   </label>
   <div [hidden]="isLogedIn">
-    <a href="#" class="btn btn-primary" (click)="login()">
+    <a href="#" class="btn primary-color" (click)="login()">
       <small>
         <span class="glyphicon glyphicon-log-in"></span>
         <span class="hidden-xs hidden-sm">&nbsp; Log in</span>&nbsp;</small
@@ -123,7 +123,7 @@
     </a>
   </div>
   <div [hidden]="!isLogedIn">
-    <a href="#" class="btn btn-primary" (click)="logout()">
+    <a href="#" class="btn primary-color" (click)="logout()">
       <small>
         <span class="glyphicon glyphicon-log-out"></span>
         <span class="hidden-xs hidden-sm">&nbsp; Log Out</span>&nbsp;</small

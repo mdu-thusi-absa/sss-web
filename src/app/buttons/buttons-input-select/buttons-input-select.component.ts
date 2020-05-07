@@ -113,32 +113,37 @@ export class ButtonsInputSelectComponent implements OnInit {
   }
 
   filterInputWidth() {
-    return (
+    let r =
       21.2 *
-      ((this.showFlash ? 1 : 0) +
-        (this.showPaperclip ? 1 : 0) +
-        (this.showCD ? 1 : 0) +
-        (this.showFilter ? 1 : 0) +
-        (this.showEdit ? 1 : 0) +
-        (this.showDelete ? 1 : 0) +
-        (this.showCancel ? 1 : 0) +
-        (this.showSave ? 1 : 0) +
-        (this.showAdd ? 1 : 0)) + 'px'
-    );
+        ((this.showFlash ? 1 : 0) +
+          (this.showPaperclip ? 1 : 0) +
+          (this.showCD ? 1 : 0) +
+          (this.showFilter ? 1 : 0) +
+          (this.showEdit ? 1 : 0) +
+          (this.showDelete ? 1 : 0) +
+          (this.showCancel ? 1 : 0) +
+          (this.showSave ? 1 : 0) +
+          (this.showAdd ? 1 : 0));
+
+    if (r < 50) r = 50; 
+    return r + 'px';
   }
 
   filterInputTotalWidth() {
-    return (
+    let r =
       21.2 *
-      ((this.showFlash ? 1 : 0) +
-        (this.showPaperclip ? 1 : 0) +
-        (this.showCD ? 1 : 0) +
-        (this.showFilter ? 1 : 0) +
-        (this.showEdit ? 1 : 0) +
-        (this.showDelete ? 1 : 0) +
-        (this.showCancel ? 1 : 0) +
-        (this.showSave ? 1 : 0) +
-        (this.showAdd ? 1 : 0)) + 30 + 'px'
-    );
+        ((this.showFlash ? 1 : 0) +
+          (this.showPaperclip ? 1 : 0) +
+          (this.showCD ? 1 : 0) +
+          (this.showFilter ? 1 : 0) +
+          (this.showEdit ? 1 : 0) +
+          (this.showDelete ? 1 : 0) +
+          (this.showCancel ? 1 : 0) +
+          (this.showSave ? 1 : 0) +
+          (this.showAdd ? 1 : 0)) +
+      30;
+
+    if (r < 80) r = 80; 
+    return r + 'px';
   }
 }

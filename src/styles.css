@@ -274,8 +274,7 @@ table > tbody > tr.info > td,
 .table > tfoot > tr.info > td,
 .table > tfoot > tr > td.info,
 .table > thead > tr.info > td,
-.table > thead > tr > td.info
- {
+.table > thead > tr > td.info {
   background-color: rgb(240, 50, 90); /*absa*/
   color: white;
 }
@@ -301,7 +300,7 @@ table > tbody > tr.info > td,
   background-color: rgb(240, 50, 90);
 } */
 
-.table-hover>tr>td:hover{
+.table-hover > tr > td:hover {
   background-color: white; /*absa*/
   color: white;
 }
@@ -310,11 +309,11 @@ table > tbody > tr.info > td,
 .table > thead > tr.info > th,
 .table > tbody > tr > th.info,
 .table > tbody > tr.info > th,
-.table > thead > tr > th.info{
+.table > thead > tr > th.info {
   background-color: rgb(220, 0, 50); /*absa*/
   color: white;
 }
-td.info>a{
+td.info > a {
   color: white;
 }
 
@@ -323,54 +322,90 @@ td.info>a{
 }
 
 .panel-primary > .panel-heading {
-  background-color: rgb(170,5,45);
+  background-color: rgb(170, 5, 45);
   color: white;
   border-color: rgb(150, 5, 4);
 }
 .panel-info > .panel-heading {
   /* background-color: rgb(240, 90, 120); */
-  background-color: rgb(175,20,75);
+  background-color: rgb(175, 20, 75);
   color: white;
   border-color: rgb(150, 5, 4);
 }
-.panel-.info>.panel-heading {
+.panel-.info > .panel-heading {
   color: white;
 }
-.btn-primary.active.focus {
-  /*background-color: rgb(150, 5, 4); /*absa*/
-  background-color: rgb(220,0,50);
+/* .btn:active{
+  color:pink;
+} */
+/*background-color: rgb(150, 5, 4); /*absa*/
+.btn-primary.active.focus,
+.btn-primary.active.focus:focus, 
+.btn-primary.focus,
+.btn-primary.active,
+.btn-primary.active:focus,
+.btn-primary:focus
+{
+  background-color: rgb(220, 0, 50);
   border-color: rgb(150, 5, 4);
 }
-.btn-primary.focus {
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: rgb(150, 5, 4);
-}
-.btn-primary.active {
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: rgb(150, 5, 4);
-}
-.btn-primary:active {
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: rgb(150, 5, 4);
-}
-.btn-primary.active:focus {
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: rgb(150, 5, 4);
-}
+/* .btn-primary.active:focus {
+  background-color: rgb(150, 5, 4); 
+  border-color: white;
+} */
 .btn-primary.active:hover {
-  background-color: rgb(220,0,50);
+  background-color: rgb(220, 0, 50);
   /* background-color: rgb(150, 5, 4); */
-  border-color: rgb(150, 5, 4);
+  border-color: white; 
+}
+.btn-primary.active:focus,
+.btn-primary.active.focus,
+.btn-primary.active.focus:focus {
+  background-color: rgb(150, 5, 4);
+  /* background-color: rgb(150, 5, 4); */
+  border-color: white; 
 }
 .btn-primary {
   background-color: rgb(220, 0, 50); /*absa*/
   border-color: rgb(150, 5, 4);
 }
 .btn-primary:hover {
-  background-color: rgb(220,0,50);
-  /* background-color: rgb(150, 5, 4); absa */
+  background-color: rgb(150, 5, 4);
+  /* border-color: rgb(150, 5, 4); */
+}
+.btn-primary:active,
+.btn-primary.active:focus
+.btn-primary.active.focus,
+.btn-primary.active.focus:focus {
+  background-color: rgb(150, 5, 4);
   border-color: rgb(150, 5, 4);
 }
+/* label.btn.btn-primary.active.focus,
+label.btn.btn-primary.active:focus,
+label.btn.btn-primary.active.focus:focus,
+label.btn.btn-primary:focus{
+  background-color: rgb(150, 5, 4);
+  border-color: rgb(150, 5, 4);
+} */
+/* .btn-primary:focus {
+  background-color: rgb(150, 5, 4);
+  border-color: white; 
+} */
+/* .btn:focus{
+  border-color: white;
+} */
+
+.btn.btn-primary.primary-color-active.active.focus{
+  background-color: rgb(150, 5, 4);
+  /* border-color: white; */
+}
+/* .btn:focus,.btn:active {
+  outline: none !important;
+  background-color: rgb(150, 5, 4) !important;
+  border-color: white !important;
+  box-shadow: none;
+} */
+
 .text-primary {
   /* color: rgb(240, 90, 120); */
   color: rgb(150, 5, 4);
@@ -379,31 +414,31 @@ td.info>a{
   background-color: rgb(240, 90, 120);
 }
 
-.panel{
-  border-color: rgb(240, 90, 120);;
+.panel {
+  border-color: rgb(240, 90, 120);
 }
 
-.a > strong {
+/* .a > strong {
   color: blue;
   text-decoration: none;
   border-bottom: 1px solid white;
-}
+} */
 .panel-info > a > strong {
   color: white;
   text-decoration: none;
   border-bottom: 1px solid white;
 }
-.panel-info > a  {
+.panel-info > a {
   color: white;
   /* text-decoration: none;
   border-bottom: 1px solid white; */
 }
-.panel-info.panel-heading > a  {
+.panel-info.panel-heading > a {
   color: white;
   /* text-decoration: none;
   border-bottom: 1px solid white; */
 }
-.panel-info > label  {
+.panel-info > label {
   color: white;
 }
 .btn-info.active.focus,
@@ -422,13 +457,13 @@ td.info>a{
 .btn-info {
   color: #fff;
   background-color: rgb(240, 90, 120);
-  /* border-color: rgb(150, 5, 4); absa*/ 
+  /* border-color: rgb(150, 5, 4); absa*/
   border-color: white;
 }
 .btn-info:active {
   color: #fff;
   background-color: rgb(150, 5, 4); /*absa*/
-  border-color: white ; /*rgb(150, 5, 4); /*absa*/
+  border-color: white; /*rgb(150, 5, 4); /*absa*/
 }
 .btn-info.active:focus {
   color: #fff;
@@ -454,23 +489,59 @@ td.info>a{
   text-decoration: none;
 }
 
-.primary-color-active {
-  /* background-color: rgb(32, 77, 116); */
-  background-color: rgb(150, 5, 4); /*absa*/
+/* background-color: rgb(32, 77, 116); */
+.primary-color-active,
+.primary-color-active:active,
+.primary-color-active:focus,
+.primary-color-active.active,
+.primary-color-active.active:active,
+.primary-color-active.active:focus,
+.primary-color-active.active.focus,
+.primary-color-active.active.focus:active,
+.primary-color-active.active.focus:focus
+.primary-color-active.focus,
+.primary-color-active.focus:active,
+.primary-color-active.focus:focus
+ {
+  background-color: rgb(150, 5, 4);
+  border-color: white;
+  color: white;
+}
+.primary-color:focus,
+.primary-color.active:focus,
+.primary-color.active.focus,
+.primary-color.active.focus:focus{
+  background-color: rgb(150, 5, 4);
+  border-color: white;
   color: white;
 }
 
+
+/* color: rgb(51, 122, 183); original */
 .primary-color-reverse {
-  /* color: rgb(51, 122, 183); original */
-  color: rgb(220, 0, 50); /*absa*/
+  color: rgb(220, 0, 50); 
   background-color: white;
+  border-color: rgb(150, 5, 4);
 }
 
-.btn-primary.primary-color {
-  /* background-color: rgb(55, 130, 190); original */
-  background-color: rgb(220, 0, 50); /*absa*/
+/* background-color: rgb(55, 130, 190); original */
+/* .btn-primary.primary-color {
+  background-color: rgb(220, 0, 50); 
   color: white;
+} */
+/* .btn-primary.primary-color:active {
+  background-color: rgb(55, 130, 190); original 
+  /background-color: pink; 
+  border-color: white;
 }
+.btn-primary.primary-color-active.active,
+.btn-primary.primary-color-active.focus {
+  /* background-color: rgb(55, 130, 190); original 
+  /* background-color: pink; 
+  border-color: white;
+} */
+
+
 
 .info-color {
   /* background-color: rgb(81, 145, 201); */
@@ -655,7 +726,6 @@ input[type="checkbox"] {
   position: relative;
   top: 1px;
   *overflow: hidden;
-  
 }
 /* input[type="checkbox"]+label{
 background-color: rgba(0, 0, 0, 0);
