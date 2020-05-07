@@ -78,43 +78,43 @@ body {
   scrollbar-width: thin;
 } */
 
-.container-panel-right{
+.container-panel-right {
   height: calc(100vh - 92px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
-.container-panel-left-full{
+.container-panel-left-full {
   height: calc(100vh - 92px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
-.container-panel-center-full{
+.container-panel-center-full {
   height: calc(100vh - 93px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
 
-.container-panel-left-half{
+.container-panel-left-half {
   height: calc(50vh - 74px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
-.container-panel-center-half{
+.container-panel-center-half {
   height: calc(50vh - 74.5px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
 
-.entities-detail-form-full{
+.entities-detail-form-full {
   height: calc(100vh - 192px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 
-.entities-detail-form-half{
+.entities-detail-form-half {
   height: calc(50vh - 170px);
   overflow-y: auto;
   overflow-x: hidden;
@@ -208,8 +208,6 @@ body {
   border-bottom-width: 0;
 } */
 
-
-
 /* .records-full {
     height: calc(100vh - 120px);
     overflow-y: auto;
@@ -257,27 +255,214 @@ hr {
 }
 
 .primary-color {
-  background-color: rgb(51, 122, 183);
+  /* background-color: rgb(51, 122, 183); */
+  background-color: rgb(220, 0, 50); /*absa*/
+  color: white;
+  border-color: rgb(150, 5, 4);
+}
+/* lable{
+  border-color:  rgb(150,5,4);
+} */
+
+.table > tbody > tr.info > td,
+.table > tbody > tr.info > th {
+  background-color: rgb(240, 90, 120);
+  color: white;
+}
+table > tbody > tr.info > td,
+.table > tbody > tr > td.info,
+.table > tfoot > tr.info > td,
+.table > tfoot > tr > td.info,
+.table > thead > tr.info > td,
+.table > thead > tr > td.info
+ {
+  background-color: rgb(240, 50, 90); /*absa*/
+  color: white;
+}
+/* table > tbody > tr.info > td:hover,
+.table > tbody > tr > td.info:hover,
+.table > tfoot > tr.info > td:hover,
+.table > tfoot > tr > td.info:hover,
+.table > thead > tr.info > td:hover,
+.table > thead > tr > td.info:hover,
+.tr:hover
+ {
+  background-color: rgb(240, 50, 90); 
+  color: white;
+} */
+/* .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: rgb(240, 50, 90);
+} */
+
+/* .table-hover.info tbody.info tr.info:hover td.info, .table-hover tbody tr:hover th {
+  background-color: rgb(240, 50, 90);
+} */
+/* tr.info:hover{
+  background-color: rgb(240, 50, 90);
+} */
+
+.table-hover>tr>td:hover{
+  background-color: white; /*absa*/
+  color: white;
+}
+.table > tfoot > tr.info > th,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > th,
+.table > tbody > tr > th.info,
+.table > tbody > tr.info > th,
+.table > thead > tr > th.info{
+  background-color: rgb(220, 0, 50); /*absa*/
+  color: white;
+}
+td.info>a{
   color: white;
 }
 
-.primary-color-active { 
-  background-color: rgb(32, 77, 116);
+.table > tbody > tr.info > td > a {
+  color: white;
+}
+
+.panel-primary > .panel-heading {
+  background-color: rgb(170,5,45);
+  color: white;
+  border-color: rgb(150, 5, 4);
+}
+.panel-info > .panel-heading {
+  /* background-color: rgb(240, 90, 120); */
+  background-color: rgb(175,20,75);
+  color: white;
+  border-color: rgb(150, 5, 4);
+}
+.panel-.info>.panel-heading {
+  color: white;
+}
+.btn-primary.active.focus {
+  /*background-color: rgb(150, 5, 4); /*absa*/
+  background-color: rgb(220,0,50);
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary.focus {
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary.active {
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary:active {
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary.active:focus {
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary.active:hover {
+  background-color: rgb(220,0,50);
+  /* background-color: rgb(150, 5, 4); */
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary {
+  background-color: rgb(220, 0, 50); /*absa*/
+  border-color: rgb(150, 5, 4);
+}
+.btn-primary:hover {
+  background-color: rgb(220,0,50);
+  /* background-color: rgb(150, 5, 4); absa */
+  border-color: rgb(150, 5, 4);
+}
+.text-primary {
+  /* color: rgb(240, 90, 120); */
+  color: rgb(150, 5, 4);
+}
+.info {
+  background-color: rgb(240, 90, 120);
+}
+
+.a > strong {
+  color: white;
+}
+.panel-info > a > strong {
+  color: white;
+}
+.panel-info > a  {
+  color: white;
+}
+.panel-info.panel-heading > a  {
+  color: white;
+}
+.panel-info > label  {
+  color: white;
+}
+.btn-info.active.focus,
+.btn-info.active:focus,
+.btn-info.active:hover,
+.btn-info:active.focus,
+.btn-info:active:focus,
+.btn-info:active:hover,
+.open > .dropdown-toggle.btn-info.focus,
+.open > .dropdown-toggle.btn-info:focus,
+.open > .dropdown-toggle.btn-info:hover {
+  color: #fff;
+  background-color: rgb(240, 90, 120);
+  border-color: white; /*rgb(150, 5, 4); /*absa*/
+}
+.btn-info {
+  color: #fff;
+  background-color: rgb(240, 90, 120);
+  /* border-color: rgb(150, 5, 4); absa*/ 
+  border-color: white;
+}
+.btn-info:active {
+  color: #fff;
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: white ; /*rgb(150, 5, 4); /*absa*/
+}
+.btn-info.active:focus {
+  color: #fff;
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: white; /* rgb(150, 5, 4); /*absa*/
+}
+.btn-info:focus {
+  color: #fff;
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: white; /*rgb(150, 5, 4); /*absa*/
+}
+.btn-info:hover {
+  color: #fff;
+  background-color: rgb(150, 5, 4); /*absa*/
+  border-color: white; /* rgb(150, 5, 4); /*absa*/
+}
+.a {
+  color: white;
+  text-decoration: none;
+}
+.panel-info > div > a > strong {
+  color: white;
+  text-decoration: none;
+}
+
+.primary-color-active {
+  /* background-color: rgb(32, 77, 116); */
+  background-color: rgb(150, 5, 4); /*absa*/
   color: white;
 }
 
 .primary-color-reverse {
-  color: rgb(51, 122, 183);
+  /* color: rgb(51, 122, 183); original */
+  color: rgb(220, 0, 50); /*absa*/
   background-color: white;
 }
 
 .btn-primary.primary-color {
-  background-color: rgb(55, 130, 190);
+  /* background-color: rgb(55, 130, 190); original */
+  background-color: rgb(220, 0, 50); /*absa*/
   color: white;
 }
 
 .info-color {
-  background-color: rgb(81, 145, 201);
+  /* background-color: rgb(81, 145, 201); */
+  background-color: rgb(220, 0, 50); /*absa*/
   color: white;
 }
 
@@ -417,7 +602,6 @@ textarea {
   width: calc(100% - 153px);
 }
 
-
 /*checkbox sizes*/
 /* .checkbox-lg .custom-control-label::before, 
 .checkbox-lg .custom-control-label::after {
@@ -449,20 +633,26 @@ textarea {
   text-indent: 0px;
   font-weight: bold;
 }
-input[type=checkbox] {
+input[type="checkbox"] {
   width: 18px;
   height: 18px;
 
   padding: 0;
-  margin:0;
+  margin: 0;
   vertical-align: bottom;
   position: relative;
   top: 1px;
   *overflow: hidden;
+  
 }
+/* input[type="checkbox"]+label{
+background-color: rgba(0, 0, 0, 0);
+  color: white;
+} */
 
-.highlight{
-  background-color: blue;
+.highlight {
+  background-color: rgb(220, 0, 50); /*absa*/
+  /* background-color: blue; original*/
 }
 /* 
 .input-group-addon-xs{

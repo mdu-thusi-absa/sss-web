@@ -1,10 +1,11 @@
 <div class="panel panel-info" style="margin-bottom: 0px; margin-top: 5px;">
-  <div class="panel panel-heading nobottom less-padding" [hidden]="false">
+  <div class="panel panel-heading panel-info nobottom less-padding" [hidden]="false">
     <a
       href="#"
       data-toggle="collapse"
       [attr.data-target]="'#schedule-' + stepNumber"
       (click)="hideBody = !hideBody"
+      
     >
       Repeating schedule {{ title.length > 0 ? "for: " + title : "" }}
     </a>
