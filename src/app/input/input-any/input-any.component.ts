@@ -13,14 +13,15 @@ export class InputAnyComponent implements OnInit {
 
   @Input() title = '';
   @Input() placeholder = '';
-  @Input() options: string[] | Person[];
+  @Input() options: string[] | Person[] | CountryCities[];
   @Input() value: string | boolean | Person = '';
   @Input() disabled = false;
   @Input() maxValue = 1000;
   @Input() minValue = -1000;
   @Input() increment = 1;
   @Input() showTitleInput = true;
-  @Input() countriesCities: CountryCities[];
+  // @Input() countriesCities: CountryCities[];
+  // @Input() persons
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();

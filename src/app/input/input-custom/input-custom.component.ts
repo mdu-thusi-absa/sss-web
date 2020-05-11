@@ -12,6 +12,7 @@ export class InputCustomComponent implements OnInit {
   @Input() doHideByFilter = true;
   @Input() filterText = '';
   @Input() customType = 'text';
+  @Input() options: string[] 
   @Input() persons: Person[];
   @Input() countriesCities: CountryCities[];
 

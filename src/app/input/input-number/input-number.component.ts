@@ -13,8 +13,8 @@ export class InputNumberComponent implements OnInit {
   @Input() disabled = false;
   @Input() value = 0;
   @Input() increment = 1;
-  @Input() minValue = -1000;
-  @Input() maxValue = 1000;
+  @Input() minValue = 1;
+  @Input() maxValue = 100;
   @Input() showMinus = true;
   @Input() showPlus = true;
 
@@ -53,13 +53,24 @@ export class InputNumberComponent implements OnInit {
   }
 
   doChange(event: any) {
-    //console.log(event);
-    if (event>this.maxValue) this.value = this.maxValue;
-    else if (event<this.minValue) this.value = this.minValue;
-    else this.value = event;
+    console.log('e',event);
+    if (event>this.maxValue) {
+      this.value = this.maxValue;
+      //event.preventDefault();
+      //return false;
+    }
+    else if (event<this.minValue) {
+      this.value = this.minValue;
+      //event.preventDefault();
+      //return false;
+    }
+    else {
+      this.value = event;
+    }
     this.onChange.emit(this.value);
-    //console.log(this.value);
+    console.log('v',this.value);
     this.showHideButtons()
+    //return true;
   }
 
   doMinus() {
@@ -81,13 +92,23 @@ export class InputNumberComponent implements OnInit {
     //console.log(this.minValue,this.maxValue,this.value);
   }
 
-  doKey(event: any) {
+  doKeyUp(event: any) {
     if (event.key == 'Escape') {
       //this.value = this.defaultValue;
       this.doCancel();
     } else if (event.key == 'Enter') {
       this.doSave();
     }
+  }
+
+  doKeyDown(event: any){
+    let s = event.key;
+    //console.log(s);
+    let sAllow = ['Enter','Tab','ArrowLeft','ArrowRight'];
+    let isAllowed = sAllow.indexOf(s)>-1;
+    let isTooLow = this.value < this.minValue;
+    // console.log(isTooLow);
+    return !isNaN(s) || isAllowed;
   }
 
   doCancel() {}

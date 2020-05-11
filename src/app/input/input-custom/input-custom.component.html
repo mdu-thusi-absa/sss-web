@@ -31,7 +31,7 @@
       
       [type]="customType"
       [title]="title + ' (' + customType + ') details'"
-      [options]="persons"
+      [options]="customType=='person' ? persons : (customType=='address' ? countriesCities : options)"
       [showTitleInput] = "false"
       
       (onFile)="doFile()"
