@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Person } from '../../models'
+import { Entity, Person, CountryCities } from '../../models'
 
 @Component({
   selector: 'app-entity-details',
@@ -14,9 +14,11 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideSecondary = false;
   @Input() hideOptional = false;
   @Input() hideCustom = false;
+  @Input() hideFiles = false;
   // isAppointeeInput = false;
   // isAppointeeNewInput =false;
   persons: Person[];
+  countriesCities: CountryCities[];
   @Input() panelRows = 1;
   entity: Entity;
 
@@ -28,6 +30,10 @@ export class EntityDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = [new Person('Smith','John','ABSA'), new Person('Dean','Diana','Chechia')];
+    this.countriesCities =  [
+      new CountryCities('South Africa', ['JHB', 'PTA']),
+      new CountryCities('USA', ['NY', 'LA']),
+    ];
   }
 
   doFilter(event: any){

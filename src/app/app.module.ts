@@ -46,6 +46,12 @@ import { EntityDetailsCompanyPrimaryComponent } from './panels/entity-details-co
 import { EntityDetailsCompanySecondaryComponent } from './panels/entity-details-company-secondary/entity-details-company-secondary.component';
 import { EntityDetailsCustomComponent } from './panels/entity-details-custom/entity-details-custom.component';
 import { EntityDetailsCompanyOptionalComponent } from './panels/entity-details-company-optional/entity-details-company-optional.component';
+import { InputCustomComponent } from './input/input-custom/input-custom.component';
+import { InputFileComponent } from './input/input-file/input-file.component';
+import { InputAnyComponent } from './input/input-any/input-any.component';
+import { InputBrowseComponent } from './input/input-browse/input-browse.component';
+import { InputNumberComponent } from './input/input-number/input-number.component';
+import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 
 
 @NgModule({
@@ -88,6 +94,12 @@ import { EntityDetailsCompanyOptionalComponent } from './panels/entity-details-c
     EntityDetailsCompanySecondaryComponent,
     EntityDetailsCustomComponent,
     EntityDetailsCompanyOptionalComponent,
+    InputCustomComponent,
+    InputFileComponent,
+    InputAnyComponent,
+    InputBrowseComponent,
+    InputNumberComponent,
+    EntityDetailsFilesComponent,
     
   ],
   imports: [

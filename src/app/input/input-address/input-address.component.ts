@@ -17,7 +17,7 @@ export class InputAddressComponent implements OnInit {
   //address text, country, city
   @Input() value: [string, string, string];
   //[country: cities[]]
-  @Input() countriesCities: [string, string[]];
+  @Input() countriesCities: CountryCities[];
   @Input() hideBody = true;
 
   @Output() onFile = new EventEmitter();
@@ -26,25 +26,49 @@ export class InputAddressComponent implements OnInit {
 
   countries: string[] = [];
   cities: string[] = [];
-
-  data: CountryCities[] = [
-    new CountryCities('South Africa', ['JHB', 'PTA']),
-    new CountryCities('USA', ['NY', 'LA']),
-  ];
+  countryIndex = 0;
 
   constructor() {}
 
   ngOnInit(): void {
-    for (let i = 0; i < this.data.length; i++) {
-      this.countries.push(this.data[i].name);
+    // for (let i = 0; i < this.countriesCities.length; i++) {
+    //   this.countries.push(this.countriesCities[i].name);
+    // }
+    this.buildCountries();
+    this.doChangeCountry(this.countries[0]);
+  }
+
+  buildCountries() {
+    this.countries = [];
+    if (this.countriesCities) {
+      for (let i = 0; i < this.countriesCities.length; i++) {
+        this.countries.push(this.countriesCities[i].name);
+      }
+      this.cities = this.countriesCities[this.countryIndex].cities;
     }
-    console.log(this.countries);
-    this.doChange(this.countries[0]);
+  }
+
+  getIDp() {
+    let s = / /g;
+    return this.title.toLowerCase().replace(s, '-');
   }
 
   getID() {
     let s = / /g;
-    return this.title.toLowerCase().replace(s, '-');
+    let t = this.title.toLowerCase().replace(s, '-');
+    s = /\//g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\:/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\,/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\-\-/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\(/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\)/g;
+    t = t.toLowerCase().replace(s, '-');
+    return t;
   }
 
   doFile() {
@@ -63,10 +87,58 @@ export class InputAddressComponent implements OnInit {
       return (
         this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
       );
-    console.log(this.filterText);
   }
 
-  doChange(event: any) {
-    this.cities = this.data.find((e) => e.name == event).cities;
+  doChangeCountry(event: any) {
+    // this.buildCountries();
+    // this.cities = this.countriesCities.find((e) => e.name == event).cities;
+  }
+
+  doEditCountry(event: any) {
+    if (this.countriesCities) {
+      console.log('-1', event);
+      let country = event.currValue;
+      let p = this.countriesCities.indexOf(event.prevValue);
+      let c: CountryCities = this.countriesCities.find(
+        (e) => e.name == event.prevValue
+      );
+      if (c) {
+        this.countriesCities.find((e) => e.name == event.prevValue).name =
+          event.currValue;
+        //this.cities = c.cities;
+      }
+
+      this.buildCountries();
+      console.log(country, this.countriesCities);
+      //this.cities = this.countriesCities.find((e) => e.name == country).cities;
+    }
+  }
+
+  doAddCountry(event: any) {
+    let c = new CountryCities(event, ['-Default-']);
+    this.countriesCities.push(c);
+    this.buildCountries();
+    // let t = Object.assign(this.countriesCities);
+    // this.countriesCities = t;
+    this.countryIndex = this.countriesCities.findIndex((e) => e.name == event);
+    this.cities = this.countriesCities[this.countryIndex].cities;
+  }
+
+  doSelectCountry(event: any) {
+    this.countryIndex = event;
+    if (this.countries.length != this.countriesCities.length) {
+      this.buildCountries();
+    }
+    if (
+      this.countries[this.countryIndex] !=
+      this.countriesCities[this.countryIndex].name
+    ) {
+      this.countries[this.countryIndex] = this.countriesCities[
+        this.countryIndex
+      ].name;
+    }
+    //what if there are fewer countries
+
+    this.cities = this.countriesCities[this.countryIndex].cities;
   }
 }

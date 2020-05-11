@@ -236,9 +236,9 @@
                     [checked]="!hidePrimary"
                     (change)="hidePrimary = !hidePrimary"
                   />
-                  <span class="hidden-md hidden-lg"> 1</span>
+                  <span class="hidden-md hidden-lg"> P</span>
                   <span class="hidden-xs hidden-sm">
-                    <small>Primary</small></span
+                    <small>&nbsp;Primary</small></span
                   ></label
                 >
                 &nbsp;
@@ -256,9 +256,9 @@
                     [checked]="!hideSecondary"
                     (change)="hideSecondary = !hideSecondary"
                   />
-                  <span class="hidden-md hidden-lg"> 2</span>
+                  <span class="hidden-md hidden-lg"> S</span>
                   <span class="hidden-xs hidden-sm">
-                    <small>Secondary</small></span
+                    <small>&nbsp;Secondary</small></span
                   ></label
                 >&nbsp;
                 <label
@@ -275,9 +275,9 @@
                     [checked]="!hideOptional"
                     (change)="hideOptional = !hideOptional"
                   />
-                  <span class="hidden-md hidden-lg"> 3</span>
+                  <span class="hidden-md hidden-lg"> O</span>
                   <span class="hidden-xs hidden-sm">
-                    <small>Optional</small></span
+                    <small>&nbsp;Optional</small></span
                   ></label
                 >
                 &nbsp;
@@ -295,9 +295,29 @@
                     [checked]="!hideCustom"
                     (change)="hideCustom = !hideCustom"
                   />
-                  <span class="hidden-md hidden-lg"> 4</span>
+                  <span class="hidden-md hidden-lg"> C</span>
                   <span class="hidden-xs hidden-sm">
-                    <small>Custom</small></span
+                    <small>&nbsp;Custom</small></span
+                  >
+                </label>
+                &nbsp;
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
+                  ><input
+                    type="checkbox"
+                    class="btn btn-info"
+                    [checked]="!hideDetailFiles"
+                    (change)="hideDetailFiles = !hideDetailFiles"
+                  />
+                  <span class="hidden-md hidden-lg"> F</span>
+                  <span class="hidden-xs hidden-sm">
+                    <small>&nbsp;Files</small></span
                   >
                 </label>
               </div>
@@ -342,6 +362,7 @@
               [hideSecondary]="hideSecondary"
               [hideOptional]="hideOptional"
               [hideCustom]="hideCustom"
+              [hideFiles] = "hideDetailFiles"
             ></app-entity-details>
           </div>
           <div class="panel-footer mt3">

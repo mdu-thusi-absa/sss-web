@@ -1,0 +1,58 @@
+<div
+  class="panel panel-default"
+  style="margin-bottom: 5px; margin-top: 5px;"
+  [hidden]="hideByFilter()"
+>
+  <div
+    class="panel panel-heading panel-info nobottom less-padding text-primary"
+    style="vertical-align: middle; padding-bottom: 0px;"
+  >
+    <a
+      href="#"
+      data-toggle="collapse"
+      [attr.data-target]="'#file-' + getID()"
+      style="
+        white-space: nowrap;
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+      "
+    >
+      <label class="nobottom text-primary">{{ title }}</label>
+    </a>
+  </div>
+
+  <div
+    class="panel panel-body noborder nobottom less-padding collapse"
+    [class.in]="hideBody"
+    id="{{ 'file-' + getID() }}"
+    style="margin-top: 0px;"
+  >
+    <div class="container-flex">
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <div *ngIf="showTitleInput">
+            <app-input-text
+              [title]="'Title'"
+              [value] = "title"
+              (onChange) = "doChangeTitle($event)"
+            ></app-input-text>
+          </div>
+          <div style="height:3px;"></div>
+          <app-input-browse
+            [title]="'File or link name'"
+            [showDisk]="true"
+            [showLink]="true"
+            [showMinus]="true"
+          ></app-input-browse>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-textarea
+            [title]="'Description'"
+            [placeholder]="'File or link contents description'"
+          ></app-input-textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

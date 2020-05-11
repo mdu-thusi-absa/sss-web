@@ -55,7 +55,7 @@ export class InputSelectTextComponent implements OnInit {
     }, 0);
   }
 
-  onKey(event: any) {
+  doKey(event: any) {
     //console.log(event.key);
     // without type info
     if (event.key == 'Escape') {

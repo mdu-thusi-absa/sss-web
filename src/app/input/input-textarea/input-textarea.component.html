@@ -2,26 +2,14 @@
   class="form-group less-bottom"
   style="margin-top: 5px; margin-bottom: 2px;"
 >
-  <label
-    for="text"
-    class="text-primary"
-    style="margin-bottom: 2px;"
-    [hidden]="noTitle"
-    >{{ title }}
-  </label>
-
-
-    <!-- <div *ngIf="!noButtons" class="btn-group pull-right" style="margin-right: 1px;" >
-      <a *ngIf="showFlash" href="#" class="btn btn-primary primary-color btn-xs">
-        <span class="glyphicon" [class.glyphicon-flash]="true"></span>
-      </a>
-      <a href="#" class="btn btn-primary primary-color btn-xs">
-        <span class="glyphicon" [class.glyphicon-paperclip]="true"></span>
-      </a>
-      <a href="#" class="btn btn-primary primary-color btn-xs">
-        <span class="glyphicon" [class.glyphicon-cd]="true"></span>
-      </a>
-    </div>  -->
+  <div>
+    <label
+      for="text"
+      class="text-primary"
+      style="margin-bottom: 4px;"
+      [hidden]="noTitle"
+      >{{ title }}
+    </label>
 
     <app-buttons-input-text
       [title]="title"
@@ -32,11 +20,12 @@
       (onRecord)="doRecord()"
       (onTask)="doTask()"
     ></app-buttons-input-text>
+  </div>
 
   <textarea
     class="form-control"
     [rows]="rows"
-    [value] = "text"
+    [value]="text"
     [placeholder]="placeholder"
     autocomplete="nope"
   ></textarea>

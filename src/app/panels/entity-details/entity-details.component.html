@@ -11,6 +11,7 @@
 <app-input-filter-add
   [showSave]="true"
   [showCancel]="true"
+  [showT] = "true"
   (onFilter)="doFilter($event)"
 ></app-input-filter-add>
 
@@ -28,81 +29,96 @@
     [class.entities-detail-form-full]="isFullScreen()"
     [class.entities-detail-form-half]="isHalfScreen()"
   >
-    <app-input-duo
-      [typeLeft]="'text'"
-      [typeRight]="'date'"
-      [titleLeft]="'Suffix'"
-      [titleRight]="'Curr. Name Effective Date'"
-      [placeholderLeft]="
-        'Suffix - used to differenciate entities with the same name'
-      "
-      [doHideByFilter]="false"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-    >
-    </app-input-duo>
+    <div style="padding-bottom: 5px;">
+      <app-input-duo
+        [typeLeft]="'text'"
+        [typeRight]="'date'"
+        [titleLeft]="'Suffix'"
+        [titleRight]="'Curr. Name Effective Date'"
+        [placeholderLeft]="
+          'Suffix - used to differenciate entities with the same name'
+        "
+        [doHideByFilter]="false"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      >
+      </app-input-duo>
 
-    <app-input-duo
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [typeLeft]="'select'"
-      [titleLeft]="'Entity Type'"
-      [optionsLeft]="[
-        'Trust',
-        'Company',
-        'Regulator',
-        'Regulation',
-        'Person',
-        'Government Agency'
-      ]"
-      [valueLeft]="'Company'"
-      [typeRight]="'text'"
-      [titleRight]="'Registration Number'"
-      [placeholderRight]="'Entity registration number'"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-    >
-    </app-input-duo>
+      <app-input-duo
+        [filterText]="filterText"
+        [doHideByFilter]="true"
+        [typeLeft]="'select'"
+        [titleLeft]="'Entity Type'"
+        [optionsLeft]="[
+          'Trust',
+          'Company',
+          'Regulator',
+          'Regulation',
+          'Person',
+          'Government Agency'
+        ]"
+        [valueLeft]="'Company'"
+        [typeRight]="'text'"
+        [titleRight]="'Registration Number'"
+        [placeholderRight]="'Entity registration number'"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      >
+      </app-input-duo>
+    </div>
+
+      <div [hidden]="hidePrimary">
+        <app-entity-details-company-primary
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-company-primary>
+      </div>
+      <div [hidden]="hideSecondary">
+        <app-entity-details-company-secondary
+          [filterText]="filterText"
+          [persons]="persons"
+          [countriesCities] = "countriesCities"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-company-secondary>
+      </div>
+      <div [hidden]="hideOptional">
+        <app-entity-details-company-optional
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-company-optional>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [filterText]="filterText"
+          [persons]="persons"
+          [countriesCities] = "countriesCities"
+
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
     
-    <div [hidden]="hidePrimary">
-      <app-entity-details-company-primary
-        [filterText]="filterText"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-company-primary>
-    </div>
-    <div [hidden]="hideSecondary">
-      <app-entity-details-company-secondary
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-company-secondary>
-    </div>
-    <div [hidden]="hideOptional">
-      <app-entity-details-company-optional
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-company-optional>
-    </div>
-    <div [hidden]="hideCustom">
-      <app-entity-details-custom
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-custom>
-    </div>
+    <hr style="height: 1px; margin: 0px;" />
 
-    <hr class="primary-color" style='height: 1px;margin:0px'>
     <!-- Documents table -->
     <!-- <div
       class="form-group input-group-sm less-bottom"

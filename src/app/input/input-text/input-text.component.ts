@@ -16,6 +16,7 @@ export class InputTextComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   @Input() showFlash = true;
   @Input() showPaperclip = true;
@@ -41,6 +42,13 @@ export class InputTextComponent implements OnInit {
 
   hideByFilter() {
     return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1 : false);
+  }
+
+  doChange(event: any){
+    //this.value = event;
+    //console.log('input-text',event);
+    this.onChange.emit(event);
+    //console.log('input-text:after event',event);
   }
 
   

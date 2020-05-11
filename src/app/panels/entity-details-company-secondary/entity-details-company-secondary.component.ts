@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Person } from 'src/app/models';
+import { Person, CountryCities } from 'src/app/models';
 
 @Component({
   selector: 'app-entity-details-company-secondary',
@@ -9,6 +9,7 @@ import { Person } from 'src/app/models';
 export class EntityDetailsCompanySecondaryComponent implements OnInit {
   @Input() filterText = '';
   @Input() persons: Person[];
+  @Input() countriesCities: CountryCities[];
   
 
   @Output() onRecord = new EventEmitter();

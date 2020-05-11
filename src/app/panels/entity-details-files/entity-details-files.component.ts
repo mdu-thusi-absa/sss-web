@@ -1,16 +1,14 @@
-import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { Person, CountryCities } from 'src/app/models';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Person } from 'src/app/models';
 
 @Component({
-  selector: 'app-entity-details-custom',
-  templateUrl: './entity-details-custom.component.html',
-  styleUrls: ['./entity-details-custom.component.css']
+  selector: 'app-entity-details-files',
+  templateUrl: './entity-details-files.component.html',
+  styleUrls: ['./entity-details-files.component.css']
 })
-export class EntityDetailsCustomComponent implements OnInit {
+export class EntityDetailsFilesComponent implements OnInit {
   @Input() filterText = '';
   @Input() persons: Person[];
-  @Input() countriesCities: CountryCities[];
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
@@ -57,5 +55,6 @@ export class EntityDetailsCustomComponent implements OnInit {
     et[customIndex] = event;
     this.elementsType = et;
   }
+
 
 }

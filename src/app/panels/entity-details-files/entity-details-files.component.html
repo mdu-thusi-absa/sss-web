@@ -1,11 +1,11 @@
 <hr class="primary-color" style="height: 1px; margin: 0px;" />
 <div class="h4 text-primary" style="margin-top: 5px;">
-  <u>Custom Details</u>
+  <u>File Details</u>
 </div>
 
 <app-input-duo
   [typeLeft]="'number'"
-  [titleLeft]="'Number of Custom fields'"
+  [titleLeft]="'Number of files'"
   [valueLeft]="1"
   [minValueLeft]="1"
   [maxValueLeft]="1000"
@@ -17,14 +17,17 @@
 ></app-input-duo>
 
 <div *ngFor="let e of elements; let i = index">
-  <app-input-custom
-    [id]="i + 1"
-    [title]="''"
-    [filterText]="filterText"
-    [doHideByFilter]="true"
-    [persons]="persons"
-    [countriesCities] = "countriesCities"
-    (onChange)="doChangeCustomType(i, $event)"
-  >
-  </app-input-custom>
+
+  <app-input-any
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      
+      [type]="'file'"
+      [title]="'File ' + (i+1) + ' details'"
+      [showTitleInput] = "true"
+      
+      (onFile)="doFile(i)"
+      (onRecord)="doRecord(i)"
+      (onTask)="doTask(i)" 
+    ></app-input-any> 
 </div>

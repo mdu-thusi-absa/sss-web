@@ -190,7 +190,7 @@
     class="form-control input-sm"
     [placeholder]="'Filter ' + titlePlural"
     [(ngModel)]="filterText"
-    (keyup)="onKey($event)"
+    (keyup)="doKey($event)"
     style="font-weight: normal;"
     autocomplete="nope"
   />

@@ -9,8 +9,8 @@ import { Person } from '../../models'
 })
 export class InputDuoComponent implements OnInit {
   //text, checkbox, date, list
-  @Input() typeLeft = 'text'; 
-  @Input() typeRight = 'text';
+  @Input() typeLeft = ''; 
+  @Input() typeRight = '';
   @Input() filterText = '';
   @Input() doHideByFilter = true;
 
@@ -19,12 +19,18 @@ export class InputDuoComponent implements OnInit {
   @Input() optionsLeft: string[] | Person[];
   @Input() valueLeft: string | boolean | Person = '';
   @Input() disabledLeft = false;
+  @Input() minValueLeft = -1000;
+  @Input() maxValueLeft = 1000;
+  @Input() incrementLeft = 1;
 
   @Input() titleRight = '';
   @Input() placeholderRight = '';
   @Input() optionsRight: string[] | Person[];
   @Input() valueRight: string | boolean | Person = '';
   @Input() disabledRight = false;
+  @Input() minValueRight = -1000;
+  @Input() maxValueRight = 1000;
+  @Input() incrementRight = 1;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -75,7 +81,7 @@ export class InputDuoComponent implements OnInit {
   }
 
   doChangeLeft(event: any){
-    //console.log(event);
+    //console.log('doChangeLeft',event);
     this.onChangeLeft.emit(event);
   }
   doChangeRight(event: any){

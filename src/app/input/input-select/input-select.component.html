@@ -1,7 +1,7 @@
 <div
   class="form-group input-group-sm nobottom"
   [hidden]="hideByFilter()"
-  style="margin-top: 5px; margin-right: 1px;margin-bottom:5px"
+  style="margin-top: 5px; margin-right: 1px;"
 >
   <div class="input-group-sm">
     <label class="nobottom text-primary label-buttons-6">{{ title }} </label>
@@ -78,6 +78,7 @@
       (onEdit)="showEdit()"
     -->
   </div>
+
   <div [hidden]="isDoInput">
     <br [hidden]="!isShowingFilter" />
     <div class="input-group" [hidden]="true">
@@ -91,9 +92,9 @@
         (change) = "doChange($event)"
       >
         <option
-          *ngFor="let e of options; let i = index"
+          *ngFor="let e of options; let i = index; trackBy: trackFn"
           [value]="i"
-          [selected]="e == value"
+          [selected]="i == option"
           [hidden]="hideItem(e)"
           ><small>{{ e }}</small>
         </option>

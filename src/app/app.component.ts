@@ -15,13 +15,13 @@ export class AppComponent {
   isLogedIn = false;
 
   constructor(private oauthService: OAuthService) {
-    this.configureSingleSignOn();
+    // this.configureSingleSignOn();
   }
 
   configureSingleSignOn() {
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    // this.oauthService.configure(authConfig);
+    // this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    // this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   // private async configureOAuth(): Promise<void> {

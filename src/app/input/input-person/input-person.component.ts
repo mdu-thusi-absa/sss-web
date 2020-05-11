@@ -30,7 +30,7 @@ export class InputPersonComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   fullNames = [];
   isDoInput = false;
-  option = '0';
+  option = 0;
   //text = '';
   isAdd = false;
   listFilterText = '';
@@ -63,7 +63,7 @@ export class InputPersonComponent implements OnInit {
       return a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase());
     });
 
-    this.option = this.options.indexOf(person).toString();
+    this.option = +this.options.indexOf(person).toString();
   }
 
   hideByFilter() {
@@ -120,7 +120,7 @@ export class InputPersonComponent implements OnInit {
     let r = confirm('Are you sure you want to delete this item?');
     //console.log(r);
     if (r) this.options.splice(+this.option, 1);
-    this.option = '0';
+    this.option = 0;
   }
 
   doFilter(event: any){
@@ -140,7 +140,7 @@ export class InputPersonComponent implements OnInit {
     let r = confirm('Are you sure you want to delete this person from the list?');
     //console.log(r);
     if (r) this.options.splice(+this.option, 1);
-    this.option = '0';
+    this.option = 0;
   }
 
   doEdit() {

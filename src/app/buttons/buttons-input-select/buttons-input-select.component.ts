@@ -89,7 +89,7 @@ export class ButtonsInputSelectComponent implements OnInit {
     this.onTask.emit();
   }
 
-  onKey(event: any) {
+  doKey(event: any) {
     // without type info
     if (event.key == 'Escape') {
       this.filterText = '';
@@ -125,7 +125,7 @@ export class ButtonsInputSelectComponent implements OnInit {
           (this.showSave ? 1 : 0) +
           (this.showAdd ? 1 : 0));
 
-    if (r < 50) r = 50; 
+    if (r < 90) r = 90; 
     return r + 'px';
   }
 
@@ -143,7 +143,7 @@ export class ButtonsInputSelectComponent implements OnInit {
           (this.showAdd ? 1 : 0)) +
       30;
 
-    if (r < 80) r = 80; 
+    if (r < 120) r = 120; 
     return r + 'px';
   }
 }

@@ -321,20 +321,6 @@ td.info > a {
   color: white;
 }
 
-.panel-primary > .panel-heading {
-  background-color: rgb(170, 5, 45);
-  color: white;
-  border-color: rgb(150, 5, 4);
-}
-.panel-info > .panel-heading {
-  /* background-color: rgb(240, 90, 120); */
-  background-color: rgb(175, 20, 75);
-  color: white;
-  border-color: rgb(150, 5, 4);
-}
-.panel-.info > .panel-heading {
-  color: white;
-}
 /* .btn:active{
   color:pink;
 } */
@@ -356,14 +342,14 @@ td.info > a {
 .btn-primary.active:hover {
   background-color: rgb(220, 0, 50);
   /* background-color: rgb(150, 5, 4); */
-  border-color: white; 
+  /* border-color: white;  */
 }
 .btn-primary.active:focus,
 .btn-primary.active.focus,
 .btn-primary.active.focus:focus {
   background-color: rgb(150, 5, 4);
   /* background-color: rgb(150, 5, 4); */
-  border-color: white; 
+  /* border-color: white;  */
 }
 .btn-primary {
   background-color: rgb(220, 0, 50); /*absa*/
@@ -395,10 +381,14 @@ label.btn.btn-primary:focus{
   border-color: white;
 } */
 
-.btn.btn-primary.primary-color-active.active.focus{
+/* .btn.btn-primary.primary-color-active.active.focus,
+.btn.btn-primary.primary-color-active.active.focus:focus,
+.btn.btn-primary.primary-color-active.active:focus,
+.btn.btn-primary.primary-color-active.active,
+.btn.btn-primary.primary-color-active:active{
   background-color: rgb(150, 5, 4);
-  /* border-color: white; */
-}
+  border-color: white; 
+} */
 /* .btn:focus,.btn:active {
   outline: none !important;
   background-color: rgb(150, 5, 4) !important;
@@ -504,7 +494,7 @@ label.btn.btn-primary:focus{
 .primary-color-active.focus:focus
  {
   background-color: rgb(150, 5, 4);
-  border-color: white;
+  border-color: rgb(150, 5, 4);
   color: white;
 }
 .primary-color:focus,
@@ -740,3 +730,27 @@ background-color: rgba(0, 0, 0, 0);
 .input-group-addon-xs{
   padding: 3px, 6px;
 } */
+
+.panel.noborder {
+  border: none;
+  box-shadow: none;
+}
+/* .panel.noborder > .panel-heading {
+  border: 1px solid #dddddd;
+  border-radius: 0;
+} */
+
+.panel-primary > .panel-heading {
+  background-color: rgb(170, 5, 45);
+  color: white;
+  border-color: rgb(150, 5, 4);
+}
+.panel-info > .panel-heading {
+  /* background-color: rgb(240, 90, 120); */
+  background-color: rgb(175, 20, 75);
+  color: white;
+  border-color: rgb(150, 5, 4);
+}
+.panel-.info > .panel-heading {
+  color: white;
+}
