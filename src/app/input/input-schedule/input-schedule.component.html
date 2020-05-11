@@ -1,18 +1,18 @@
-<div class="panel panel-info" style="margin-bottom: 0px; margin-top: 5px;">
-  <div class="panel panel-heading panel-info nobottom less-padding" [hidden]="false">
+<div class="panel panel-default" style="margin-bottom: 0px; margin-top: 5px;">
+  <div class="panel panel-heading nobottom less-padding text-primary" [hidden]="false">
     <a
       href="#"
       data-toggle="collapse"
       [attr.data-target]="'#schedule-' + getID()"
       (click)="hideBody = !hideBody"
-      
+      class="text-primary"
     >
   <small>Repeating schedule {{ title.length > 0 ? "for: " + title : "" }}</small>
     </a>
   </div>
 
   <div
-    class="panel panel-body nobottom less-padding collapse"
+    class="panel panel-body noborder nobottom less-padding collapse"
     [class.in]="!hideBody"
     id="{{ 'step-' + getID() }}"
   >
