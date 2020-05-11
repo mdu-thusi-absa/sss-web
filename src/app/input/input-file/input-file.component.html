@@ -30,7 +30,7 @@
   >
     <div class="container-flex">
       <div class="row">
-        <div class="col-xl-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
           <div *ngIf="showTitleInput">
             <app-input-text
               [title]="'Title'"
@@ -40,13 +40,13 @@
           </div>
           <div style="height:3px;"></div>
           <app-input-browse
-            [title]="'File or link name'"
+            [title]="'File name or link path'"
             [showDisk]="true"
             [showLink]="true"
             [showMinus]="true"
           ></app-input-browse>
         </div>
-        <div class="col-xl-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
           <app-input-textarea
             [title]="'Description'"
             [placeholder]="'File or link contents description'"

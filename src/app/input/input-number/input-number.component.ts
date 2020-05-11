@@ -69,7 +69,7 @@ export class InputNumberComponent implements OnInit {
     this.onChange.emit(this.value);
   }
   doPlus() {
-    this.value = this.value + this.increment;
+    this.value = +this.value + +this.increment;
     if (this.value > this.maxValue) this.value = this.maxValue;
     this.showHideButtons();
     this.onChange.emit(this.value);
