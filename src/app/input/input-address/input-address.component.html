@@ -43,11 +43,9 @@
     id="{{ 'address-' + getID() }}"
     style="margin-top: 0px;"
   >
-  {{this.countriesCities.length}}
-  {{this.countries.length}}
     <div class="container-flex">
       <div class="row">
-        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="col-xl-12 col-sm-6 col-md-6 col-lg-6">
           <app-input-textarea
             [title]="'Address'"
             [placeholder]="'Apartment, Building, Street, suburb'"
@@ -56,7 +54,7 @@
             (onRecord)="doRecord()"
           ></app-input-textarea>
         </div>
-        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="col-xl-12 col-sm-6 col-md-6 col-lg-6">
           <app-input-select
             [title]="'Country'"
             [options]="countries"

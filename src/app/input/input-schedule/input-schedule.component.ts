@@ -25,4 +25,22 @@ export class InputScheduleComponent implements OnInit {
   doTask(event: any){
 
   }
+
+  getID() {
+    let s = / /g;
+    let t = this.title.toLowerCase().replace(s, '-');
+    s = /\//g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\:/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\,/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\-\-/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\(/g;
+    t = t.toLowerCase().replace(s, '-');
+    s = /\)/g;
+    t = t.toLowerCase().replace(s, '-');
+    return t;
+  }
 }

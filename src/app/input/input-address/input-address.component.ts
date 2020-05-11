@@ -48,10 +48,10 @@ export class InputAddressComponent implements OnInit {
     }
   }
 
-  getIDp() {
-    let s = / /g;
-    return this.title.toLowerCase().replace(s, '-');
-  }
+  // getIDp() {
+  //   let s = / /g;
+  //   return this.title.toLowerCase().replace(s, '-');
+  // }
 
   getID() {
     let s = / /g;
