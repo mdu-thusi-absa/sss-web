@@ -13,13 +13,16 @@ export class InputAnyComponent implements OnInit {
 
   @Input() title = '';
   @Input() placeholder = '';
-  @Input() options: string[] | Person[] | CountryCities[];
-  @Input() value: string | boolean | Person = '';
+  @Input() values = new Map(); //: string[] | Person[] | CountryCities[];
+  @Input() value: string | boolean | Person | number = '';
   @Input() disabled = false;
   @Input() maxValue = 1000;
   @Input() minValue = -1000;
   @Input() increment = 1;
   @Input() showTitleInput = true;
+  @Input() showAdd = true;
+  @Input() showEdit = true;
+  @Input() showDelete = true;
   // @Input() countriesCities: CountryCities[];
   // @Input() persons
 

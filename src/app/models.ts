@@ -1,3 +1,5 @@
+import { Capability } from 'protractor';
+
 export class Entity {
   name: string;
   tasksCount: number;
@@ -6,10 +8,10 @@ export class Entity {
   isActive: boolean;
 
   static compare(v: Entity, w: Entity): number {
-      let r = 0;
-      if (v.name > w.name) r = 1;
-      else if (v.name < w.name) r = -1;
-      return r;
+    let r = 0;
+    if (v.name > w.name) r = 1;
+    else if (v.name < w.name) r = -1;
+    return r;
   }
 }
 
@@ -133,33 +135,40 @@ export class Record {
   }
 }
 
-export class FileDoc{
-  constructor(when: Date, who: string, filePurpose: string, 
+export class FileDoc {
+  constructor(
+    when: Date,
+    who: string,
+    filePurpose: string,
     isUsed: boolean,
     associations: FileDoc_Use[]
-    ){}
+  ) {}
 }
 
-export class FileDoc_Use{
-  constructor(field: string, isLinked: boolean, isUsed: boolean){}
+export class FileDoc_Use {
+  constructor(field: string, isLinked: boolean, isUsed: boolean) {}
 }
 
-export class Person{
+export class Person {
   //surname = ''; firstName = ''; suffix = '';
-  constructor(public surname: string, public firstName: string, public suffix: string){
+  constructor(
+    public surname: string,
+    public firstName: string,
+    public suffix: string
+  ) {
     // this.surname = surname; this.firstName = firstName; this.suffix = suffix;
   }
 
-  get fullName(){
+  get fullName() {
     return this.surname + ', ' + this.firstName + ' - ' + this.suffix;
   }
-  
 }
 
-export class CustomField{
-  constructor(name: string, type: string, value: any){}
+export class CustomField {
+  constructor(name: string, type: string, value: any) {}
 }
 
-export class CountryCities{
-  constructor(public name: string, public cities: string[]){}
+export class CountryCities {
+  constructor(public name: string, public cities: string[]) {}
 }
+

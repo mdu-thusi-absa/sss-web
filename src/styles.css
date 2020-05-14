@@ -264,11 +264,24 @@ hr {
   border-color:  rgb(150,5,4);
 } */
 
+
+/*rgb(236, 234, 234)*/
+/*rgb(240, 90, 120);*/
 .table > tbody > tr.info > td,
 .table > tbody > tr.info > th {
-  background-color: rgb(240, 90, 120);
-  color: white;
+  background-color: rgb(236, 234, 234);
+  /* color: rgb(240, 90, 120); */
+  color: rgb(85,85,85);
 }
+.table > tbody > tr.info > td>a,
+.table > tbody > tr.info > th>a {
+  color:rgb(85,85,85);
+}
+.table > tbody > tr > td>a,
+.table > tbody > tr > th>a {
+  color: rgb(85,85,85);
+}
+
 table > tbody > tr.info > td,
 .table > tbody > tr > td.info,
 .table > tfoot > tr.info > td,
@@ -310,16 +323,17 @@ table > tbody > tr.info > td,
 .table > tbody > tr > th.info,
 .table > tbody > tr.info > th,
 .table > thead > tr > th.info {
-  background-color: rgb(220, 0, 50); /*absa*/
+  /*background-color: rgb(220, 0, 50); absa*/
+  background-color: rgb(240,90,120);
   color: white;
 }
 td.info > a {
   color: white;
 }
 
-.table > tbody > tr.info > td > a {
+/* .table > tbody > tr.info > td > a {
   color: white;
-}
+} */
 
 /* .btn:active{
   color:pink;

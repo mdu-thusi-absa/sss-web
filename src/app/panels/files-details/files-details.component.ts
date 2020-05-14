@@ -19,7 +19,7 @@ export class FilesDetailsComponent implements OnInit {
   colspanFile = 3;
   thTop = '67px';
   colWidth = 0;
-  colLeft0 = "25px"
+  colLeft0 = "28px"
   colLeft1 = "75px"; //"82.74px";
   colLeft2 = "125px"; //"165.3px";
   isDirty = false;
@@ -681,7 +681,7 @@ ngAfterContentInit (){
   }
 
   doChangeCheckbox(event: any){
-    console.log('doChangeCheckbox')
+    //console.log('doChangeCheckbox')
     this.isDirty = true;
   }
 

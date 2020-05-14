@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity, Person, CountryCities } from '../../models'
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-details',
@@ -17,23 +18,25 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideFiles = false;
   // isAppointeeInput = false;
   // isAppointeeNewInput =false;
-  persons: Person[];
-  countriesCities: CountryCities[];
+  persons = new Map();
+  //countriesCities: CountryCities[];
   @Input() panelRows = 1;
   entity: Entity;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  entityType = 0;
 
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.persons = [new Person('Smith','John','ABSA'), new Person('Dean','Diana','Chechia')];
-    this.countriesCities =  [
-      new CountryCities('South Africa', ['JHB', 'PTA']),
-      new CountryCities('USA', ['NY', 'LA']),
-    ];
+    this.persons = this.dataService.getPersons();
+    //[new Person('Smith','John','ABSA'), new Person('Dean','Diana','Chechia')];
+    // this.countriesCities =  [
+    //   new CountryCities('South Africa', ['JHB', 'PTA']),
+    //   new CountryCities('USA', ['NY', 'LA']),
+    // ];
   }
 
   doFilter(event: any){
@@ -87,6 +90,10 @@ export class EntityDetailsComponent implements OnInit {
     this.isPositionInput = !this.isPositionInput
   }
 
+  doChangeEntityType(event: any){
+    console.log(event);
+    this.entityType = event;
+  }
   
 
 }

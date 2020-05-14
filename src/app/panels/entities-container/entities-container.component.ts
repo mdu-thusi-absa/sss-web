@@ -34,11 +34,12 @@ export class EntitiesContainerComponent implements OnInit {
   showFileFields: string[];
   isShowAllFiles = true;
 
-  hidePrimary = true;
+  hidePrimary = false;
   hideSecondary = true;
   hideOptional = true;
   hideCustom = true;
-  hideDetailFiles = false;
+  hideDetailFiles = true;
+  hideUsers = true;
 
   entities= ['Entity Name',
   'Registration Number',

@@ -11,10 +11,10 @@ export class InputSelectDuoComponent implements OnInit {
   @Input() doHideByFilter = '';
   @Input() titleLeft ='';
   @Input() titleRight ='';
-  @Input() valueLeft = '';
-  @Input() valueRight = ''
-  @Input() optionsLeft: string[] = [];
-  @Input() optionsRight: string[] = [];
+  @Input() valueLeft = 0;
+  @Input() valueRight = 0
+  @Input() valuesLeft: string[] = [];
+  @Input() valuesRight: string[] = [];
 
   @Output() onFileLeft = new EventEmitter();
   @Output() onRecordLeft = new EventEmitter();

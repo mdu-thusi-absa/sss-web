@@ -39,8 +39,7 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <small><span class="glyphicon glyphicon-play"></span>
-      &nbsp;</small>
+      <small><span class="glyphicon glyphicon-play"></span> &nbsp;</small>
       <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs bg-primary"
           ><small>{{ countPlay }}</small></span
@@ -88,8 +87,7 @@
       <span class="glyphicon glyphicon-ok"></span>
       <small>&nbsp;</small>
       <span class="hidden-xs hidden-sm hidden-sm">
-      <span class="badge badge-xs"
-        >
+        <span class="badge badge-xs">
           <small>{{ countOk }}</small></span
         ></span
       >
@@ -157,8 +155,7 @@
       />
       <small>All </small>
       <span class="hidden-xs hidden-sm hidden-sm">
-      <span class="badge badge-xs"
-        >
+        <span class="badge badge-xs">
           <small>{{ countAll }}</small></span
         ></span
       >
@@ -172,7 +169,9 @@
     class="form-control input-sm wide"
     style="font-size: small;"
   >
-    <option *ngFor="let e of listOptions">{{ e }}</option>
+    <option *ngFor="let e of listValues | keyvalue" [value]="e.key">{{
+      e.value
+    }}</option>
   </select>
 </div>
 

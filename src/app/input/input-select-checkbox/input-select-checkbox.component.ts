@@ -7,9 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 })
 export class InputSelectCheckboxComponent implements OnInit {
   @Input() title = '';
-  @Input() options: string[] = [];
+  @Input() values = new Map();
   @Input() filterText = '';
-  @Input() value = '';
+  @Input() value = 0;
   @Input() doHideByFilter = false;
 
   @Output() onFile = new EventEmitter();
@@ -32,7 +32,7 @@ export class InputSelectCheckboxComponent implements OnInit {
 
 
   isDoInput = false;
-  option = '0';
+  valueId = 0;
   text = '';
   doAdd = false;
   listFilterText = '';
@@ -43,19 +43,19 @@ export class InputSelectCheckboxComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // this.options.sort();
-    // this.option = this.options.indexOf().toString();
-    this.setItem(this.value);
+    // this.values.sort();
+    // this.option = this.values.indexOf().toString();
+    //this.setItem(this.value);
   }
 
   setItem(text: string) {
     //console.log('setItem: b');
-    this.options.sort(function (a:string, b:string) {
-      return String(a).toLowerCase().localeCompare(b.toLowerCase());
-    });
+    // this.values.sort(function (a:string, b:string) {
+    //   return String(a).toLowerCase().localeCompare(b.toLowerCase());
+    // });
 
-    this.option = this.options.indexOf(text).toString();
-    this.selectedItems.push(+this.option);
+    // this.option = this.values.indexOf(text).toString();
+    // this.selectedItems.push(+this.option);
     //console.log('setItem: e');
   }
 
@@ -71,7 +71,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   showEdit() {
     this.doAdd = false;
     //console.log(this.option);
-    this.text = this.options[+this.option];
+    this.text = this.values.get(this.valueId);
     // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -82,15 +82,14 @@ export class InputSelectCheckboxComponent implements OnInit {
       //save is pressed
       if (this.doAdd) {
         //save for a new item
-        this.options.push(this.text);
+        let i = this.values.size;
+        this.values.set(i,this.text);
         this.doAdd = false;
-        //this.selectedItems.push(this.options.length);
       } else {
         //save for old item
         //console.log(this.option, this.text);
-        this.options[+this.option] = this.text;
+        this.values.set(this.valueId,this.text);
       }
-      //this.options.sort();
       this.setItem(this.text);
     } else {
       //new is clicked
@@ -111,8 +110,10 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   deleteItem() {
     let r = confirm('Are you sure you want to delete this item?');
-    if (r) this.options.splice(+this.option, 1);
-    this.option = '0';
+    if (r) {
+      this.values.delete(this.valueId)
+      this.valueId = this.values.keys[0];
+    }
   }
 
   doFilter(event: any){
@@ -131,7 +132,8 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   countItems(){
-    return this.options.filter(e => !this.hideItem(e)).length;
+    let v = [...this.values.values()]
+    return v.filter(e => !this.hideItem(e)).length;
   }
   countSelected(){
     return this.selectedItems.length;
@@ -143,13 +145,13 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   doEdit(index: any){
-    this.option = index;
+    this.valueId = index;
     this.showEdit()
   }
 
   doDelete(index: any){
     //console.log(index);                       
-    this.option = index;
+    this.valueId = index;
     this.deleteItem()
   }
 

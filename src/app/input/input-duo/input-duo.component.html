@@ -9,7 +9,7 @@
         [placeholder]="placeholderLeft"
         [disabled]="disabledLeft"
         [value]="valueLeft"
-        [options]="optionsLeft"
+        [values]="valuesLeft"
 
         (onFile)="doFileLeft()"
         (onRecord)="doRecordLeft()"
@@ -19,6 +19,9 @@
         [showFlash]="showFlashLeft"
         [showPaperclip]="showPaperclipLeft"
         [showCD]="showCDLeft"
+        [showAdd] = "showAddLeft"
+        [showDelete] = "showDeleteLeft"
+        [showEdit] = "showEditLeft"
 
         [maxValue] = "maxValueLeft"
         [minValue] = "minValueLeft"
@@ -37,7 +40,7 @@
         [placeholder]="placeholderRight"
         [disabled]="disabledRight"
         [value]="valueRight"
-        [options]="optionsRight"
+        [values]="valuesRight"
 
         (onFile)="doFileRight()"
         (onRecord)="doRecordRight()"
@@ -47,6 +50,9 @@
         [showFlash]="showFlashLeft"
         [showPaperclip]="showPaperclipLeft"
         [showCD]="showCDLeft"
+        [showAdd] = "showAddRight"
+        [showDelete] = "showDeleteRight"
+        [showEdit] = "showEditRight"
 
         [maxValue] = "maxValueRight"
         [minValue] = "minValueRight"

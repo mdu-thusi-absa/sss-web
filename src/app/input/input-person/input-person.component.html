@@ -6,18 +6,6 @@
   <div>
     <label class="nobottom text-primary label-buttons-6">{{ title }}</label>
 
-    <!-- <app-buttons-input-select [title] = "title"
-    (onEdit)="showEdit()"
-    (onAdd)="showNew()"
-    (onDelete)="deleteItem"
-    [isDoInput]="isDoInput"
-    (onFile) = "doFile()"
-    (onRecord) = "doRecord()"
-    [showFlash] = "showFlash"
-    [showPaperclip] = "showPaperclip"
-    [showCD] = "showCD"
-  ></app-buttons-input-select> -->
-
     <app-buttons-input-select
       [title]="title"
       [isDoInput]="isDoInput"
@@ -30,6 +18,7 @@
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
+      [countItems]="countItems()"
       (onAdd)="showNew()"
       (onFile)="doFile()"
       (onRecord)="doRecord()"
@@ -40,42 +29,93 @@
   </div>
   <br [hidden]="!isShowingFilter" />
   <div [hidden]="isDoInput">
-    <div class="input-group">
-      <select
-        class="form-control input-sm"
-        style="font-size: small;"
-        name="option"
-        [(ngModel)]="option"
-        style="padding-left: 6px; padding-right: 6px;"
-      >
-        <option
-          *ngFor="let e of options; let i = index"
-          [value]="i"
-          [selected]="i == option"
-          ><small>{{ e.fullName }}</small></option
+    <div class="hidden-xs">
+      <div class="input-group">
+        <select
+          class="form-control input-sm collapse in"
+          style="font-size: small;"
+          name="option"
+          (change)="doChange($event)"
+          style="padding-left: 6px; padding-right: 6px;"
+          [attr.id]="'#select-Item'"
         >
-      </select>
-      <span
-        class="input-group-addon btn primary-color-reverse"
-        (click)="doDelete()"
-        [title]="'Delete the ' + title"
-      >
-        <span class="glyphicon glyphicon-minus"></span>
-      </span>
-      <span
-        class="input-group-addon btn primary-color-reverse"
-        (click)="doEdit()"
-        [title]="'Edit the ' + title"
-      >
-        <span class="glyphicon glyphicon-pencil"></span>
-      </span>
-      <span
-        class="input-group-addon btn primary-color-reverse"
-        (click)="doAdd()"
-        [title]="'Add an ' + title"
-      >
-        <span class="glyphicon glyphicon-plus"></span>
-      </span>
+          <option
+            *ngFor="let e of values | keyvalue"
+            [value]="e.key"
+            [selected]="e.key == value"
+            [hidden]="hideItem(e.value)"
+            ><small>{{ e.value.fullName }}</small></option
+          >
+        </select>
+        <span
+          [hidden]="!showDelete"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doDelete()"
+          [title]="'Delete the ' + title"
+        >
+          <span class="glyphicon glyphicon-minus"></span>
+        </span>
+        <span
+          [hidden]="!showEdit"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doEdit()"
+          [title]="'Edit the ' + title"
+        >
+          <span class="glyphicon glyphicon-pencil"></span>
+        </span>
+        <span
+          [hidden]="!showAdd"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doAdd()"
+          [title]="'Add an ' + title"
+        >
+          <span class="glyphicon glyphicon-plus"></span>
+        </span>
+      </div>
+    </div>
+    <div class="hidden-sm hidden-md hidden-lg">
+      <div >
+        <select
+          class="form-control input-sm collapse in"
+          style="font-size: small;"
+          name="option"
+          (change)="doChange($event)"
+          style="padding-left: 6px; padding-right: 6px;"
+          [attr.id]="'#select-Item'"
+        >
+          <option
+            *ngFor="let e of values | keyvalue"
+            [value]="e.key"
+            [selected]="e.key == value"
+            [hidden]="hideItem(e.value)"
+            ><small>{{ e.value.fullName }}</small></option
+          >
+        </select>
+        <span
+          [hidden]="!showDelete"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doDelete()"
+          [title]="'Delete the ' + title"
+        >
+          <span class="glyphicon glyphicon-minus"></span>
+        </span>
+        <span
+          [hidden]="!showEdit"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doEdit()"
+          [title]="'Edit the ' + title"
+        >
+          <span class="glyphicon glyphicon-pencil"></span>
+        </span>
+        <span
+          [hidden]="!showAdd"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doAdd()"
+          [title]="'Add an ' + title"
+        >
+          <span class="glyphicon glyphicon-plus"></span>
+        </span>
+      </div>
     </div>
   </div>
 
@@ -93,24 +133,27 @@
           class="form-control"
           placeholder=""
           #inputText
-          [(ngModel)]="value.surname"
+          [(ngModel)]="person.surname"
           autocomplete="nope"
+          (keyup)="doKeyUp($event)"
         />
         <label class="nobottom text-primary">First Name</label>
         <input
           type="text"
           class="form-control"
           placeholder=""
-          [(ngModel)]="value.firstName"
+          [(ngModel)]="person.firstName"
           autocomplete="nope"
+          (keyup)="doKeyUp($event)"
         />
         <label class="nobottom text-primary">Optional Suffix</label>
         <input
           type="text"
           class="form-control"
           placeholder="Optional suffix to differenciate same names"
-          [(ngModel)]="value.suffix"
+          [(ngModel)]="person.suffix"
           autocomplete="nope"
+          (keyup)="doKeyUp($event)"
         />
       </div>
     </div>

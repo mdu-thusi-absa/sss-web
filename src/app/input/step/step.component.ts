@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-step',
@@ -10,7 +11,7 @@ export class StepComponent implements OnInit {
   @Input() stepNumber = 1;
   @Input() noHeader = false;
   @Input() hideBody = true;
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
   }

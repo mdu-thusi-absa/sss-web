@@ -6,7 +6,10 @@ import {
   ElementRef,
   EventEmitter,
   Output,
+  HostListener,
 } from '@angular/core';
+import * as $ from 'jquery';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-select',
@@ -15,9 +18,9 @@ import {
 })
 export class InputSelectComponent implements OnInit {
   @Input() title = '';
-  @Input() options: string[] = [];
+  @Input() values = new Map();
   @Input() filterText = '';
-  @Input() value = '';
+  @Input() value = 0;
   @Input() doHideByFilter = false;
 
   @Output() onFile = new EventEmitter();
@@ -42,41 +45,66 @@ export class InputSelectComponent implements OnInit {
     this.onTask.emit(this.title);
   }
 
-
   isDoInput = false;
-  option = 0;
+  //@Input() option = 0;
   text = '';
   isAdd = false;
   listFilterText = '';
   showSave = true;
   showCancel = true;
+  @Input() showAdd = true;
+  @Input() showDelete = true;
+  @Input() showEdit = true;
   isShowingFilter = false;
-  
+  refreshIndex = 0;
+  selectValues: number[];
+  selectTexts: string[];
+  @Output() onDelete = new EventEmitter();
 
-  // @ViewChild('inputText') inputElement: ElementRef;
-  constructor() {}
+  @ViewChild('inputText') inputElement: ElementRef;
+  @ViewChild('select-entity-type') selectEntityType: ElementRef;
+  constructor(public dataService: DataService) {}
 
   ngOnInit(): void {
-    // this.options.sort();
-    // this.option = this.options.indexOf().toString();
-    this.setItem(this.value);
+    // this.values.sort();
+    // this.option = this.values.indexOf().toString();
+    //this.setItem(this.value);
+    this.setSelect();
   }
 
-  setItem(text: string) {
-    //this.options.sort();
-    this.options.sort(function (a, b) {
-      if (typeof(a)=='string' && typeof(b) == 'string'){
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-      } else {
-        let r = 0;
-        if (a > b) r = 1;
-        else if (a < b) r = -1;
-        return r;
-      }
-    });
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.innerWidth = this.selectEntityType.nativeElement.innerWidth;
+  // }
 
-    this.option = +this.options.indexOf(text).toString();
+  getID(){
+    return this.dataService.getID(this.title);
   }
+
+  setSelect() {
+    this.selectTexts = [];
+    this.selectValues = [];
+    for (let [k, v] of this.values) {
+      this.selectTexts.push(v);
+      this.selectValues.push(k);
+    }
+    //console.log(this.selectValues,this.selectTexts);
+  }
+  //setItem(text: string) {
+  //this.values.sort();
+  // this.values.sort(function (a, b) {
+  //   if (typeof(a)=='string' && typeof(b) == 'string'){
+  //     return a.toLowerCase().localeCompare(b.toLowerCase());
+  //   } else {
+  //     let r = 0;
+  //     if (a > b) r = 1;
+  //     else if (a < b) r = -1;
+  //     return r;
+  //   }
+  // });
+
+  //this.option = +this.values.indexOf(text).toString();
+  //}
 
   hideByFilter() {
     return this.doHideByFilter
@@ -88,7 +116,7 @@ export class InputSelectComponent implements OnInit {
   doEdit() {
     this.isAdd = false;
     //console.log(this.option);
-    this.text = this.options[+this.option];
+    this.text = this.values.get(this.value);
     // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -99,23 +127,30 @@ export class InputSelectComponent implements OnInit {
       //save is pressed
       if (this.isAdd) {
         //save for a new item
-        this.options.push(this.text);
+        //this.values.push(this.text);
+        let i = this.values.size;
+        this.values.set(i, this.text);
+        this.value = i;
         this.isAdd = false;
-        this.onAdd.emit(this.text);
-        this.onChange.emit(this.text);
+        this.onAdd.emit(this.value);
+        this.onChange.emit(this.value);
       } else {
         //save for old item
         //console.log(this.option, this.text);
-        let prevValue = this.options[+this.option] ;
-        let currValue = this.text;
-        this.options[+this.option] = this.text;
-        console.log('input-select-0',this.text,this.options);
-        this.onEdit.emit({prevValue, currValue});
-        this.onChange.emit(currValue)
-        console.log('input-select-1',this.text,this.options);
+        this.values.set(this.value, this.text);
+
+        // let prevValue = this.values[+this.option] ;
+        // let currValue = this.text;
+        // this.values[+this.option] = this.text;
+        // console.log('input-select-0',this.text,this.values);
+        let id = this.value;
+        let t = this.text;
+        this.onEdit.emit({ id, t });
+        this.onChange.emit(this.text);
+        // console.log('input-select-1',this.text,this.values);
       }
-      //this.options.sort();
-      this.setItem(this.text);
+      //this.values.sort();
+      //this.setItem(this.text);
     } else {
       //new is clicked
       this.isAdd = true;
@@ -125,18 +160,18 @@ export class InputSelectComponent implements OnInit {
     this.isDoInput = !this.isDoInput;
   }
 
-  doSave(event: any){
+  doSave(event: any) {
     //console.log(event);
     this.text = event;
-    this.showNew()
+    this.showNew();
   }
 
-  doCancel(){
+  doCancel() {
     this.isDoInput = false;
   }
 
-  doAdd(){
-    this.showNew()
+  doAdd() {
+    this.showNew();
   }
 
   // setFocus() {
@@ -147,49 +182,56 @@ export class InputSelectComponent implements OnInit {
   //   }, 0);
   // }
 
-  doDelete() {
-    let r = confirm('Are you sure you want to delete this item?');
-    //console.log(r);
-    if (r) this.options.splice(+this.option, 1);
-    this.option = 0;
+  trackFn() {
+    return this.refreshIndex;
   }
 
-  doFilter(event: any){
+  doDelete() {
+    if (this.values.size > 0) {
+      let r = confirm('Are you sure you want to delete this item?');
+      if (r) {
+        this.values.delete(this.value);
+        this.value = [...this.values.keys()][0];
+      }
+    }
+  }
+
+  doFilter(event: any) {
     this.listFilterText = event.toLowerCase();
   }
 
-  hideItem(text: string){
+  hideItem(text: string) {
     let r = false;
-    if (this.listFilterText.length>0){
-      r = text.toLowerCase().indexOf(this.listFilterText)==-1;
+    if (this.listFilterText.length > 0) {
+      r = text.toLowerCase().indexOf(this.listFilterText) == -1;
     }
     return r;
   }
 
-  countItems(){
-    return this.options.filter(e => !this.hideItem(e)).length;
+  countItems() {
+    let v = [...this.values.values()];
+    return v.filter((e) => !this.hideItem(e)).length;
   }
 
-  showingFilter(event:any){
+  showingFilter(event: any) {
     this.isShowingFilter = event;
   }
 
-  doChange(event: any){
-    //console.log(event);
-    this.onChange.emit(this.options[event.target.value]);
-    this.onSelect.emit(event.target.value);
+  doChange(event: any) {
+    this.value = +event.target.value;
+    this.onSelect.emit(this.value);
+    this.onChange.emit(this.value)
   }
 
   // trackBy: trackFn()
-  trackFn(){
-    let r = 0;
-    if (this.options){
-      for (let i=0;i<this.options.length;i++){
-        r = r + this.options[i].length;
-      }
-      r = this.options.length;
-    }
-    return r;
-  }
-
+  // trackFn(){
+  //   let r = 0;
+  //   if (this.values){
+  //     for (let i=0;i<this.values.length;i++){
+  //       r = r + this.values[i].length;
+  //     }
+  //     r = this.values.length;
+  //   }
+  //   return r;
+  // }
 }

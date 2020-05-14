@@ -33,7 +33,7 @@ export class EntityMessagesComponent implements OnInit {
       decision-making, higher costs and greater time
       required for internal alignment and co-ordination.
       After detailed analysis, benchmarking, weighing up
-      the trade-offs between different options and reflecting
+      the trade-offs between different values and reflecting
       on Sasol’s long-term growth aspirations and strategy,
       an operating model based on Sasol’s value chain was
       confirmed as the best platform to take the organisation

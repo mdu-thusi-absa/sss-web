@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-schedule',
@@ -9,7 +10,7 @@ export class InputScheduleComponent implements OnInit {
   @Input() title = '';
   @Input() stepNumber = 0;
   @Input() hideBody = true;
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
   }

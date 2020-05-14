@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Person, CountryCities } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-details-company-secondary',
@@ -17,7 +18,7 @@ export class EntityDetailsCompanySecondaryComponent implements OnInit {
   @Output() onFile = new EventEmitter();
 
   
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
   }

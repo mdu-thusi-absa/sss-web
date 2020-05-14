@@ -8,7 +8,7 @@ import { Person } from '../../models'
   styleUrls: ['./input-duo.component.css']
 })
 export class InputDuoComponent implements OnInit {
-  //text, checkbox, date, list
+  //text, checkbox, date, list, address, person
   @Input() typeLeft = ''; 
   @Input() typeRight = '';
   @Input() filterText = '';
@@ -16,21 +16,27 @@ export class InputDuoComponent implements OnInit {
 
   @Input() titleLeft = '';
   @Input() placeholderLeft = '';
-  @Input() optionsLeft: string[] | Person[];
-  @Input() valueLeft: string | boolean | Person = '';
+  @Input() valuesLeft = new Map(); //: string[] | Person[];
+  @Input() valueLeft: string | boolean | Person | number = '';
   @Input() disabledLeft = false;
   @Input() minValueLeft = -1000;
   @Input() maxValueLeft = 1000;
   @Input() incrementLeft = 1;
+  @Input() showAddLeft = true;
+  @Input() showEditLeft = true;
+  @Input() showDeleteLeft = true;
 
   @Input() titleRight = '';
   @Input() placeholderRight = '';
-  @Input() optionsRight: string[] | Person[];
-  @Input() valueRight: string | boolean | Person = '';
+  @Input() valuesRight = new Map(); // string[] | Person[];
+  @Input() valueRight: string | boolean | Person | number = '' ;
   @Input() disabledRight = false;
   @Input() minValueRight = -1000;
   @Input() maxValueRight = 1000;
   @Input() incrementRight = 1;
+  @Input() showAddRight = true;
+  @Input() showEditRight = true;
+  @Input() showDeleteRight = true;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();

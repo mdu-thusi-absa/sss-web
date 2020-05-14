@@ -320,6 +320,26 @@
                     <small>&nbsp;Files</small></span
                   >
                 </label>
+                &nbsp;
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
+                  ><input
+                    type="checkbox"
+                    class="btn btn-info"
+                    [checked]="!hideUsers"
+                    (change)="hideUsers = !hideUsers"
+                  />
+                  <span class="hidden-md hidden-lg"> U</span>
+                  <span class="hidden-xs hidden-sm">
+                    <small>&nbsp;Users</small></span
+                  >
+                </label>
               </div>
 
               <!-- </div> -->

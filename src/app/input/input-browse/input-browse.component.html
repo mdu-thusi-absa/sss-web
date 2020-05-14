@@ -6,42 +6,84 @@
   <div>
     <label class="nobottom text-primary label-buttons-3">{{ title }}</label>
   </div>
-  <div class="input-group input-group-sm">
-    <input
-      type="text"
-      class="form-control input-sm"
-      [placeholder]="'File name'"
-      [(ngModel)]="filterText"
-      (keyup)="doKey($event)"
-      style="font-weight: normal;"
-      autocomplete="nope"
-    />
+  <div class="hidden-xs">
+    <div class="input-group input-group-sm">
+      <input
+        type="text"
+        class="form-control input-sm"
+        [placeholder]="'File name'"
+        [(ngModel)]="filterText"
+        (keyup)="doKey($event)"
+        style="font-weight: normal;"
+        autocomplete="nope"
+      />
 
-    <span
-      *ngIf="showMinus"
-      class="input-group-addon btn primary-color-reverse"
-      (click)="doMinus()"
-      [title]="'Discard'"
-    >
-      <span class="glyphicon glyphicon-remove"></span>
-    </span>
+      <span
+        *ngIf="showMinus"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doMinus()"
+        [title]="'Discard'"
+      >
+        <span class="glyphicon glyphicon-remove"></span>
+      </span>
 
-    <span
-      *ngIf="showLink"
-      class="input-group-addon btn primary-color-reverse"
-      (click)="doLink()"
-      [title]="'Add link'"
-    >
-      <span class="glyphicon glyphicon-link"></span>
-    </span>
+      <span
+        *ngIf="showLink"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doLink()"
+        [title]="'Add link'"
+      >
+        <span class="glyphicon glyphicon-link"></span>
+      </span>
 
-    <span
-      *ngIf="showDisk"
-      class="input-group-addon btn primary-color-reverse"
-      (click)="doDisk()"
-      [title]="'Browse for file'"
-    >
-      <span class="glyphicon glyphicon-floppy-disk"></span>
-    </span>
+      <span
+        *ngIf="showDisk"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDisk()"
+        [title]="'Browse for file'"
+      >
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+      </span>
+    </div>
+  </div>
+  <div class="hidden-sm hidden-md hidden-lg">
+    <div class="input-group-sm">
+      <input
+        type="text"
+        class="form-control input-sm"
+        [placeholder]="'File name'"
+        [(ngModel)]="filterText"
+        (keyup)="doKey($event)"
+        style="font-weight: normal;"
+        autocomplete="nope"
+      />
+
+      <span
+        *ngIf="showMinus"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doMinus()"
+        [title]="'Discard'"
+      >
+        <span class="glyphicon glyphicon-remove"></span>
+      </span>
+
+      <span
+        *ngIf="showLink"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doLink()"
+        [title]="'Add link'"
+      >
+        <span class="glyphicon glyphicon-link"></span>
+      </span>
+
+      <span
+        *ngIf="showDisk"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDisk()"
+        [title]="'Browse for file'"
+      >
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+      </span>
+    </div>
   </div>
 </div>

@@ -11,20 +11,36 @@
 <app-input-filter-add
   [showSave]="true"
   [showCancel]="true"
-  [showT] = "true"
+  [showT]="true"
   (onFilter)="doFilter($event)"
 ></app-input-filter-add>
 
 <form autocomplete="off">
-  <app-input-text
-    [filterText]="filterText"
-    [doHideByFilter]="false"
-    (onFile)="doFile($event)"
-    (onRecord)="doRecord($event)"
-    (onTask)="doTask($event)"
-    [title]="'Entity Name*'"
-    [placeholder]="'Legal name of the entity (required)'"
-  ></app-input-text>
+  <div *ngIf="entityType!=4">
+    <app-input-text
+      [filterText]="filterText"
+      [doHideByFilter]="false"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [title]="'Entity Name*'"
+      [placeholder]="'Legal name of the entity (required)'"
+    ></app-input-text>
+  </div>
+  <div *ngIf="entityType==4">
+    <app-input-duo
+        [typeLeft]="'text'"
+        [typeRight]="'text'"
+        [titleLeft]="'Surname'"
+        [titleRight]="'First'"
+        [doHideByFilter]="false"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      >
+      </app-input-duo>
+  </div>
+
   <div
     [class.entities-detail-form-full]="isFullScreen()"
     [class.entities-detail-form-half]="isHalfScreen()"
@@ -50,18 +66,12 @@
         [doHideByFilter]="true"
         [typeLeft]="'select'"
         [titleLeft]="'Entity Type'"
-        [optionsLeft]="[
-          'Trust',
-          'Company',
-          'Regulator',
-          'Regulation',
-          'Person',
-          'Government Agency'
-        ]"
-        [valueLeft]="'Company'"
+        [valuesLeft]="dataService.getEntityTypes()"
+        [valueLeft]="0"
         [typeRight]="'text'"
         [titleRight]="'Registration Number'"
         [placeholderRight]="'Entity registration number'"
+        (onChangeLeft)="doChangeEntityType($event)"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
         (onTask)="doTask($event)"
@@ -69,54 +79,51 @@
       </app-input-duo>
     </div>
 
-      <div [hidden]="hidePrimary">
-        <app-entity-details-company-primary
-          [filterText]="filterText"
-          (onFile)="doFile($event)"
-          (onRecord)="doRecord($event)"
-          (onTask)="doTask($event)"
-        ></app-entity-details-company-primary>
-      </div>
-      <div [hidden]="hideSecondary">
-        <app-entity-details-company-secondary
-          [filterText]="filterText"
-          [persons]="persons"
-          [countriesCities] = "countriesCities"
-          (onFile)="doFile($event)"
-          (onRecord)="doRecord($event)"
-          (onTask)="doTask($event)"
-        ></app-entity-details-company-secondary>
-      </div>
-      <div [hidden]="hideOptional">
-        <app-entity-details-company-optional
-          [filterText]="filterText"
-          [persons]="persons"
-          (onFile)="doFile($event)"
-          (onRecord)="doRecord($event)"
-          (onTask)="doTask($event)"
-        ></app-entity-details-company-optional>
-      </div>
-      <div [hidden]="hideCustom">
-        <app-entity-details-custom
-          [filterText]="filterText"
-          [persons]="persons"
-          [countriesCities] = "countriesCities"
+    <div [hidden]="hidePrimary">
+      <app-entity-details-company-primary
+        [filterText]="filterText"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      ></app-entity-details-company-primary>
+    </div>
+    <div [hidden]="hideSecondary">
+      <app-entity-details-company-secondary
+        [filterText]="filterText"
+        [persons]="persons"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      ></app-entity-details-company-secondary>
+    </div>
+    <div [hidden]="hideOptional">
+      <app-entity-details-company-optional
+        [filterText]="filterText"
+        [persons]="persons"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      ></app-entity-details-company-optional>
+    </div>
+    <div [hidden]="hideCustom">
+      <app-entity-details-custom
+        [filterText]="filterText"
+        [persons]="persons"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      ></app-entity-details-custom>
+    </div>
+    <div [hidden]="hideFiles">
+      <app-entity-details-files
+        [filterText]="filterText"
+        [persons]="persons"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      ></app-entity-details-files>
+    </div>
 
-          (onFile)="doFile($event)"
-          (onRecord)="doRecord($event)"
-          (onTask)="doTask($event)"
-        ></app-entity-details-custom>
-      </div>
-      <div [hidden]="hideFiles">
-        <app-entity-details-files
-          [filterText]="filterText"
-          [persons]="persons"
-          (onFile)="doFile($event)"
-          (onRecord)="doRecord($event)"
-          (onTask)="doTask($event)"
-        ></app-entity-details-files>
-      </div>
-    
     <hr style="height: 1px; margin: 0px;" />
 
     <!-- Documents table -->

@@ -5,12 +5,12 @@
       [doHideByFilter]="true"
       [typeLeft]="'select'"
       [titleLeft]="'Appointed company secretary'"
-      [optionsLeft]="['Internal', 'PWC']"
-      [valueLeft]="'Internal'"
+      [valuesLeft]="dataService.getCompanySercetaries()"
+      [valueLeft]="0"
       [typeRight]="'select'"
       [titleRight]="'Internal secretary representative'"
-      [optionsRight]="['Sam']"
-      [valueRight]="'Sam'"
+      [valuesRight]="[[0,'Sam']]"
+      [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -21,12 +21,12 @@
       [doHideByFilter]="true"
       [typeLeft]="'person'"
       [titleLeft]="'Entity Executive'"
-      [optionsLeft]="persons"
-      [valueLeft]="persons[0]"
+      [valuesLeft]="persons"
+      [valueLeft]="0"
       [typeRight]="'person'"
       [titleRight]="'Entity Financial Officer'"
-      [optionsRight]="persons"
-      [valueRight]="persons[0]"
+      [valuesRight]="persons"
+      [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -37,12 +37,12 @@
       [doHideByFilter]="true"
       [typeLeft]="'person'"
       [titleLeft]="'Public Officer (income tax)'"
-      [optionsLeft]="persons"
-      [valueLeft]="persons[0]"
+      [valuesLeft]="dataService.getPersons()"
+      [valueLeft]="0"
       [typeRight]="''"
       [titleRight]="'Entity Financial Officer'"
-      [optionsRight]="persons"
-      [valueRight]="persons[0]"
+      [valuesRight]="persons"
+      [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -262,14 +262,9 @@
                 <div class="col-xs-6">
                   <app-input-select
                     [title]="'Position'"
-                    [options]="[
-                      'Director',
-                      'Auditor',
-                      'Secretary',
-                      'Public Officer'
-                    ]"
+                    [values]="dataService.getPositions()"
                     [filterText]="filterText"
-                    [value]="'Public Officer'"
+                    [value]="0"
                   ></app-input-select>
                 </div>
               </div>

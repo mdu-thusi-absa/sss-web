@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Entity } from '../../models'
+import { DataService } from 'src/app/data.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class EntitiesComponent implements OnInit {
     {name: 'Cisco Systems',tasksCount:3,suffix:'', country: 'TZA', isActive: false}    
   ];
 
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
     this.entities.sort(Entity.compare);

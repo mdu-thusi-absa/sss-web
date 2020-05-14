@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Person, CountryCities } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-custom',
@@ -11,8 +12,8 @@ export class InputCustomComponent implements OnInit {
   @Input() title = 'Field';
   @Input() doHideByFilter = true;
   @Input() filterText = '';
-  @Input() customType = 'text';
-  @Input() options: string[] 
+  @Input() customType = 'person';
+  @Input() values = new Map(); //string[] 
   @Input() persons: Person[];
   @Input() countriesCities: CountryCities[];
 
@@ -22,7 +23,7 @@ export class InputCustomComponent implements OnInit {
   @Output() onChangeCustomType = new EventEmitter();
 
 
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
     if (this.title=='') this.title = 'Custom ' + this.id;
@@ -43,7 +44,7 @@ export class InputCustomComponent implements OnInit {
   doChangeCustomType(event: any){
     // this.onChangeCustomType.emit(event);
     //console.log(event);
-    this.customType = event;
+    this.customType = this.dataService.getCustomTypes().get(event);
   }
 
   doChangeTitle(event: any){

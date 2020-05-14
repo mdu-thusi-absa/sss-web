@@ -10,19 +10,13 @@
     
     [typeRight]="'select'"
       [titleRight]="title + ' type'"
-      [optionsRight]="[
-        'text',
-        'date',
-        'checkbox',
-        'textarea',
-        'person',
-        'address',
-        'file',
-        'number'
-      ]"
-      [valueRight]="customType"
+      [valuesRight]="dataService.getCustomTypes()"
+      [valueRight]="4"
       (onChangeRight)="doChangeCustomType($event)"
-  >
+      [showAddRight] = "false"
+      [showEditRight] = "false"
+      [showDeleteRight] = "false"
+  > 
   </app-input-duo>
 
   <app-input-any
@@ -31,7 +25,8 @@
       
       [type]="customType"
       [title]="title + ' (' + customType + ') details'"
-      [options]="customType=='person' ? persons : (customType=='address' ? countriesCities : options)"
+      [values]="customType=='person' ? dataService.getPersons() : values"
+      [value] = "0"
       [showTitleInput] = "false"
       
       (onFile)="doFile()"

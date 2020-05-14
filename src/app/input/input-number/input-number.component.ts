@@ -92,6 +92,7 @@ export class InputNumberComponent implements OnInit {
     //console.log(this.minValue,this.maxValue,this.value);
   }
 
+  //(keyup)="doKey($event)"
   doKeyUp(event: any) {
     if (event.key == 'Escape') {
       //this.value = this.defaultValue;

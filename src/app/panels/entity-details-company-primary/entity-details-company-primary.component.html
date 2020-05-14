@@ -1,24 +1,26 @@
-<hr class="primary-color" style='height: 1px;margin:0px'>
-<div class="h4 text-primary" style="margin-top: 5px;"><u>Primary Details</u></div>
+<hr class="primary-color" style="height: 1px; margin: 0px;" />
+<div class="h4 text-primary" style="margin-top: 5px;">
+  <u>Primary Details</u>
+</div>
 <app-input-duo
-[typeLeft]="'text'"
-[typeRight]="'date'"
-[titleLeft]="'Previous Name'"
-[titleRight]="'Prev. Name Effective Date'"
-[filterText]="filterText"
-[doHideByFilter]="true"
-(onFile)="doFile($event)"
-(onRecord)="doRecord($event)"
-(onTask)="doTask($event)"
+  [typeLeft]="'text'"
+  [typeRight]="'date'"
+  [titleLeft]="'Previous Name'"
+  [titleRight]="'Prev. Name Effective Date'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
 >
 </app-input-duo>
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'select-checkbox'"
-  [titleLeft]="'Lists membership'"
-  [optionsLeft]="['- Default -', 'Africa', 'Europe', 'Asia']"
-  [valueLeft]="'- Default -'"
+  [titleLeft]="'Entity Lists'"
+  [valuesLeft]="dataService.getEntityLists()"
+  [valueLeft]="0"
   [typeRight]="'text'"
   [titleRight]="'Internal Code'"
   (onFile)="doFile($event)"
@@ -33,11 +35,11 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
-  [optionsLeft]="['South Africa', 'Botswana', 'UK']"
-  [valueLeft]="'South Africa'"
+  [valuesLeft]="dataService.getCountries()"
+  [valueLeft]="0"
   [titleRight]="'Industry'"
-  [optionsRight]="['Banking', 'Asset Management', 'Property']"
-  [valueRight]="'Banking'"
+  [valuesRight]="dataService.getIndustries()"
+  [valueRight]="0"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -62,24 +64,13 @@
   [doHideByFilter]="true"
   [typeLeft]="'date'"
   [titleLeft]="'Incorporation Date'"
-  [valueLeft]=""
   [typeRight]="'select'"
   [titleRight]="'Anniversary (month)'"
-  [optionsRight]="[
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12'
-  ]"
-  [valueRight]="'01'"
+  [valuesRight]="dataService.getMonths()"
+  [valueRight]="0"
+  [showAddRight]="false"
+  [showDeleteRight]="false"
+  [showEditRight]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -90,25 +81,14 @@
   [doHideByFilter]="true"
   [typeLeft]="'date'"
   [titleLeft]="'Business Start Date'"
-  [optionsLeft]="[]"
   [valueLeft]=""
   [typeRight]="'select'"
   [titleRight]="'Financial year end (month)'"
-  [optionsRight]="[
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12'
-  ]"
-  [valueRight]="'01'"
+  [valuesRight]="dataService.getMonths()"
+  [valueRight] = "0"
+  [showAddRight]="false"
+  [showDeleteRight]="false"
+  [showEditRight]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"

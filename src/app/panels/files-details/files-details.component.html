@@ -1,7 +1,12 @@
 <div class="tableFixHead">
   <table
     class="table table-condensed table-fixed less-bottom"
-    style="font-size: smaller; table-layout: fixed; border-collapse: separate;"
+    style="
+      font-size: smaller;
+      table-layout: fixed;
+      border-collapse: separate;
+      width: auto !important;
+    "
   >
     <thead class="info">
       <tr class="info">
@@ -26,10 +31,10 @@
             width: 150px;
             min-width: 150px;
             position: sticky;
-            left: 25px;
             padding-top: 0px;
             padding-bottom: 0px;
           "
+          [style.left]="colLeft0"
         >
           <div
             class="checkbox pull-right"
@@ -41,9 +46,7 @@
               z-index: 995;
             "
           >
-            <label
-              class="nobottom label-checkbox"
-              style="padding-right: 10px;"
+            <label class="nobottom label-checkbox" style="padding-right: 10px;"
               ><input
                 type="checkbox"
                 value=""
@@ -129,6 +132,7 @@
             width: 50px;
             top: 55px;
           "
+          [attr.width] = "(100 * colspanFile + 1) + 'px'"
           [attr.colspan]="colspanFile + 1"
           [style.left]="'0px'"
         >
@@ -143,7 +147,7 @@
             border-top: none;
           "
           [style.top]="'55px'"
-          [style.left]="hideWho ? colLeft2 : colLeft1"
+          
           [hidden]="hideWhen"
         >
           <small>When</small>
@@ -164,7 +168,7 @@
           "
           [style.top]="'55px'"
           [hidden]="hideWho"
-          [style.left]="colLeft2"
+          
         >
           <small>Who</small>
         </th>
@@ -175,7 +179,7 @@
         <ng-container *ngIf="showDataRow(d[4]) && showIfInFilter(d)">
           <tr style="border-bottom: 1px solid black;">
             <td
-              class="info"
+              class="default"
               style="
                 text-align: left;
                 vertical-align: middle;
@@ -185,6 +189,7 @@
                 position: sticky;
                 left: 0px;
                 z-index: 990;
+                background-color: rgb(236, 234, 234);
               "
             >
               <input style="padding-bottom: 0px;" type="checkbox" value="" />
@@ -206,13 +211,14 @@
             </td> -->
 
             <td
-              class="info"
+              class="default"
               style="
                 vertical-align: middle;
                 border-bottom: none;
                 border-left: none;
                 position: sticky;
                 z-index: 990;
+                background-color: rgb(236, 234, 234);
               "
               [style.left]="colLeft0"
               [attr.colspan]="colspanFile"
@@ -223,29 +229,31 @@
             </td>
 
             <td
-              class="info"
+              class="default"
               [hidden]="hideWhen"
               style="
                 vertical-align: middle;
                 border-bottom: none;
                 border-left: none;
                 position: sticky;
-                z-index: 990;
+                
+                background-color: rgb(236, 234, 234);
               "
-              [style.left]="hideWho ? colLeft2 : colLeft1"
+              
             >
               <small>{{ d[0] }}</small>
             </td>
             <td
-              class="info"
+              class="default"
               [hidden]="hideWho"
               style="
                 vertical-align: middle;
                 border-bottom: none;
                 position: sticky;
-                z-index: 990;
+                
+                background-color: rgb(236, 234, 234);
               "
-              [style.left]="colLeft2"
+              
             >
               <small>{{ d[1] }}</small>
             </td>
@@ -265,13 +273,14 @@
           </tr>
           <tr>
             <td
-              class="info"
+              class="default"
               [attr.colspan]="showFileFields.length + 4"
               style="
                 padding-top: 0px;
                 padding-bottom: 5px;
                 vertical-align: top;
                 border-top: none;
+                word-wrap: break-word;
               "
             >
               <small>{{ d[3] }}</small>

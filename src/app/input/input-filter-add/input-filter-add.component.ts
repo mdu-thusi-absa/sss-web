@@ -23,7 +23,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titlePlural = '';
   @Input() titleT = '';
   @Input() showList = false;
-  @Input() listOptions = ['Yes', 'No'];
+  @Input() listValues = [[0,'Yes'], [1,'No']];
 
   @Input() showDelete = false;
   @Input() showCancel = false;
@@ -43,7 +43,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showEyeClose = false;
   @Input() showSave = false;
 
-  //for radio options
+  //for radio values
   @Input() countFlash = 0;
   @Input() countPlay = 0;
   @Input() countOk = 0;
