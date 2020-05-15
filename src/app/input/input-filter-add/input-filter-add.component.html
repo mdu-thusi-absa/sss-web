@@ -166,7 +166,7 @@
 <div class="input-group input-group-sm" style="width: 100%;">
   <select
     *ngIf="showList"
-    class="form-control input-sm wide"
+    class="form-control input-sm wide primary-color-input-reverse"
     style="font-size: small;"
     (change) = "doListChange($event)"
   >
@@ -175,6 +175,10 @@
     }}</option>
   </select>
 </div>
+
+
+
+
 
 <div class="input-group input-group-sm">
   <span
@@ -261,3 +265,5 @@
     <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
   </span>
 </div>
+
+
