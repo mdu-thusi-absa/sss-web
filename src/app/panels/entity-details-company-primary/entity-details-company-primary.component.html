@@ -3,6 +3,22 @@
   <u>Primary Details</u>
 </div>
 <app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [typeRight]="'date'"
+  [titleLeft]="'Suffix'"
+  [titleRight]="'Curr. Name Effective Date'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+>
+</app-input-duo>
+<app-input-duo
+  [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [typeRight]="'date'"
   [titleLeft]="'Previous Name'"
@@ -15,6 +31,7 @@
 >
 </app-input-duo>
 <app-input-duo
+  [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'select-checkbox'"
@@ -22,7 +39,7 @@
   [valuesLeft]="dataService.getEntityLists()"
   [valueLeft]="0"
   [typeRight]="'text'"
-  [titleRight]="'Internal Code'"
+  [titleRight]="'Registration Number'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -30,12 +47,13 @@
 </app-input-duo>
 
 <app-input-duo
+  [isNarrow]="isNarrow"
   [typeLeft]="'select'"
   [typeRight]="'select'"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
-  [valuesLeft]="dataService.getCountries()"
+  [valuesLeft]="dataService.getCountriesNames()"
   [valueLeft]="0"
   [titleRight]="'Industry'"
   [valuesRight]="dataService.getIndustries()"
@@ -46,6 +64,7 @@
 ></app-input-duo>
 
 <app-input-duo
+  [isNarrow]="isNarrow"
   [typeLeft]="'checkbox'"
   [typeRight]="'checkbox'"
   [filterText]="filterText"
@@ -60,6 +79,7 @@
 ></app-input-duo>
 
 <app-input-duo
+  [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'date'"
@@ -77,6 +97,7 @@
 ></app-input-duo>
 
 <app-input-duo
+  [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'date'"
@@ -85,7 +106,7 @@
   [typeRight]="'select'"
   [titleRight]="'Financial year end (month)'"
   [valuesRight]="dataService.getMonths()"
-  [valueRight] = "0"
+  [valueRight]="0"
   [showAddRight]="false"
   [showDeleteRight]="false"
   [showEditRight]="false"
@@ -93,3 +114,5 @@
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
 ></app-input-duo>
+
+<hr style="height: 1px; margin: 0px;" />

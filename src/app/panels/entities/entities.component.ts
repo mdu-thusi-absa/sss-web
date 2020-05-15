@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Entity } from '../../models'
+import { FunctionalEntity } from '../../models'
 import { DataService } from 'src/app/data.service';
 
 
@@ -13,32 +13,39 @@ export class EntitiesComponent implements OnInit {
   rdoActiveDormantAll = 'flash';
   isNewMessage = false;
   @Input() panelRows = 1;
-  entities: Entity[] = [
-    {name: 'Google Pty Ltd',tasksCount:2,suffix:'', country: 'South Africa',isActive: true},
-    {name: 'Microsoft Pty Ltd',tasksCount:3,suffix:'', country: 'South Africa',isActive: true},
-    {name: 'Apple Inc',tasksCount:0,suffix:'', country: 'Botswana',isActive: false},
-    {name: 'Amazon',tasksCount:0,suffix:'USA', country: 'Ghana',isActive: true},
-    {name: 'Amazon',tasksCount:2,suffix:'SA', country: 'Ghana',isActive: true},
-    {name: 'Alphabet',tasksCount:1, suffix:'',country: 'Ghana',isActive: false},
-    {name: 'Facebook',tasksCount:0,suffix:'', country: 'Kenya',isActive: false},
-    {name: 'Alibaba',tasksCount:0,suffix:'', country: 'Kenya',isActive: true},
-    {name: 'Tencent Holdings',tasksCount:5,suffix:'', country: 'Mauritius',isActive: false},
-    {name: 'Johnson and Johnson',tasksCount:0,suffix:'', country: 'Mauritius',isActive: false},
-    {name: 'Walmart',tasksCount:0,suffix:'', country: 'Mozambique',isActive: false},
-    {name: 'Nestle',tasksCount:3,suffix:'', country: 'Mozambique',isActive: true},
-    {name: 'Samsung',tasksCount:1,suffix:'', country: 'Seychelles',isActive: true},
-    {name: 'Procter and Gamble',tasksCount:0,suffix:'', country: 'ZAF',isActive: false},
-    {name: 'Intel',tasksCount:4,suffix:'', country: 'TZA',isActive: false},
-    {name: 'Cisco Systems',tasksCount:3,suffix:'', country: 'TZA', isActive: false}    
-  ];
+  entities = new Map();
+  // entities: Entity[] = [
+  //   {name: 'Google Pty Ltd',tasksCount:2,suffix:'', country: 'South Africa',isActive: true},
+  //   {name: 'Microsoft Pty Ltd',tasksCount:3,suffix:'', country: 'South Africa',isActive: true},
+  //   {name: 'Apple Inc',tasksCount:0,suffix:'', country: 'Botswana',isActive: false},
+  //   {name: 'Amazon',tasksCount:0,suffix:'USA', country: 'Ghana',isActive: true},
+  //   {name: 'Amazon',tasksCount:2,suffix:'SA', country: 'Ghana',isActive: true},
+  //   {name: 'Alphabet',tasksCount:1, suffix:'',country: 'Ghana',isActive: false},
+  //   {name: 'Facebook',tasksCount:0,suffix:'', country: 'Kenya',isActive: false},
+  //   {name: 'Alibaba',tasksCount:0,suffix:'', country: 'Kenya',isActive: true},
+  //   {name: 'Tencent Holdings',tasksCount:5,suffix:'', country: 'Mauritius',isActive: false},
+  //   {name: 'Johnson and Johnson',tasksCount:0,suffix:'', country: 'Mauritius',isActive: false},
+  //   {name: 'Walmart',tasksCount:0,suffix:'', country: 'Mozambique',isActive: false},
+  //   {name: 'Nestle',tasksCount:3,suffix:'', country: 'Mozambique',isActive: true},
+  //   {name: 'Samsung',tasksCount:1,suffix:'', country: 'Seychelles',isActive: true},
+  //   {name: 'Procter and Gamble',tasksCount:0,suffix:'', country: 'ZAF',isActive: false},
+  //   {name: 'Intel',tasksCount:4,suffix:'', country: 'TZA',isActive: false},
+  //   {name: 'Cisco Systems',tasksCount:3,suffix:'', country: 'TZA', isActive: false}    
+  // ];
 
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.entities.sort(Entity.compare);
+    //this.entities.sort(Entity.compare);
+    this.entities = this.dataService.getFunctionalEntities(0);
   }
 
-  shouldBeHidden(e: Entity): boolean{
+  doEntityTypeChange(event: any){
+    console.log('doEntityTypeChange',event);
+    this.entities = this.dataService.getFunctionalEntities(event);
+  }
+
+  shouldBeHidden(e: FunctionalEntity): boolean{
     let inFilter = true;
     let inName = true;
     //let inInfo = true;
@@ -72,19 +79,19 @@ export class EntitiesComponent implements OnInit {
   }
 
   getCount_Active(){
-    return this.entities.filter(e => e.isActive).length;
+    return [...this.entities.values()].filter(e => e.isActive).length;
   }
 
   getCount_Dormant(){
-    return this.entities.filter(e => !e.isActive).length;
+    return [...this.entities.values()].filter(e => !e.isActive).length;
   }
 
   getCount_Tasks(){
-    return this.entities.filter(e => e.tasksCount>0).length;
+    return [...this.entities.values()].filter(e => e.tasksCount>0).length;
   }
 
   getCount_All(){
-    return this.entities.length;
+    return this.entities.size;
   }
 
   doFilter(event: any){
@@ -92,7 +99,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   getCountFiltered(){
-    return this.entities.filter(e => !this.shouldBeHidden(e)).length;
+    return [...this.entities.values()].filter(e => !this.shouldBeHidden(e)).length;
   }
 
   doAdd(){

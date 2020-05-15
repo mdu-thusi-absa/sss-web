@@ -78,44 +78,55 @@ body {
   scrollbar-width: thin;
 } */
 
-.container-panel-right {
-  height: calc(100vh - 92px);
+/* .container-panel-right {
+  height: calc(100vh-0px);
   overflow-y: hidden;
   scrollbar-width: thin;
-}
+} */
 .container-panel-left-full {
-  height: calc(100vh - 92px);
+  height: calc(100vh - 65px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 .container-panel-center-full {
-  height: calc(100vh - 93px);
+  height: calc(100vh - 65px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
 
 .container-panel-left-half {
-  height: calc(50vh - 74px);
+  height: calc(50vh - 47px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 .container-panel-center-half {
-  height: calc(50vh - 74.5px);
+  height: calc(50vh - 47px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
 
+.entities-tasks {
+  height: calc(100vh - 121px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.entities-messages {
+  height: calc(100vh - 121px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .entities-detail-form-full {
-  height: calc(100vh - 192px);
+  height: calc(100vh - 160px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 
 .entities-detail-form-half {
-  height: calc(50vh - 170px);
+  height: calc(50vh - 145px);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -129,12 +140,12 @@ body {
 } */
 
 .entities-full {
-  height: calc(100vh - 175px);
+  height: calc(100vh - 148px);
   overflow-y: auto;
 }
 
 .entities-half {
-  height: calc(50vh - 152px);
+  height: calc(50vh - 132px);
   overflow-y: auto;
 }
 
@@ -175,13 +186,13 @@ body {
 }
 
 .files-attributes-half {
-  height: calc(50vh - 105px);
+  height: calc(50vh - 82px);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 .files-details-full {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 80px);
   overflow-y: auto;
   overflow-x: auto;
 }
@@ -264,22 +275,21 @@ hr {
   border-color:  rgb(150,5,4);
 } */
 
-
 /*rgb(236, 234, 234)*/
 /*rgb(240, 90, 120);*/
 .table > tbody > tr.info > td,
 .table > tbody > tr.info > th {
   background-color: rgb(236, 234, 234);
   /* color: rgb(240, 90, 120); */
-  color: rgb(85,85,85);
+  color: rgb(85, 85, 85);
 }
-.table > tbody > tr.info > td>a,
-.table > tbody > tr.info > th>a {
-  color:rgb(85,85,85);
+.table > tbody > tr.info > td > a,
+.table > tbody > tr.info > th > a {
+  color: rgb(85, 85, 85);
 }
-.table > tbody > tr > td>a,
-.table > tbody > tr > th>a {
-  color: rgb(85,85,85);
+.table > tbody > tr > td > a,
+.table > tbody > tr > th > a {
+  color: rgb(85, 85, 85);
 }
 
 table > tbody > tr.info > td,
@@ -324,8 +334,9 @@ table > tbody > tr.info > td,
 .table > tbody > tr.info > th,
 .table > thead > tr > th.info {
   /*background-color: rgb(220, 0, 50); absa*/
-  background-color: rgb(240,90,120);
+  background-color: rgb(240, 90, 120);
   color: white;
+  font-weight: normal;
 }
 td.info > a {
   color: white;
@@ -340,12 +351,11 @@ td.info > a {
 } */
 /*background-color: rgb(150, 5, 4); /*absa*/
 .btn-primary.active.focus,
-.btn-primary.active.focus:focus, 
+.btn-primary.active.focus:focus,
 .btn-primary.focus,
 .btn-primary.active,
 .btn-primary.active:focus,
-.btn-primary:focus
-{
+.btn-primary:focus {
   background-color: rgb(220, 0, 50);
   border-color: rgb(150, 5, 4);
 }
@@ -374,8 +384,7 @@ td.info > a {
   /* border-color: rgb(150, 5, 4); */
 }
 .btn-primary:active,
-.btn-primary.active:focus
-.btn-primary.active.focus,
+.btn-primary.active:focus .btn-primary.active.focus,
 .btn-primary.active.focus:focus {
   background-color: rgb(150, 5, 4);
   border-color: rgb(150, 5, 4);
@@ -502,11 +511,9 @@ label.btn.btn-primary:focus{
 .primary-color-active.active:focus,
 .primary-color-active.active.focus,
 .primary-color-active.active.focus:active,
-.primary-color-active.active.focus:focus
-.primary-color-active.focus,
+.primary-color-active.active.focus:focus .primary-color-active.focus,
 .primary-color-active.focus:active,
-.primary-color-active.focus:focus
- {
+.primary-color-active.focus:focus {
   background-color: rgb(150, 5, 4);
   border-color: rgb(150, 5, 4);
   color: white;
@@ -514,17 +521,20 @@ label.btn.btn-primary:focus{
 .primary-color:focus,
 .primary-color.active:focus,
 .primary-color.active.focus,
-.primary-color.active.focus:focus{
+.primary-color.active.focus:focus {
   background-color: rgb(150, 5, 4);
   border-color: white;
   color: white;
 }
 
-
 /* color: rgb(51, 122, 183); original */
 .primary-color-reverse {
-  color: rgb(220, 0, 50); 
+  color: rgb(220, 0, 50);
   background-color: white;
+  border-color: rgb(150, 5, 4);
+}
+
+.primary-color-input-reverse{
   border-color: rgb(150, 5, 4);
 }
 
@@ -544,8 +554,6 @@ label.btn.btn-primary:focus{
   /* background-color: pink; 
   border-color: white;
 } */
-
-
 
 .info-color {
   /* background-color: rgb(81, 145, 201); */

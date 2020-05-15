@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Person, CountryCities } from 'src/app/models';
+import { NaturalEntity, CountryCities } from 'src/app/models';
 
 @Component({
   selector: 'app-input-any',
@@ -14,7 +14,7 @@ export class InputAnyComponent implements OnInit {
   @Input() title = '';
   @Input() placeholder = '';
   @Input() values = new Map(); //: string[] | Person[] | CountryCities[];
-  @Input() value: string | boolean | Person | number = '';
+  @Input() value: string | boolean | NaturalEntity | number = '';
   @Input() disabled = false;
   @Input() maxValue = 1000;
   @Input() minValue = -1000;

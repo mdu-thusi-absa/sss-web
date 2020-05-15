@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Person, CountryCities } from 'src/app/models';
+import { NaturalEntity, CountryCities } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -8,8 +8,9 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./entity-details-company-secondary.component.css']
 })
 export class EntityDetailsCompanySecondaryComponent implements OnInit {
+  @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() persons: Person[];
+  @Input() persons: NaturalEntity[];
   @Input() countriesCities: CountryCities[];
   
 

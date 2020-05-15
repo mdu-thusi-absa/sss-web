@@ -7,6 +7,7 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./input-schedule.component.css']
 })
 export class InputScheduleComponent implements OnInit {
+  @Input() isNarrow = false;
   @Input() title = '';
   @Input() stepNumber = 0;
   @Input() hideBody = true;

@@ -2,7 +2,10 @@
   <div class="container-fluid">
     <div class="row no-gutter">
       <!--column 1: Entities, Tasks, Records, Files-->
-      <div class="col-xs-4 col-sm-2">
+      <div class="col-xs-4"
+        [class.col-sm-2] = "showPanelRight"
+        [class.col-sm-4] = "!showPanelRight"
+        >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3 primary-color">
@@ -51,9 +54,9 @@
           >
             <app-entities [panelRows]="panelRows"></app-entities>
           </div>
-          <div class="panel-footer mt3">
+          <!-- <div class="panel-footer mt3">
             <small>Last refresh: 14:31</small>
-          </div>
+          </div> -->
         </div>
 
         <!-- Tasks hidden-->
@@ -101,7 +104,7 @@
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideHistory"
         >
-          <div class="panel-heading  mt3">
+          <div class="panel-heading mt3">
             <span class="glyphicon glyphicon-cd"></span
             ><small
               ><span class="hidden-xs hidden-sm">&nbsp;Records</span></small
@@ -136,9 +139,9 @@
           >
             <app-records [panelRows]="panelRows"></app-records>
           </div>
-          <div class="panel-footer mt3">
+          <!-- <div class="panel-footer mt3">
             <small>Last refresh: 14:32</small>
-          </div>
+          </div> -->
         </div>
 
         <!-- Files -->
@@ -192,9 +195,9 @@
               [showFileFields]="showFileFields"
             ></app-files-attributes>
           </div>
-          <div class="panel-footer mt3">
+          <!-- <div class="panel-footer mt3">
             <small> Last refresh: 14:32</small>
-          </div>
+          </div> -->
         </div>
       </div>
       <!--column 2: Details of Entities, Records, Docs-->
@@ -202,7 +205,7 @@
         [class.hidden-xs]="showPanelRight"
         [class.col-xs-8]="!showPanelRight"
         [class.col-sm-5]="showPanelRight"
-        [class.col-sm-10]="!showPanelRight"
+        [class.col-sm-8]="!showPanelRight"
       >
         <!-- col 2: Entity Detail -->
         <div
@@ -213,12 +216,11 @@
           "
         >
           <div class="panel-heading mt3">
-            <span
-              class="glyphicon glyphicon-th-large"
-              style="height: 20px;"
-            ></span>
-            <small>
-              <span class="hidden-xs hidden-sm hidden-md">Entity Details:</span
+            <small
+              ><span class="glyphicon glyphicon-th-large"></span>
+
+              <span class="hidden-xs hidden-sm hidden-md"
+                >&nbsp;Entity Details:</span
               >&nbsp;
               <!-- <div class="btn-group"> -->
               <div class="btn-group" style="vertical-align: top; height: 20px;">
@@ -321,7 +323,7 @@
                   >
                 </label>
                 &nbsp;
-                <label
+                <!-- <label
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -339,7 +341,7 @@
                   <span class="hidden-xs hidden-sm">
                     <small>&nbsp;Users</small></span
                   >
-                </label>
+                </label> -->
               </div>
 
               <!-- </div> -->
@@ -361,13 +363,7 @@
                 ></span>
               </a>
             </div>
-
-            <!-- <app-buttons-cancel-save
-              (clickCancel)="doCancel_EntityDetail()"
-              (clickSave)="doSave_EntityDetail()"
-            ></app-buttons-cancel-save> 
-          
-          --></div>
+          </div>
           <div
             class="panel-body mt3"
             [class.container-panel-center-full]="panelRows == 1"
@@ -382,23 +378,35 @@
               [hideSecondary]="hideSecondary"
               [hideOptional]="hideOptional"
               [hideCustom]="hideCustom"
-              [hideFiles] = "hideDetailFiles"
+              [hideFiles]="hideDetailFiles"
+              [hideUsers]="hideUsers"
+              [isNarrow] = "showPanelRight"
             ></app-entity-details>
           </div>
-          <div class="panel-footer mt3">
+          <!-- <div class="panel-footer mt3">
             <small>1 detail is not complete</small>
-          </div>
+          </div> -->
         </div>
 
         <!-- col 2: Record Detail -->
         <div
           class="panel panel-primary no-gutter nobottom"
-          [hidden]="hideHistory"
+          [hidden]="hideHistory && hideFiles"
         >
           <div class="panel-heading mt3">
             <span class="glyphicon glyphicon-tasks"></span>
-            <small> Record Details</small>
+            <small> {{ hideHistory ? "Docs" : "Record Details" }}</small>
             <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideHistory()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="'Minimise Detail panel'"
+              >
+                <span class="glyphicon" [class.glyphicon-minus]="true"></span>
+              </a>
               <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -441,22 +449,38 @@
             "
             style="overflow-y: scroll;"
           >
-            <app-record-details [panelRows]="panelRows"></app-record-details>
-          </div>
-          <div class="panel-footer mt3">
-            <small>2 details are not complete</small>
+            <div [hidden]="hideHistory">
+              <app-record-details [panelRows]="panelRows"></app-record-details>
+            </div>
+            <div [hidden]="hideFiles">
+              <app-files-details
+                [panelRows]="panelRows"
+                [showFileFields]="showFileFields"
+              ></app-files-details>
+            </div>
           </div>
         </div>
 
         <!-- col 2: Files Detail -->
-        <div
+        <!-- <div
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideFiles"
         >
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-paperclip"></span>
-            <small> Docs</small>
+            <small
+              ><span class="glyphicon glyphicon-paperclip"></span> Docs</small
+            >
             <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showFilesAll()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="'Minimise Detail panel'"
+              >
+                <span class="glyphicon" [class.glyphicon-minus]="true"></span>
+              </a>
               <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -504,8 +528,7 @@
               [showFileFields]="showFileFields"
             ></app-files-details>
           </div>
-          <div class="panel-footer mt3"><small>2 new docs</small></div>
-        </div>
+        </div> -->
       </div>
       <!-- column 3: Articles -->
       <div
@@ -564,21 +587,15 @@
               </a>
             </div>
           </div>
-          <div
-            class="panel-body mt3 container-panel-right"
-            [hidden]="hidePosts"
-          >
-            <app-entity-messages></app-entity-messages>
+          <div class="panel-body mt3" [hidden]="hidePosts">
+            <app-entity-messages [isNarrow] = "true"></app-entity-messages>
           </div>
-          <div
-            class="panel-body mt3 container-panel-right"
-            [hidden]="hideTasks"
-          >
-            <app-entity-tasks></app-entity-tasks>
+          <div class="panel-body mt3" [hidden]="hideTasks">
+            <app-entity-tasks [isNarrow] = "true"></app-entity-tasks>
           </div>
-          <div class="panel-footer mt3">
+          <!-- <div class="panel-footer mt3">
             <small>Last post: 3 days ago</small>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

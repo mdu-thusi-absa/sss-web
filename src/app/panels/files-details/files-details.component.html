@@ -1,4 +1,4 @@
-<div class="tableFixHead">
+<div class="tableFixHead" style="height: 100%;">
   <table
     class="table table-condensed table-fixed less-bottom"
     style="
@@ -71,7 +71,7 @@
         <th
           rowspan="3"
           *ngFor="let f of showFileFields"
-          style="vertical-align: text-top; width: 70px;"
+          style="vertical-align: text-top; width: 70px;padding: 1px;"
         >
           <small>{{ f }}</small>
         </th>
@@ -84,12 +84,11 @@
             width: 150px;
             position: sticky;
             z-index: 999;
-            border-bottom: none;
+            
             border-top: none;
             left: 0px;
             top: 25px;
-            padding-top: 0px;
-            padding-bottom: 0px;
+            padding: 2px;
           "
           #thRow1
         >
@@ -108,8 +107,8 @@
           ></app-input-filter-add>
         </th>
       </tr>
-      <tr class="info">
-        <!-- <th
+      <!--<tr class="info">
+         <th
           style="
             vertical-align: text-top;
             width: 25px;
@@ -122,8 +121,8 @@
             top: 55px
           "
           
-        ></th> -->
-        <th
+        ></th> 
+         <th
           style="
             vertical-align: text-top;
             z-index: 999;
@@ -151,11 +150,6 @@
           [hidden]="hideWhen"
         >
           <small>When</small>
-          <!-- <a href="#">
-            <span [class.dropup]="false">
-              <span class="caret"></span>
-            </span>
-          </a> -->
         </th>
         <th
           style="
@@ -171,8 +165,8 @@
           
         >
           <small>Who</small>
-        </th>
-      </tr>
+        </th> 
+      </tr>-->
     </thead>
     <tbody>
       <ng-container *ngFor="let d of data; let i = index">

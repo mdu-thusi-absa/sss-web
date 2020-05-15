@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { InputTextComponent } from '../input-text/input-text.component';
-import { Person } from '../../models'
+import { NaturalEntity } from '../../models'
 
 @Component({
   selector: 'app-input-duo',
@@ -9,6 +9,7 @@ import { Person } from '../../models'
 })
 export class InputDuoComponent implements OnInit {
   //text, checkbox, date, list, address, person
+  @Input() isNarrow = false;
   @Input() typeLeft = ''; 
   @Input() typeRight = '';
   @Input() filterText = '';
@@ -17,7 +18,7 @@ export class InputDuoComponent implements OnInit {
   @Input() titleLeft = '';
   @Input() placeholderLeft = '';
   @Input() valuesLeft = new Map(); //: string[] | Person[];
-  @Input() valueLeft: string | boolean | Person | number = '';
+  @Input() valueLeft: string | boolean | NaturalEntity | number = '';
   @Input() disabledLeft = false;
   @Input() minValueLeft = -1000;
   @Input() maxValueLeft = 1000;
@@ -29,7 +30,7 @@ export class InputDuoComponent implements OnInit {
   @Input() titleRight = '';
   @Input() placeholderRight = '';
   @Input() valuesRight = new Map(); // string[] | Person[];
-  @Input() valueRight: string | boolean | Person | number = '' ;
+  @Input() valueRight: string | boolean | NaturalEntity | number = '' ;
   @Input() disabledRight = false;
   @Input() minValueRight = -1000;
   @Input() maxValueRight = 1000;

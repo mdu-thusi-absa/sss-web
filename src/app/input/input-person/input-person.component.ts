@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Person } from '../../models';
+import { NaturalEntity } from '../../models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -29,16 +29,17 @@ export class InputPersonComponent implements OnInit {
   @Input() showEdit = true;
   @Input() showDelete = true;
 
-  person = new Person('', '', '');
+  person = new NaturalEntity('', '', '');
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onChange = new EventEmitter();
   @Output() onSelect = new EventEmitter();
+  @Output() onAdd = new EventEmitter();
+  @Output() onEdit = new EventEmitter();
   fullNames = [];
   isDoInput = false;
   option = 0;
-  //text = '';
   isAdd = false;
   listFilterText = '';
   isShowingFilter = false;
@@ -74,7 +75,7 @@ export class InputPersonComponent implements OnInit {
     this.onRecord.emit(this.title);
   }
 
-  setItem(person: Person) {
+  setItem(person: NaturalEntity) {
     // this.values.sort(function (a, b) {
     //   return a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase());
     // });
@@ -100,11 +101,11 @@ export class InputPersonComponent implements OnInit {
     this.isAdd = false;
     //console.log(this.option);
     //this.text = this.values[+this.option].fullName;
-    console.log(this.person);
-    console.log(this.values);
-    console.log(this.value);
+    // console.log(this.person);
+    // console.log(this.values);
+    // console.log(this.value);
     this.person = this.values.get(this.value);
-    console.log(this.person);
+    // console.log(this.person);
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -117,19 +118,25 @@ export class InputPersonComponent implements OnInit {
         //save for a new item
         let i = this.values.size;
         this.values.set(i, this.person);
+        this.value = i;
         this.isAdd = false;
+        this.onAdd.emit(this.value);
+        this.onChange.emit(this.value);
       } else {
         //save for old item
         this.values.set(this.value, this.person);
+        let id = this.value;
+        let t = this.person;
+        this.onEdit.emit({ id, t });
+        this.onChange.emit(t);
       }
-      this.setItem(this.person);
+      //this.setItem(this.person);
     } else {
       //new is clicked
       this.isAdd = true;
-      //this.text = '';
-      this.person = new Person('', '', '');
-      if (!this.isDoInput) this.setFocus();
+      this.person = new NaturalEntity('', '', '');
     }
+    if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
 
@@ -214,7 +221,7 @@ export class InputPersonComponent implements OnInit {
     return v.filter((e) => !this.hideItem(e)).length;
   }
 
-  hideItem(person: Person) {
+  hideItem(person: NaturalEntity) {
     let r = false;
     if (this.listFilterText.length > 0) {
       r = person.fullName.toLowerCase().indexOf(this.listFilterText) == -1;

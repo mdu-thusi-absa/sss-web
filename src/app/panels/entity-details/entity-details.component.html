@@ -16,7 +16,7 @@
 ></app-input-filter-add>
 
 <form autocomplete="off">
-  <div *ngIf="entityType!=4">
+  <div *ngIf="entityType!=4 && entityType != 6">
     <app-input-text
       [filterText]="filterText"
       [doHideByFilter]="false"
@@ -27,7 +27,7 @@
       [placeholder]="'Legal name of the entity (required)'"
     ></app-input-text>
   </div>
-  <div *ngIf="entityType==4">
+  <div *ngIf="entityType==4 || entityType == 6">
     <app-input-duo
         [typeLeft]="'text'"
         [typeRight]="'text'"
@@ -46,31 +46,21 @@
     [class.entities-detail-form-half]="isHalfScreen()"
   >
     <div style="padding-bottom: 5px;">
-      <app-input-duo
-        [typeLeft]="'text'"
-        [typeRight]="'date'"
-        [titleLeft]="'Suffix'"
-        [titleRight]="'Curr. Name Effective Date'"
-        [placeholderLeft]="
-          'Suffix - used to differenciate entities with the same name'
-        "
-        [doHideByFilter]="false"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      >
-      </app-input-duo>
 
       <app-input-duo
+        [isNarrow] = "isNarrow"
         [filterText]="filterText"
         [doHideByFilter]="true"
         [typeLeft]="'select'"
         [titleLeft]="'Entity Type'"
         [valuesLeft]="dataService.getEntityTypes()"
         [valueLeft]="0"
+        [showAddLeft] = "false"
+        [showEditLeft] = "false"
+        [showDeleteLeft] = "false"
+
         [typeRight]="'text'"
-        [titleRight]="'Registration Number'"
-        [placeholderRight]="'Entity registration number'"
+        [titleRight]="'Internal Code'"
         (onChangeLeft)="doChangeEntityType($event)"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
@@ -78,9 +68,9 @@
       >
       </app-input-duo>
     </div>
-
     <div [hidden]="hidePrimary">
       <app-entity-details-company-primary
+      [isNarrow] = "isNarrow"
         [filterText]="filterText"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
@@ -89,6 +79,7 @@
     </div>
     <div [hidden]="hideSecondary">
       <app-entity-details-company-secondary
+      [isNarrow] = "isNarrow"
         [filterText]="filterText"
         [persons]="persons"
         (onFile)="doFile($event)"
@@ -98,6 +89,7 @@
     </div>
     <div [hidden]="hideOptional">
       <app-entity-details-company-optional
+      [isNarrow] = "isNarrow"
         [filterText]="filterText"
         [persons]="persons"
         (onFile)="doFile($event)"
@@ -107,6 +99,7 @@
     </div>
     <div [hidden]="hideCustom">
       <app-entity-details-custom
+      [isNarrow] = "isNarrow"
         [filterText]="filterText"
         [persons]="persons"
         (onFile)="doFile($event)"
@@ -116,12 +109,23 @@
     </div>
     <div [hidden]="hideFiles">
       <app-entity-details-files
+      [isNarrow] = "isNarrow"
         [filterText]="filterText"
         [persons]="persons"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
         (onTask)="doTask($event)"
       ></app-entity-details-files>
+    </div>
+    <div [hidden]="hideUsers">
+      <app-entity-details-users
+      [isNarrow] = "isNarrow"
+        [filterText]="filterText"
+        [users] = "dataService.getUsersMap()"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+      ></app-entity-details-users>
     </div>
 
     <hr style="height: 1px; margin: 0px;" />

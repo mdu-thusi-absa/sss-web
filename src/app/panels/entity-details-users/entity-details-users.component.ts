@@ -1,17 +1,16 @@
-import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, CountryCities } from 'src/app/models';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NaturalEntity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-entity-details-custom',
-  templateUrl: './entity-details-custom.component.html',
-  styleUrls: ['./entity-details-custom.component.css']
+  selector: 'app-entity-details-users',
+  templateUrl: './entity-details-users.component.html',
+  styleUrls: ['./entity-details-users.component.css']
 })
-export class EntityDetailsCustomComponent implements OnInit {
+export class EntityDetailsUsersComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() persons: NaturalEntity[];
-  @Input() countriesCities: CountryCities[];
+  @Input() users: NaturalEntity[];
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
@@ -19,14 +18,11 @@ export class EntityDetailsCustomComponent implements OnInit {
 
   customCount = 1; //default number to display
   elements = new Array(this.customCount);
-  elementsType: string[] = new Array(50); //max number
 
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    for(let i=0; i<this.elementsType.length; i++){
-       this.elementsType[i] = 'text';
-    }
+    
   }
 
   doRecord(event: any){
@@ -53,10 +49,12 @@ export class EntityDetailsCustomComponent implements OnInit {
     //console.log(this.customCount, this.elements);
   }
 
-  doChangeCustomType(customIndex: number, event: any){
-    let et = Object.assign(this.elementsType);
-    et[customIndex] = event;
-    this.elementsType = et;
-  }
+  // doChangeCustomType(customIndex: number, event: any){
+  //   let et = Object.assign(this.elementsType);
+  //   et[customIndex] = event;
+  //   this.elementsType = et;
+  // }
+
+
 
 }

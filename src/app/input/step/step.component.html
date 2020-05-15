@@ -53,8 +53,8 @@
     [value]="title"
     [showFlash] = "false"
   ></app-input-text> -->
-
     <app-input-duo
+      [isNarrow] = "isNarrow"
       [typeLeft]="'text'"
       [typeRight]="'select'"
       [titleLeft]="'Title'"
@@ -67,13 +67,14 @@
     ></app-input-duo>
 
     <app-input-duo
+    [isNarrow] = "isNarrow"
       [typeLeft]="'select'"
-      [typeRight]="'select'"
+      [typeRight]="'person'"
       [titleLeft]="'Task Type'"
       [valuesLeft]="dataService.getTaskTypes()"
       [valueLeft]="0"
       [titleRight]="'Assigned to'"
-      [valuesRight]="dataService.getUsersList()"
+      [valuesRight]="dataService.getUsersMap()"
       [valueRight]="0"
       [showFlashLeft]="false"
       [showFlashRight]="false"
@@ -88,6 +89,7 @@
     ></app-input-textarea>
 
     <app-input-duo
+    [isNarrow] = "isNarrow"
       [typeLeft]="'date'"
       [typeRight]="'date'"
       [titleLeft]="'Creation Date'"
@@ -96,6 +98,7 @@
       [showFlashRight]="false"
     ></app-input-duo>
     <app-input-duo
+    [isNarrow] = "isNarrow"
       [typeLeft]="'date'"
       [typeRight]="'date'"
       [titleLeft]="'Check Progress Date'"
@@ -104,6 +107,6 @@
       [showFlashRight]="false"
     ></app-input-duo>
 
-    <app-input-schedule [title]="title"></app-input-schedule>
+    <app-input-schedule [title]="title" [isNarrow] = "isNarrow"></app-input-schedule>
   </div>
 </div>

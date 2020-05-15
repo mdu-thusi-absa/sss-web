@@ -127,7 +127,6 @@ export class InputSelectComponent implements OnInit {
       //save is pressed
       if (this.isAdd) {
         //save for a new item
-        //this.values.push(this.text);
         let i = this.values.size;
         this.values.set(i, this.text);
         this.value = i;
@@ -136,26 +135,16 @@ export class InputSelectComponent implements OnInit {
         this.onChange.emit(this.value);
       } else {
         //save for old item
-        //console.log(this.option, this.text);
         this.values.set(this.value, this.text);
-
-        // let prevValue = this.values[+this.option] ;
-        // let currValue = this.text;
-        // this.values[+this.option] = this.text;
-        // console.log('input-select-0',this.text,this.values);
         let id = this.value;
         let t = this.text;
         this.onEdit.emit({ id, t });
         this.onChange.emit(this.text);
-        // console.log('input-select-1',this.text,this.values);
       }
-      //this.values.sort();
-      //this.setItem(this.text);
     } else {
       //new is clicked
       this.isAdd = true;
       this.text = '';
-      // if (!this.isDoInput) this.setFocus();
     }
     this.isDoInput = !this.isDoInput;
   }

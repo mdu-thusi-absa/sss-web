@@ -20,7 +20,6 @@
       (onSave)="doClose()"
     ></app-buttons-cancel-save>
   </div>
-
   <div class="panel-body message" [hidden]="!isEdit">
     <!-- <app-input-textarea
         [title]="'Post Text'"
@@ -39,6 +38,7 @@
         [noHeader]="true"
         [hideBody]="false"
         [title]="task.mainGoal.title"
+        [isNarrow] = "isNarrow"
       ></app-step>
 
       <!-- <app-step [stepNumber]="2"></app-step>
@@ -68,7 +68,7 @@
         ><span class="caret"></span>
       </a>
       <div id="{{ 'steps-' + getID() }}" class="collapse">
-        <app-step [stepNumber]="1"></app-step>
+        <app-step [stepNumber]="1" [isNarrow] = "isNarrow"></app-step>
       </div>
     </div>
 

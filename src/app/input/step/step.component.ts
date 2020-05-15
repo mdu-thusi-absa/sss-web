@@ -7,6 +7,7 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./step.component.css']
 })
 export class StepComponent implements OnInit {
+  @Input() isNarrow = false;
   @Input() title = 'Step'
   @Input() stepNumber = 1;
   @Input() noHeader = false;

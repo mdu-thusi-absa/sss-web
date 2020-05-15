@@ -40,7 +40,7 @@ export class InputAddressComponent implements OnInit {
     // }
     // this.buildCountries();
     // this.doChangeCountry(this.countries[0]);
-    this.countries = this.data.getCountries();
+    this.countries = this.data.getCountriesNames();
     //console.log(this.title, this.countries);
     this.cities = this.data.getCities(0);
     //console.log(this.title,this.cities);

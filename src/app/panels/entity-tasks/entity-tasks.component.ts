@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Task, Step } from 'src/app/models';
 
 @Component({
@@ -7,6 +7,7 @@ import { Task, Step } from 'src/app/models';
   styleUrls: ['./entity-tasks.component.css']
 })
 export class EntityTasksComponent implements OnInit {
+  @Input() isNarrow = false;
   filterText = '';
   isNew = false;
   isFilterByTextToo = false;

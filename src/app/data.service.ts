@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Person } from './models';
+import { NaturalEntity, Entity, Country, LegalEntity, User } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -29,14 +29,24 @@ export class DataService {
     return new Map([...map.entries()].sort());
   }
   //countries
-  countries = new Map().set(0, 'South Africa').set(1, 'USA').set(2, 'GBR');
+  //countries = new Map().set(0, 'South Africa').set(1, 'USA').set(2, 'GBR');
+  
   cities = new Map()
     .set(0, new Map().set(0, 'JHB').set(1, 'PTA'))
     .set(1, new Map().set(0, 'NY').set(2, 'LA'))
     .set(2, new Map().set(0, 'LON').set(3, 'MAN'));
 
-  getCountries() {
-    return this.countries;
+  //countries = new Map([[0,'ZAF'],[1,'USA'],[2,'GBR']];
+  countries = [new Country('ZAF'),new Country('USA'), new Country('GBR')]
+  countriesMap = new Map();
+  //makeMap(this.countriesMap, this.countries);
+
+  getCountriesNames() {
+    //return this.countries;
+    Entity.makeNameMap(this.countriesMap,this.countries);
+    //console.log(this.countriesMap);
+    //console.log(new Map([[0,'a'],[1,'b']]));
+    return this.countriesMap;
   }
   addCountry(countryKey: number) {
     this.cities.set(countryKey, new Map());
@@ -59,22 +69,22 @@ export class DataService {
   getCities(countryId: number) {
     return this.cities.get(countryId);
   }
-  addCity(countryId: number, city: string) {
-    let m = this.getCities(countryId);
-    let i = m.size;
-    m.set(i, city);
-    return i;
-  }
-  editCity(countryId: number, id: number, newCountryName: string) {
-    let m = this.getCities(countryId);
-    m.set(id, newCountryName);
-    return this.getCities(countryId);
-  }
-  deleteCity(countryId: number, id: number) {
-    let m = this.getCities(countryId);
-    m.delete(id);
-    return this.getCities(countryId);
-  }
+  // addCity(countryId: number, city: string) {
+  //   let m = this.getCities(countryId);
+  //   let i = m.size;
+  //   m.set(i, city);
+  //   return i;
+  // }
+  // editCity(countryId: number, id: number, newCountryName: string) {
+  //   let m = this.getCities(countryId);
+  //   m.set(id, newCountryName);
+  //   return this.getCities(countryId);
+  // }
+  // deleteCity(countryId: number, id: number) {
+  //   let m = this.getCities(countryId);
+  //   m.delete(id);
+  //   return this.getCities(countryId);
+  // }
   //months
   months = new Map()
     .set(0, '01')
@@ -101,9 +111,22 @@ export class DataService {
     [3, 'Regulation'],
     [4, 'Person'],
     [5, 'Government Agency'],
+    [6, 'User'],
   ]);
   getEntityTypes() {
     return this.entityTypes;
+  }
+  entityTypesPlural = new Map([
+    [0, 'Trusts'],
+    [1, 'Companies'],
+    [2, 'Regulators'],
+    [3, 'Regulations'],
+    [4, 'Persons'],
+    [5, 'Government Agencies'],
+    [6, 'Users'],
+  ]);
+  getEntityTypesPlural() {
+    return this.entityTypesPlural;
   }
 
   //Business Area
@@ -130,7 +153,7 @@ export class DataService {
   getLegalClasses() {
     return this.legalClasses;
   }
-  entityStatuses= new Map([
+  entityStatuses = new Map([
     [0, 'Active'],
     [1, 'Dormant'],
     [2, 'Closed'],
@@ -146,7 +169,7 @@ export class DataService {
   getEntityStatusTiers() {
     return this.entityStatusTiers;
   }
-  accountingClasses= new Map([
+  accountingClasses = new Map([
     [0, 'Accounted'],
     [1, 'Not Accounted'],
   ]);
@@ -158,29 +181,164 @@ export class DataService {
     [1, 'Middle'],
     [2, 'Low'],
   ]);
-  getAccountingTier() { 
+  getAccountingTier() {
     return this.accountingTiers;
   }
-  companiesList = new Map([
-    [0, 'Google Pty Ltd'],
-    [1, 'Microsoft Pty Ltd'],
-    [2, 'Apple Inc'],
-    [3, 'Amazon'],
-    [4, 'Amazon'],
-    [5, 'Alphabet'],
-    [6, 'Facebook'],
-    [7, 'Alibaba'],
-    [8, 'Tencent Holdings'],
-    [9, 'Johnson and Johnson'],
-    [10, 'Walmart'],
-    [11, 'Nestle'],
-    [12, 'Samsung'],
-    [13, 'Procter and Gamble'],
-    [14, 'Intel'],
-    [15, 'Cisco Systems'],
-  ]);
-  getCompaniesList() { 
-    return this.companiesList;
+  entities: LegalEntity[] = [
+    new LegalEntity('Google Pty Ltd').set('tasksCount',2).set('isActive',true),
+    new LegalEntity('Microsoft Pty Ltd').set('tasksCount',2).set('isActive',true),
+    new LegalEntity('Google Pty Ltd').set('tasksCount',2).set('suffix','').set('isActive',true),
+    new LegalEntity('Microsoft Pty Ltd').set('tasksCount',3).set('suffix','').set('isActive',true),
+    new LegalEntity('Apple Inc').set('tasksCount',0).set('suffix','').set('isActive', false),
+    new LegalEntity('Amazon').set('tasksCount',0).set('suffix','USA').set('isActive',true),
+    new LegalEntity('Amazon').set('tasksCount',2).set('suffix','SA').set('isActive',true),
+    new LegalEntity('Alphabet').set('tasksCount',1).set('suffix','').set('isActive', false),
+    new LegalEntity('Facebook').set('tasksCount',0).set('suffix','').set('isActive',false),
+    new LegalEntity('Alibaba').set('tasksCount',0).set('suffix','').set('isActive',true),
+    new LegalEntity('Tencent Holdings').set('tasksCount',5).set('suffix','').set('isActive', false),
+    new LegalEntity('Johnson and Johnson').set('tasksCount',0).set('suffix','').set('isActive', false),
+    new LegalEntity('Walmart').set('tasksCount',0).set('suffix','').set('isActive', false),
+    new LegalEntity('Nestle').set('tasksCount',3).set('suffix','').set('isActive', true),
+    new LegalEntity('Samsung').set('tasksCount',1).set('suffix','').set('isActive', true),
+    new LegalEntity('Procter and Gamble').set('tasksCount',0).set('suffix','').set('isActive', false),
+    new LegalEntity('Intel').set('tasksCount',4).set('suffix','').set('isActive', false),
+    new LegalEntity('Cisco Systems').set('tasksCount',3).set('suffix','').set('isActive', false) 
+  ];
+  //   {
+  //     name: 'Google Pty Ltd',
+  //     tasksCount: 2,
+  //     suffix: '',
+  //     country: 'South Africa',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Microsoft Pty Ltd',
+  //     tasksCount: 3,
+  //     suffix: '',
+  //     country: 'South Africa',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Apple Inc',
+  //     tasksCount: 0,
+  //     suffix: '',
+  //     country: 'Botswana',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Amazon',
+  //     tasksCount: 0,
+  //     suffix: 'USA',
+  //     country: 'Ghana',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Amazon',
+  //     tasksCount: 2,
+  //     suffix: 'SA',
+  //     country: 'Ghana',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Alphabet',
+  //     tasksCount: 1,
+  //     suffix: '',
+  //     country: 'Ghana',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Facebook',
+  //     tasksCount: 0,
+  //     suffix: '',
+  //     country: 'Kenya',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Alibaba',
+  //     tasksCount: 0,
+  //     suffix: '',
+  //     country: 'Kenya',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Tencent Holdings',
+  //     tasksCount: 5,
+  //     suffix: '',
+  //     country: 'Mauritius',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Johnson and Johnson',
+  //     tasksCount: 0,
+  //     suffix: '',
+  //     country: 'Mauritius',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Walmart',
+  //     tasksCount: 0,
+  //     suffix: '',
+  //     country: 'Mozambique',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Nestle',
+  //     tasksCount: 3,
+  //     suffix: '',
+  //     country: 'Mozambique',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Samsung',
+  //     tasksCount: 1,
+  //     suffix: '',
+  //     country: 'Seychelles',
+  //     isActive: true,
+  //   },
+  //   {
+  //     name: 'Procter and Gamble',
+  //     tasksCount: 0,
+  //     suffix: '',
+  //     country: 'ZAF',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Intel',
+  //     tasksCount: 4,
+  //     suffix: '',
+  //     country: 'TZA',
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: 'Cisco Systems',
+  //     tasksCount: 3,
+  //     suffix: '',
+  //     country: 'TZA',
+  //     isActive: false,
+  //   },
+  // ];
+  companiesMap = new Map();
+  // new Map([
+  //   [0, 'Google Pty Ltd'],
+  //   [1, 'Microsoft Pty Ltd'],
+  //   [2, 'Apple Inc'],
+  //   [3, 'Amazon'],
+  //   [4, 'Amazon'],
+  //   [5, 'Alphabet'],
+  //   [6, 'Facebook'],
+  //   [7, 'Alibaba'],
+  //   [8, 'Tencent Holdings'],
+  //   [9, 'Johnson and Johnson'],
+  //   [10, 'Walmart'],
+  //   [11, 'Nestle'],
+  //   [12, 'Samsung'],
+  //   [13, 'Procter and Gamble'],
+  //   [14, 'Intel'],
+  //   [15, 'Cisco Systems'],
+  // ]);
+  getCompanies() {
+    Entity.makeMap(this.companiesMap,this.entities);
+    return this.companiesMap;
   }
   yesNo = new Map([
     [0, 'Yes'],
@@ -207,7 +365,7 @@ export class DataService {
   getTaskStatus() {
     return this.taskStatus;
   }
-  taskTypes  = new Map([
+  taskTypes = new Map([
     [0, 'Appointment'],
     [1, 'Resignation'],
     [2, 'Rename'],
@@ -216,16 +374,7 @@ export class DataService {
   getTaskTypes() {
     return this.taskTypes;
   }
-  usersList = new Map([
-    [0, '-General-'],
-    [1, 'vlad'],
-    [2, 'dean'],
-    [3, 'sasha'],
-    [4, 'ulrich'],
-  ]);
-  getUsersList() {
-    return this.usersList;
-  }
+
   auditors = new Map([
     [0, 'Internal'],
     [1, 'PWC'],
@@ -233,7 +382,7 @@ export class DataService {
   getAuditors() {
     return this.auditors;
   }
-  entityLists= new Map([
+  entityLists = new Map([
     [0, '- Default -'],
     [1, 'Africa'],
     [2, 'Europe'],
@@ -242,7 +391,7 @@ export class DataService {
   getEntityLists() {
     return this.entityLists;
   }
-  industries  = new Map([
+  industries = new Map([
     [0, 'Banking'],
     [1, 'Asset Management'],
     [3, 'Property'],
@@ -258,33 +407,61 @@ export class DataService {
     return this.companySecretaries;
   }
   customTypes = new Map([
-    [0,'text'],
-    [1,'date'],
-    [2,'checkbox'],
-    [3,'textarea'],
-    [4,'person'],
-    [5,'address'],
-    [6,'file'],
-    [7,'number']
+    [0, 'text'],
+    [1, 'date'],
+    [2, 'checkbox'],
+    [3, 'textarea'],
+    [4, 'person'],
+    [5, 'address'],
+    [6, 'file'],
+    [7, 'number'],
   ]);
-  getCustomTypes(){
+  getCustomTypes() {
     return this.customTypes;
   }
-  persons = new Map([
-    [0, new Person('Froning', 'Richard','Mayham')],
-    [1, new Person('Singundsdottir','Sara','Iceland')],
-    [2, new Person('Fraser','Mat','ABSA')]
+  personsMap = new Map([
+    [0, new NaturalEntity('Froning', 'Richard', 'Mayham')],
+    [1, new NaturalEntity('Singundsdottir', 'Sara', 'Iceland')],
+    [2, new NaturalEntity('Fraser', 'Mat', 'ABSA')],
   ]);
-  getPersons(){
-    return this.persons;
+  getPersons() {
+    return this.personsMap;
   }
-  positions = new Map([
-      [0,'Director'],
-      [1,'Auditor'],
-      [2,'Secretary'],
-      [3,'Public Officer']
+  users = new Map([
+    [0, new User('Anuchin', 'Vlad', 'ICDI').set('tasksCount',3)],
+    [1, new User('Voznesensky', 'Alex', 'ICDI').set('tasksCount',1)],
+    [2, new User('Kurchner', 'Ulrich', 'ICDI').set('tasksCount',2)],
+    [3, new User('Kopelowitz', 'Dean', 'ICDI').set('tasksCount',5)],
+    [4, new User('Small', 'James', '').set('tasksCount',7).set('isActive',false)],
+    [5, new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount',15)],
+    [6, new User('Standar', 'Lourika', '').set('tasksCount',7)],
   ]);
-  getPositions(){
+  getUsersMap() {
+    return this.users;
+  }
+
+  getFunctionalEntities(type: number){
+    console.log(type);
+    if (type==4){
+      //console.log(type,'in');
+      return this.getPersons();
+    }
+    else if (type==6){
+      //console.log(type,'in');
+      return this.getUsersMap();
+    }
+    else {
+      return this.getCompanies();
+    }
+  }
+
+  positions = new Map([
+    [0, 'Director'],
+    [1, 'Auditor'],
+    [2, 'Secretary'],
+    [3, 'Public Officer'],
+  ]);
+  getPositions() {
     return this.positions;
   }
   //Regulatory Types

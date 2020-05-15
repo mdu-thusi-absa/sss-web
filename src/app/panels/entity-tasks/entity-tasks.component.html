@@ -28,20 +28,20 @@
   (onChoice) = "rdoChoice = $event"
 
 ></app-input-filter-add>
-
-<div style="height: calc(100vh - 145px); overflow-y: scroll;overflow-x: hidden">
+<div class="entities-tasks">
   <app-entity-task
     style="margin-top: 0px;"
     [hidden]="!isNew"
     [task]="newTask"
     [isEdit]="isNew"
     (onClose)="isNew = false"
+    [isNarrow] = "isNarrow"
   ></app-entity-task>
 
   <div
     *ngFor="let task of list; let i = index"
     [hidden]="shouldHideTask(task)"
   > 
-    <app-entity-task [task]="task" [index]="i + 1"></app-entity-task>
+    <app-entity-task [task]="task" [index]="i + 1" [isNarrow]="isNarrow"></app-entity-task>
   </div>
 </div>

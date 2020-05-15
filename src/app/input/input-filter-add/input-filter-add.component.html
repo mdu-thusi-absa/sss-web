@@ -168,6 +168,7 @@
     *ngIf="showList"
     class="form-control input-sm wide"
     style="font-size: small;"
+    (change) = "doListChange($event)"
   >
     <option *ngFor="let e of listValues | keyvalue" [value]="e.key">{{
       e.value
@@ -186,7 +187,7 @@
 
   <input
     type="text"
-    class="form-control input-sm"
+    class="form-control input-sm primary-color-input-reverse"
     [placeholder]="'Filter ' + titlePlural"
     [(ngModel)]="filterText"
     (keyup)="doKey($event)"
@@ -204,7 +205,7 @@
 
   <span
     *ngIf="showFilterCount"
-    class="input-group-addon hidden-xs"
+    class="input-group-addon hidden-xs primary-color-reverse"
     title="Number of items"
     style="position: relative; left: 0.01px;"
   >

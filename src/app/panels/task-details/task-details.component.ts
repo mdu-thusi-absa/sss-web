@@ -7,6 +7,7 @@ import { Entity, Task } from '../../models';
   styleUrls: ['./task-details.component.css']
 })
 export class TaskDetailsComponent implements OnInit {
+  @Input() isNarrow = false;
   filterText = '';
   isCountryInput = false;
   isPositionInput = false;

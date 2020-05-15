@@ -112,10 +112,13 @@
   [showAdd]="true"
   [showFilterCount] = "true"
   (onFilter)="doFilter($event)"
+
   [title] = "'Entity'"
   [titlePlural] = "'Entities'"
   [showList] = "true"
-  [listValues] = "dataService.getEntityTypes()"
+  [listValues] = "dataService.getEntityTypesPlural()"
+  (onListChange) = "doEntityTypeChange($event)"
+
   [showFlash] = "true"
   [showPlay] = "true"
   [showPause] = "true"
@@ -131,8 +134,10 @@
   [titlePlay] = "'Active Entities'"
   [titleAll] = "'All Entities'"
   [titlePause] = "'Dormant Entities'"
-></app-input-filter-add>
 
+  
+  
+></app-input-filter-add>
   <div
     [class.entities-full]="isFullScreen()"
     [class.entities-half]="isHalfScreen()"
@@ -152,15 +157,15 @@
 
       <tbody>
         <tr
-          *ngFor="let e of entities"
-          [hidden]="shouldBeHidden(e)"
-          [class.info]="e.isActive"
+          *ngFor="let e of entities | keyvalue"
+          [hidden]="shouldBeHidden(e.value)"
+          [class.info]="e.value.isActive"
         >
           <td>
-            <a [href]="e.name">{{ e.name }}</a>
+            <a [href]="e.key">{{ e.value.name }}</a>
           </td>
-          <td>{{ e.tasksCount }}</td>
-          <td>{{ e.suffix }}</td>
+          <td>{{ e.value.tasksCount }}</td>
+          <td>{{ e.value.suffix }}</td>
         </tr>
       </tbody>
     </table>

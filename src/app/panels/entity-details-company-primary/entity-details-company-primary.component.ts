@@ -8,6 +8,7 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./entity-details-company-primary.component.css']
 })
 export class EntityDetailsCompanyPrimaryComponent implements OnInit {
+  @Input() isNarrow = false;
   @Input() filterText = '';
 
   @Output() onRecord = new EventEmitter();

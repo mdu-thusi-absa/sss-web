@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Person, CountryCities } from '../../models'
+import { Entity, NaturalEntity, CountryCities } from '../../models'
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -11,11 +11,13 @@ export class EntityDetailsComponent implements OnInit {
   filterText = '';
   isCountryInput = false;
   isPositionInput = false;
+  @Input() isNarrow = false;
   @Input() hidePrimary = false;
   @Input() hideSecondary = false;
   @Input() hideOptional = false;
   @Input() hideCustom = false;
   @Input() hideFiles = false;
+  @Input() hideUsers = false;
   // isAppointeeInput = false;
   // isAppointeeNewInput =false;
   persons = new Map();

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Person, CountryCities } from 'src/app/models';
+import { NaturalEntity, CountryCities } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class InputCustomComponent implements OnInit {
   @Input() filterText = '';
   @Input() customType = 'person';
   @Input() values = new Map(); //string[] 
-  @Input() persons: Person[];
+  @Input() persons: NaturalEntity[];
   @Input() countriesCities: CountryCities[];
 
   @Output() onFile = new EventEmitter();

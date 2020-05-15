@@ -109,7 +109,7 @@
       [doHideByFilter]="true"
       [typeLeft]="'select'"
       [titleLeft]="'Direct parent/ownership'"
-      [valuesLeft]="dataService.getCompaniesList()"
+      [valuesLeft]="dataService.getCompanies()"
       [valueLeft]="0"
       [typeRight]="'text'"
       [titleRight]="'Absa shareholding in entity (%)'"
@@ -119,4 +119,5 @@
       (onTask)="doTask($event)"
     ></app-input-duo>
 
+    <hr style="height: 1px; margin: 0px;" />
     

@@ -24,6 +24,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleT = '';
   @Input() showList = false;
   @Input() listValues = [[0,'Yes'], [1,'No']];
+  @Output() onListChange = new EventEmitter();
 
   @Input() showDelete = false;
   @Input() showCancel = false;
@@ -83,6 +84,10 @@ export class InputFilterAddComponent implements OnInit {
     //console.log(choice);
     this.radioChoice = choice;
     this.onChoice.emit(this.radioChoice);
+  }
+
+  doListChange(event: any){
+    this.onListChange.emit(event.target.value);
   }
 
   doFilterClear() {

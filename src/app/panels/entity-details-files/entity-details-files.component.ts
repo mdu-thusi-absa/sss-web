@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Person } from 'src/app/models';
+import { NaturalEntity } from 'src/app/models';
 
 @Component({
   selector: 'app-entity-details-files',
@@ -7,8 +7,9 @@ import { Person } from 'src/app/models';
   styleUrls: ['./entity-details-files.component.css']
 })
 export class EntityDetailsFilesComponent implements OnInit {
+  @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() persons: Person[];
+  @Input() persons: NaturalEntity[];
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

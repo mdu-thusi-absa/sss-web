@@ -12,7 +12,7 @@ import { authConfig } from './sso.config';
 //implements OnInit
 export class AppComponent {
   rdoMenu = 'Legal Entities';
-  isLogedIn = false;
+  isLogedIn = true;
 
   constructor(private oauthService: OAuthService) {
     // this.configureSingleSignOn();

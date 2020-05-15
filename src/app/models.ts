@@ -1,17 +1,94 @@
 import { Capability } from 'protractor';
+import { MapType } from '@angular/compiler';
+import { EntityMessageComponent } from './panels/entity-message/entity-message.component';
 
 export class Entity {
-  name: string;
-  tasksCount: number;
-  suffix: string;
-  country: string;
-  isActive: boolean;
+  // name: string;
+  // tasksCount: number;
+  // suffix: string;
+  // country: string;
+  // isActive: boolean;
+
+  //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
+  constructor(public name: string){}
+
+  set(propertyName: string, value: any){
+    this[propertyName] = value;
+    return this;
+  }
 
   static compare(v: Entity, w: Entity): number {
     let r = 0;
     if (v.name > w.name) r = 1;
     else if (v.name < w.name) r = -1;
     return r;
+  }
+
+  static makeMap(map: any, entities: Entity[]){
+    for (let i=0; i<entities.length; i++){
+      map.set(i,entities[i]);
+    }
+  }
+  static makeNameMap(map: any, entities: Entity[]){
+    for (let i=0; i<entities.length; i++){
+      map.set(i,entities[i].name);
+    }
+  }
+}
+
+export class Country extends Entity{
+}
+export class City extends Entity{
+  constructor(public name, countryId: number){
+    super(name);
+  }
+}
+export class FunctionalEntity extends Entity{
+  public type: string;
+  public suffix = '';
+  public tasksCount = 0;
+  public isActive = true;
+}
+export class LegalEntity extends FunctionalEntity{
+  public type = 'legal';
+}
+export class NaturalEntity extends FunctionalEntity{
+  public type = 'natural'
+  public email: string;
+  public cellNumber: string;
+  public birthDate: Date;
+  public deathDate: Date;
+  //public residentialAddress: string;
+  constructor(
+    public surname: string,
+    public firstName: string,
+    public suffix: string
+  ) {
+    super(surname + ', ' + firstName);
+  }
+
+  get fullName() {
+    return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
+  }
+}
+// export class Person extends NaturalEntity{
+//   constructor(
+//     public surname: string,
+//     public firstName: string,
+//     public suffix: string,
+//   ) {
+//     super(surname,firstName,suffix);
+//   }
+// }
+export class User extends NaturalEntity{
+  public isActive: boolean;
+  public role: string;
+  constructor(
+    public surname: string,
+    public firstName: string,
+    public suffix: string,
+  ) {
+    super(surname,firstName,suffix);
   }
 }
 
@@ -147,21 +224,6 @@ export class FileDoc {
 
 export class FileDoc_Use {
   constructor(field: string, isLinked: boolean, isUsed: boolean) {}
-}
-
-export class Person {
-  //surname = ''; firstName = ''; suffix = '';
-  constructor(
-    public surname: string,
-    public firstName: string,
-    public suffix: string
-  ) {
-    // this.surname = surname; this.firstName = firstName; this.suffix = suffix;
-  }
-
-  get fullName() {
-    return this.surname + ', ' + this.firstName + ' - ' + this.suffix;
-  }
 }
 
 export class CustomField {

@@ -7,6 +7,7 @@ import { Task } from 'src/app/models';
   styleUrls: ['./entity-task.component.css']
 })
 export class EntityTaskComponent implements OnInit {
+  @Input() isNarrow = false;
   @Input() index = 0;
   @Input() task: Task;
   @Input() docs : string[]

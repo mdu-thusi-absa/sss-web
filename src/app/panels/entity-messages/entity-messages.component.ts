@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Message } from '../../models';
 
 @Component({
@@ -7,6 +7,7 @@ import { Message } from '../../models';
   styleUrls: ['./entity-messages.component.css'],
 })
 export class EntityMessagesComponent implements OnInit {
+  @Input() isNarrow = false;
   filterText = '';
   messages: Message[];
   rdoUnReadReadAll = 'All';
