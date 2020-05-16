@@ -12,6 +12,8 @@ export class InputBrowseComponent implements OnInit {
   @Input() showDisk = false;
   @Input() showLink = false;
   @Input() showMinus = false;
+  @Input() showDownload = false;
+  @Input() showShare = false;
   fileName = '';
 
   constructor() { }
@@ -22,6 +24,8 @@ export class InputBrowseComponent implements OnInit {
   doDisk(){}
   doMinus(){}
   doLink(){}
+  doDownload(){}
+  doShare(){}
   doKey(event: any){
 
   }

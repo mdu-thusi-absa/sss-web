@@ -6,7 +6,9 @@
   <div>
     <label class="nobottom text-primary label-buttons-3">{{ title }}</label>
   </div>
-  <div class="input-group input-group-sm" style="margin-bottom: 5px;">
+  <div class="input-group input-group-sm" 
+    [class.primary-color-input-reverse] = "showDownload || showShare || showMinus || showPlus"
+  style="margin-bottom: 5px;">
     <input
       type="text"
       class="form-control input-sm"
@@ -18,6 +20,8 @@
       [ngModel]="value"
       (ngModelChange)="doChange($event)"
     />
+
+    
 
     <span
       *ngIf="showMinus"
@@ -36,6 +40,24 @@
     >
       <span class="glyphicon glyphicon-plus"></span>
     </span>
+
+    <span
+    *ngIf="showDownload"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doDownload()"
+    [title]="'Download ' + title"
+  >
+    <span class="glyphicon glyphicon-cloud-download"></span>
+  </span>
+
+  <span
+    *ngIf="showShare"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doShare()"
+    [title]="'Share ' + title"
+  >
+    <span class="glyphicon glyphicon-share-alt"></span>
+  </span>
 
   </div>
 </div>

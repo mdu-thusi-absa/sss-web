@@ -23,6 +23,9 @@ export class InputAnyComponent implements OnInit {
   @Input() showAdd = true;
   @Input() showEdit = true;
   @Input() showDelete = true;
+  @Input() showDownload = false;
+  @Input() showShare = false;
+  @Input() showSelect = false;
   // @Input() countriesCities: CountryCities[];
   // @Input() persons
 

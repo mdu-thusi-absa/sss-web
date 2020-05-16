@@ -11,6 +11,8 @@
   (onChange)="doChange($event)"
   [minValue]="minValue"
   [maxValue]="maxValue"
+  [showDownload] = "showDownload"
+  [showShare] = "showShare"
 ></app-input-number>
 
 <app-input-file
@@ -22,6 +24,9 @@
   (onFile)="doFile()"
   (onRecord)="doRecord()"
   (onTask)="doTask()"
+  [showDownload] = "showDownload"
+  [showShare] = "showShare"
+  [showSelect] = "showSelect"
 ></app-input-file>
 
 <app-input-address

@@ -84,13 +84,13 @@ body {
   scrollbar-width: thin;
 } */
 .container-panel-left-full {
-  height: calc(100vh - 65px);
+  height: calc(100vh - 30px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 .container-panel-center-full {
-  height: calc(100vh - 65px);
+  height: calc(100vh - 30px);
   overflow-y: hidden;
   scrollbar-width: thin;
 }
@@ -107,19 +107,21 @@ body {
   scrollbar-width: thin;
 }
 
+/*panel body for the tasks and messages*/
 .entities-tasks {
-  height: calc(100vh - 121px);
+  height: calc(100vh - 85px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
 .entities-messages {
-  height: calc(100vh - 121px);
+  height: calc(100vh - 85px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
+/*160*/
 .entities-detail-form-full {
-  height: calc(100vh - 160px);
+  height: calc(100vh - 125px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -140,7 +142,7 @@ body {
 } */
 
 .entities-full {
-  height: calc(100vh - 148px);
+  height: calc(100vh - 178px);
   overflow-y: auto;
 }
 
@@ -192,13 +194,13 @@ body {
 }
 
 .files-details-full {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 65px);
   overflow-y: auto;
   overflow-x: auto;
 }
 
 .files-details-half {
-  height: calc(50vh - 143px);
+  height: calc(50vh - 47px);
   overflow-y: auto;
   overflow-x: auto;
 }
@@ -270,6 +272,7 @@ hr {
   background-color: rgb(220, 0, 50); /*absa*/
   color: white;
   border-color: rgb(150, 5, 4);
+  box-shadow: none;
 }
 /* lable{
   border-color:  rgb(150,5,4);
@@ -334,7 +337,8 @@ table > tbody > tr.info > td,
 .table > tbody > tr.info > th,
 .table > thead > tr > th.info {
   /*background-color: rgb(220, 0, 50); absa*/
-  background-color: rgb(240, 90, 120);
+  /* background-color: rgb(240, 90, 120); */
+  background-color: rgb(220, 0, 50);
   color: white;
   font-weight: normal;
 }
@@ -358,6 +362,7 @@ td.info > a {
 .btn-primary:focus {
   background-color: rgb(220, 0, 50);
   border-color: rgb(150, 5, 4);
+  box-shadow: none  !important;
 }
 /* .btn-primary.active:focus {
   background-color: rgb(150, 5, 4); 
@@ -374,20 +379,24 @@ td.info > a {
   background-color: rgb(150, 5, 4);
   /* background-color: rgb(150, 5, 4); */
   /* border-color: white;  */
+  box-shadow: none  !important;
 }
 .btn-primary {
   background-color: rgb(220, 0, 50); /*absa*/
   border-color: rgb(150, 5, 4);
+  box-shadow: none  !important;
 }
 .btn-primary:hover {
   background-color: rgb(150, 5, 4);
   /* border-color: rgb(150, 5, 4); */
+  box-shadow: none  !important;
 }
 .btn-primary:active,
 .btn-primary.active:focus .btn-primary.active.focus,
 .btn-primary.active.focus:focus {
   background-color: rgb(150, 5, 4);
   border-color: rgb(150, 5, 4);
+  box-shadow: none  !important;
 }
 /* label.btn.btn-primary.active.focus,
 label.btn.btn-primary.active:focus,
@@ -515,7 +524,7 @@ label.btn.btn-primary:focus{
 .primary-color-active.focus:active,
 .primary-color-active.focus:focus {
   background-color: rgb(150, 5, 4);
-  border-color: rgb(150, 5, 4);
+  /* border-color: rgb(150, 5, 4); */
   color: white;
 }
 .primary-color:focus,
@@ -523,7 +532,7 @@ label.btn.btn-primary:focus{
 .primary-color.active.focus,
 .primary-color.active.focus:focus {
   background-color: rgb(150, 5, 4);
-  border-color: white;
+  /* border-color: white; */
   color: white;
 }
 
@@ -776,3 +785,19 @@ background-color: rgba(0, 0, 0, 0);
 .panel-.info > .panel-heading {
   color: white;
 }
+
+.bs-datepicker-body table td.week span {
+  color: rgb(220, 0, 50) !important;
+}
+
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-head,
+.bs-datepicker-head,
+.bs-datepicker button:active,
+.bs-datepicker-body table td.selected span,
+.bs-datepicker-body table td span[class*="select-"]:after,
+.bs-datepicker-body table td[class*="select-"] span:after,
+.bs-datepicker-body table td.active-week span:hover {
+  background-color: rgb(220, 0, 50) !important;
+} 
+

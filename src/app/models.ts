@@ -59,17 +59,82 @@ export class NaturalEntity extends FunctionalEntity{
   public birthDate: Date;
   public deathDate: Date;
   //public residentialAddress: string;
+  private surname_: string = '';
+  private firstName_: string = '';
+  private suffix_: string = '';
+  // public firstName: string;
+  // public suffix: string;
   constructor(
-    public surname: string,
-    public firstName: string,
-    public suffix: string
+    surname: string,
+    firstName: string,
+    suffix: string
   ) {
-    super(surname + ', ' + firstName);
+    super(surname + ', ' + firstName + (suffix ? ' - ' + suffix:''));
+    this.surname_ = surname;
+    this.firstName_ = firstName;
+    this.suffix_ = suffix;
+    //console.log('a',this.surname_,this.firstName_, this.suffix_, this.name)
+
+    // this.surname = surname;
+    // this.firstName = firstName;
+    // this.suffix = suffix;
   }
 
-  get fullName() {
-    return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
+  // public set surname(v: string){
+
+  // }
+  get fullName():string{
+    let s = this.surname_ + ', ' + this.firstName_ + (this.suffix_ ? ' - ' + this.suffix_:'') 
+    //console.log(s);
+    return s;
   }
+
+  set surname(v: string){
+    this.surname_ = v;
+    this.name = this.surname_ + ', ' + this.firstName_;
+  }
+
+  get surname(): string{
+    return this.surname_;
+  }
+
+  set firstName(v: string){
+    this.firstName_ = v;
+    this.name = this.surname_ + ', ' + this.firstName_;
+  }
+
+  get firstName(): string{
+    return this.firstName_;
+  }
+
+  set suffix(v: string){
+    this.suffix_ = v;
+    this.name = this.surname_ + ', ' + this.firstName_
+  }
+
+  get suffix(): string{
+    return this.suffix_;
+  }
+
+  get name(): string{
+    return this.surname_ + ', ' + this.firstName_;
+  }
+
+  set name(v: string){
+    //super.name = v;
+  }
+
+  // public set name(value: string){
+  //   super.name = this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'')
+  // }
+
+  // get fullName() {
+  //   return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
+  // }
+
+  // get name() {
+  //   return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
+  // }
 }
 // export class Person extends NaturalEntity{
 //   constructor(

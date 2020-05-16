@@ -10,7 +10,7 @@ export class InputDateComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = true;
   @Input() placeholder = '';
-  @Input() value = '';
+  @Input() value = new Date();
   @Input() disabled = false;
 
   @Output() onFile = new EventEmitter();
@@ -20,6 +20,9 @@ export class InputDateComponent implements OnInit {
   @Input() showFlash = true;
   @Input() showPaperclip = true;
   @Input() showCD = true;
+
+  @Input() inline = false;
+  @Input() showTitle = true;
 
   doFile(){
     this.onFile.emit(this.title);

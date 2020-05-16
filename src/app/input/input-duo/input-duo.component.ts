@@ -26,6 +26,8 @@ export class InputDuoComponent implements OnInit {
   @Input() showAddLeft = true;
   @Input() showEditLeft = true;
   @Input() showDeleteLeft = true;
+  @Input() showDownloadLeft = false;
+  @Input() showShareLeft = false;
 
   @Input() titleRight = '';
   @Input() placeholderRight = '';
@@ -38,6 +40,8 @@ export class InputDuoComponent implements OnInit {
   @Input() showAddRight = true;
   @Input() showEditRight = true;
   @Input() showDeleteRight = true;
+  @Input() showDownloadRight = false;
+  @Input() showShareRight = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();

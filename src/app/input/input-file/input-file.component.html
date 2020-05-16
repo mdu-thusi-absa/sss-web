@@ -14,12 +14,16 @@
       style="
         white-space: nowrap;
         display: inline-block;
-        width: 100%;
         overflow: hidden;
       "
     >
       <label class="nobottom text-primary">{{ title }}</label>
     </a>
+    <div [hidden] = "false" class="form-group pull-right nobottom">
+      <label class="checkbox-inline" style="padding: 0px;"
+        >&nbsp;<input type="checkbox" value="" /></label
+      >
+    </div>
   </div>
 
   <div
@@ -44,6 +48,8 @@
             [showDisk]="true"
             [showLink]="true"
             [showMinus]="true"
+            [showDownload] = "true"
+            [showShare] = "true"
           ></app-input-browse>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">

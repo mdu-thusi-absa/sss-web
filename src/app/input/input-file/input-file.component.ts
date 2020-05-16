@@ -16,6 +16,9 @@ export class InputFileComponent implements OnInit {
   @Input() showPaperclip = true;
   @Input() showCD = true;
   @Input() showTitleInput = true;
+  @Input() showDownload = false;
+  @Input() showShare = false;
+  @Input() showSelect = false;
 
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();

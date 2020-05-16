@@ -2,7 +2,7 @@
   <div class="btn-group wide input-group-sm" data-toggle="buttons">
     <label
       *ngIf="showFlash"
-      class="btn btn-primary btn-xs"
+      class="btn primary-color btn-xs"
       (click)="doRadio('flash')"
       [class.primary-color-active]="radioChoice == 'flash'"
       [class.primary-color]="radioChoice != 'flash'"
@@ -17,17 +17,17 @@
         [class.focus]="radioChoice == 'flash'"
       />
       <span class="glyphicon glyphicon-flash"></span>
-      <small>&nbsp;</small>
-      <span class="hidden-xs hidden-sm hidden-sm">
+      <small>&nbsp;{{ countFlash }}</small>
+      <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs progress-bar-primary"
           ><small>{{ countFlash }}</small></span
         >
-      </span>
+      </span> -->
     </label>
 
     <label
       *ngIf="showPlay"
-      class="btn btn-xs btn-primary"
+      class="btn btn-xs primary-color"
       [class.primary-color-active]="radioChoice == 'play'"
       [class.primary-color]="radioChoice != 'play'"
       (click)="doRadio('play')"
@@ -39,17 +39,17 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <small><span class="glyphicon glyphicon-play"></span> &nbsp;</small>
-      <span class="hidden-xs hidden-sm hidden-sm">
+      <small><span class="glyphicon glyphicon-play"></span>&nbsp;{{ countPlay }}</small>
+      <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs bg-primary"
           ><small>{{ countPlay }}</small></span
         ></span
-      >
+      > -->
     </label>
 
     <label
       *ngIf="showPause"
-      class="btn btn-primary btn-xs"
+      class="btn primary-color btn-xs"
       (click)="doRadio('pause')"
       [class.primary-color-active]="radioChoice == 'pause'"
       [class.primary-color]="radioChoice != 'pause'"
@@ -62,17 +62,17 @@
         [checked]="radioChoice == 'pause'"
       />
       <span class="glyphicon glyphicon-pause"></span>
-      <small>&nbsp;</small>
-      <span class="hidden-xs hidden-sm hidden-sm">
+      <small>&nbsp;{{ countPause }}</small>
+      <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs"
           ><small>{{ countPause }}</small></span
         ></span
-      >
+      > -->
     </label>
 
     <label
       *ngIf="showOk"
-      class="btn btn-primary btn-xs"
+      class="btn primary-color btn-xs"
       (click)="doRadio('ok')"
       [class.primary-color-active]="radioChoice == 'ok'"
       [class.primary-color]="radioChoice != 'ok'"
@@ -85,17 +85,17 @@
         [checked]="radioChoice == 'ok'"
       />
       <span class="glyphicon glyphicon-ok"></span>
-      <small>&nbsp;</small>
-      <span class="hidden-xs hidden-sm hidden-sm">
+      <small>&nbsp;{{ countOk }}</small>
+      <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs">
           <small>{{ countOk }}</small></span
         ></span
-      >
+      > -->
     </label>
 
     <label
       *ngIf="showEyeClose"
-      class="btn btn-primary btn-xs"
+      class="btn primary-color btn-xs"
       (click)="doRadio('eye-close')"
       [class.primary-color-active]="radioChoice == 'eye-close'"
       [class.primary-color]="radioChoice != 'eye-close'"
@@ -108,17 +108,17 @@
         [checked]="radioChoice == 'eye-close'"
       />
       <span class="glyphicon glyphicon-eye-close"></span>
-      <small>&nbsp;</small>
-      <span class="badge badge-xs"
+      <small>&nbsp;{{ countEyeClose }}</small>
+      <!-- <span class="badge badge-xs"
         ><span class="hidden-xs hidden-sm hidden-sm">
           <small>{{ countEyeClose }}</small></span
         ></span
-      >
+      > -->
     </label>
 
     <label
       *ngIf="showEyeOpen"
-      class="btn btn-primary primary-color btn-xs"
+      class="btn primary-color btn-xs"
       (click)="doRadio('eye-open')"
       [class.primary-color-active]="radioChoice == 'eye-open'"
       [class.primary-color]="radioChoice != 'eye-open'"
@@ -131,17 +131,17 @@
         [checked]="radioChoice == 'eye-open'"
       />
       <span class="glyphicon glyphicon-eye-open"></span>
-      <small>&nbsp;</small>
-      <span class="badge badge-xs"
+      <small>&nbsp;{{ countEyeOpen }}</small>
+      <!-- <span class="badge badge-xs"
         ><span class="hidden-xs hidden-sm hidden-sm">
           <small>{{ countEyeOpen }}</small></span
         ></span
-      >
+      > -->
     </label>
 
     <label
       *ngIf="showAll"
-      class="btn btn-primary btn-xs"
+      class="btn primary-color btn-xs"
       [class.primary-color-active]="radioChoice == 'all'"
       [class.primary-color]="radioChoice != 'all'"
       (click)="doRadio('all')"
@@ -153,12 +153,14 @@
         value="all"
         [checked]="radioChoice == 'all'"
       />
-      <small>All </small>
-      <span class="hidden-xs hidden-sm hidden-sm">
+      <span class="glyphicon glyphicon-asterisk"></span>
+      <small>&nbsp;{{ countAll }}</small>
+      <!-- <span class="hidden-xs hidden-sm hidden-sm"> 
+        glyphicon-option-horizontal
         <span class="badge badge-xs">
           <small>{{ countAll }}</small></span
         ></span
-      >
+      > -->
     </label>
   </div>
 </div>
@@ -168,17 +170,13 @@
     *ngIf="showList"
     class="form-control input-sm wide primary-color-input-reverse"
     style="font-size: small;"
-    (change) = "doListChange($event)"
+    (change)="doListChange($event)"
   >
     <option *ngFor="let e of listValues | keyvalue" [value]="e.key">{{
       e.value
     }}</option>
   </select>
 </div>
-
-
-
-
 
 <div class="input-group input-group-sm">
   <span
@@ -211,9 +209,27 @@
     *ngIf="showFilterCount"
     class="input-group-addon hidden-xs primary-color-reverse"
     title="Number of items"
-    style="position: relative; left: 0.01px;"
+    
   >
     {{ filterCount }}
+  </span>
+
+  <span
+    *ngIf="showDownload"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doDownload()"
+    [title]="'Download ' + title"
+  >
+    <span class="glyphicon glyphicon-cloud-download"></span>
+  </span>
+
+  <span
+    *ngIf="showShare"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doShare()"
+    [title]="'Share ' + title"
+  >
+    <span class="glyphicon glyphicon-share-alt"></span>
   </span>
 
   <span
@@ -265,5 +281,3 @@
     <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
   </span>
 </div>
-
-

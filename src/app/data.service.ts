@@ -5,7 +5,10 @@ import { NaturalEntity, Entity, Country, LegalEntity, User } from './models';
   providedIn: 'root',
 })
 export class DataService {
-  constructor() {}
+  constructor() {
+    Entity.makeMap(this.companiesMap,this.entities);
+    Entity.makeNameMap(this.countriesMap,this.countries);
+  }
 
   public getID(title: string) {
     let s = / /g;
@@ -43,7 +46,7 @@ export class DataService {
 
   getCountriesNames() {
     //return this.countries;
-    Entity.makeNameMap(this.countriesMap,this.countries);
+    
     //console.log(this.countriesMap);
     //console.log(new Map([[0,'a'],[1,'b']]));
     return this.countriesMap;
@@ -105,25 +108,28 @@ export class DataService {
   //industry
   //Entity Types
   entityTypes = new Map([
-    [0, 'Trust'],
-    [1, 'Company'],
-    [2, 'Regulator'],
-    [3, 'Regulation'],
-    [4, 'Person'],
-    [5, 'Government Agency'],
-    [6, 'User'],
+    [0, 'Company'],
+    [1, 'Person'],
+    [2, 'User'],
+    [3, 'Group'],
+    [4, 'Trust'],
+    [5, 'Regulator'],
+    [6, 'Regulation'],
+    [7, 'Government Agency'],
+    
   ]);
   getEntityTypes() {
     return this.entityTypes;
   }
   entityTypesPlural = new Map([
-    [0, 'Trusts'],
-    [1, 'Companies'],
-    [2, 'Regulators'],
-    [3, 'Regulations'],
-    [4, 'Persons'],
-    [5, 'Government Agencies'],
-    [6, 'Users'],
+    [0, 'Companies'],
+    [1, 'Persons'],
+    [2, 'Users'],
+    [3, 'Groups'],
+    [4, 'Trusts'],
+    [5, 'Regulators'],
+    [6, 'Regulations'],
+    [7, 'Government Agencies']
   ]);
   getEntityTypesPlural() {
     return this.entityTypesPlural;
@@ -337,7 +343,6 @@ export class DataService {
   //   [15, 'Cisco Systems'],
   // ]);
   getCompanies() {
-    Entity.makeMap(this.companiesMap,this.entities);
     return this.companiesMap;
   }
   yesNo = new Map([
@@ -382,14 +387,14 @@ export class DataService {
   getAuditors() {
     return this.auditors;
   }
-  entityLists = new Map([
+  entityGroups = new Map([
     [0, '- Default -'],
     [1, 'Africa'],
     [2, 'Europe'],
     [3, 'Asia'],
   ]);
-  getEntityLists() {
-    return this.entityLists;
+  getEntityGroups() {
+    return this.entityGroups;
   }
   industries = new Map([
     [0, 'Banking'],
@@ -436,19 +441,26 @@ export class DataService {
     [5, new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount',15)],
     [6, new User('Standar', 'Lourika', '').set('tasksCount',7)],
   ]);
-  getUsersMap() {
+  getUsers() {
     return this.users;
   }
 
   getFunctionalEntities(type: number){
-    console.log(type);
-    if (type==4){
+    //console.log(type);
+    if (type==0){
+      return this.getCompanies();
+    }
+    else if (type==1){
       //console.log(type,'in');
       return this.getPersons();
     }
-    else if (type==6){
+    else if (type==2){
       //console.log(type,'in');
-      return this.getUsersMap();
+      return this.getUsers();
+    }
+    else if (type==3){
+      //console.log(type,'in');
+      return this.getEntityGroups();
     }
     else {
       return this.getCompanies();

@@ -43,6 +43,8 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showEyeOpen = false;
   @Input() showEyeClose = false;
   @Input() showSave = false;
+  @Input() showShare = false;
+  @Input() showDownload = false;
 
   //for radio values
   @Input() countFlash = 0;
@@ -78,6 +80,14 @@ export class InputFilterAddComponent implements OnInit {
       this.showEyeClose ||
       this.showEyeOpen || 
       this.showSave;
+  }
+
+  doDownload(){
+
+  }
+
+  doShare(){
+
   }
 
   doRadio(choice: string) {

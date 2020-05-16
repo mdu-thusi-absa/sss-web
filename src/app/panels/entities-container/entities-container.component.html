@@ -2,10 +2,11 @@
   <div class="container-fluid">
     <div class="row no-gutter">
       <!--column 1: Entities, Tasks, Records, Files-->
-      <div class="col-xs-4"
-        [class.col-sm-2] = "showPanelRight"
-        [class.col-sm-4] = "!showPanelRight"
-        >
+      <div
+        class="col-xs-4"
+        [class.col-sm-2]="showPanelRight"
+        [class.col-sm-4]="!showPanelRight"
+      >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3 primary-color">
@@ -52,7 +53,7 @@
             [class.container-panel-left-full]="panelRows == 1"
             [class.container-panel-left-half]="panelRows == 2"
           >
-            <app-entities [panelRows]="panelRows"></app-entities>
+            <app-entities [panelRows]="panelRows" [isNarrow] = "showPanelRight"></app-entities>
           </div>
           <!-- <div class="panel-footer mt3">
             <small>Last refresh: 14:31</small>
@@ -238,7 +239,7 @@
                     [checked]="!hidePrimary"
                     (change)="hidePrimary = !hidePrimary"
                   />
-                  <span class=" hidden-lg"> P</span>
+                  <span class="hidden-lg"> P</span>
                   <span class="hidden-xs hidden-sm hidden-md">
                     <small>&nbsp;Primary</small></span
                   ></label
@@ -380,7 +381,7 @@
               [hideCustom]="hideCustom"
               [hideFiles]="hideDetailFiles"
               [hideUsers]="hideUsers"
-              [isNarrow] = "showPanelRight"
+              [isNarrow]="showPanelRight"
             ></app-entity-details>
           </div>
           <!-- <div class="panel-footer mt3">
@@ -441,13 +442,11 @@
           </div>
           <div
             class="panel-body mt3"
-            [class.container-panel-center-half]="
-              panelRows == 2 && !expandHistoryDetail
-            "
+            [class.files-details-half]="panelRows == 2 && !expandHistoryDetail"
             [class.container-panel-center-full]="
               panelRows == 2 && expandHistoryDetail
             "
-            style="overflow-y: scroll;"
+            
           >
             <div [hidden]="hideHistory">
               <app-record-details [panelRows]="panelRows"></app-record-details>
@@ -588,10 +587,10 @@
             </div>
           </div>
           <div class="panel-body mt3" [hidden]="hidePosts">
-            <app-entity-messages [isNarrow] = "true"></app-entity-messages>
+            <app-entity-messages [isNarrow]="true"></app-entity-messages>
           </div>
           <div class="panel-body mt3" [hidden]="hideTasks">
-            <app-entity-tasks [isNarrow] = "true"></app-entity-tasks>
+            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
           </div>
           <!-- <div class="panel-footer mt3">
             <small>Last post: 3 days ago</small>

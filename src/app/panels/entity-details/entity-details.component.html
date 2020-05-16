@@ -121,7 +121,7 @@
       <app-entity-details-users
       [isNarrow] = "isNarrow"
         [filterText]="filterText"
-        [users] = "dataService.getUsersMap()"
+        [users] = "dataService.getUsers()"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
         (onTask)="doTask($event)"

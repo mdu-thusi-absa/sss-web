@@ -14,6 +14,8 @@
   [showCDLeft]="false"
   [showFlashLeft]="false"
   [showPaperclipLeft]="false"
+  [showDownloadLeft] = "true"
+  [showShareLeft] = "true"
 ></app-input-duo>
 
 <div *ngFor="let e of elements; let i = index">
@@ -25,6 +27,9 @@
       [type]="'file'"
       [title]="'File ' + (i+1) + ' details'"
       [showTitleInput] = "true"
+      [showSelect] = "true"
+      [showShare] = "true"
+      [showDownload] = "true"
       
       (onFile)="doFile(i)"
       (onRecord)="doRecord(i)"

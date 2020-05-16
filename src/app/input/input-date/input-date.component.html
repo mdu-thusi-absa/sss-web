@@ -1,5 +1,6 @@
 <div [hidden]="hideByFilter()">
-  <div style="margin-top: 5px; margin-right: 0px;">
+  <div style="margin-right: 0px;"
+    [style.margin-top] = "inline ? '0px' : '5px'">
     <app-buttons-input-text
       (onFile)="doFile()"
       (onRecord)="doRecord()"
@@ -8,15 +9,26 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
     ></app-buttons-input-text>
-    <label class="nobottom text-primary label-buttons-3">{{ title }}</label>
+    <label
+      *ngIf="!inline && showTitle"
+      class="nobottom text-primary label-buttons-3"
+      >{{ title }}</label
+    >
 
     <div class="input-group date input-group-sm">
+      <span
+        *ngIf="inline && showTitle"
+        class="hidden-xs input-group-addon"
+        (click)="dpDate.toggle()"
+      >
+        {{ title }}
+      </span>
       <input
         type="text"
         bsDatepicker
         class="form-control"
         #dpDate="bsDatepicker"
-        [bsValue]=""
+        [(ngModel)]="value"
         [bsConfig]="{
           dateInputFormat: 'YYYY/MM/DD',
           containerClass: 'theme-red',

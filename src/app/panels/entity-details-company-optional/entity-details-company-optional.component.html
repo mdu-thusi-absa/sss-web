@@ -7,10 +7,12 @@
       [titleLeft]="'Appointed company secretary'"
       [valuesLeft]="dataService.getCompanySercetaries()"
       [valueLeft]="0"
-      [typeRight]="'select'"
+
+      [typeRight]="'person'"
       [titleRight]="'Internal secretary representative'"
-      [valuesRight]="[[0,'Sam']]"
+      [valuesRight]="dataService.getUsers()"
       [valueRight]="0"
+
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -19,13 +21,15 @@
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"
+
       [typeLeft]="'person'"
       [titleLeft]="'Entity Executive'"
-      [valuesLeft]="persons"
+      [valuesLeft]="dataService.getPersons()"
       [valueLeft]="0"
+
       [typeRight]="'person'"
       [titleRight]="'Entity Financial Officer'"
-      [valuesRight]="persons"
+      [valuesRight]="dataService.getPersons()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
@@ -41,7 +45,7 @@
       [valueLeft]="0"
       [typeRight]="''"
       [titleRight]="'Entity Financial Officer'"
-      [valuesRight]="persons"
+      [valuesRight]="dataService.getPersons()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"

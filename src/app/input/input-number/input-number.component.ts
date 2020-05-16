@@ -26,6 +26,16 @@ export class InputNumberComponent implements OnInit {
   @Input() showFlash = true;
   @Input() showPaperclip = true;
   @Input() showCD = true;
+  @Input() showDownload = false;
+  @Input() showShare = false;
+
+  doDownload(){
+
+  }
+
+  doShare(){
+    
+  }
 
   doFile() {
     this.onFile.emit(this.title.replace('*', ''));

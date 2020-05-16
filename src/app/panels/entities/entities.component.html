@@ -108,40 +108,34 @@
 
 <div class="form-group">
   <app-input-filter-add
-  [filterCount]="getCountFiltered()"
-  [showAdd]="true"
-  [showFilterCount] = "true"
-  (onFilter)="doFilter($event)"
-
-  [title] = "'Entity'"
-  [titlePlural] = "'Entities'"
-  [showList] = "true"
-  [listValues] = "dataService.getEntityTypesPlural()"
-  (onListChange) = "doEntityTypeChange($event)"
-
-  [showFlash] = "true"
-  [showPlay] = "true"
-  [showPause] = "true"
-  [showAll] = "true"
-  [radioChoice] = "rdoActiveDormantAll"
-  [countFlash] = "getCount_Tasks()"
-  [countPause] = "getCount_Dormant()"
-  [countPlay] = "getCount_Active()"
-  [countAll] = "getCount_All()"
-  (onChoice) = "rdoActiveDormantAll = $event"
-
-  [titleFlash] = "'Entities with active tasks'"
-  [titlePlay] = "'Active Entities'"
-  [titleAll] = "'All Entities'"
-  [titlePause] = "'Dormant Entities'"
-
-  
-  
-></app-input-filter-add>
+    [filterCount]="getCountFiltered()"
+    [showAdd]="true"
+    [showFilterCount]="true"
+    (onFilter)="doFilter($event)"
+    [title]="'Entity'"
+    [titlePlural]="'Entities'"
+    [showList]="true"
+    [listValues]="entityTypesPlural"
+    (onListChange)="doEntityTypeChange($event)"
+    [showFlash]="true"
+    [showPlay]="true"
+    [showPause]="true"
+    [showAll]="true"
+    [radioChoice]="rdoActiveDormantAll"
+    [countFlash]="getCount_Tasks()"
+    [countPause]="getCount_Dormant()"
+    [countPlay]="getCount_Active()"
+    [countAll]="getCount_All()"
+    (onChoice)="rdoActiveDormantAll = $event"
+    [titleFlash]="'Entities with active tasks'"
+    [titlePlay]="'Active Entities'"
+    [titleAll]="'All Entities'"
+    [titlePause]="'Dormant Entities'"
+  ></app-input-filter-add>
   <div
     [class.entities-full]="isFullScreen()"
     [class.entities-half]="isHalfScreen()"
-    style="overflow-y: scroll;overflow-x: hidden; scrollbar-width: thin;"
+    style="overflow-y: scroll; overflow-x: hidden; scrollbar-width: thin;"
   >
     <table
       class="table table-condensed table-bordered less-bottom"
@@ -149,9 +143,9 @@
     >
       <thead class="info">
         <tr class="info">
-          <th>Name</th>
-          <th>Tasks</th>
-          <th>Suffix</th>
+          <th><small>Name</small></th>
+          <th><small>Tasks</small></th>
+          <th><small>Suffix</small></th>
         </tr>
       </thead>
 
@@ -169,5 +163,73 @@
         </tr>
       </tbody>
     </table>
+    <small class="text-primary"
+      >Total {{ getCount_All() }}. Showing
+      {{ (rdoActiveDormantAll == "all" ? "all " : "") + getCountFiltered() }}
+      {{
+        rdoActiveDormantAll == "play"
+          ? "active "
+          : rdoActiveDormantAll == "pause"
+          ? "dormant "
+          : ""
+      }}
+      {{ entityTypeName.toLowerCase() }}
+      {{ rdoActiveDormantAll == "flash" ? " with outstanding tasks" : "" }}
+    </small>
+  </div>
+  <app-input-date
+    [title]="'System Date'"
+    [showFlash]="false"
+    [showCD]="false"
+    [showPaperclip]="false"
+    [inline]="true"
+    [showTitle]="!isNarrow"
+  >
+  </app-input-date>
+  <div class="btn-group wide input-group-sm">
+    <a href="#" class="btn primary-color">
+      <small>
+        <span class="glyphicon glyphicon-cog"></span>
+        <span
+          [hidden]="isNarrow"
+          class="hidden-xs"
+          data-toggle="modal"
+          data-target="#myModal"
+          >&nbsp; Settings</span
+        >&nbsp;</small
+      >
+    </a>
+    <a href="#" class="btn primary-color">
+      <small>
+        <span class="glyphicon glyphicon-log-out"></span>
+        <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Log Out</span
+        >&nbsp;</small
+      >
+    </a>
+  </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">Settings</h4>
+      </div>
+      <div class="modal-body">
+        <p>Custom settings...</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn primary-color" data-dismiss="modal">
+          <small>
+            <span class="glyphicon glyphicon-remove"></span>
+            <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Close</span
+            >&nbsp;</small
+          >
+        </a>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+      </div>
+    </div>
   </div>
 </div>

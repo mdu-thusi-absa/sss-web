@@ -18,6 +18,7 @@
         autocomplete="nope"
       />
 
+
       <span
         *ngIf="showMinus"
         class="input-group-addon btn primary-color-reverse"
@@ -26,6 +27,24 @@
       >
         <span class="glyphicon glyphicon-remove"></span>
       </span>
+
+      <span
+      *ngIf="showDownload"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doDownload()"
+      [title]="'Download'"
+    >
+      <span class="glyphicon glyphicon-cloud-download"></span>
+    </span>
+
+    <span
+      *ngIf="doShare"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doShare()"
+      [title]="'Share'"
+    >
+      <span class="glyphicon glyphicon-share-alt"></span>
+    </span>
 
       <span
         *ngIf="showLink"
@@ -59,7 +78,25 @@
       />
 
       <span
-        *ngIf="showMinus"
+        *ngIf="showDownload"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDownload()"
+        [title]="'Download'"
+      >
+        <span class="glyphicon glyphicon-cloud-download"></span>
+      </span>
+
+      <span
+        *ngIf="doShare"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doShare()"
+        [title]="'Share'"
+      >
+        <span class="glyphicon glyphicon-share-alt">s</span>
+      </span>
+
+      <span
+        *ngIf="false"
         class="input-group-addon btn primary-color-reverse"
         (click)="doMinus()"
         [title]="'Discard'"
@@ -73,7 +110,7 @@
         (click)="doLink()"
         [title]="'Add link'"
       >
-        <span class="glyphicon glyphicon-link"></span>
+        <span class="glyphicon glyphicon-link">d</span>
       </span>
 
       <span
