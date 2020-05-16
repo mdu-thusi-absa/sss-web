@@ -16,7 +16,7 @@
 ></app-input-filter-add>
 
 <form autocomplete="off">
-  <div *ngIf="entityType!=4 && entityType != 6">
+  <div *ngIf="entityType!=1 && entityType != 2">
     <app-input-text
       [filterText]="filterText"
       [doHideByFilter]="false"
@@ -27,7 +27,7 @@
       [placeholder]="'Legal name of the entity (required)'"
     ></app-input-text>
   </div>
-  <div *ngIf="entityType==4 || entityType == 6">
+  <div *ngIf="entityType==1 || entityType == 2">
     <app-input-duo
         [typeLeft]="'text'"
         [typeRight]="'text'"

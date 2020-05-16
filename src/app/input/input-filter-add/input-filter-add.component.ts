@@ -45,6 +45,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showSave = false;
   @Input() showShare = false;
   @Input() showDownload = false;
+  @Input() isNarrow = false;
 
   //for radio values
   @Input() countFlash = 0;
