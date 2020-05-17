@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Entities } from 'src/app/models';
 
 @Component({
   selector: 'app-input-filter-add',
@@ -23,7 +24,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titlePlural = '';
   @Input() titleT = '';
   @Input() showList = false;
-  @Input() listValues = [[0,'Yes'], [1,'No']];
+  @Input() listValues: Entities;
   @Output() onListChange = new EventEmitter();
 
   @Input() showDelete = false;

@@ -12,9 +12,10 @@ export class InputTextareaComponent implements OnInit {
   @Input() rows = 4;
   @Input() noTitle = false;
   @Input() noButtons = false;
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
+  @Input() showCheck = false;
 
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();

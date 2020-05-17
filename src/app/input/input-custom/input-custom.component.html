@@ -1,5 +1,5 @@
 <!-- <div class="panel"> -->
-<div class="panel panel-body" style="padding: 5px; margin-bottom:10px">
+<div class="panel panel-body" style="padding: 5px; margin-bottom: 10px;">
   <app-input-duo
     [typeLeft]="'text'"
     [titleLeft]="title"
@@ -7,31 +7,29 @@
     [doHideByFilter]="doHideByFilter"
     [valueLeft]="title"
     (onChangeLeft)="doChangeTitle($event)"
-    
-    [typeRight]="'select'"
-      [titleRight]="title + ' type'"
-      [valuesRight]="dataService.getCustomTypes()"
-      [valueRight]="4"
-      (onChangeRight)="doChangeCustomType($event)"
-      [showAddRight] = "false"
-      [showEditRight] = "false"
-      [showDeleteRight] = "false"
-  > 
+    [typeRight]="'select-entity'"
+    [titleRight]="title + ' type'"
+    [valuesRight]="dataService.getCustomTypes()"
+    [valueRight]="4"
+    (onChangeRight)="doChangeCustomType($event)"
+    [showAddRight]="false"
+    [showEditRight]="false"
+    [showDeleteRight]="false"
+  >
   </app-input-duo>
 
   <app-input-any
-      [filterText]="filterText"
-      [doHideByFilter]="doHideByFilter"
-      
-      [type]="customType"
-      [title]="title + ' (' + customType + ') details'"
-      [values]="customType=='person' ? dataService.getPersons() : values"
-      [value] = "0"
-      [showTitleInput] = "false"
-      
-      (onFile)="doFile()"
-      (onRecord)="doRecord()"
-      (onTask)="doTask()" 
-    ></app-input-any> 
+    [filterText]="filterText"
+    [doHideByFilter]="doHideByFilter"
+    [type]="customType"
+    [title]="title + ' (' + customType + ') details'"
+    [values]="customType == 'person' ? dataService.getPersons() : values"
+    [value]="0"
+    [showTitleInput]="false"
+    (onFile)="doFile()"
+    (onRecord)="doRecord()"
+    (onTask)="doTask()"
+    [showCheck] = "showCheck"
+  ></app-input-any>
 </div>
 <!-- </div> -->

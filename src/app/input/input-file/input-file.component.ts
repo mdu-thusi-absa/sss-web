@@ -12,13 +12,14 @@ export class InputFileComponent implements OnInit {
   @Input() disabled=false;
   @Input() value='';
   @Input() hideBody = true;
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
   @Input() showTitleInput = true;
   @Input() showDownload = false;
   @Input() showShare = false;
   @Input() showSelect = false;
+  @Input() showCheck = false;
 
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();

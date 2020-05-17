@@ -1,4 +1,4 @@
-<div class="btn-group pull-right" [style.width]="filterInputTotalWidth()">
+<div class="btn-group pull-right" [style.width]="filterInputTotalWidth()" >
   <div class="pull-right">
     <a
       href="#"
@@ -119,6 +119,19 @@
         data-toggle="tooltip"
         data-placement="bottom"
         [title]="'Record of changes for ' + title"
+      ></span>
+    </a>
+    <a
+      *ngIf="showCheck"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doCheck()"
+    >
+      <span
+        class="glyphicon glyphicon-check"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        [title]="'Audit of changes for ' + title"
       ></span>
     </a>
   </div>

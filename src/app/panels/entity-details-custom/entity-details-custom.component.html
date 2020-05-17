@@ -14,6 +14,7 @@
   [showCDLeft]="false"
   [showFlashLeft]="false"
   [showPaperclipLeft]="false"
+  [showCheckLeft] = "true"
 ></app-input-duo>
 
 <div *ngFor="let e of elements; let i = index">
@@ -23,8 +24,8 @@
     [filterText]="filterText"
     [doHideByFilter]="true"
     [persons]="persons"
-    [countriesCities] = "countriesCities"
     (onChange)="doChangeCustomType(i, $event)"
+    [showCheck] = "true"
   >
   </app-input-custom>
 </div>

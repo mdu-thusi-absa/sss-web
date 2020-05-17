@@ -1,5 +1,8 @@
 <div class="panel panel-default" style="margin-bottom: 10px;">
-  <div class="panel panel-heading nobottom less-padding text-primary" [hidden]="noHeader">
+  <div
+    class="panel panel-heading nobottom less-padding text-primary"
+    [hidden]="noHeader"
+  >
     <a
       href="#"
       data-toggle="collapse"
@@ -7,7 +10,9 @@
       (click)="hideBody = !hideBody"
       class="text-primary"
     >
-    <label class="nobottom text-primary"><small>Step {{ stepNumber }}</small></label>
+      <label class="nobottom text-primary"
+        ><small>Step {{ stepNumber }}</small></label
+      >
     </a>
     <div class="btn-group pull-right">
       <a
@@ -54,9 +59,9 @@
     [showFlash] = "false"
   ></app-input-text> -->
     <app-input-duo
-      [isNarrow] = "isNarrow"
+      [isNarrow]="isNarrow"
       [typeLeft]="'text'"
-      [typeRight]="'select'"
+      [typeRight]="'select-entity'"
       [titleLeft]="'Title'"
       [valueLeft]="title"
       [titleRight]="'Progress Status'"
@@ -64,11 +69,13 @@
       [valueRight]="0"
       [showFlashLeft]="false"
       [showFlashRight]="false"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
     ></app-input-duo>
 
     <app-input-duo
-    [isNarrow] = "isNarrow"
-      [typeLeft]="'select'"
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
       [typeRight]="'person'"
       [titleLeft]="'Task Type'"
       [valuesLeft]="dataService.getTaskTypes()"
@@ -78,6 +85,8 @@
       [valueRight]="0"
       [showFlashLeft]="false"
       [showFlashRight]="false"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
     ></app-input-duo>
 
     <app-input-textarea
@@ -85,28 +94,36 @@
       [placeholder]="'Description, instructions, status, etc.'"
       [showFlash]="false"
       [showPaperclip]="true"
-      [showCD] = "true"
+      [showCD]="true"
+      [showCheck]="true"
     ></app-input-textarea>
 
     <app-input-duo
-    [isNarrow] = "isNarrow"
+      [isNarrow]="isNarrow"
       [typeLeft]="'date'"
       [typeRight]="'date'"
       [titleLeft]="'Creation Date'"
       [titleRight]="'Done Date'"
       [showFlashLeft]="false"
       [showFlashRight]="false"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
     ></app-input-duo>
     <app-input-duo
-    [isNarrow] = "isNarrow"
+      [isNarrow]="isNarrow"
       [typeLeft]="'date'"
       [typeRight]="'date'"
       [titleLeft]="'Check Progress Date'"
       [titleRight]="'Due Date'"
       [showFlashLeft]="false"
       [showFlashRight]="false"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
     ></app-input-duo>
 
-    <app-input-schedule [title]="title" [isNarrow] = "isNarrow"></app-input-schedule>
+    <app-input-schedule
+      [title]="title"
+      [isNarrow]="isNarrow"
+    ></app-input-schedule>
   </div>
 </div>

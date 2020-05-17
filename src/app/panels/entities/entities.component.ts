@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FunctionalEntity } from '../../models'
+import { FunctionalEntity,  Entities, Entity} from '../../models'
 import { DataService } from 'src/app/data.service';
 
 
@@ -14,10 +14,10 @@ export class EntitiesComponent implements OnInit {
   isNewMessage = false;
   @Input() panelRows = 1;
   @Input() isNarrow = false;
-  entities = new Map();
+  entities: Entities;// = new FunctionalEntities();
   entityType = 0;
   entityTypeName = '';
-  entityTypesPlural = new Map();
+  entityTypesPlural: any;
 
   constructor(public dataService: DataService) { }
 
@@ -25,19 +25,19 @@ export class EntitiesComponent implements OnInit {
     //this.entities.sort(Entity.compare);
     //this.entities = this.dataService.getFunctionalEntities(0);
     //entityTypeName
-    this.entityTypesPlural = this.dataService.getEntityTypesPlural()
+    this.entityTypesPlural = this.dataService.getEntityTypesPlural();
     this.doEntityTypeChange(this.entityType);
   }
 
   doEntityTypeChange(event: any){
     //console.log('doEntityTypeChange',event);
     this.entityType = +event;
-    this.entityTypeName = this.entityTypesPlural.get(this.entityType);
-    console.log(this.entityTypeName);
+    this.entityTypeName = this.entityTypesPlural.get(this.entityType).name;
+    //console.log(this.entityTypeName);
     this.entities = this.dataService.getFunctionalEntities(this.entityType);
   }
 
-  shouldBeHidden(e: FunctionalEntity): boolean{
+  shouldBeHidden(e: Entity): boolean{
     let inFilter = true;
     let inName = true;
     //let inInfo = true;
@@ -49,9 +49,9 @@ export class EntitiesComponent implements OnInit {
 
     let inStatus = true;
     if (this.rdoActiveDormantAll== 'all') inStatus = true;
-    else if (this.rdoActiveDormantAll == 'play') inStatus = e.isActive;
-    else if (this.rdoActiveDormantAll == 'pause') inStatus = !e.isActive;
-    else if (this.rdoActiveDormantAll == 'flash') inStatus = e.tasksCount>0;
+    else if (this.rdoActiveDormantAll == 'play') inStatus = e["isActive"];
+    else if (this.rdoActiveDormantAll == 'pause') inStatus = !e["isActive"];
+    else if (this.rdoActiveDormantAll == 'flash') inStatus = e["tasksCount"]>0;
 
     let doShow = inFilter && inStatus;
 
@@ -71,15 +71,15 @@ export class EntitiesComponent implements OnInit {
   }
 
   getCount_Active(){
-    return [...this.entities.values()].filter(e => e.isActive).length;
+    return [...this.entities.values()].filter(e => e["isActive"]).length;
   }
 
   getCount_Dormant(){
-    return [...this.entities.values()].filter(e => !e.isActive).length;
+    return [...this.entities.values()].filter(e => !e["isActive"]).length;
   }
 
   getCount_Tasks(){
-    return [...this.entities.values()].filter(e => e.tasksCount>0).length;
+    return [...this.entities.values()].filter(e => e["tasksCount"]>0).length;
   }
 
   getCount_All(){

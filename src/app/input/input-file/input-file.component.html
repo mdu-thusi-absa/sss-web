@@ -40,6 +40,7 @@
               [title]="'Title'"
               [value] = "title"
               (onChange) = "doChangeTitle($event)"
+              [showCheck] = [showCheck]
             ></app-input-text>
           </div>
           <div style="height:3px;"></div>
@@ -56,6 +57,7 @@
           <app-input-textarea
             [title]="'Description'"
             [placeholder]="'File or link contents description'"
+            [showCheck] = "false"
           ></app-input-textarea>
         </div>
       </div>

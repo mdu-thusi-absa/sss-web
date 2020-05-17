@@ -25,6 +25,7 @@
       (onTask)="doTask($event)"
       [title]="'Entity Name*'"
       [placeholder]="'Legal name of the entity (required)'"
+      [showCheck] = "true"
     ></app-input-text>
   </div>
   <div *ngIf="entityType==1 || entityType == 2">
@@ -34,6 +35,8 @@
         [titleLeft]="'Surname'"
         [titleRight]="'First'"
         [doHideByFilter]="false"
+        [showCheckLeft] = "true"
+        [showCheckRight] = "true"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
         (onTask)="doTask($event)"
@@ -51,16 +54,18 @@
         [isNarrow] = "isNarrow"
         [filterText]="filterText"
         [doHideByFilter]="true"
-        [typeLeft]="'select'"
+        [typeLeft]="'select-entity'"
         [titleLeft]="'Entity Type'"
         [valuesLeft]="dataService.getEntityTypes()"
         [valueLeft]="0"
         [showAddLeft] = "false"
         [showEditLeft] = "false"
         [showDeleteLeft] = "false"
+        [showCheckLeft] = "true"
 
         [typeRight]="'text'"
         [titleRight]="'Internal Code'"
+        [showCheckRight] = "true"
         (onChangeLeft)="doChangeEntityType($event)"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"

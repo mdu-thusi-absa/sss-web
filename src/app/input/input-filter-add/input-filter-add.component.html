@@ -172,8 +172,10 @@
     style="font-size: small;"
     (change)="doListChange($event)"
   >
-    <option *ngFor="let e of listValues | keyvalue" [value]="e.key">{{
-      e.value
+    <option *ngFor="let e of listValues.all_keys" 
+    [value]="e">
+    {{
+      listValues.all_values[e].name
     }}</option>
   </select>
 </div>

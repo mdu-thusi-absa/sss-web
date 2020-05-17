@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CountryCities } from 'src/app/models';
+import { Country, Countries, Cities, Entities } from 'src/app/models';
 import { DataService } from 'src/app/data.service'
 
 @Component({
@@ -14,47 +14,32 @@ export class InputAddressComponent implements OnInit {
   @Input() disabled = false;
   @Input() allowCopyOption = false;
   @Input() allowDefaultAddressOption = false;
+  @Input() showCheck = false;
 
   //address text, country, city
   @Input() value: [string, string, string];
-  //[country: cities[]]
-  @Input() countriesCities: CountryCities[];
   @Input() hideBody = true;
 
   @Output() onFile = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();
 
-  countries = new Map();
-  cities = new Map;
+  countries: Countries;
+  cities: Cities;
   countryIndex = 0;
   cityIndex = 0;
+  countryText = '';
+  cityText = '';
 
   constructor(private data: DataService) {
         
   }
 
   ngOnInit(): void {
-    // for (let i = 0; i < this.countriesCities.length; i++) {
-    //   this.countries.push(this.countriesCities[i].name);
-    // }
-    // this.buildCountries();
-    // this.doChangeCountry(this.countries[0]);
-    this.countries = this.data.getCountriesNames();
-    //console.log(this.title, this.countries);
-    this.cities = this.data.getCities(0);
-    //console.log(this.title,this.cities);
+    this.countries = this.data.getCountries();
+    //console.log(this.countries);
+    this.cities = this.countries.get(this.getCountryIndex()).cities;  
   }
-
-  // buildCountries() {
-  //   this.countries = [];
-  //   if (this.countriesCities) {
-  //     for (let i = 0; i < this.countriesCities.length; i++) {
-  //       this.countries.push(this.countriesCities[i].name);
-  //     }
-  //     this.cities = this.countriesCities[this.countryIndex].cities;
-  //   }
-  // }
 
   getID(){
     return this.data.getID(this.title);
@@ -79,76 +64,54 @@ export class InputAddressComponent implements OnInit {
       );
   }
 
-  doChangeCountry(event: any) {
-    //expects id: number
-    // this.buildCountries();
-    // this.cities = this.countriesCities.find((e) => e.name == event).cities;
-    //console.log(event);
-    this.cities = this.data.getCities(event);
-  }
-
   doEditCountry(event: any){
     //expects id, new name
     //this.data.editCountry(event.id,event.name);
   }
 
-  doEditCountry_(event: any) {
-    if (this.countriesCities) {
-      console.log('-1', event);
-      let country = event.currValue;
-      let p = this.countriesCities.indexOf(event.prevValue);
-      let c: CountryCities = this.countriesCities.find(
-        (e) => e.name == event.prevValue
-      );
-      if (c) {
-        this.countriesCities.find((e) => e.name == event.prevValue).name =
-          event.currValue;
-        //this.cities = c.cities;
-      }
-
-      // this.buildCountries();
-      console.log(country, this.countriesCities);
-      //this.cities = this.countriesCities.find((e) => e.name == country).cities;
-    }
-  }
-
   doAddCountry(event: any){
-    this.data.addCountry(event);
-    this.cities = this.data.getCities(event);
-    //expects: new country name
-    //this.countryIndex = this.data.addCountry(event);
+    //this.data.addCountry(+event);
+    console.log('doAddCountry',event)
+    let c = this.countries.get(+event)
+    c.cities = new Cities();
+    //console.log(c);
+    this.cities = c.cities;
   }
 
-  doAddCountry_(event: any) {
-    let c = new CountryCities(event, ['-Default-']);
-    this.countriesCities.push(c);
-    // this.buildCountries();
-    // let t = Object.assign(this.countriesCities);
-    // this.countriesCities = t;
-    this.countryIndex = this.countriesCities.findIndex((e) => e.name == event);
-    //this.cities = this.countriesCities[this.countryIndex].cities;
+  doChangeInputTextCountry(event: any){
+    //console.log('country text',event.name);
+    this.countryText = event.name;
+  }
+
+  doChangeInputTextCity(event: any){
+    this.cityText = event.name;
+  }
+
+  getCountryIndex(){
+    if (this.countries.has(this.countryIndex)){
+      //this.countryIndex = 
+    }
+    else{
+      this.countryIndex = this.countries.all_keys[0];
+    }
+    return this.countryIndex
   }
 
   doSelectCountry(event: any){
-    //expect country index?
-    this.cities = this.data.getCities(event)
+    this.countryIndex = +event;
+    console.log(this.title,this.countryIndex)
+    //console.log('doSelectCountry:d',event)
+    
+    // this.cities = this.countries.get(this.countryIndex).cities;
+    // Object.assign(this.cities,this.countries.get(this.countryIndex).cities);
+    // console.log('cities', this.cities);
+    // //this.cityIndex = 0;
+    // this.cities = new Cities();
+    //this.cities = this.countries.get(this.countryIndex).cities;
+    // console.log('cities', this.cities);
   }
 
-  // doSelectCountry_(event: any) {
-  //   this.countryIndex = event;
-  //   if (this.countries.length != this.countriesCities.length) {
-  //     // this.buildCountries();
-  //   }
-  //   if (
-  //     this.countries[this.countryIndex] !=
-  //     this.countriesCities[this.countryIndex].name
-  //   ) {
-  //     this.countries[this.countryIndex] = this.countriesCities[
-  //       this.countryIndex
-  //     ].name;
-  //   }
-  //   //what if there are fewer countries
-
-  //   // this.cities = this.countriesCities[this.countryIndex].cities;
-  // }
+  doSelectCity(event: any){
+    this.cityIndex = +event;
+  }
 }

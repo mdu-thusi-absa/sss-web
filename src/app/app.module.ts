@@ -53,6 +53,7 @@ import { InputBrowseComponent } from './input/input-browse/input-browse.componen
 import { InputNumberComponent } from './input/input-number/input-number.component';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 import { EntityDetailsUsersComponent } from './panels/entity-details-users/entity-details-users.component';
+import { InputSelectEntityComponent } from './input/input-select-entity/input-select-entity.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import { EntityDetailsUsersComponent } from './panels/entity-details-users/entit
     InputNumberComponent,
     EntityDetailsFilesComponent,
     EntityDetailsUsersComponent,
+    InputSelectEntityComponent,
     
   ],
   imports: [

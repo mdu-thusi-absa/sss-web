@@ -19,6 +19,7 @@
         (onRecord)="doRecordLeft()"
         (onTask)="doTaskLeft()"
         (onChange) = "doChangeLeft($event)"
+        (onAdd) = "doAddLeft($event)"
         
         [showFlash]="showFlashLeft"
         [showPaperclip]="showPaperclipLeft"
@@ -28,6 +29,7 @@
         [showEdit] = "showEditLeft"
         [showDownload] = "showDownloadLeft"
         [showShare] = "showShareLeft"
+        [showCheck] = "showCheckLeft"
 
         [maxValue] = "maxValueLeft"
         [minValue] = "minValueLeft"
@@ -57,6 +59,7 @@
         (onRecord)="doRecordRight()"
         (onTask)="doTaskRight()"
         (onChange) = "doChangeRight($event)"
+        (onAdd) = "doAddRight($event)"
         
         [showFlash]="showFlashLeft"
         [showPaperclip]="showPaperclipLeft"
@@ -66,6 +69,7 @@
         [showEdit] = "showEditRight"
         [showDownload] = "showDownloadRight"
         [showShare] = "showShareRight"
+        [showCheck] = "showCheckRight"
 
         [maxValue] = "maxValueRight"
         [minValue] = "minValueRight"

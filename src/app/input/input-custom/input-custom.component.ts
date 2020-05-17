@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, CountryCities } from 'src/app/models';
+import { NaturalEntity, Entities } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -13,9 +13,9 @@ export class InputCustomComponent implements OnInit {
   @Input() doHideByFilter = true;
   @Input() filterText = '';
   @Input() customType = 'person';
-  @Input() values = new Map(); //string[] 
+  @Input() values: Entities; //string[] 
   @Input() persons: NaturalEntity[];
-  @Input() countriesCities: CountryCities[];
+  @Input() showCheck = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -44,7 +44,7 @@ export class InputCustomComponent implements OnInit {
   doChangeCustomType(event: any){
     // this.onChangeCustomType.emit(event);
     //console.log(event);
-    this.customType = this.dataService.getCustomTypes().get(event);
+    this.customType = this.dataService.getCustomTypes().get(event).name;
   }
 
   doChangeTitle(event: any){

@@ -32,6 +32,7 @@
       [showFlash]="showFlash"
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
+      [showCheck] = "showCheck"
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
@@ -90,11 +91,11 @@
               ><input
                 type="checkbox"
                 [value]="e.key"
-                [checked]="selectedItems.indexOf(e.value)>-1"
+                [checked]="selectedItems.indexOf(e.key)>-1"
                 (change)="doCheckField($event)"
               /><span
                 style="padding-top: 0px; margin-top: 10px; font-weight: bold;"
-                >&nbsp;{{ e.value }}</span
+                >&nbsp;{{ e.value.name }}</span
               ></label
             >
             <a

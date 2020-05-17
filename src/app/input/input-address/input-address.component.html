@@ -18,7 +18,9 @@
         overflow: hidden;
       "
     >
-      <label class="nobottom text-primary"><small>{{ title }}</small></label>
+      <label class="nobottom text-primary"
+        ><small>{{ title }}</small></label
+      >
     </a>
 
     <div
@@ -52,32 +54,44 @@
             (onTask)="doTask()"
             (onFile)="doFile()"
             (onRecord)="doRecord()"
+            [showCheck] = "showCheck"
           ></app-input-textarea>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
-          <app-input-select
+          <app-input-select-entity
             [title]="'Country'"
             [values]="countries"
-            [value]="0"
+            [value]="getCountryIndex()"
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"
             (onEdit)="doEditCountry($event)"
-            (onAdd) = "doAddCountry($event)"
-            (onSelect) = "doSelectCountry($event)"
-          ></app-input-select>
+            (onAdd)="doAddCountry($event)"
+            (onSelect)="doSelectCountry($event)"
+            (onChange) = "doChangeInputTextCountry($event)"
+            [showAdd] = "true"
+            [showEdit] = "true"
+            [showDelete] = "true"
+          ></app-input-select-entity>
 
-          <div style="height:3px;"></div>
-
-          <app-input-select
+          <div style="height: 3px;"></div>
+          <!-- {{ cities | json}}
+          countryIndex: {{countryIndex}}
+          cityIndex: {{cityIndex}} -->
+          <app-input-select-entity
             [title]="'City'"
-            [values]="cities"
-            [value]="0"
+            [values]="this.countries.get(this.getCountryIndex()).cities"
+            [value]="cityIndex"
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"
+            (onChange) = "doChangeInputTextCity($event)"
+            (onSelect)="doSelectCity($event)"
+            [showAdd] = "true"
+            [showEdit] = "true"
+            [showDelete] = "true"
           >
-          </app-input-select>
+          </app-input-select-entity>
         </div>
       </div>
     </div>

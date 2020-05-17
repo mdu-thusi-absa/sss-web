@@ -687,6 +687,22 @@ textarea {
   display: inline-block;
   width: calc(100% - 67px);
 }
+.label-buttons-4 {
+  /*display: block;*/
+  white-space: nowrap;
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100% - 90px);
+}
+.label-buttons-5 {
+  /*display: block;*/
+  white-space: nowrap;
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100% - 115px);
+}
 
 .label-buttons-6 {
   /*display: block;*/

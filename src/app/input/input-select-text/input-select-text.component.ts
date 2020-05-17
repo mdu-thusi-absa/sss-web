@@ -21,6 +21,7 @@ export class InputSelectTextComponent implements OnInit {
 
   @Output() onSave = new EventEmitter();
   @Output() onCancel = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   @ViewChild('inputText') inputElement: ElementRef;
 
@@ -66,5 +67,10 @@ export class InputSelectTextComponent implements OnInit {
       this.doSave();
     }
     
+  }
+
+  doChange(event: any){
+    //console.log('input-select-text',event);
+    this.onChange.emit(this.text);
   }
 }

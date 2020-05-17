@@ -26,16 +26,18 @@ export class ButtonsInputSelectComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onFilter = new EventEmitter();
   @Output() onShowingFilter = new EventEmitter();
+  @Output() onCheck = new EventEmitter();
 
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
   @Input() showFilter = true;
   @Input() showEdit = true;
   @Input() showDelete = true;
   @Input() showCancel = true;
   @Input() showSave = true;
   @Input() showAdd = true;
+  @Input() showCheck = true;
 
   @Input() countItemsSelected = -1;
   @Input() countItems = 0;
@@ -51,6 +53,9 @@ export class ButtonsInputSelectComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  doCheck(){
+    this.onCheck.emit();
+  }
   doEdit() {
     this.onEdit.emit();
   }
@@ -125,7 +130,7 @@ export class ButtonsInputSelectComponent implements OnInit {
           (this.showSave ? 1 : 0) +
           (this.showAdd ? 1 : 0));
 
-    if (r < 90) r = 90; 
+    if (r < 80) r = 80; 
     return r + 'px';
   }
 
@@ -143,7 +148,7 @@ export class ButtonsInputSelectComponent implements OnInit {
           (this.showAdd ? 1 : 0)) +
       30;
 
-    if (r < 120) r = 120; 
+    if (r < 90) r = 90; 
     return r + 'px';
   }
 }

@@ -16,9 +16,10 @@ export class InputCheckboxComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
+  @Input() showCheck = false;
 
   doFile(){
     this.onFile.emit(this.title);

@@ -31,9 +31,10 @@ export class InputSelectComponent implements OnInit {
   @Output() onAdd = new EventEmitter();
   @Output() onSelect = new EventEmitter();
 
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
+  @Input() showCheck = false;
 
   doFile() {
     this.onFile.emit(this.title);
@@ -85,8 +86,8 @@ export class InputSelectComponent implements OnInit {
     this.selectTexts = [];
     this.selectValues = [];
     for (let [k, v] of this.values) {
-      this.selectTexts.push(v);
-      this.selectValues.push(k);
+      this.selectTexts.push('value');
+      this.selectValues.push(-1);
     }
     //console.log(this.selectValues,this.selectTexts);
   }
@@ -115,9 +116,7 @@ export class InputSelectComponent implements OnInit {
 
   doEdit() {
     this.isAdd = false;
-    //console.log(this.option);
     this.text = this.values.get(this.value);
-    // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
 
@@ -132,7 +131,7 @@ export class InputSelectComponent implements OnInit {
         this.value = i;
         this.isAdd = false;
         this.onAdd.emit(this.value);
-        this.onChange.emit(this.value);
+        this.onChange.emit(this.text);
       } else {
         //save for old item
         this.values.set(this.value, this.text);

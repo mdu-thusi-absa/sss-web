@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { InputTextComponent } from '../input-text/input-text.component';
-import { NaturalEntity } from '../../models'
+//import { InputTextComponent } from '../input-text/input-text.component';
+import { NaturalEntity, Entities } from '../../models'
 
 @Component({
   selector: 'app-input-duo',
@@ -17,7 +17,7 @@ export class InputDuoComponent implements OnInit {
 
   @Input() titleLeft = '';
   @Input() placeholderLeft = '';
-  @Input() valuesLeft = new Map(); //: string[] | Person[];
+  @Input() valuesLeft: Entities; //: string[] | Person[];
   @Input() valueLeft: string | boolean | NaturalEntity | number = '';
   @Input() disabledLeft = false;
   @Input() minValueLeft = -1000;
@@ -28,10 +28,11 @@ export class InputDuoComponent implements OnInit {
   @Input() showDeleteLeft = true;
   @Input() showDownloadLeft = false;
   @Input() showShareLeft = false;
+  @Input() showCheckLeft = false;
 
   @Input() titleRight = '';
   @Input() placeholderRight = '';
-  @Input() valuesRight = new Map(); // string[] | Person[];
+  @Input() valuesRight: Entities; // string[] | Person[];
   @Input() valueRight: string | boolean | NaturalEntity | number = '' ;
   @Input() disabledRight = false;
   @Input() minValueRight = -1000;
@@ -42,27 +43,38 @@ export class InputDuoComponent implements OnInit {
   @Input() showDeleteRight = true;
   @Input() showDownloadRight = false;
   @Input() showShareRight = false;
+  @Input() showCheckRight = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onChangeLeft = new EventEmitter();
   @Output() onChangeRight = new EventEmitter();
+  @Output() onAddLeft = new EventEmitter();
+  @Output() onAddRight = new EventEmitter();
 
-  @Input() showFlashLeft = true;
-  @Input() showFlashRight = true;
+  @Input() showFlashLeft = false;
+  @Input() showFlashRight = false;
 
-  @Input() showPaperclipLeft = true;
-  @Input() showPaperclipRight = true;
+  @Input() showPaperclipLeft = false;
+  @Input() showPaperclipRight = false;
 
-  @Input() showCDLeft = true;
-  @Input() showCDRight = true;
+  @Input() showCDLeft = false;
+  @Input() showCDRight = false;
 
   constructor() { }
 
   ngOnInit(): void {
     if (this.placeholderLeft=='') this.placeholderLeft = this.titleLeft;
     if (this.placeholderRight=='') this.placeholderRight = this.titleRight;
+  }
+
+  doAddLeft(event: any){
+    console.log('doAddLeft');
+    this.onAddLeft.emit(event);
+  }
+  doAddRight(event: any){
+    this.onAddRight.emit(event);
   }
 
   doFileLeft(){

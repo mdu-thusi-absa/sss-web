@@ -1,18 +1,13 @@
 import { Capability } from 'protractor';
 import { MapType } from '@angular/compiler';
 import { EntityMessageComponent } from './panels/entity-message/entity-message.component';
+import { maxHeaderSize } from 'http';
 
 export class Entity {
-  // name: string;
-  // tasksCount: number;
-  // suffix: string;
-  // country: string;
-  // isActive: boolean;
-
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
-  constructor(public name: string){}
+  constructor(public name: string) {}
 
-  set(propertyName: string, value: any){
+  set(propertyName: string, value: any) {
     this[propertyName] = value;
     return this;
   }
@@ -24,36 +19,41 @@ export class Entity {
     return r;
   }
 
-  static makeMap(map: any, entities: Entity[]){
-    for (let i=0; i<entities.length; i++){
-      map.set(i,entities[i]);
-    }
-  }
-  static makeNameMap(map: any, entities: Entity[]){
-    for (let i=0; i<entities.length; i++){
-      map.set(i,entities[i].name);
-    }
-  }
+  // static makeMap(map: any, entities: Entity[]) {
+  //   for (let i = 0; i < entities.length; i++) {
+  //     map.set(i, entities[i]);
+  //   }
+  // }
+  // static makeNameMap(map: any, entities: Entity[]) {
+  //   for (let i = 0; i < entities.length; i++) {
+  //     map.set(i, entities[i].name);
+  //   }
+  // }
 }
 
-export class Country extends Entity{
-}
-export class City extends Entity{
-  constructor(public name, countryId: number){
+export class Country extends Entity {
+  cities = new Entities();
+  constructor(public name: string) {
     super(name);
   }
 }
-export class FunctionalEntity extends Entity{
+
+export class City extends Entity {
+  constructor(public name) {
+    super(name);
+  }
+}
+export class FunctionalEntity extends Entity {
   public type: string;
   public suffix = '';
   public tasksCount = 0;
   public isActive = true;
 }
-export class LegalEntity extends FunctionalEntity{
+export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
 }
-export class NaturalEntity extends FunctionalEntity{
-  public type = 'natural'
+export class NaturalEntity extends FunctionalEntity {
+  public type = 'natural';
   public email: string;
   public cellNumber: string;
   public birthDate: Date;
@@ -64,16 +64,11 @@ export class NaturalEntity extends FunctionalEntity{
   private suffix_: string = '';
   // public firstName: string;
   // public suffix: string;
-  constructor(
-    surname: string,
-    firstName: string,
-    suffix: string
-  ) {
-    super(surname + ', ' + firstName + (suffix ? ' - ' + suffix:''));
+  constructor(surname: string, firstName: string, suffix: string) {
+    super(surname + ', ' + firstName + (suffix ? ' - ' + suffix : ''));
     this.surname_ = surname;
     this.firstName_ = firstName;
     this.suffix_ = suffix;
-    //console.log('a',this.surname_,this.firstName_, this.suffix_, this.name)
 
     // this.surname = surname;
     // this.firstName = firstName;
@@ -83,44 +78,48 @@ export class NaturalEntity extends FunctionalEntity{
   // public set surname(v: string){
 
   // }
-  get fullName():string{
-    let s = this.surname_ + ', ' + this.firstName_ + (this.suffix_ ? ' - ' + this.suffix_:'') 
+  get fullName(): string {
+    let s =
+      this.surname_ +
+      ', ' +
+      this.firstName_ +
+      (this.suffix_ ? ' - ' + this.suffix_ : '');
     //console.log(s);
     return s;
   }
 
-  set surname(v: string){
+  set surname(v: string) {
     this.surname_ = v;
     this.name = this.surname_ + ', ' + this.firstName_;
   }
 
-  get surname(): string{
+  get surname(): string {
     return this.surname_;
   }
 
-  set firstName(v: string){
+  set firstName(v: string) {
     this.firstName_ = v;
     this.name = this.surname_ + ', ' + this.firstName_;
   }
 
-  get firstName(): string{
+  get firstName(): string {
     return this.firstName_;
   }
 
-  set suffix(v: string){
+  set suffix(v: string) {
     this.suffix_ = v;
-    this.name = this.surname_ + ', ' + this.firstName_
+    this.name = this.surname_ + ', ' + this.firstName_;
   }
 
-  get suffix(): string{
+  get suffix(): string {
     return this.suffix_;
   }
 
-  get name(): string{
+  get name(): string {
     return this.surname_ + ', ' + this.firstName_;
   }
 
-  set name(v: string){
+  set name(v: string) {
     //super.name = v;
   }
 
@@ -136,7 +135,7 @@ export class NaturalEntity extends FunctionalEntity{
   //   return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
   // }
 }
-export class GroupEntity extends FunctionalEntity{
+export class GroupEntity extends FunctionalEntity {
   public type = 'group';
 }
 
@@ -149,15 +148,15 @@ export class GroupEntity extends FunctionalEntity{
 //     super(surname,firstName,suffix);
 //   }
 // }
-export class User extends NaturalEntity{
+export class User extends NaturalEntity {
   public isActive: boolean;
   public role: string;
   constructor(
     public surname: string,
     public firstName: string,
-    public suffix: string,
+    public suffix: string
   ) {
-    super(surname,firstName,suffix);
+    super(surname, firstName, suffix);
   }
 }
 
@@ -299,7 +298,265 @@ export class CustomField {
   constructor(name: string, type: string, value: any) {}
 }
 
-export class CountryCities {
-  constructor(public name: string, public cities: string[]) {}
+// export type AllCollections =
+//   Entities
+//   | Countries
+//   | Cities
+//   | FunctionalEntities
+//   | Users
+//   | LegalEntities
+//   | NaturalEntities;
+export type EveryEntity =
+  Entity
+  | NaturalEntity
+  | Country
+  | City
+  | FunctionalEntity
+  | User
+  | LegalEntity
+  | NaturalEntity;
+
+// export interface ICollection<T> {
+//   add(value: T): ICollection<T>;
+//   edit(key: number, value: T): ICollection<T>;
+//   del(key: number): ICollection<T>;
+//   get(key: number): T;
+//   size: number;
+//   all_keys: number[];
+//   all_values: T[];
+//   all_entries: [number, T][];
+// }
+
+export class Entities extends Map<number, EveryEntity> {
+  currentIndex = 0;
+  add(value: EveryEntity): Entities {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: EveryEntity): Entities{
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): Entities {
+    super.delete(key);
+    return this;
+  }
+
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
 }
 
+export class Countries extends Map<number, Country>{
+  currentIndex = 0;
+  cities = new Cities();
+  add(value: Country): Countries {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: Country): Countries {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): Countries {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}
+
+export class Cities extends Map<number, City> {
+  currentIndex = 0;
+  add(value: City): Cities {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: City): Cities {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): Cities {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}
+
+
+export class FunctionalEntities extends Map<number, FunctionalEntity> {
+  currentIndex = 0;
+  add(value: FunctionalEntity): FunctionalEntities {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: FunctionalEntity): FunctionalEntities {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): FunctionalEntities {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}
+
+export class Users extends Map<number, User>  {
+  currentIndex = 0;
+  add(value: User): Users {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: User): Users {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): Users {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}
+
+export class LegalEntities extends Map<number, LegalEntity> {
+  currentIndex = 0;
+  add(value: LegalEntity): LegalEntities {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: LegalEntity): LegalEntities {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): LegalEntities {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}
+
+export class NaturalEntities extends Map<number, NaturalEntity> {
+  currentIndex = 0;
+  add(value: NaturalEntity): NaturalEntities {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: NaturalEntity): NaturalEntities {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): NaturalEntities {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}

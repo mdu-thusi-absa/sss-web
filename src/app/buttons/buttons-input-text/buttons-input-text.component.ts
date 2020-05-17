@@ -10,13 +10,19 @@ export class ButtonsInputTextComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Output() onCheck = new EventEmitter();
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
+  @Input() showCheck = true;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  doCheck(){
+    this.onCheck.emit();
   }
 
   doFile(){

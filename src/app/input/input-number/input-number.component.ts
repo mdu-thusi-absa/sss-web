@@ -23,18 +23,19 @@ export class InputNumberComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onChange = new EventEmitter();
 
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
   @Input() showDownload = false;
   @Input() showShare = false;
+  @Input() showCheck = false;
 
   doDownload(){
 
   }
 
   doShare(){
-    
+
   }
 
   doFile() {

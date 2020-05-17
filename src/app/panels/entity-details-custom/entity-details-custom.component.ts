@@ -1,5 +1,5 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, CountryCities } from 'src/app/models';
+import { NaturalEntity } from 'src/app/models';
 
 
 @Component({
@@ -11,7 +11,6 @@ export class EntityDetailsCustomComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
   @Input() persons: NaturalEntity[];
-  @Input() countriesCities: CountryCities[];
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

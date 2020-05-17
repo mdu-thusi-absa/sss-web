@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, CountryCities } from 'src/app/models';
+import { NaturalEntity,  Entities } from 'src/app/models';
 
 @Component({
   selector: 'app-input-any',
@@ -13,7 +13,7 @@ export class InputAnyComponent implements OnInit {
 
   @Input() title = '';
   @Input() placeholder = '';
-  @Input() values = new Map(); //: string[] | Person[] | CountryCities[];
+  @Input() values: Entities; //: string[] | Person[] 
   @Input() value: string | boolean | NaturalEntity | number = '';
   @Input() disabled = false;
   @Input() maxValue = 1000;
@@ -26,21 +26,26 @@ export class InputAnyComponent implements OnInit {
   @Input() showDownload = false;
   @Input() showShare = false;
   @Input() showSelect = false;
-  // @Input() countriesCities: CountryCities[];
-  // @Input() persons
+  @Input() showCheck = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onChange = new EventEmitter();
+  @Output() onAdd = new EventEmitter();
 
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
   
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  doAdd(event: any){
+    console.log('doAdd');
+    this.onAdd.emit(event);
   }
 
   doFile(){

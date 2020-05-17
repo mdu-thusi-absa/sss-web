@@ -7,30 +7,31 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { NaturalEntity, NaturalEntities } from '../../models';
+import { Entity, Entities } from '../../models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-input-person',
-  templateUrl: './input-person.component.html',
-  styleUrls: ['./input-person.component.css'],
+  selector: 'app-input-select-entity',
+  templateUrl: './input-select-entity.component.html',
+  styleUrls: ['./input-select-entity.component.css']
 })
-export class InputPersonComponent implements OnInit {
+export class InputSelectEntityComponent implements OnInit {
   @Input() title = '';
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() disabled = false;
-  @Input() values: NaturalEntities; //Person[];
+  //@Input() values = new Map(); //Map of Entity();
+  @Input() values: Entities;
   @Input() value = 0;
   @Input() showFlash = false;
   @Input() showPaperclip = false;
   @Input() showCD = false;
-  @Input() showAdd = true;
-  @Input() showEdit = true;
-  @Input() showDelete = true;
+  @Input() showAdd = false;
+  @Input() showEdit = false;
+  @Input() showDelete = false;
   @Input() showCheck = false;
 
-  person = new NaturalEntity('', '', '');
+  entity = new Entity('');
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
@@ -76,7 +77,7 @@ export class InputPersonComponent implements OnInit {
     this.onRecord.emit(this.title);
   }
 
-  setItem(person: NaturalEntity) {
+  setItem(entity: Entity) {
     // this.values.sort(function (a, b) {
     //   return a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase());
     // });
@@ -105,7 +106,7 @@ export class InputPersonComponent implements OnInit {
     // console.log(this.person);
     // console.log(this.values);
     // console.log(this.value);
-    this.person = this.values.get(this.value);
+    this.entity = this.values.get(this.value);
     // console.log(this.person);
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
@@ -118,16 +119,18 @@ export class InputPersonComponent implements OnInit {
       if (this.isAdd) {
         //save for a new item
         let i = this.values.size;
-        this.values.set(i, this.person);
+        this.values.add(this.entity);
         this.value = i;
         this.isAdd = false;
+        
+        let t = this.entity;
         this.onAdd.emit(this.value);
-        this.onChange.emit(this.value);
+        this.onChange.emit(t);
       } else {
         //save for old item
-        this.values.set(this.value, this.person);
+        this.values.edit(this.value, this.entity);
         let id = this.value;
-        let t = this.person;
+        let t = this.entity;
         this.onEdit.emit({ id, t });
         this.onChange.emit(t);
       }
@@ -135,18 +138,18 @@ export class InputPersonComponent implements OnInit {
     } else {
       //new is clicked
       this.isAdd = true;
-      this.person = new NaturalEntity('', '', '');
+      this.entity = new Entity('');
     }
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
 
   setFocus() {
-    setTimeout(() => {
-      this.inputElement.nativeElement.focus();
-      // this will make the execution after the above boolean has changed
-      //this.searchElement.nativeElement.focus();
-    }, 0);
+    // setTimeout(() => {
+    //   this.inputElement.nativeElement.focus();
+    //   // this will make the execution after the above boolean has changed
+    //   //this.searchElement.nativeElement.focus();
+    // }, 0);
   }
 
   doFilter(event: any) {
@@ -171,10 +174,14 @@ export class InputPersonComponent implements OnInit {
 
   doDelete() {
     if (this.values.size > 0) {
-      let r = confirm('Are you sure you want to delete this person?');
+      let r = confirm('Are you sure you want to delete this ' + this.title + '?');
+      //console.log(r);
       if (r) {
-        this.values.delete(this.value);
-        this.value = [...this.values.keys()][0];
+        this.values.del(this.value);
+        //console.log(this.values.all_keys);
+        this.value = this.values.all_keys[0];
+        //console.log(this.value);
+        this.onSelect.emit(this.value)
       }
     }
   }
@@ -194,11 +201,17 @@ export class InputPersonComponent implements OnInit {
 
   doSave() {
     //this.text = event;
+    //this.entity.name = event;
     this.showNew();
   }
 
   doCancel() {
     this.isDoInput = false;
+  }
+
+  doChangeInputText(event: any){
+    //console.log('doChangeInputText',event);
+    this.entity.name = event;
   }
 
   doChange(event: any){
@@ -218,14 +231,19 @@ export class InputPersonComponent implements OnInit {
   }
 
   countItems() {
-    let v = [...this.values.values()];
+    //console.log(this.title);
+    //console.log(this.values);
+    //console.log(this.values.size);
+    //console.log(this.values.all_values);
+    let v = this.values.all_values;
+    //console.log(v);
     return v.filter((e) => !this.hideItem(e)).length;
   }
 
-  hideItem(person: NaturalEntity) {
+  hideItem(entity: Entity) {
     let r = false;
     if (this.listFilterText.length > 0) {
-      r = person.fullName.toLowerCase().indexOf(this.listFilterText) == -1;
+      r = entity.name.toLowerCase().indexOf(this.listFilterText) == -1;
     }
     return r;
   }

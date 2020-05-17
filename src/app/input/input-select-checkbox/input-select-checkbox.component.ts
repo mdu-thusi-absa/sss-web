@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Entity, Entities } from 'src/app/models';
 
 @Component({
   selector: 'app-input-select-checkbox',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 })
 export class InputSelectCheckboxComponent implements OnInit {
   @Input() title = '';
-  @Input() values = new Map();
+  @Input() values = new Entities; //of entities
   @Input() filterText = '';
   @Input() value = 0;
   @Input() doHideByFilter = false;
@@ -16,9 +17,10 @@ export class InputSelectCheckboxComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  @Input() showFlash = true;
-  @Input() showPaperclip = true;
-  @Input() showCD = true;
+  @Input() showFlash = false;
+  @Input() showPaperclip = false;
+  @Input() showCD = false;
+  @Input() showCheck = false;
 
   doFile() {
     this.onFile.emit(this.title);
@@ -34,6 +36,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   isDoInput = false;
   valueId = 0;
   text = '';
+  entity = new Entity('');
   doAdd = false;
   listFilterText = '';
   isShowingFilter = false;
@@ -71,7 +74,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   showEdit() {
     this.doAdd = false;
     //console.log(this.option);
-    this.text = this.values.get(this.valueId);
+    this.text = this.values.get(this.valueId).name;
     // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -83,18 +86,20 @@ export class InputSelectCheckboxComponent implements OnInit {
       if (this.doAdd) {
         //save for a new item
         let i = this.values.size;
-        this.values.set(i,this.text);
+        this.selectedItems.push(i);
+        this.values.set(i,new Entity(this.text));
         this.doAdd = false;
       } else {
         //save for old item
         //console.log(this.option, this.text);
-        this.values.set(this.valueId,this.text);
+        this.values.set(this.valueId,new Entity(this.text));
       }
       this.setItem(this.text);
     } else {
       //new is clicked
       this.doAdd = true;
       this.text = '';
+      this.entity = new Entity('');
       // if (!this.isDoInput) this.setFocus();
     }
     this.isDoInput = !this.isDoInput;
@@ -132,8 +137,8 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   countItems(){
-    let v = [...this.values.values()]
-    return v.filter(e => !this.hideItem(e)).length;
+    let v = this.values.all_values;
+    return v.filter(e => !this.hideItem(e.name)).length;
   }
   countSelected(){
     return this.selectedItems.length;
@@ -158,6 +163,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   doSave(event: any){
     //console.log(event);
     this.text = event;
+    this.entity.name = this.text;
     this.showNew()
   }
 

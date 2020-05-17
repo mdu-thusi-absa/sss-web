@@ -1,13 +1,38 @@
 import { Injectable } from '@angular/core';
-import { NaturalEntity, Entity, Country, LegalEntity, User, GroupEntity } from './models';
+import {
+  NaturalEntity,
+  Entity,
+  Country,
+  LegalEntity,
+  User,
+  GroupEntity,
+  City,
+  Entities,
+  FunctionalEntity,
+  Countries,
+  NaturalEntities,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   constructor() {
-    Entity.makeMap(this.companiesMap,this.entities);
-    Entity.makeNameMap(this.countriesMap,this.countries);
+    this.makeCountries();
+  }
+
+  makeCountries() {
+    let a = new Country('ZAF');
+    a.cities.add(new City('JHB')).add(new City('PTA')).add(new City('DUR'));
+    this.countries.add(a);
+
+    let b = new Country('USA');
+    b.cities.add(new City('NYC')).add(new City('LA')).add(new City('BOS'));
+    this.countries.add(b);
+
+    let c = new Country('GBR');
+    c.cities.add(new City('LON')).add(new City('MAN')).add(new City('LIV'));
+    this.countries.add(c);
   }
 
   public getID(title: string) {
@@ -28,459 +53,330 @@ export class DataService {
     return t;
   }
 
-  private sortMap(map: any) {
-    return new Map([...map.entries()].sort());
-  }
-  //countries
-  //countries = new Map().set(0, 'South Africa').set(1, 'USA').set(2, 'GBR');
-  
-  cities = new Map()
-    .set(0, new Map().set(0, 'JHB').set(1, 'PTA'))
-    .set(1, new Map().set(0, 'NY').set(2, 'LA'))
-    .set(2, new Map().set(0, 'LON').set(3, 'MAN'));
+  countries = new Countries();
 
-  //countries = new Map([[0,'ZAF'],[1,'USA'],[2,'GBR']];
-  countries = [new Country('ZAF'),new Country('USA'), new Country('GBR')]
-  countriesMap = new Map();
-  //makeMap(this.countriesMap, this.countries);
+  getCountries() {
+    return this.countries;
+  }
 
-  getCountriesNames() {
-    //return this.countries;
-    
-    //console.log(this.countriesMap);
-    //console.log(new Map([[0,'a'],[1,'b']]));
-    return this.countriesMap;
-  }
-  addCountry(countryKey: number) {
-    this.cities.set(countryKey, new Map());
-    // let i = this.countries.size;
-    // this.countries.set(i, country);
-    // this.countries = this.sortMap(this.countries);
-    // return this.countries.size;
-  }
-  // editCountry(id: number, newCountryName: string) {
-  //   this.countries.set(id, newCountryName);
-  //   this.countries = this.sortMap(this.countries);
-  //   return this.getCountries();
-  // }
-  // deleteCountry(id: number) {
-  //   this.countries.delete(id);
-  //   return this.getCountries();
-  // }
-  //cities
-
-  getCities(countryId: number) {
-    return this.cities.get(countryId);
-  }
-  // addCity(countryId: number, city: string) {
-  //   let m = this.getCities(countryId);
-  //   let i = m.size;
-  //   m.set(i, city);
-  //   return i;
-  // }
-  // editCity(countryId: number, id: number, newCountryName: string) {
-  //   let m = this.getCities(countryId);
-  //   m.set(id, newCountryName);
-  //   return this.getCities(countryId);
-  // }
-  // deleteCity(countryId: number, id: number) {
-  //   let m = this.getCities(countryId);
-  //   m.delete(id);
-  //   return this.getCities(countryId);
-  // }
   //months
-  months = new Map()
-    .set(0, '01')
-    .set(1, '02')
-    .set(2, '03')
-    .set(3, '04')
-    .set(4, '05')
-    .set(5, '06')
-    .set(6, '07')
-    .set(7, '08')
-    .set(8, '09')
-    .set(9, '10')
-    .set(10, '11')
-    .set(11, '12');
+  months = new Entities()
+    .add(new Entity('01'))
+    .add(new Entity('02'))
+    .add(new Entity('03'))
+    .add(new Entity('04'))
+    .add(new Entity('05'))
+    .add(new Entity('06'))
+    .add(new Entity('07'))
+    .add(new Entity('08'))
+    .add(new Entity('09'))
+    .add(new Entity('10'))
+    .add(new Entity('11'))
+    .add(new Entity('12'));
   getMonths() {
     return this.months;
   }
   //industry
   //Entity Types
-  entityTypes = new Map([
-    [0, 'Company'],
-    [1, 'Person'],
-    [2, 'User'],
-    [3, 'Group'],
-    [4, 'Trust'],
-    [5, 'Regulator'],
-    [6, 'Regulation'],
-    [7, 'Government Agency'],
-    
-  ]);
+  entityTypes = new Entities()
+    .add(new Entity('Company'))
+    .add(new Entity('Person'))
+    .add(new Entity('User'))
+    .add(new Entity('Group'))
+    .add(new Entity('Trust'))
+    .add(new Entity('Regulator'))
+    .add(new Entity('Regulation'))
+    .add(new Entity('Government Agency'));
   getEntityTypes() {
     return this.entityTypes;
   }
-  entityTypesPlural = new Map([
-    [0, 'Companies'],
-    [1, 'Persons'],
-    [2, 'Users'],
-    [3, 'Groups'],
-    [4, 'Trusts'],
-    [5, 'Regulators'],
-    [6, 'Regulations'],
-    [7, 'Government Agencies']
-  ]);
+
+  entityTypesPlural = new Entities()
+  .add(new Entity('Companies'))
+  .add(new Entity('Individuals'))
+  .add(new Entity('Users'))
+  .add(new Entity('Groups'))
+  .add(new Entity('Trusts'))
+  .add(new Entity('Regulators'))
+  .add(new Entity('Regulations'))
+  .add(new Entity('Government Agencies'));
+
   getEntityTypesPlural() {
     return this.entityTypesPlural;
   }
 
   //Business Area
-  businessAreas = new Map([
-    [0, 'Banking'],
-    [1, 'Asset Manager'],
-    [2, 'Property'],
-  ]);
+  businessAreas = new Entities()
+    .add(new Entity('Banking'))
+    .add(new Entity('Asset Manager'))
+    .add(new Entity('Property'));
   getBusinessAreas() {
     return this.businessAreas;
   }
-  businessDivisions = new Map([
-    [0, 'Div 1'],
-    [1, 'Div 2'],
-    [2, 'Div 3'],
-  ]);
+  businessDivisions = new Entities()
+    .add(new Entity('Div 1'))
+    .add(new Entity('Div 2'))
+    .add(new Entity('Div 3'));
   getBusinessDivisions() {
     return this.businessDivisions;
   }
-  legalClasses = new Map([
-    [0, 'Legal'],
-    [1, 'Illegal'],
-  ]);
+  legalClasses = new Entities()
+    .add(new Entity('Legal'))
+    .add(new Entity('Illegal'));
   getLegalClasses() {
     return this.legalClasses;
   }
-  entityStatuses = new Map([
-    [0, 'Active'],
-    [1, 'Dormant'],
-    [2, 'Closed'],
-  ]);
+  entityStatuses = new Entities()
+    .add(new Entity('Active'))
+    .add(new Entity('Dormant'))
+    .add(new Entity('Closed'));
   getEntityStatuses() {
     return this.entityStatuses;
   }
-  entityStatusTiers = new Map([
-    [0, 'Active'],
-    [1, 'Dormant'],
-    [2, 'Closed'],
-  ]);
+  entityStatusTiers = new Entities()
+    .add(new Entity('Active'))
+    .add(new Entity('Dormant'))
+    .add(new Entity('Closed'));
   getEntityStatusTiers() {
     return this.entityStatusTiers;
   }
-  accountingClasses = new Map([
-    [0, 'Accounted'],
-    [1, 'Not Accounted'],
-  ]);
+  accountingClasses = new Entities()
+    .add(new Entity('Accounted'))
+    .add(new Entity('Not Accounted'));
   getAccountingClasses() {
     return this.accountingClasses;
   }
-  accountingTiers = new Map([
-    [0, 'Top'],
-    [1, 'Middle'],
-    [2, 'Low'],
-  ]);
+  accountingTiers = new Entities()
+    .add(new Entity('Top'))
+    .add(new Entity('Middle'))
+    .add(new Entity('Low'));
   getAccountingTier() {
     return this.accountingTiers;
   }
-  entities: LegalEntity[] = [
-    new LegalEntity('Google Pty Ltd').set('tasksCount',2).set('isActive',true),
-    new LegalEntity('Microsoft Pty Ltd').set('tasksCount',2).set('isActive',true),
-    new LegalEntity('Google Pty Ltd').set('tasksCount',2).set('suffix','').set('isActive',true),
-    new LegalEntity('Microsoft Pty Ltd').set('tasksCount',3).set('suffix','').set('isActive',true),
-    new LegalEntity('Apple Inc').set('tasksCount',0).set('suffix','').set('isActive', false),
-    new LegalEntity('Amazon').set('tasksCount',0).set('suffix','USA').set('isActive',true),
-    new LegalEntity('Amazon').set('tasksCount',2).set('suffix','SA').set('isActive',true),
-    new LegalEntity('Alphabet').set('tasksCount',1).set('suffix','').set('isActive', false),
-    new LegalEntity('Facebook').set('tasksCount',0).set('suffix','').set('isActive',false),
-    new LegalEntity('Alibaba').set('tasksCount',0).set('suffix','').set('isActive',true),
-    new LegalEntity('Tencent Holdings').set('tasksCount',5).set('suffix','').set('isActive', false),
-    new LegalEntity('Johnson and Johnson').set('tasksCount',0).set('suffix','').set('isActive', false),
-    new LegalEntity('Walmart').set('tasksCount',0).set('suffix','').set('isActive', false),
-    new LegalEntity('Nestle').set('tasksCount',3).set('suffix','').set('isActive', true),
-    new LegalEntity('Samsung').set('tasksCount',1).set('suffix','').set('isActive', true),
-    new LegalEntity('Procter and Gamble').set('tasksCount',0).set('suffix','').set('isActive', false),
-    new LegalEntity('Intel').set('tasksCount',4).set('suffix','').set('isActive', false),
-    new LegalEntity('Cisco Systems').set('tasksCount',3).set('suffix','').set('isActive', false) 
-  ];
-  //   {
-  //     name: 'Google Pty Ltd',
-  //     tasksCount: 2,
-  //     suffix: '',
-  //     country: 'South Africa',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Microsoft Pty Ltd',
-  //     tasksCount: 3,
-  //     suffix: '',
-  //     country: 'South Africa',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Apple Inc',
-  //     tasksCount: 0,
-  //     suffix: '',
-  //     country: 'Botswana',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Amazon',
-  //     tasksCount: 0,
-  //     suffix: 'USA',
-  //     country: 'Ghana',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Amazon',
-  //     tasksCount: 2,
-  //     suffix: 'SA',
-  //     country: 'Ghana',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Alphabet',
-  //     tasksCount: 1,
-  //     suffix: '',
-  //     country: 'Ghana',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Facebook',
-  //     tasksCount: 0,
-  //     suffix: '',
-  //     country: 'Kenya',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Alibaba',
-  //     tasksCount: 0,
-  //     suffix: '',
-  //     country: 'Kenya',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Tencent Holdings',
-  //     tasksCount: 5,
-  //     suffix: '',
-  //     country: 'Mauritius',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Johnson and Johnson',
-  //     tasksCount: 0,
-  //     suffix: '',
-  //     country: 'Mauritius',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Walmart',
-  //     tasksCount: 0,
-  //     suffix: '',
-  //     country: 'Mozambique',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Nestle',
-  //     tasksCount: 3,
-  //     suffix: '',
-  //     country: 'Mozambique',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Samsung',
-  //     tasksCount: 1,
-  //     suffix: '',
-  //     country: 'Seychelles',
-  //     isActive: true,
-  //   },
-  //   {
-  //     name: 'Procter and Gamble',
-  //     tasksCount: 0,
-  //     suffix: '',
-  //     country: 'ZAF',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Intel',
-  //     tasksCount: 4,
-  //     suffix: '',
-  //     country: 'TZA',
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: 'Cisco Systems',
-  //     tasksCount: 3,
-  //     suffix: '',
-  //     country: 'TZA',
-  //     isActive: false,
-  //   },
-  // ];
-  companiesMap = new Map();
-  // new Map([
-  //   [0, 'Google Pty Ltd'],
-  //   [1, 'Microsoft Pty Ltd'],
-  //   [2, 'Apple Inc'],
-  //   [3, 'Amazon'],
-  //   [4, 'Amazon'],
-  //   [5, 'Alphabet'],
-  //   [6, 'Facebook'],
-  //   [7, 'Alibaba'],
-  //   [8, 'Tencent Holdings'],
-  //   [9, 'Johnson and Johnson'],
-  //   [10, 'Walmart'],
-  //   [11, 'Nestle'],
-  //   [12, 'Samsung'],
-  //   [13, 'Procter and Gamble'],
-  //   [14, 'Intel'],
-  //   [15, 'Cisco Systems'],
-  // ]);
-  getCompanies() {
-    return this.companiesMap;
+  entities = new Entities()
+    .add(
+      new LegalEntity('Google Pty Ltd')
+        .set('tasksCount', 2)
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Microsoft Pty Ltd')
+        .set('tasksCount', 2)
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Google Pty Ltd')
+        .set('tasksCount', 2)
+        .set('suffix', '')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Microsoft Pty Ltd')
+        .set('tasksCount', 3)
+        .set('suffix', '')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Apple Inc')
+        .set('tasksCount', 0)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Amazon')
+        .set('tasksCount', 0)
+        .set('suffix', 'USA')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Amazon')
+        .set('tasksCount', 2)
+        .set('suffix', 'SA')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Alphabet')
+        .set('tasksCount', 1)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Facebook')
+        .set('tasksCount', 0)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Alibaba')
+        .set('tasksCount', 0)
+        .set('suffix', '')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Tencent Holdings')
+        .set('tasksCount', 5)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Johnson and Johnson')
+        .set('tasksCount', 0)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Walmart')
+        .set('tasksCount', 0)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Nestle')
+        .set('tasksCount', 3)
+        .set('suffix', '')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Samsung')
+        .set('tasksCount', 1)
+        .set('suffix', '')
+        .set('isActive', true)
+    )
+    .add(
+      new LegalEntity('Procter and Gamble')
+        .set('tasksCount', 0)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Intel')
+        .set('tasksCount', 4)
+        .set('suffix', '')
+        .set('isActive', false)
+    )
+    .add(
+      new LegalEntity('Cisco Systems')
+        .set('tasksCount', 3)
+        .set('suffix', '')
+        .set('isActive', false)
+    );
+
+  getCompanies(): Entities {
+    return this.entities;
   }
-  yesNo = new Map([
-    [0, 'Yes'],
-    [1, 'No'],
-  ]);
+  yesNo = new Entities().add(new Entity('Yes')).add(new Entity('No'));
   getYesNo() {
     return this.yesNo;
   }
-  periods = new Map([
-    [0, 'Daily'],
-    [1, 'Weekly'],
-    [2, 'Monthly'],
-    [3, 'Quarterly'],
-    [4, 'Annualy'],
-  ]);
+  periods = new Entities()
+    .add(new Entity('Daily'))
+    .add(new Entity('Weekly'))
+    .add(new Entity('Monthly'))
+    .add(new Entity('Quarterly'))
+    .add(new Entity('Annualy'));
   getPeriods() {
     return this.periods;
   }
-  taskStatus = new Map([
-    [0, 'To Do'],
-    [1, 'Doing'],
-    [2, 'Done'],
-  ]);
+  taskStatus = new Entities()
+    .add(new Entity('To Do'))
+    .add(new Entity('Doing'))
+    .add(new Entity('Done'));
   getTaskStatus() {
     return this.taskStatus;
   }
-  taskTypes = new Map([
-    [0, 'Appointment'],
-    [1, 'Resignation'],
-    [2, 'Rename'],
-    [3, 'General'],
-  ]);
+  taskTypes = new Entities()
+    .add(new Entity('Appointment'))
+    .add(new Entity('Resignation'))
+    .add(new Entity('Rename'))
+    .add(new Entity('General'));
   getTaskTypes() {
     return this.taskTypes;
   }
 
-  auditors = new Map([
-    [0, 'Internal'],
-    [1, 'PWC'],
-  ]);
+  auditors = new Entities().add(new Entity('Internal')).add(new Entity('PWC'));
   getAuditors() {
     return this.auditors;
   }
-  entityGroups = new Map([
-    [0, '- Default -'],
-    [1, 'Africa'],
-    [2, 'Europe'],
-    [3, 'Asia'],
-  ]);
-  // entityGroupsMap = new Map([
-  //   [0, new GroupEntity('- All -')],
-  //   [1, new GroupEntity('Africa')],
-  //   [2, new GroupEntity('SPV')],
-  //   [3, new GroupEntity('Properties')],
-  // ]
-  // );
+  entityGroups = new Entities()
+    .add(new FunctionalEntity('- Default -'))
+    .add(new FunctionalEntity('Africa'))
+    .add(new FunctionalEntity('Europe'))
+    .add(new FunctionalEntity('Asia'));
 
-  getEntityGroups() {
-    return this.entityGroups;
+  getEntityGroups(): Entities {
+    return this.entityGroups; //this.entityGroups;
   }
-  industries = new Map([
-    [0, 'Banking'],
-    [1, 'Asset Management'],
-    [3, 'Property'],
-  ]);
+
+  industries = new Entities()
+    .add(new Entity('Banking'))
+    .add(new Entity('Asset Management'))
+    .add(new Entity('Property'));
+
   getIndustries() {
     return this.industries;
   }
-  companySecretaries = new Map([
-    [0, 'Internal'],
-    [1, 'PWC'],
-  ]);
+  companySecretaries = new Entities()
+    .add(new Entity('Internal'))
+    .add(new Entity('PWC'));
   getCompanySercetaries() {
     return this.companySecretaries;
   }
-  customTypes = new Map([
-    [0, 'text'],
-    [1, 'date'],
-    [2, 'checkbox'],
-    [3, 'textarea'],
-    [4, 'person'],
-    [5, 'address'],
-    [6, 'file'],
-    [7, 'number'],
-  ]);
+  customTypes = new Entities()
+    .add(new Entity('text'))
+    .add(new Entity('date'))
+    .add(new Entity('checkbox'))
+    .add(new Entity('textarea'))
+    .add(new Entity('person'))
+    .add(new Entity('address'))
+    .add(new Entity('file'))
+    .add(new Entity('number'));
   getCustomTypes() {
     return this.customTypes;
   }
-  personsMap = new Map([
-    [0, new NaturalEntity('Froning', 'Richard', 'Mayham')],
-    [1, new NaturalEntity('Singundsdottir', 'Sara', 'Iceland')],
-    [2, new NaturalEntity('Fraser', 'Mat', 'ABSA')],
-  ]);
+  persons = new NaturalEntities()
+    .add(new NaturalEntity('Froning', 'Richard', 'Mayham'))
+    .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
+    .add(new NaturalEntity('Fraser', 'Mat', 'ABSA'));
   getPersons() {
-    return this.personsMap;
+    return this.persons;
   }
-  users = new Map([
-    [0, new User('Anuchin', 'Vlad', 'ICDI').set('tasksCount',3)],
-    [1, new User('Voznesensky', 'Alex', 'ICDI').set('tasksCount',1)],
-    [2, new User('Kurchner', 'Ulrich', 'ICDI').set('tasksCount',2)],
-    [3, new User('Kopelowitz', 'Dean', 'ICDI').set('tasksCount',5)],
-    [4, new User('Small', 'James', '').set('tasksCount',7).set('isActive',false)],
-    [5, new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount',15)],
-    [6, new User('Standar', 'Lourika', '').set('tasksCount',7)],
-  ]);
+  users = new Entities()
+    .add(new User('Anuchin', 'Vlad', 'ICDI').set('tasksCount', 3))
+    .add(new User('Voznesensky', 'Alex', 'ICDI').set('tasksCount', 1))
+    .add(new User('Kurchner', 'Ulrich', 'ICDI').set('tasksCount', 2))
+    .add(new User('Kopelowitz', 'Dean', 'ICDI').set('tasksCount', 5))
+    .add(
+      new User('Small', 'James', '').set('tasksCount', 7).set('isActive', false)
+    )
+    .add(new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount', 15))
+    .add(new User('Standar', 'Lourika', '').set('tasksCount', 7));
   getUsers() {
     return this.users;
   }
 
-  getFunctionalEntities(type: number){
+  getFunctionalEntities(type: number): Entities {
     //console.log(type);
-    if (type==0){
+    if (type == 0) {
       return this.getCompanies();
-    }
-    else if (type==1){
+    } else if (type == 1) {
       //console.log(type,'in');
       return this.getPersons();
-    }
-    else if (type==2){
+    } else if (type == 2) {
       //console.log(type,'in');
       return this.getUsers();
-    }
-    else if (type==3){
+    } else if (type == 3) {
       //console.log(type,'in');
       return this.getEntityGroups();
-    }
-    else {
+    } else {
       return this.getCompanies();
     }
   }
 
-  positions = new Map([
-    [0, 'Director'],
-    [1, 'Auditor'],
-    [2, 'Secretary'],
-    [3, 'Public Officer'],
-  ]);
+  positions = new Entities()
+    .add(new Entity('Director'))
+    .add(new Entity('Auditor'))
+    .add(new Entity('Secretary'))
+    .add(new Entity('Public Officer'));
   getPositions() {
     return this.positions;
   }

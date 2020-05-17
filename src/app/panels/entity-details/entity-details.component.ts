@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, NaturalEntity, CountryCities } from '../../models'
+import { Entity, NaturalEntity, NaturalEntities } from '../../models'
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -18,10 +18,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideCustom = false;
   @Input() hideFiles = false;
   @Input() hideUsers = false;
-  // isAppointeeInput = false;
-  // isAppointeeNewInput =false;
-  persons = new Map();
-  //countriesCities: CountryCities[];
+  persons = new NaturalEntities();
   @Input() panelRows = 1;
   entity: Entity;
 
@@ -34,11 +31,6 @@ export class EntityDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = this.dataService.getPersons();
-    //[new Person('Smith','John','ABSA'), new Person('Dean','Diana','Chechia')];
-    // this.countriesCities =  [
-    //   new CountryCities('South Africa', ['JHB', 'PTA']),
-    //   new CountryCities('USA', ['NY', 'LA']),
-    // ];
   }
 
   doFilter(event: any){
@@ -93,7 +85,7 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   doChangeEntityType(event: any){
-    console.log(event);
+    //console.log(event);
     this.entityType = event;
   }
   

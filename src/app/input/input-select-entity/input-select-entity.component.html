@@ -4,7 +4,9 @@
   style="margin-top: 5px; margin-right: 1px;"
 >
   <div>
-    <label class="nobottom text-primary label-buttons-6">{{ title }}</label>
+    <label class="nobottom text-primary label-buttons-4"
+      >{{ title }}</label
+    >
 
     <app-buttons-input-select
       [title]="title"
@@ -15,7 +17,7 @@
       [showFlash]="showFlash"
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
-      [showCheck] = "showCheck"
+      [showCheck]="showCheck"
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
@@ -30,26 +32,28 @@
   </div>
   <br [hidden]="!isShowingFilter" />
   <div [hidden]="isDoInput">
+    <!--render for larger screens: buttons on the side -->
     <div class="hidden-xs">
-      <div class="input-group">
+      <div class="input-group" style="width: 100%;">
         <select
-          class="form-control input-sm collapse in"
-          style="font-size: small;"
-          name="option"
-          (change)="doChange($event)"
-          style="padding-left: 6px; padding-right: 6px;"
-          [attr.id]="'#select-Item'"
+        class="form-control input-sm selectpicker"
+        data-live-search="true"
+        style="font-size: small;"
+        name="option"
+        [(ngModel)]="value"
+        style="padding-left: 6px; padding-right: 6px;"
+        (change)="doChange($event)"
         >
           <option
-            *ngFor="let e of values | keyvalue"
+            *ngFor="let e of values | keyvalue;"
             [value]="e.key"
             [selected]="e.key == value"
             [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.fullName}}</small></option
+            ><small>{{ e.value.name }}</small></option
           >
         </select>
         <span
-          [hidden]="!showDelete"
+          *ngIf="showDelete"
           class="input-group-addon btn primary-color-reverse"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
@@ -57,7 +61,7 @@
           <span class="glyphicon glyphicon-minus"></span>
         </span>
         <span
-          [hidden]="!showEdit"
+          *ngIf="showEdit"
           class="input-group-addon btn primary-color-reverse"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
@@ -65,7 +69,7 @@
           <span class="glyphicon glyphicon-pencil"></span>
         </span>
         <span
-          [hidden]="!showAdd"
+          *ngIf="showAdd"
           class="input-group-addon btn primary-color-reverse"
           (click)="doAdd()"
           [title]="'Add an ' + title"
@@ -74,22 +78,23 @@
         </span>
       </div>
     </div>
+    <!--render for smaller screens-->
     <div class="hidden-sm hidden-md hidden-lg">
-      <div >
+      <div style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
-          style="font-size: small;"
+          style="font-size: small;margin-left:0px"
           name="option"
           (change)="doChange($event)"
-          style="padding-left: 6px; padding-right: 6px;"
           [attr.id]="'#select-Item'"
         >
           <option
             *ngFor="let e of values | keyvalue"
             [value]="e.key"
             [selected]="e.key == value"
-            [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.fullName}}</small></option
+            [hidden]="hideItem(e.value.name)"
+            class="input-sm"
+            ><small>{{ e.value.name }}</small></option
           >
         </select>
         <span
@@ -120,7 +125,7 @@
     </div>
   </div>
 
-  <div class="panel panel-primary no-gutter nobottom" [hidden]="!isDoInput">
+  <!-- <div class="panel panel-primary no-gutter nobottom" [hidden]="!isDoInput">
     <div class="panel panel-body mt3 nobottom">
       <app-buttons-cancel-save
         [glyphOnly]="true"
@@ -134,29 +139,21 @@
           class="form-control"
           placeholder=""
           #inputText
-          [(ngModel)]="person.surname"
-          autocomplete="nope"
-          (keyup)="doKeyUp($event)"
-        />
-        <label class="nobottom text-primary">First Name</label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder=""
-          [(ngModel)]="person.firstName"
-          autocomplete="nope"
-          (keyup)="doKeyUp($event)"
-        />
-        <label class="nobottom text-primary">Optional Suffix</label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Optional suffix to differenciate same names"
-          [(ngModel)]="person.suffix"
+          [(ngModel)]="entity.name"
           autocomplete="nope"
           (keyup)="doKeyUp($event)"
         />
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <app-input-select-text
+    [isDoInput]="isDoInput"
+    [showSave]="true"
+    [showCancel]="true"
+    [text]="entity.name"
+    (onChange)="doChangeInputText($event)"
+    (onSave)="doSave()"
+    (onCancel)="doCancel()"
+  ></app-input-select-text>
 </div>

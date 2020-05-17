@@ -23,12 +23,12 @@
   >
     <app-input-duo
     [isNarrow] = "isNarrow"
-      [typeLeft]="'select'"
+      [typeLeft]="'select-entity'"
       [titleLeft]="'Period'"
       [placeholderLeft]="'Repead every ... period'"
       [valuesLeft]="dataService.getPeriods()"
       [valueLeft]="0"
-      [typeRight]="'select'"
+      [typeRight]="'select-entity'"
       [titleRight]="'How often'"
       [valuesRight]="dataService.getMonths()"
       [valueRight]="0"
@@ -54,26 +54,15 @@
 
     <app-input-duo
     [isNarrow] = "isNarrow"
-      [typeRight]="'select'"
+      [typeRight]="'select-entity'"
       [titleRight]="'Remind ... period before'"
       [placeholderRight]="'Remind ... period before'"
-      [valuesRight]="[
-        [0,'01'],
-        [1,'02'],
-        [2,'03'],
-        [3,'04'],
-        [4,'05'],
-        [5,'06'],
-        [6,'07'],
-        [7,'08'],
-        [8,'09'],
-        [9,'10']
-      ]"
+      [valuesRight]="dataService.getMonths()"
       [showAddRight] = "false"
       [showDeleteRight] = "false"
       [showEditRight] = "false"
       [valueRight]="0"
-      [typeLeft]="'select'"
+      [typeLeft]="'select-entity'"
       [titleLeft]="'Remind period'"
       [valuesLeft]="dataService.getPeriods()"
       [valueLeft]="0"

@@ -15,6 +15,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 >
 </app-input-duo>
 <app-input-duo
@@ -28,6 +30,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 >
 </app-input-duo>
 <app-input-duo
@@ -43,24 +47,31 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 >
 </app-input-duo>
 
+<!-- (onAddLeft) = "dataService.addCountry($event)" -->
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'select'"
-  [typeRight]="'select'"
+  [typeLeft]="'select-entity'"
+  [typeRight]="'select-entity'"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
-  [valuesLeft]="dataService.getCountriesNames()"
+  [valuesLeft]="dataService.getCountries()"
   [valueLeft]="0"
+  
+
   [titleRight]="'Industry'"
   [valuesRight]="dataService.getIndustries()"
   [valueRight]="0"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 ></app-input-duo>
 
 <app-input-duo
@@ -76,6 +87,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 ></app-input-duo>
 
 <app-input-duo
@@ -84,7 +97,7 @@
   [doHideByFilter]="true"
   [typeLeft]="'date'"
   [titleLeft]="'Incorporation Date'"
-  [typeRight]="'select'"
+  [typeRight]="'select-entity'"
   [titleRight]="'Anniversary (month)'"
   [valuesRight]="dataService.getMonths()"
   [valueRight]="0"
@@ -94,6 +107,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 ></app-input-duo>
 
 <app-input-duo
@@ -103,7 +118,8 @@
   [typeLeft]="'date'"
   [titleLeft]="'Business Start Date'"
   [valueLeft]=""
-  [typeRight]="'select'"
+
+  [typeRight]="'select-entity'"
   [titleRight]="'Financial year end (month)'"
   [valuesRight]="dataService.getMonths()"
   [valueRight]="0"
@@ -113,6 +129,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 ></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />

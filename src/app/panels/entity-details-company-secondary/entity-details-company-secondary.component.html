@@ -13,6 +13,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [showCheckLeft] = "true"
+        [showCheckRight] = "true"
     ></app-input-duo>
 
     <app-input-address
@@ -22,7 +24,6 @@
       [hideBody]="false"
       [allowCopyOption]="false"
       [allowDefaultAddressOption]="true"
-      [countriesCities] = "countriesCities"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -34,7 +35,6 @@
       [doHideByFilter]="true"
       [hideBody]="false"
       [allowCopyOption]="true"
-      [countriesCities] = "countriesCities"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -43,23 +43,25 @@
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"
-      [typeLeft]="'select'"
+      [typeLeft]="'select-entity'"
       [titleLeft]="'Business Area'"
       [valuesLeft]="dataService.getBusinessAreas()"
       [valueLeft]="0"
-      [typeRight]="'select'"
+      [typeRight]="'select-entity'"
       [titleRight]="'Business Division'"
       [valuesRight]="dataService.getBusinessDivisions()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [showCheckLeft] = "true"
+        [showCheckRight] = "true"
     ></app-input-duo>
 
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"
-      [typeLeft]="'select'"
+      [typeLeft]="'select-entity'"
       [titleLeft]="'Legal classification'"
       [valuesLeft]="dataService.getLegalClasses()"
       [valueLeft]="0"
@@ -70,45 +72,51 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [showCheckLeft] = "true"
+        [showCheckRight] = "true"
     ></app-input-duo>
 
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"
-      [typeLeft]="'select'"
+      [typeLeft]="'select-entity'"
       [titleLeft]="'Entity status'"
       [valuesLeft]="dataService.getEntityStatuses()"
       [valueLeft]="0"
-      [typeRight]="'select'"
+      [typeRight]="'select-entity'"
       [titleRight]="'Entity status tiering'"
       [valuesRight]="dataService.getEntityStatusTiers()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [showCheckLeft] = "true"
+        [showCheckRight] = "true"
     ></app-input-duo>
 
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"
-      [typeLeft]="'select'"
+      [typeLeft]="'select-entity'"
       [titleLeft]="'Accounting classification'"
       [valuesLeft]="dataService.getAccountingClasses()"
       [valueLeft]="0"
-      [typeRight]="'select'"
+      [typeRight]="'select-entity'"
       [titleRight]="'Accounting classification tiering'"
       [valuesRight]="dataService.getAccountingTier()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [showCheckLeft] = "true"
+        [showCheckRight] = "true"
     ></app-input-duo>
 
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"
-      [typeLeft]="'select'"
-      [titleLeft]="'Direct parent/ownership'"
+      [typeLeft]="'select-entity'"
+      [titleLeft]="'Direct parent'"
       [valuesLeft]="dataService.getCompanies()"
       [valueLeft]="0"
       [typeRight]="'text'"
@@ -117,6 +125,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [showCheckLeft] = "true"
+        [showCheckRight] = "true"
     ></app-input-duo>
 
     <hr style="height: 1px; margin: 0px;" />

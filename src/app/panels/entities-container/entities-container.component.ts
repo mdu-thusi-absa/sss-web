@@ -34,8 +34,8 @@ export class EntitiesContainerComponent implements OnInit {
   showFileFields: string[];
   isShowAllFiles = true;
 
-  hidePrimary = false;
-  hideSecondary = true;
+  hidePrimary = true;
+  hideSecondary = false;
   hideOptional = true;
   hideCustom = true;
   hideDetailFiles = true;
