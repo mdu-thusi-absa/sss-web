@@ -136,6 +136,10 @@ export class NaturalEntity extends FunctionalEntity{
   //   return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
   // }
 }
+export class GroupEntity extends FunctionalEntity{
+  public type = 'group';
+}
+
 // export class Person extends NaturalEntity{
 //   constructor(
 //     public surname: string,

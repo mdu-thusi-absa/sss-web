@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NaturalEntity, Entity, Country, LegalEntity, User } from './models';
+import { NaturalEntity, Entity, Country, LegalEntity, User, GroupEntity } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -393,6 +393,14 @@ export class DataService {
     [2, 'Europe'],
     [3, 'Asia'],
   ]);
+  // entityGroupsMap = new Map([
+  //   [0, new GroupEntity('- All -')],
+  //   [1, new GroupEntity('Africa')],
+  //   [2, new GroupEntity('SPV')],
+  //   [3, new GroupEntity('Properties')],
+  // ]
+  // );
+
   getEntityGroups() {
     return this.entityGroups;
   }
