@@ -97,14 +97,15 @@ body {
 }
 
 .container-panel-left-half {
-  height: calc(50vh - 47px);
+  height: calc(50vh - 13px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 .container-panel-center-half {
-  height: calc(50vh - 47px);
+  height: calc(50vh - 13px);
   overflow-y: hidden;
+  overflow-x: hidden;
   scrollbar-width: thin;
 }
 
@@ -129,7 +130,7 @@ body {
 }
 
 .entities-detail-form-half {
-  height: calc(50vh - 145px);
+  height: calc(50vh - 110px);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -148,7 +149,7 @@ body {
 }
 
 .entities-half {
-  height: calc(50vh - 132px);
+  height: calc(50vh - 162px);
   overflow-y: auto;
 }
 
