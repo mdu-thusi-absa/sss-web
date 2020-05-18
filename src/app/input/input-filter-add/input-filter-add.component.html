@@ -39,7 +39,11 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <small><span class="glyphicon glyphicon-play"></span>&nbsp;{{ countPlay }}</small>
+      <small
+        ><span class="glyphicon glyphicon-play"></span>&nbsp;{{
+          countPlay
+        }}</small
+      >
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs bg-primary"
           ><small>{{ countPlay }}</small></span
@@ -171,12 +175,13 @@
     style="font-size: small;"
     (change)="doListChange($event)"
   >
-    <option *ngFor="let e of listValues.all_keys" 
-    [selected] = "e==listValue"
-    [value]="e">
-    {{
-      listValues.all_values[e].name
-    }}</option>
+    <option
+      *ngFor="let e of listValues.all_keys"
+      [selected]="e == listValue"
+      [value]="e"
+    >
+      {{ listValues.all_values[e].name }}</option
+    >
   </select>
 </div>
 
@@ -211,18 +216,8 @@
     *ngIf="showFilterCount && !isNarrow"
     class="input-group-addon hidden-xs primary-color-reverse"
     title="Number of items"
-    
   >
     {{ filterCount }}
-  </span>
-
-  <span
-    *ngIf="showDownload"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doDownload()"
-    [title]="'Download ' + title"
-  >
-    <span class="glyphicon glyphicon-cloud-download"></span>
   </span>
 
   <span
@@ -248,12 +243,30 @@
   </span>
 
   <span
+    *ngIf="showDuplicate"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doDuplicate()"
+    [title]="'Copy ' + title"
+  >
+    <span class="glyphicon glyphicon-duplicate"></span>
+  </span>
+
+  <span
+    *ngIf="showDownload"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doDownload()"
+    [title]="'Download ' + title"
+  >
+    <span class="glyphicon glyphicon-cloud-download"></span>
+  </span>
+
+  <span
     *ngIf="showSave"
     class="input-group-addon btn primary-color-reverse"
     (click)="doSave()"
     [title]="'Save ' + title"
   >
-    <span class="glyphicon" [class.glyphicon-cloud-upload]="showSave"></span>
+    <span class="glyphicon glyphicon-cloud-upload"></span>
   </span>
 
   <span
@@ -278,7 +291,7 @@
     *ngIf="showCancel"
     class="input-group-addon btn primary-color-reverse"
     (click)="doCancel()"
-    [title]="'Cancel'"
+    [title]="'Discard changes'"
   >
     <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
   </span>

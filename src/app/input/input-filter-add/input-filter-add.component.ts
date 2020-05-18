@@ -47,6 +47,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showSave = false;
   @Input() showShare = false;
   @Input() showDownload = false;
+  @Input() showDuplicate = false;
   @Input() isNarrow = false;
 
   //for radio values
@@ -67,6 +68,8 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleEyeOpen = '';
 
   @Output() onChoice = new EventEmitter();
+  @Output() onDuplicate = new EventEmitter();
+  @Output() onDownload = new EventEmitter();
 
   isT = false;
   filterText = '';
@@ -81,17 +84,19 @@ export class InputFilterAddComponent implements OnInit {
       this.showAll ||
       this.showOk ||
       this.showEyeClose ||
-      this.showEyeOpen || 
+      this.showEyeOpen ||
       this.showSave;
   }
 
-  doDownload(){
-
+  doDuplicate() {
+    this.onDuplicate.emit();
   }
 
-  doShare(){
-
+  doDownload() {
+    this.onDownload.emit();
   }
+
+  doShare() {}
 
   doRadio(choice: string) {
     //console.log(choice);
@@ -99,8 +104,8 @@ export class InputFilterAddComponent implements OnInit {
     this.onChoice.emit(this.radioChoice);
   }
 
-  doListChange(event: any){
-    this.listValue = +event.target.value
+  doListChange(event: any) {
+    this.listValue = +event.target.value;
     this.onListChange.emit(this.listValue);
   }
 
@@ -114,19 +119,19 @@ export class InputFilterAddComponent implements OnInit {
     // if (this.isAdd) this.isSaved = false;
     // else this.isSaved = true;
     //if (this.isAdd) this.onCancel.emit();
-    //else 
+    //else
     this.onAdd.emit();
   }
 
-  doCancel(){
+  doCancel() {
     this.onCancel.emit();
   }
 
-  doDelete(){
+  doDelete() {
     this.onDelete.emit();
   }
 
-  doSave(){
+  doSave() {
     this.onSave.emit();
   }
 

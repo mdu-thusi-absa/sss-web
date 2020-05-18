@@ -21,7 +21,7 @@ export class EntityDetailsComponent implements OnInit {
   persons = new NaturalEntities();
   @Input() panelRows = 1;
   @Input() entityType = 0;
-  @Input() entityKey = 0;
+  //@Input() entityKey = 0;
   entity: Entity;
 
   @Output() onFile = new EventEmitter();

@@ -7,13 +7,10 @@
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-
   [typeLeft]="'text'"
-  [titleLeft]="'Preferred formal name'"
-
+  [titleLeft]="'Preferred Formal Name'"
   [typeRight]="'text'"
-  [titleRight]="'Preferred informal name'"
-
+  [titleRight]="'Preferred Informal Name'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -58,17 +55,14 @@
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-
   [typeLeft]="'select-checkbox'"
   [titleLeft]="'Groups'"
   [valuesLeft]="dataService.getEntityGroups()"
   [valueLeft]="0"
-
   [typeRight]="'select-checkbox'"
   [titleRight]="'Companies'"
   [valuesRight]="dataService.getCompanies()"
   [valueRight]="0"
-
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -81,13 +75,10 @@
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-
   [typeLeft]="'text'"
   [titleLeft]="'SA ID Number'"
-
   [typeRight]="'text'"
   [titleRight]="'SA Passport Number'"
-
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -100,15 +91,12 @@
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-
   [typeLeft]="'select-entity'"
   [titleLeft]="'Contact preference'"
   [valuesLeft]="dataService.getContactPreferences()"
-  [valueLeft] = "0"
-
+  [valueLeft]="0"
   [typeRight]="'text'"
-  [titleRight]="'Land line'"
-
+  [titleRight]="'Landline'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -132,5 +120,39 @@
   [showCheckRight]="true"
 ></app-input-duo>
 
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Income Tax Number'"
+  [valueLeft]=""
+  [typeRight]="'text'"
+  [titleRight]="'VAT Number'"
+  [valuesRight]="[]"
+  [valueRight]="''"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  
+  [typeRight]="'date'"
+  [titleRight]="'Date of Birth'"
+
+  [typeLeft]="'checkbox'"
+  [titleLeft]="'Active Record'"
+  [valueLeft]="true"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />

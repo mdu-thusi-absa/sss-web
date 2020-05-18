@@ -9,9 +9,12 @@
 </div> -->
 
 <app-input-filter-add
+  [title] = 'dataService.getEntityTypes().get(entityType).name'
   [showSave]="true"
   [showCancel]="true"
   [showT]="true"
+  [showDuplicate] = "true"
+  [showDownload] = "true"
   (onFilter)="doFilter($event)"
 ></app-input-filter-add>
 

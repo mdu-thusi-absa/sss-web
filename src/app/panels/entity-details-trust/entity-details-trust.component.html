@@ -11,10 +11,15 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'text'"  
-  [titleLeft]="'Suffix'"
 
-  [placeholderLeft]="
+  [typeLeft]="'checkbox'"
+  [titleLeft]="'Active Record'"
+  [valueLeft]="true"
+
+  [typeRight]="'text'"  
+  [titleRight]="'Suffix'"
+
+  [placeholderRight]="
     'Suffix - used to differenciate entities with the same name'
   "
   [doHideByFilter]="false"
@@ -260,5 +265,16 @@
     </div>
   </div>
 </div>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />

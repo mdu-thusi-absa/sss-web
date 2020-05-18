@@ -93,4 +93,34 @@
   </div>
 </div>
 
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  
+  [typeRight]="'date'"
+  [titleRight]="'Date of Birth'"
+
+  [typeLeft]="'checkbox'"
+  [titleLeft]="'Active Record'"
+  [valueLeft]="true"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Employee Number'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
 <hr style="height: 1px; margin: 0px;" />

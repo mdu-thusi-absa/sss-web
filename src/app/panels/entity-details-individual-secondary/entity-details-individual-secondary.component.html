@@ -18,6 +18,30 @@
 [showCheckRight]="true"
 ></app-input-duo>
 
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Employee Number'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+<app-input-textarea
+  [title]="'Qualifications'"
+  [placeholder]="'Degree, year, institution'"
+  [showCheck]="false"
+></app-input-textarea>
+
+<app-input-textarea
+  [title]="'Work history'"
+  [placeholder]="'Organisation, period, position, responsibilities'"
+  [showCheck]="false"
+></app-input-textarea>
+
 <app-input-address
 [title]="'Office Address'"
 [filterText]="filterText"
@@ -29,7 +53,7 @@
 ></app-input-address>
 
 <app-input-address
-[title]="'Residential address'"
+[title]="'Residential Address'"
 [filterText]="filterText"
 [doHideByFilter]="true"
 [hideBody]="false"

@@ -28,21 +28,22 @@
 </app-input-duo>
 
 <app-input-duo
-  [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [typeLeft]="'checkbox'"
+  [titleLeft]="'Active Record'"
+  [valueLeft]="true"
 
-  [typeLeft]="'select-entity'"
-  [titleLeft]="'Regulator'"
-  [valuesLeft]="dataService.getRegulators()"
-  [valueLeft]="0"
+  [typeRight] = "'select-entity'"
+  [titleRight]="'Regulator'"
+  [valuesRight]="dataService.getRegulators()"
+  [valueRight]="0"
 
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
   [showCheckLeft]="true"
   [showCheckRight]="true"
->
-</app-input-duo>
+></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />
