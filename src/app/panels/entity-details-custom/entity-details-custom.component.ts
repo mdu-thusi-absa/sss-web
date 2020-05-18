@@ -10,6 +10,7 @@ import { NaturalEntity } from 'src/app/models';
 export class EntityDetailsCustomComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
+  @Input() title = ''
   @Input() persons: NaturalEntity[];
 
   @Output() onRecord = new EventEmitter();
