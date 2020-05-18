@@ -163,6 +163,16 @@
           (onTask)="doTask($event)"
         ></app-entity-details-custom>
       </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
     </div>
     <div [hidden]="entityType != 2">
       <div [hidden]="hidePrimary">
