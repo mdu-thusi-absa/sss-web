@@ -92,7 +92,7 @@
             *ngFor="let e of values | keyvalue"
             [value]="e.key"
             [selected]="e.key == value"
-            [hidden]="hideItem(e.value.name)"
+            [hidden]="hideItem(e.value)"
             class="input-sm"
             ><small>{{ e.value.name }}</small></option
           >

@@ -235,15 +235,32 @@ export class InputSelectEntityComponent implements OnInit {
     //console.log(this.values);
     //console.log(this.values.size);
     //console.log(this.values.all_values);
-    let v = this.values.all_values;
-    //console.log(v);
-    return v.filter((e) => !this.hideItem(e)).length;
+    let r = 0;
+    if (!this.listFilterText){
+      r = this.values.size;
+    } else {
+      let v = this.values.all_values;
+      for (let i=0; i<this.values.size; i++){
+        let e: Entity = v[i];
+        //console.log(i,this.values.size,e)
+        if (e) {
+          if (!this.hideItem(e)) {
+            r = r+1;
+          }
+        }
+      }
+    }
+    return r; 
+    //let v = this.values.all_values;
+    //v.filter((e) => !this.hideItem(e)).length;
   }
 
   hideItem(entity: Entity) {
     let r = false;
-    if (this.listFilterText.length > 0) {
-      r = entity.name.toLowerCase().indexOf(this.listFilterText) == -1;
+    if (this.listFilterText) {
+      if (entity != undefined)
+        //console.log(entity);
+        r = entity.name.toLowerCase().indexOf(this.listFilterText.toLowerCase()) == -1;
     }
     return r;
   }
