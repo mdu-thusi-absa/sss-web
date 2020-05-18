@@ -184,6 +184,26 @@
           (onTask)="doTask($event)"
         ></app-entity-details-user>
       </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
     </div>
     <div [hidden]="entityType != 3">
       <div [hidden]="hidePrimary">
@@ -194,6 +214,99 @@
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-group>
+      </div>
+    </div>
+    <div [hidden]="entityType != 4">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-trust
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-trust>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+    </div>
+    <div [hidden]="entityType != 5">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-regulator
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-regulator>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+    </div>
+    <div [hidden]="entityType != 6">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-regulation
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-regulation>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
       </div>
     </div>
 

@@ -1,0 +1,100 @@
+<hr class="primary-color" style="height: 1px; margin: 0px;" />
+<div class="h4 text-primary" style="margin-top: 5px;">
+  <u>Primary Details: Regulator</u>
+</div>
+
+<app-input-textarea
+  [title]="'Description'"
+  [placeholder]="'Purpose, intent, notes...'"
+  [showCheck]="false"
+></app-input-textarea>
+
+<app-input-duo
+[isNarrow]="isNarrow"
+[typeLeft]="'select-entity'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[titleLeft]="'Country'"
+[valuesLeft]="dataService.getCountries()"
+[valueLeft]="0"
+
+[typeRight]="'select-checkbox'"
+[titleRight]="'Regulations'"
+[valuesRight] = "dataService.getRegulations()"
+[valueRight] = "0"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+[showCheckLeft]="true"
+[showCheckRight]="true"
+></app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Contact preference'"
+  [valuesLeft]="dataService.getContactPreferences()"
+  [valueLeft] = "0"
+
+  [typeRight]="'text'"
+  [titleRight]="'Land line'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Contact person'"
+  [valuesLeft]="dataService.getPersons()"
+  [valueLeft] = "0"
+
+  [typeRight]="'text'"
+  [titleRight]="'Email'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-address
+[title]="'Regulator address'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[hideBody]="false"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<hr style="height: 1px; margin: 0px;" />

@@ -56,8 +56,8 @@
             <app-entities
               [panelRows]="panelRows"
               [isNarrow]="showPanelRight"
-              (onEntityTypeChange) = "doEntityTypeChange($event)"
-              (onEntityChange) = "doEntityChange($event)"
+              (onEntityTypeChange)="doEntityTypeChange($event)"
+              (onEntityChange)="doEntityChange($event)"
             ></app-entities>
           </div>
           <!-- <div class="panel-footer mt3">
@@ -249,9 +249,14 @@
                     <small>&nbsp;Primary</small></span
                   ></label
                 >
+                <ng-container
+                  *ngIf="
+                    entityType == 0 ||
+                    entityType == 1 
+                  "
+                >
                 &nbsp;
                 <label
-                    *ngIf = "entityType==0 || entityType==1"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -269,9 +274,15 @@
                   <span class="hidden-xs hidden-sm hidden-md">
                     <small>&nbsp;Secondary</small></span
                   ></label
-                >&nbsp;
+                >
+                  </ng-container>
+                <ng-container
+                  *ngIf="
+                    entityType == 0
+                  "
+                >
+                &nbsp;
                 <label
-                *ngIf = "entityType==0"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -290,9 +301,19 @@
                     <small>&nbsp;Optional</small></span
                   ></label
                 >
+                  </ng-container>
+                <ng-container
+                  *ngIf="
+                    entityType == 0 ||
+                    entityType == 1 ||
+                    entityType == 2 ||
+                    entityType == 4 ||
+                    entityType == 5 ||
+                    entityType == 6
+                  "
+                >
                 &nbsp;
                 <label
-                *ngIf = "entityType==0 || entityType==1"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -311,29 +332,40 @@
                     <small>&nbsp;Custom</small></span
                   >
                 </label>
-                &nbsp;
-                <label
-                *ngIf = "entityType==0 || entityType==1"
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
+              </ng-container>
+                <ng-container
+                  *ngIf="
+                    entityType == 0 ||
+                    entityType == 1 ||
+                    entityType == 2 ||
+                    entityType == 4 ||
+                    entityType == 5 ||
+                    entityType == 6
                   "
-                  ><input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideDetailFiles"
-                    (change)="hideDetailFiles = !hideDetailFiles"
-                  />
-                  <span class="hidden-lg"> F</span>
-                  <span class="hidden-xs hidden-sm hidden-md">
-                    <small>&nbsp;Files</small></span
-                  >
-                </label>
-                &nbsp;
-                <!-- <label
+                >
+                  &nbsp;
+                  <label
+                    style="
+                      white-space: nowrap;
+                      height: 20px;
+                      overflow: hidden;
+                      display: inline-block;
+                      margin-bottom: 0px;
+                    "
+                    ><input
+                      type="checkbox"
+                      class="btn btn-info"
+                      [checked]="!hideDetailFiles"
+                      (change)="hideDetailFiles = !hideDetailFiles"
+                    />
+                    <span class="hidden-lg"> F</span>
+                    <span class="hidden-xs hidden-sm hidden-md">
+                      <small>&nbsp;Files</small></span
+                    >
+                  </label>
+                </ng-container>
+                
+                <!-- &nbsp;<label
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -391,8 +423,8 @@
               [hideFiles]="hideDetailFiles"
               [hideUsers]="hideUsers"
               [isNarrow]="showPanelRight"
-              [entityType] = "entityType"
-              [entityKey] = "entityKey"
+              [entityType]="entityType"
+              [entityKey]="entityKey"
             ></app-entity-details>
           </div>
           <!-- <div class="panel-footer mt3">

@@ -59,6 +59,9 @@ import { EntityDetailsUserComponent } from './panels/entity-details-user/entity-
 import { InputDuoColumnComponent } from './input/input-duo-column/input-duo-column.component';
 import { EntityDetailsIndividualComponent } from './panels/entity-details-individual/entity-details-individual.component';
 import { EntityDetailsIndividualSecondaryComponent } from './panels/entity-details-individual-secondary/entity-details-individual-secondary.component';
+import { EntityDetailsRegulatorComponent } from './panels/entity-details-regulator/entity-details-regulator.component';
+import { EntityDetailsRegulationComponent } from './panels/entity-details-regulation/entity-details-regulation.component';
+import { EntityDetailsTrustComponent } from './panels/entity-details-trust/entity-details-trust.component';
 
 
 @NgModule({
@@ -114,6 +117,9 @@ import { EntityDetailsIndividualSecondaryComponent } from './panels/entity-detai
     InputDuoColumnComponent,
     EntityDetailsIndividualComponent,
     EntityDetailsIndividualSecondaryComponent,
+    EntityDetailsRegulatorComponent,
+    EntityDetailsRegulationComponent,
+    EntityDetailsTrustComponent,
     
   ],
   imports: [

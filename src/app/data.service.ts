@@ -12,6 +12,7 @@ import {
   Countries,
   NaturalEntities,
 } from './models';
+import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 
 @Injectable({
   providedIn: 'root',
@@ -85,21 +86,19 @@ export class DataService {
     .add(new Entity('Group'))
     .add(new Entity('Trust'))
     .add(new Entity('Regulator'))
-    .add(new Entity('Regulation'))
-    .add(new Entity('Government Agency'));
+    .add(new Entity('Regulation'));
   getEntityTypes() {
     return this.entityTypes;
   }
 
   entityTypesPlural = new Entities()
-  .add(new Entity('Companies'))
-  .add(new Entity('Individuals'))
-  .add(new Entity('Users'))
-  .add(new Entity('Groups'))
-  .add(new Entity('Trusts'))
-  .add(new Entity('Regulators'))
-  .add(new Entity('Regulations'))
-  .add(new Entity('Government Agencies'));
+    .add(new Entity('Companies'))
+    .add(new Entity('Individuals'))
+    .add(new Entity('Users'))
+    .add(new Entity('Groups'))
+    .add(new Entity('Trusts'))
+    .add(new Entity('Regulators'))
+    .add(new Entity('Regulations'));
 
   getEntityTypesPlural() {
     return this.entityTypesPlural;
@@ -153,6 +152,29 @@ export class DataService {
   getAccountingTier() {
     return this.accountingTiers;
   }
+
+  regulators = new Entities()
+    .add(new LegalEntity('Financial Services Conduct Authority').set('suffix','FSCA'))
+    .add(new LegalEntity('South Africian Reserve Bank').set('suffix','SARB'));
+  getRegulators() {
+    return this.regulators;
+  }
+
+  regulations = new Entities()
+    .add(new LegalEntity('Companies Act 71 of 2008'))
+    .add(new LegalEntity('Protection of Personal Information Act 4 of 2013').set("suffix",'POPI'))
+    .add(new LegalEntity('Financial Intelligence Centre Act 38 of 2001').set("suffix",'FICA'));
+  getRegulations() {
+    return this.regulations;
+  }
+
+  trusts = new Entities()
+    .add(new LegalEntity('Northern Trust').set('suffix','NTH'))
+    .add(new LegalEntity('BEE Trust').set('suffix','BEET'))
+  getTrusts(): Entities{
+    return this.trusts
+  }
+
   entities = new Entities()
     .add(
       new LegalEntity('Google Pty Ltd')
@@ -297,8 +319,8 @@ export class DataService {
     .add(new Entity('Email'))
     .add(new Entity('Call landline'))
     .add(new Entity('Call cellphone'))
-    .add(new Entity('SMS or Text'))
-  getContactPreferences(){
+    .add(new Entity('SMS or Text'));
+  getContactPreferences() {
     return this.contactPreferences;
   }
 
@@ -307,10 +329,10 @@ export class DataService {
     return this.auditors;
   }
   entityGroups = new Entities()
-    .add(new FunctionalEntity('- Default -').set("tasksCount",7))
-    .add(new FunctionalEntity('Africa').set("tasksCount",3))
-    .add(new FunctionalEntity('Europe').set("tasksCount",18))
-    .add(new FunctionalEntity('Asia').set("tasksCount",2));
+    .add(new FunctionalEntity('- Default -').set('tasksCount', 7))
+    .add(new FunctionalEntity('Africa').set('tasksCount', 3))
+    .add(new FunctionalEntity('Europe').set('tasksCount', 18))
+    .add(new FunctionalEntity('Asia').set('tasksCount', 2));
 
   getEntityGroups(): Entities {
     return this.entityGroups; //this.entityGroups;
@@ -374,10 +396,19 @@ export class DataService {
       //console.log(type,'in');
       return this.getUsers();
     } else if (type == 3) {
-      //console.log(type,'in');
       return this.getEntityGroups();
-    } else {
-      return this.getCompanies();
+    } else if (type == 4) {
+      return this.getTrusts();
+    } else if (type == 5) {
+      //console.log(type,'in');
+      return this.getRegulators();
+    } else if (type == 6) {
+      //console.log(type,'in');
+      return this.getRegulations();
+    }
+    
+    else {
+      return new Entities();
     }
   }
 

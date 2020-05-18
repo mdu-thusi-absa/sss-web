@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class EntitiesComponent implements OnInit {
   filterText = '';
-  rdoActiveDormantAll = 'flash';
+  rdoActiveDormantAll = 'all';
   isNewMessage = false;
   @Input() panelRows = 1;
   @Input() isNarrow = false;
