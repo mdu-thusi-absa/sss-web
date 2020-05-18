@@ -25,6 +25,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleT = '';
   @Input() showList = false;
   @Input() listValues: Entities;
+  @Input() listValue = 0;
   @Output() onListChange = new EventEmitter();
 
   @Input() showDelete = false;
@@ -99,7 +100,8 @@ export class InputFilterAddComponent implements OnInit {
   }
 
   doListChange(event: any){
-    this.onListChange.emit(event.target.value);
+    this.listValue = +event.target.value
+    this.onListChange.emit(this.listValue);
   }
 
   doFilterClear() {

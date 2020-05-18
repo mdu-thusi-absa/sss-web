@@ -164,7 +164,6 @@
     </label>
   </div>
 </div>
-
 <div class="input-group input-group-sm" style="width: 100%;">
   <select
     *ngIf="showList"
@@ -173,6 +172,7 @@
     (change)="doListChange($event)"
   >
     <option *ngFor="let e of listValues.all_keys" 
+    [selected] = "e==listValue"
     [value]="e">
     {{
       listValues.all_values[e].name

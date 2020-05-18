@@ -53,7 +53,12 @@
             [class.container-panel-left-full]="panelRows == 1"
             [class.container-panel-left-half]="panelRows == 2"
           >
-            <app-entities [panelRows]="panelRows" [isNarrow] = "showPanelRight"></app-entities>
+            <app-entities
+              [panelRows]="panelRows"
+              [isNarrow]="showPanelRight"
+              (onEntityTypeChange) = "doEntityTypeChange($event)"
+              (onEntityChange) = "doEntityChange($event)"
+            ></app-entities>
           </div>
           <!-- <div class="panel-footer mt3">
             <small>Last refresh: 14:31</small>
@@ -246,6 +251,7 @@
                 >
                 &nbsp;
                 <label
+                    *ngIf = "entityType==0 || entityType==1"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -265,6 +271,7 @@
                   ></label
                 >&nbsp;
                 <label
+                *ngIf = "entityType==0"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -285,6 +292,7 @@
                 >
                 &nbsp;
                 <label
+                *ngIf = "entityType==0 || entityType==1"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -305,6 +313,7 @@
                 </label>
                 &nbsp;
                 <label
+                *ngIf = "entityType==0"
                   style="
                     white-space: nowrap;
                     height: 20px;
@@ -382,6 +391,8 @@
               [hideFiles]="hideDetailFiles"
               [hideUsers]="hideUsers"
               [isNarrow]="showPanelRight"
+              [entityType] = "entityType"
+              [entityKey] = "entityKey"
             ></app-entity-details>
           </div>
           <!-- <div class="panel-footer mt3">
@@ -446,7 +457,6 @@
             [class.container-panel-center-full]="
               panelRows == 2 && expandHistoryDetail
             "
-            
           >
             <div [hidden]="hideHistory">
               <app-record-details [panelRows]="panelRows"></app-record-details>

@@ -1,6 +1,30 @@
 <div class="btn-group pull-right" [style.width]="filterInputTotalWidth()" >
   <div class="pull-right">
     <a
+      *ngIf = "showContract && showExpandContract"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doContract()"
+      ><span
+        class="glyphicon glyphicon-menu-up"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        [title]="'Show less'"
+      ></span
+    ></a>
+    <a
+      *ngIf = "showExpand && showExpandContract"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doExpand()"
+      ><span
+        class="glyphicon glyphicon-menu-down"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        [title]="'Show more'"
+      ></span
+    ></a>
+    <a
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"

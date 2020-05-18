@@ -16,7 +16,7 @@
 ></app-input-filter-add>
 
 <form autocomplete="off">
-  <div *ngIf="entityType!=1 && entityType != 2">
+  <div *ngIf="entityType != 1 && entityType != 2">
     <app-input-text
       [filterText]="filterText"
       [doHideByFilter]="false"
@@ -25,23 +25,23 @@
       (onTask)="doTask($event)"
       [title]="'Entity Name*'"
       [placeholder]="'Legal name of the entity (required)'"
-      [showCheck] = "true"
+      [showCheck]="true"
     ></app-input-text>
   </div>
-  <div *ngIf="entityType==1 || entityType == 2">
+  <div *ngIf="entityType == 1 || entityType == 2">
     <app-input-duo
-        [typeLeft]="'text'"
-        [typeRight]="'text'"
-        [titleLeft]="'Surname'"
-        [titleRight]="'First'"
-        [doHideByFilter]="false"
-        [showCheckLeft] = "true"
-        [showCheckRight] = "true"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      >
-      </app-input-duo>
+      [typeLeft]="'text'"
+      [typeRight]="'text'"
+      [titleLeft]="'Surname'"
+      [titleRight]="'First Name'"
+      [doHideByFilter]="false"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+    >
+    </app-input-duo>
   </div>
 
   <div
@@ -49,23 +49,21 @@
     [class.entities-detail-form-half]="isHalfScreen()"
   >
     <div style="padding-bottom: 5px;">
-
       <app-input-duo
-        [isNarrow] = "isNarrow"
+        [isNarrow]="isNarrow"
         [filterText]="filterText"
         [doHideByFilter]="true"
         [typeLeft]="'select-entity'"
         [titleLeft]="'Entity Type'"
         [valuesLeft]="dataService.getEntityTypes()"
-        [valueLeft]="0"
-        [showAddLeft] = "false"
-        [showEditLeft] = "false"
-        [showDeleteLeft] = "false"
-        [showCheckLeft] = "true"
-
+        [valueLeft]="entityType"
+        [showAddLeft]="false"
+        [showEditLeft]="false"
+        [showDeleteLeft]="false"
+        [showCheckLeft]="true"
         [typeRight]="'text'"
         [titleRight]="'Internal Code'"
-        [showCheckRight] = "true"
+        [showCheckRight]="true"
         (onChangeLeft)="doChangeEntityType($event)"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
@@ -73,67 +71,121 @@
       >
       </app-input-duo>
     </div>
-    <div [hidden]="hidePrimary">
-      <app-entity-details-company-primary
-      [isNarrow] = "isNarrow"
-        [filterText]="filterText"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-company-primary>
-    </div>
-    <div [hidden]="hideSecondary">
-      <app-entity-details-company-secondary
-      [isNarrow] = "isNarrow"
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-company-secondary>
-    </div>
-    <div [hidden]="hideOptional">
-      <app-entity-details-company-optional
-      [isNarrow] = "isNarrow"
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-company-optional>
-    </div>
-    <div [hidden]="hideCustom">
-      <app-entity-details-custom
-      [isNarrow] = "isNarrow"
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-custom>
-    </div>
-    <div [hidden]="hideFiles">
-      <app-entity-details-files
-      [isNarrow] = "isNarrow"
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-files>
-    </div>
-    <div [hidden]="hideUsers">
-      <app-entity-details-users
-      [isNarrow] = "isNarrow"
-        [filterText]="filterText"
-        [users] = "dataService.getUsers()"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-users>
-    </div>
+    <div [hidden]="entityType != 0">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-company-primary
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-company-primary>
+      </div>
+      <div [hidden]="hideSecondary">
+        <app-entity-details-company-secondary
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-company-secondary>
+      </div>
+      <div [hidden]="hideOptional">
+        <app-entity-details-company-optional
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-company-optional>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+      <div [hidden]="hideUsers">
+        <app-entity-details-users
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [users]="dataService.getUsers()"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-users>
+      </div>
 
-    <hr style="height: 1px; margin: 0px;" />
+      <hr style="height: 1px; margin: 0px;" />
+    </div>
+    <div [hidden]="entityType != 1">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-individual
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-individual>
+      </div>
+      <div [hidden]="hideSecondary">
+        <app-entity-details-individual-secondary
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-individual-secondary>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+    </div>
+    <div [hidden]="entityType != 2">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-user
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-user>
+      </div>
+    </div>
+    <div [hidden]="entityType != 3">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-group
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-group>
+      </div>
+    </div>
 
     <!-- Documents table -->
     <!-- <div

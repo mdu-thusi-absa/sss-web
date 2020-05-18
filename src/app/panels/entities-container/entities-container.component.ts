@@ -34,12 +34,14 @@ export class EntitiesContainerComponent implements OnInit {
   showFileFields: string[];
   isShowAllFiles = true;
 
-  hidePrimary = true;
-  hideSecondary = false;
+  hidePrimary = false;
+  hideSecondary = true;
   hideOptional = true;
   hideCustom = true;
   hideDetailFiles = true;
   hideUsers = true;
+  entityType = 0;
+  entityKey = 0;
 
   entities= ['Entity Name',
   'Registration Number',
@@ -73,6 +75,14 @@ export class EntitiesContainerComponent implements OnInit {
   'Entity Executive',
   'Entity Financial Officer',
   'Public Officer (income tax)']
+
+  doEntityTypeChange(event: any){
+    this.entityType = +event;
+  }
+
+  doEntityChange(event: any){
+    this.entityKey = +event;
+  }
 
   doSelectFields(selectedFields: string[]){
     this.showFileFields = selectedFields;
@@ -230,4 +240,8 @@ export class EntitiesContainerComponent implements OnInit {
   isHalfPanel(): boolean{
     return this.panelRows==0? false : this.panelRows==2;
   }
+
+  // showForEntityType(label: number): boolean{
+  //   return this.entityType== label;
+  // }
 }

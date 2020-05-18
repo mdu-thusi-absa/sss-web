@@ -36,6 +36,11 @@
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
+      [showExpandContract] = "true"
+      [showExpand] = "showExpand"
+      [showContract] = "!showExpand"
+      (onExpand) = "doExpand()"
+      (onContract) = "doContract()"
       [countItems]="countItems()"
       [countItemsSelected]="countSelected()"
       (onAdd)="showNew()"
@@ -74,7 +79,8 @@
     <div class="input-group-sm">
       <ul
         class="list-group"
-        style="margin-bottom: 0px; overflow-y: auto; max-height: 90px;"
+        style="margin-bottom: 0px; overflow-y: auto; "
+        [style.max-height] = "showExpand ? '90px' : '270px'"
       >
         <div *ngFor="let e of values | keyvalue" [hidden]="hideItem(e.value)">
           <li

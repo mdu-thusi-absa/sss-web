@@ -92,6 +92,7 @@ body {
 .container-panel-center-full {
   height: calc(100vh - 30px);
   overflow-y: hidden;
+  overflow-x: hidden;
   scrollbar-width: thin;
 }
 

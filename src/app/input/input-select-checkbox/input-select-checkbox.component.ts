@@ -41,6 +41,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   listFilterText = '';
   isShowingFilter = false;
   selectedItems: number [] = [0];
+  showExpand = true;
 
   // @ViewChild('inputText') inputElement: ElementRef;
   constructor() {}
@@ -50,6 +51,15 @@ export class InputSelectCheckboxComponent implements OnInit {
     // this.option = this.values.indexOf().toString();
     //this.setItem(this.value);
   }
+
+  doContract(){
+    this.showExpand = true;
+  }
+
+  doExpand(){
+    this.showExpand = false;
+  }
+
 
   setItem(text: string) {
     //console.log('setItem: b');

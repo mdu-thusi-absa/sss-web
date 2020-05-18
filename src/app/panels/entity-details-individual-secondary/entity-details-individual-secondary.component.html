@@ -1,0 +1,51 @@
+
+<hr class="primary-color" style="height: 1px; margin: 0px;" />
+
+<app-input-duo
+[isNarrow]="isNarrow"
+[typeLeft]="'select-entity'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[titleLeft]="'Country'"
+[valuesLeft]="dataService.getCountries()"
+[valueLeft]="0"
+[typeRight]="'text'"
+[titleRight]="'Passport Number'"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+[showCheckLeft]="true"
+[showCheckRight]="true"
+></app-input-duo>
+
+<app-input-address
+[title]="'Office address'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[hideBody]="false"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+[title]="'Residential address'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[hideBody]="false"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+[title]="'Personal Postal address'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[hideBody]="false"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+></app-input-address>
+
+<hr style="height: 1px; margin: 0px;" />

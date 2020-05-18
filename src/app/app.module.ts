@@ -54,6 +54,11 @@ import { InputNumberComponent } from './input/input-number/input-number.componen
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 import { EntityDetailsUsersComponent } from './panels/entity-details-users/entity-details-users.component';
 import { InputSelectEntityComponent } from './input/input-select-entity/input-select-entity.component';
+import { EntityDetailsGroupComponent } from './panels/entity-details-group/entity-details-group.component';
+import { EntityDetailsUserComponent } from './panels/entity-details-user/entity-details-user.component';
+import { InputDuoColumnComponent } from './input/input-duo-column/input-duo-column.component';
+import { EntityDetailsIndividualComponent } from './panels/entity-details-individual/entity-details-individual.component';
+import { EntityDetailsIndividualSecondaryComponent } from './panels/entity-details-individual-secondary/entity-details-individual-secondary.component';
 
 
 @NgModule({
@@ -104,6 +109,11 @@ import { InputSelectEntityComponent } from './input/input-select-entity/input-se
     EntityDetailsFilesComponent,
     EntityDetailsUsersComponent,
     InputSelectEntityComponent,
+    EntityDetailsGroupComponent,
+    EntityDetailsUserComponent,
+    InputDuoColumnComponent,
+    EntityDetailsIndividualComponent,
+    EntityDetailsIndividualSecondaryComponent,
     
   ],
   imports: [

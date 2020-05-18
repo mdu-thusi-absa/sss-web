@@ -1,0 +1,55 @@
+<hr class="primary-color" style="height: 1px; margin: 0px;" />
+<div class="h4 text-primary" style="margin-top: 5px;">
+  <u>Primary Details</u>
+</div>
+
+<app-input-textarea
+  [title]="'Description'"
+  [placeholder]="'Purpose, importance, selection criteria...'"
+  [showCheck]="false"
+></app-input-textarea>
+
+<div class="container-flex">
+  <div class="row">
+    <app-input-duo-column
+        [title] = "'Companies'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific companies'"
+      [valuesRight]="dataService.getCompanies()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo-column>
+
+    <app-input-duo-column
+        [title] = "'Users'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select All'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific users'"
+      [valuesRight]="dataService.getUsers()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    >
+    </app-input-duo-column>
+  </div>
+</div>
+
+<hr style="height: 1px; margin: 0px;" />

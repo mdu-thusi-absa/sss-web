@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { FunctionalEntity,  Entities, Entity} from '../../models'
 import { DataService } from 'src/app/data.service';
 
@@ -15,9 +15,11 @@ export class EntitiesComponent implements OnInit {
   @Input() panelRows = 1;
   @Input() isNarrow = false;
   entities: Entities;// = new FunctionalEntities();
-  entityType = 0;
+  entityType = 1;
   entityTypeName = '';
   entityTypesPlural: any;
+  @Output() onEntityTypeChange = new EventEmitter();
+  @Output() onEntityChange = new EventEmitter();
 
   constructor(public dataService: DataService) { }
 
@@ -35,6 +37,12 @@ export class EntitiesComponent implements OnInit {
     this.entityTypeName = this.entityTypesPlural.get(this.entityType).name;
     //console.log(this.entityTypeName);
     this.entities = this.dataService.getFunctionalEntities(this.entityType);
+
+    this.onEntityTypeChange.emit(this.entityType);
+  }
+
+  doEntityChange(event: any){
+    this.onEntityChange.emit(this.entityType);
   }
 
   shouldBeHidden(e: Entity): boolean{
@@ -100,4 +108,7 @@ export class EntitiesComponent implements OnInit {
   doCancel(){
     this.isNewMessage = false;
   }
+
+  
+  
 }

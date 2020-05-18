@@ -2,6 +2,26 @@
 <div class="h4 text-primary" style="margin-top: 5px;">
   <u>Primary Details</u>
 </div>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+
+  [typeLeft]="'text'"
+  [titleLeft]="'Preferred formal name'"
+
+  [typeLeft]="'text'"
+  [titleLeft]="'Preferred informal name'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
 <app-input-duo
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
@@ -15,8 +35,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 <app-input-duo
@@ -30,106 +50,87 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 <app-input-duo
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
+
   [typeLeft]="'select-checkbox'"
-  [titleLeft]="'Entity Groups'"
+  [titleLeft]="'Groups'"
   [valuesLeft]="dataService.getEntityGroups()"
   [valueLeft]="0"
-  [typeRight]="'text'"
-  [titleRight]="'Registration Number'"
+
+  [typeRight]="'select-checkbox'"
+  [titleRight]="'Companies'"
+  [valuesRight]="dataService.getCompanies()"
+  [valueRight]="0"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 
 <app-input-duo
   [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+
+  [typeLeft]="'text'"
+  [titleLeft]="'SA ID Number'"
+
+  [typeRight]="'text'"
+  [titleRight]="'SA Passport Number'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+
   [typeLeft]="'select-entity'"
-  [typeRight]="'select-entity'"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [titleLeft]="'Country'"
-  [valuesLeft]="dataService.getCountries()"
-  [valueLeft]="0"
-  
+  [titleLeft]="'Contact preference'"
+  [valuesLeft]="dataService.getContactPreferences()"
+  [valueLeft] = "0"
 
-  [titleRight]="'Industry'"
-  [valuesRight]="dataService.getIndustries()"
-  [valueRight]="0"
+  [typeRight]="'text'"
+  [titleRight]="'Land line'"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
-></app-input-duo>
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
 
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'checkbox'"
-  [typeRight]="'checkbox'"
+  [typeLeft]="'text'"
   [filterText]="filterText"
   [doHideByFilter]="true"
-  [titleLeft]="'Representative Office'"
-  [valueLeft]="false"
-  [titleRight]="'Foreign branch'"
-  [valueRight]="false"
+  [titleLeft]="'Email'"
+  [typeRight]="'text'"
+  [titleRight]="'Cellphone'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 ></app-input-duo>
 
-<app-input-duo
-  [isNarrow]="isNarrow"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="'date'"
-  [titleLeft]="'Incorporation Date'"
-  [typeRight]="'select-entity'"
-  [titleRight]="'Anniversary (month)'"
-  [valuesRight]="dataService.getMonths()"
-  [valueRight]="0"
-  [showAddRight]="false"
-  [showDeleteRight]="false"
-  [showEditRight]="false"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
-></app-input-duo>
-
-<app-input-duo
-  [isNarrow]="isNarrow"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="'date'"
-  [titleLeft]="'Business Start Date'"
-  [valueLeft]=""
-
-  [typeRight]="'select-entity'"
-  [titleRight]="'Financial year end (month)'"
-  [valuesRight]="dataService.getMonths()"
-  [valueRight]="0"
-  [showAddRight]="false"
-  [showDeleteRight]="false"
-  [showEditRight]="false"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
-></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />

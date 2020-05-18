@@ -20,12 +20,13 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideUsers = false;
   persons = new NaturalEntities();
   @Input() panelRows = 1;
+  @Input() entityType = 0;
+  @Input() entityKey = 0;
   entity: Entity;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
-  entityType = 0;
 
   constructor(public dataService: DataService) { }
 
@@ -86,7 +87,7 @@ export class EntityDetailsComponent implements OnInit {
 
   doChangeEntityType(event: any){
     //console.log(event);
-    this.entityType = event;
+    this.entityType = +event;
   }
   
 

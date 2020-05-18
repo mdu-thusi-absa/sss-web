@@ -27,6 +27,8 @@ export class ButtonsInputSelectComponent implements OnInit {
   @Output() onFilter = new EventEmitter();
   @Output() onShowingFilter = new EventEmitter();
   @Output() onCheck = new EventEmitter();
+  @Output() onExpand = new EventEmitter();
+  @Output() onContract = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -38,6 +40,9 @@ export class ButtonsInputSelectComponent implements OnInit {
   @Input() showSave = true;
   @Input() showAdd = true;
   @Input() showCheck = true;
+  @Input() showExpandContract = false;
+  @Input() showExpand = false;
+  @Input() showContract = false;
 
   @Input() countItemsSelected = -1;
   @Input() countItems = 0;
@@ -52,6 +57,14 @@ export class ButtonsInputSelectComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  doExpand(){
+    this.onExpand.emit();
+  }
+
+  doContract(){
+    this.onContract.emit();
+  }
 
   doCheck(){
     this.onCheck.emit();

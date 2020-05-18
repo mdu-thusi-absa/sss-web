@@ -80,7 +80,7 @@ export class DataService {
   //Entity Types
   entityTypes = new Entities()
     .add(new Entity('Company'))
-    .add(new Entity('Person'))
+    .add(new Entity('Individual'))
     .add(new Entity('User'))
     .add(new Entity('Group'))
     .add(new Entity('Trust'))
@@ -293,15 +293,24 @@ export class DataService {
     return this.taskTypes;
   }
 
+  contactPreferences = new Entities()
+    .add(new Entity('Email'))
+    .add(new Entity('Call landline'))
+    .add(new Entity('Call cellphone'))
+    .add(new Entity('SMS or Text'))
+  getContactPreferences(){
+    return this.contactPreferences;
+  }
+
   auditors = new Entities().add(new Entity('Internal')).add(new Entity('PWC'));
   getAuditors() {
     return this.auditors;
   }
   entityGroups = new Entities()
-    .add(new FunctionalEntity('- Default -'))
-    .add(new FunctionalEntity('Africa'))
-    .add(new FunctionalEntity('Europe'))
-    .add(new FunctionalEntity('Asia'));
+    .add(new FunctionalEntity('- Default -').set("tasksCount",7))
+    .add(new FunctionalEntity('Africa').set("tasksCount",3))
+    .add(new FunctionalEntity('Europe').set("tasksCount",18))
+    .add(new FunctionalEntity('Asia').set("tasksCount",2));
 
   getEntityGroups(): Entities {
     return this.entityGroups; //this.entityGroups;
