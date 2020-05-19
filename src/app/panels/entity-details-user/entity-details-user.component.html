@@ -116,11 +116,19 @@
   [doHideByFilter]="true"
   [typeLeft]="'text'"
   [titleLeft]="'Employee Number'"
+  [typeLeft]="'text'"
+  [titleLeft]="'Position / Job Grade'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
   [showCheckLeft]="true"
   [showCheckRight]="true"
 ></app-input-duo>
+
+<app-input-textarea
+  [title]="'Emergency Contact Details'"
+  [placeholder]="'Next of kin, neighbour...'"
+  [showCheck]="false"
+></app-input-textarea>
 
 <hr style="height: 1px; margin: 0px;" />

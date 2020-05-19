@@ -23,6 +23,8 @@
   [doHideByFilter]="true"
   [typeLeft]="'text'"
   [titleLeft]="'Employee Number'"
+  [typeLeft]="'text'"
+  [titleLeft]="'Position / Job Grade'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -305,5 +307,25 @@
     </div>
   </div>
 </div>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Gender'"
+  [typeRight]="'text'"
+  [titleRight]="'Race'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+<app-input-textarea
+  [title]="'Emergency Contact Details'"
+  [placeholder]="'Next of kin, neighbour...'"
+  [showCheck]="false"
+></app-input-textarea>
 
 <hr style="height: 1px; margin: 0px;" />
