@@ -18,6 +18,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideCustom = false;
   @Input() hideFiles = false;
   @Input() hideUsers = false;
+  @Input() hideContacts = false;
   persons = new NaturalEntities();
   @Input() panelRows = 1;
   @Input() entityType = 0;

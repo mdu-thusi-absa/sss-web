@@ -2,9 +2,29 @@
 <div class="h4 text-primary" style="margin-top: 5px;">
   <u>Primary Details: Company</u>
 </div>
+
 <app-input-duo
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [typeRight]="'checkbox'"
+  [titleRight]="'Active'"
+  [valueRight]="true"
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'Registration Number'"
   [typeRight]="'date'"
   [titleLeft]="'Suffix'"
   [titleRight]="'Curr. Name Effective Date'"
@@ -42,8 +62,6 @@
   [titleLeft]="'Entity Groups'"
   [valuesLeft]="dataService.getEntityGroups()"
   [valueLeft]="0"
-  [typeRight]="'text'"
-  [titleRight]="'Registration Number'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -130,19 +148,6 @@
   (onTask)="doTask($event)"
   [showCheckLeft] = "true"
         [showCheckRight] = "true"
-></app-input-duo>
-
-<app-input-duo
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="'checkbox'"
-  [titleLeft]="'Active Record'"
-  [valueLeft]="true"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
 ></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />

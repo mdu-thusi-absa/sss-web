@@ -62,6 +62,8 @@ export class InputDuoComponent implements OnInit {
   @Input() showCDLeft = false;
   @Input() showCDRight = false;
 
+  @Input() overflowY="auto"
+
   constructor() { }
 
   ngOnInit(): void {

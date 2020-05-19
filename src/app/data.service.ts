@@ -86,7 +86,8 @@ export class DataService {
     .add(new Entity('Group'))
     .add(new Entity('Trust'))
     .add(new Entity('Regulator'))
-    .add(new Entity('Regulation'));
+    .add(new Entity('Regulation'))
+    .add(new Entity('Auditor'));
   getEntityTypes() {
     return this.entityTypes;
   }
@@ -98,7 +99,8 @@ export class DataService {
     .add(new Entity('Groups'))
     .add(new Entity('Trusts'))
     .add(new Entity('Regulators'))
-    .add(new Entity('Regulations'));
+    .add(new Entity('Regulations'))
+    .add(new Entity('Auditors'));
 
   getEntityTypesPlural() {
     return this.entityTypesPlural;
@@ -324,10 +326,8 @@ export class DataService {
     return this.contactPreferences;
   }
 
-  auditors = new Entities().add(new Entity('Internal')).add(new Entity('PWC'));
-  getAuditors() {
-    return this.auditors;
-  }
+  auditors = new Entities().add(new LegalEntity('Internal')).add(new LegalEntity('PWC'));
+  
   entityGroups = new Entities()
     .add(new FunctionalEntity('- Default -').set('tasksCount', 7))
     .add(new FunctionalEntity('Africa').set('tasksCount', 3))
@@ -360,10 +360,9 @@ export class DataService {
     .add(new Entity('person'))
     .add(new Entity('address'))
     .add(new Entity('file'))
-    .add(new Entity('number'));
-  getCustomTypes() {
-    return this.customTypes;
-  }
+    .add(new Entity('number'))
+    .add(new Entity('contact'));
+  
   persons = new NaturalEntities()
     .add(new NaturalEntity('Froning', 'Richard', 'Mayham'))
     .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
@@ -385,6 +384,8 @@ export class DataService {
     return this.users;
   }
 
+  
+
   getFunctionalEntities(type: number): Entities {
     //console.log(type);
     if (type == 0) {
@@ -405,6 +406,10 @@ export class DataService {
     } else if (type == 6) {
       //console.log(type,'in');
       return this.getRegulations();
+    }
+    else if (type == 7) {
+      //console.log(type,'in');
+      return this.auditors;
     }
     
     else {

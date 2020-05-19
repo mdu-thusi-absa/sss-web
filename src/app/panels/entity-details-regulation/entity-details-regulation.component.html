@@ -3,6 +3,25 @@
   <u>Primary Details: Regulation</u>
 </div>
 
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [typeRight]="'checkbox'"
+  [titleRight]="'Active'"
+  [valueRight]="true"
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
 <app-input-textarea
   [title]="'Description'"
   [placeholder]="'Purpose, intent, notes...'"
@@ -30,14 +49,12 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
-  [typeLeft]="'checkbox'"
-  [titleLeft]="'Active Record'"
-  [valueLeft]="true"
+  [typeLeft]="''"
 
-  [typeRight] = "'select-entity'"
-  [titleRight]="'Regulator'"
-  [valuesRight]="dataService.getRegulators()"
-  [valueRight]="0"
+  [typeLeft] = "'select-entity'"
+  [titleLeft]="'Regulator'"
+  [valuesLeft]="dataService.getRegulators()"
+  [valueLeft]="0"
 
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"

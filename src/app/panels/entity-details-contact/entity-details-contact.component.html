@@ -1,0 +1,102 @@
+<hr class="primary-color" style="height: 1px; margin: 0px;" />
+<div class="h4 text-primary" style="margin-top: 5px;">
+  <u>Primary Details: {{ title }}</u>
+</div>
+
+<app-input-person-contact
+  [title]="title + ': Primary Contact'"
+  [hideBody]="false"
+  [isNarrow] = "isNarrow"
+></app-input-person-contact>
+
+<app-input-person-contact
+  [title]="title + ': Secondary Contact'"
+  [hideBody]="true"
+  [isNarrow] = "isNarrow"
+></app-input-person-contact>
+
+<app-input-person-contact
+  [title]="title + ': Optional Contact'"
+  [hideBody]="true"
+  [isNarrow] = "isNarrow"
+></app-input-person-contact>
+
+<app-input-person-contact
+  [title]="title + ': Emergency Contact'"
+  [hideBody]="true"
+  [isNarrow] = "isNarrow"
+></app-input-person-contact>
+
+<app-input-address
+  [title]="title + ': Primary Physical Address'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [hideBody]="false"
+  [allowCopyOption]="false"
+  [allowDefaultAddressOption]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+  [title]="title + ': Secondary Physical Address'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [hideBody]="false"
+  [allowCopyOption]="false"
+  [allowDefaultAddressOption]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+  [title]="title + ': Optional Physical Address'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [hideBody]="false"
+  [allowCopyOption]="false"
+  [allowDefaultAddressOption]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+  [title]="title + ': Primary Postal Address'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [hideBody]="false"
+  [allowCopyOption]="false"
+  [allowDefaultAddressOption]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+  [title]="title + ': Secondary Postal Address'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [hideBody]="false"
+  [allowCopyOption]="false"
+  [allowDefaultAddressOption]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-address>
+
+<app-input-address
+  [title]="title + ': Optional Postal Address'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [hideBody]="false"
+  [allowCopyOption]="false"
+  [allowDefaultAddressOption]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-address>
+
+<hr style="height: 1px; margin: 0px;" />

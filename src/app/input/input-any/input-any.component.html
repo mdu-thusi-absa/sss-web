@@ -11,9 +11,9 @@
   (onChange)="doChange($event)"
   [minValue]="minValue"
   [maxValue]="maxValue"
-  [showDownload] = "showDownload"
-  [showShare] = "showShare"
-  [showCheck] = "showCheck"
+  [showDownload]="showDownload"
+  [showShare]="showShare"
+  [showCheck]="showCheck"
 ></app-input-number>
 
 <app-input-file
@@ -25,10 +25,10 @@
   (onFile)="doFile()"
   (onRecord)="doRecord()"
   (onTask)="doTask()"
-  [showDownload] = "showDownload"
-  [showShare] = "showShare"
-  [showSelect] = "showSelect"
-  [showCheck] = "showCheck"
+  [showDownload]="showDownload"
+  [showShare]="showShare"
+  [showSelect]="showSelect"
+  [showCheck]="showCheck"
 ></app-input-file>
 
 <app-input-address
@@ -38,9 +38,17 @@
   [title]="title"
   [disabled]="disabled"
   [value]="value"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 >
 </app-input-address>
+
+<app-input-person-contact
+  *ngIf="type == 'contact'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+>
+</app-input-person-contact>
 
 <app-input-text
   *ngIf="type == 'text'"
@@ -57,11 +65,14 @@
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-text>
 
-<app-input-textarea *ngIf="type == 'textarea'" [title]="title"
-[showCheck] = "showCheck">
+<app-input-textarea
+  *ngIf="type == 'textarea'"
+  [title]="title"
+  [showCheck]="showCheck"
+>
 </app-input-textarea>
 
 <app-input-checkbox
@@ -77,7 +88,7 @@
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-checkbox>
 
 <app-input-date
@@ -94,7 +105,7 @@
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-date>
 
 <app-input-select
@@ -108,14 +119,14 @@
   (onFile)="doFile()"
   (onRecord)="doRecord()"
   (onTask)="doTask()"
-  (onAdd) = "doAdd($event)"
+  (onAdd)="doAdd($event)"
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
   [showAdd]="showAdd"
   [showEdit]="showEdit"
   [showDelete]="showDelete"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-select>
 
 <app-input-select-entity
@@ -129,14 +140,14 @@
   (onFile)="doFile()"
   (onRecord)="doRecord()"
   (onTask)="doTask()"
-  (onAdd) = "doAdd($event)"
+  (onAdd)="doAdd($event)"
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
   [showAdd]="showAdd"
   [showEdit]="showEdit"
   [showDelete]="showDelete"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-select-entity>
 
 <app-input-select-checkbox
@@ -152,7 +163,7 @@
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-select-checkbox>
 
 <app-input-person
@@ -170,5 +181,5 @@
   [showAdd]="showAdd"
   [showEdit]="showEdit"
   [showDelete]="showDelete"
-  [showCheck] = "showCheck"
+  [showCheck]="showCheck"
 ></app-input-person>

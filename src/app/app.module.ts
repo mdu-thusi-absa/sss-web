@@ -62,6 +62,9 @@ import { EntityDetailsIndividualSecondaryComponent } from './panels/entity-detai
 import { EntityDetailsRegulatorComponent } from './panels/entity-details-regulator/entity-details-regulator.component';
 import { EntityDetailsRegulationComponent } from './panels/entity-details-regulation/entity-details-regulation.component';
 import { EntityDetailsTrustComponent } from './panels/entity-details-trust/entity-details-trust.component';
+import { EntityDetailsAuditorComponent } from './panels/entity-details-auditor/entity-details-auditor.component';
+import { InputPersonContactComponent } from './input/input-person-contact/input-person-contact.component';
+import { EntityDetailsContactComponent } from './panels/entity-details-contact/entity-details-contact.component';
 
 
 @NgModule({
@@ -120,6 +123,9 @@ import { EntityDetailsTrustComponent } from './panels/entity-details-trust/entit
     EntityDetailsRegulatorComponent,
     EntityDetailsRegulationComponent,
     EntityDetailsTrustComponent,
+    EntityDetailsAuditorComponent,
+    InputPersonContactComponent,
+    EntityDetailsContactComponent,
     
   ],
   imports: [

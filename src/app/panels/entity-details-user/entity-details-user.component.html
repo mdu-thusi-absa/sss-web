@@ -3,6 +3,25 @@
   <u>Primary Details: User</u>
 </div>
 
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [typeRight]="'checkbox'"
+  [titleRight]="'Active'"
+  [valueRight]="true"
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
 <app-input-textarea
   [title]="'Description'"
   [placeholder]="'Position, contact details...'"
@@ -97,12 +116,28 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   
-  [typeRight]="'date'"
-  [titleRight]="'Date of Birth'"
+  [typeLeft]="'date'"
+  [titleLeft]="'Date of Birth'"
 
-  [typeLeft]="'checkbox'"
-  [titleLeft]="'Active Record'"
-  [valueLeft]="true"
+  [typeLeft]="'date'"
+  [titleLeft]="'Date of Death'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  
+  [typeLeft]="'date'"
+  [titleLeft]="'Activation Date'"
+
+  [typeRight]="'date'"
+  [titleRight]="'Deactivation Date'"
 
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -116,19 +151,13 @@
   [doHideByFilter]="true"
   [typeLeft]="'text'"
   [titleLeft]="'Employee Number'"
-  [typeLeft]="'text'"
-  [titleLeft]="'Position / Job Grade'"
+  [typeRight]="'text'"
+  [titleRight]="'Position / Job Grade'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
   [showCheckLeft]="true"
   [showCheckRight]="true"
 ></app-input-duo>
-
-<app-input-textarea
-  [title]="'Emergency Contact Details'"
-  [placeholder]="'Next of kin, neighbour...'"
-  [showCheck]="false"
-></app-input-textarea>
 
 <hr style="height: 1px; margin: 0px;" />

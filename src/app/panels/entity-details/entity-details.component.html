@@ -9,17 +9,17 @@
 </div> -->
 
 <app-input-filter-add
-  [title] = 'dataService.getEntityTypes().get(entityType).name'
+  [title]="dataService.getEntityTypes().get(entityType).name"
   [showSave]="true"
   [showCancel]="true"
   [showT]="true"
-  [showDuplicate] = "true"
-  [showDownload] = "true"
+  [showDuplicate]="true"
+  [showDownload]="true"
   (onFilter)="doFilter($event)"
 ></app-input-filter-add>
 
 <form autocomplete="off">
-  <div *ngIf="entityType != 1 && entityType != 2">
+  <div *ngIf="entityType != 1 && entityType != 2" style="overflow-y: scroll;">
     <app-input-text
       [filterText]="filterText"
       [doHideByFilter]="false"
@@ -43,6 +43,7 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
+      [overflowY]="'scroll'"
     >
     </app-input-duo>
   </div>
@@ -104,9 +105,19 @@
           (onTask)="doTask($event)"
         ></app-entity-details-company-optional>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Company'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
       <div [hidden]="hideCustom">
         <app-entity-details-custom
-        [title] = "'Compnay'"
+          [title]="'Compnay'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -117,7 +128,7 @@
       </div>
       <div [hidden]="hideFiles">
         <app-entity-details-files
-        [title] = "'Company'"
+          [title]="'Company'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -126,7 +137,7 @@
           (onTask)="doTask($event)"
         ></app-entity-details-files>
       </div>
-      <div [hidden]="hideUsers">
+      <!-- <div [hidden]="hideUsers">
         <app-entity-details-users
           [isNarrow]="isNarrow"
           [filterText]="filterText"
@@ -135,9 +146,23 @@
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-users>
+      </div> -->
+      <div
+        [hidden]="
+          !(
+            hidePrimary &&
+            hideSecondary &&
+            hideOptional && hideContacts &&
+            hideCustom &&
+            hideFiles
+          )
+        "
+      >
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
       </div>
-
-      <hr style="height: 1px; margin: 0px;" />
     </div>
     <div [hidden]="entityType != 1">
       <div [hidden]="hidePrimary">
@@ -158,9 +183,19 @@
           (onTask)="doTask($event)"
         ></app-entity-details-individual-secondary>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Individual'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
       <div [hidden]="hideCustom">
         <app-entity-details-custom
-        [title] = "'Individual'"
+          [title]="'Individual'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -171,7 +206,7 @@
       </div>
       <div [hidden]="hideFiles">
         <app-entity-details-files
-        [title] = "'Individual'"
+          [title]="'Individual'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -179,6 +214,14 @@
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-files>
+      </div>
+      <div
+        [hidden]="!(hidePrimary && hideSecondary && hideContacts && hideCustom && hideFiles)"
+      >
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
       </div>
     </div>
     <div [hidden]="entityType != 2">
@@ -191,9 +234,19 @@
           (onTask)="doTask($event)"
         ></app-entity-details-user>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'User'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
       <div [hidden]="hideCustom">
         <app-entity-details-custom
-        [title] = "'User'"
+          [title]="'User'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -204,7 +257,7 @@
       </div>
       <div [hidden]="hideFiles">
         <app-entity-details-files
-        [title] = "'User'"
+          [title]="'User'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -212,6 +265,12 @@
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-files>
+      </div>
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
       </div>
     </div>
     <div [hidden]="entityType != 3">
@@ -224,6 +283,22 @@
           (onTask)="doTask($event)"
         ></app-entity-details-group>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Group'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
+      <div [hidden]="!hidePrimary && hideContacts ">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
+      </div>
     </div>
     <div [hidden]="entityType != 4">
       <div [hidden]="hidePrimary">
@@ -235,9 +310,19 @@
           (onTask)="doTask($event)"
         ></app-entity-details-trust>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Trust'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
       <div [hidden]="hideCustom">
         <app-entity-details-custom
-          [title] = "'Trust'"
+          [title]="'Trust'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -248,7 +333,7 @@
       </div>
       <div [hidden]="hideFiles">
         <app-entity-details-files
-        [title] = "'Trust'"
+          [title]="'Trust'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -256,6 +341,12 @@
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-files>
+      </div>
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
       </div>
     </div>
     <div [hidden]="entityType != 5">
@@ -268,9 +359,19 @@
           (onTask)="doTask($event)"
         ></app-entity-details-regulator>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Regulator'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
       <div [hidden]="hideCustom">
         <app-entity-details-custom
-        [title] = "'Regulator'"
+          [title]="'Regulator'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -281,7 +382,7 @@
       </div>
       <div [hidden]="hideFiles">
         <app-entity-details-files
-        [title] = "'Regulator'"
+          [title]="'Regulator'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -289,6 +390,13 @@
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-files>
+      </div>
+
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
       </div>
     </div>
     <div [hidden]="entityType != 6">
@@ -301,9 +409,19 @@
           (onTask)="doTask($event)"
         ></app-entity-details-regulation>
       </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Regulation'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
       <div [hidden]="hideCustom">
         <app-entity-details-custom
-        [title] = "'Regulation'"
+          [title]="'Regulation'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -314,7 +432,7 @@
       </div>
       <div [hidden]="hideFiles">
         <app-entity-details-files
-        [title] = "'Regulation'"
+          [title]="'Regulation'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -323,110 +441,63 @@
           (onTask)="doTask($event)"
         ></app-entity-details-files>
       </div>
-    </div>
 
-    <!-- Documents table -->
-    <!-- <div
-      class="form-group input-group-sm less-bottom"
-      [hidden]="hideByFilter('Documents')"
-    >
-    <a href="#" data-toggle="collapse" data-target="#documents">
-      <label class="nobottom text-primary">Documents </label><span class="caret"></span>
-    </a>
-    <div id="documents" class="collapse">
-      <table
-        class="table table-condensed table-bordered table-hover less-bottom"
-        style="font-size: smaller;"
-      >
-        <thead class="info">
-          <tr class="info">
-            <th>Upload Date</th>
-            <th>Uploaded by</th>
-            <th>Description</th>
-            <th>Attachment</th>
-            <th>
-              Note
-              <div class="btn-group pull-right">
-                <a
-                  href="#"
-                  class="btn btn-primary primary-color btn-xs"
-                  (click)="showAppointmentEdit()"
-                  ><span class="glyphicon glyphicon-plus"></span
-                ></a>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2005/02/03</td>
-            <td>Vlad</td>
-            <td>MOI</td>
-            <td><a href="#">MOI.pdf</a></td>
-            <td>
-              <div class="btn-group pull-right">
-                <a
-                  href="#"
-                  class="btn btn-primary primary-color btn-xs"
-                  (click)="showAppointmentEdit()"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2010/05/20</td>
-            <td>Dean</td>
-            <td>C14.3</td>
-            <td><a href="#">C14.3.pdf</a></td>
-            <td>
-              <div class="btn-group pull-right">
-                <a
-                  href="#"
-                  class="btn btn-primary primary-color btn-xs"
-                  (click)="showAppointmentEdit()"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2015/10/20</td>
-            <td>Sasha</td>
-            <td>Resolution</td>
-            <td><a href="#">R.2015.10.05.pdf</a></td>
-            <td>
-              Restructuring
-              <div class="btn-group pull-right">
-                <a
-                  href="#"
-                  class="btn btn-primary primary-color btn-xs"
-                  (click)="showAppointmentEdit()"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2019/10/20</td>
-            <td>Ulrich</td>
-            <td>Resolution</td>
-            <td><a href="#">R.2019.10.01.pdf</a></td>
-            <td>
-              Declaration of Dividend
-              <div class="btn-group pull-right">
-                <a
-                  href="#"
-                  class="btn btn-primary primary-color btn-xs"
-                  (click)="showAppointmentEdit()"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
       </div>
-    </div> -->
+    </div>
+    <div [hidden]="entityType != 7">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-auditor
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-auditor>
+      </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Auditor'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [title]="'Auditor'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [title]="'Auditor'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
+      </div>
+    </div>
   </div>
 </form>

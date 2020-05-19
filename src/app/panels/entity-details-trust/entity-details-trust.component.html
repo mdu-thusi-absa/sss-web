@@ -3,27 +3,17 @@
   <u>Primary Details: Trust</u>
 </div>
 
-<app-input-textarea
-  [title]="'Description'"
-  [placeholder]="'Purpose, notes...'"
-  [showCheck]="false"
-></app-input-textarea>
-
 <app-input-duo
   [isNarrow]="isNarrow"
-
-  [typeLeft]="'checkbox'"
-  [titleLeft]="'Active Record'"
-  [valueLeft]="true"
-
-  [typeRight]="'text'"  
-  [titleRight]="'Suffix'"
-
-  [placeholderRight]="
+  [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
     'Suffix - used to differenciate entities with the same name'
   "
+  [typeRight]="'checkbox'"
+  [titleRight]="'Active'"
+  [valueRight]="true"
   [doHideByFilter]="false"
-
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -31,6 +21,12 @@
   [showCheckRight]="true"
 >
 </app-input-duo>
+
+<app-input-textarea
+  [title]="'Description'"
+  [placeholder]="'Purpose, notes...'"
+  [showCheck]="false"
+></app-input-textarea>
 
 <div
   class="form-group input-group-sm less-bottom"

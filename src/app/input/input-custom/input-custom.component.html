@@ -9,7 +9,7 @@
     (onChangeLeft)="doChangeTitle($event)"
     [typeRight]="'select-entity'"
     [titleRight]="title + ' type'"
-    [valuesRight]="dataService.getCustomTypes()"
+    [valuesRight]="dataService.customTypes"
     [valueRight]="4"
     (onChangeRight)="doChangeCustomType($event)"
     [showAddRight]="false"

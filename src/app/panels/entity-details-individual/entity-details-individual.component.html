@@ -5,6 +5,25 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [typeRight]="'checkbox'"
+  [titleRight]="'Active'"
+  [valueRight]="true"
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'text'"
@@ -21,13 +40,8 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
   [typeRight]="'date'"
-  [titleLeft]="'Suffix'"
   [titleRight]="'Curr. Name Effective Date'"
-  [placeholderLeft]="
-    'Suffix - used to differenciate entities with the same name'
-  "
   [doHideByFilter]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -88,39 +102,6 @@
 </app-input-duo>
 
 <app-input-duo
-  [isNarrow]="isNarrow"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="'select-entity'"
-  [titleLeft]="'Contact preference'"
-  [valuesLeft]="dataService.getContactPreferences()"
-  [valueLeft]="0"
-  [typeRight]="'text'"
-  [titleRight]="'Landline'"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
->
-</app-input-duo>
-
-<app-input-duo
-  [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [titleLeft]="'Email'"
-  [typeRight]="'text'"
-  [titleRight]="'Cellphone'"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
-></app-input-duo>
-
-<app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'text'"
@@ -130,24 +111,6 @@
   [titleRight]="'VAT Number'"
   [valuesRight]="[]"
   [valueRight]="''"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
-></app-input-duo>
-
-<app-input-duo
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  
-  [typeRight]="'date'"
-  [titleRight]="'Date of Birth'"
-
-  [typeLeft]="'checkbox'"
-  [titleLeft]="'Active Record'"
-  [valueLeft]="true"
-
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"

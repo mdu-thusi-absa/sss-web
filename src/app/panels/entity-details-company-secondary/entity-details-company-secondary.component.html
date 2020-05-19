@@ -17,29 +17,6 @@
         [showCheckRight] = "true"
     ></app-input-duo>
 
-    <app-input-address
-      [title]="'Registered Office Address'"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [hideBody]="false"
-      [allowCopyOption]="false"
-      [allowDefaultAddressOption]="true"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-    ></app-input-address>
-
-    <app-input-address
-      [title]="'Postal Address'"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [hideBody]="false"
-      [allowCopyOption]="true"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-    ></app-input-address>
-
     <app-input-duo
       [filterText]="filterText"
       [doHideByFilter]="true"

@@ -2,6 +2,21 @@
 <hr class="primary-color" style="height: 1px; margin: 0px;" />
 
 <app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'date'"
+  [titleLeft]="'Date of Birth'"
+  [typeRight]="'date'"
+  [titleRight]="'Date of Death'"
+  [doHideByFilter]="false"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-duo
 [isNarrow]="isNarrow"
 [typeLeft]="'select-entity'"
 [filterText]="filterText"
@@ -23,8 +38,8 @@
   [doHideByFilter]="true"
   [typeLeft]="'text'"
   [titleLeft]="'Employee Number'"
-  [typeLeft]="'text'"
-  [titleLeft]="'Position / Job Grade'"
+  [typeRight]="'text'"
+  [titleRight]="'Position / Job Grade'"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -43,36 +58,6 @@
   [placeholder]="'Organisation, period, position, responsibilities'"
   [showCheck]="false"
 ></app-input-textarea>
-
-<app-input-address
-[title]="'Office Address'"
-[filterText]="filterText"
-[doHideByFilter]="true"
-[hideBody]="false"
-(onFile)="doFile($event)"
-(onRecord)="doRecord($event)"
-(onTask)="doTask($event)"
-></app-input-address>
-
-<app-input-address
-[title]="'Residential Address'"
-[filterText]="filterText"
-[doHideByFilter]="true"
-[hideBody]="false"
-(onFile)="doFile($event)"
-(onRecord)="doRecord($event)"
-(onTask)="doTask($event)"
-></app-input-address>
-
-<app-input-address
-[title]="'Personal Postal Address'"
-[filterText]="filterText"
-[doHideByFilter]="true"
-[hideBody]="false"
-(onFile)="doFile($event)"
-(onRecord)="doRecord($event)"
-(onTask)="doTask($event)"
-></app-input-address>
 
 <div
   class="form-group input-group-sm less-bottom"
@@ -321,11 +306,5 @@
   [showCheckLeft]="true"
   [showCheckRight]="true"
 ></app-input-duo>
-
-<app-input-textarea
-  [title]="'Emergency Contact Details'"
-  [placeholder]="'Next of kin, neighbour...'"
-  [showCheck]="false"
-></app-input-textarea>
 
 <hr style="height: 1px; margin: 0px;" />

@@ -1,0 +1,104 @@
+  <div class="panel panel-default" style="margin-bottom: 5px; margin-top: 5px;">
+    <div
+      class="panel panel-heading panel-info nobottom less-padding text-primary"
+      style="vertical-align: middle; padding-bottom: 0px;"
+    >
+      <a
+        href="#"
+        data-toggle="collapse"
+      [attr.data-target]="'#contact-' + dataService.getID(title)"
+        style="
+          white-space: nowrap;
+          display: inline-block;
+          width: calc(100% - 145px);
+          overflow: hidden;
+        "
+      >
+        <label class="nobottom text-primary"
+          ><small>{{ title }}</small></label
+        >
+      </a>
+    </div>
+
+    <div
+      class="panel panel-body noborder nobottom less-padding collapse"
+      [class.in]="!hideBody"
+      id="{{ 'contact-' + dataService.getID(title) }}"
+      style="margin-top: 0px;"
+    >
+
+      <app-input-duo
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [typeLeft]="'person'"
+        [titleLeft]="'Contact Person'"
+        [valuesLeft]="dataService.persons"
+        [typeRight]="'checkbox'"
+        [titleRight]="'Active'"
+        
+        [valueRight]="0"
+        (onFile)="doFile($event)"
+        (onRecord)="doRecord($event)"
+        (onTask)="doTask($event)"
+        [showCheckLeft]="true"
+        [showCheckRight]="true"
+        [isNarrow] = "isNarrow"
+      ></app-input-duo>
+
+      <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="doHideByFilter"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'On Leave'"
+      [typeRight]="'date'"
+      [titleRight]="'Coming Back Date'"
+      
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+      [isNarrow] = "isNarrow"
+    ></app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="doHideByFilter"
+      [typeLeft]="'select-entity'"
+      [titleLeft]="'Contact Preference'"
+      [valuesLeft] = "dataService.contactPreferences"
+      [valueLeft] = "0"
+      [typeRight]="'text'"
+      [titleRight]="'Email'"
+
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+      [isNarrow] = "isNarrow"
+    ></app-input-duo>
+
+    <app-input-duo
+      [filterText]="filterText"
+      [doHideByFilter]="doHideByFilter"
+      [typeLeft]="'text'"
+      [titleLeft]="'Cellphone'"
+      [typeRight]="'text'"
+      [titleRight]="'Landline'"
+
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+      [isNarrow] = "isNarrow"
+    ></app-input-duo>
+
+      <app-input-textarea
+        [title]="'Note'"
+        [placeholder]="'Position, relationship, importance, contact history...'"
+        [showCheck]="false"
+      ></app-input-textarea>
+    </div>
+  </div>

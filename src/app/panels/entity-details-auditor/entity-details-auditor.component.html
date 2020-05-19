@@ -37,15 +37,30 @@
 [valuesLeft]="dataService.getCountries()"
 [valueLeft]="0"
 
-[typeRight]="'select-checkbox'"
-[titleRight]="'Regulations'"
-[valuesRight] = "dataService.getRegulations()"
-[valueRight] = "0"
 (onFile)="doFile($event)"
 (onRecord)="doRecord($event)"
 (onTask)="doTask($event)"
 [showCheckLeft]="true"
 [showCheckRight]="true"
 ></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Profession Number'"
+  [typeRight]="'person'"
+  [titleRight]="'Partner'"
+  [valuesRight] = "dataService.persons"
+  [valueRight] = "0"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+
+
 
 <hr style="height: 1px; margin: 0px;" />
