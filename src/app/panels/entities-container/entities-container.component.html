@@ -226,7 +226,7 @@
             <small
               ><span class="glyphicon glyphicon-th-large"></span>
 
-              <span class="hidden-xs hidden-sm hidden-md"
+              <span class="hidden-xs hidden-sm hidden-md"  [hidden]="showPanelRight"
                 >&nbsp;Entity Details:</span
               >&nbsp;
               <!-- <div class="btn-group"> -->
@@ -245,7 +245,7 @@
                     [checked]="!hidePrimary"
                     (change)="hidePrimary = !hidePrimary"
                   />
-                  <span class="hidden-xs hidden-sm hidden-md">
+                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
                     <small> Primary </small></span
                   ><span class="glyphicon glyphicon-flag"></span></label
                 >
@@ -270,7 +270,7 @@
                     [checked]="!hideSecondary"
                     (change)="hideSecondary = !hideSecondary"
                   />
-                  <span class="hidden-xs hidden-sm hidden-md">
+                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
                     <small> Secondary </small></span
                   ><span class="glyphicon glyphicon-king"></span></label
                 >
@@ -295,7 +295,7 @@
                     [checked]="!hideOptional"
                     (change)="hideOptional = !hideOptional"
                   />
-                  <span class="hidden-xs hidden-sm hidden-md">
+                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
                     <small> Optional </small></span
                   ><span class="glyphicon glyphicon-gift"></span></label
                 >
@@ -315,7 +315,7 @@
                       [checked]="!hideContacts"
                       (change)="hideContacts = !hideContacts"
                     />
-                    <span class="hidden-xs hidden-sm hidden-md">
+                    <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
                       <small> Contacts </small></span
                     ><span class="glyphicon glyphicon-envelope"></span>
                   </label>
@@ -334,7 +334,7 @@
                     [checked]="!hideCustom"
                     (change)="hideCustom = !hideCustom"
                   />
-                  <span class="hidden-xs hidden-sm hidden-md">
+                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
                     <small> Custom </small></span
                   ><span class="glyphicon glyphicon-wrench"></span>
                 </label>
@@ -353,7 +353,7 @@
                       [checked]="!hideDetailFiles"
                       (change)="hideDetailFiles = !hideDetailFiles"
                     />
-                    <span class="hidden-xs hidden-sm hidden-md">
+                    <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
                       <small> Files </small></span
                     ><span class="glyphicon glyphicon-paperclip"></span>
                   </label>
