@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/data.service';
+import { Entities } from 'src/app/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Component({
@@ -7,13 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./entities-container.component.css'],
 })
 export class EntitiesContainerComponent implements OnInit {
-  constructor() {}
+  constructor(public dataService: DataService) {}
 
   ngOnInit(): void {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
     this.showFileFields = [];
+    this.entityTypes = this.dataService.entityTypes;
   }
 
+  entityTypes: Entities;
   title = 'SSS';
   name: string = 'Max';
 

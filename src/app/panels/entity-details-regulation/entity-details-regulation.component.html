@@ -30,13 +30,13 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
   [typeRight]="'date'"
-  [titleLeft]="'Suffix'"
   [titleRight]="'Effective Date'"
-  [placeholderLeft]="
-    'Suffix - used to differenciate entities with the same name'
-  "
+
+  [typeLeft] = "'select-entity'"
+  [titleLeft]="'Regulator'"
+  [valuesLeft]="dataService.getRegulators()"
+  [valueLeft]="0"
   [doHideByFilter]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -45,22 +45,5 @@
   [showCheckRight]="true"
 >
 </app-input-duo>
-
-<app-input-duo
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="''"
-
-  [typeLeft] = "'select-entity'"
-  [titleLeft]="'Regulator'"
-  [valuesLeft]="dataService.getRegulators()"
-  [valueLeft]="0"
-
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
-></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />

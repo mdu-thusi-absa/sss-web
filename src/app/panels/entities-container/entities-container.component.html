@@ -223,10 +223,12 @@
           "
         >
           <div class="panel-heading mt3">
-            <small
+            <small [hidden] = "entityType == entityTypes.size-1"
               ><span class="glyphicon glyphicon-th-large"></span>
 
-              <span class="hidden-xs hidden-sm hidden-md"  [hidden]="showPanelRight"
+              <span
+                class="hidden-xs hidden-sm hidden-md"
+                [hidden]="showPanelRight"
                 >&nbsp;Entity Details:</span
               >&nbsp;
               <!-- <div class="btn-group"> -->
@@ -243,63 +245,15 @@
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hidePrimary"
-                    (change)="hidePrimary = !hidePrimary"
-                  />
-                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
+                    (change)="hidePrimary = !hidePrimary" />
+                  <span
+                    class="hidden-xs hidden-sm hidden-md"
+                    [hidden]="showPanelRight"
+                  >
                     <small> Primary </small></span
-                  ><span class="glyphicon glyphicon-flag"></span></label
-                >
-                <ng-container
-                  *ngIf="
-                    entityType == 0 ||
-                    entityType == 1 
-                  "
-                >
-                &nbsp;
-                <label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                  "
-                  ><input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideSecondary"
-                    (change)="hideSecondary = !hideSecondary"
-                  />
-                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
-                    <small> Secondary </small></span
-                  ><span class="glyphicon glyphicon-king"></span></label
-                >
-                  </ng-container>
-                <ng-container
-                  *ngIf="
-                    entityType == 0
-                  "
-                >
-                &nbsp;
-                <label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                  "
-                  ><input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideOptional"
-                    (change)="hideOptional = !hideOptional"
-                  />
-                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
-                    <small> Optional </small></span
-                  ><span class="glyphicon glyphicon-gift"></span></label
-                >
-                  </ng-container>
+                  ><span class="glyphicon glyphicon-flag"></span
+                ></label>
+                <ng-container *ngIf="entityType == 0 || entityType == 1">
                   &nbsp;
                   <label
                     style="
@@ -312,13 +266,61 @@
                     ><input
                       type="checkbox"
                       class="btn btn-info"
-                      [checked]="!hideContacts"
-                      (change)="hideContacts = !hideContacts"
-                    />
-                    <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
-                      <small> Contacts </small></span
-                    ><span class="glyphicon glyphicon-envelope"></span>
-                  </label>
+                      [checked]="!hideSecondary"
+                      (change)="hideSecondary = !hideSecondary" />
+                    <span
+                      class="hidden-xs hidden-sm hidden-md"
+                      [hidden]="showPanelRight"
+                    >
+                      <small> Secondary </small></span
+                    ><span class="glyphicon glyphicon-king"></span
+                  ></label>
+                </ng-container>
+                <ng-container *ngIf="entityType == 0">
+                  &nbsp;
+                  <label
+                    style="
+                      white-space: nowrap;
+                      height: 20px;
+                      overflow: hidden;
+                      display: inline-block;
+                      margin-bottom: 0px;
+                    "
+                    ><input
+                      type="checkbox"
+                      class="btn btn-info"
+                      [checked]="!hideOptional"
+                      (change)="hideOptional = !hideOptional" />
+                    <span
+                      class="hidden-xs hidden-sm hidden-md"
+                      [hidden]="showPanelRight"
+                    >
+                      <small> Optional </small></span
+                    ><span class="glyphicon glyphicon-gift"></span
+                  ></label>
+                </ng-container>
+                &nbsp;
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
+                  ><input
+                    type="checkbox"
+                    class="btn btn-info"
+                    [checked]="!hideContacts"
+                    (change)="hideContacts = !hideContacts"
+                  />
+                  <span
+                    class="hidden-xs hidden-sm hidden-md"
+                    [hidden]="showPanelRight"
+                  >
+                    <small> Contacts </small></span
+                  ><span class="glyphicon glyphicon-envelope"></span>
+                </label>
                 &nbsp;
                 <label
                   style="
@@ -334,30 +336,36 @@
                     [checked]="!hideCustom"
                     (change)="hideCustom = !hideCustom"
                   />
-                  <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
+                  <span
+                    class="hidden-xs hidden-sm hidden-md"
+                    [hidden]="showPanelRight"
+                  >
                     <small> Custom </small></span
                   ><span class="glyphicon glyphicon-wrench"></span>
                 </label>
-                  &nbsp;
-                  <label
-                    style="
-                      white-space: nowrap;
-                      height: 20px;
-                      overflow: hidden;
-                      display: inline-block;
-                      margin-bottom: 0px;
-                    "
-                    ><input
-                      type="checkbox"
-                      class="btn btn-info"
-                      [checked]="!hideDetailFiles"
-                      (change)="hideDetailFiles = !hideDetailFiles"
-                    />
-                    <span class="hidden-xs hidden-sm hidden-md" [hidden]="showPanelRight">
-                      <small> Files </small></span
-                    ><span class="glyphicon glyphicon-paperclip"></span>
-                  </label>
-                
+                &nbsp;
+                <label
+                  style="
+                    white-space: nowrap;
+                    height: 20px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-bottom: 0px;
+                  "
+                  ><input
+                    type="checkbox"
+                    class="btn btn-info"
+                    [checked]="!hideDetailFiles"
+                    (change)="hideDetailFiles = !hideDetailFiles"
+                  />
+                  <span
+                    class="hidden-xs hidden-sm hidden-md"
+                    [hidden]="showPanelRight"
+                  >
+                    <small> Files </small></span
+                  ><span class="glyphicon glyphicon-paperclip"></span>
+                </label>
+
                 <!-- &nbsp;<label
                   style="
                     white-space: nowrap;
@@ -382,6 +390,14 @@
               <!-- </div> -->
             </small>
 
+            <small [hidden] = "entityType < entityTypes.size-1"
+              ><span class="glyphicon glyphicon-cog"></span>
+
+              <span 
+                >&nbsp;Settings</span
+              >
+            </small>
+
             <div class="btn-group pull-right">
               <a
                 href="#"
@@ -404,21 +420,40 @@
             [class.container-panel-center-full]="panelRows == 1"
             [class.container-panel-center-half]="panelRows == 2"
           >
-            <app-entity-details
-              [panelRows]="panelRows"
-              (onFile)="doFile($event)"
-              (onRecord)="doRecord($event)"
-              (onTask)="doTask($event)"
-              [hidePrimary]="hidePrimary"
-              [hideSecondary]="hideSecondary"
-              [hideOptional]="hideOptional"
-              [hideCustom]="hideCustom"
-              [hideFiles]="hideDetailFiles"
-              [hideUsers]="false"
-              [hideContacts] = "hideContacts"
-              [isNarrow]="showPanelRight"
-              [entityType]="entityType"
-            ></app-entity-details>
+            <div [hidden]="entityType == entityTypes.size-1">
+              <app-entity-details
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityType"
+              ></app-entity-details>
+            </div>
+            <div [hidden]="entityType < entityTypes.size-1">
+              <app-settings
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityType"
+              ></app-settings>
+            </div>
           </div>
           <!-- <div class="panel-footer mt3">
             <small>1 detail is not complete</small>

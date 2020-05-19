@@ -1,0 +1,136 @@
+<app-input-filter-add
+  [title]="'Settings'"
+  [showSave]="true"
+  [showCancel]="true"
+  [showT]="true"
+  [showDuplicate]="false"
+  [showDownload]="true"
+  (onFilter)="doFilter($event)"
+></app-input-filter-add>
+
+<form autocomplete="off">
+  <div
+    [class.settings-detail-form-full]="isFullScreen()"
+    [class.settings-detail-form-half]="isHalfScreen()"
+  >
+    <app-input-person-contact
+      [title]="'Super User Contact Details'"
+    ></app-input-person-contact>
+
+    <app-input-person-contact
+      [title]="'Support Contact Details'"
+    ></app-input-person-contact>
+
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Countries and default'"
+      [valuesLeft]="dataService.countries"
+      [valueLeft]="0"
+
+      [typeRight]="'select-entity'"
+      [titleRight]="'Industries and default'"
+      [valuesRight]="dataService.industries"
+      [valueRight]="0"
+
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
+
+    <app-input-duo
+    [isNarrow]="isNarrow"
+    [typeLeft]="'select-entity'"
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [titleLeft]="'Business Areas and default'"
+    [valuesLeft]="dataService.businessAreas"
+    [valueLeft]="0"
+
+    [typeRight]="'select-entity'"
+    [titleRight]="'Business Divisions and default'"
+    [valuesRight]="dataService.industries"
+    [valueRight]="0"
+
+    (onFile)="doFile($event)"
+    (onRecord)="doRecord($event)"
+    (onTask)="doTask($event)"
+    [showCheckLeft]="true"
+    [showCheckRight]="true"
+  ></app-input-duo>
+
+  <app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'select-entity'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [titleLeft]="'Legal Classes'"
+  [valuesLeft]="dataService.legalClasses"
+  [valueLeft]="0"
+
+  [typeRight]="'select-entity'"
+  [titleRight]="'Contact Preferences'"
+  [valuesRight]="dataService.contactPreferences"
+  [valueRight]="0"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
+<app-input-duo
+    [isNarrow]="isNarrow"
+    [typeLeft]="'select-entity'"
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [titleLeft]="'Entity Statuses and default'"
+    [valuesLeft]="dataService.entityStatuses"
+    [valueLeft]="0"
+
+    [typeRight]="'select-entity'"
+    [titleRight]="'Entity Status Tiers and default'"
+    [valuesRight]="dataService.entityStatusTiers"
+    [valueRight]="0"
+
+    (onFile)="doFile($event)"
+    (onRecord)="doRecord($event)"
+    (onTask)="doTask($event)"
+    [showCheckLeft]="true"
+    [showCheckRight]="true"
+  ></app-input-duo>
+
+  <app-input-duo
+    [isNarrow]="isNarrow"
+    [typeLeft]="'select-entity'"
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+
+    [titleLeft]="'Accounting Classes and default'"
+    [valuesLeft]="dataService.accountingClasses"
+    [valueLeft]="0"
+
+    [typeRight]="'select-entity'"
+    [titleRight]="'Accounting Class Tiers and default'"
+    [valuesRight]="dataService.accountingTiers"
+    [valueRight]="0"
+
+    (onFile)="doFile($event)"
+    (onRecord)="doRecord($event)"
+    (onTask)="doTask($event)"
+    [showCheckLeft]="true"
+    [showCheckRight]="true"
+  ></app-input-duo>
+
+    <app-input-address
+      [title]="'Entity Default Address'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+    ></app-input-address>
+  </div>
+</form>

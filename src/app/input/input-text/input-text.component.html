@@ -27,5 +27,8 @@
     #inputText
     [ngModel]="value"
     (ngModelChange)="doChange($event)"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    [title] = 'placeholder'
   />
 </div>

@@ -499,5 +499,55 @@
         </div>
       </div>
     </div>
+    <div [hidden]="entityType != 8">
+      <div [hidden]="hidePrimary">
+        <app-entity-details-secretary
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-secretary>
+      </div>
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'External Secretary'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [title]="'External Secretary'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [title]="'External Secretary'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+        <hr class="primary-color" style="height: 1px; margin: 0px;" />
+        <div class="h4 text-primary" style="margin-top: 5px;">
+          <u>Please tick above to select the detail pages to display</u>
+        </div>
+      </div>
+    </div>
   </div>
 </form>

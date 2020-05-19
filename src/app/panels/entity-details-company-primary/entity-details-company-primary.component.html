@@ -24,13 +24,10 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'Registration Number'"
+  [typeLeft]="'date'"
   [typeRight]="'date'"
-  [titleLeft]="'Suffix'"
-  [titleRight]="'Curr. Name Effective Date'"
-  [placeholderLeft]="
-    'Suffix - used to differenciate entities with the same name'
-  "
+  [titleLeft]="'Curr. Name Effective Date'"
+  [titleRight]="'Prev. Name Effective Date'"
   [doHideByFilter]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -39,21 +36,16 @@
         [showCheckRight] = "true"
 >
 </app-input-duo>
-<app-input-duo
-  [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
-  [typeRight]="'date'"
-  [titleLeft]="'Previous Name'"
-  [titleRight]="'Prev. Name Effective Date'"
+<app-input-text
+  [title]="'Previous Name'"
   [filterText]="filterText"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheck] = "true"
 >
-</app-input-duo>
+</app-input-text>
 <app-input-duo
   [isNarrow]="isNarrow"
   [filterText]="filterText"

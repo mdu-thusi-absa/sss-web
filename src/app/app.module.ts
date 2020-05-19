@@ -65,6 +65,8 @@ import { EntityDetailsTrustComponent } from './panels/entity-details-trust/entit
 import { EntityDetailsAuditorComponent } from './panels/entity-details-auditor/entity-details-auditor.component';
 import { InputPersonContactComponent } from './input/input-person-contact/input-person-contact.component';
 import { EntityDetailsContactComponent } from './panels/entity-details-contact/entity-details-contact.component';
+import { SettingsComponent } from './panels/settings/settings.component';
+import { EntityDetailsSecretaryComponent } from './panels/entity-details-secretary/entity-details-secretary.component';
 
 
 @NgModule({
@@ -126,6 +128,8 @@ import { EntityDetailsContactComponent } from './panels/entity-details-contact/e
     EntityDetailsAuditorComponent,
     InputPersonContactComponent,
     EntityDetailsContactComponent,
+    SettingsComponent,
+    EntityDetailsSecretaryComponent,
     
   ],
   imports: [

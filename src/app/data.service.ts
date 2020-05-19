@@ -87,7 +87,10 @@ export class DataService {
     .add(new Entity('Trust'))
     .add(new Entity('Regulator'))
     .add(new Entity('Regulation'))
-    .add(new Entity('Auditor'));
+    .add(new Entity('Auditor'))
+    .add(new Entity('External Secretary'))
+    .add(new Entity('Setting'));
+
   getEntityTypes() {
     return this.entityTypes;
   }
@@ -100,7 +103,9 @@ export class DataService {
     .add(new Entity('Trusts'))
     .add(new Entity('Regulators'))
     .add(new Entity('Regulations'))
-    .add(new Entity('Auditors'));
+    .add(new Entity('Auditors'))
+    .add(new Entity('External Secretaries'))
+    .add(new Entity('Settings'));
 
   getEntityTypesPlural() {
     return this.entityTypesPlural;
@@ -177,7 +182,7 @@ export class DataService {
     return this.trusts
   }
 
-  entities = new Entities()
+  companies = new Entities()
     .add(
       new LegalEntity('Google Pty Ltd')
         .set('tasksCount', 2)
@@ -286,7 +291,7 @@ export class DataService {
     );
 
   getCompanies(): Entities {
-    return this.entities;
+    return this.companies;
   }
   yesNo = new Entities().add(new Entity('Yes')).add(new Entity('No'));
   getYesNo() {

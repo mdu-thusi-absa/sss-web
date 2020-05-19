@@ -31,6 +31,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showDelete = false;
   @Input() showCancel = false;
   @Input() showFilterCount = false;
+  @Input() showInputFilter = true;
   @Output() onDelete = new EventEmitter();
 
   showRadio = false;

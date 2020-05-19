@@ -40,22 +40,25 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
+  [typeLeft]="'date'"
   [typeRight]="'date'"
-  [titleRight]="'Curr. Name Effective Date'"
+  [titleLeft]="'Curr. Name Effective Date'"
+  [titleRight]="'Prev. Name Effective Date'"
   [doHideByFilter]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
 >
 </app-input-duo>
+
 <app-input-duo
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
-  [typeRight]="'date'"
-  [titleLeft]="'Previous Name'"
-  [titleRight]="'Prev. Name Effective Date'"
+  [typeRight]="'text'"
+  [titleLeft]="'Prev. Surname'"
+  [titleRight]="'Prev. Fistname'"
   [filterText]="filterText"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"

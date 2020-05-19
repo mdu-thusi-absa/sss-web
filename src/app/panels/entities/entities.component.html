@@ -116,7 +116,7 @@
     [titlePlural]="'Entities'"
     [showList]="true"
     [listValues]="entityTypesPlural"
-    [listValue] = "entityType"
+    [listValue]="entityType"
     (onListChange)="doEntityTypeChange($event)"
     [showFlash]="true"
     [showPlay]="true"
@@ -132,52 +132,55 @@
     [titlePlay]="'Active Entities'"
     [titleAll]="'All Entities'"
     [titlePause]="'Dormant Entities'"
-    [isNarrow] = "isNarrow"
+    [isNarrow]="isNarrow"
+    [showInputFilter] = "entityType != entityTypesPlural.size-1"
   ></app-input-filter-add>
-  <div
-    [class.entities-full]="isFullScreen()"
-    [class.entities-half]="isHalfScreen()"
-    style="overflow-y: scroll; overflow-x: hidden; scrollbar-width: thin;"
-  >
-    <table
-      class="table table-condensed table-bordered less-bottom"
-      style="font-size: smaller;"
+  <div [hidden]="entityType == entityTypesPlural.size - 1">
+    <div
+      [class.entities-full]="isFullScreen()"
+      [class.entities-half]="isHalfScreen()"
+      style="overflow-y: scroll; overflow-x: hidden; scrollbar-width: thin;"
     >
-      <thead class="info">
-        <tr class="info">
-          <th><small>Name</small></th>
-          <th><small>Tasks</small></th>
-          <th><small>Suffix</small></th>
-        </tr>
-      </thead>
+      <table
+        class="table table-condensed table-bordered less-bottom"
+        style="font-size: smaller;"
+      >
+        <thead class="info">
+          <tr class="info">
+            <th><small>Name</small></th>
+            <th><small>Tasks</small></th>
+            <th><small>Suffix</small></th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr
-          *ngFor="let e of entities | keyvalue"
-          [hidden]="shouldBeHidden(e.value)"
-          [class.info]="e.value.isActive"
-        >
-          <td>
-            <a [href]="e.key">{{ e.value.name }}</a>
-          </td>
-          <td>{{ e.value.tasksCount }}</td>
-          <td>{{ e.value.suffix }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <small class="text-primary"
-      >Total {{ getCount_All() }}. Showing
-      {{ (rdoActiveDormantAll == "all" ? "all " : "") + getCountFiltered() }}
-      {{
-        rdoActiveDormantAll == "play"
-          ? "active "
-          : rdoActiveDormantAll == "pause"
-          ? "dormant "
-          : ""
-      }}
-      {{ entityTypeName.toLowerCase() }}
-      {{ rdoActiveDormantAll == "flash" ? " with outstanding tasks" : "" }}
-    </small>
+        <tbody>
+          <tr
+            *ngFor="let e of entities | keyvalue"
+            [hidden]="shouldBeHidden(e.value)"
+            [class.info]="e.value.isActive"
+          >
+            <td>
+              <a [href]="e.key">{{ e.value.name }}</a>
+            </td>
+            <td>{{ e.value.tasksCount }}</td>
+            <td>{{ e.value.suffix }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <small class="text-primary"
+        >Total {{ getCount_All() }}. Showing
+        {{ (rdoActiveDormantAll == "all" ? "all " : "") + getCountFiltered() }}
+        {{
+          rdoActiveDormantAll == "play"
+            ? "active "
+            : rdoActiveDormantAll == "pause"
+            ? "dormant "
+            : ""
+        }}
+        {{ entityTypeName.toLowerCase() }}
+        {{ rdoActiveDormantAll == "flash" ? " with outstanding tasks" : "" }}
+      </small>
+    </div>
   </div>
   <app-input-date
     [title]="'System Date'"
@@ -189,7 +192,7 @@
   >
   </app-input-date>
   <div class="btn-group wide input-group-sm">
-    <a href="#" class="btn primary-color">
+    <!-- <a href="#" class="btn primary-color">
       <small>
         <span class="glyphicon glyphicon-cog"></span>
         <span
@@ -200,7 +203,7 @@
           >&nbsp; Settings</span
         >&nbsp;</small
       >
-    </a>
+    </a> -->
     <a href="#" class="btn primary-color">
       <small>
         <span class="glyphicon glyphicon-log-out"></span>
@@ -211,12 +214,14 @@
   </div>
 </div>
 
-<div id="myModal" class="modal fade" role="dialog">
+<!-- Modal content-->
+<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+<!-- <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <!-- Modal content-->
+    
     <div class="modal-content">
       <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        
         <h4 class="modal-title">Settings</h4>
       </div>
       <div class="modal-body">
@@ -230,8 +235,10 @@
             >&nbsp;</small
           >
         </a>
-        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->

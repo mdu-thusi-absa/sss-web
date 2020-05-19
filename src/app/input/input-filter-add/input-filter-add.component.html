@@ -185,114 +185,116 @@
   </select>
 </div>
 
-<div class="input-group input-group-sm">
-  <span
-    *ngIf="showTick"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doTick()"
-  >
-    <span class="glyphicon" [class.glyphicon-ok]="true"></span>
-  </span>
-
-  <input
-    type="text"
-    class="form-control input-sm primary-color-input-reverse"
-    [placeholder]="'Filter ' + titlePlural"
-    [(ngModel)]="filterText"
-    (keyup)="doKey($event)"
-    style="font-weight: normal;"
-    autocomplete="nope"
-  />
-
-  <span
-    *ngIf="filterText.length > 0"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doFilterClear()"
-  >
-    <span class="glyphicon glyphicon-erase"></span>
-  </span>
-
-  <span
-    *ngIf="showFilterCount && !isNarrow"
-    class="input-group-addon hidden-xs primary-color-reverse"
-    title="Number of items"
-  >
-    {{ filterCount }}
-  </span>
-
-  <span
-    *ngIf="showShare"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doShare()"
-    [title]="'Share ' + title"
-  >
-    <span class="glyphicon glyphicon-share-alt"></span>
-  </span>
-
-  <span
-    *ngIf="showT"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doT()"
-    [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
-  >
+<div [hidden]="!showInputFilter">
+  <div class="input-group input-group-sm">
     <span
-      class="glyphicon"
-      [class.glyphicon-text-height]="isT"
-      [class.glyphicon-text-width]="!isT"
-    ></span>
-  </span>
+      *ngIf="showTick"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doTick()"
+    >
+      <span class="glyphicon" [class.glyphicon-ok]="true"></span>
+    </span>
 
-  <span
-    *ngIf="showDuplicate"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doDuplicate()"
-    [title]="'Copy ' + title"
-  >
-    <span class="glyphicon glyphicon-duplicate"></span>
-  </span>
+    <input
+      type="text"
+      class="form-control input-sm primary-color-input-reverse"
+      [placeholder]="'Filter ' + titlePlural"
+      [(ngModel)]="filterText"
+      (keyup)="doKey($event)"
+      style="font-weight: normal;"
+      autocomplete="nope"
+    />
 
-  <span
-    *ngIf="showDownload"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doDownload()"
-    [title]="'Download ' + title"
-  >
-    <span class="glyphicon glyphicon-cloud-download"></span>
-  </span>
+    <span
+      *ngIf="filterText.length > 0"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doFilterClear()"
+    >
+      <span class="glyphicon glyphicon-erase"></span>
+    </span>
 
-  <span
-    *ngIf="showSave"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doSave()"
-    [title]="'Save ' + title"
-  >
-    <span class="glyphicon glyphicon-cloud-upload"></span>
-  </span>
+    <span
+      *ngIf="showFilterCount && !isNarrow"
+      class="input-group-addon hidden-xs primary-color-reverse"
+      title="Number of items"
+    >
+      {{ filterCount }}
+    </span>
 
-  <span
-    *ngIf="showDelete"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doDelete()"
-    [title]="'Delete ' + title"
-  >
-    <span class="glyphicon" [class.glyphicon-minus]="showDelete"></span>
-  </span>
+    <span
+      *ngIf="showShare"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doShare()"
+      [title]="'Share ' + title"
+    >
+      <span class="glyphicon glyphicon-share-alt"></span>
+    </span>
 
-  <span
-    *ngIf="showAdd"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doAdd()"
-    [title]="'Add ' + title"
-  >
-    <span class="glyphicon" [class.glyphicon-plus]="showAdd"></span>
-  </span>
+    <span
+      *ngIf="showT"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doT()"
+      [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
+    >
+      <span
+        class="glyphicon"
+        [class.glyphicon-text-height]="isT"
+        [class.glyphicon-text-width]="!isT"
+      ></span>
+    </span>
 
-  <span
-    *ngIf="showCancel"
-    class="input-group-addon btn primary-color-reverse"
-    (click)="doCancel()"
-    [title]="'Discard changes'"
-  >
-    <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
-  </span>
+    <span
+      *ngIf="showDuplicate"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doDuplicate()"
+      [title]="'Copy ' + title"
+    >
+      <span class="glyphicon glyphicon-duplicate"></span>
+    </span>
+
+    <span
+      *ngIf="showDownload"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doDownload()"
+      [title]="'Download ' + title"
+    >
+      <span class="glyphicon glyphicon-cloud-download"></span>
+    </span>
+
+    <span
+      *ngIf="showSave"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doSave()"
+      [title]="'Save ' + title"
+    >
+      <span class="glyphicon glyphicon-cloud-upload"></span>
+    </span>
+
+    <span
+      *ngIf="showDelete"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doDelete()"
+      [title]="'Delete ' + title"
+    >
+      <span class="glyphicon" [class.glyphicon-minus]="showDelete"></span>
+    </span>
+
+    <span
+      *ngIf="showAdd"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doAdd()"
+      [title]="'Add ' + title"
+    >
+      <span class="glyphicon" [class.glyphicon-plus]="showAdd"></span>
+    </span>
+
+    <span
+      *ngIf="showCancel"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doCancel()"
+      [title]="'Discard changes'"
+    >
+      <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
+    </span>
+  </div>
 </div>

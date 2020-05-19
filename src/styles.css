@@ -136,6 +136,20 @@ body {
   scrollbar-width: thin;
 }
 
+.settings-detail-form-full {
+  height: calc(100vh - 65px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.settings-detail-form-half {
+  height: calc(50vh - 65px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
 /*for entities, tasks, records: halfs*/
 /* .panel-body-half {
   height: calc(100vh / 2 - 71.5px);
