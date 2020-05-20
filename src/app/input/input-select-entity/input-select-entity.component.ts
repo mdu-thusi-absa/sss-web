@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Entity, Entities } from '../../models';
+import { EveryEntity, Entities, Entity } from '../../models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() disabled = false;
   //@Input() values = new Map(); //Map of Entity();
-  @Input() values: Entities;
+  @Input() values: Entities = new Entities();
   @Input() value = 0;
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -31,7 +31,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Input() showDelete = false;
   @Input() showCheck = false;
 
-  entity = new Entity('');
+  entity: EveryEntity;
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
@@ -57,6 +57,10 @@ export class InputSelectEntityComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //console.log(this.values);
+    this.entity = this.values.createEntity();
+    //this.entity = new Entity('');
+    //console.log(this.values.createEntity());
     // for (let i = 0; i < this.values.size; i++) {
     //   this.fullNames.push(this.values[i].fullName);
     // }
@@ -77,7 +81,7 @@ export class InputSelectEntityComponent implements OnInit {
     this.onRecord.emit(this.title);
   }
 
-  setItem(entity: Entity) {
+  setItem(entity: EveryEntity) {
     // this.values.sort(function (a, b) {
     //   return a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase());
     // });
@@ -138,7 +142,7 @@ export class InputSelectEntityComponent implements OnInit {
     } else {
       //new is clicked
       this.isAdd = true;
-      this.entity = new Entity('');
+      this.entity = this.values.createEntity();
     }
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
@@ -216,6 +220,7 @@ export class InputSelectEntityComponent implements OnInit {
 
   doChange(event: any){
     this.value = +event.target.value;
+    this.values.currentKey =this.value
     this.onSelect.emit(this.value);
     this.onChange.emit(this.value)
   }
@@ -241,7 +246,7 @@ export class InputSelectEntityComponent implements OnInit {
     } else {
       let v = this.values.all_values;
       for (let i=0; i<this.values.size; i++){
-        let e: Entity = v[i];
+        let e: EveryEntity = v[i];
         //console.log(i,this.values.size,e)
         if (e) {
           if (!this.hideItem(e)) {
@@ -255,7 +260,7 @@ export class InputSelectEntityComponent implements OnInit {
     //v.filter((e) => !this.hideItem(e)).length;
   }
 
-  hideItem(entity: Entity) {
+  hideItem(entity: EveryEntity) {
     let r = false;
     if (this.listFilterText) {
       if (entity != undefined)

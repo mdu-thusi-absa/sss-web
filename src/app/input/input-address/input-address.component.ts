@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Country, Countries, Cities, Entities } from 'src/app/models';
+import { Country, Countries, Cities, Entities, City } from 'src/app/models';
 import { DataService } from 'src/app/data.service'
 
 @Component({
@@ -36,8 +36,7 @@ export class InputAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.countries = this.data.getCountries();
-    //console.log(this.countries);
+    this.countries = this.data.countries;
     this.cities = this.countries.get(this.getCountryIndex()).cities;  
   }
 
@@ -70,16 +69,11 @@ export class InputAddressComponent implements OnInit {
   }
 
   doAddCountry(event: any){
-    //this.data.addCountry(+event);
-    console.log('doAddCountry',event)
     let c = this.countries.get(+event)
-    c.cities = new Cities();
-    //console.log(c);
     this.cities = c.cities;
   }
 
   doChangeInputTextCountry(event: any){
-    //console.log('country text',event.name);
     this.countryText = event.name;
   }
 
@@ -89,7 +83,6 @@ export class InputAddressComponent implements OnInit {
 
   getCountryIndex(){
     if (this.countries.has(this.countryIndex)){
-      //this.countryIndex = 
     }
     else{
       this.countryIndex = this.countries.all_keys[0];
@@ -99,7 +92,8 @@ export class InputAddressComponent implements OnInit {
 
   doSelectCountry(event: any){
     this.countryIndex = +event;
-    console.log(this.title,this.countryIndex)
+    console.log(this.countryIndex);
+    this.cities = this.countries.get(this.countryIndex).cities;
     //console.log('doSelectCountry:d',event)
     
     // this.cities = this.countries.get(this.countryIndex).cities;

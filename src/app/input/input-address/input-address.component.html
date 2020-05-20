@@ -58,6 +58,7 @@
           ></app-input-textarea>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          countryIndex: {{countryIndex}}
           <app-input-select-entity
             [title]="'Country'"
             [values]="countries"
@@ -80,7 +81,7 @@
           cityIndex: {{cityIndex}} -->
           <app-input-select-entity
             [title]="'City'"
-            [values]="this.countries.get(this.getCountryIndex()).cities"
+            [values]="this.countries.get(this.countryIndex).cities"
             [value]="cityIndex"
             [showFlash]="false"
             [showPaperclip]="false"

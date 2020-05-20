@@ -45,7 +45,7 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   getEntityName(){
-    return this.entity.name;
+    return this.entity ? this.entity.name :'';
   }
 
   setEntityName(v: string){

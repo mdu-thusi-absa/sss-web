@@ -12,12 +12,11 @@
         type="text"
         class="form-control input-sm"
         [placeholder]="'File name'"
-        [(ngModel)]="filterText"
+        [value]="fileName"
         (keyup)="doKey($event)"
         style="font-weight: normal;"
         autocomplete="nope"
       />
-
 
       <span
         *ngIf="showMinus"
@@ -29,22 +28,22 @@
       </span>
 
       <span
-      *ngIf="showDownload"
-      class="input-group-addon btn primary-color-reverse"
-      (click)="doDownload()"
-      [title]="'Download'"
-    >
-      <span class="glyphicon glyphicon-cloud-download"></span>
-    </span>
+        *ngIf="showDownload"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDownload()"
+        [title]="'Download'"
+      >
+        <span class="glyphicon glyphicon-cloud-download"></span>
+      </span>
 
-    <span
-      *ngIf="doShare"
-      class="input-group-addon btn primary-color-reverse"
-      (click)="doShare()"
-      [title]="'Share'"
-    >
-      <span class="glyphicon glyphicon-share-alt"></span>
-    </span>
+      <span
+        *ngIf="doShare"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doShare()"
+        [title]="'Share'"
+      >
+        <span class="glyphicon glyphicon-share-alt"></span>
+      </span>
 
       <span
         *ngIf="showLink"
@@ -58,20 +57,22 @@
       <span
         *ngIf="showDisk"
         class="input-group-addon btn primary-color-reverse"
-        (click)="doDisk()"
-        [title]="'Browse for file'"
+        (click)="fileBrowse($event)"
+        [title]="'Browse for file to upload'"
       >
         <span class="glyphicon glyphicon-floppy-disk"></span>
       </span>
     </div>
   </div>
+  fileToUpload:{{fileToUpload}}
+  <!-- for larger -->
   <div class="hidden-sm hidden-md hidden-lg">
     <div class="input-group-sm">
       <input
         type="text"
         class="form-control input-sm"
         [placeholder]="'File name'"
-        [(ngModel)]="filterText"
+        [value]="fileName"
         (keyup)="doKey($event)"
         style="font-weight: normal;"
         autocomplete="nope"
@@ -116,18 +117,22 @@
       <span
         *ngIf="showDisk"
         class="input-group-addon btn primary-color-reverse"
-        (click)="file.click();"
-        [title]="'Browse for file'"
+        (click)="fileBrowse($event)"
+        [title]="'Browse for file to upload'"
       >
-        <span class="glyphicon glyphicon-floppy-disk"></span>
+        <span class="glyphicon glyphicon-floppy-disk">s</span>
       </span>
     </div>
   </div>
 </div>
 
 <div class="form-group" hidden>
-  <a href="#" class="btn" (click)="file.click();">abcd</a>
-  <input type="file" #file hidden
-         id="file" 
-         (change)="handleFileInput($event.target.files)" />
+  <a href="#" class="btn">hidden File Browse</a>
+  <input
+    type="file"
+    [attr.id]="'file'"
+    [attr.name]="'file'"
+    id="file"
+    (change)="handleFileInput($event.target.files)"
+  />
 </div>

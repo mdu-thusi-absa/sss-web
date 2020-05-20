@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-browse',
@@ -17,7 +18,8 @@ export class InputBrowseComponent implements OnInit {
   fileName = '';
   fileToUpload: File = null;
 
-  constructor() {}
+
+  constructor(public dataService: DataService) {}
 
   ngOnInit(): void {}
 
@@ -36,6 +38,24 @@ export class InputBrowseComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
+    console.log('in')
+    console.log(files.item(0));
     this.fileToUpload = files.item(0);
+    this.fileName = this.fileToUpload.name;
   }
+
+  fileBrowse(event: any){
+    //let t = 'file-' + this.dataService.getID(this.title)
+    let t = 'file';
+    console.log(t);
+    event.preventDefault();
+
+    let element: HTMLElement = document.getElementById(t) as HTMLElement;
+    element.click();
+  }
+
+  // onFileChange(event: any){
+  //   let files = event.target.files;
+  //   this.fileToUpload = files[0].name;
+  // }
 }

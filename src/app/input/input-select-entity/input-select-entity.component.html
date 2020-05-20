@@ -87,6 +87,7 @@
           name="option"
           (change)="doChange($event)"
           [attr.id]="'#select-Item'"
+          autocomplete="nope"
         >
           <option
             *ngFor="let e of values | keyvalue"

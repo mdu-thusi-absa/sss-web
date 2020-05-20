@@ -331,6 +331,10 @@ export class Entities extends Map<number, EveryEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
+  createEntity(){
+    return new Entity('');
+  }
+
   get currentKey(){
     return this.currentKey_;
   }
@@ -382,6 +386,12 @@ export class Entities extends Map<number, EveryEntity> {
 export class Countries extends Map<number, Country>{
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
+  
+  createEntity(){
+    let c = new Country('') 
+    c.cities.add(new City('-NA-'))
+    return c;
+  }
 
   get currentKey(){
     return this.currentKey_;
@@ -401,6 +411,7 @@ export class Countries extends Map<number, Country>{
 
   cities = new Cities();
   add(value: Country): Countries {
+    if (!value.cities==null) value.cities = new Cities();
     super.set(super.size, value);
     return this;
   }
@@ -434,6 +445,10 @@ export class Countries extends Map<number, Country>{
 export class Cities extends Map<number, City> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
+  
+  createEntity(){
+    return new City('');
+  }
 
   get currentKey(){
     return this.currentKey_;
@@ -486,6 +501,10 @@ export class Cities extends Map<number, City> {
 export class FunctionalEntities extends Map<number, FunctionalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
+  
+  createEntity(){
+    return new FunctionalEntity('');
+  }
 
   get currentKey(){
     return this.currentKey_;
@@ -537,6 +556,10 @@ export class FunctionalEntities extends Map<number, FunctionalEntity> {
 export class Users extends Map<number, User>  {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
+  
+  createEntity(){
+    return new User('','','');
+  }
 
   get currentKey(){
     return this.currentKey_;
@@ -589,6 +612,12 @@ export class LegalEntities extends Map<number, LegalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
+  
+  createEntity(){
+    return new LegalEntity('');
+  }
+
+
   get currentKey(){
     return this.currentKey_;
   }
@@ -639,6 +668,12 @@ export class LegalEntities extends Map<number, LegalEntity> {
 export class NaturalEntities extends Map<number, NaturalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
+
+  
+  createEntity(){
+    return new NaturalEntity('','','');
+  }
+
 
   get currentKey(){
     return this.currentKey_;
