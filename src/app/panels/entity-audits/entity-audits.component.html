@@ -1,0 +1,47 @@
+<app-input-filter-add
+  [filterCount]="getCountFiltered()"
+  [showAdd] = "!isNew"
+  [isAdd]="isNew"
+  [showCancel] = "isNew"
+  (onFilter)="doFilter($event)"
+  (onAdd)="doAdd()"
+  (onCancel)="doCancel()"
+  (onT) = "isFilterByTextToo = !isFilterByTextToo"
+  [showT] = "true"
+  [title] = "'Task'"
+  [titleT] = "'Task text'"
+  [titlePlural] = "'Tasks'"
+
+  [radioChoice] = "'all'"
+  [showPlay] = "true"
+  [titlePlay] = "'Active Tasks'"
+  [countPlay] = "getCount_Active()"
+
+  [showOk] = "true"
+  [titleOk] = "'Done'"
+  [countOk] = "getCount_Done()"
+
+  [showAll] = "true"
+  [titleAll] = "'All Tasks'"
+  [countAll] = "getCount_All()"
+
+  (onChoice) = "rdoChoice = $event"
+
+></app-input-filter-add>
+<div class="entities-tasks">
+  <app-entity-task
+    style="margin-top: 0px;"
+    [hidden]="!isNew"
+    [task]="newTask"
+    [isEdit]="isNew"
+    (onClose)="isNew = false"
+    [isNarrow] = "isNarrow"
+  ></app-entity-task>
+
+  <div
+    *ngFor="let task of list; let i = index"
+    [hidden]="shouldHideTask(task)"
+  > 
+    <app-entity-task [task]="task" [index]="i + 1" [isNarrow]="isNarrow"></app-entity-task>
+  </div>
+</div>

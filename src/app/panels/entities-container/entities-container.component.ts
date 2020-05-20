@@ -26,6 +26,7 @@ export class EntitiesContainerComponent implements OnInit {
   isHalf = false;
 
   hideTasks = false;
+  hideAudits = true;
   hideHistory = true;
   hideFiles = true;
   panelRows = 1;
@@ -122,10 +123,17 @@ export class EntitiesContainerComponent implements OnInit {
     else return w;
   }
 
+  showHideAudits(){
+    this.hideAudits = !this.hideAudits;
+    this.hidePosts = !this.hideAudits;
+    this.hideTasks = !this.hideAudits;
+    this.showPanelRight = !this.hideAudits;
+  }
   showHideTasks() {
     //console.log(this.showPanelRight);
     this.hideTasks = !this.hideTasks;
     this.hidePosts = !this.hideTasks;
+    this.hideAudits = !this.hideTasks
     this.showPanelRight = !this.hideTasks;
     // this.showHide_(0, doShow);
     // this.setPaneRowCount();
@@ -134,6 +142,7 @@ export class EntitiesContainerComponent implements OnInit {
   showHidePosts() {
     this.hidePosts = !this.hidePosts;
     this.hideTasks = !this.hidePosts;
+    this.hideAudits = !this.hideTasks
     this.showPanelRight = !this.hidePosts;
     //this.showPanelRight = !this.hideTasks || !this.hidePosts;
     // this.showHide_(0, doShow);

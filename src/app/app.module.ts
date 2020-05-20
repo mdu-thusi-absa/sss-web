@@ -67,6 +67,8 @@ import { InputPersonContactComponent } from './input/input-person-contact/input-
 import { EntityDetailsContactComponent } from './panels/entity-details-contact/entity-details-contact.component';
 import { SettingsComponent } from './panels/settings/settings.component';
 import { EntityDetailsSecretaryComponent } from './panels/entity-details-secretary/entity-details-secretary.component';
+import { EntityAuditComponent } from './panels/entity-audit/entity-audit.component';
+import { EntityAuditsComponent } from './panels/entity-audits/entity-audits.component';
 
 
 @NgModule({
@@ -130,6 +132,8 @@ import { EntityDetailsSecretaryComponent } from './panels/entity-details-secreta
     EntityDetailsContactComponent,
     SettingsComponent,
     EntityDetailsSecretaryComponent,
+    EntityAuditComponent,
+    EntityAuditsComponent,
     
   ],
   imports: [

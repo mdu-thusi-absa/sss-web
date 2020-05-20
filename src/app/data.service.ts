@@ -34,7 +34,7 @@ export class DataService {
     let c = new Country('GBR');
     c.cities.add(new City('LON')).add(new City('MAN')).add(new City('LIV'));
     this.countries.add(c);
-    
+
     this.countries.add(new Country("ARUBA"));
     this.countries.add(new Country("AFGHANISTAN"));
     this.countries.add(new Country("ANGOLA"));
@@ -366,9 +366,9 @@ export class DataService {
 
   //Business Area
   businessAreas = new Entities()
-    .add(new Entity('Banking'))
-    .add(new Entity('Asset Manager'))
-    .add(new Entity('Property'));
+    .add(new Entity('Finance'))
+    .add(new Entity('Property'))
+    .add(new Entity('Retail'));
   getBusinessAreas() {
     return this.businessAreas;
   }
@@ -393,9 +393,9 @@ export class DataService {
     return this.entityStatuses;
   }
   entityStatusTiers = new Entities()
-    .add(new Entity('Active'))
-    .add(new Entity('Dormant'))
-    .add(new Entity('Closed'));
+    .add(new Entity('Tier 1'))
+    .add(new Entity('Tier 2'))
+    .add(new Entity('Tier 3'));
   getEntityStatusTiers() {
     return this.entityStatusTiers;
   }
