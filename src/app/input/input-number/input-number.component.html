@@ -12,7 +12,7 @@
     <input
       type="text"
       class="form-control input-sm"
-      [placeholder]="'File name'"
+      [placeholder]="'Quantity'"
       (keyup)="doKeyUp($event)"
       (keydown) = "doKeyDown($event)"
       style="font-weight: normal;"
@@ -37,6 +37,7 @@
       class="input-group-addon btn primary-color-reverse"
       (click)="doPlus()"
       [title]="'Increase'"
+      style="border-left: solid var(--bg-color-active) 1px;"
     >
       <span class="glyphicon glyphicon-plus"></span>
     </span>

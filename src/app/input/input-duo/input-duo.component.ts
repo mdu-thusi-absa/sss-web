@@ -52,6 +52,7 @@ export class InputDuoComponent implements OnInit {
   @Output() onChangeRight = new EventEmitter();
   @Output() onAddLeft = new EventEmitter();
   @Output() onAddRight = new EventEmitter();
+  @Output() onCheck = new EventEmitter();
 
   @Input() showFlashLeft = false;
   @Input() showFlashRight = false;
@@ -69,6 +70,10 @@ export class InputDuoComponent implements OnInit {
   ngOnInit(): void {
     if (this.placeholderLeft=='') this.placeholderLeft = this.titleLeft;
     if (this.placeholderRight=='') this.placeholderRight = this.titleRight;
+  }
+
+  doCheck(event: any){
+    this.onCheck.emit(event);
   }
 
   doAddLeft(event: any){

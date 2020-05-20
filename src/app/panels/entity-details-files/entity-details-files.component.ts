@@ -19,6 +19,7 @@ export class EntityDetailsFilesComponent implements OnInit {
   customCount = 1; //default number to display
   elements = new Array(this.customCount);
   elementsType: string[] = new Array(50); //max number
+  selectedCount = 0;
 
   constructor() { }
 
@@ -26,6 +27,10 @@ export class EntityDetailsFilesComponent implements OnInit {
     for(let i=0; i<this.elementsType.length; i++){
        this.elementsType[i] = 'text';
     }
+  }
+
+  doSelectItem(event: any){
+    this.selectedCount = this.selectedCount + (event ? 1 : -1)
   }
 
   doRecord(event: any){

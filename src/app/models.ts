@@ -43,6 +43,10 @@ export class City extends Entity {
     super(name);
   }
 }
+export class FileEntity extends Entity{
+  title = '';
+  description = '';
+}
 export class FunctionalEntity extends Entity {
   public type: string;
   public suffix = '';
@@ -381,6 +385,61 @@ export class Entities extends Map<number, EveryEntity> {
   get all_entries() {
     return [...super.entries()];
   }
+}
+
+export class FileEntities extends Map<number, FileEntity>{
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+  
+  createEntity(){
+    return this;
+  }
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
+  add(value: FileEntity): FileEntities {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: FileEntity): FileEntities {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): FileEntities {
+    super.delete(key);
+    return this;
+  }
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }  
 }
 
 export class Countries extends Map<number, Country>{

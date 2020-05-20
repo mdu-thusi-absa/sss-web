@@ -25,11 +25,18 @@ export class InputFileComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onChange = new EventEmitter();
+  @Output() onCheck = new EventEmitter();
 
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  doCheckField(event: any){
+    //let f = event.target.value;
+    let c = event.target.checked;
+    this.onCheck.emit(c);
   }
 
   doFile() {

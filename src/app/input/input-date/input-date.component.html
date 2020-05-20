@@ -27,7 +27,7 @@
       <input
         type="text"
         bsDatepicker
-        class="form-control"
+        class="form-control custom-today-class"
         #dpDate="bsDatepicker"
         [(ngModel)]="value"
         [bsConfig]="{
@@ -39,9 +39,12 @@
         [placeholder]="placeholder"
         [disabled]="disabled"
         autocomplete="nope"
+        [title]="title"
       />
-
-      <span class="input-group-addon" (click)="dpDate.toggle()">
+      <span class="input-group-addon" (click)="gotoToday()" [title]="'Today'">
+        <span class="glyphicon glyphicon-time primary-color-reverse"></span>
+      </span>
+      <span class="input-group-addon" (click)="dpDate.toggle()" [title]="'Choose date'">
         <span class="glyphicon glyphicon-calendar primary-color-reverse"></span>
       </span>
     </div>

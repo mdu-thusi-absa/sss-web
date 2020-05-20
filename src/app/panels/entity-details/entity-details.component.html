@@ -17,10 +17,6 @@
   [showDownload]="true"
   (onFilter)="doFilter($event)"
 ></app-input-filter-add>
-<!-- entity:{{entity | json}}
-currentKey:{{entities.currentKey}}
-currValue:{{entities.get(entities.currentKey)}}
-currName:{{entities.get(entities.currentKey).name}} -->
 <form autocomplete="off">
   <div *ngIf="entityType != 1 && entityType != 2" style="overflow-y: scroll;">
     <app-input-text

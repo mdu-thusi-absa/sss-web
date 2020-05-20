@@ -7,6 +7,11 @@
   [typeLeft]="'number'"
   [titleLeft]="'Number of files'"
   [valueLeft]="1"
+
+  [typeRight] = "'text'"
+  [titleRight] = "'Number of Selected Items'"
+  [valueRight] = "selectedCount"
+
   [minValueLeft]="1"
   [maxValueLeft]="1000"
   [incrementLeft]="1"
@@ -34,6 +39,7 @@
       (onFile)="doFile(i)"
       (onRecord)="doRecord(i)"
       (onTask)="doTask(i)" 
+      (onCheck) = "doSelectItem($event)"
     ></app-input-any> 
 </div>
 

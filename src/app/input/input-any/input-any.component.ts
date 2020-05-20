@@ -33,6 +33,7 @@ export class InputAnyComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onChange = new EventEmitter();
   @Output() onAdd = new EventEmitter();
+  @Output() onCheck = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -41,6 +42,10 @@ export class InputAnyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  doCheck(event: any){
+    this.onCheck.emit(event);
   }
 
   doAdd(event: any){
