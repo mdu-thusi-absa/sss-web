@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, NaturalEntity, NaturalEntities } from '../../models'
+import { Entity, NaturalEntity, NaturalEntities, EveryEntity, Entities } from '../../models'
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -23,7 +23,8 @@ export class EntityDetailsComponent implements OnInit {
   @Input() panelRows = 1;
   @Input() entityType = 0;
   //@Input() entityKey = 0;
-  entity: Entity;
+  private entity_: EveryEntity;
+  entities: Entities;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -33,6 +34,39 @@ export class EntityDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = this.dataService.getPersons();
+    this.entities = this.dataService.getFunctionalEntities(this.entityType)
+    this.entity_ = this.entities.currentValue;
+  }
+
+  get entity(){
+    this.entities = this.dataService.getFunctionalEntities(this.entityType)
+    this.entity_ = this.entities.currentValue;
+    return this.entity_;
+  }
+
+  getEntityName(){
+    return this.entity.name;
+  }
+
+  setEntityName(v: string){
+    this.entity.name = v;
+  }
+
+  setSurname(v: string){
+    this.entity['surname'] = v;
+  }
+
+  setFirstName(v: string){
+    console.log(v);
+    this.entity['firstName'] = v;
+  }
+
+  getSurname(){
+    return this.entity['surname'] ;
+  }
+
+  getFirstName(){
+    return this.entity['firstName'];
   }
 
   doFilter(event: any){

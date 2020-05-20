@@ -328,7 +328,25 @@ export type EveryEntity =
 // }
 
 export class Entities extends Map<number, EveryEntity> {
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   add(value: EveryEntity): Entities {
     super.set(super.size, value);
     return this;
@@ -362,7 +380,25 @@ export class Entities extends Map<number, EveryEntity> {
 }
 
 export class Countries extends Map<number, Country>{
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   cities = new Cities();
   add(value: Country): Countries {
     super.set(super.size, value);
@@ -396,7 +432,25 @@ export class Countries extends Map<number, Country>{
 }
 
 export class Cities extends Map<number, City> {
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   add(value: City): Cities {
     super.set(super.size, value);
     return this;
@@ -430,7 +484,25 @@ export class Cities extends Map<number, City> {
 
 
 export class FunctionalEntities extends Map<number, FunctionalEntity> {
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   add(value: FunctionalEntity): FunctionalEntities {
     super.set(super.size, value);
     return this;
@@ -463,7 +535,25 @@ export class FunctionalEntities extends Map<number, FunctionalEntity> {
 }
 
 export class Users extends Map<number, User>  {
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   add(value: User): Users {
     super.set(super.size, value);
     return this;
@@ -496,7 +586,25 @@ export class Users extends Map<number, User>  {
 }
 
 export class LegalEntities extends Map<number, LegalEntity> {
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   add(value: LegalEntity): LegalEntities {
     super.set(super.size, value);
     return this;
@@ -529,7 +637,25 @@ export class LegalEntities extends Map<number, LegalEntity> {
 }
 
 export class NaturalEntities extends Map<number, NaturalEntity> {
-  currentIndex = 0;
+  currentKey_ = -1;
+  currentValue_: EveryEntity = null;
+
+  get currentKey(){
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number){
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue(){
+    if (this.currentKey_==-1 && this.size>0){
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
   add(value: NaturalEntity): NaturalEntities {
     super.set(super.size, value);
     return this;

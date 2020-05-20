@@ -223,7 +223,7 @@
           "
         >
           <div class="panel-heading mt3">
-            <small [hidden] = "entityType == entityTypes.size-1"
+            <small [hidden]="entityType == entityTypes.size - 1"
               ><span class="glyphicon glyphicon-th-large"></span>
 
               <span
@@ -233,6 +233,11 @@
               >&nbsp;
               <!-- <div class="btn-group"> -->
               <div class="btn-group" style="vertical-align: top; height: 20px;">
+                <!-- <div class="btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-info">
+                    <input type="checkbox" checked autocomplete="off"> Checked
+                  </label>
+                </div> -->
                 <label
                   style="
                     white-space: nowrap;
@@ -241,18 +246,28 @@
                     display: inline-block;
                     margin-bottom: 0px;
                   "
-                  ><input
+                >
+                  <a
+                    data-toggle="button"
+                    href="#"
+                    class="btn btn-info btn-xs active"
+                    (click)="hidePrimary = !hidePrimary"
+                    ><span class="glyphicon glyphicon-flag"></span>
+                  </a>
+                  <!-- <input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hidePrimary"
-                    (change)="hidePrimary = !hidePrimary" />
+                    (change)="hidePrimary = !hidePrimary" /> -->
                   <span
                     class="hidden-xs hidden-sm hidden-md"
                     [hidden]="showPanelRight"
                   >
                     <small> Primary </small></span
-                  ><span class="glyphicon glyphicon-flag"></span
-                ></label>
+                  >
+                  <!-- <span class="glyphicon glyphicon-flag"></span> -->
+                
+              </label>
                 <ng-container *ngIf="entityType == 0 || entityType == 1">
                   &nbsp;
                   <label
@@ -263,18 +278,27 @@
                       display: inline-block;
                       margin-bottom: 0px;
                     "
-                    ><input
+                    >
+                    <a
+                    data-toggle="button"
+                    href="#"
+                    class="btn btn-info btn-xs"
+                    (click)="hideSecondary = !hideSecondary"
+                    ><span class="glyphicon glyphicon-king"></span>
+                  </a>
+                    <!-- <input
                       type="checkbox"
                       class="btn btn-info"
                       [checked]="!hideSecondary"
-                      (change)="hideSecondary = !hideSecondary" />
+                      (change)="hideSecondary = !hideSecondary" /> -->
                     <span
                       class="hidden-xs hidden-sm hidden-md"
                       [hidden]="showPanelRight"
                     >
                       <small> Secondary </small></span
-                    ><span class="glyphicon glyphicon-king"></span
-                  ></label>
+                    >
+                    <!-- <span class="glyphicon glyphicon-king"></span> -->
+                  </label>
                 </ng-container>
                 <ng-container *ngIf="entityType == 0">
                   &nbsp;
@@ -286,18 +310,28 @@
                       display: inline-block;
                       margin-bottom: 0px;
                     "
-                    ><input
+                    >
+                    <a
+                    data-toggle="button"
+                    href="#"
+                    class="btn btn-info btn-xs"
+                    (click)="hideOptional = !hideOptional"
+                    >
+                    <span class="glyphicon glyphicon-gift"></span> 
+                  </a>
+                    <!-- <input
                       type="checkbox"
                       class="btn btn-info"
                       [checked]="!hideOptional"
-                      (change)="hideOptional = !hideOptional" />
+                      (change)="hideOptional = !hideOptional" /> -->
                     <span
                       class="hidden-xs hidden-sm hidden-md"
                       [hidden]="showPanelRight"
                     >
                       <small> Optional </small></span
-                    ><span class="glyphicon glyphicon-gift"></span
-                  ></label>
+                    >
+                    <!-- <span class="glyphicon glyphicon-gift"></span> -->
+                  </label>
                 </ng-container>
                 &nbsp;
                 <label
@@ -308,18 +342,27 @@
                     display: inline-block;
                     margin-bottom: 0px;
                   "
-                  ><input
+                  >
+                  <a
+                    data-toggle="button"
+                    href="#"
+                    class="btn btn-info btn-xs"
+                    (click)="hideContacts = !hideContacts"
+                    ><span class="glyphicon glyphicon-envelope"></span>
+                  </a>
+                  <!-- <input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hideContacts"
                     (change)="hideContacts = !hideContacts"
-                  />
+                  /> -->
                   <span
                     class="hidden-xs hidden-sm hidden-md"
                     [hidden]="showPanelRight"
                   >
                     <small> Contacts </small></span
-                  ><span class="glyphicon glyphicon-envelope"></span>
+                  >
+                  <!-- <span class="glyphicon glyphicon-envelope"></span> -->
                 </label>
                 &nbsp;
                 <label
@@ -330,18 +373,27 @@
                     display: inline-block;
                     margin-bottom: 0px;
                   "
-                  ><input
+                  >
+                  <!-- <input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hideCustom"
                     (change)="hideCustom = !hideCustom"
-                  />
+                  /> -->
+                  <a
+                    data-toggle="button"
+                    href="#"
+                    class="btn btn-info btn-xs"
+                    (click)="hideCustom = !hideCustom"
+                    ><span class="glyphicon glyphicon-wrench"></span>
+                  </a>
                   <span
                     class="hidden-xs hidden-sm hidden-md"
                     [hidden]="showPanelRight"
                   >
                     <small> Custom </small></span
-                  ><span class="glyphicon glyphicon-wrench"></span>
+                  >
+                  <!-- <span class="glyphicon glyphicon-wrench"></span> -->
                 </label>
                 &nbsp;
                 <label
@@ -352,18 +404,27 @@
                     display: inline-block;
                     margin-bottom: 0px;
                   "
-                  ><input
+                  >
+                  <!-- <input
                     type="checkbox"
                     class="btn btn-info"
                     [checked]="!hideDetailFiles"
                     (change)="hideDetailFiles = !hideDetailFiles"
-                  />
+                  /> -->
+                  <a
+                    data-toggle="button"
+                    href="#"
+                    class="btn btn-info btn-xs"
+                    (click)="hideDetailFiles = !hideDetailFiles"
+                    ><span class="glyphicon glyphicon-paperclip"></span>
+                  </a>
                   <span
                     class="hidden-xs hidden-sm hidden-md"
                     [hidden]="showPanelRight"
                   >
                     <small> Files </small></span
-                  ><span class="glyphicon glyphicon-paperclip"></span>
+                  >
+                  <!-- <span class="glyphicon glyphicon-paperclip"></span> -->
                 </label>
 
                 <!-- &nbsp;<label
@@ -390,12 +451,10 @@
               <!-- </div> -->
             </small>
 
-            <small [hidden] = "entityType < entityTypes.size-1"
+            <small [hidden]="entityType < entityTypes.size - 1"
               ><span class="glyphicon glyphicon-cog"></span>
 
-              <span 
-                >&nbsp;Settings</span
-              >
+              <span>&nbsp;Settings</span>
             </small>
 
             <div class="btn-group pull-right">
@@ -420,7 +479,7 @@
             [class.container-panel-center-full]="panelRows == 1"
             [class.container-panel-center-half]="panelRows == 2"
           >
-            <div [hidden]="entityType == entityTypes.size-1">
+            <div [hidden]="entityType == entityTypes.size - 1">
               <app-entity-details
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"
@@ -437,7 +496,7 @@
                 [entityType]="entityType"
               ></app-entity-details>
             </div>
-            <div [hidden]="entityType < entityTypes.size-1">
+            <div [hidden]="entityType < entityTypes.size - 1">
               <app-settings
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"

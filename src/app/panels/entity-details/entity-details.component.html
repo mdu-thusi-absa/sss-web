@@ -17,7 +17,10 @@
   [showDownload]="true"
   (onFilter)="doFilter($event)"
 ></app-input-filter-add>
-
+<!-- entity:{{entity | json}}
+currentKey:{{entities.currentKey}}
+currValue:{{entities.get(entities.currentKey)}}
+currName:{{entities.get(entities.currentKey).name}} -->
 <form autocomplete="off">
   <div *ngIf="entityType != 1 && entityType != 2" style="overflow-y: scroll;">
     <app-input-text
@@ -29,6 +32,8 @@
       [title]="'Entity Name*'"
       [placeholder]="'Legal name of the entity (required)'"
       [showCheck]="true"
+      [value] = "getEntityName()"
+      (onChange) = "setEntityName($event)"
     ></app-input-text>
   </div>
   <div *ngIf="entityType == 1 || entityType == 2">
@@ -44,6 +49,11 @@
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
       [overflowY]="'scroll'"
+
+      [valueLeft] = "getSurname()"
+      [valueRight] = "getFirstName()"
+      (onChangeLeft) = "setSurname($event)"
+      (onChangeRight) = "setFirstName($event)"
     >
     </app-input-duo>
   </div>
@@ -293,7 +303,29 @@
           (onTask)="doTask($event)"
         ></app-entity-details-contact>
       </div>
-      <div [hidden]="!hidePrimary && hideContacts ">
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [title]="'Group'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [title]="'Group'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
         <hr class="primary-color" style="height: 1px; margin: 0px;" />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>

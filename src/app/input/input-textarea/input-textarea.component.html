@@ -1,6 +1,9 @@
+{{filterText}}
+
 <div
   class="form-group less-bottom"
   style="margin-top: 5px; margin-bottom: 2px;"
+  [hidden]="hideByFilter()"
 >
   <div>
     <label
@@ -22,7 +25,6 @@
       (onTask)="doTask()"
     ></app-buttons-input-text>
   </div>
-
   <textarea
     class="form-control"
     [rows]="rows"

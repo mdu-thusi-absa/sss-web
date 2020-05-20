@@ -186,16 +186,6 @@ export class DataService {
     .add(
       new LegalEntity('Google Pty Ltd')
         .set('tasksCount', 2)
-        .set('isActive', true)
-    )
-    .add(
-      new LegalEntity('Microsoft Pty Ltd')
-        .set('tasksCount', 2)
-        .set('isActive', true)
-    )
-    .add(
-      new LegalEntity('Google Pty Ltd')
-        .set('tasksCount', 2)
         .set('suffix', '')
         .set('isActive', true)
     )
@@ -397,7 +387,7 @@ export class DataService {
       return this.getCompanies();
     } else if (type == 1) {
       //console.log(type,'in');
-      return this.getPersons();
+      return this.persons;
     } else if (type == 2) {
       //console.log(type,'in');
       return this.getUsers();

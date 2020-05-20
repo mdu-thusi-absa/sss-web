@@ -92,7 +92,7 @@
         (click)="doShare()"
         [title]="'Share'"
       >
-        <span class="glyphicon glyphicon-share-alt">s</span>
+        <span class="glyphicon glyphicon-share-alt"></span>
       </span>
 
       <span
@@ -110,17 +110,24 @@
         (click)="doLink()"
         [title]="'Add link'"
       >
-        <span class="glyphicon glyphicon-link">d</span>
+        <span class="glyphicon glyphicon-link"></span>
       </span>
 
       <span
         *ngIf="showDisk"
         class="input-group-addon btn primary-color-reverse"
-        (click)="doDisk()"
+        (click)="file.click();"
         [title]="'Browse for file'"
       >
         <span class="glyphicon glyphicon-floppy-disk"></span>
       </span>
     </div>
   </div>
+</div>
+
+<div class="form-group" hidden>
+  <a href="#" class="btn" (click)="file.click();">abcd</a>
+  <input type="file" #file hidden
+         id="file" 
+         (change)="handleFileInput($event.target.files)" />
 </div>

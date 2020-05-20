@@ -16,6 +16,8 @@ export class InputTextareaComponent implements OnInit {
   @Input() showPaperclip = false;
   @Input() showCD = false;
   @Input() showCheck = false;
+  @Input() filterText = '';
+  @Input() doHideByFilter = false;
 
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -36,6 +38,10 @@ export class InputTextareaComponent implements OnInit {
 
   doFile(){
     this.onFile.emit(this.title);
+  }
+
+  hideByFilter() {
+    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1 : false);
   }
 
 }

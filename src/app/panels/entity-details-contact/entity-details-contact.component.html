@@ -1,27 +1,35 @@
 <hr class="primary-color" style="height: 1px; margin: 0px;" />
 <div class="h4 text-primary" style="margin-top: 5px;">
-  <u>Primary Details: {{ title }}</u>
+  <u>Contact Details: {{ title }}</u>
 </div>
 
 <app-input-person-contact
+[filterText] = "filterText"
+[doHideByFilter] = "true"
   [title]="title + ': Primary Contact'"
   [hideBody]="false"
   [isNarrow] = "isNarrow"
 ></app-input-person-contact>
 
 <app-input-person-contact
+[filterText] = "filterText"
+[doHideByFilter] = "true"
   [title]="title + ': Secondary Contact'"
   [hideBody]="true"
   [isNarrow] = "isNarrow"
 ></app-input-person-contact>
 
 <app-input-person-contact
+[filterText] = "filterText"
+[doHideByFilter] = "true"
   [title]="title + ': Optional Contact'"
   [hideBody]="true"
   [isNarrow] = "isNarrow"
 ></app-input-person-contact>
 
 <app-input-person-contact
+[filterText] = "filterText"
+[doHideByFilter] = "true"
   [title]="title + ': Emergency Contact'"
   [hideBody]="true"
   [isNarrow] = "isNarrow"

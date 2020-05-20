@@ -160,7 +160,7 @@
             [class.info]="e.value.isActive"
           >
             <td>
-              <a [href]="e.key">{{ e.value.name }}</a>
+              <a href="#" (click) = "doEntityChoose(e.key)" >{{ e.value.name }}</a>
             </td>
             <td>{{ e.value.tasksCount }}</td>
             <td>{{ e.value.suffix }}</td>

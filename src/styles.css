@@ -479,7 +479,7 @@ label.btn.btn-primary:focus{
 .panel-info > label {
   color: white;
 }
-.btn-info.active.focus,
+/* .btn-info.active.focus,
 .btn-info.active:focus,
 .btn-info.active:hover,
 .btn-info:active.focus,
@@ -490,34 +490,127 @@ label.btn.btn-primary:focus{
 .open > .dropdown-toggle.btn-info:hover {
   color: #fff;
   background-color: rgb(240, 90, 120);
-  border-color: white; /*rgb(150, 5, 4); /*absa*/
-}
-.btn-info {
+  border-color: white; /*rgb(150, 5, 4); 
+} */
+
+
+/* .btn-info.active,
+.btn-info.focus,
+.open>.dropdown-toggle.btn-info
+.open>.data-toggle.btn-info
+{
+  color: #fff;
+  background-color: rgb(135,10,60); 
+  border-color: white; /*rgb(150, 5, 4); 
+} */
+
+/*btn-info*/
+/* .btn-info,
+.btn-info:hover {
   color: #fff;
   background-color: rgb(240, 90, 120);
-  /* border-color: rgb(150, 5, 4); absa*/
   border-color: white;
-}
-.btn-info:active {
+} */
+/* .btn-info:hover {
   color: #fff;
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: white; /*rgb(150, 5, 4); /*absa*/
-}
-.btn-info.active:focus {
+  background-color: rgb(255,120,15);
+  border-color: white;
+} */
+
+/* .btn-info.active,
+.btn-info:active
+.btn-info:active:hover
+.btn-info.active:hover,
+.btn-info:active:hover,
+.btn-info.focus:hover,
+.btn-info:focus:hover {
   color: #fff;
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: white; /* rgb(150, 5, 4); /*absa*/
-}
+  background-color: red;
+  border-color: white;
+} */
+
+/* .open > .dropdown-toggle.btn-info:hover {
+  color: #fff;
+  background-color: red;
+  border-color: white;
+} */
+
+
+/* .btn-info:active,
+.btn-info.active:focus,
 .btn-info:focus {
   color: #fff;
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: white; /*rgb(150, 5, 4); /*absa*/
+  background-color: rgb(150, 5, 4); 
+  border-color: white; 
+} */
+
+
+:root {
+  --bg-color-normal: rgb(240,90,120);
+  --bg-color-smile: rgb(240,50,90);
+  --bg-color-active: rgb(150, 5, 4);
+}
+/*rgb(240,90,120); care*/
+/*Smile rgb(240,50,90)*/
+
+.btn-info {
+  color: #fff;
+  background-color: var(--bg-color-normal); /*care*/
+  border-color: white; /*smile*/
+  box-shadow: none;
+}
+.btn-info:focus,
+.btn-info.focus {
+  color: #fff;
+  background-color: var(--bg-color-normal);
+  border-color: white;
 }
 .btn-info:hover {
   color: #fff;
-  background-color: rgb(150, 5, 4); /*absa*/
-  border-color: white; /* rgb(150, 5, 4); /*absa*/
+  background-color: var(--bg-color-normal);
+  border-color: white;
 }
+.btn-info:active,
+.btn-info.active,
+.open > .dropdown-toggle.btn-info {
+  color: #fff;
+  background-color: var(--bg-color-active);
+  background-image: none;
+  border-color: white;
+}
+.btn-info:active:hover,
+.btn-info.active:hover,
+.open > .dropdown-toggle.btn-info:hover,
+.btn-info:active:focus,
+.btn-info.active:focus,
+.open > .dropdown-toggle.btn-info:focus,
+.btn-info:active.focus,
+.btn-info.active.focus,
+.open > .dropdown-toggle.btn-info.focus {
+  color: #fff;
+  background-color: var(--bg-color-active);
+  border-color: white;
+}
+.btn-info.disabled:hover,
+.btn-info[disabled]:hover,
+fieldset[disabled] .btn-info:hover,
+.btn-info.disabled:focus,
+.btn-info[disabled]:focus,
+fieldset[disabled] .btn-info:focus,
+.btn-info.disabled.focus,
+.btn-info[disabled].focus,
+fieldset[disabled] .btn-info.focus {
+  background-color: grey;
+  border-color: white;
+}
+.btn-info .badge {
+  color: white;
+  background-color: var(--bg-color-normal);
+}
+
+
+
+
 .a {
   color: white;
   text-decoration: none;

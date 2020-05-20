@@ -15,7 +15,7 @@ export class EntitiesComponent implements OnInit {
   @Input() panelRows = 1;
   @Input() isNarrow = false;
   entities: Entities;// = new FunctionalEntities();
-  entityType = 1;
+  entityType = 0;
   entityTypeName = '';
   entityTypesPlural: any;
   @Output() onEntityTypeChange = new EventEmitter();
@@ -109,6 +109,8 @@ export class EntitiesComponent implements OnInit {
     this.isNewMessage = false;
   }
 
-  
+  doEntityChoose(entityKey: number){
+    this.entities.currentKey = entityKey;
+  }
   
 }

@@ -94,8 +94,9 @@
       [showCheckRight]="true"
       [isNarrow] = "isNarrow"
     ></app-input-duo>
-
       <app-input-textarea
+        [filterText] = "filterText"
+        [doHideByFilter] = "doHideByFilter"
         [title]="'Note'"
         [placeholder]="'Position, relationship, importance, contact history...'"
         [showCheck]="false"

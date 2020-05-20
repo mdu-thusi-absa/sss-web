@@ -4,6 +4,7 @@
 </div>
 
 <app-input-duo
+  [filterText] = "filterText"
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [titleLeft]="'Suffix'"
@@ -13,7 +14,7 @@
   [typeRight]="'checkbox'"
   [titleRight]="'Active'"
   [valueRight]="true"
-  [doHideByFilter]="false"
+  [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
@@ -23,12 +24,13 @@
 </app-input-duo>
 
 <app-input-duo
+  [filterText] = "filterText"
   [isNarrow]="isNarrow"
   [typeLeft]="'date'"
   [typeRight]="'date'"
   [titleLeft]="'Curr. Name Effective Date'"
   [titleRight]="'Prev. Name Effective Date'"
-  [doHideByFilter]="false"
+  [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
