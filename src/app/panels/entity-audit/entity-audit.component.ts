@@ -61,5 +61,13 @@ export class EntityAuditComponent implements OnInit {
     //console.log('showDocs',this.rows);
   }
 
+  showConfirm(attribute: string, value: string){
+    // this.applyAlert_attribute = attribute;
+    // this.applyAlert_value = value;
+    // this.showApplyAlert = true;
+    if (value=='') confirm("Are you sure you want to apply all values from '" + attribute + "' column");
+    else confirm("Are you sure you want to apply '" + value + "' to '" + attribute + "'");
+  }
+
 }
 

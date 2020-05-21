@@ -104,7 +104,7 @@ export class EntitiesContainerComponent implements OnInit {
     this.showHideFiles(event);
   }
   doRecord(event: any) {
-    this.showHideHistory();
+    this.showHideAudits();
   }
 
   doTask(event: any) {
@@ -160,8 +160,9 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   showHideHistory(doShow: boolean = null) {
-    this.showHide_(1, doShow);
-    this.setPaneRowCount();
+    // this.showHide_(1, doShow);
+    // this.setPaneRowCount();
+    this.showHideAudits;
   }
 
   private showHide_(hideIndex: number, doShow: boolean = null) {

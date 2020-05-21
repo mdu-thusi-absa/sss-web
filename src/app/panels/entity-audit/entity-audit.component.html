@@ -1,13 +1,17 @@
+<!-- <div [class.alert] = "showApplyAlert" 
+[class.alert-warning]="showApplyAlert" 
+[hidden] = "!showApplyAlert" (closed.bs.alert)="showApplyAlert=false">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Warning!</strong> Are you sure you ant to apply the changes?
+</div> -->
+
 <div
-  class="panel panel-success narrow"
-  [class.panel-danger]="!task.mainGoal.isDone"
+  class="panel panel-warning narrow"
 >
-  <div class="panel-heading mt3" >
-    <span class="glyphicon glyphicon-flash"></span>
-    <a href="#"  (click)="isEdit = !isEdit"
-    >
-      {{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }} :
-      {{ task.mainGoal.title }}
+  <div class="panel-heading mt3">
+    <span class="glyphicon glyphicon-check"></span>
+    <a href="#" (click)="isEdit = !isEdit">
+      {{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }}
     </a>
     <!-- toggleDone() <a href="#" (click)="doEdit()" [hidden]="isEdit"
       ><span class="glyphicon glyphicon-pencil pull-right"></span
@@ -15,171 +19,127 @@
 
     <app-buttons-cancel-save
       [hidden]="!isEdit"
-      [glyphOnly] = "true"
+      [glyphOnly]="true"
       (onCancel)="doClose()"
       (onSave)="doClose()"
     ></app-buttons-cancel-save>
   </div>
   <div class="panel-body message" [hidden]="!isEdit">
-    <!-- <app-input-textarea
-        [title]="'Post Text'"
-        [text]="task.mainGoal.text"
-        [rows]="rows"
-        [placeholder]="'Body of the task here'"
-        [noTitle]="true"
-        [noButtons]="true"
-      ></app-input-textarea> -->
-
-    <form class="form">
-      <div style="margin-top: 5px;"></div>
-
-      <app-step
-        [stepNumber]="0"
-        [noHeader]="true"
-        [hideBody]="false"
-        [title]="task.mainGoal.title"
-        [isNarrow] = "isNarrow"
-      ></app-step>
-
-      <!-- <app-step [stepNumber]="2"></app-step>
-      
-        <app-step [stepNumber]="3"></app-step>
-      
-        <app-step [stepNumber]="4"></app-step> -->
-
-      <!-- <div class="btn-group pull-right">
-        <a href="#" class="btn btn-primary primary-color btn-xs"
-          ><span class="glyphicon" [class.glyphicon-plus]="true"></span
-        ></a>
-      </div> -->
-    </form>
-
-    <div
-      class="form-group input-group-sm"
-      [hidden]="!isEdit"
-      style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
+    <table
+      class="table table-condensed table-bordered table-hover less-bottom"
+      style="font-size: smaller;"
     >
-      <a
-        href="#"
-        data-toggle="collapse"
-        [attr.data-target]="'#steps-' + getID()"
-      >
-        <label class="nobottom text-primary">Sub tasks </label
-        ><span class="caret"></span>
-      </a>
-      <div id="{{ 'steps-' + getID() }}" class="collapse">
-        <app-step [stepNumber]="1" [isNarrow] = "isNarrow"></app-step>
-      </div>
-    </div>
-
-    <!-- Documents table -->
-    <div
-      class="form-group input-group-sm"
-      [hidden]="!isEdit"
-      style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
-    >
-      <a
-        href="#"
-        data-toggle="collapse"
-        [attr.data-target]="'#docs-' + getID()"
-      >
-        <label class="nobottom text-primary">Documents </label
-        ><span class="caret"></span>
-      </a>
-      <div id="{{ 'docs-' + getID() }}" class="collapse">
-        <table
-          class="table table-condensed table-bordered table-hover less-bottom"
-          style="font-size: smaller;"
-        >
-          <thead class="info">
-            <tr class="info">
-              <th>Upload Date</th>
-              <th>Uploaded by</th>
-              <th>Description</th>
-              <th>Attachment</th>
-              <th>
-                Note
-                <div class="btn-group pull-right">
-                  <a
-                    href="#"
-                    class="btn btn-primary primary-color btn-xs"
-                    (click)="doAddDoc()"
-                    ><span class="glyphicon glyphicon-plus"></span
-                  ></a>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2005/02/03</td>
-              <td>Vlad</td>
-              <td>MOI</td>
-              <td><a href="#">MOI.pdf</a></td>
-              <td>
-                <div class="btn-group pull-right">
-                  <a
-                    href="#"
-                    class="btn btn-primary primary-color btn-xs"
-                    (click)="doEditDoc(0)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2010/05/20</td>
-              <td>Dean</td>
-              <td>C14.3</td>
-              <td><a href="#">C14.3.pdf</a></td>
-              <td>
-                <div class="btn-group pull-right">
-                  <a
-                    href="#"
-                    class="btn btn-primary primary-color btn-xs"
-                    (click)="doEditDoc(1)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2015/10/20</td>
-              <td>Sasha</td>
-              <td>Resolution</td>
-              <td><a href="#">R.2015.10.05.pdf</a></td>
-              <td>
-                Restructuring
-                <div class="btn-group pull-right">
-                  <a
-                    href="#"
-                    class="btn btn-primary primary-color btn-xs"
-                    (click)="doEditDoc(2)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>2019/10/20</td>
-              <td>Ulrich</td>
-              <td>Resolution</td>
-              <td><a href="#">R.2019.10.01.pdf</a></td>
-              <td>
-                Declaration of Dividend
-                <div class="btn-group pull-right">
-                  <a
-                    href="#"
-                    class="btn btn-primary primary-color btn-xs"
-                    (click)="doEditDoc(3)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <thead class="info">
+        <tr class="info">
+          <th>Attribute</th>
+          <th>
+            Previous value
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showConfirm('Previous values', '')"
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </th>
+          <th>
+            Change to
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showConfirm('Change to', '')"
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Appointmnet Date: Smith, John</td>
+          <td>
+            no appointment date
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="
+                  showConfirm(
+                    'Appointment Date: Smith, John',
+                    'no appointment date'
+                  )
+                "
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </td>
+          <td>
+            2020/02/13
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="
+                  showConfirm('Appointment Date: Smith, John', '2020/02/13')
+                "
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Entity Name</td>
+          <td>
+            New Co
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showConfirm('Entity Name', 'New Co')"
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </td>
+          <td>
+            Steady Bank (Pty) Ltd
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showConfirm('Entity Name', 'Steady Bank (Pty) Ltd')"
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Share Issue</td>
+          <td>
+            Ordinary: 1,000,000
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showConfirm('Share Issue', 'Ordinary: 1,000,000')"
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </td>
+          <td>
+            Ordinary: 1,500,000
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showConfirm('Share Issue', 'Ordinary: 1,500,000')"
+                ><span class="glyphicon glyphicon-save"></span
+              ></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

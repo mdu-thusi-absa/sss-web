@@ -74,6 +74,13 @@ export class InputFilterAddComponent implements OnInit {
 
   isT = false;
   filterText = '';
+  @Input() captionFlash = ''
+  @Input() captionPlay = ''
+  @Input() captionPause = ''
+  @Input() captionAll = ''
+  @Input() captionEyeOpen = '';
+  @Input() captionEyeClose = '';
+  @Input() captionOk = '';
 
   constructor() {}
 

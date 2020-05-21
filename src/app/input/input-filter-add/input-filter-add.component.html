@@ -17,7 +17,7 @@
         [class.focus]="radioChoice == 'flash'"
       />
       <span class="glyphicon glyphicon-flash"></span>
-      <small>&nbsp;{{ countFlash }}</small>
+      <small>&nbsp;{{ countFlash }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionFlash}}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs progress-bar-primary"
           ><small>{{ countFlash }}</small></span
@@ -43,7 +43,7 @@
         ><span class="glyphicon glyphicon-play"></span>&nbsp;{{
           countPlay
         }}</small
-      >
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{captionPlay}}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs bg-primary"
           ><small>{{ countPlay }}</small></span
@@ -66,7 +66,7 @@
         [checked]="radioChoice == 'pause'"
       />
       <span class="glyphicon glyphicon-pause"></span>
-      <small>&nbsp;{{ countPause }}</small>
+      <small>&nbsp;{{ countPause }}</small><span class="hidden-xs"[hidden]="isNarrow"> {{captionPause}}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs"
           ><small>{{ countPause }}</small></span
@@ -89,7 +89,7 @@
         [checked]="radioChoice == 'ok'"
       />
       <span class="glyphicon glyphicon-ok"></span>
-      <small>&nbsp;{{ countOk }}</small>
+      <small>&nbsp;{{ countOk }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionOk}}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs">
           <small>{{ countOk }}</small></span
@@ -112,7 +112,7 @@
         [checked]="radioChoice == 'eye-close'"
       />
       <span class="glyphicon glyphicon-eye-close"></span>
-      <small>&nbsp;{{ countEyeClose }}</small>
+      <small>&nbsp;{{ countEyeClose }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionEyeClose}}</span>
       <!-- <span class="badge badge-xs"
         ><span class="hidden-xs hidden-sm hidden-sm">
           <small>{{ countEyeClose }}</small></span
@@ -135,7 +135,7 @@
         [checked]="radioChoice == 'eye-open'"
       />
       <span class="glyphicon glyphicon-eye-open"></span>
-      <small>&nbsp;{{ countEyeOpen }}</small>
+      <small>&nbsp;{{ countEyeOpen }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionEyeOpen}}</span>
       <!-- <span class="badge badge-xs"
         ><span class="hidden-xs hidden-sm hidden-sm">
           <small>{{ countEyeOpen }}</small></span
@@ -158,7 +158,7 @@
         [checked]="radioChoice == 'all'"
       />
       <span class="glyphicon glyphicon-asterisk"></span>
-      <small>&nbsp;{{ countAll }}</small>
+      <small>&nbsp;{{ countAll }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionAll}}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm"> 
         glyphicon-option-horizontal
         <span class="badge badge-xs">
@@ -168,6 +168,7 @@
     </label>
   </div>
 </div>
+
 <div class="input-group input-group-sm" style="width: 100%;">
   <select
     *ngIf="showList"
@@ -201,7 +202,7 @@
       [placeholder]="'Filter ' + titlePlural"
       [(ngModel)]="filterText"
       (keyup)="doKey($event)"
-      style="font-weight: normal;"
+      style="font-weight: normal;width:100%"
       autocomplete="nope"
     />
 
@@ -214,8 +215,8 @@
     </span>
 
     <span
-      *ngIf="showFilterCount && !isNarrow"
-      class="input-group-addon hidden-xs primary-color-reverse"
+      *ngIf="showFilterCount"
+      class="input-group-addon primary-color-reverse"
       title="Number of items"
     >
       {{ filterCount }}
