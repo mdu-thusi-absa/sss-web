@@ -9,7 +9,7 @@
   [typeLeft]="'text'"
   [titleLeft]="'Suffix'"
   [placeholderLeft]="
-    'Suffix - used to differenciate entities with the same name'
+    'Optional suffix - used to differenciate entities with the same name. E.g. Country of Incorporation (in brackets), used to differenciate entities with the same name, but from different countries'
   "
   [typeRight]="'checkbox'"
   [titleRight]="'Active'"
@@ -26,9 +26,26 @@
 <app-input-duo
   [filterText] = "filterText"
   [isNarrow]="isNarrow"
-  [typeLeft]="'date'"
+  [typeLeft]="'text'"
   [typeRight]="'date'"
-  [titleLeft]="'Curr. Name Effective Date'"
+  [titleLeft]="'Registration Number'"
+  [placeholderLeft] = "'Registration Number of the Entity'"
+  [titleRight]="'Curr. Name Effective Date'"
+  [doHideByFilter]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft] = "true"
+        [showCheckRight] = "true"
+>
+</app-input-duo>
+<app-input-duo
+  [filterText] = "filterText"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [typeRight]="'date'"
+  [titleLeft]="'Prev. Name'"
+  [placeholderLeft] = "'Previous name of the entity, if applicable - only include most recent change'"
   [titleRight]="'Prev. Name Effective Date'"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"
@@ -38,16 +55,6 @@
         [showCheckRight] = "true"
 >
 </app-input-duo>
-<app-input-text
-  [title]="'Previous Name'"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheck] = "true"
->
-</app-input-text>
 <app-input-duo
   [isNarrow]="isNarrow"
   [filterText]="filterText"
@@ -71,6 +78,7 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
+  [placeholderLeft] = "'Country of Incorporation'"
   [valuesLeft]="dataService.getCountries()"
   [valueLeft]="0"
   
@@ -108,8 +116,10 @@
   [doHideByFilter]="true"
   [typeLeft]="'date'"
   [titleLeft]="'Incorporation Date'"
+  [placeholderLeft] = "'Incorporation date of the entity'"
   [typeRight]="'select-entity'"
   [titleRight]="'Anniversary (month)'"
+  [placeholderRight] = "'Anniversary Date (month) of the incorporation of the entity'"
   [valuesRight]="dataService.getMonths()"
   [valueRight]="0"
   [showAddRight]="false"
@@ -127,7 +137,7 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'date'"
-  [titleLeft]="'Business Start Date'"
+  [titleLeft]="'Business start date of the entity'"
   [valueLeft]=""
 
   [typeRight]="'select-entity'"
