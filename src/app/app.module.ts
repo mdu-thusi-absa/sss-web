@@ -70,6 +70,11 @@ import { EntityDetailsSecretaryComponent } from './panels/entity-details-secreta
 import { EntityAuditComponent } from './panels/entity-audit/entity-audit.component';
 import { EntityAuditsComponent } from './panels/entity-audits/entity-audits.component';
 
+import { TestMaterialComponent } from './material/test-material/test-material.component'
+import { MaterialModule } from './material/material.module';
+import { ButtonsToggleComponent } from './buttons/buttons-toggle/buttons-toggle.component';
+
+
 
 @NgModule({
   declarations: [
@@ -134,6 +139,8 @@ import { EntityAuditsComponent } from './panels/entity-audits/entity-audits.comp
     EntityDetailsSecretaryComponent,
     EntityAuditComponent,
     EntityAuditsComponent,
+    TestMaterialComponent,
+    ButtonsToggleComponent,
     
   ],
   imports: [
@@ -142,7 +149,8 @@ import { EntityAuditsComponent } from './panels/entity-audits/entity-audits.comp
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     HttpClientModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

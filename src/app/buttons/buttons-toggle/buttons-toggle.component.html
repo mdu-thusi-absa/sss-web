@@ -1,0 +1,65 @@
+<!-- <label for="menu-toggle">Click me to toggle menu</label> -->
+<!-- <input type="checkbox" style="display:none" [checked] = "toggleValue" (change)="doToggle($event)" />   -->
+<!-- <input
+  type="checkbox"
+  style="display: none;"
+  id="menu-toggle"
+  [checked]="toggleValue"
+  (change)="doToggle($event)"
+/> -->
+<!-- <div id="menu">H</div>  -->
+<!-- <ul id="menu">  
+  <li><a href="#">First link</a></li>
+  <li><a href="#">Second link</a></li>
+  <li><a href="#">Third link</a></li>
+</ul> -->
+<!-- toggleValue:{{ toggleValue }} -->
+
+<div *ngIf="showMe" style="display: inline-block; vertical-align: top;">
+  <label
+    [attr.for]="'checkbox-toggle-' + dataService.getID(title)"
+    class="btn btn-info btn-xs"
+    [class.active]="toggleValue"
+  >
+    <span [class]="'glyphicon ' + glyphiconClass"></span>
+
+    <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
+      <small> {{ title }} </small></span
+    >
+  </label>
+  <input
+    type="checkbox"
+    style="display: none;"
+    [attr.id]="'checkbox-toggle-' + dataService.getID(title)"
+    [checked]="toggleValue"
+    (change)="doToggle($event)"
+  />
+
+  <!-- <a
+    data-toggle="button"
+    href="#"
+    class="btn btn-info btn-xs"
+    (click)="doToggle()"
+    style="height: 19px; margin-top: 0px; vertical-align: top;"
+  >
+    <span [class]="'glyphicon ' + glyphiconClass"></span>
+
+    <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
+      <small> {{ title }} </small></span
+    >
+  </a> -->
+</div>
+
+<!--
+    [class.active] = "toggleValue"
+    <label
+      style="
+        white-space: nowrap;
+
+        overflow: hidden;
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: normal;
+      "
+    >
+</label> -->

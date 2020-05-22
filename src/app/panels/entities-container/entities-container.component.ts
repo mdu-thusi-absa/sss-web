@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Entities } from 'src/app/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
+import {MatCardModule} from '@angular/material/card'
 
 @Component({
   selector: 'app-entities-container',

@@ -285,9 +285,9 @@ hr {
 
 .primary-color {
   /* background-color: rgb(51, 122, 183); */
-  background-color: rgb(220, 0, 50); /*absa*/
+  background-color: var(--color-bright); /*absa*/
   color: white;
-  border-color: rgb(150, 5, 4);
+  border-color: var(--color-dark);
   box-shadow: none;
 }
 /* lable{
@@ -446,7 +446,10 @@ label.btn.btn-primary:focus{
 
 .text-primary {
   /* color: rgb(240, 90, 120); */
-  color: rgb(150, 5, 4);
+  /* color: rgb(150, 5, 4); */
+  color:var(--color-text);
+  border-color: var(--color-text);
+  font-weight: normal;
 }
 .info {
   background-color: rgb(240, 90, 120);
@@ -549,6 +552,15 @@ label.btn.btn-primary:focus{
   --bg-color-normal: rgb(240,90,120);
   --bg-color-smile: rgb(240,50,90);
   --bg-color-active: rgb(150, 5, 4);
+
+  /* --color-maroon: rgb(150, 5, 4);
+  --color-orange: rgb(250,85,30); */
+
+  --color-dark: rgb(150, 5, 4);
+  --color-light: rgb(240,90,120);;
+  --color-bright: rgb(220, 0, 50) ;
+  /* rgb(240,50,90); */
+  --color-text: rgb(250,85,30);
 }
 /*rgb(240,90,120); care*/
 /*Smile rgb(240,50,90)*/
@@ -647,13 +659,14 @@ fieldset[disabled] .btn-info.focus {
 
 /* color: rgb(51, 122, 183); original */
 .primary-color-reverse {
-  color: rgb(220, 0, 50);
+  /* color: rgb(220, 0, 50); */
+  color: var(--color-text);
   background-color: white;
-  border-color: rgb(150, 5, 4);
+  border-color: var(--color-text);
 }
 
 .primary-color-input-reverse{
-  border-color: rgb(150, 5, 4);
+  border-color: var(--color-text);
 }
 
 /* background-color: rgb(55, 130, 190); original */
@@ -912,7 +925,7 @@ background-color: rgba(0, 0, 0, 0);
 }
 
 .bs-datepicker-body table td.week span {
-  color: rgb(220, 0, 50) !important;
+  color: var(--color-bright) !important;
 }
 
 .bs-datepicker-body table td span.selected,
@@ -923,6 +936,9 @@ background-color: rgba(0, 0, 0, 0);
 .bs-datepicker-body table td span[class*="select-"]:after,
 .bs-datepicker-body table td[class*="select-"] span:after,
 .bs-datepicker-body table td.active-week span:hover {
-  background-color: rgb(220, 0, 50) !important;
+  background-color: var(--color-bright) !important;
 } 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Roboto, "Helvetica Neue", sans-serif; }

@@ -233,18 +233,27 @@
               >&nbsp;
               <!-- <div class="btn-group"> -->
               <div class="btn-group" style="vertical-align: top; height: 20px;">
+                <!-- <a href="#" style="vertical-align: top;" >Bah</a> -->
                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-info">
                     <input type="checkbox" checked autocomplete="off"> Checked
                   </label>
                 </div> -->
-                <label
+                <!-- <app-buttons-toggle
+                [title]="'Primary'"
+                [glyphiconClass] = "'glyphicon-flag'"
+                [toggleValue] = "hidePrimary"
+                (onToggle) = "hidePrimary = $event"
+                ></app-buttons-toggle> -->
+
+                <!-- <label
                   style="
                     white-space: nowrap;
                     height: 20px;
                     overflow: hidden;
                     display: inline-block;
                     margin-bottom: 0px;
+                    font-weight: normal;
                   "
                 >
                   <a
@@ -252,184 +261,99 @@
                     href="#"
                     class="btn btn-info btn-xs active"
                     (click)="hidePrimary = !hidePrimary"
-                    style="height:20px;width:20px;"
-                    >
-                    <!-- <span class="glyphicon glyphicon-flag"></span> -->
-                    <img [src]="'assets/images/Plus.png'" style="height:20px;width:20px;text-align: center">
+                  >
+                    <span class="glyphicon glyphicon-flag"></span>
                   </a>
-                  <!-- <input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hidePrimary"
-                    (change)="hidePrimary = !hidePrimary" /> -->
                   <span
                     class="hidden-xs hidden-sm hidden-md"
                     [hidden]="showPanelRight"
                   >
                     <small> Primary </small></span
                   >
-                  <!-- <span class="glyphicon glyphicon-flag"></span> -->
-                
-              </label>
-              
-                <ng-container *ngIf="entityType == 0 || entityType == 1">
-                  &nbsp;
-                  <label
+                </label> -->
+                <!--
+                    <img [src]="'assets/images/Plus.png'" style="height:20px;width:20px;text-align: center"> 
+                    <input
+                    type="checkbox"
+                    class="btn btn-info"
+                    [checked]="!hidePrimary"
+                    (change)="hidePrimary = !hidePrimary" /> -->
+                <!-- <a
+                  data-toggle="button"
+                  href="#"
+                  class="btn btn-info btn-xs active"
+                  (click)="hidePrimary = !hidePrimary"
+                  style="height:19px"
+                  ><label
                     style="
                       white-space: nowrap;
-                      height: 20px;
                       overflow: hidden;
                       display: inline-block;
                       margin-bottom: 0px;
+                      font-weight: normal;
                     "
-                    >
-                    <a
-                    data-toggle="button"
-                    href="#"
-                    class="btn btn-info btn-xs"
-                    (click)="hideSecondary = !hideSecondary"
-                    ><span class="glyphicon glyphicon-king"></span>
-                  </a>
-                    <!-- <input
-                      type="checkbox"
-                      class="btn btn-info"
-                      [checked]="!hideSecondary"
-                      (change)="hideSecondary = !hideSecondary" /> -->
+                  >
+                    <span class="glyphicon glyphicon-flag"></span>
+
                     <span
                       class="hidden-xs hidden-sm hidden-md"
                       [hidden]="showPanelRight"
                     >
-                      <small> Secondary </small></span
+                      <small> World </small></span
                     >
-                    <!-- <span class="glyphicon glyphicon-king"></span> -->
-                  </label>
-                </ng-container>
-                <ng-container *ngIf="entityType == 0">
-                  &nbsp;
-                  <label
-                    style="
-                      white-space: nowrap;
-                      height: 20px;
-                      overflow: hidden;
-                      display: inline-block;
-                      margin-bottom: 0px;
-                    "
-                    >
-                    <a
-                    data-toggle="button"
-                    href="#"
-                    class="btn btn-info btn-xs"
-                    (click)="hideOptional = !hideOptional"
-                    >
-                    <span class="glyphicon glyphicon-gift"></span> 
-                  </a>
-                    <!-- <input
-                      type="checkbox"
-                      class="btn btn-info"
-                      [checked]="!hideOptional"
-                      (change)="hideOptional = !hideOptional" /> -->
-                    <span
-                      class="hidden-xs hidden-sm hidden-md"
-                      [hidden]="showPanelRight"
-                    >
-                      <small> Optional </small></span
-                    >
-                    <!-- <span class="glyphicon glyphicon-gift"></span> -->
-                  </label>
-                </ng-container>
-                &nbsp;
-                <label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                  "
-                  >
-                  <a
-                    data-toggle="button"
-                    href="#"
-                    class="btn btn-info btn-xs"
-                    (click)="hideContacts = !hideContacts"
-                    ><span class="glyphicon glyphicon-envelope"></span>
-                  </a>
-                  <!-- <input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideContacts"
-                    (change)="hideContacts = !hideContacts"
-                  /> -->
-                  <span
-                    class="hidden-xs hidden-sm hidden-md"
-                    [hidden]="showPanelRight"
-                  >
-                    <small> Contacts </small></span
-                  >
-                  <!-- <span class="glyphicon glyphicon-envelope"></span> -->
-                </label>
-                &nbsp;
-                <label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                  "
-                  >
-                  <!-- <input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideCustom"
-                    (change)="hideCustom = !hideCustom"
-                  /> -->
-                  <a
-                    data-toggle="button"
-                    href="#"
-                    class="btn btn-info btn-xs"
-                    (click)="hideCustom = !hideCustom"
-                    ><span class="glyphicon glyphicon-wrench"></span>
-                  </a>
-                  <span
-                    class="hidden-xs hidden-sm hidden-md"
-                    [hidden]="showPanelRight"
-                  >
-                    <small> Custom </small></span
-                  >
-                  <!-- <span class="glyphicon glyphicon-wrench"></span> -->
-                </label>
-                &nbsp;
-                <label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                  "
-                  >
-                  <!-- <input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideDetailFiles"
-                    (change)="hideDetailFiles = !hideDetailFiles"
-                  /> -->
-                  <a
-                    data-toggle="button"
-                    href="#"
-                    class="btn btn-info btn-xs"
-                    (click)="hideDetailFiles = !hideDetailFiles"
-                    ><span class="glyphicon glyphicon-paperclip"></span>
-                  </a>
-                  <span
-                    class="hidden-xs hidden-sm hidden-md"
-                    [hidden]="showPanelRight"
-                  >
-                    <small> Files </small></span
-                  >
-                  <!-- <span class="glyphicon glyphicon-paperclip"></span> -->
-                </label>
+                  </label></a
+                > -->
+
+                <!-- <a href="#">Bah</a> -->
+                <app-buttons-toggle
+                  [title]="'Primary'"
+                  [placeholder]="'Primary page'"
+                  [glyphiconClass]="'glyphicon-flag'"
+                  [toggleValue]="!hidePrimary"
+                  (onToggle)="hidePrimary = !hidePrimary"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle
+                >&nbsp;
+                <app-buttons-toggle
+                  [title]="'Secondary'"
+                  [placeholder]="'Secondary page'"
+                  [glyphiconClass]="'glyphicon-king'"
+                  [toggleValue]="!hideSecondary"
+                  (onToggle)="hideSecondary = !hideSecondary"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="entityType == 0 || entityType == 1"
+                >
+                </app-buttons-toggle
+                >&nbsp;
+
+                <app-buttons-toggle
+                [title]="'Optional'"
+                [placeholder] = "'Optional page'"
+                [glyphiconClass] = "'glyphicon-gift'"
+                [toggleValue] = "!hideOptional"
+                (onToggle) = "hideOptional = !hideOptional"
+                [isNarrow] = "showPanelRight"
+                [showMe] = "entityType == 0"
+                ></app-buttons-toggle>&nbsp;
+                <app-buttons-toggle
+                [title]="'Contacts'"
+                [placeholder] = "'Contact page'"
+                [glyphiconClass] = "'glyphicon-envelope'"
+                [toggleValue] = "!hideCustom"
+                (onToggle) = "hideCustom = !hideCustom"
+                [isNarrow] = "showPanelRight"
+                [showMe] = "true"
+                ></app-buttons-toggle>&nbsp;
+                <app-buttons-toggle
+                [title]="'Files'"
+                [placeholder] = "'Files page'"
+                [glyphiconClass] = "'glyphicon-paperclip'"
+                [toggleValue] = "!hideDetailFiles"
+                (onToggle) = "hideDetailFiles = !hideDetailFiles"
+                [isNarrow] = "showPanelRight"
+                [showMe] = "true"
+                ></app-buttons-toggle>
 
                 <!-- &nbsp;<label
                   style="
@@ -680,7 +604,13 @@
               ></span>
               <span class="hidden-xs hidden-sm"
                 >&nbsp;
-                {{ (hidePosts && hideAudits) ? "Tasks" : (hideAudits ? "Articles" : "Audit") }}
+                {{
+                  hidePosts && hideAudits
+                    ? "Tasks"
+                    : hideAudits
+                    ? "Articles"
+                    : "Audit"
+                }}
               </span>
             </small>
             <div class="btn-group pull-right">
@@ -704,7 +634,7 @@
               >
                 <span class="glyphicon glyphicon-comment"></span>
               </a>
-              
+
               <a
                 href="#"
                 class="btn btn-info btn-xs"
