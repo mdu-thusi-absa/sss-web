@@ -26,13 +26,15 @@ export class InputAddressComponent implements OnInit {
 
   countries: Countries;
   cities: Cities;
-  countryIndex = 0;
+  countryIndex = -1;
   cityIndex = 0;
   countryText = '';
   cityText = '';
 
   constructor(private data: DataService) {
-        
+        if (this.countryIndex < 0){
+          this.countryIndex = data.getDefault('countryKey');
+        }
   }
 
   ngOnInit(): void {

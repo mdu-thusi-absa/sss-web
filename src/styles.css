@@ -942,3 +942,8 @@ background-color: rgba(0, 0, 0, 0);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Roboto, "Helvetica Neue", sans-serif; }
+
+/*Set font family style as sample*/
+/* .glyphter {
+  font-family: glyphter !important;
+} */

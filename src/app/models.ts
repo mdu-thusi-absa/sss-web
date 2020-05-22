@@ -36,6 +36,11 @@ export class Country extends Entity {
   constructor(public name: string) {
     super(name);
   }
+
+  addCity(city: City): Country{
+    this.cities.add(city);
+    return this;
+  }
 }
 
 export class City extends Entity {

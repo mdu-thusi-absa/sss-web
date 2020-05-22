@@ -1,6 +1,5 @@
 <div [hidden]="hideByFilter()">
-  <div style="margin-right: 0px;"
-    [style.margin-top] = "inline ? '0px' : '5px'">
+  <div style="margin-right: 0px;" [style.margin-top]="inline ? '0px' : '5px'">
     <app-buttons-input-text
       (onFile)="doFile()"
       (onRecord)="doRecord()"
@@ -8,7 +7,7 @@
       [showFlash]="showFlash"
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
-      [showCheck] = "showCheck"
+      [showCheck]="showCheck"
     ></app-buttons-input-text>
     <label
       *ngIf="!inline && showTitle"
@@ -41,11 +40,17 @@
         autocomplete="nope"
         [title]="title"
       />
-      <span class="input-group-addon" (click)="gotoToday()" [title]="'Today'">
+      <span *ngIf="!disabled" class="input-group-addon" (click)="gotoToday()" [title]="'Today'">
         <span class="glyphicon glyphicon-time primary-color-reverse"></span>
       </span>
-      <span class="input-group-addon" (click)="dpDate.toggle()" [title]="'Choose date'">
-        <span class="glyphicon glyphicon-calendar primary-color-reverse"></span>
+      <span 
+        class="input-group-addon"
+        (click)="(disabled? '' : dpDate.toggle())"
+        [title]="(disabled? '': 'Choose ') + title"
+      >
+        <span class="glyphicon glyphicon-calendar "
+          [class.primary-color-reverse] = "!disabled"
+        ></span>
       </span>
     </div>
   </div>

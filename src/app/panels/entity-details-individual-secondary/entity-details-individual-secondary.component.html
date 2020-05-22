@@ -1,5 +1,5 @@
 
-<hr class="primary-color" style="height: 1px; margin: 0px;" />
+<hr class="text-primary" style="height: 1px; margin: 0px;" />
 <div class="h4 text-primary" style="margin-top: 5px;">
   <u>Secondary Details: Individual</u>
 </div>
@@ -25,7 +25,7 @@
 [doHideByFilter]="true"
 [titleLeft]="'Country'"
 [valuesLeft]="dataService.getCountries()"
-[valueLeft]="0"
+[valueLeft]="-1"
 [typeRight]="'text'"
 [titleRight]="'Passport Number'"
 (onFile)="doFile($event)"

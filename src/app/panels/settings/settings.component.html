@@ -28,7 +28,7 @@
       [doHideByFilter]="true"
       [titleLeft]="'Countries and default'"
       [valuesLeft]="dataService.countries"
-      [valueLeft]="0"
+      [valueLeft] = "dataService.getDefault('countryKey')"
 
       [typeRight]="'select-entity'"
       [titleRight]="'Industries and default'"

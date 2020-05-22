@@ -16,15 +16,32 @@
 <!-- toggleValue:{{ toggleValue }} -->
 
 <div *ngIf="showMe" style="display: inline-block; vertical-align: top;">
+    <!-- svgPath: {{svgUrlPath}} -->
   <label
     [attr.for]="'checkbox-toggle-' + dataService.getID(title)"
     class="btn btn-info btn-xs"
+    style="padding: 1px"
     [class.active]="toggleValue"
   >
-    <span [class]="'glyphicon ' + glyphiconClass"></span>
+    <!-- <span [class]="'glyphicon ' + glyphiconClass"></span> -->
+    <svg
+      style="
+        background-position: center;
+        vertical-align:middle;
+        background-repeat: no-repeat;
+        height: 19px;
+        width: 19px;
+        color: white;
+      "
+      [style.background-image] = "'url(\'' + svgUrlPath + '\')'"
+    ></svg>
+
+    
+
+    <!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
 
     <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
-      <small> {{ title }} </small></span
+      <small>&nbsp;{{ title }}&nbsp;</small></span
     >
   </label>
   <input
