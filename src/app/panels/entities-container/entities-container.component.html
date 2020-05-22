@@ -252,7 +252,10 @@
                     href="#"
                     class="btn btn-info btn-xs active"
                     (click)="hidePrimary = !hidePrimary"
-                    ><span class="glyphicon glyphicon-flag"></span>
+                    style="height:20px;width:20px;"
+                    >
+                    <!-- <span class="glyphicon glyphicon-flag"></span> -->
+                    <img [src]="'assets/images/Plus.png'" style="height:20px;width:20px;text-align: center">
                   </a>
                   <!-- <input
                     type="checkbox"
@@ -268,6 +271,7 @@
                   <!-- <span class="glyphicon glyphicon-flag"></span> -->
                 
               </label>
+              
                 <ng-container *ngIf="entityType == 0 || entityType == 1">
                   &nbsp;
                   <label
