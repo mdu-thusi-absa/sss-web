@@ -328,8 +328,7 @@
                   (onToggle)="hidePrimary = !hidePrimary"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle
-                >
+                ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Secondary'"
                   [placeholder]="'Secondary page'"
@@ -342,8 +341,7 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="entityType == 0 || entityType == 1"
                 >
-                </app-buttons-toggle
-                >
+                </app-buttons-toggle>
 
                 <app-buttons-toggle
                   [title]="'Optional'"
@@ -354,8 +352,7 @@
                   (onToggle)="hideOptional = !hideOptional"
                   [isNarrow]="showPanelRight"
                   [showMe]="entityType == 0"
-                ></app-buttons-toggle
-                >
+                ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Contacts'"
                   [placeholder]="'Contact page'"
@@ -365,8 +362,7 @@
                   (onToggle)="hideContacts = !hideContacts"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle
-                >
+                ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Custom'"
                   [placeholder]="'Contact page'"
@@ -376,8 +372,7 @@
                   (onToggle)="hideCustom = !hideCustom"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle
-                >
+                ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Files'"
                   [placeholder]="'Files page'"
@@ -420,10 +415,20 @@
             </small>
 
             <div class="btn-group pull-right">
-              <a
+              <app-buttons-toolbar-button
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [placeholder]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [glyphiconClass]="showPanelRight ? 'glyphicon-menu-right' : 'glyphicon-menu-left'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="showPanelRight = !showPanelRight"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+              <!-- <a
                 href="#"
                 class="btn btn-info btn-xs"
-                (click)="showPanelRight = !showPanelRight"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
@@ -433,7 +438,7 @@
                   [class.glyphicon-menu-right]="showPanelRight"
                   [class.glyphicon-menu-left]="!showPanelRight"
                 ></span>
-              </a>
+              </a> -->
             </div>
           </div>
           <div
@@ -639,6 +644,7 @@
               <span class="hidden-xs hidden-sm"
                 >&nbsp;
                 {{
+                  hidePosts && hideAudits && hideTasks ? 'Choose page to view' :
                   hidePosts && hideAudits
                     ? "Tasks"
                     : hideAudits
@@ -648,38 +654,57 @@
               </span>
             </small>
             <div class="btn-group pull-right">
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideTasks()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideTasks ? 'Show' : 'Hide') + ' Tasks panel'"
-              >
-                <span class="glyphicon glyphicon-flash"></span>
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHidePosts()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideTasks ? 'Show' : 'Hide') + ' Articles panel'"
-              >
-                <span class="glyphicon glyphicon-comment"></span>
-              </a>
+              <app-buttons-toggle
+                [title]="'Tasks'"
+                [placeholder]="'Tasks Page'"
+                [glyphiconClass]="'glyphicon-flash'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="hideTasks = !hideTasks;  hidePosts = true; hideAudits = true;"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue] = "!hideTasks"
+              ></app-buttons-toggle>
 
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideAudits()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="'Display or hide Audits'"
-              >
-                <span class="glyphicon glyphicon-check"></span>
-              </a>
-              <a
+              <app-buttons-toggle
+                [title]="'Articles'"
+                [placeholder]="'Articles Page'"
+                [glyphiconClass]="'glyphicon-comment'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="hidePosts = !hidePosts; hideTasks = true; hideAudits = true; "
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue] = "!hidePosts"
+              ></app-buttons-toggle>
+              <app-buttons-toggle
+                [title]="'Audit'"
+                [placeholder]="'Audit Page'"
+                [glyphiconClass]="'glyphicon-check'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="hideAudits = !hideAudits; hideTasks = true; hidePosts = true;"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue] = "!hideAudits"
+              ></app-buttons-toggle>
+
+              <app-buttons-toolbar-button
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [placeholder]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [glyphiconClass]="showPanelRight ? 'glyphicon-menu-right' : 'glyphicon-menu-left'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="showPanelRight = !showPanelRight"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+
+              <!-- <a
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showPanelRight = !showPanelRight"
@@ -691,8 +716,8 @@
                   class="glyphicon"
                   [class.glyphicon-menu-right]="showPanelRight"
                   [class.glyphicon-menu-left]="!showPanelRight"
-                ></span>
-              </a>
+                ></span> 
+              </a> -->
             </div>
           </div>
           <div class="panel-body mt3" [hidden]="hidePosts">

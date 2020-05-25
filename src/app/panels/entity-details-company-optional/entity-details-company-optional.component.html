@@ -56,6 +56,38 @@
   [showCheckRight]="true"
 ></app-input-duo>
 
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Share Code'"
+  [showCheckLeft]="true"
+
+  [typeRight]="'text'"
+  [titleRight]="'ISIN Code'"
+  [showCheckRight]="true"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Bloomberg Code'"
+  [showCheckLeft]="true"
+
+  [typeRight]="'text'"
+  [titleRight]="'Reuters Code'"
+  [showCheckRight]="true"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+></app-input-duo>
+
 <div
   class="form-group input-group-sm less-bottom"
   [hidden]="hideByFilter('Appointments')"
@@ -344,6 +376,8 @@
     </table>
   </div>
 </div>
+
+
 
 <div
   class="form-group input-group-sm less-bottom"

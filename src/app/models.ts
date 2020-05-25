@@ -4,6 +4,7 @@ import { EntityMessageComponent } from './panels/entity-message/entity-message.c
 import { maxHeaderSize } from 'http';
 
 export class Entity {
+  public type = 'entity';
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
 
@@ -32,6 +33,7 @@ export class Entity {
 }
 
 export class Country extends Entity {
+  public type = 'country';
   cities = new Entities();
   constructor(public name: string) {
     super(name);
@@ -44,16 +46,18 @@ export class Country extends Entity {
 }
 
 export class City extends Entity {
+  public type = 'city';
   constructor(public name) {
     super(name);
   }
 }
 export class FileEntity extends Entity{
+  public type = 'file';
   title = '';
   description = '';
 }
 export class FunctionalEntity extends Entity {
-  public type: string;
+  public type = 'functional';
   public suffix = '';
   public tasksCount = 0;
   public isActive = true;
@@ -61,6 +65,11 @@ export class FunctionalEntity extends Entity {
 export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
 }
+
+export class Company extends LegalEntity{
+  public type = 'company'
+}
+
 export class NaturalEntity extends FunctionalEntity {
   public type = 'natural';
   public email: string;
@@ -70,18 +79,15 @@ export class NaturalEntity extends FunctionalEntity {
   //public residentialAddress: string;
   private surname_: string = '';
   private firstName_: string = '';
-  private suffix_: string = '';
+  //private suffix_: string = '';
   // public firstName: string;
   // public suffix: string;
   constructor(surname: string, firstName: string, suffix: string) {
-    super(surname + ', ' + firstName + (suffix ? ' - ' + suffix : ''));
+    super(surname + ', ' + firstName);
+    super.name = surname + ', ' + firstName;
     this.surname_ = surname;
     this.firstName_ = firstName;
-    this.suffix_ = suffix;
-
-    // this.surname = surname;
-    // this.firstName = firstName;
-    // this.suffix = suffix;
+    super.suffix = suffix;
   }
 
   // public set surname(v: string){
@@ -92,14 +98,15 @@ export class NaturalEntity extends FunctionalEntity {
       this.surname_ +
       ', ' +
       this.firstName_ +
-      (this.suffix_ ? ' - ' + this.suffix_ : '');
+      (this.suffix ? ' - ' + this.suffix : '');
     //console.log(s);
     return s;
   }
 
   set surname(v: string) {
     this.surname_ = v;
-    this.name = this.surname_ + ', ' + this.firstName_;
+    super.name = this.surname_ + ', ' + this.firstName_;
+    //console.log(this.surname_,this.name);
   }
 
   get surname(): string {
@@ -108,7 +115,7 @@ export class NaturalEntity extends FunctionalEntity {
 
   set firstName(v: string) {
     this.firstName_ = v;
-    this.name = this.surname_ + ', ' + this.firstName_;
+    super.name = this.surname_ + ', ' + this.firstName_;
   }
 
   get firstName(): string {
@@ -116,33 +123,21 @@ export class NaturalEntity extends FunctionalEntity {
   }
 
   set suffix(v: string) {
-    this.suffix_ = v;
-    this.name = this.surname_ + ', ' + this.firstName_;
+    super.suffix = v;
+    //this.name_ = this.surname_ + ', ' + this.firstName_;
   }
 
   get suffix(): string {
-    return this.suffix_;
+    return super.suffix;
   }
 
   get name(): string {
-    return this.surname_ + ', ' + this.firstName_;
+    return super.name;
   }
 
   set name(v: string) {
-    //super.name = v;
+    super.name = v;
   }
-
-  // public set name(value: string){
-  //   super.name = this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'')
-  // }
-
-  // get fullName() {
-  //   return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
-  // }
-
-  // get name() {
-  //   return this.surname + ', ' + this.firstName + (this.suffix ? ' - ' + this.suffix:'');
-  // }
 }
 export class GroupEntity extends FunctionalEntity {
   public type = 'group';
@@ -158,6 +153,7 @@ export class GroupEntity extends FunctionalEntity {
 //   }
 // }
 export class User extends NaturalEntity {
+  public type = 'user';
   public isActive: boolean;
   public role: string;
   constructor(
@@ -317,13 +313,13 @@ export class CustomField {
 //   | NaturalEntities;
 export type EveryEntity =
   Entity
-  | NaturalEntity
   | Country
   | City
   | FunctionalEntity
   | User
   | LegalEntity
-  | NaturalEntity;
+  | NaturalEntity
+  | Company;
 
 // export interface ICollection<T> {
 //   add(value: T): ICollection<T>;
@@ -336,12 +332,42 @@ export type EveryEntity =
 //   all_entries: [number, T][];
 // }
 
+
+
 export class Entities extends Map<number, EveryEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
   createEntity(){
     return new Entity('');
+  }
+
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
   }
 
   get currentKey(){
@@ -396,8 +422,36 @@ export class FileEntities extends Map<number, FileEntity>{
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
   
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
+  }
+
   createEntity(){
-    return this;
+    return new FileEntity('');
   }
 
   get currentKey(){
@@ -451,6 +505,34 @@ export class Countries extends Map<number, Country>{
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
   
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
+  }
+
   createEntity(){
     let c = new Country('') 
     c.cities.add(new City('-NA-'))
@@ -510,6 +592,34 @@ export class Cities extends Map<number, City> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
   
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
+  }
+
   createEntity(){
     return new City('');
   }
@@ -566,6 +676,41 @@ export class FunctionalEntities extends Map<number, FunctionalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
   
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        //console.log(propName,a[propName]);
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      if (activeOnly){
+        if (o["isActive"])
+           this.add(o);
+      }else{
+        this.add(o);
+      }
+
+    }
+  }
+
   createEntity(){
     return new FunctionalEntity('');
   }
@@ -621,6 +766,34 @@ export class Users extends Map<number, User>  {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
   
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
+  }
+
   createEntity(){
     return new User('','','');
   }
@@ -672,10 +845,92 @@ export class Users extends Map<number, User>  {
   }
 }
 
+// export class Companies extends Array<LegalEntity>{
+//   currentKey_ = -1;
+//   currentValue_: EveryEntity = null;
+
+//   createEntity(){
+//     return new LegalEntity('');
+//   }
+
+//   get currentKey(){
+//     return this.currentKey_;
+//   }
+
+//   set currentKey(v: number){
+//     this.currentKey_ = v;
+//     this.currentValue_ = super[this.currentKey_];
+//   }
+
+//   get currentValue(){
+//     if (this.currentKey_==-1 && this.size>0){
+//       this.currentKey_ = 0;
+//     }
+//     return this.currentValue_;
+//   }
+
+//   add(value: LegalEntity): Companies {
+//     super.push(value);
+//     return this;
+//   }
+
+//   edit(key: number, value: LegalEntity): Companies {
+//     super[key] = value;
+//     return this;
+//   }
+
+//   del(key: number): Companies {
+//     super.splice(key,1);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.length;
+//   }
+
+//   // get all_keys() {
+//   //   return [...super.keys()];
+//   // }
+
+//   // get all_values() {
+//   //   return [...super.values()];
+//   // }
+
+//   // get all_entries() {
+//   //   return [...super.entries()];
+//   // }
+// }
+
 export class LegalEntities extends Map<number, LegalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
+  }
   
   createEntity(){
     return new LegalEntity('');
@@ -729,10 +984,40 @@ export class LegalEntities extends Map<number, LegalEntity> {
   }
 }
 
+// export class Companies extends LegalEntities{}
+
 export class NaturalEntities extends Map<number, NaturalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
+  fromJSONArray(array: any[]){
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i=0;i<array.length;i++){
+      let o = this.createEntity();
+      let a = array[i];
+      let propName = '';
+      
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: EveryEntity[]){
+    for (let i=0;i<entitiesArray.length;i++){
+      let o = this.createEntity();
+      let a = entitiesArray[i];
+      let propName = '';
+      for (propName in a)  
+      {  
+        o[propName] = a[propName];
+      } 
+      o.type = type;
+      this.add(o);
+    }
+  }
   
   createEntity(){
     return new NaturalEntity('','','');

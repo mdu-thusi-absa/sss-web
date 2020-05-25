@@ -73,6 +73,7 @@ import { EntityAuditsComponent } from './panels/entity-audits/entity-audits.comp
 import { TestMaterialComponent } from './material/test-material/test-material.component'
 import { MaterialModule } from './material/material.module';
 import { ButtonsToggleComponent } from './buttons/buttons-toggle/buttons-toggle.component';
+import { ButtonsToolbarButtonComponent } from './buttons/buttons-toolbar-button/buttons-toolbar-button.component';
 
 
 
@@ -141,6 +142,7 @@ import { ButtonsToggleComponent } from './buttons/buttons-toggle/buttons-toggle.
     EntityAuditsComponent,
     TestMaterialComponent,
     ButtonsToggleComponent,
+    ButtonsToolbarButtonComponent,
     
   ],
   imports: [

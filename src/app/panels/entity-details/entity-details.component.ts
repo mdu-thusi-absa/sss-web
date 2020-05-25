@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, NaturalEntity, NaturalEntities, EveryEntity, Entities } from '../../models'
+import { Entity, NaturalEntity, NaturalEntities, EveryEntity, Entities, FunctionalEntities } from '../../models'
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() entityType = 0;
   //@Input() entityKey = 0;
   private entity_: EveryEntity;
-  entities: Entities;
+  entities: FunctionalEntities;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -34,12 +34,14 @@ export class EntityDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = this.dataService.getPersons();
-    this.entities = this.dataService.getFunctionalEntities(this.entityType)
+    //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
+    this.entities = this.dataService.getFunctionalEntitiesAll();
     this.entity_ = this.entities.currentValue;
   }
 
   get entity(){
-    this.entities = this.dataService.getFunctionalEntities(this.entityType)
+    //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
+    //this.entities = this.dataService.getFunctionalEntitiesAll()
     this.entity_ = this.entities.currentValue;
     return this.entity_;
   }

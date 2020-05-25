@@ -15,11 +15,18 @@ export class InputCheckboxComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
   @Input() showCD = false;
   @Input() showCheck = false;
+  @Input() inline = false;
+
+  doChange(event:  any){
+    console.log(event.target.checked);
+     this.onChange.emit(event.target.checked);
+  }
 
   doFile(){
     this.onFile.emit(this.title);

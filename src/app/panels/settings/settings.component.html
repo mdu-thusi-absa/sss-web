@@ -13,7 +13,26 @@
     [class.settings-detail-form-full]="isFullScreen()"
     [class.settings-detail-form-half]="isHalfScreen()"
   >
-    <hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
+  <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Settings: Miscellaneous</u>
+    </div>
+  <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'checkbox'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Show Active Entities only'"
+      [showCheckLeft]="false"
+      
+      [typeRight]="''"
+      
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      
+    ></app-input-duo> -->
+    <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" /> -->
     <div class="h4 text-primary-h4" style="margin-top: 5px;">
       <u>Settings: maintain lists and select defaults</u>
     </div>

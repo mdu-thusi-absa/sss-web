@@ -657,13 +657,33 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.active:focus,
 .primary-color-active.active.focus,
 .primary-color-active.active.focus:active,
-.primary-color-active.active.focus:focus .primary-color-active.focus,
+.primary-color-active.active.focus:focus,
+ .primary-color-active.focus,
 .primary-color-active.focus:active,
-.primary-color-active.focus:focus {
+.primary-color-active.focus:focus
+{
   background-color: var(--color-dark);
   /* border-color: rgb(150, 5, 4); */
   color: white;
 }
+.primary-color-active:hover,
+.primary-color-active:active:hover,
+.primary-color-active:focus:hover,
+.primary-color-active.active:hover,
+.primary-color-active.active:active:hover,
+.primary-color-active.active:focus:hover,
+.primary-color-active.active.focus:hover,
+.primary-color-active.active.focus:active:hover,
+.primary-color-active.active.focus:focus:hover,
+ .primary-color-active.focus:hover,
+.primary-color-active.focus:active:hover,
+.primary-color-active.focus:focus:hover
+{
+  background-color: var(--color-dark);
+  /* border-color: rgb(150, 5, 4); */
+  color: var(--color-light);
+}
+
 .primary-color:focus,
 .primary-color.active:focus,
 .primary-color.active.focus,
@@ -904,7 +924,7 @@ input[type="checkbox"] {
 
   padding: 0;
   margin: 0;
-  vertical-align: bottom;
+  vertical-align: middle;
   position: relative;
   top: 1px;
   *overflow: hidden;

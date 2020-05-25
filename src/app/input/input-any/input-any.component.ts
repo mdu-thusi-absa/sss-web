@@ -66,6 +66,7 @@ export class InputAnyComponent implements OnInit {
   }
 
   doChange(event: any){
+    console.log('any');
     this.onChange.emit(event);
   }
 

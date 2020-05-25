@@ -128,23 +128,24 @@ export class EntitiesContainerComponent implements OnInit {
     this.hideAudits = !this.hideAudits;
     this.hidePosts = !this.hideAudits;
     this.hideTasks = !this.hideAudits;
-    this.showPanelRight = !this.hideAudits;
+    console.log(this.hideAudits,this.hidePosts,this.hideTasks);
+    //this.showPanelRight = !this.hideAudits;
   }
   showHideTasks() {
     //console.log(this.showPanelRight);
     this.hideTasks = !this.hideTasks;
     this.hidePosts = !this.hideTasks;
     this.hideAudits = !this.hideTasks
-    this.showPanelRight = !this.hideTasks;
+    //this.showPanelRight = !this.hideTasks;
     // this.showHide_(0, doShow);
     // this.setPaneRowCount();
     //console.log(this.showPanelRight);
   }
-  showHidePosts() {
+  showHideArticles() {
     this.hidePosts = !this.hidePosts;
     this.hideTasks = !this.hidePosts;
     this.hideAudits = !this.hideTasks
-    this.showPanelRight = !this.hidePosts;
+    //this.showPanelRight = !this.hidePosts;
     //this.showPanelRight = !this.hideTasks || !this.hidePosts;
     // this.showHide_(0, doShow);
     // this.setPaneRowCount();

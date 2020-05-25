@@ -1,0 +1,27 @@
+<div *ngIf="showMe" style="display: inline-block; vertical-align: top;padding-left:1px; padding-right:1px;">
+    <a href="#" (click)="doClick()" class="btn btn-info btn-xs"
+    style="padding: 1px"
+    [title] = "title">
+  
+  &nbsp;<span [class]="'glyphicon ' + glyphiconClass"> </span>&nbsp;
+    <!-- <svg
+      style="
+        background-position: center;
+        vertical-align:middle;
+        background-repeat: no-repeat;
+        height: 19px;
+        width: 19px;
+        color: white;
+      "
+      [style.background-image] = "'url(\'' + svgUrlPath + '\')'"
+    ></svg> -->
+  
+    
+
+    <!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
+
+    <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
+      <small>{{ title }}&nbsp;</small></span
+    >
+  </a>
+</div>

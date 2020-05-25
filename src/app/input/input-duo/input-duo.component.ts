@@ -112,9 +112,11 @@ export class InputDuoComponent implements OnInit {
 
   doChangeLeft(event: any){
     //console.log('doChangeLeft',event);
+    console.log('left');
     this.onChangeLeft.emit(event);
   }
   doChangeRight(event: any){
+    console.log('right');
     this.onChangeRight.emit(event);
   }
 }

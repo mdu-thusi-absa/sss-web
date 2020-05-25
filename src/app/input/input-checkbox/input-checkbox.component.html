@@ -1,11 +1,12 @@
 <div [hidden]="hideByFilter()">
   <div class="checkbox" style="margin-bottom:0px;margin-top:5px;vertical-align: middle;">
-    <label class="nobottom text-primary-bold label-checkbox label-buttons-3"
+    <label class="nobottom text-primary-bold label-checkbox" [class.label-buttons-3] = "showFlash || showPaperclip || showCheck || showCD"
       ><input
         type="checkbox"
         value=""
         [checked]="value"
         [disabled]="disabled"
+        (change) = "doChange($event)"
       /><span class="text-primary-bold" style="padding-top:10px;margin-top:10px;">&nbsp;{{ title }}</span></label
     >
 

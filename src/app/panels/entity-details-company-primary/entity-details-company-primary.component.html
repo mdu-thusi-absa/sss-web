@@ -117,6 +117,8 @@
   [typeLeft]="'date'"
   [titleLeft]="'Incorporation Date'"
   [placeholderLeft] = "'Incorporation date of the entity'"
+  [showCheckLeft] = "true"
+
   [typeRight]="'select-entity'"
   [titleRight]="'Anniversary (month)'"
   [placeholderRight] = "'Anniversary Date (month) of the incorporation of the entity'"
@@ -125,11 +127,11 @@
   [showAddRight]="false"
   [showDeleteRight]="false"
   [showEditRight]="false"
+  [showCheckRight] = "false"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  (onTask)="doTask($event)"      
 ></app-input-duo>
 
 <app-input-duo
@@ -139,6 +141,7 @@
   [typeLeft]="'date'"
   [titleLeft]="'Business start date of the entity'"
   [valueLeft]=""
+  [showCheckLeft] = "true"
 
   [typeRight]="'select-entity'"
   [titleRight]="'Financial Year End (month)'"
@@ -147,11 +150,12 @@
   [showAddRight]="false"
   [showDeleteRight]="false"
   [showEditRight]="false"
+  [showCheckRight] = "false"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  
 ></app-input-duo>
 
 <hr style="height: 1px; margin: 0px;" />
