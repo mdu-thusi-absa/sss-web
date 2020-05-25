@@ -8,10 +8,11 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
       [showCheck]="showCheck"
+      [title] = "title"
     ></app-buttons-input-text>
     <label
       *ngIf="!inline && showTitle"
-      class="nobottom text-primary label-buttons-3"
+      class="nobottom text-primary-bold label-buttons-3"
       >{{ title }}</label
     >
 

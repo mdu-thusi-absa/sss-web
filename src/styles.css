@@ -447,10 +447,25 @@ label.btn.btn-primary:focus{
 .text-primary {
   /* color: rgb(240, 90, 120); */
   /* color: rgb(150, 5, 4); */
-  color:var(--color-text);
-  border-color: var(--color-text);
+  color:var(--color-dark);
+  border-color: var(--color-dark);
   font-weight: normal;
 }
+.text-primary-h4 {
+  /* color: rgb(240, 90, 120); */
+  /* color: rgb(150, 5, 4); */
+  color:var(--color-dark);
+  border-color: var(--color-dark);
+  font-weight: normal;
+}
+.text-primary-bold {
+  /* color: rgb(240, 90, 120); */
+  /* color: rgb(150, 5, 4); */
+  color:var(--color-dark);
+  border-color: var(--color-dark);
+  font-weight: 550;
+}
+
 .info {
   background-color: rgb(240, 90, 120);
 }
@@ -557,10 +572,11 @@ label.btn.btn-primary:focus{
   --color-orange: rgb(250,85,30); */
 
   --color-dark: rgb(150, 5, 4);
-  --color-light: rgb(240,90,120);;
+  --color-light: rgb(240,90,120);
   --color-bright: rgb(220, 0, 50) ;
   /* rgb(240,50,90); */
-  --color-text: rgb(250,85,30);
+  /* --color-text: rgb(250,85,30); */
+  /* --color-text: rgb(240,90,120); */
 }
 /*rgb(240,90,120); care*/
 /*Smile rgb(240,50,90)*/
@@ -586,7 +602,7 @@ label.btn.btn-primary:focus{
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
   color: #fff;
-  background-color: var(--bg-color-active);
+  background-color: var(--bg-color-dark);
   background-image: none;
   border-color: white;
 }
@@ -600,7 +616,7 @@ label.btn.btn-primary:focus{
 .btn-info.active.focus,
 .open > .dropdown-toggle.btn-info.focus {
   color: #fff;
-  background-color: var(--bg-color-active);
+  background-color: var(--color-dark);
   border-color: white;
 }
 .btn-info.disabled:hover,
@@ -644,7 +660,7 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.active.focus:focus .primary-color-active.focus,
 .primary-color-active.focus:active,
 .primary-color-active.focus:focus {
-  background-color: rgb(150, 5, 4);
+  background-color: var(--color-dark);
   /* border-color: rgb(150, 5, 4); */
   color: white;
 }
@@ -652,7 +668,7 @@ fieldset[disabled] .btn-info.focus {
 .primary-color.active:focus,
 .primary-color.active.focus,
 .primary-color.active.focus:focus {
-  background-color: rgb(150, 5, 4);
+  background-color: var(--color-dark);
   /* border-color: white; */
   color: white;
 }
@@ -660,13 +676,20 @@ fieldset[disabled] .btn-info.focus {
 /* color: rgb(51, 122, 183); original */
 .primary-color-reverse {
   /* color: rgb(220, 0, 50); */
-  color: var(--color-text);
+  color: var(--color-bright);
   background-color: white;
-  border-color: var(--color-text);
+  border-color: var(--color-bright);
+}
+.primary-color-reverse:hover {
+  /* color: rgb(220, 0, 50); */
+  color: black;
+  background-color: white;
+  border-color: black;
 }
 
+
 .primary-color-input-reverse{
-  border-color: var(--color-text);
+  border-color: var(--color-light);
 }
 
 /* background-color: rgb(55, 130, 190); original */
@@ -940,8 +963,8 @@ background-color: rgba(0, 0, 0, 0);
 } 
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Roboto, "Helvetica Neue", sans-serif; }
+/* html, body { height: 100%; }
+body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Roboto, "Helvetica Neue", sans-serif; } */
 
 /*Set font family style as sample*/
 /* .glyphter {

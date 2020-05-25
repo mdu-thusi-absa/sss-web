@@ -4,7 +4,7 @@
   style="margin-top: 5px; margin-right: 1px;"
 >
 <div class="input-group-sm">
-    <label class="nobottom text-primary label-buttons-3">{{ title }}</label>
+    <label class="nobottom text-primary-bold label-buttons-3">{{ title }}</label>
 
     <app-buttons-input-text
       [title]="title"
@@ -15,6 +15,7 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
       [showCheck] = "showCheck"
+      [title] = "title"
     ></app-buttons-input-text>
   </div>
 

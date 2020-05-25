@@ -1,6 +1,6 @@
 <div class="panel panel-default" style="margin-bottom: 10px;">
   <div
-    class="panel panel-heading nobottom less-padding text-primary"
+    class="panel panel-heading nobottom less-padding text-primary-bold"
     [hidden]="noHeader"
   >
     <a
@@ -8,9 +8,9 @@
       data-toggle="collapse"
       [attr.data-target]="'#step-' + stepNumber"
       (click)="hideBody = !hideBody"
-      class="text-primary"
+      class="text-primary-bold"
     >
-      <label class="nobottom text-primary"
+      <label class="nobottom text-primary-bold"
         ><small>Step {{ stepNumber }}</small></label
       >
     </a>

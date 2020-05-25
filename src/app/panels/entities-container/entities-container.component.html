@@ -223,13 +223,25 @@
           "
         >
           <div class="panel-heading mt3">
-            <small [hidden]="entityType == entityTypes.size - 1"
-              ><span class="glyphicon glyphicon-th-large"></span>
+            <small [hidden]="entityType == entityTypes.size - 1">
+              <span class="glyphicon glyphicon-th-list"></span>
+
+              <!-- <svg
+              style="
+                background-position: center;
+                vertical-align:middle;
+                background-repeat: no-repeat;
+                height: 19px;
+                width: 19px;
+                color: white;
+              "
+              [style.background-image] = "'url(\'../assets/svg/Icon_List_SVG_Black.svg\')'"
+            ></svg> -->
 
               <span
                 class="hidden-xs hidden-sm hidden-md"
                 [hidden]="showPanelRight"
-                >&nbsp;Entity Details:</span
+                >&nbsp;Entity Details</span
               >&nbsp;
               <!-- <div class="btn-group"> -->
               <div class="btn-group" style="vertical-align: top; height: 20px;">
@@ -309,57 +321,72 @@
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
                   [glyphiconClass]="'glyphicon-flag'"
-                  [svgUrlPath] = "'../assets/svg/Icon_Exclamation square_SVG_Black.svg'"
+                  [svgUrlPath]="
+                    '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                  "
                   [toggleValue]="!hidePrimary"
                   (onToggle)="hidePrimary = !hidePrimary"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle
-                >&nbsp;
+                >
                 <app-buttons-toggle
                   [title]="'Secondary'"
                   [placeholder]="'Secondary page'"
                   [glyphiconClass]="'glyphicon-king'"
-                  [svgUrlPath] = "'../assets/svg/Icon_Exclamation circle_SVG_Black.svg'"
+                  [svgUrlPath]="
+                    '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
+                  "
                   [toggleValue]="!hideSecondary"
                   (onToggle)="hideSecondary = !hideSecondary"
                   [isNarrow]="showPanelRight"
                   [showMe]="entityType == 0 || entityType == 1"
                 >
                 </app-buttons-toggle
-                >&nbsp;
+                >
 
                 <app-buttons-toggle
-                [title]="'Optional'"
-                [placeholder] = "'Optional page'"
-                [glyphiconClass] = "'glyphicon-gift'"
-                [svgUrlPath] = "'../assets/svg/Icon_Stationary_SVG_Black.svg'"
-                [toggleValue] = "!hideOptional"
-                (onToggle) = "hideOptional = !hideOptional"
-                [isNarrow] = "showPanelRight"
-                [showMe] = "entityType == 0"
-                ></app-buttons-toggle>&nbsp;
+                  [title]="'Optional'"
+                  [placeholder]="'Optional page'"
+                  [glyphiconClass]="'glyphicon-gift'"
+                  [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
+                  [toggleValue]="!hideOptional"
+                  (onToggle)="hideOptional = !hideOptional"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="entityType == 0"
+                ></app-buttons-toggle
+                >
                 <app-buttons-toggle
-                [title]="'Contacts'"
-                [placeholder] = "'Contact page'"
-                [glyphiconClass] = "'glyphicon-envelope'"
-                
-                [svgUrlPath] = "'../assets/svg/Icon_Envelope_SVG_Black.svg'"
-                [toggleValue] = "!hideCustom"
-                (onToggle) = "hideCustom = !hideCustom"
-                [isNarrow] = "showPanelRight"
-                [showMe] = "true"
-                ></app-buttons-toggle>&nbsp;
+                  [title]="'Contacts'"
+                  [placeholder]="'Contact page'"
+                  [glyphiconClass]="'glyphicon-envelope'"
+                  [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
+                  [toggleValue]="!hideContacts"
+                  (onToggle)="hideContacts = !hideContacts"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle
+                >
                 <app-buttons-toggle
-                [title]="'Files'"
-                [placeholder] = "'Files page'"
-                [glyphiconClass] = "'glyphicon-paperclip'"
-                [svgUrlPath] = "'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
-                
-                [toggleValue] = "!hideDetailFiles"
-                (onToggle) = "hideDetailFiles = !hideDetailFiles"
-                [isNarrow] = "showPanelRight"
-                [showMe] = "true"
+                  [title]="'Custom'"
+                  [placeholder]="'Contact page'"
+                  [glyphiconClass]="'glyphicon-wrench'"
+                  [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
+                  [toggleValue]="!hideCustom"
+                  (onToggle)="hideCustom = !hideCustom"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle
+                >
+                <app-buttons-toggle
+                  [title]="'Files'"
+                  [placeholder]="'Files page'"
+                  [glyphiconClass]="'glyphicon-paperclip'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideDetailFiles"
+                  (onToggle)="hideDetailFiles = !hideDetailFiles"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
                 ></app-buttons-toggle>
 
                 <!-- &nbsp;<label

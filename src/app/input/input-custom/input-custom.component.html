@@ -24,7 +24,7 @@
     [type]="customType"
     [title]="title + ' (' + customType + ') details'"
     [values]="customType == 'person' ? dataService.getPersons() : values"
-    [value]="0"
+    [value]=""
     [showTitleInput]="false"
     (onFile)="doFile()"
     (onRecord)="doRecord()"

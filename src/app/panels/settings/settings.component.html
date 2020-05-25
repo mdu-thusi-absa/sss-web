@@ -13,28 +13,23 @@
     [class.settings-detail-form-full]="isFullScreen()"
     [class.settings-detail-form-half]="isHalfScreen()"
   >
-    <app-input-person-contact
-      [title]="'Super User Contact Details'"
-    ></app-input-person-contact>
-
-    <app-input-person-contact
-      [title]="'Support Contact Details'"
-    ></app-input-person-contact>
+    <hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Settings: maintain lists and select defaults</u>
+    </div>
 
     <app-input-duo
       [isNarrow]="isNarrow"
       [typeLeft]="'select-entity'"
       [filterText]="filterText"
       [doHideByFilter]="true"
-      [titleLeft]="'Countries and default'"
+      [titleLeft]="'Countries'"
       [valuesLeft]="dataService.countries"
-      [valueLeft] = "dataService.getDefault('countryKey')"
-
+      [valueLeft]="dataService.getDefault('countryKey')"
       [typeRight]="'select-entity'"
-      [titleRight]="'Industries and default'"
+      [titleRight]="'Industries'"
       [valuesRight]="dataService.industries"
       [valueRight]="0"
-
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -43,89 +38,93 @@
     ></app-input-duo>
 
     <app-input-duo
-    [isNarrow]="isNarrow"
-    [typeLeft]="'select-entity'"
-    [filterText]="filterText"
-    [doHideByFilter]="true"
-    [titleLeft]="'Business Areas and default'"
-    [valuesLeft]="dataService.businessAreas"
-    [valueLeft]="0"
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Business Areas'"
+      [valuesLeft]="dataService.businessAreas"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Business Divisions'"
+      [valuesRight]="dataService.businessDivisions"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
 
-    [typeRight]="'select-entity'"
-    [titleRight]="'Business Divisions and default'"
-    [valuesRight]="dataService.businessDivisions"
-    [valueRight]="0"
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Legal Classes'"
+      [valuesLeft]="dataService.legalClasses"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Contact Preferences'"
+      [valuesRight]="dataService.contactPreferences"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
 
-    (onFile)="doFile($event)"
-    (onRecord)="doRecord($event)"
-    (onTask)="doTask($event)"
-    [showCheckLeft]="true"
-    [showCheckRight]="true"
-  ></app-input-duo>
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Entity Statuses'"
+      [valuesLeft]="dataService.entityStatuses"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Entity Status Tiers'"
+      [valuesRight]="dataService.entityStatusTiers"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
 
-  <app-input-duo
-  [isNarrow]="isNarrow"
-  [typeLeft]="'select-entity'"
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [titleLeft]="'Legal Classes'"
-  [valuesLeft]="dataService.legalClasses"
-  [valueLeft]="0"
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Accounting Classes'"
+      [valuesLeft]="dataService.accountingClasses"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Accounting Class Tiers'"
+      [valuesRight]="dataService.accountingTiers"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
 
-  [typeRight]="'select-entity'"
-  [titleRight]="'Contact Preferences'"
-  [valuesRight]="dataService.contactPreferences"
-  [valueRight]="0"
+    <hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Settings: Contact Details</u>
+    </div>
 
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
-></app-input-duo>
+    <app-input-person-contact
+      [title]="'Super User Contact Details'"
+    ></app-input-person-contact>
 
-<app-input-duo
-    [isNarrow]="isNarrow"
-    [typeLeft]="'select-entity'"
-    [filterText]="filterText"
-    [doHideByFilter]="true"
-    [titleLeft]="'Entity Statuses and default'"
-    [valuesLeft]="dataService.entityStatuses"
-    [valueLeft]="0"
-
-    [typeRight]="'select-entity'"
-    [titleRight]="'Entity Status Tiers and default'"
-    [valuesRight]="dataService.entityStatusTiers"
-    [valueRight]="0"
-
-    (onFile)="doFile($event)"
-    (onRecord)="doRecord($event)"
-    (onTask)="doTask($event)"
-    [showCheckLeft]="true"
-    [showCheckRight]="true"
-  ></app-input-duo>
-
-  <app-input-duo
-    [isNarrow]="isNarrow"
-    [typeLeft]="'select-entity'"
-    [filterText]="filterText"
-    [doHideByFilter]="true"
-
-    [titleLeft]="'Accounting Classes and default'"
-    [valuesLeft]="dataService.accountingClasses"
-    [valueLeft]="0"
-
-    [typeRight]="'select-entity'"
-    [titleRight]="'Accounting Class Tiers and default'"
-    [valuesRight]="dataService.accountingTiers"
-    [valueRight]="0"
-
-    (onFile)="doFile($event)"
-    (onRecord)="doRecord($event)"
-    (onTask)="doTask($event)"
-    [showCheckLeft]="true"
-    [showCheckRight]="true"
-  ></app-input-duo>
+    <app-input-person-contact
+      [title]="'Support Contact Details'"
+    ></app-input-person-contact>
 
     <app-input-address
       [title]="'Entity Default Address'"

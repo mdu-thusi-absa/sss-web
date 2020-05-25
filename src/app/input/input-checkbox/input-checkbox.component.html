@@ -1,12 +1,12 @@
 <div [hidden]="hideByFilter()">
   <div class="checkbox" style="margin-bottom:0px;margin-top:5px;vertical-align: middle;">
-    <label class="nobottom text-primary label-checkbox label-buttons-3"
+    <label class="nobottom text-primary-bold label-checkbox label-buttons-3"
       ><input
         type="checkbox"
         value=""
         [checked]="value"
         [disabled]="disabled"
-      /><span  style="padding-top:10px;margin-top:10px;">&nbsp;{{ title }}</span></label
+      /><span class="text-primary-bold" style="padding-top:10px;margin-top:10px;">&nbsp;{{ title }}</span></label
     >
 
     <!-- <div class="custom-control custom-checkbox checkbox-lg">
@@ -23,6 +23,7 @@
       [showPaperclip] = "showPaperclip"
       [showCD] = "showCD"
       [showCheck] = "showCheck"
+      [title] = "title"
     ></app-buttons-input-text>
   </div>
 </div>

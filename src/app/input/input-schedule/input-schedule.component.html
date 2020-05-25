@@ -1,6 +1,6 @@
 <div class="panel panel-default" style="margin-bottom: 0px; margin-top: 5px;">
   <div
-    class="panel panel-heading nobottom less-padding text-primary"
+    class="panel panel-heading nobottom less-padding text-primary-bold"
     [hidden]="false"
   >
     <a
@@ -8,9 +8,9 @@
       data-toggle="collapse"
       [attr.data-target]="'#schedule-' + getID()"
       (click)="hideBody = !hideBody"
-      class="text-primary"
+      class="text-primary-bold"
     >
-      <label class="nobottom text-primary"><small
+      <label class="nobottom text-primary-bold"><small
         >Repeating schedule {{ title.length > 0 ? "for: " + title : "" }}</small
       ></label>
     </a>

@@ -8,7 +8,7 @@
   <div>
     <label
       for="text"
-      class="text-primary"
+      class="text-primary-bold"
       style="margin-bottom: 4px;"
       [hidden]="noTitle"
       >{{ title }}
@@ -23,6 +23,7 @@
       (onFile)="doFile()"
       (onRecord)="doRecord()"
       (onTask)="doTask()"
+      [title] = "title"
     ></app-buttons-input-text>
   </div>
   <textarea

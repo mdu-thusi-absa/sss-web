@@ -8,8 +8,8 @@
       name="text"
       [(ngModel)]="text"
       (keyup)="doKey($event)"
-      autocomplete="nope"
       (change) = "doChange($event)"
+      autocomplete="off"
     />
     <span
       *ngIf="showSave"
