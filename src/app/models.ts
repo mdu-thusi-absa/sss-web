@@ -692,14 +692,15 @@ export class FunctionalEntities extends Map<number, FunctionalEntity> {
 
   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]){
     for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+      //let o = this.createEntity();
       let a = entitiesArray[i];
+      let o = Object.assign(a);
       let propName = '';
-      for (propName in a)  
-      {  
-        //console.log(propName,a[propName]);
-        o[propName] = a[propName];
-      } 
+      // for (propName in a)  
+      // {  
+      //   //console.log(propName,a[propName]);
+      //   o[propName] = a[propName];
+      // } 
       o.type = type;
       if (activeOnly){
         if (o["isActive"])

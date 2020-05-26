@@ -1,13 +1,25 @@
 <div [hidden]="hideByFilter()">
-  <div class="checkbox" style="margin-bottom:0px;margin-top:5px;vertical-align: middle;">
-    <label class="nobottom text-primary-bold label-checkbox" [class.label-buttons-3] = "showFlash || showPaperclip || showCheck || showCD"
+  <div
+    class="checkbox"
+    style="margin-bottom: 0px; margin-top: 5px; vertical-align: middle;"
+  >
+    <label
+      class="nobottom text-primary-bold label-checkbox"
+      [class.label-buttons-3]="
+        showFlash || showPaperclip || showCheck || showCD
+      "
       ><input
         type="checkbox"
         value=""
         [checked]="value"
         [disabled]="disabled"
-        (change) = "doChange($event)"
-      /><span class="text-primary-bold" style="padding-top:10px;margin-top:10px;">&nbsp;{{ title }}</span></label
+        (change)="doChange($event)"
+      /><span
+        [class.text-primary-bold]="!inline"
+        style="padding-top: 10px; margin-top: 10px;"
+        [style.font-size] = "inline ? 'small' : 'normal'"
+        >&nbsp;{{ title }}</span
+      ></label
     >
 
     <!-- <div class="custom-control custom-checkbox checkbox-lg">
@@ -17,14 +29,14 @@
 
     <app-buttons-input-text
       [title]="title"
-      (onTask) = "doTask()"
+      (onTask)="doTask()"
       (onFile)="doFile()"
       (onRecord)="doRecord()"
-      [showFlash] = "showFlash"
-      [showPaperclip] = "showPaperclip"
-      [showCD] = "showCD"
-      [showCheck] = "showCheck"
-      [title] = "title"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showCheck]="showCheck"
+      [title]="title"
     ></app-buttons-input-text>
   </div>
 </div>

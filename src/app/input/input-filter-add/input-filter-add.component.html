@@ -174,7 +174,7 @@
   <select
     *ngIf="showList"
     class="form-control input-sm wide primary-color-input-reverse"
-    style="font-size: small;"
+    style="font-size: small;border-bottom: none;"
     (change)="doListChange($event)"
   >
     <option
@@ -218,7 +218,7 @@
 
     <span
       *ngIf="showFilterCount"
-      class="input-group-addon primary-color-reverse"
+      class="input-group-addon primary-color-reverse hidden-xs"
       title="Number of items"
       style="border-left:none;pointer-events: none;"
     >

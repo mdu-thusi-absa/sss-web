@@ -139,6 +139,9 @@ export class EntitiesComponent implements OnInit {
     if (this.showActiveOnly && this.rdoActiveDormantAll == 'pause') {
       this.rdoActiveDormantAll = 'all';
     }
+    if (this.showActiveOnly && this.rdoActiveDormantAll == 'play') {
+      this.rdoActiveDormantAll = 'all';
+    }
     //console.log(this.entities);
     this.setCounts();
   }
@@ -192,7 +195,8 @@ export class EntitiesComponent implements OnInit {
     //console.log(this.entityTypeName);
     if (this.entities){
        //return [...this.entities.values()].filter(e => !this.shouldBeHidden(e)).length;
-       return [...this.isHiddenMap.values()].filter(e => e).length;
+       console.log(this.isHiddenMap);
+       return [...this.isHiddenMap.values()].filter(e => !e).length;
     }else{
       return 0;
     }

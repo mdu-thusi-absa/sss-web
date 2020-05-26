@@ -13,7 +13,7 @@
     [listValue]="entityType"
     (onListChange)="doEntityTypeChange($event)"
     [showFlash]="true"
-    [showPlay]="true"
+    [showPlay]="!this.showActiveOnly"
     [showPause]="!this.showActiveOnly"
     [showAll]="true"
     [radioChoice]="rdoActiveDormantAll"
