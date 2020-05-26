@@ -52,34 +52,28 @@ export class InputNumberComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.placeholder == '') this.placeholder = this.title;
+    if (this.placeholder === '') this.placeholder = this.title;
     this.showHideButtons()
   }
 
   hideByFilter() {
     return this.doHideByFilter
       ? this.filterText.length > 0 &&
-          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
 
   doChange(event: any) {
-    console.log('e',event);
     if (event>this.maxValue) {
       this.value = this.maxValue;
-      //event.preventDefault();
-      //return false;
     }
     else if (event<this.minValue) {
       this.value = this.minValue;
-      //event.preventDefault();
-      //return false;
     }
     else {
       this.value = event;
     }
     this.onChange.emit(this.value);
-    console.log('v',this.value);
     this.showHideButtons()
     //return true;
   }
@@ -100,26 +94,23 @@ export class InputNumberComponent implements OnInit {
   showHideButtons() {
     this.showPlus = this.value < this.maxValue;
     this.showMinus = this.value > this.minValue;
-    //console.log(this.minValue,this.maxValue,this.value);
   }
 
   //(keyup)="doKey($event)"
   doKeyUp(event: any) {
-    if (event.key == 'Escape') {
+    if (event.key === 'Escape') {
       //this.value = this.defaultValue;
       this.doCancel();
-    } else if (event.key == 'Enter') {
+    } else if (event.key === 'Enter') {
       this.doSave();
     }
   }
 
   doKeyDown(event: any){
     let s = event.key;
-    //console.log(s);
     let sAllow = ['Enter','Tab','ArrowLeft','ArrowRight'];
     let isAllowed = sAllow.indexOf(s)>-1;
     let isTooLow = this.value < this.minValue;
-    // console.log(isTooLow);
     return !isNaN(s) || isAllowed;
   }
 

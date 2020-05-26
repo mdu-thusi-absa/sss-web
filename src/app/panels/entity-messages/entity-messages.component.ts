@@ -160,7 +160,6 @@ Torsten Titze	Senior Manager: Public Affairs	info@de.sasol.com	T: +49 40 63 684 
   }
 
   showMessagesThatAre(typ: string) {
-    console.log(typ);
     if (typ === 'unread') {
       this.messages.filter((msg) => !msg.isRead);
     } else if (typ === 'read') {
@@ -198,11 +197,11 @@ Torsten Titze	Senior Manager: Public Affairs	info@de.sasol.com	T: +49 40 63 684 
       inFilter = inTitle || inText || inWhen || inWho;
     }
     let inReadChoice = true;
-    if (this.rdoUnReadReadAll == 'all') {
+    if (this.rdoUnReadReadAll === 'all') {
       inReadChoice = true;
-    } else if (this.rdoUnReadReadAll == 'eye-close') {
+    } else if (this.rdoUnReadReadAll === 'eye-close') {
       inReadChoice = !msg.isRead;
-    } else if (this.rdoUnReadReadAll == 'eye-open') {
+    } else if (this.rdoUnReadReadAll === 'eye-open') {
       inReadChoice = msg.isRead;
     }
 

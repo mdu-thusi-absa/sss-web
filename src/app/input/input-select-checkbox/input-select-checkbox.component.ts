@@ -62,20 +62,18 @@ export class InputSelectCheckboxComponent implements OnInit {
 
 
   setItem(text: string) {
-    //console.log('setItem: b');
     // this.values.sort(function (a:string, b:string) {
     //   return String(a).toLowerCase().localeCompare(b.toLowerCase());
     // });
 
     // this.option = this.values.indexOf(text).toString();
     // this.selectedItems.push(+this.option);
-    //console.log('setItem: e');
   }
 
   hideByFilter() {
     return this.doHideByFilter
       ? this.filterText.length > 0 &&
-          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
 
@@ -83,9 +81,7 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   showEdit() {
     this.doAdd = false;
-    //console.log(this.option);
     this.text = this.values.get(this.valueId).name;
-    // if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
 
@@ -101,7 +97,6 @@ export class InputSelectCheckboxComponent implements OnInit {
         this.doAdd = false;
       } else {
         //save for old item
-        //console.log(this.option, this.text);
         this.values.set(this.valueId,new Entity(this.text));
       }
       this.setItem(this.text);
@@ -132,16 +127,14 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   doFilter(event: any){
-    //console.log('isc',event);
     this.listFilterText = event.toLowerCase();
   }
 
-  hideItem(text: string){
+  hideItem(item: string){
     let r = false;
     if (this.listFilterText.length>0){
-      r = text.toLowerCase().indexOf(this.listFilterText)==-1;
+      r = item.toLowerCase().indexOf(this.listFilterText)==-1;
     }
-    //console.log(r,text);
     return r;
     
   }
@@ -156,7 +149,6 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   showingFilter(event:any){
     this.isShowingFilter = event;
-    //console.log(this.isShowingFilter);
   }
 
   doEdit(index: any){
@@ -164,14 +156,12 @@ export class InputSelectCheckboxComponent implements OnInit {
     this.showEdit()
   }
 
-  doDelete(index: any){
-    //console.log(index);                       
+  doDelete(index: any){                     
     this.valueId = index;
     this.deleteItem()
   }
 
   doSave(event: any){
-    //console.log(event);
     this.text = event;
     this.entity.name = this.text;
     this.showNew()
@@ -182,23 +172,15 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   doCheckField(event: any){
-    
-    // let f = event.target.value;
     let c = event.target.checked;
-    // let p = this.selectedItems.indexOf(f);
-
     let p = +event.target.value;
     let q = this.selectedItems.indexOf(p);
-    //console.log(c,p,q);
     if (c){
-      let q = this.selectedItems.indexOf(p);
       if (q==-1) this.selectedItems.push(p) ;
     }
     else{
       if (q>-1)  this.selectedItems.splice(q,1) 
     }
-    //console.log(this.selectedItems);
-    //console.log('doCheckField');
   }
 
 }

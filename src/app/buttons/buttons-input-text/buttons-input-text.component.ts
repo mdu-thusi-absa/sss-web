@@ -34,7 +34,6 @@ export class ButtonsInputTextComponent implements OnInit {
   }
 
   doTask(){
-    //console.log('app-buttons-input-text: doTask');
     this.onTask.emit();
   }
 }

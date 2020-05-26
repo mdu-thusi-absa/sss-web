@@ -24,7 +24,6 @@ export class InputCheckboxComponent implements OnInit {
   @Input() inline = false;
 
   doChange(event:  any){
-    console.log(event.target.checked);
      this.onChange.emit(event.target.checked);
   }
 
@@ -44,7 +43,7 @@ export class InputCheckboxComponent implements OnInit {
   }
 
   hideByFilter() {
-    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1 : false);
+    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 : false);
   }
 
   

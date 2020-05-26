@@ -58,15 +58,15 @@ export class ButtonsInputSelectComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  doExpand(){
+  doExpand() {
     this.onExpand.emit();
   }
 
-  doContract(){
+  doContract() {
     this.onContract.emit();
   }
 
-  doCheck(){
+  doCheck() {
     this.onCheck.emit();
   }
   doEdit() {
@@ -77,20 +77,18 @@ export class ButtonsInputSelectComponent implements OnInit {
   }
 
   doFilter() {
-    //console.log('buttons: doFilter')
     this.onFilter.emit(this.filterText);
   }
 
   showHideFilterInput() {
     this.isFilter = !this.isFilter;
-    if (this.isFilter) this.setFocus();
-    else {
+    if (this.isFilter) {
+      this.setFocus();
+    } else {
       this.filterText = '';
       this.doFilter();
     }
-    //console.log('showHideFilterInput',this.isFilter);
     this.onShowingFilter.emit(this.isFilter);
-    //console.log('showHideFilterInput',this.isFilter);
   }
 
   deleteItem() {
@@ -109,18 +107,20 @@ export class ButtonsInputSelectComponent implements OnInit {
 
   doKey(event: any) {
     // without type info
-    if (event.key == 'Escape') {
+    if (event.key === 'Escape') {
       this.filterText = '';
-      //this.isFilter = false;
+      // this.isFilter = false;
       this.showHideFilterInput();
-    } else this.doFilter();
+    } else {
+      this.doFilter();
+    }
   }
 
   setFocus() {
     setTimeout(() => {
       this.inputFilter.nativeElement.focus();
       // this will make the execution after the above boolean has changed
-      //this.searchElement.nativeElement.focus();
+      // this.searchElement.nativeElement.focus();
     }, 0);
   }
 
@@ -133,17 +133,18 @@ export class ButtonsInputSelectComponent implements OnInit {
   filterInputWidth() {
     let r =
       21.2 *
-        ((this.showFlash ? 1 : 0) +
-          (this.showPaperclip ? 1 : 0) +
-          (this.showCD ? 1 : 0) +
-          (this.showFilter ? 1 : 0) +
-          (this.showEdit ? 1 : 0) +
-          (this.showDelete ? 1 : 0) +
-          (this.showCancel ? 1 : 0) +
-          (this.showSave ? 1 : 0) +
-          (this.showAdd ? 1 : 0));
-
-    if (r < 80) r = 80; 
+      ((this.showFlash ? 1 : 0) +
+        (this.showPaperclip ? 1 : 0) +
+        (this.showCD ? 1 : 0) +
+        (this.showFilter ? 1 : 0) +
+        (this.showEdit ? 1 : 0) +
+        (this.showDelete ? 1 : 0) +
+        (this.showCancel ? 1 : 0) +
+        (this.showSave ? 1 : 0) +
+        (this.showAdd ? 1 : 0));
+    if (r < 80) {
+      r = 80;
+    }
     return r + 'px';
   }
 
@@ -161,7 +162,9 @@ export class ButtonsInputSelectComponent implements OnInit {
           (this.showAdd ? 1 : 0)) +
       30;
 
-    if (r < 90) r = 90; 
+    if (r < 90) {
+      r = 90;
+    }
     return r + 'px';
   }
 }

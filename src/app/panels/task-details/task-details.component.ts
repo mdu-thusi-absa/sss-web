@@ -22,19 +22,19 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   hideByFilter(caption: string){
-    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
+    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
 
   isFullScreen(){
-    return this.panelRows == 1;
+    return this.panelRows === 1;
   }
 
   isHalfScreen(){
-    return this.panelRows == 2;
+    return this.panelRows === 2;
   }
 
   isThirdScreen(){
-    return this.panelRows == 3;
+    return this.panelRows === 3;
   }
 
   showCountryEdit(){

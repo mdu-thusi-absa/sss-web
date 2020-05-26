@@ -37,16 +37,13 @@ export class InputDateComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // if (!this.value) this.value = new Date();
-    //console.log(this.value)
   }
 
   hideByFilter(){
     if (!this.doHideByFilter) return false;
     else return (
-      this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+      this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
     );
-    console.log(this.filterText);
   }
 
   gotoToday(){

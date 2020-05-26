@@ -109,7 +109,6 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   doTask(event: any) {
-    //console.log('doTask');
     this.showHideTasks();
   }
 
@@ -128,31 +127,19 @@ export class EntitiesContainerComponent implements OnInit {
     this.hideAudits = !this.hideAudits;
     this.hidePosts = !this.hideAudits;
     this.hideTasks = !this.hideAudits;
-    console.log(this.hideAudits,this.hidePosts,this.hideTasks);
-    //this.showPanelRight = !this.hideAudits;
   }
   showHideTasks() {
-    //console.log(this.showPanelRight);
     this.hideTasks = !this.hideTasks;
     this.hidePosts = !this.hideTasks;
     this.hideAudits = !this.hideTasks
-    //this.showPanelRight = !this.hideTasks;
-    // this.showHide_(0, doShow);
-    // this.setPaneRowCount();
-    //console.log(this.showPanelRight);
   }
   showHideArticles() {
     this.hidePosts = !this.hidePosts;
     this.hideTasks = !this.hidePosts;
     this.hideAudits = !this.hideTasks
-    //this.showPanelRight = !this.hidePosts;
-    //this.showPanelRight = !this.hideTasks || !this.hidePosts;
-    // this.showHide_(0, doShow);
-    // this.setPaneRowCount();
   }
 
   showHideFiles(attribute: string, doShow: boolean = null) {
-    //console.log(this.isShowAllFiles);
     this.showHide_(2, doShow);
     this.setPaneRowCount();
     if (attribute.length>0) this.showFileFields = [attribute];
@@ -175,21 +162,21 @@ export class EntitiesContainerComponent implements OnInit {
     let bD1 = false;
     let bD2 = false;
 
-    if (hideIndex == 0) {
+    if (hideIndex === 0) {
       //b0 = this.hideTasks;
       b1 = this.hideHistory;
       b2 = this.hideFiles;
       bD0 = this.expandTaskDetail;
       bD1 = this.expandHistoryDetail;
       bD2 = this.expandFilesDetail;
-    } else if (hideIndex == 1) {
+    } else if (hideIndex === 1) {
       //b1 = this.hideTasks;
       b0 = this.hideHistory;
       b2 = this.hideFiles;
       bD1 = this.expandTaskDetail;
       bD0 = this.expandHistoryDetail;
       bD2 = this.expandFilesDetail;
-    } else if (hideIndex == 2) {
+    } else if (hideIndex === 2) {
       //b2 = this.hideTasks;
       b1 = this.hideHistory;
       b0 = this.hideFiles;
@@ -198,7 +185,6 @@ export class EntitiesContainerComponent implements OnInit {
       bD0 = this.expandFilesDetail;
     }
 
-    //console.log('doShow', doShow);
     b0 = !b0;
 
     if (!b0) {
@@ -207,21 +193,21 @@ export class EntitiesContainerComponent implements OnInit {
     }
     bD0 = bD1 || bD2;
 
-    if (hideIndex == 0) {
+    if (hideIndex === 0) {
       //this.hideTasks = b0;
       this.hideHistory = b1;
       this.hideFiles = b2;
       //this.expandTaskDetail = bD0;
       this.expandHistoryDetail = bD1;
       this.expandFilesDetail = bD2;
-    } else if (hideIndex == 1) {
+    } else if (hideIndex === 1) {
       //this.hideTasks = b1;
       this.hideHistory = b0;
       this.hideFiles = b2;
      // this.expandTaskDetail = bD1;
       this.expandHistoryDetail = bD0;
       this.expandFilesDetail = bD2;
-    } else if (hideIndex == 2) {
+    } else if (hideIndex === 2) {
       //this.hideTasks = b2;
       this.hideHistory = b1;
       this.hideFiles = b0;

@@ -52,15 +52,12 @@ export class InputSelectEntityComponent implements OnInit {
   constructor(public dataService: DataService) {}
 
   getID(){
-    //console.log(this.title);
     return this.dataService.getID(this.title);
   }
 
   ngOnInit(): void {
-    //console.log(this.values);
     this.entity = this.values.createEntity();
     //this.entity = new Entity('');
-    //console.log(this.values.createEntity());
     // for (let i = 0; i < this.values.size; i++) {
     //   this.fullNames.push(this.values[i].fullName);
     // }
@@ -98,20 +95,14 @@ export class InputSelectEntityComponent implements OnInit {
   hideByFilter() {
     return this.doHideByFilter
       ? this.filterText.length > 0 &&
-          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
 
   doEdit() {
-    //console.log('edit')
     this.isAdd = false;
-    //console.log(this.option);
     //this.text = this.values[+this.option].fullName;
-    // console.log(this.person);
-    // console.log(this.values);
-    // console.log(this.value);
     this.entity = this.values.get(this.value);
-    // console.log(this.person);
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -173,18 +164,14 @@ export class InputSelectEntityComponent implements OnInit {
 
   showingFilter(event: any) {
     this.isShowingFilter = event;
-    //console.log(this.isShowingFilter);
   }
 
   doDelete() {
     if (this.values.size > 0) {
       let r = confirm('Are you sure you want to delete this ' + this.title + '?');
-      //console.log(r);
       if (r) {
         this.values.del(this.value);
-        //console.log(this.values.all_keys);
         this.value = this.values.all_keys[0];
-        //console.log(this.value);
         this.onSelect.emit(this.value)
       }
     }
@@ -192,7 +179,6 @@ export class InputSelectEntityComponent implements OnInit {
 
   //doEdit() {
     // this.isAdd = false;
-    // console.log(this.option);
     // this.text = this.values[+this.option];
     // // if (!this.isDoInput) this.setFocus();
     // this.isDoInput = !this.isDoInput;
@@ -214,7 +200,6 @@ export class InputSelectEntityComponent implements OnInit {
   }
 
   doChangeInputText(event: any){
-    //console.log('doChangeInputText',event);
     this.entity.name = event;
   }
 
@@ -227,19 +212,15 @@ export class InputSelectEntityComponent implements OnInit {
 
   //(keyup)="doKeyUp($event)"
   doKeyUp(event: any) {
-    if (event.key == 'Escape') {
+    if (event.key === 'Escape') {
       //this.value = this.defaultValue;
       this.doCancel();
-    } else if (event.key == 'Enter') {
+    } else if (event.key === 'Enter') {
       this.doSave();
     }
   }
 
   countItems() {
-    //console.log(this.title);
-    //console.log(this.values);
-    //console.log(this.values.size);
-    //console.log(this.values.all_values);
     let r = 0;
     if (!this.listFilterText){
       r = this.values.size;
@@ -247,7 +228,6 @@ export class InputSelectEntityComponent implements OnInit {
       let v = this.values.all_values;
       for (let i=0; i<this.values.size; i++){
         let e: EveryEntity = v[i];
-        //console.log(i,this.values.size,e)
         if (e) {
           if (!this.hideItem(e)) {
             r = r+1;
@@ -264,8 +244,7 @@ export class InputSelectEntityComponent implements OnInit {
     let r = false;
     if (this.listFilterText) {
       if (entity != undefined)
-        //console.log(entity);
-        r = entity.name.toLowerCase().indexOf(this.listFilterText.toLowerCase()) == -1;
+        r = entity.name.toLowerCase().indexOf(this.listFilterText.toLowerCase()) === -1;
     }
     return r;
   }

@@ -51,20 +51,14 @@ export class EntityAuditComponent implements OnInit {
   doClose(){
     this.isEdit = false;
     this.onClose.emit();
-    console.log(this.isEdit);
   }
 
   showDocs(){
-    //console.log('showDocs',this.rows);
     if (this.rows===20) this.rows = 15;
     if (this.rows===15) this.rows = 20;
-    //console.log('showDocs',this.rows);
   }
 
   showConfirm(attribute: string, value: string){
-    // this.applyAlert_attribute = attribute;
-    // this.applyAlert_value = value;
-    // this.showApplyAlert = true;
     if (value=='') confirm("Are you sure you want to apply all values from '" + attribute + "' column");
     else confirm("Are you sure you want to apply '" + value + "' to '" + attribute + "'");
   }

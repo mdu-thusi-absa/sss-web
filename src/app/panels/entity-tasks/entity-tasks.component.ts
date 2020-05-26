@@ -358,7 +358,6 @@ export class EntityTasksComponent implements OnInit {
 
   doFilter(event: any){
     this.filterText = event;
-    //console.log(this.filterText);
   }
 
   getCountFiltered(){
@@ -389,11 +388,11 @@ export class EntityTasksComponent implements OnInit {
       inFilter = inTitle || inText || inWhen || inWho;
     }
     let inReadChoice = true;
-    if (this.rdoChoice == 'all') {
+    if (this.rdoChoice === 'all') {
       inReadChoice = true;
-    } else if (this.rdoChoice == 'play') {
+    } else if (this.rdoChoice === 'play') {
       inReadChoice = !msg.mainGoal.isDone;
-    } else if (this.rdoChoice == 'ok') {
+    } else if (this.rdoChoice === 'ok') {
       inReadChoice = msg.mainGoal.isDone;
     }
 

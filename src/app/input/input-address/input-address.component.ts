@@ -61,7 +61,7 @@ export class InputAddressComponent implements OnInit {
     if (!this.doHideByFilter) return false;
     else
       return (
-        this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+        this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       );
   }
 
@@ -94,17 +94,7 @@ export class InputAddressComponent implements OnInit {
 
   doSelectCountry(event: any){
     this.countryIndex = +event;
-    console.log(this.countryIndex);
     this.cities = this.countries.get(this.countryIndex).cities;
-    //console.log('doSelectCountry:d',event)
-    
-    // this.cities = this.countries.get(this.countryIndex).cities;
-    // Object.assign(this.cities,this.countries.get(this.countryIndex).cities);
-    // console.log('cities', this.cities);
-    // //this.cityIndex = 0;
-    // this.cities = new Cities();
-    //this.cities = this.countries.get(this.countryIndex).cities;
-    // console.log('cities', this.cities);
   }
 
   doSelectCity(event: any){

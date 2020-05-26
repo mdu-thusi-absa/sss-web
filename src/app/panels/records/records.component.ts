@@ -26,30 +26,29 @@ export class RecordsComponent implements OnInit {
   }
 
   isFullScreen() {
-    return this.panelRows == 1;
+    return this.panelRows === 1;
   }
 
   isHalfScreen() {
-    return this.panelRows == 2;
+    return this.panelRows === 2;
   }
 
   shoudHideRecord(record: Record): boolean {
     let r = false;
     let notInText =
-      this.filterText.length == 0
+      this.filterText.length === 0
         ? false
-        : record.who.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
+        : record.who.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
     let notInDate =
-      this.filterText.length == 0
+      this.filterText.length === 0
         ? false
-        : record.whenString().indexOf(this.filterText.toLowerCase()) == -1;
+        : record.whenString().indexOf(this.filterText.toLowerCase()) === -1;
     r = notInText && notInDate;
 
     let notInList =
-      this.listTaskType == 'all'
+      this.listTaskType === 'all'
         ? false
         : record.who.toLowerCase() != this.listTaskType.toLowerCase();
-    //console.log(notInList, this.listTaskType, record.who.toLowerCase());
     r = r || notInList;
     return r;
   }

@@ -57,32 +57,30 @@ export class FilesAttributesComponent implements OnInit {
   ngOnInit(): void {
     // if (this.showFileFields.length==0){
     //   Object.assign(this.showFileFields, this.entities);
-    //   console.log(this.showFileFields);
 
     // }
-    //console.log(this.showFileFields);
   }
 
   isFullScreen() {
-    return this.panelRows == 1;
+    return this.panelRows === 1;
   }
 
   isHalfScreen() {
-    return this.panelRows == 2;
+    return this.panelRows === 2;
   }
 
   isThirdScreen() {
-    return this.panelRows == 3;
+    return this.panelRows === 3;
   }
 
   shoudHideAttribute(attribute: string): boolean {
     let r = false;
     let notInText =
-      this.filterText.length == 0
+      this.filterText.length === 0
         ? false
         : attribute
             .toLowerCase()
-            .indexOf(this.filterText.toLowerCase()) == -1;
+            .indexOf(this.filterText.toLowerCase()) === -1;
     r = notInText;
     return r;
   }
@@ -92,8 +90,6 @@ export class FilesAttributesComponent implements OnInit {
   }
 
   doCheckField(event: any){
-    //console.log(event.target.value); //Label,value
-    //console.log(event.target.checked); //checked or not
     let f = event.target.value;
     let c = event.target.checked;
     let p = this.showFileFields.indexOf(f);
@@ -103,10 +99,8 @@ export class FilesAttributesComponent implements OnInit {
     else{
       if (p>-1) this.showFileFields.splice(p,1) 
     }
-    //console.log(this.showFileFields);
     this.showFileFields.sort(this.compareFieldPosition);
     this.onSelectFields.emit(this.showFileFields);
-    console.log('doCheckField');
   }
 
     compareFieldPosition(v: string,  w: string){

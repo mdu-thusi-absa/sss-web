@@ -41,7 +41,7 @@ export class InputTextareaComponent implements OnInit {
   }
 
   hideByFilter() {
-    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1 : false);
+    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 : false);
   }
 
 }

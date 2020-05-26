@@ -1,11 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, NaturalEntity, NaturalEntities, EveryEntity, Entities, FunctionalEntities } from '../../models'
+import {
+  Entity,
+  NaturalEntity,
+  NaturalEntities,
+  EveryEntity,
+  Entities,
+  FunctionalEntities,
+} from '../../models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-details',
   templateUrl: './entity-details.component.html',
-  styleUrls: ['./entity-details.component.css']
+  styleUrls: ['./entity-details.component.css'],
 })
 export class EntityDetailsComponent implements OnInit {
   filterText = '';
@@ -30,7 +37,7 @@ export class EntityDetailsComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService) {}
 
   ngOnInit(): void {
     this.persons = this.dataService.getPersons();
@@ -39,94 +46,94 @@ export class EntityDetailsComponent implements OnInit {
     this.entity_ = this.entities.currentValue;
   }
 
-  get entity(){
+  get entity() {
     //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
     //this.entities = this.dataService.getFunctionalEntitiesAll()
     this.entity_ = this.entities.currentValue;
     return this.entity_;
   }
 
-  getEntityName(){
-    return this.entity ? this.entity.name :'';
+  getEntityName() {
+    return this.entity ? this.entity.name : '';
   }
 
-  setEntityName(v: string){
+  setEntityName(v: string) {
     this.entity.name = v;
   }
 
-  setSurname(v: string){
+  setSurname(v: string) {
     this.entity['surname'] = v;
   }
 
-  setFirstName(v: string){
-    console.log(v);
+  setFirstName(v: string) {
     this.entity['firstName'] = v;
   }
 
-  getSurname(){
-    //console.log(this.entity);
-    return this.entity['surname'] ;
+  getSurname() {
+    if (this.entity) {
+      return this.entity['surname'];
+    } else {
+      return '';
+    }
   }
 
-  getFirstName(){
-    return this.entity['firstName'];
+  getFirstName() {
+    if (this.entity) {
+      return this.entity['firstName'];
+    } else {
+      return '';
+    }
   }
 
-  doFilter(event: any){
+  doFilter(event: any) {
     this.filterText = event;
   }
 
-  doFile(inputTitle: string){
+  doFile(inputTitle: string) {
     this.onFile.emit(inputTitle);
   }
 
-  doRecord(inputTitle: string){
+  doRecord(inputTitle: string) {
     this.onRecord.emit(inputTitle);
   }
 
-  doTask(inputTitle: string){
-    //console.log('doTask')
+  doTask(inputTitle: string) {
     this.onTask.emit(inputTitle);
   }
 
-  hideByFilter(caption: string){
-    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
+  hideByFilter(caption: string) {
+    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
 
-  isFullScreen(): boolean{
-    //console.log('IsFullScreen',this.panelRows)
-    
-    return this.panelRows==0 ? true : this.panelRows == 1;
+  isFullScreen(): boolean {
+    return this.panelRows == 0 ? true : this.panelRows === 1;
   }
 
-  isHalfScreen(): boolean{
-    return this.panelRows==0 ? false : this.panelRows == 2;
+  isHalfScreen(): boolean {
+    return this.panelRows == 0 ? false : this.panelRows === 2;
   }
 
-  isThirdScreen(): boolean{
-    return this.panelRows == 3;
+  isThirdScreen(): boolean {
+    return this.panelRows === 3;
   }
 
-  showCountryEdit(){
-    this.isCountryInput = !this.isCountryInput
+  showCountryEdit() {
+    this.isCountryInput = !this.isCountryInput;
   }
 
-  showCountryNew(){
-    this.isCountryInput = !this.isCountryInput
+  showCountryNew() {
+    this.isCountryInput = !this.isCountryInput;
   }
 
-  showPositionEdit(){
-    this.isPositionInput = !this.isPositionInput
+  showPositionEdit() {
+    this.isPositionInput = !this.isPositionInput;
   }
 
-  showPositionNew(){
-    this.isPositionInput = !this.isPositionInput
+  showPositionNew() {
+    this.isPositionInput = !this.isPositionInput;
   }
 
-  doChangeEntityType(event: any){
-    //console.log(event);
+  doChangeEntityType(event: any) {
     this.entityType = +event;
   }
-  
-
 }

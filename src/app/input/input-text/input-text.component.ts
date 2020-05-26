@@ -31,25 +31,22 @@ export class InputTextComponent implements OnInit {
   }
 
   doTask(){
-    //console.log('app-input-text: doTask');
     this.onTask.emit(this.title);
   }
 
   constructor() {}
 
   ngOnInit(): void {
-    if (this.placeholder == '') this.placeholder = this.title;
+    if (this.placeholder === '') this.placeholder = this.title;
   }
 
   hideByFilter() {
-    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1 : false);
+    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 : false);
   }
 
   doChange(event: any){
     //this.value = event;
-    //console.log('input-text',event);
     this.onChange.emit(event);
-    //console.log('input-text:after event',event);
   }
 
   

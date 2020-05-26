@@ -662,12 +662,9 @@ ngAfterContentInit (){
 
   doAdd() {
     this.isAdd = true;
-    //this.isDirty = false;
-    //console.log('doAdd');
   }
 
   doSave(){
-    //console.log('saving');
     //save to DB
     //if saved then mark it so
     //this.isAdd = false;
@@ -675,13 +672,11 @@ ngAfterContentInit (){
   }
 
   doCancel(){
-    //console.log('reset');
     this.isAdd = false;
     this.isDirty = false;
   }
 
   doChangeCheckbox(event: any){
-    //console.log('doChangeCheckbox')
     this.isDirty = true;
   }
 
@@ -693,7 +688,7 @@ ngAfterContentInit (){
 
   showDataRow(dataFields: string | string[]) {
     let r = false;
-    if (this.showFileFields.length == 0) r = false;
+    if (this.showFileFields.length === 0) r = false;
     else {
       for (let s of this.showFileFields) {
         if (dataFields.indexOf(s) > -1) r = true;

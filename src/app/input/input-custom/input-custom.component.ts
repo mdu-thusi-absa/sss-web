@@ -42,13 +42,10 @@ export class InputCustomComponent implements OnInit {
   }
 
   doChangeCustomType(event: any){
-    // this.onChangeCustomType.emit(event);
-    //console.log(event);
     this.customType = this.dataService.customTypes.get(event).name;
   }
 
   doChangeTitle(event: any){
-    //console.log(event);
     this.title = event;
   }
 

@@ -37,6 +37,7 @@
       [typeLeft]="'text'"
       [typeRight]="'text'"
       [titleLeft]="'Surname'"
+
       [titleRight]="'First Name'"
       [doHideByFilter]="false"
       [showCheckLeft]="true"
@@ -48,6 +49,7 @@
 
       [valueLeft] = "getSurname()"
       [valueRight] = "getFirstName()"
+      
       (onChangeLeft) = "setSurname($event)"
       (onChangeRight) = "setFirstName($event)"
     >
@@ -71,6 +73,8 @@
         [showEditLeft]="false"
         [showDeleteLeft]="false"
         [showCheckLeft]="true"
+        [disabledLeft] = "true"
+
         [typeRight]="'text'"
         [titleRight]="'Internal Code'"
         [showCheckRight]="true"

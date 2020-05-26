@@ -77,7 +77,6 @@ export class InputDuoComponent implements OnInit {
   }
 
   doAddLeft(event: any){
-    console.log('doAddLeft');
     this.onAddLeft.emit(event);
   }
   doAddRight(event: any){
@@ -97,7 +96,6 @@ export class InputDuoComponent implements OnInit {
   }
 
   doRecordRight(){
-    //console.log('Select-duo: record-right'
     this.onRecord.emit(this.titleRight);
   }
 
@@ -106,17 +104,13 @@ export class InputDuoComponent implements OnInit {
   }
 
   doTaskRight(){
-    //console.log('doTaskRight')
     this.onTask.emit(this.titleRight);
   }
 
   doChangeLeft(event: any){
-    //console.log('doChangeLeft',event);
-    console.log('left');
     this.onChangeLeft.emit(event);
   }
   doChangeRight(event: any){
-    console.log('right');
     this.onChangeRight.emit(event);
   }
 }

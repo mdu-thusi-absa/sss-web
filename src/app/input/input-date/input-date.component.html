@@ -8,7 +8,7 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
       [showCheck]="showCheck"
-      [title] = "title"
+      [title]="title"
     ></app-buttons-input-text>
     <label
       *ngIf="!inline && showTitle"
@@ -41,16 +41,23 @@
         autocomplete="nope"
         [title]="title"
       />
-      <span *ngIf="!disabled" class="input-group-addon" (click)="gotoToday()" [title]="'Today'">
+      <span
+        *ngIf="!disabled"
+        class="input-group-addon"
+        style = "border-left:none"
+        (click)="gotoToday()"
+        [title]="'Today'"
+      >
         <span class="glyphicon glyphicon-time primary-color-reverse"></span>
       </span>
-      <span 
+      <span
         class="input-group-addon"
-        (click)="(disabled? '' : dpDate.toggle())"
-        [title]="(disabled? '': 'Choose ') + title"
+        (click)="disabled ? '' : dpDate.toggle()"
+        [title]="(disabled ? '' : 'Choose ') + title"
       >
-        <span class="glyphicon glyphicon-calendar "
-          [class.primary-color-reverse] = "!disabled"
+        <span
+          class="glyphicon glyphicon-calendar"
+          [class.primary-color-reverse]="!disabled"
         ></span>
       </span>
     </div>

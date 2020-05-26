@@ -51,14 +51,11 @@ export class EntityTaskComponent implements OnInit {
   doClose(){
     this.isEdit = false;
     this.onClose.emit();
-    console.log(this.isEdit);
   }
 
   showDocs(){
-    //console.log('showDocs',this.rows);
     if (this.rows===20) this.rows = 15;
     if (this.rows===15) this.rows = 20;
-    //console.log('showDocs',this.rows);
   }
 
 }

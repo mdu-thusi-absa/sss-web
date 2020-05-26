@@ -89,12 +89,11 @@ export class InputSelectComponent implements OnInit {
       this.selectTexts.push('value');
       this.selectValues.push(-1);
     }
-    //console.log(this.selectValues,this.selectTexts);
   }
   //setItem(text: string) {
   //this.values.sort();
   // this.values.sort(function (a, b) {
-  //   if (typeof(a)=='string' && typeof(b) == 'string'){
+  //   if (typeof(a)=='string' && typeof(b) === 'string'){
   //     return a.toLowerCase().localeCompare(b.toLowerCase());
   //   } else {
   //     let r = 0;
@@ -110,7 +109,7 @@ export class InputSelectComponent implements OnInit {
   hideByFilter() {
     return this.doHideByFilter
       ? this.filterText.length > 0 &&
-          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
 
@@ -149,7 +148,6 @@ export class InputSelectComponent implements OnInit {
   }
 
   doSave(event: any) {
-    //console.log(event);
     this.text = event;
     this.showNew();
   }
@@ -191,7 +189,7 @@ export class InputSelectComponent implements OnInit {
   hideItem(text: string) {
     let r = false;
     if (this.listFilterText.length > 0) {
-      r = text.toLowerCase().indexOf(this.listFilterText) == -1;
+      r = text.toLowerCase().indexOf(this.listFilterText) === -1;
     }
     return r;
   }

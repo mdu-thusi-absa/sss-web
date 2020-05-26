@@ -7,7 +7,6 @@
       [class.primary-color-active]="radioChoice == 'flash'"
       [class.primary-color]="radioChoice != 'flash'"
       [title]="titleFlash"
-
     >
       <input
         type="radio"
@@ -18,7 +17,8 @@
         [class.focus]="radioChoice == 'flash'"
       />
       <span class="glyphicon glyphicon-flash"></span>
-      <small>&nbsp;{{ countFlash }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionFlash}}</span>
+      <small class="hidden-xs">&nbsp;{{ countFlash }}</small
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionFlash }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs progress-bar-primary"
           ><small>{{ countFlash }}</small></span
@@ -40,11 +40,9 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <small
-        ><span class="glyphicon glyphicon-play"></span>&nbsp;{{
-          countPlay
-        }}</small
-      ><span class="hidden-xs" [hidden]="isNarrow"> {{captionPlay}}</span>
+      <span class="glyphicon glyphicon-play"></span>
+      <small class="hidden-xs">&nbsp;{{ countPlay }}</small>
+      <span class="hidden-xs" [hidden]="isNarrow"> {{ captionPlay }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs bg-primary"
           ><small>{{ countPlay }}</small></span
@@ -67,7 +65,8 @@
         [checked]="radioChoice == 'pause'"
       />
       <span class="glyphicon glyphicon-pause"></span>
-      <small>&nbsp;{{ countPause }}</small><span class="hidden-xs"[hidden]="isNarrow"> {{captionPause}}</span>
+      <small class="hidden-xs">&nbsp;{{ countPause }}</small
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionPause }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs"
           ><small>{{ countPause }}</small></span
@@ -90,7 +89,8 @@
         [checked]="radioChoice == 'ok'"
       />
       <span class="glyphicon glyphicon-ok"></span>
-      <small>&nbsp;{{ countOk }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionOk}}</span>
+      <small class="hidden-xs">&nbsp;{{ countOk }}</small
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionOk }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
         <span class="badge badge-xs">
           <small>{{ countOk }}</small></span
@@ -113,7 +113,8 @@
         [checked]="radioChoice == 'eye-close'"
       />
       <span class="glyphicon glyphicon-eye-close"></span>
-      <small>&nbsp;{{ countEyeClose }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionEyeClose}}</span>
+      <small class="hidden-xs">&nbsp;{{ countEyeClose }}</small
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionEyeClose }}</span>
       <!-- <span class="badge badge-xs"
         ><span class="hidden-xs hidden-sm hidden-sm">
           <small>{{ countEyeClose }}</small></span
@@ -136,7 +137,8 @@
         [checked]="radioChoice == 'eye-open'"
       />
       <span class="glyphicon glyphicon-eye-open"></span>
-      <small>&nbsp;{{ countEyeOpen }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionEyeOpen}}</span>
+      <small class="hidden-xs">&nbsp;{{ countEyeOpen }}</small
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionEyeOpen }}</span>
       <!-- <span class="badge badge-xs"
         ><span class="hidden-xs hidden-sm hidden-sm">
           <small>{{ countEyeOpen }}</small></span
@@ -159,7 +161,8 @@
         [checked]="radioChoice == 'all'"
       />
       <span class="glyphicon glyphicon-asterisk"></span>
-      <small>&nbsp;{{ countAll }}</small><span class="hidden-xs" [hidden]="isNarrow"> {{captionAll}}</span>
+      <small class="hidden-xs">&nbsp;{{ countAll }}</small
+      ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionAll }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm"> 
         glyphicon-option-horizontal
         <span class="badge badge-xs">
@@ -174,7 +177,7 @@
   <select
     *ngIf="showList"
     class="form-control input-sm wide primary-color-input-reverse"
-    style="font-size: small;border-bottom: none;"
+    style="font-size: small; border-bottom: none;"
     (change)="doListChange($event)"
   >
     <option
@@ -203,15 +206,15 @@
       [placeholder]="'Filter ' + titlePlural"
       [(ngModel)]="filterText"
       (keyup)="doKey($event)"
-      style="font-weight: normal;width:100%"
+      style="font-weight: normal; width: 100%;"
       autocomplete="nope"
     />
 
     <span
       *ngIf="filterText.length > 0"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doFilterClear()"
-
     >
       <span class="glyphicon glyphicon-erase"></span>
     </span>
@@ -220,7 +223,7 @@
       *ngIf="showFilterCount"
       class="input-group-addon primary-color-reverse hidden-xs"
       title="Number of items"
-      style="border-left:none;pointer-events: none;"
+      style="border-left: none; pointer-events: none;"
     >
       {{ filterCount }}
     </span>
@@ -228,6 +231,7 @@
     <span
       *ngIf="showShare"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doShare()"
       [title]="'Share ' + title"
     >
@@ -237,6 +241,7 @@
     <span
       *ngIf="showT"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doT()"
       [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
     >
@@ -250,6 +255,7 @@
     <span
       *ngIf="showDuplicate"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doDuplicate()"
       [title]="'Copy ' + title"
     >
@@ -259,6 +265,7 @@
     <span
       *ngIf="showDownload"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doDownload()"
       [title]="'Download ' + title"
     >
@@ -268,6 +275,7 @@
     <span
       *ngIf="showSave"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doSave()"
       [title]="'Save ' + title"
     >
@@ -277,6 +285,7 @@
     <span
       *ngIf="showDelete"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doDelete()"
       [title]="'Delete ' + title"
     >
@@ -286,6 +295,7 @@
     <span
       *ngIf="showAdd"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doAdd()"
       [title]="'Add ' + title"
     >
@@ -295,6 +305,7 @@
     <span
       *ngIf="showCancel"
       class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
       (click)="doCancel()"
       [title]="'Discard changes'"
     >

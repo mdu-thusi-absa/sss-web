@@ -57,9 +57,8 @@ export class InputSelectTextComponent implements OnInit {
   }
 
   doKey(event: any) {
-    //console.log(event.key);
     // without type info
-    if (event.key == 'Escape') {
+    if (event.key === 'Escape') {
       this.text = '';
       this.doCancel()
     }
@@ -70,7 +69,6 @@ export class InputSelectTextComponent implements OnInit {
   }
 
   doChange(event: any){
-    //console.log('input-select-text',event);
     this.onChange.emit(this.text);
   }
 }

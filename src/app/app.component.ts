@@ -43,7 +43,6 @@ export class AppComponent {
   //     if (!this.oauthService.getAccessToken()) {
   //       await this.oauthService.initImplicitFlow();
   //     }
-  //     console.log(this.oauthService.getAccessToken());
   //   }
   // }
 

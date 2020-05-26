@@ -82,7 +82,7 @@
         style="margin-bottom: 0px; overflow-y: auto; "
         [style.max-height] = "showExpand ? '90px' : '270px'"
       >
-        <div *ngFor="let e of values | keyvalue" [hidden]="hideItem(e.value)">
+        <div *ngFor="let e of values | keyvalue" [hidden]="hideItem(e.value.name)">
           <li
             class="list-group-item input-sm"
             style="

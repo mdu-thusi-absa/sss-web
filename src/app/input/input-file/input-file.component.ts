@@ -52,9 +52,8 @@ export class InputFileComponent implements OnInit {
     if (!this.doHideByFilter) return false;
     else
       return (
-        this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+        this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       );
-    //console.log(this.filterText);
   }
   getID() {
     let s = / /g;

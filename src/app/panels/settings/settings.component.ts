@@ -48,26 +48,23 @@ export class SettingsComponent implements OnInit {
   }
 
   doTask(inputTitle: string){
-    //console.log('doTask')
     this.onTask.emit(inputTitle);
   }
 
   hideByFilter(caption: string){
-    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
+    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
 
   isFullScreen(): boolean{
-    //console.log('IsFullScreen',this.panelRows)
-    
-    return this.panelRows==0 ? true : this.panelRows == 1;
+    return this.panelRows==0 ? true : this.panelRows === 1;
   }
 
   isHalfScreen(): boolean{
-    return this.panelRows==0 ? false : this.panelRows == 2;
+    return this.panelRows==0 ? false : this.panelRows === 2;
   }
 
   isThirdScreen(): boolean{
-    return this.panelRows == 3;
+    return this.panelRows === 3;
   }
 
   showCountryEdit(){
@@ -87,7 +84,6 @@ export class SettingsComponent implements OnInit {
   }
 
   doChangeEntityType(event: any){
-    //console.log(event);
     this.entityType = +event;
   }
   

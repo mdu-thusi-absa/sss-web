@@ -48,9 +48,7 @@ export class EntityDetailsCustomComponent implements OnInit {
     this.elements = new Array();
     for (let i = 0; i<this.customCount; i++){
       this.elements.push(i);
-    }
-    
-    //console.log(this.customCount, this.elements);
+    } 
   }
 
   doChangeCustomType(customIndex: number, event: any){

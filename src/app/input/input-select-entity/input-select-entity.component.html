@@ -4,9 +4,9 @@
   style="margin-top: 5px; margin-right: 1px;"
 >
   <div>
-    <label class="nobottom text-primary-bold label-buttons-4"
-      >{{ title }}</label
-    >
+    <label class="nobottom text-primary-bold label-buttons-4">{{
+      title
+    }}</label>
 
     <app-buttons-input-select
       [title]="title"
@@ -21,7 +21,7 @@
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
-      [showCheck] = "showCheck"
+      [showCheck]="showCheck"
       [countItems]="countItems()"
       (onAdd)="showNew()"
       (onFile)="doFile()"
@@ -37,16 +37,17 @@
     <div class="hidden-xs">
       <div class="input-group" style="width: 100%;">
         <select
-        class="form-control input-sm selectpicker"
-        data-live-search="true"
-        style="font-size: small;"
-        name="option"
-        [(ngModel)]="value"
-        style="padding-left: 6px; padding-right: 6px;"
-        (change)="doChange($event)"
+          class="form-control input-sm selectpicker"
+          data-live-search="true"
+          style="font-size: small;"
+          name="option"
+          [(ngModel)]="value"
+          style="padding-left: 6px; padding-right: 6px;"
+          (change)="doChange($event)"
+          [disabled]="disabled"
         >
           <option
-            *ngFor="let e of values | keyvalue;"
+            *ngFor="let e of values | keyvalue"
             [value]="e.key"
             [selected]="e.key == value"
             [hidden]="hideItem(e.value)"
@@ -54,15 +55,16 @@
           >
         </select>
         <span
-          *ngIf="showDelete"
+          *ngIf="showDelete && !disabled"
           class="input-group-addon btn primary-color-reverse"
+          style="border-right: none;"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
         >
           <span class="glyphicon glyphicon-minus"></span>
         </span>
         <span
-          *ngIf="showEdit"
+          *ngIf="showEdit && !disabled"
           class="input-group-addon btn primary-color-reverse"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
@@ -70,7 +72,7 @@
           <span class="glyphicon glyphicon-pencil"></span>
         </span>
         <span
-          *ngIf="showAdd"
+          *ngIf="showAdd && !disabled"
           class="input-group-addon btn primary-color-reverse"
           (click)="doAdd()"
           [title]="'Add an ' + title"
@@ -84,11 +86,12 @@
       <div style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
-          style="font-size: small;margin-left:0px"
+          style="font-size: small; margin-left: 0px;"
           name="option"
           (change)="doChange($event)"
           [attr.id]="'#select-Item'"
           autocomplete="nope"
+          [disabled]="disabled"
         >
           <option
             *ngFor="let e of values | keyvalue"
@@ -100,15 +103,16 @@
           >
         </select>
         <span
-          [hidden]="!showDelete"
+          *ngIf="showDelete && !disabled"
           class="input-group-addon btn primary-color-reverse"
+          style="border-right: none;"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
         >
           <span class="glyphicon glyphicon-minus"></span>
         </span>
         <span
-          [hidden]="!showEdit"
+          *ngIf="showEdit && !disabled"
           class="input-group-addon btn primary-color-reverse"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
@@ -116,7 +120,7 @@
           <span class="glyphicon glyphicon-pencil"></span>
         </span>
         <span
-          [hidden]="!showAdd"
+          *ngIf="showAdd && !disabled"
           class="input-group-addon btn primary-color-reverse"
           (click)="doAdd()"
           [title]="'Add an ' + title"

@@ -39,7 +39,7 @@ export class Country extends Entity {
     super(name);
   }
 
-  addCity(city: City): Country{
+  addCity(city: City): Country {
     this.cities.add(city);
     return this;
   }
@@ -51,7 +51,7 @@ export class City extends Entity {
     super(name);
   }
 }
-export class FileEntity extends Entity{
+export class FileEntity extends Entity {
   public type = 'file';
   title = '';
   description = '';
@@ -66,8 +66,8 @@ export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
 }
 
-export class Company extends LegalEntity{
-  public type = 'company'
+export class Company extends LegalEntity {
+  public type = 'company';
 }
 
 export class NaturalEntity extends FunctionalEntity {
@@ -76,12 +76,8 @@ export class NaturalEntity extends FunctionalEntity {
   public cellNumber: string;
   public birthDate: Date;
   public deathDate: Date;
-  //public residentialAddress: string;
-  private surname_: string = '';
-  private firstName_: string = '';
-  //private suffix_: string = '';
-  // public firstName: string;
-  // public suffix: string;
+  private surname_= '';
+  private firstName_ = '';
   constructor(surname: string, firstName: string, suffix: string) {
     super(surname + ', ' + firstName);
     super.name = surname + ', ' + firstName;
@@ -99,14 +95,12 @@ export class NaturalEntity extends FunctionalEntity {
       ', ' +
       this.firstName_ +
       (this.suffix ? ' - ' + this.suffix : '');
-    //console.log(s);
     return s;
   }
 
   set surname(v: string) {
     this.surname_ = v;
     super.name = this.surname_ + ', ' + this.firstName_;
-    //console.log(this.surname_,this.name);
   }
 
   get surname(): string {
@@ -124,7 +118,6 @@ export class NaturalEntity extends FunctionalEntity {
 
   set suffix(v: string) {
     super.suffix = v;
-    //this.name_ = this.surname_ + ', ' + this.firstName_;
   }
 
   get suffix(): string {
@@ -177,7 +170,7 @@ export class Message {
   public whenString() {
     let d = this.when;
     let dy: string = d.getDate().toString();
-    if (dy.length == 1) dy = '0' + dy;
+    if (dy.length === 1) dy = '0' + dy;
     let m = d;
     return (
       m.getFullYear() +
@@ -229,15 +222,22 @@ export class Step {
 
   private whenString(stepDateType: StepDateType) {
     let d = new Date();
-    if (stepDateType == StepDateType.Created) d = this.whenCreated;
-    if (stepDateType == StepDateType.Warn) d = this.whenWarn;
-    if (stepDateType == StepDateType.Due) d = this.whenDue;
-    if (stepDateType == StepDateType.Done) d = this.whenDone;
+    if (stepDateType === StepDateType.Created) {
+      d = this.whenCreated;
+    }
+    if (stepDateType === StepDateType.Warn) {
+      d = this.whenWarn;
+    }
+    if (stepDateType === StepDateType.Due) {
+      d = this.whenDue;
+    }
+    if (stepDateType === StepDateType.Done) {
+      d = this.whenDone;
+    }
 
     let dy: string = d.getDate().toString();
-    if (dy.length == 1) dy = '0' + dy;
-    let m = d;
-    //return '-'
+    if (dy.length === 1) {dy = '0' + dy;}
+    const m = d;
     return (
       m.getFullYear() +
       '/' +
@@ -269,7 +269,7 @@ export class Record {
   public whenString() {
     let d = this.when;
     let dy: string = d.getDate().toString();
-    if (dy.length == 1) dy = '0' + dy;
+    if (dy.length === 1) dy = '0' + dy;
     let m = d;
     return (
       m.getFullYear() +
@@ -312,7 +312,7 @@ export class CustomField {
 //   | LegalEntities
 //   | NaturalEntities;
 export type EveryEntity =
-  Entity
+  | Entity
   | Country
   | City
   | FunctionalEntity
@@ -332,55 +332,54 @@ export type EveryEntity =
 //   all_entries: [number, T][];
 // }
 
-
-
 export class Entities extends Map<number, EveryEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
-  createEntity(){
+  createEntity() {
     return new Entity('');
   }
 
-  fromJSONArray(array: any[]){
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
 
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -391,7 +390,7 @@ export class Entities extends Map<number, EveryEntity> {
     return this;
   }
 
-  edit(key: number, value: EveryEntity): Entities{
+  edit(key: number, value: EveryEntity): Entities {
     super.set(key, value);
     return this;
   }
@@ -418,53 +417,54 @@ export class Entities extends Map<number, EveryEntity> {
   }
 }
 
-export class FileEntities extends Map<number, FileEntity>{
+export class FileEntities extends Map<number, FileEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
-  
-  fromJSONArray(array: any[]){
+
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
 
-  createEntity(){
+  createEntity() {
     return new FileEntity('');
   }
 
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -498,58 +498,59 @@ export class FileEntities extends Map<number, FileEntity>{
 
   get all_entries() {
     return [...super.entries()];
-  }  
+  }
 }
 
-export class Countries extends Map<number, Country>{
+export class Countries extends Map<number, Country> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
-  
-  fromJSONArray(array: any[]){
+
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
 
-  createEntity(){
-    let c = new Country('') 
-    c.cities.add(new City('-NA-'))
+  createEntity() {
+    let c = new Country('');
+    c.cities.add(new City('-NA-'));
     return c;
   }
 
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -557,7 +558,7 @@ export class Countries extends Map<number, Country>{
 
   cities = new Cities();
   add(value: Country): Countries {
-    if (!value.cities==null) value.cities = new Cities();
+    if (!value.cities == null) value.cities = new Cities();
     super.set(super.size, value);
     return this;
   }
@@ -591,50 +592,51 @@ export class Countries extends Map<number, Country>{
 export class Cities extends Map<number, City> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
-  
-  fromJSONArray(array: any[]){
+
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
 
-  createEntity(){
+  createEntity() {
     return new City('');
   }
 
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -671,62 +673,54 @@ export class Cities extends Map<number, City> {
   }
 }
 
-
 export class FunctionalEntities extends Map<number, FunctionalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
-  
-  fromJSONArray(array: any[]){
+
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      //let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
       let o = Object.assign(a);
-      //let propName = '';
-      // for (propName in a)  
-      // {  
-      //   //console.log(propName,a[propName]);
-      //   o[propName] = a[propName];
-      // } 
       o.type = type;
-      if (activeOnly){
-        if (o["isActive"])
-           this.add(o);
-      }else{
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
         this.add(o);
       }
-
     }
   }
 
-  createEntity(){
+  createEntity() {
     return new FunctionalEntity('');
   }
 
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -763,53 +757,54 @@ export class FunctionalEntities extends Map<number, FunctionalEntity> {
   }
 }
 
-export class Users extends Map<number, User>  {
+export class Users extends Map<number, User> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
-  
-  fromJSONArray(array: any[]){
+
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
 
-  createEntity(){
-    return new User('','','');
+  createEntity() {
+    return new User('', '', '');
   }
 
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -846,109 +841,54 @@ export class Users extends Map<number, User>  {
   }
 }
 
-// export class Companies extends Array<LegalEntity>{
-//   currentKey_ = -1;
-//   currentValue_: EveryEntity = null;
-
-//   createEntity(){
-//     return new LegalEntity('');
-//   }
-
-//   get currentKey(){
-//     return this.currentKey_;
-//   }
-
-//   set currentKey(v: number){
-//     this.currentKey_ = v;
-//     this.currentValue_ = super[this.currentKey_];
-//   }
-
-//   get currentValue(){
-//     if (this.currentKey_==-1 && this.size>0){
-//       this.currentKey_ = 0;
-//     }
-//     return this.currentValue_;
-//   }
-
-//   add(value: LegalEntity): Companies {
-//     super.push(value);
-//     return this;
-//   }
-
-//   edit(key: number, value: LegalEntity): Companies {
-//     super[key] = value;
-//     return this;
-//   }
-
-//   del(key: number): Companies {
-//     super.splice(key,1);
-//     return this;
-//   }
-//   get size(): number {
-//     return super.length;
-//   }
-
-//   // get all_keys() {
-//   //   return [...super.keys()];
-//   // }
-
-//   // get all_values() {
-//   //   return [...super.values()];
-//   // }
-
-//   // get all_entries() {
-//   //   return [...super.entries()];
-//   // }
-// }
-
 export class LegalEntities extends Map<number, LegalEntity> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
+  protected currentKey_ = -1;
+  protected currentValue_: EveryEntity = null;
 
-  fromJSONArray(array: any[]){
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      for (propName in a)  
-      {  
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
-  
-  createEntity(){
+
+  createEntity() {
     return new LegalEntity('');
   }
 
-
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
@@ -991,51 +931,51 @@ export class NaturalEntities extends Map<number, NaturalEntity> {
   currentKey_ = -1;
   currentValue_: EveryEntity = null;
 
-  fromJSONArray(array: any[]){
+  fromJSONArray(array: any[]) {
     //expects array of objects with: name, tasksCount, isActive
-    for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
       let o = this.createEntity();
       let a = array[i];
       let propName = '';
-      
-      for (propName in a)  
-      {  
+
+      for (propName in a) {
         o[propName] = a[propName];
-      } 
+      }
       this.add(o);
     }
   }
 
-  fromArray(type: string, entitiesArray: EveryEntity[]){
-    for (let i=0;i<entitiesArray.length;i++){
-      let o = this.createEntity();
+  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
       let a = entitiesArray[i];
-      let propName = '';
-      for (propName in a)  
-      {  
-        o[propName] = a[propName];
-      } 
+      let o = Object.assign(a);
       o.type = type;
-      this.add(o);
+      if (activeOnly) {
+        if (o['isActive']) this.add(o);
+      } else {
+        this.add(o);
+      }
     }
   }
-  
-  createEntity(){
-    return new NaturalEntity('','','');
+
+  createEntity() {
+    return new NaturalEntity('', '', '');
   }
 
-
-  get currentKey(){
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
     return this.currentKey_;
   }
 
-  set currentKey(v: number){
+  set currentKey(v: number) {
     this.currentKey_ = v;
     this.currentValue_ = this.get(this.currentKey_);
   }
 
-  get currentValue(){
-    if (this.currentKey_==-1 && this.size>0){
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;

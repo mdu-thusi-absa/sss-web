@@ -72,7 +72,6 @@ ngOnInit(): void {
 }
 
 doAddLeft(event: any){
-  console.log('doAddLeft');
   this.onAddLeft.emit(event);
 }
 doAddRight(event: any){
@@ -92,7 +91,6 @@ doRecordLeft(){
 }
 
 doRecordRight(){
-  //console.log('Select-duo: record-right'
   this.onRecord.emit(this.titleRight);
 }
 
@@ -101,12 +99,10 @@ doTaskLeft(){
 }
 
 doTaskRight(){
-  //console.log('doTaskRight')
   this.onTask.emit(this.titleRight);
 }
 
 doChangeLeft(event: any){
-  //console.log('doChangeLeft',event);
   this.onChangeLeft.emit(event);
 }
 doChangeRight(event: any){

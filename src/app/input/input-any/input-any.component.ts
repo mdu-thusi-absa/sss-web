@@ -49,7 +49,6 @@ export class InputAnyComponent implements OnInit {
   }
 
   doAdd(event: any){
-    console.log('doAdd');
     this.onAdd.emit(event);
   }
 
@@ -66,7 +65,6 @@ export class InputAnyComponent implements OnInit {
   }
 
   doChange(event: any){
-    console.log('any');
     this.onChange.emit(event);
   }
 

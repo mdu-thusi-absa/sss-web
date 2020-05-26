@@ -107,7 +107,6 @@ export class InputFilterAddComponent implements OnInit {
   doShare() {}
 
   doRadio(choice: string) {
-    //console.log(choice);
     this.radioChoice = choice;
     this.onChoice.emit(this.radioChoice);
   }
@@ -158,7 +157,7 @@ export class InputFilterAddComponent implements OnInit {
 
   doKey(event: any) {
     // without type info
-    if (event.key == 'Escape') this.filterText = '';
+    if (event.key === 'Escape') this.filterText = '';
     this.doFilter();
   }
 }

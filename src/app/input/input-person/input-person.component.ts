@@ -21,7 +21,7 @@ export class InputPersonComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() disabled = false;
   @Input() values: NaturalEntities; //Person[];
-  @Input() value = 0;
+  @Input() value = -1;
   @Input() showFlash = false;
   @Input() showPaperclip = false;
   @Input() showCD = false;
@@ -50,12 +50,30 @@ export class InputPersonComponent implements OnInit {
 
   constructor(public dataService: DataService) {}
 
-  getID(){
-    //console.log(this.title);
+  getID() {
     return this.dataService.getID(this.title);
   }
 
   ngOnInit(): void {
+    if (this.values) {
+      if (this.value) {
+        this.value = this.values.currentKey;
+      }
+      if (this.value < 0) {
+        this.value = this.values.currentKey;
+      }
+      if (this.values.all_keys.indexOf(this.value)<0){
+        this.value = this.values.currentKey;
+      }
+    }
+
+    
+    
+    
+    
+
+  
+
     // for (let i = 0; i < this.values.size; i++) {
     //   this.fullNames.push(this.values[i].fullName);
     // }
@@ -93,20 +111,14 @@ export class InputPersonComponent implements OnInit {
   hideByFilter() {
     return this.doHideByFilter
       ? this.filterText.length > 0 &&
-          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
 
   doEdit() {
-    //console.log('edit')
     this.isAdd = false;
-    //console.log(this.option);
-    //this.text = this.values[+this.option].fullName;
-    // console.log(this.person);
-    // console.log(this.values);
-    // console.log(this.value);
+
     this.person = this.values.get(this.value);
-    // console.log(this.person);
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -151,14 +163,14 @@ export class InputPersonComponent implements OnInit {
 
   doFilter(event: any) {
     this.listFilterText = event.toLowerCase();
-    this.clickSelect()
+    this.clickSelect();
   }
 
   clickSelect() {
     // setTimeout(function() {
     //   this.selectItem('click');
     // });
-  };
+  }
 
   doTask() {
     this.onTask.emit(this.title);
@@ -166,7 +178,6 @@ export class InputPersonComponent implements OnInit {
 
   showingFilter(event: any) {
     this.isShowingFilter = event;
-    //console.log(this.isShowingFilter);
   }
 
   doDelete() {
@@ -180,12 +191,11 @@ export class InputPersonComponent implements OnInit {
   }
 
   //doEdit() {
-    // this.isAdd = false;
-    // console.log(this.option);
-    // this.text = this.values[+this.option];
-    // // if (!this.isDoInput) this.setFocus();
-    // this.isDoInput = !this.isDoInput;
-    //this.showEdit();
+  // this.isAdd = false;
+  // this.text = this.values[+this.option];
+  // // if (!this.isDoInput) this.setFocus();
+  // this.isDoInput = !this.isDoInput;
+  //this.showEdit();
   //}
 
   doAdd() {
@@ -201,18 +211,18 @@ export class InputPersonComponent implements OnInit {
     this.isDoInput = false;
   }
 
-  doChange(event: any){
+  doChange(event: any) {
     this.value = +event.target.value;
     this.onSelect.emit(this.value);
-    this.onChange.emit(this.value)
+    this.onChange.emit(this.value);
   }
 
   //(keyup)="doKeyUp($event)"
   doKeyUp(event: any) {
-    if (event.key == 'Escape') {
+    if (event.key === 'Escape') {
       //this.value = this.defaultValue;
       this.doCancel();
-    } else if (event.key == 'Enter') {
+    } else if (event.key === 'Enter') {
       this.doSave();
     }
   }
@@ -225,7 +235,7 @@ export class InputPersonComponent implements OnInit {
   hideItem(person: NaturalEntity) {
     let r = false;
     if (this.listFilterText.length > 0) {
-      r = person.fullName.toLowerCase().indexOf(this.listFilterText) == -1;
+      r = person.fullName.toLowerCase().indexOf(this.listFilterText) === -1;
     }
     return r;
   }

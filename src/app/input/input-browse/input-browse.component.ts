@@ -33,13 +33,11 @@ export class InputBrowseComponent implements OnInit {
   hideByFilter() {
     return this.doHideByFilter
       ? this.filterText.length > 0 &&
-          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
 
   handleFileInput(files: FileList) {
-    console.log('in')
-    console.log(files.item(0));
     this.fileToUpload = files.item(0);
     this.fileName = this.fileToUpload.name;
   }
@@ -47,7 +45,6 @@ export class InputBrowseComponent implements OnInit {
   fileBrowse(event: any){
     //let t = 'file-' + this.dataService.getID(this.title)
     let t = 'file';
-    console.log(t);
     event.preventDefault();
 
     let element: HTMLElement = document.getElementById(t) as HTMLElement;

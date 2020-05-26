@@ -321,30 +321,30 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {}
 
   isFullScreen() {
-    return this.panelRows == 1;
+    return this.panelRows === 1;
   }
 
   isHalfScreen() {
-    return this.panelRows == 2;
+    return this.panelRows === 2;
   }
 
   isThirdScreen() {
-    return this.panelRows == 3;
+    return this.panelRows === 3;
   }
 
   shoudHideTask(task: Task): boolean {
     let r = false;
     let notInText =
-      this.filterText.length == 0
+      this.filterText.length === 0
         ? false
         : task.mainGoal.text
             .toLowerCase()
-            .indexOf(this.filterText.toLowerCase()) == -1;
-    if (this.rdoActiveInActiveAll == 'All') {
+            .indexOf(this.filterText.toLowerCase()) === -1;
+    if (this.rdoActiveInActiveAll === 'All') {
       r = notInText;
-    } else if (this.rdoActiveInActiveAll == 'Active') {
+    } else if (this.rdoActiveInActiveAll === 'Active') {
       r = notInText || task.mainGoal.isDone;
-    } else if (this.rdoActiveInActiveAll == 'Done') {
+    } else if (this.rdoActiveInActiveAll === 'Done') {
       r = notInText || !task.mainGoal.isDone;
     }
     if (this.listTaskType.toLowerCase() != 'all')
@@ -354,9 +354,6 @@ export class TasksComponent implements OnInit {
           this.listTaskType.toLowerCase() ==
           task.mainGoal.taskType.toLowerCase()
         );
-    //console.log(r, notInText,'Same type:',  this.listTaskType.toLowerCase() == task.mainGoal.taskType,'goalType:' + task.mainGoal.taskType.toLowerCase(), "listTaskType:" + this.listTaskType);
-    //console.log(r,!(this.listTaskType.toLowerCase() == task.mainGoal.taskType.toLowerCase()),this.listTaskType.toLowerCase(), task.mainGoal.taskType.toLowerCase());
-    //console.log(r,notInText,this.rdoActiveInActiveAll, task.mainGoal.isDone, this.filterText,task.mainGoal.text)
     return r;
   }
 

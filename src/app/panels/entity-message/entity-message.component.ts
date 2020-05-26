@@ -42,10 +42,8 @@ export class EntityMessageComponent implements OnInit {
   }
 
   showDocs(){
-    console.log('showDocs',this.rows);
     if (this.rows===20) this.rows = 15;
     if (this.rows===15) this.rows = 20;
-    console.log('showDocs',this.rows);
   }
 
 }

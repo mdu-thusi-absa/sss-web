@@ -36,7 +36,7 @@ export class EntityDetailsCompanySecondaryComponent implements OnInit {
   }
 
   hideByFilter(caption: string){
-    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) == -1;
+    return caption.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
 
 

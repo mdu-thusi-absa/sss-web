@@ -23,8 +23,6 @@ export class ButtonsToggleComponent implements OnInit {
   }
 
   doToggle(event: any){
-    //this.toggleValue = !this.toggleValue
-    //console.log(event.target.checked);
     this.toggleValue = event.target.checked;
     this.onToggle.emit(event.target.checked);
   }

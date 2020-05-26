@@ -1,5 +1,3 @@
-
-
 <div class="form-group">
   <app-input-filter-add
     [filterCount]="countFiltered"
@@ -26,14 +24,12 @@
     [titlePlay]="'Active Entities'"
     [titleAll]="'All Entities'"
     [titlePause]="'Dormant Entities'"
-
     [captionFlash]="'With tasks'"
     [captionPlay]="'Active'"
     [captionAll]="'All'"
     [captionPause]="'Inactive'"
-
     [isNarrow]="isNarrow"
-    [showInputFilter] = "entityType != entityTypesPlural.size-1"
+    [showInputFilter]="entityType != entityTypesPlural.size - 1"
   ></app-input-filter-add>
   <div [hidden]="entityType == entityTypesPlural.size - 1">
     <div
@@ -53,19 +49,47 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody
+          *ngFor="let t of entityTypeNames | keyvalue"
+          [style.display]="entityType == t.key ? 'table-row-group' : 'none'"
+        >
+          <ng-container *ngFor="let e of entities | keyvalue">
+            <ng-container
+              *ngIf="
+                e.value.type == entityTypeNames.get(t.key).name.toLowerCase()
+              "
+            >
+              <tr
+                [hidden]="isHiddenMap.get(e.key)"
+                [class.info]="e.value.isActive"
+              >
+                <td>
+                  <a href="#" (click)="doEntityChoose(e.key)"
+                    >{{ e.value.name }}
+                  </a>
+                </td>
+                <td>{{ e.value.tasksCount }}</td>
+                <td>{{ e.value.suffix }}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+
+        <!-- <tbody [hidden]="entityType != 0">
           <tr
             *ngFor="let e of entities | keyvalue"
             [hidden]="isHiddenMap.get(e.key)"
             [class.info]="e.value.isActive"
           >
             <td>
-              <a href="#" (click) = "doEntityChoose(e.key)" >{{ e.value.name }} </a>
+              <a href="#" (click)="doEntityChoose(e.key)"
+                >{{ e.value.name }}
+              </a>
             </td>
             <td>{{ e.value.tasksCount }}</td>
             <td>{{ e.value.suffix }}</td>
           </tr>
-        </tbody>
+        </tbody> -->
       </table>
       <small class="text-primary"
         >Total {{ countAll }}. Showing
@@ -89,7 +113,7 @@
     [showPaperclip]="false"
     [inline]="true"
     [showTitle]="true"
-    [disabled] = "true"
+    [disabled]="true"
   >
   </app-input-date>
 
@@ -110,19 +134,18 @@
 
   <div class="btn-group wide input-group-sm" style="vertical-align: middle;">
     <app-input-checkbox
-        [title]="'Active Only'"
-        [value] = "true"
-        (onChange)="doChangeShowActive($event)"
-        [inline] = "true"
+      [title]="'Active Only'"
+      [value]="true"
+      (onChange)="doChangeShowActive($event)"
+      [inline]="true"
     ></app-input-checkbox>
-    <a href="#" class="btn primary-color" style="margin-left:5px;">
+    <a href="#" class="btn primary-color" style="margin-left: 5px;">
       <small>
         <span class="glyphicon glyphicon-log-out"></span>
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Log Out</span
         >&nbsp;</small
       >
     </a>
-    
   </div>
 </div>
 
