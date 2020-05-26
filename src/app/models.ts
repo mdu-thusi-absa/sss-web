@@ -695,7 +695,7 @@ export class FunctionalEntities extends Map<number, FunctionalEntity> {
       //let o = this.createEntity();
       let a = entitiesArray[i];
       let o = Object.assign(a);
-      let propName = '';
+      //let propName = '';
       // for (propName in a)  
       // {  
       //   //console.log(propName,a[propName]);
