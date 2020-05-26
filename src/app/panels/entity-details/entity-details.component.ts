@@ -64,6 +64,7 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   getSurname(){
+    //console.log(this.entity);
     return this.entity['surname'] ;
   }
 

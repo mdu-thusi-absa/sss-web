@@ -380,6 +380,9 @@ td.info > a {
   border-color: rgb(150, 5, 4);
   box-shadow: none  !important;
 }
+.btn:focus{
+  box-shadow: none  !important;
+}
 /* .btn-primary.active:focus {
   background-color: rgb(150, 5, 4); 
   border-color: white;
@@ -451,6 +454,15 @@ label.btn.btn-primary:focus{
   border-color: var(--color-dark);
   font-weight: normal;
 }
+.text-primary:focus {
+  /* color: rgb(240, 90, 120); */
+  /* color: rgb(150, 5, 4); */
+  color:var(--color-dark);
+  border-color: var(--color-dark);
+  font-weight: normal;
+  box-shadow: none;
+}
+
 .text-primary-h4 {
   /* color: rgb(240, 90, 120); */
   /* color: rgb(150, 5, 4); */
@@ -665,6 +677,12 @@ fieldset[disabled] .btn-info.focus {
   background-color: var(--color-dark);
   /* border-color: rgb(150, 5, 4); */
   color: white;
+  box-shadow: none;
+  outline: none;
+  /* border: none !important; */
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
 }
 .primary-color-active:hover,
 .primary-color-active:active:hover,
@@ -682,6 +700,12 @@ fieldset[disabled] .btn-info.focus {
   background-color: var(--color-dark);
   /* border-color: rgb(150, 5, 4); */
   color: var(--color-light);
+  box-shadow: none;
+  outline: none;
+  /* border: none !important; */
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .primary-color:focus,

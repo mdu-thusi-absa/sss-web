@@ -7,6 +7,7 @@
       [class.primary-color-active]="radioChoice == 'flash'"
       [class.primary-color]="radioChoice != 'flash'"
       [title]="titleFlash"
+
     >
       <input
         type="radio"
@@ -210,6 +211,7 @@
       *ngIf="filterText.length > 0"
       class="input-group-addon btn primary-color-reverse"
       (click)="doFilterClear()"
+
     >
       <span class="glyphicon glyphicon-erase"></span>
     </span>
@@ -218,6 +220,7 @@
       *ngIf="showFilterCount"
       class="input-group-addon primary-color-reverse"
       title="Number of items"
+      style="border-left:none;pointer-events: none;"
     >
       {{ filterCount }}
     </span>

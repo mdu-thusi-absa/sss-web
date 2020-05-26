@@ -115,10 +115,11 @@ export class EntitiesComponent implements OnInit {
   }
 
   getCount_All(){
-    console.log('all');
     //console.log(this.entityTypeName);
     if (this.entities){
+      console.log('all');
       return [...this.entities.values()].filter(e => e.type == this.entityTypeName).length;
+      //return this.isHiddenMap.size;
     }else{
       return 0;
     }
@@ -135,6 +136,9 @@ export class EntitiesComponent implements OnInit {
     this.showActiveOnly = event;
     this.dataService.makeFunctionalEntities(this.showActiveOnly);
     this.entities = this.dataService.getFunctionalEntitiesAll();
+    if (this.showActiveOnly && this.rdoActiveDormantAll == 'pause') {
+      this.rdoActiveDormantAll = 'all';
+    }
     //console.log(this.entities);
     this.setCounts();
   }
@@ -146,12 +150,19 @@ export class EntitiesComponent implements OnInit {
   countActive = 0;
 
   setCounts(){
+    this.calcIsHidden();
     this.countFiltered = this.getCountFiltered();
     this.countAll = this.getCount_All();
     this.countTasks = this.getCount_Tasks();
     this.countDormant = this.getCount_Dormant();
     this.countActive = this.getCount_Active();
-    this.calcIsHidden();
+    
+  }
+
+  doChangeRdo(event: any){
+    this.rdoActiveDormantAll = event;
+    console.log(this.rdoActiveDormantAll);
+    this.setCounts();
   }
 
   calcIsHidden(){
@@ -180,7 +191,8 @@ export class EntitiesComponent implements OnInit {
     //console.log('all');
     //console.log(this.entityTypeName);
     if (this.entities){
-       return [...this.entities.values()].filter(e => !this.shouldBeHidden(e)).length;
+       //return [...this.entities.values()].filter(e => !this.shouldBeHidden(e)).length;
+       return [...this.isHiddenMap.values()].filter(e => e).length;
     }else{
       return 0;
     }
