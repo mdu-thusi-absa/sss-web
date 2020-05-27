@@ -37,45 +37,50 @@
       [class.entities-half]="isHalfScreen()"
       style="overflow-y: scroll; overflow-x: hidden; scrollbar-width: thin;"
     >
-      <table
-        class="table table-condensed table-bordered less-bottom"
-        style="font-size: smaller;"
-      >
-        <thead class="info">
-          <tr class="info">
-            <th><small>Name</small></th>
-            <th><small>Tasks</small></th>
-            <th><small>Suffix</small></th>
-          </tr>
-        </thead>
-
-        <tbody
-          *ngFor="let t of entityTypeNames | keyvalue"
-          [style.display]="entityType == t.key ? 'table-row-group' : 'none'"
+      <ng-container *ngFor="let t of entityTypeNames | keyvalue">
+        <table
+          class="table table-condensed table-bordered less-bottom"
+          style="font-size: smaller;"
+          [hidden]="entityType != t.key"
         >
-          <ng-container *ngFor="let e of entities | keyvalue">
-            <ng-container
+          <thead class="info">
+            <tr class="info">
+              <th><small>Name</small></th>
+              <th><small>Tasks</small></th>
+              <th><small>Suffix</small></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <ng-container *ngFor="let e of entities | keyvalue">
+              <!-- <ng-container
               *ngIf="
                 e.value.type == entityTypeNames.get(t.key).name.toLowerCase()
               "
-            >
-              <tr
-                [hidden]="isHiddenMap.get(e.key)"
-                [class.info]="e.value.isActive"
+              
+            > -->
+              <ng-container
+                *ngIf="
+                  e.value.type == entityTypeNames.get(t.key).name.toLowerCase()
+                "
               >
-                <td>
-                  <a href="#" (click)="doEntityChoose(e.key)"
-                    >{{ e.value.name }}
-                  </a>
-                </td>
-                <td>{{ e.value.tasksCount }}</td>
-                <td>{{ e.value.suffix }}</td>
-              </tr>
+                <tr
+                  [class.info]="e.value.isActive"
+                  [hidden]="isHiddenMap.get(e.key)"
+                >
+                  <td>
+                    <a href="#" (click)="doEntityChoose(e.key)"
+                      >{{ e.value.name }}
+                    </a>
+                  </td>
+                  <td>{{ e.value.tasksCount }}</td>
+                  <td>{{ e.value.suffix }}</td>
+                </tr>
+              </ng-container>
             </ng-container>
-          </ng-container>
-        </tbody>
+          </tbody>
 
-        <!-- <tbody [hidden]="entityType != 0">
+          <!-- <tbody [hidden]="entityType != 0">
           <tr
             *ngFor="let e of entities | keyvalue"
             [hidden]="isHiddenMap.get(e.key)"
@@ -90,7 +95,9 @@
             <td>{{ e.value.suffix }}</td>
           </tr>
         </tbody> -->
-      </table>
+        </table>
+      </ng-container>
+
       <small class="text-primary"
         >Total {{ countAll }}. Showing
         {{ (rdoActiveDormantAll == "all" ? "all " : "") + countFiltered }}

@@ -4,6 +4,7 @@ import {
   Entities,
   Entity,
   FunctionalEntities,
+  EveryEntity,
 } from '../../models';
 import { DataService } from 'src/app/data.service';
 import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
@@ -21,6 +22,7 @@ export class EntitiesComponent implements OnInit {
   @Input() panelRows = 1;
   @Input() isNarrow = false;
   entities: FunctionalEntities; // = new FunctionalEntities();
+  //entitiesAll: FunctionalEntities;
   entityType = 0;
   entityTypeName = '';
   entityTypesPlural: any;
@@ -28,17 +30,38 @@ export class EntitiesComponent implements OnInit {
   entityTypeNames = new Entities();
   showActiveOnly = true;
   isHiddenMap = new Map();
+  mapEntityTypes = new Map();
   @Output() onEntityTypeChange = new EventEmitter();
   @Output() onEntityChange = new EventEmitter();
+  countFiltered = 0;
+  countAll = 0;
+  countTasks = 0;
+  countDormant = 0;
+  countActive = 0;
 
   constructor(public dataService: DataService) {}
 
   ngOnInit(): void {
     this.entityTypeNames = this.dataService.entityTypes;
     this.entityTypesPlural = this.dataService.getEntityTypesPlural();
+    this.loadEntities();
     this.doEntityTypeChange(this.entityType);
-    this.entities = this.dataService.getFunctionalEntitiesAll();
     this.setCounts();
+  }
+
+  loadEntities() {
+    this.dataService.makeFunctionalEntities(this.showActiveOnly);
+    this.entities = this.dataService.getFunctionalEntitiesAll();
+    // this.listMap = new Map();
+    // let f: FunctionalEntities;
+    // this.entitiesAll.forEach((value: FunctionalEntity, key: number) => {
+    //   if (!this.listMap.has(value.type)){
+    //     let f = new FunctionalEntities();
+    //     this.listMap.set(value.type,f)
+    //   }
+    //   f = this.listMap.get(value.type)
+    //   f.add() (key,value);
+    // });
   }
 
   doEntityTypeChange(event: any) {
@@ -50,16 +73,18 @@ export class EntitiesComponent implements OnInit {
       .get(this.entityType)
       .name.toLowerCase();
     this.onEntityTypeChange.emit(this.entityType);
+    //console.log('about');
+    
+    this.calcIsHidden();
     this.setCounts();
+    //select first visible element
     if (this.isHiddenMap) {
       if (this.isHiddenMap.size > 0) {
         if (this.isHiddenMap.entries()) {
           try {
             let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
             this.entities.currentKey = k;
-          } catch (e) {
-            //this.entities.currentKey = -1;
-          }
+          } catch (e) {}
         }
       }
     }
@@ -72,7 +97,7 @@ export class EntitiesComponent implements OnInit {
     let isType = true;
     let inStatus = true;
 
-    isType = e.type === this.entityTypeName;
+    //isType = e.type === this.entityTypeName;
 
     if (isType) {
       if (this.rdoActiveDormantAll === 'all') inStatus = true;
@@ -141,10 +166,12 @@ export class EntitiesComponent implements OnInit {
   }
 
   getCount_All() {
+    //console.log(this.isHiddenMap);
     if (this.entities) {
-      return [...this.entities.values()].filter(
-        (e) => e.type === this.entityTypeName
-      ).length;
+      // return [...this.entities.values()].filter(
+      //   (e) => e.type === this.entityTypeName
+      // ).length;
+      return this.isHiddenMap.size;
     } else {
       return 0;
     }
@@ -156,23 +183,21 @@ export class EntitiesComponent implements OnInit {
   }
 
   doChangeShowActive(event: any) {
+    //console.log('doChangeShowActive',event);
+
     this.showActiveOnly = event;
-    this.dataService.makeFunctionalEntities(this.showActiveOnly);
-    this.entities = this.dataService.getFunctionalEntitiesAll();
+    
+    //this.entities = this.dataService.getFunctionalEntitiesAll();
+    this.loadEntities();
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
       this.rdoActiveDormantAll = 'all';
     }
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'play') {
       this.rdoActiveDormantAll = 'all';
     }
+    this.calcIsHidden();
     this.setCounts();
   }
-
-  countFiltered = 0;
-  countAll = 0;
-  countTasks = 0;
-  countDormant = 0;
-  countActive = 0;
 
   setCounts() {
     this.calcIsHidden();
@@ -189,13 +214,29 @@ export class EntitiesComponent implements OnInit {
   }
 
   calcIsHidden() {
+    //console.log('in');
+    
     if (this.entities) {
-      let a = [...this.entities.entries()];
+      //console.log('if');
+      
+      // let a = [...this.entities.entries()];
+      // this.isHiddenMap = new Map();
+      // for (let i = 0; i < a.length; i++) {
+      //   let [k, v] = a[i];
+      //   this.isHiddenMap.set(k, this.shouldBeHidden(v));
+      // }
       this.isHiddenMap = new Map();
-      for (let i = 0; i < a.length; i++) {
-        let [k, v] = a[i];
-        this.isHiddenMap.set(k, this.shouldBeHidden(v));
-      }
+      let typeName = this.entityTypeName.toLowerCase();
+      //console.log(typeName);
+      
+      this.entities.forEach((value: FunctionalEntity, key: number) => {
+        //console.log(key, value);
+        if (value.type == typeName) {
+          this.isHiddenMap.set(key, this.shouldBeHidden(value));
+        }
+      });
+      //console.log(this.isHiddenMap);
+      
     }
   }
 
