@@ -15,13 +15,21 @@
         [disabled]="disabled"
         (change)="doChange($event)"
       /><span
+        class="hidden-xs"
         [class.text-primary-bold]="!inline"
         style="padding-top: 10px; margin-top: 10px;"
-        
-        [style.word-wrap] = "'none'"
+        [style.word-wrap]="'none'"
         >&nbsp;{{ title }}</span
-      ></label
-    >
+      >
+      <span
+        class="hidden-sm hidden-md hidden-lg"
+        [class.text-primary-bold]="!inline"
+        [style.font-size] = "inline ? 'x-small' : 'normal'"
+        style="padding-top: 10px; margin-top: 10px; "
+        [style.word-wrap]="'none'"
+        >&nbsp;{{ title }}</span
+      >
+    </label>
 
     <!-- <div class="custom-control custom-checkbox checkbox-lg">
       <input type="checkbox" class="custom-control-input" id="checkbox" checked="">

@@ -702,7 +702,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
       new User('Small', 'James', '').set('tasksCount', 7).set('isActive', false)
     )
     .add(new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount', 15))
-    .add(new User('Standar', 'Lourika', '').set('tasksCount', 7));
+    .add(new User('Stander', 'Lourika', 'ABSA').set('tasksCount', 7));
   getUsers() {
     return this.users;
   }
