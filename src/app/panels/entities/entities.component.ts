@@ -54,14 +54,12 @@ export class EntitiesComponent implements OnInit {
     if (this.isHiddenMap) {
       if (this.isHiddenMap.size > 0) {
         if (this.isHiddenMap.entries()) {
-          try{
+          try {
             let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
             this.entities.currentKey = k;
-          }
-          catch(e){
+          } catch (e) {
             //this.entities.currentKey = -1;
           }
-          
         }
       }
     }
@@ -87,11 +85,9 @@ export class EntitiesComponent implements OnInit {
         if (this.filterText.length > 0) {
           inName =
             e.name.toLowerCase().indexOf(this.filterText.toLowerCase()) > -1;
-          if (e['suffix']) {
-            inSuffix =
-              e['suffix'].toLowerCase().indexOf(this.filterText.toLowerCase()) >
-              -1;
-          }
+          inSuffix =
+            e['suffix'].toLowerCase().indexOf(this.filterText.toLowerCase()) >
+            -1;
           inFilter = inName || inSuffix;
         }
       }
@@ -200,7 +196,6 @@ export class EntitiesComponent implements OnInit {
         let [k, v] = a[i];
         this.isHiddenMap.set(k, this.shouldBeHidden(v));
       }
-    } else {
     }
   }
 
