@@ -9,7 +9,7 @@
       >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3 primary-color">
+          <div class="panel-heading mt3 primary-color" >
             <small>
               <span class="glyphicon glyphicon-home"></span
               ><span>&nbsp;Entities</span></small
@@ -461,6 +461,7 @@
                 [hideContacts]="hideContacts"
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"
+                [entityKey] = "entityKey"
               ></app-entity-details>
             </div>
             <div [hidden]="entityType < entityTypes.size - 1">

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data.service';
+import { LegalEntity } from 'src/app/models';
 
 
 @Component({
@@ -10,13 +11,21 @@ import { DataService } from 'src/app/data.service';
 export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
+  @Input() entityKey: number;
+  //@Input() legalEntity: LegalEntity;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();
   constructor(public dataService: DataService) { }
 
+
+  get legalEntity(){
+    return this.dataService.getEntity(this.entityKey);
+  }
+
   ngOnInit(): void {
+    
   }
 
   doRecord(event: any){

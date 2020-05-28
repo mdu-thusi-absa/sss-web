@@ -40,14 +40,14 @@
       <ng-container *ngFor="let t of entityTypeNames | keyvalue">
         <table
           class="table table-condensed table-bordered less-bottom"
-          style="font-size: smaller;"
+
           [hidden]="entityType != t.key"
         >
           <thead class="info">
-            <tr class="info">
-              <th><small>Name</small></th>
-              <th><small>Tasks</small></th>
-              <th><small>Suffix</small></th>
+            <tr class="info" >
+              <th ><small>Name</small></th>
+              <th ><small>Tasks</small></th>
+              <th ><small>Suffix</small></th>
             </tr>
           </thead>
 
@@ -67,14 +67,20 @@
                 <tr
                   [class.info]="e.value.isActive"
                   [hidden]="isHiddenMap.get(e.key)"
+                  
+                  
                 >
-                  <td>
+                  <td >
                     <a href="#" (click)="doEntityChoose(e.key)"
-                      >{{ e.value.name }}
+                      [attr.id] = "e.key"
+                      [attr.name] = "e.key"
+                      routerLink ="."
+                      fragment="e.key"
+                      ><span [class.text-primary-bold]="e.key == selectedEntityKey">{{ e.value.name }}</span>
                     </a>
                   </td>
-                  <td>{{ e.value.tasksCount }}</td>
-                  <td>{{ e.value.suffix }}</td>
+                  <td><span [class.text-primary-bold]="e.key == selectedEntityKey">{{ e.value.tasksCount }}</span></td>
+                  <td ><span [class.text-primary-bold]="e.key == selectedEntityKey">{{ e.value.suffix }}</span></td>
                 </tr>
               </ng-container>
             </ng-container>

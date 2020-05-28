@@ -33,11 +33,13 @@ export class EntitiesComponent implements OnInit {
   mapEntityTypes = new Map();
   @Output() onEntityTypeChange = new EventEmitter();
   @Output() onEntityChange = new EventEmitter();
+  selectedEntityKey: number;
   countFiltered = 0;
   countAll = 0;
   countTasks = 0;
   countDormant = 0;
   countActive = 0;
+
 
   constructor(public dataService: DataService) {}
 
@@ -47,10 +49,20 @@ export class EntitiesComponent implements OnInit {
     this.loadEntities();
     this.doEntityTypeChange(this.entityType);
     this.setCounts();
+    // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
+   
+  //  ngAfterViewChecked(): void {
+  //    try {
+  //        if(this.fragment) {
+  //            document.querySelector('#' + this.fragment).scrollIntoView();
+  //        }
+  //    } catch (e) { }
+  //  }
+
 
   loadEntities() {
-    this.dataService.makeFunctionalEntities(this.showActiveOnly);
+    this.dataService.makeFunctionalEntities();
     this.entities = this.dataService.getFunctionalEntitiesAll();
     // this.listMap = new Map();
     // let f: FunctionalEntities;
@@ -78,26 +90,33 @@ export class EntitiesComponent implements OnInit {
     this.calcIsHidden();
     this.setCounts();
     //select first visible element
+    
     if (this.isHiddenMap) {
       if (this.isHiddenMap.size > 0) {
         if (this.isHiddenMap.entries()) {
           try {
             let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
-            this.entities.currentKey = k;
+            //this.entities.currentKey = k;
+            this.selectedEntityKey = k;
+            this.onEntityChange.emit(this.selectedEntityKey);
           } catch (e) {}
         }
       }
     }
   }
 
-  shouldBeHidden(e: Entity): boolean {
+  shouldBeHidden(e: FunctionalEntity): boolean {
     let inFilter = true;
     let inName = true;
     let inSuffix = true;
     let isType = true;
     let inStatus = true;
+    let inActive = true;
 
     //isType = e.type === this.entityTypeName;
+    if (this.showActiveOnly){
+      inActive = e.isActive;
+    }
 
     if (isType) {
       if (this.rdoActiveDormantAll === 'all') inStatus = true;
@@ -118,7 +137,7 @@ export class EntitiesComponent implements OnInit {
       }
     }
 
-    let doShow = inFilter && inStatus && isType;
+    let doShow = inFilter && inStatus && isType && inActive;
 
     return !doShow;
   }
@@ -256,6 +275,8 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityChoose(entityKey: number) {
-    this.entities.currentKey = entityKey;
+    //this.entities.currentKey = entityKey;
+    this.selectedEntityKey = entityKey
+    this.onEntityChange.emit(this.selectedEntityKey);
   }
 }

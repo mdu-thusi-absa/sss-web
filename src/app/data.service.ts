@@ -28,7 +28,7 @@ export class DataService {
     this.makeCompanyArray();
     this.makeIndividuals();
 
-    this.makeFunctionalEntities(true);
+    this.makeFunctionalEntities();
   }
 
   makeIndividuals(){
@@ -48,7 +48,8 @@ export class DataService {
 
   functionalEntities = new FunctionalEntities;
 
-  makeFunctionalEntities(showActiveOnly: boolean){
+  makeFunctionalEntities(){
+    let showActiveOnly = false;
     this.functionalEntities = new FunctionalEntities();
     this.functionalEntities.fromArray('company',showActiveOnly,this.companies.all_values);
     this.functionalEntities.fromArray('individual',showActiveOnly,this.persons.all_values);
@@ -59,6 +60,10 @@ export class DataService {
     this.functionalEntities.fromArray('secretary',showActiveOnly,this.companySecretaries.all_values);
     this.functionalEntities.fromArray('regulator',showActiveOnly,this.regulators.all_values);
     this.functionalEntities.fromArray('regulation',showActiveOnly,this.regulations.all_values);
+  }
+
+  getEntity(entityKey: number){
+    return this.functionalEntities.get(entityKey);
   }
 
   getFunctionalEntitiesAll(): FunctionalEntities{

@@ -1,4 +1,4 @@
-<hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
+<hr>
 <div class="h4 text-primary-h4" style="margin-top: 5px;">
   <u>Primary Details: User</u>
 </div>
@@ -28,89 +28,6 @@
   [showCheck]="false"
 ></app-input-textarea>
 
-<div class="container-flex">
-  <div class="row">
-    <app-input-duo-column
-    [title]="'Manager access: Groups'"
-      [isNarrow]="isNarrow"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [typeLeft]="'checkbox'"
-      [titleLeft]="'Select all groups'"
-      [valueLeft]="false"
-      [typeRight]="'select-checkbox'"
-      [titleRight]="'Select specific groups'"
-      [valuesRight]="dataService.getEntityGroups()"
-      [valueRight]="0"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
-    ></app-input-duo-column>
-
-    <app-input-duo-column
-    [title]="'Admin access: Groups'"
-      [isNarrow]="isNarrow"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [typeLeft]="'checkbox'"
-      [titleLeft]="'Select all groups'"
-      [valueLeft]="false"
-      [typeRight]="'select-checkbox'"
-      [titleRight]="'Select specific groups'"
-      [valuesRight]="dataService.getEntityGroups()"
-      [valueRight]="0"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
-    >
-    </app-input-duo-column>
-  </div>
-  <div class="row">
-    <hr style="height: 1px; margin: 0px;" />
-    <app-input-duo-column
-    [title]="'Manager access: Companies'"
-      [isNarrow]="isNarrow"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [typeLeft]="'checkbox'"
-      [titleLeft]="'Select all companies'"
-      [valueLeft]="false"
-      [typeRight]="'select-checkbox'"
-      [titleRight]="'Select specific companies'"
-      [valuesRight]="dataService.getCompanies()"
-      [valueRight]="0"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
-    ></app-input-duo-column>
-    <hr style="height: 1px; margin: 0px;" />
-    <app-input-duo-column
-        [title] ="'Admin access: Companies'"
-      [isNarrow]="isNarrow"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [typeLeft]="'checkbox'"
-      [titleLeft]="'Select all companies'"
-      [valueLeft]="false"
-      [typeRight]="'select-checkbox'"
-      [titleRight]="'Select specific companies'"
-      [valuesRight]="dataService.getCompanies()"
-      [valueRight]="0"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
-    >
-    </app-input-duo-column>
-  </div>
-</div>
 
 <app-input-duo
   [filterText]="filterText"
@@ -159,5 +76,90 @@
   [showCheckLeft]="true"
   [showCheckRight]="true"
 ></app-input-duo>
+<div style="padding-bottom: 5px;"> </div>
+<hr>
+<div class="container-flex">
+  <div class="row">
+    <app-input-duo-column
+    [title]="'Manager access: Groups'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all groups'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific groups'"
+      [valuesRight]="dataService.getEntityGroups()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo-column>
 
-<hr style="height: 1px; margin: 0px;" />
+    <app-input-duo-column
+    [title]="'Admin access: Groups'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all groups'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific groups'"
+      [valuesRight]="dataService.getEntityGroups()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    >
+    </app-input-duo-column>
+  </div>
+  <div class="row">
+    <app-input-duo-column
+    [title]="'Manager access: Companies'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all companies'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific companies'"
+      [valuesRight]="dataService.getCompanies()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo-column>
+    
+    <app-input-duo-column
+        [title] ="'Admin access: Companies'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all companies'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific companies'"
+      [valuesRight]="dataService.getCompanies()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    >
+    </app-input-duo-column>
+  </div>
+</div>
+
+
+<div style="padding-bottom: 5px;"> </div>

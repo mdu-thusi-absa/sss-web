@@ -1,4 +1,5 @@
-<hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
+<!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" /> -->
+<hr>
 <div class="h4 text-primary-h4" style="margin-top: 5px;">
   <u>Primary Details: Company</u>
 </div>
@@ -11,9 +12,12 @@
   [placeholderLeft]="
     'Optional suffix - used to differenciate entities with the same name. E.g. Country of Incorporation (in brackets), used to differenciate entities with the same name, but from different countries'
   "
+  [valueLeft] = "legalEntity.suffix"
+  (onChangeLeft) = "legalEntity.suffix = $event"
+
   [typeRight]="'checkbox'"
   [titleRight]="'Active'"
-  [valueRight]="true"
+  [valueRight]="legalEntity.isActive"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -158,4 +162,4 @@
   
 ></app-input-duo>
 
-<hr style="height: 1px; margin: 0px;" />
+<div style="padding-bottom: 5px;"> </div>

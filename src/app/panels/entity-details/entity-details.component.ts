@@ -29,6 +29,7 @@ export class EntityDetailsComponent implements OnInit {
   persons = new NaturalEntities();
   @Input() panelRows = 1;
   @Input() entityType = 0;
+  @Input() entityKey = -1;
   //@Input() entityKey = 0;
   private entity_: EveryEntity;
   entities: FunctionalEntities;
@@ -43,13 +44,16 @@ export class EntityDetailsComponent implements OnInit {
     this.persons = this.dataService.getPersons();
     //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
     this.entities = this.dataService.getFunctionalEntitiesAll();
-    this.entity_ = this.entities.currentValue;
+    //this.entity_ = this.entities.currentValue;
+    if (this.entityKey<0){
+      this.entityKey = this.entities.currentKey;
+    }
   }
 
   get entity() {
     //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
     //this.entities = this.dataService.getFunctionalEntitiesAll()
-    this.entity_ = this.entities.currentValue;
+    this.entity_ = this.entities.get(this.entityKey); // .currentValue;
     return this.entity_;
   }
 
