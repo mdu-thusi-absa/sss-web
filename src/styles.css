@@ -271,10 +271,6 @@ body {
   overflow-x: hidden;
 }
 
-hr {
-  margin: 5px;
-}
-
 .btn-group.wide {
   display: flex;
 }
@@ -446,6 +442,17 @@ label.btn.btn-primary:focus{
   border-color: white !important;
   box-shadow: none;
 } */
+
+.text-bright {
+  color: var(--color-bright);
+  border-color: var(--color-bright);
+  font-weight: normal;
+}
+.text-bright-bold {
+  color: var(--color-bright);
+  border-color: var(--color-bright);
+  font-weight: 550;
+}
 
 .text-primary {
   /* color: rgb(240, 90, 120); */
@@ -1012,6 +1019,11 @@ html{
 .panel-heading {
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
+
+
+/* hr {
+  margin: 5px;
+} */
 
 hr {
   border:none;
