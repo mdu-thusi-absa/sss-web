@@ -179,6 +179,7 @@
     class="form-control input-sm wide primary-color-input-reverse"
     style="font-size: small; border-bottom: none;"
     (change)="doListChange($event)"
+    [title] = "titleList"
   >
     <option
       *ngFor="let e of listValues.all_keys"
@@ -193,11 +194,22 @@
 <div [hidden]="!showInputFilter">
   <div class="input-group input-group-sm">
     <span
+      *ngIf="showA"
+      class="input-group-addon btn"
+      [class.primary-color-reverse]="!isA"
+      [class.primary-color]="isA"
+      (click)="doA()"
+      
+      [title]="(isA ? 'off: ':'on: ') + titleA"
+    >
+      <span class="glyphicon glyphicon-text-color"></span>
+    </span>
+    <span
       *ngIf="showTick"
       class="input-group-addon btn primary-color-reverse"
       (click)="doTick()"
     >
-      <span class="glyphicon" [class.glyphicon-ok]="true"></span>
+      <span class="glyphicon glyphicon-ok"></span>
     </span>
 
     <input
@@ -208,6 +220,7 @@
       (keyup)="doKey($event)"
       style="font-weight: normal; width: 100%;"
       autocomplete="nope"
+      [title] = "'Type text to filter items'"
     />
 
     <span
@@ -221,9 +234,10 @@
 
     <span
       *ngIf="showFilterCount"
-      class="input-group-addon primary-color-reverse hidden-xs"
+      class="input-group-addon primary-color-reverse primary-color-reverse-no-hover hidden-xs"
       title="Number of items"
-      style="border-left: none; pointer-events: none;"
+      style="border-left: none; "
+      [title] = "'Showing ' + filterCount + ' items'"
     >
       {{ filterCount }}
     </span>

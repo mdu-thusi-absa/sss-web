@@ -49,7 +49,9 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showShare = false;
   @Input() showDownload = false;
   @Input() showDuplicate = false;
+  @Input() showA = false;
   @Input() isNarrow = false;
+  @Input() isA = false;
 
   //for radio values
   @Input() countFlash = 0;
@@ -67,10 +69,13 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleAll = '';
   @Input() titleEyeClose = '';
   @Input() titleEyeOpen = '';
+  @Input() titleA = '';
+  @Input() titleList = '';
 
   @Output() onChoice = new EventEmitter();
   @Output() onDuplicate = new EventEmitter();
   @Output() onDownload = new EventEmitter();
+  @Output() onA = new EventEmitter();
 
   isT = false;
   filterText = '';
@@ -144,6 +149,11 @@ export class InputFilterAddComponent implements OnInit {
 
   doTick() {
     this.onTick.emit();
+  }
+
+  doA(){
+    this.isA = !this.isA;
+    this.onA.emit(this.isA);
   }
 
   doT() {

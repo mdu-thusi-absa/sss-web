@@ -4,8 +4,8 @@
     [showAdd]="true"
     [showFilterCount]="true"
     (onFilter)="doFilter($event)"
-    [title]="'Entity'"
-    [titlePlural]="'Entities'"
+    [title]="entityTypeName"
+    [titlePlural]="entityTypeNamePlural"
     [showList]="true"
     [listValues]="entityTypesPlural"
     [listValue]="entityType"
@@ -30,6 +30,11 @@
     [captionPause]="'Inactive'"
     [isNarrow]="isNarrow"
     [showInputFilter]="entityType != entityTypesPlural.size - 1"
+    [showA] = "true"
+    [isA] = "showActiveOnly"
+    (onA) = "doChangeShowActive($event)"
+    [titleA] = "'Active only ' + entityTypeNamePlural"
+    [titleList] = "'Select entity type'"
   ></app-input-filter-add>
   <div [hidden]="entityType == entityTypesPlural.size - 1">
     <div
@@ -145,13 +150,13 @@
       >
       </app-input-duo> -->
   <div class="wide btn-group input-group-sm" style="vertical-align: middle;">
-    <app-input-checkbox [hidden] = "entityTypeName =='setting'"
+    <!-- <app-input-checkbox [hidden] = "entityTypeName =='setting'"
       [title]="'Active Only'"
-      [value]="true"
+      [value]="showActiveOnly"
       (onChange)="doChangeShowActive($event)"
       [inline]="true"
-    ></app-input-checkbox>
-    <a href="#" class="btn primary-color" [style.margin-left] = "entityTypeName =='setting' ? '0px':'5px'">
+    ></app-input-checkbox> -->
+    <a href="#" class="btn primary-color">
       <small>
         <span class="glyphicon glyphicon-log-out"></span>
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Log Out</span
