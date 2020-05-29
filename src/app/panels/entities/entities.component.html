@@ -144,15 +144,14 @@
         (onChangeRight)="doChangeShowActive($event)"
       >
       </app-input-duo> -->
-
-  <div class="btn-group wide input-group-sm" style="vertical-align: middle;">
-    <app-input-checkbox
+  <div class="wide btn-group input-group-sm" style="vertical-align: middle;">
+    <app-input-checkbox [hidden] = "entityTypeName =='setting'"
       [title]="'Active Only'"
       [value]="true"
       (onChange)="doChangeShowActive($event)"
       [inline]="true"
     ></app-input-checkbox>
-    <a href="#" class="btn primary-color" style="margin-left: 5px;">
+    <a href="#" class="btn primary-color" [style.margin-left] = "entityTypeName =='setting' ? '0px':'5px'">
       <small>
         <span class="glyphicon glyphicon-log-out"></span>
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Log Out</span

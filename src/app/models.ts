@@ -52,7 +52,7 @@ export class City extends Entity {
   }
 }
 export class FileEntity extends Entity {
-  public type = 'file';
+  type = 'file';
   title = '';
   description = '';
 }
@@ -64,11 +64,67 @@ export class FunctionalEntity extends Entity {
 }
 export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
+  //customFields: CustomFields;
+  //entityFiles: FileEntities;
 }
 
-export class Company extends LegalEntity {
-  public type = 'company';
+export class Appointment{
+  person: NaturalEntity;
+  legalEntity: LegalEntity;
+  appointmentDate: Date;
+  resignationDate: Date;
 }
+
+export class Shareholder extends LegalEntity{
+  sharesHolding: number; //only current, todo: historic record, types of shares
+}
+
+//todo: Appointments, ShareCertificates, Shareholders collections
+
+export class Company extends LegalEntity {
+  type = 'company';
+  registrationNumber: string;
+  currNameEffectiveDate: Date;
+  prevName: string;
+  prevNameEffectiveDate: Date;
+  entityGroups: Entities;
+  country: Country;
+  industry: Entity;
+  representativeOffice: boolean;
+  foreignBrunch: boolean;
+  incorporationDate: Date;
+  anniversaryMonth: Entity;
+  businessStartDate: Date;
+  financialYearEndMonth: Entity;
+  incomeTaxNumber: string;
+  vatNumber: string;
+  businessArea: Entity;
+  businessDivision: Entity;
+  legalClass: Entity;
+  consolidated: boolean;
+  entityStatus: Entity;
+  entityStatusTiering: Entity;
+  accountingClass: Entity;
+  accountingClassificationTiering: Entity;
+  directParent: Entity;
+  shareholdingInEntity: number;
+  appointedCompanySecretary: Entity;
+  clientSecretarialRepresentative: User;
+  legalEntityExecutive: NaturalEntity;
+  entityFinancialOfficer: NaturalEntity;
+  publicOfficer: NaturalEntity;
+  shareCode: string;
+  ISINCode: string;
+  bloombergCode: string;
+  reutersCode: string;
+  // collection
+  //appointments: Appointments;
+  //shareCertificates: Certificates;
+  //shareholders: Shareholders;
+  
+}
+
+//let company = new Company('a');
 
 export class NaturalEntity extends FunctionalEntity {
   public type = 'natural';
