@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sss:build"
+            "browserTarget": "sss:"
           }
         },
         "test": {
@@ -90,7 +90,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/assets/faviconS3.png",
+              "src/assets/faviconS5.png",
               "src/assets"
             ],
             "styles": [

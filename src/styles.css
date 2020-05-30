@@ -590,6 +590,7 @@ label.btn.btn-primary:focus{
   --color-dark: rgb(150, 5, 4);
   --color-light: rgb(240, 90, 120);
   --color-bright: rgb(220, 0, 50);
+  --color-favicon: #b8202c;
   /* rgb(240,50,90); */
   /* --color-text: rgb(250,85,30); */
   /* --color-text: rgb(240,90,120); */
