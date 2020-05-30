@@ -39,10 +39,9 @@
         <select
           class="form-control input-sm selectpicker"
           data-live-search="true"
-          style="font-size: small;"
+          style="font-size: small;border-radius: 3px;padding-left: 6px; padding-right: 6px;"
           name="option"
           [(ngModel)]="value"
-          style="padding-left: 6px; padding-right: 6px;"
           (change)="doChange($event)"
           [disabled]="disabled"
         >
@@ -86,7 +85,7 @@
       <div style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
-          style="font-size: small; margin-left: 0px;"
+          style="font-size: small; margin-left: 0px;border-radius: 3px;"
           name="option"
           (change)="doChange($event)"
           [attr.id]="'#select-Item'"
