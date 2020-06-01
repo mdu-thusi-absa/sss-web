@@ -332,7 +332,7 @@ export class GroupEntity extends FunctionalEntity {
   userAdmins: Entities<User>;
 }
 
-export class TrustEntity extends FunctionalEntity{
+export class TrustEntity extends LegalEntity{
   public type = 'trust';
   public clone(){
     let t = new TrustEntity(this.name);
@@ -342,7 +342,7 @@ export class TrustEntity extends FunctionalEntity{
   //todo: trusteesAppointments: Entities<User>;
 }
 
-export class RegulatorEntity extends FunctionalEntity{
+export class RegulatorEntity extends LegalEntity{
   public type = 'regulator';
   public clone(){
     let t = new RegulatorEntity(this.name);
@@ -351,6 +351,30 @@ export class RegulatorEntity extends FunctionalEntity{
   }
   countryKey: number;
   regulationEntities: Entities<RegulationEntity>;
+}
+
+export class AuditorEntity extends LegalEntity{
+  public type = 'auditor';
+  public clone(){
+    let t = new AuditorEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+  professionalNumber: string;
+  partnerKey: number;
+  //todo: partners: Entities<NaturalEntity>
+}
+
+export class SecretariatEntity extends LegalEntity{
+  public type = 'regulator';
+  public clone(){
+    let t = new SecretariatEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+  professionalNumber: string;
+  partnerKey: number;
+  //todo: partners: Entities<NaturalEntity>
 }
 
 export class RegulationEntity extends FunctionalEntity{
