@@ -46,39 +46,6 @@ ngAfterContentInit (){
   
 }
 
-  // entities= ['Entity Name',
-  // 'Registration Number',
-  // 'Previous Name',
-  // 'Code',
-  // 'Suffix',
-  // 'Country',
-  // 'Indusry',
-  // 'Representative Office',
-  // 'Foreign branch',
-  // 'Incorporation Date',
-  // 'Anniversary (month)',
-  // 'Business Start Date',
-  // 'Financial year end (month)',
-  // 'Income Tax Number',
-  // 'VAT Number',
-  // 'Registered office address',
-  // 'Postal address',
-  // 'Business Area',
-  // 'Business Division',
-  // 'Legal classification',
-  // 'Consolidated',
-  // 'Entity status',
-  // 'Entity status tiering',
-  // 'Accounting classification',
-  // 'Accounting classification tiering',
-  // 'Direct parent/ownership',
-  // 'Absa shareholding in entity (%)',
-  // 'Appointed company secretary',
-  // 'Internal secretary representative',
-  // 'Entity Executive',
-  // 'Entity Financial Officer',
-  // 'Public Officer (income tax)']
-
   data = [
     [
       '82/03/13',

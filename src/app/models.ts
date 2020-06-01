@@ -213,7 +213,7 @@ export class Company extends LegalEntity {
   accountingClassificationTieringKey: number;
   directParentKey: number;
   shareholdingInEntity: number;
-  appointedCompanySecretaryKey: number;
+  appointedCompanySecretariatKey: number;
   clientSecretarialRepresentativeKey: number;
   legalEntityExecutiveKey: number;
   entityFinancialOfficerKey: number;

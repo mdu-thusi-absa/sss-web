@@ -56,7 +56,7 @@ export class DataService {
     this.functionalEntities.fromArray('group',this.entityGroups.all_values);
     this.functionalEntities.fromArray('trust',this.trusts.all_values);
     this.functionalEntities.fromArray('auditor',this.auditors.all_values);
-    this.functionalEntities.fromArray('secretary',this.companySecretaries.all_values);
+    this.functionalEntities.fromArray('secretariat',this.companySecretaries.all_values);
     this.functionalEntities.fromArray('regulator',this.regulators.all_values);
     this.functionalEntities.fromArray('regulation',this.regulations.all_values);
     
@@ -498,7 +498,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     .add(new Entity('Regulator'))
     .add(new Entity('Regulation'))
     .add(new Entity('Auditor'))
-    .add(new Entity('Secretary'))
+    .add(new Entity('Secretariat'))
     .add(new Entity('Setting'));
 
   getEntityTypes() {
@@ -514,7 +514,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     .add(new Entity('Regulators'))
     .add(new Entity('Regulations'))
     .add(new Entity('Auditors'))
-    .add(new Entity('Secretaries'))
+    .add(new Entity('Secretariats'))
     .add(new Entity('Settings'));
 
   getEntityTypesPlural() {
