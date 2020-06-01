@@ -33,6 +33,7 @@ export class EntityDetailsComponent implements OnInit {
   private entity_: EveryEntity;
   private entity_BackUp: EveryEntity;
   entities: Entities<EveryEntity>;
+  dirty = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -62,10 +63,12 @@ export class EntityDetailsComponent implements OnInit {
   doSave(){
     let t = this.entities.get(this.entityKey);
     t = Object.assign(t,this.entity_);
+    this.dirty = false;
   }
 
   doCancel(){
     this.entity_ = this.entity_BackUp.clone();
+    this.dirty = false;
   }
 
   getEntityName() {
@@ -74,6 +77,7 @@ export class EntityDetailsComponent implements OnInit {
 
   setEntityName(v: string) {
     this.entity.name = v;
+    this.dirty = true;
   }
 
   setSurname(v: string) {

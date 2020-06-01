@@ -10,8 +10,8 @@
 
 <app-input-filter-add
   [title]="dataService.getEntityTypes().get(entityType).name"
-  [showSave]="true"
-  [showCancel]="true"
+  [showSave]="dirty"
+  [showCancel]="dirty"
   [showT]="true"
   [showDuplicate]="true"
   [showDownload]="true"
