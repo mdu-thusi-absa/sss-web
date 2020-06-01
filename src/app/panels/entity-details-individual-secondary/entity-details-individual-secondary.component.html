@@ -48,6 +48,20 @@
   [showCheckLeft]="true"
   [showCheckRight]="true"
 ></app-input-duo>
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Current Employer'"
+  [valuesLeft] = "dataService.getCompanies()"
+  [valueLeft] = "entity.currentEmployerKey"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+
+></app-input-duo>
 
 <app-input-textarea
   [title]="'Qualifications'"

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity } from 'src/app/models';
+import { NaturalEntity, Company } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -11,12 +11,14 @@ export class EntityDetailsCompanyOptionalComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
   @Input() persons: NaturalEntity[];
+  @Input() entity: Company;
   isAppointeeInput = false;
   isAppointeeNewInput =false;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();
+  @Output() onDirty = new EventEmitter();
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {

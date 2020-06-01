@@ -5,6 +5,7 @@ import { maxHeaderSize } from 'http';
 
 export class Entity {
   public type = 'entity';
+  public description: string;
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
 
@@ -111,7 +112,6 @@ export class City extends Entity {
 export class FileEntity extends Entity {
   type = 'file';
   title = '';
-  description = '';
   public clone(){
     let t = new FileEntity(this.name);
     t = Object.assign(t,this); 
@@ -128,7 +128,37 @@ export class FunctionalEntity extends Entity {
     t = Object.assign(t,this); 
     return t;
   }
+  contactDetails: Entities<ContactEntity>;
+  customFields: Entities<CustomFieldEntity>;
+  entityFiles: Entities<FileEntity>;
 }
+
+export class CustomFieldEntity extends Entity{
+  //name = title
+  //type = entity type name
+  value: any; //literal or entityKey
+  public clone(){
+    let t = new CustomFieldEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+}
+
+export class ContactEntity extends Entity {
+  contactPersonKey: number;
+  isOnLeave: boolean;
+  comingBackDate: Date;
+  contactPreferenceKey: number;
+  email: string;
+  cellPhone: string;
+  landLine: string;
+  public clone(){
+    let t = new ContactEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+}
+
 export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
   //customFields: CustomFields;
@@ -156,48 +186,47 @@ export class Shareholder extends LegalEntity{
 
 //todo: Appointments, ShareCertificates, Shareholders collections
 
-// export class Company extends LegalEntity {
-//   type = 'company';
-//   registrationNumber: string;
-//   currNameEffectiveDate: Date;
-//   prevName: string;
-//   prevNameEffectiveDate: Date;
-//   entityGroups: Entities;
-//   country: Country;
-//   industry: Entity;
-//   representativeOffice: boolean;
-//   foreignBrunch: boolean;
-//   incorporationDate: Date;
-//   anniversaryMonth: Entity;
-//   businessStartDate: Date;
-//   financialYearEndMonth: Entity;
-//   incomeTaxNumber: string;
-//   vatNumber: string;
-//   businessArea: Entity;
-//   businessDivision: Entity;
-//   legalClass: Entity;
-//   consolidated: boolean;
-//   entityStatus: Entity;
-//   entityStatusTiering: Entity;
-//   accountingClass: Entity;
-//   accountingClassificationTiering: Entity;
-//   directParent: Entity;
-//   shareholdingInEntity: number;
-//   appointedCompanySecretary: Entity;
-//   clientSecretarialRepresentative: User;
-//   legalEntityExecutive: NaturalEntity;
-//   entityFinancialOfficer: NaturalEntity;
-//   publicOfficer: NaturalEntity;
-//   shareCode: string;
-//   ISINCode: string;
-//   bloombergCode: string;
-//   reutersCode: string;
-//   // collection
-//   //appointments: Appointments;
-//   //shareCertificates: Certificates;
-//   //shareholders: Shareholders;
-  
-// }
+export class Company extends LegalEntity {
+  type = 'company';
+  registrationNumber: string;
+  currNameEffectiveDate: Date;
+  prevName: string;
+  prevNameEffectiveDate: Date;
+  entityGroups: Entities<Entity>;
+  countryKey: number;
+  industryKey: number;
+  representativeOffice: boolean;
+  foreignBrunch: boolean;
+  incorporationDate: Date;
+  anniversaryMonthKey: number;
+  businessStartDate: Date;
+  financialYearEndMonthKey: number;
+  incomeTaxNumber: string;
+  vatNumber: string;
+  businessAreaKey: number;
+  businessDivisionKey: number;
+  legalClassKey: number;
+  consolidated: boolean;
+  entityStatusKey: number;
+  entityStatusTieringKey: number;
+  accountingClassKey: number;
+  accountingClassificationTieringKey: number;
+  directParentKey: number;
+  shareholdingInEntity: number;
+  appointedCompanySecretaryKey: number;
+  clientSecretarialRepresentativeKey: number;
+  legalEntityExecutiveKey: number;
+  entityFinancialOfficerKey: number;
+  publicOfficerKey: number;
+  shareCode: string;
+  ISINCode: string;
+  bloombergCode: string;
+  reutersCode: string;
+  // collection
+  //appointments: Appointments;
+  //shareCertificates: Certificates;
+  //shareholders: Shareholders;
+}
 
 //let company = new Company('a');
 
@@ -205,8 +234,8 @@ export class NaturalEntity extends FunctionalEntity {
   public type = 'natural';
   public email: string;
   public cellNumber: string;
-  public birthDate: Date;
-  public deathDate: Date;
+  public birthOfDate: Date;
+  public deathOfDate: Date;
   private surname_= '';
   private firstName_ = '';
   constructor(surname: string, firstName: string, suffix: string) {
@@ -262,6 +291,35 @@ export class NaturalEntity extends FunctionalEntity {
     super.name = v;
   }
 }
+
+export class Individual extends NaturalEntity{
+  public clone(){
+    let t = new Individual(this.surname,this.firstName,this.suffix);
+    t = Object.assign(t,this); 
+    return t;
+  }
+  preferredFormalName: string;
+  preferredInformalName: string;
+  currNameEffectiveDate: Date;
+  prevNameEffectiveDate: Date;
+  prevSurname: string;
+  prevFirstName: string;
+  entityGroups: Entities<GroupEntity>;
+  entityCompanies: Entities<Company>;
+  SAIDnumber: string;
+  SAPassportNumber: string;
+  incomeTaxNumber: string;
+  vatNumber: string;
+  countryKey: number;
+  passportNumber: string;
+  employeeNumber: string;
+  position: string;
+  currentEmployerKey: number; //company
+  //contact details
+  //customFields
+  //files
+}
+
 export class GroupEntity extends FunctionalEntity {
   public type = 'group';
   public clone(){
@@ -269,6 +327,41 @@ export class GroupEntity extends FunctionalEntity {
     t = Object.assign(t,this); 
     return t;
   }
+  companies:  Entities<Company>;
+  usersManagers: Entities<User>;
+  userAdmins: Entities<User>;
+}
+
+export class TrustEntity extends FunctionalEntity{
+  public type = 'trust';
+  public clone(){
+    let t = new TrustEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+  //todo: trusteesAppointments: Entities<User>;
+}
+
+export class RegulatorEntity extends FunctionalEntity{
+  public type = 'regulator';
+  public clone(){
+    let t = new RegulatorEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+  countryKey: number;
+  regulationEntities: Entities<RegulationEntity>;
+}
+
+export class RegulationEntity extends FunctionalEntity{
+  public type = 'regulation';
+  public clone(){
+    let t = new RegulationEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+  countryKey: number;
+  regulatorEntities: Entities<RegulatorEntity>;
 }
 
 // export class Person extends NaturalEntity{
@@ -281,9 +374,14 @@ export class GroupEntity extends FunctionalEntity {
 //   }
 // }
 export class User extends NaturalEntity {
-  public type = 'user';
-  public isActive: boolean;
-  public role: string;
+  activationDate: Date;
+  deactivationDate: Date;
+  employeeNumber: string;
+  position: string;
+  managerGroups: Entities<GroupEntity>;
+  adminGroups: Entities<GroupEntity>;
+  managerCompanies: Entities<Company>;
+  adminCompanies: Entities<Company>;
   constructor(
     public surname: string,
     public firstName: string,
@@ -450,7 +548,8 @@ export type EveryEntity =
   | FunctionalEntity
   | User
   | LegalEntity
-  | NaturalEntity;
+  | NaturalEntity
+  | Company;
 
 export class Entities<T extends EveryEntity> extends Map <number,T>{
   currentKey_ = -1;

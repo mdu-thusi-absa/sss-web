@@ -1,63 +1,74 @@
 <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" /> -->
-<hr>
+<hr />
 <div class="h4 text-primary-h4" style="margin-top: 5px;">
   <u>Primary Details: Company</u>
 </div>
 
 <app-input-duo
-  [filterText] = "filterText"
+  [filterText]="filterText"
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [titleLeft]="'Suffix'"
   [placeholderLeft]="
     'Optional suffix - used to differenciate entities with the same name. E.g. Country of Incorporation (in brackets), used to differenciate entities with the same name, but from different countries'
   "
-  [valueLeft] = "legalEntity['suffix']"
-  (onChangeLeft) = "legalEntity['isActive'] = $event"
+  [valueLeft]="entity.suffix"
+  (onChangeLeft)="entity.suffix = $event; onDirty.emit()"
 
   [typeRight]="'checkbox'"
   [titleRight]="'Active'"
-  [valueRight]="legalEntity['isActive']"
+  [valueRight]="entity.isActive"
   [doHideByFilter]="true"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  (onChangeRight) = "legalEntity['isActive'] = $event"
+  (onChangeRight)="entity.isActive = $event; onDirty.emit()"
   [showCheckLeft]="true"
   [showCheckRight]="true"
 >
 </app-input-duo>
 
 <app-input-duo
-  [filterText] = "filterText"
+  [filterText]="filterText"
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [typeRight]="'date'"
   [titleLeft]="'Registration Number'"
-  [placeholderLeft] = "'Registration Number of the Entity'"
+  [placeholderLeft]="'Registration Number of the Entity'"
   [titleRight]="'Curr. Name Effective Date'"
   [doHideByFilter]="true"
+  [valueLeft] = "entity.registrationNumber"
+  [valueRight] = "entity.currNameEffectiveDate"
+  (onChangeLeft)="entity.registrationNumber = $event; onDirty.emit()"
+  (onChangeRight)="entity.currNameEffectiveDate = $event; onDirty.emit()"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 <app-input-duo
-  [filterText] = "filterText"
+  [filterText]="filterText"
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [typeRight]="'date'"
   [titleLeft]="'Prev. Name'"
-  [placeholderLeft] = "'Previous name of the entity, if applicable - only include most recent change'"
+  [valueLeft] = "entity.prevName"
+  [valueRight] = "entity.prevNameEffectiveDate"
+  [placeholderLeft]="
+    'Previous name of the entity, if applicable - only include most recent change'
+  "
+  (onChangeLeft)="entity.prevName = $event; onDirty.emit()"
   [titleRight]="'Prev. Name Effective Date'"
+  (onChangeRight)="entity.prevNameEffectiveDate = $event; onDirty.emit()"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 <app-input-duo
@@ -67,12 +78,13 @@
   [typeLeft]="'select-checkbox'"
   [titleLeft]="'Entity Groups'"
   [valuesLeft]="dataService.getEntityGroups()"
-  [valueLeft]="0"
+  [valueLeft]="entity.entityGroups"
+  (onChangeLeft)="entity.entityGroups = $event; onDirty.emit()"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 
@@ -83,19 +95,21 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
-  [placeholderLeft] = "'Country of Incorporation'"
+  [placeholderLeft]="'Country of Incorporation'"
   [valuesLeft]="dataService.getCountries()"
-  [valueLeft]="dataService.getDefault('countryKey')"
-  
+  [valueLeft]="entity.countryKey"
+  (onChangeLeft)="entity.countryKey = $event; onDirty.emit()"
 
   [titleRight]="'Industry'"
   [valuesRight]="dataService.getIndustries()"
-  [valueRight]="0"
+  [valueRight]="entity.industryKey"
+  (onChangeRight)="entity.industryKey = $event; onDirty.emit()"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 ></app-input-duo>
 
 <app-input-duo
@@ -105,14 +119,16 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [titleLeft]="'Representative Office'"
-  [valueLeft]="false"
+  [valueLeft]="entity.representativeOffice"
+  (onChangeLeft)="entity.representativeOffice = $event; onDirty.emit()"
   [titleRight]="'Foreign Branch'"
-  [valueRight]="false"
+  [valueRight]="entity.foreignBrunch"
+  (onChangeLeft)="entity.foreignBrunch = $event; onDirty.emit()"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 ></app-input-duo>
 
 <app-input-duo
@@ -121,22 +137,27 @@
   [doHideByFilter]="true"
   [typeLeft]="'date'"
   [titleLeft]="'Incorporation Date'"
-  [placeholderLeft] = "'Incorporation date of the entity'"
-  [showCheckLeft] = "true"
+  [placeholderLeft]="'Incorporation date of the entity'"
+  [showCheckLeft]="true"
+  [valueLeft] = "entity.incorporationDate"
+  (onChangeLeft) = "entity.incorporationDate = $event; onDirty.emit()"
 
   [typeRight]="'select-entity'"
   [titleRight]="'Anniversary (month)'"
-  [placeholderRight] = "'Anniversary Date (month) of the incorporation of the entity'"
+  [placeholderRight]="
+    'Anniversary Date (month) of the incorporation of the entity'
+  "
   [valuesRight]="dataService.getMonths()"
-  [valueRight]="0"
+  [valueRight]="entity.anniversaryMonthKey"
+  (onChangeRight) = "entity.anniversaryMonthKey = $event; onDirty.emit()"
+
   [showAddRight]="false"
   [showDeleteRight]="false"
   [showEditRight]="false"
-  [showCheckRight] = "false"
-
+  [showCheckRight]="false"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"      
+  (onTask)="doTask($event)"
 ></app-input-duo>
 
 <app-input-duo
@@ -145,22 +166,23 @@
   [doHideByFilter]="true"
   [typeLeft]="'date'"
   [titleLeft]="'Business start date of the entity'"
-  [valueLeft]=""
-  [showCheckLeft] = "true"
+  [valueLeft]="entity.businessStartDate"
+  [showCheckLeft]="true"
+  (onChangeLeft) = "entity.businessStartDate = $event; onDirty.emit()"
 
   [typeRight]="'select-entity'"
   [titleRight]="'Financial Year End (month)'"
   [valuesRight]="dataService.getMonths()"
-  [valueRight]="0"
+  [valueRight]="entity.financialYearEndMonthKey"
   [showAddRight]="false"
   [showDeleteRight]="false"
   [showEditRight]="false"
-  [showCheckRight] = "false"
+  [showCheckRight]="false"
+  (onChangeRight) = "entity.financialYearEndMonthKey = $event; onDirty.emit()"
 
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  
 ></app-input-duo>
 
-<div style="padding-bottom: 5px;"> </div>
+<div style="padding-bottom: 5px;"></div>

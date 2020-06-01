@@ -1,4 +1,5 @@
 import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
+import { EveryEntity } from 'src/app/models';
 
 @Component({
   selector: 'app-entity-details-contact',
@@ -10,10 +11,12 @@ export class EntityDetailsContactComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() isNarrow = false;
   @Input() title = 'Contacts Page'
+  @Input() entity: EveryEntity;
 
   @Output() onFile = new EventEmitter;
   @Output() onRecord = new EventEmitter;
   @Output() onTask = new EventEmitter;
+  @Output() onDirty = new EventEmitter;
 
   constructor() { }
 

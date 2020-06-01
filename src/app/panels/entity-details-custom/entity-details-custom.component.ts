@@ -1,5 +1,5 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity } from 'src/app/models';
+import { NaturalEntity, EveryEntity } from 'src/app/models';
 
 
 @Component({
@@ -12,10 +12,12 @@ export class EntityDetailsCustomComponent implements OnInit {
   @Input() filterText = '';
   @Input() title = ''
   @Input() persons: NaturalEntity[];
+  @Input() entity: EveryEntity;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();
+  @Output() onDirty = new EventEmitter();
 
   customCount = 1; //default number to display
   elements = new Array(this.customCount);

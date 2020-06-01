@@ -105,13 +105,14 @@
   (onFile)="doFile()"
   (onRecord)="doRecord()"
   (onTask)="doTask()"
+  (onChange) = "doChange($event)"
   [showFlash]="showFlash"
   [showPaperclip]="showPaperclip"
   [showCD]="showCD"
   [showCheck]="showCheck"
 ></app-input-date>
 
-<app-input-select
+<!-- <app-input-select
   *ngIf="type == 'select'"
   [filterText]="filterText"
   [doHideByFilter]="doHideByFilter"
@@ -130,7 +131,7 @@
   [showEdit]="showEdit"
   [showDelete]="showDelete"
   [showCheck]="showCheck"
-></app-input-select>
+></app-input-select> -->
 
 <app-input-select-entity
   *ngIf="type == 'select-entity'"

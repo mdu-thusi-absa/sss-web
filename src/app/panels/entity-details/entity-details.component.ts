@@ -44,8 +44,6 @@ export class EntityDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.persons = this.dataService.getPersons();
     this.entities = this.dataService.getFunctionalEntitiesAll();
-    //console.log(this.entities);
-    
     if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
     }
@@ -67,7 +65,8 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   doCancel(){
-    this.entity_ = this.entity_BackUp.clone();
+    this.entity_ = this.entities.get(this.entityKey).clone();
+    this.entity_BackUp = this.entity_.clone();
     this.dirty = false;
   }
 

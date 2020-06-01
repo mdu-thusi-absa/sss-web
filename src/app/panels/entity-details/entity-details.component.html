@@ -10,7 +10,7 @@
 
 <app-input-filter-add
   [title]="dataService.getEntityTypes().get(entityType).name"
-  
+
   [showSave]="true"
   [showCancel]="true"
   [showT]="true"
@@ -104,9 +104,11 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [entityKey] = "entityKey"
+          [entity] = "entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
+          (onDirty) = "dirty = true"
         ></app-entity-details-company-primary>
       </div>
       <div [hidden]="hideSecondary">
@@ -114,6 +116,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
+          [entity] = "entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -124,6 +127,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
+          [entity] = "entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -194,6 +198,7 @@
         <app-entity-details-individual
           [isNarrow]="isNarrow"
           [filterText]="filterText"
+          [entity] = "entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -203,6 +208,7 @@
         <app-entity-details-individual-secondary
           [isNarrow]="isNarrow"
           [filterText]="filterText"
+          [entity] = "entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -213,6 +219,7 @@
           [title]="'Individual'"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -224,6 +231,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -235,6 +243,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
+          [entity] = "entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"

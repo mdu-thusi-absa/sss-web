@@ -29,7 +29,7 @@
         bsDatepicker
         class="form-control custom-today-class"
         #dpDate="bsDatepicker"
-        [(ngModel)]="value"
+        [(ngModel)]="value_"
         [bsConfig]="{
           dateInputFormat: 'YYYY/MM/DD',
           containerClass: 'theme-red',
@@ -40,6 +40,10 @@
         [disabled]="disabled"
         autocomplete="nope"
         [title]="title"
+        (changeDate) = "doChange()"
+        (change) = "doChange()"
+        (onchange) = "doChange()"
+        (onchangeDate) = "doChange()"
       />
       <span
         *ngIf="!disabled"

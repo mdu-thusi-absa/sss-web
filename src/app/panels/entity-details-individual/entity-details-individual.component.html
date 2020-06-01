@@ -1,4 +1,4 @@
-<hr>
+<hr />
 <div class="h4 text-primary-h4" style="margin-top: 5px;">
   <u>Primary Details: Individual</u>
 </div>
@@ -10,9 +10,12 @@
   [placeholderLeft]="
     'Suffix - used to differenciate entities with the same name'
   "
+  [valueLeft]="entity.suffix"
+  (onChangeLeft)="entity.suffix = $event; onDirty.emit()"
   [typeRight]="'checkbox'"
   [titleRight]="'Active'"
-  [valueRight]="true"
+  [valueRight]="entity.isActive"
+  (onChangeRight)="entity.isActive = $event; onDirty.emit()"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -22,12 +25,19 @@
 >
 </app-input-duo>
 
+<app-input-textarea
+  [title]="'Description'"
+  [placeholder]="'Notes...'"
+  [showCheck]="false"
+></app-input-textarea>
+
 <app-input-duo
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'text'"
   [titleLeft]="'Preferred Formal Name'"
+  
   [typeRight]="'text'"
   [titleRight]="'Preferred Informal Name'"
   (onFile)="doFile($event)"
@@ -48,8 +58,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft] = "true"
-        [showCheckRight] = "true"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
 >
 </app-input-duo>
 
@@ -121,4 +131,4 @@
   [showCheckRight]="true"
 ></app-input-duo>
 
-<div style="padding-bottom: 5px;"> </div>
+<div style="padding-bottom: 5px;"></div>

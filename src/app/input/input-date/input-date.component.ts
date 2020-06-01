@@ -16,6 +16,7 @@ export class InputDateComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -48,5 +49,18 @@ export class InputDateComponent implements OnInit {
 
   gotoToday(){
     this.value = new Date();
+  }
+
+  get value_(){
+    return this.value;
+  }
+
+  set value_(v){
+    this.value = v
+    this.onChange.emit(this.value)
+  }
+
+  doChange(){
+    this.onChange.emit(this.value)
   }
 }
