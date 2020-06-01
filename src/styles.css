@@ -306,6 +306,10 @@ body {
 .table > tbody > tr > th > a {
   color: rgb(85, 85, 85);
 }
+/* for future: not applied yet */
+.a-no-underline{
+  text-decoration-line: none;
+}
 
 table > tbody > tr.info > td,
 .table > tbody > tr > td.info,
