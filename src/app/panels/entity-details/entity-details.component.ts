@@ -82,15 +82,15 @@ export class EntityDetailsComponent implements OnInit {
 
   setSurname(v: string) {
     this.entity['surname'] = v;
+    this.dirty = true;
   }
 
   setFirstName(v: string) {
     this.entity['firstName'] = v;
+    this.dirty = true;
   }
 
   getSurname() {
-    // console.log(this.entity);
-    
     if (this.entity) {
       return this.entity['surname'];
     } else {
