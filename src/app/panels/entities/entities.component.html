@@ -30,11 +30,11 @@
     [captionPause]="'Inactive'"
     [isNarrow]="isNarrow"
     [showInputFilter]="entityType != entityTypesPlural.size - 1"
-    [showA] = "true"
-    [isA] = "showActiveOnly"
-    (onA) = "doChangeShowActive($event)"
-    [titleA] = "'Active only ' + entityTypeNamePlural"
-    [titleList] = "'Select entity type'"
+    [showA]="true"
+    [isA]="showActiveOnly"
+    (onA)="doChangeShowActive($event)"
+    [titleA]="'Active only ' + entityTypeNamePlural.toLowerCase()"
+    [titleList]="'Select entity type'"
   ></app-input-filter-add>
   <div [hidden]="entityType == entityTypesPlural.size - 1">
     <div
@@ -45,14 +45,13 @@
       <ng-container *ngFor="let t of entityTypeNames | keyvalue">
         <table
           class="table table-condensed table-bordered less-bottom"
-
           [hidden]="entityType != t.key"
         >
           <thead class="info">
-            <tr class="info" >
-              <th ><small>Name</small></th>
-              <th ><small>Tasks</small></th>
-              <th ><small>Suffix</small></th>
+            <tr class="info">
+              <th><small>Name</small></th>
+              <th><small>Tasks</small></th>
+              <th><small>Suffix</small></th>
             </tr>
           </thead>
 
@@ -72,20 +71,44 @@
                 <tr
                   [class.info]="e.value.isActive"
                   [hidden]="isHiddenMap.get(e.key)"
-                  
-                  
                 >
-                  <td >
-                    <a href="#" (click)="doEntityChoose(e.key)"
-                      [attr.id] = "e.key"
-                      [attr.name] = "e.key"
-                      routerLink ="."
+                  <td
+                    [style.border-bottom]="
+                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                    "
+                  >
+                    <a
+                      href="#"
+                      (click)="doEntityChoose(e.key)"
+                      [attr.id]="e.key"
+                      [attr.name]="e.key"
+                      routerLink="."
                       fragment="e.key"
-                      ><span [class.text-bright-bold]="e.key == selectedEntityKey">{{ e.value.name }}</span>
+                      ><span [class.text-bright]="e.key == selectedEntityKey">
+                        {{ e.value.name }}</span
+                      >
                     </a>
                   </td>
-                  <td><span [class.text-bright-bold]="e.key == selectedEntityKey">{{ e.value.tasksCount }}</span></td>
-                  <td ><span [class.text-bright-bold]="e.key == selectedEntityKey">{{ e.value.suffix }}</span></td>
+                  <td
+                    [style.border-bottom]="
+                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                    "
+                  >
+                    <span
+                      [class.text-bright]="e.key == selectedEntityKey"
+                      >{{ e.value.tasksCount }}</span
+                    >
+                  </td>
+                  <td
+                    [style.border-bottom]="
+                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                    "
+                  >
+                    <span
+                      [class.text-bright]="e.key == selectedEntityKey"
+                      >{{ e.value.suffix }}</span
+                    >
+                  </td>
                 </tr>
               </ng-container>
             </ng-container>

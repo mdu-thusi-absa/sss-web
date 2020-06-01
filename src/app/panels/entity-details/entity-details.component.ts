@@ -2,10 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   Entity,
   NaturalEntity,
-  NaturalEntities,
   EveryEntity,
   Entities,
-  FunctionalEntities,
+  FunctionalEntity,
 } from '../../models';
 import { DataService } from 'src/app/data.service';
 
@@ -26,13 +25,14 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideFiles = false;
   @Input() hideUsers = false;
   @Input() hideContacts = false;
-  persons = new NaturalEntities();
+  persons: Entities<NaturalEntity>;
   @Input() panelRows = 1;
   @Input() entityType = 0;
   @Input() entityKey = -1;
-  //@Input() entityKey = 0;
+  entityKeyT = -1;
   private entity_: EveryEntity;
-  entities: FunctionalEntities;
+  private entity_BackUp: EveryEntity;
+  entities: Entities<EveryEntity>;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -42,19 +42,30 @@ export class EntityDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = this.dataService.getPersons();
-    //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
     this.entities = this.dataService.getFunctionalEntitiesAll();
-    //this.entity_ = this.entities.currentValue;
-    if (this.entityKey<0){
+    //console.log(this.entities);
+    
+    if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
     }
   }
 
-  get entity() {
-    //this.entities = this.dataService.getFunctionalEntitiesByType(this.entityType)
-    //this.entities = this.dataService.getFunctionalEntitiesAll()
-    this.entity_ = this.entities.get(this.entityKey); // .currentValue;
+  get entity():EveryEntity {
+    if (this.entityKeyT != this.entityKey) {    
+      this.entity_ = this.entities.get(this.entityKey).clone();
+      this.entity_BackUp = this.entity_.clone();
+      this.entityKeyT = this.entityKey;
+    }
     return this.entity_;
+  }
+
+  doSave(){
+    let t = this.entities.get(this.entityKey);
+    t = Object.assign(t,this.entity_);
+  }
+
+  doCancel(){
+    this.entity_ = this.entity_BackUp.clone();
   }
 
   getEntityName() {
@@ -74,6 +85,8 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   getSurname() {
+    // console.log(this.entity);
+    
     if (this.entity) {
       return this.entity['surname'];
     } else {

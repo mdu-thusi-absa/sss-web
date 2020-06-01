@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
-import { Entities } from 'src/app/models';
+import { Entities, EveryEntity } from 'src/app/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 import {MatCardModule} from '@angular/material/card'
 
@@ -18,7 +18,7 @@ export class EntitiesContainerComponent implements OnInit {
     this.entityTypes = this.dataService.entityTypes;
   }
 
-  entityTypes: Entities;
+  entityTypes: Entities<EveryEntity>;
   title = 'SSS';
   name: string = 'Max';
 

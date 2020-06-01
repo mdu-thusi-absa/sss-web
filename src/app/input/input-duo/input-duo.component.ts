@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
-import { NaturalEntity, Entities } from '../../models'
+import { NaturalEntity, Entities, EveryEntity } from '../../models'
 
 @Component({
   selector: 'app-input-duo',
@@ -17,7 +17,7 @@ export class InputDuoComponent implements OnInit {
 
   @Input() titleLeft = '';
   @Input() placeholderLeft = '';
-  @Input() valuesLeft: Entities; //: string[] | Person[];
+  @Input() valuesLeft: Entities<EveryEntity>; //: string[] | Person[];
   @Input() valueLeft: string | boolean | NaturalEntity | number = '';
   @Input() disabledLeft = false;
   @Input() minValueLeft = -1000;
@@ -32,7 +32,7 @@ export class InputDuoComponent implements OnInit {
 
   @Input() titleRight = '';
   @Input() placeholderRight = '';
-  @Input() valuesRight: Entities; // string[] | Person[];
+  @Input() valuesRight: Entities<EveryEntity>; // string[] | Person[];
   @Input() valueRight: string | boolean | NaturalEntity | number = '' ;
   @Input() disabledRight = false;
   @Input() minValueRight = -1000;

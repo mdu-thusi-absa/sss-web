@@ -20,6 +20,44 @@ export class Entity {
     return r;
   }
 
+  public clone(){
+    let t = new Entity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
+
+  public clone2<T>(original: T): T{
+    return JSON.parse(JSON.stringify(original));
+  } 
+
+  public clone1(): any {
+    const copy = {};
+    Object.keys(this).forEach((key) => {
+      copy[key] = this[key]
+    })
+   
+    Object.setPrototypeOf(copy, this);
+
+    return copy
+    // var c = {...this};
+    // c = Object.assign(c,this);
+    // return c;
+
+    //let cloneObj = new (<any>this.constructor());
+    //var c = new (this.constructor());
+    
+    //var cloneObj = this.constructor();
+    
+    // for (var attribut in this) {
+    //     if (typeof this[attribut] === "object") {
+    //         cloneObj[attribut] = this[attribut].clone();
+    //     } else {
+    //         cloneObj[attribut] = this[attribut];
+    //     }
+    // }
+    
+}
+
   // static makeMap(map: any, entities: Entity[]) {
   //   for (let i = 0; i < entities.length; i++) {
   //     map.set(i, entities[i]);
@@ -30,16 +68,33 @@ export class Entity {
   //     map.set(i, entities[i].name);
   //   }
   // }
+  protected capitalise(word: string):string {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
+  }
 }
 
 export class Country extends Entity {
   public type = 'country';
-  cities = new Entities();
-  constructor(public name: string) {
+  public cities = new Entities<City>(City);
+
+  constructor(public name: string){
     super(name);
+    this.cities.add(new City('-NA-'));
+  }
+  
+  public clone(){
+    let t = new Country(this.name);
+    t = Object.assign(t,this); 
+    return t;
   }
 
   addCity(city: City): Country {
+    if (this.cities.size>0){
+      if (this.cities.get(0).name='-NA-'){
+        this.cities.del(0);
+      }
+    }
     this.cities.add(city);
     return this;
   }
@@ -47,25 +102,42 @@ export class Country extends Entity {
 
 export class City extends Entity {
   public type = 'city';
-  constructor(public name) {
-    super(name);
+  public clone(){
+    let t = new City(this.name);
+    t = Object.assign(t,this); 
+    return t;
   }
 }
 export class FileEntity extends Entity {
   type = 'file';
   title = '';
   description = '';
+  public clone(){
+    let t = new FileEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
 }
 export class FunctionalEntity extends Entity {
   public type = 'functional';
   public suffix = '';
   public tasksCount = 0;
   public isActive = true;
+  public clone(){
+    let t = new FunctionalEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
 }
 export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
   //customFields: CustomFields;
   //entityFiles: FileEntities;
+  public clone(){
+    let t = new LegalEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
 }
 
 export class Appointment{
@@ -77,52 +149,55 @@ export class Appointment{
 
 export class Shareholder extends LegalEntity{
   sharesHolding: number; //only current, todo: historic record, types of shares
+  public clone(){
+    return new Shareholder(this.name);
+  }
 }
 
 //todo: Appointments, ShareCertificates, Shareholders collections
 
-export class Company extends LegalEntity {
-  type = 'company';
-  registrationNumber: string;
-  currNameEffectiveDate: Date;
-  prevName: string;
-  prevNameEffectiveDate: Date;
-  entityGroups: Entities;
-  country: Country;
-  industry: Entity;
-  representativeOffice: boolean;
-  foreignBrunch: boolean;
-  incorporationDate: Date;
-  anniversaryMonth: Entity;
-  businessStartDate: Date;
-  financialYearEndMonth: Entity;
-  incomeTaxNumber: string;
-  vatNumber: string;
-  businessArea: Entity;
-  businessDivision: Entity;
-  legalClass: Entity;
-  consolidated: boolean;
-  entityStatus: Entity;
-  entityStatusTiering: Entity;
-  accountingClass: Entity;
-  accountingClassificationTiering: Entity;
-  directParent: Entity;
-  shareholdingInEntity: number;
-  appointedCompanySecretary: Entity;
-  clientSecretarialRepresentative: User;
-  legalEntityExecutive: NaturalEntity;
-  entityFinancialOfficer: NaturalEntity;
-  publicOfficer: NaturalEntity;
-  shareCode: string;
-  ISINCode: string;
-  bloombergCode: string;
-  reutersCode: string;
-  // collection
-  //appointments: Appointments;
-  //shareCertificates: Certificates;
-  //shareholders: Shareholders;
+// export class Company extends LegalEntity {
+//   type = 'company';
+//   registrationNumber: string;
+//   currNameEffectiveDate: Date;
+//   prevName: string;
+//   prevNameEffectiveDate: Date;
+//   entityGroups: Entities;
+//   country: Country;
+//   industry: Entity;
+//   representativeOffice: boolean;
+//   foreignBrunch: boolean;
+//   incorporationDate: Date;
+//   anniversaryMonth: Entity;
+//   businessStartDate: Date;
+//   financialYearEndMonth: Entity;
+//   incomeTaxNumber: string;
+//   vatNumber: string;
+//   businessArea: Entity;
+//   businessDivision: Entity;
+//   legalClass: Entity;
+//   consolidated: boolean;
+//   entityStatus: Entity;
+//   entityStatusTiering: Entity;
+//   accountingClass: Entity;
+//   accountingClassificationTiering: Entity;
+//   directParent: Entity;
+//   shareholdingInEntity: number;
+//   appointedCompanySecretary: Entity;
+//   clientSecretarialRepresentative: User;
+//   legalEntityExecutive: NaturalEntity;
+//   entityFinancialOfficer: NaturalEntity;
+//   publicOfficer: NaturalEntity;
+//   shareCode: string;
+//   ISINCode: string;
+//   bloombergCode: string;
+//   reutersCode: string;
+//   // collection
+//   //appointments: Appointments;
+//   //shareCertificates: Certificates;
+//   //shareholders: Shareholders;
   
-}
+// }
 
 //let company = new Company('a');
 
@@ -142,6 +217,11 @@ export class NaturalEntity extends FunctionalEntity {
     super.suffix = suffix;
   }
 
+  public clone(){
+    let t = new NaturalEntity(this.surname,this.firstName,this.suffix);
+    t = Object.assign(t,this); 
+    return t;
+  }
   // public set surname(v: string){
 
   // }
@@ -155,7 +235,7 @@ export class NaturalEntity extends FunctionalEntity {
   }
 
   set surname(v: string) {
-    this.surname_ = v;
+    this.surname_ = this.capitalise(v);
     super.name = this.surname_ + ', ' + this.firstName_;
   }
 
@@ -164,7 +244,7 @@ export class NaturalEntity extends FunctionalEntity {
   }
 
   set firstName(v: string) {
-    this.firstName_ = v;
+    this.firstName_ = this.capitalise(v);
     super.name = this.surname_ + ', ' + this.firstName_;
   }
 
@@ -172,15 +252,9 @@ export class NaturalEntity extends FunctionalEntity {
     return this.firstName_;
   }
 
-  set suffix(v: string) {
-    super.suffix = v;
-  }
-
-  get suffix(): string {
-    return super.suffix;
-  }
-
   get name(): string {
+    
+    if (!super.name && (this.surname_ || this.firstName_)) super.name = this.surname_ + ', ' + this.firstName_;
     return super.name;
   }
 
@@ -190,6 +264,11 @@ export class NaturalEntity extends FunctionalEntity {
 }
 export class GroupEntity extends FunctionalEntity {
   public type = 'group';
+  public clone(){
+    let t = new GroupEntity(this.name);
+    t = Object.assign(t,this); 
+    return t;
+  }
 }
 
 // export class Person extends NaturalEntity{
@@ -211,6 +290,11 @@ export class User extends NaturalEntity {
     public suffix: string
   ) {
     super(surname, firstName, suffix);
+  }
+  public clone(){
+    let t = new User(this.surname,this.firstName,this.suffix);
+    t = Object.assign(t,this); 
+    return t;
   }
 }
 
@@ -359,14 +443,6 @@ export class CustomField {
   constructor(name: string, type: string, value: any) {}
 }
 
-// export type AllCollections =
-//   Entities
-//   | Countries
-//   | Cities
-//   | FunctionalEntities
-//   | Users
-//   | LegalEntities
-//   | NaturalEntities;
 export type EveryEntity =
   | Entity
   | Country
@@ -374,696 +450,799 @@ export type EveryEntity =
   | FunctionalEntity
   | User
   | LegalEntity
-  | NaturalEntity
-  | Company;
+  | NaturalEntity;
 
-// export interface ICollection<T> {
-//   add(value: T): ICollection<T>;
-//   edit(key: number, value: T): ICollection<T>;
-//   del(key: number): ICollection<T>;
-//   get(key: number): T;
-//   size: number;
-//   all_keys: number[];
-//   all_values: T[];
-//   all_entries: [number, T][];
+export class Entities<T extends EveryEntity> extends Map <number,T>{
+  currentKey_ = -1;
+  currentValue_: T = null;
+
+  constructor(private EntityType) {
+    super();
+  }
+
+  createEntity() {
+    //return new this.EntityType();;
+    return new this.EntityType();
+  }
+
+  fromJSONArray(array: any[]) {
+    //expects array of objects with: name, tasksCount, isActive
+    for (let i = 0; i < array.length; i++) {
+      let a = this.createEntity();
+      a = Object.assign(a,array[i]);
+      // let o = a.clone();
+      this.add(a);
+      
+      //let o: T;
+      
+      //o = Object.assign(o,a);
+      //o['type'] = type;
+      
+
+      // let o:T; //= this.createEntity();
+      // let a = array[i];
+      // let propName = '';
+      // for (propName in a) {
+      //   o[propName] = a[propName];
+      // }
+      // this.add(o);
+    }
+  }
+
+  fromArray(type: string, entitiesArray: T[]) {
+    for (let i = 0; i < entitiesArray.length; i++) {
+      let a = entitiesArray[i];
+      //let o: T;
+      
+      //o = Object.assign(o,a);
+      //o['type'] = type;
+      a.type = type;
+      this.add(a);
+      //let o = Object.assign(a);
+      // o['type'] = type;
+      // if (activeOnly) {
+      //   if (o['isActive']) this.add(o);
+      // } else {
+      //   this.add(o);
+      // }
+    }
+  }
+
+  get currentKey() {
+    if (this.size>0 && this.currentKey_<0){
+      this.currentKey_ = this.all_keys[0];
+    }
+    return this.currentKey_;
+  }
+
+  set currentKey(v: number) {
+    this.currentKey_ = v;
+    this.currentValue_ = this.get(this.currentKey_);
+  }
+
+  get currentValue() {
+    if (this.currentKey_ == -1 && this.size > 0) {
+      this.currentKey = this.all_keys[0];
+    }
+    return this.currentValue_;
+  }
+
+  add(value: T): Entities<T> {
+    super.set(super.size, value);
+    return this;
+  }
+
+  edit(key: number, value: T): Entities<T> {
+    super.set(key, value);
+    return this;
+  }
+
+  del(key: number): Entities<T> {
+    super.delete(key);
+    return this;
+  }
+
+  get size(): number {
+    return super.size;
+  }
+
+  get all_keys() {
+    return [...super.keys()];
+  }
+
+  get all_values() {
+    return [...super.values()];
+  }
+
+  get all_entries() {
+    return [...super.entries()];
+  }
+}
+
+export class Countries extends Entities<Country> {
+  // currentKey_ = -1;
+  // currentValue_: EveryEntity = null;
+  //cities = new Cities();
+
+  // fromJSONArray(array: any[]) {
+  //   //expects array of objects with: name, tasksCount, isActive
+  //   for (let i = 0; i < array.length; i++) {
+  //     let o = this.createEntity();
+  //     let a = array[i];
+  //     let propName = '';
+  //     for (propName in a) {
+  //       o[propName] = a[propName];
+  //     }
+  //     this.add(o);
+  //   }
+  // }
+
+  // fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+  //   for (let i = 0; i < entitiesArray.length; i++) {
+  //     let a = entitiesArray[i];
+  //     let o = Object.assign(a);
+  //     o.type = type;
+  //     if (activeOnly) {
+  //       if (o['isActive']) this.add(o);
+  //     } else {
+  //       this.add(o);
+  //     }
+  //   }
+  // }
+
+  // createEntity() {
+  //   let c = new Country('');
+  //   c.cities.add(new City('-NA-'));
+  //   return c;
+  // }
+
+  // get currentKey() {
+  //   if (this.size>0 && this.currentKey_<0){
+  //     this.currentKey_ = this.all_keys[0];
+  //   }
+  //   return this.currentKey_;
+  // }
+
+  // set currentKey(v: number) {
+  //   this.currentKey_ = v;
+  //   this.currentValue_ = this.get(this.currentKey_);
+  // }
+
+  // get currentValue() {
+  //   if (this.currentKey_ == -1 && this.size > 0) {
+  //     this.currentKey = this.all_keys[0];
+  //   }
+  //   return this.currentValue_;
+  // }
+
+  
+  add(value: Country): Countries {
+    if (!value.cities == null) value.cities = new Entities<City>(Country);
+    super.set(super.size, value);
+    return this;
+  }
+
+  // edit(key: number, value: Country): Countries {
+  //   super.set(key, value);
+  //   return this;
+  // }
+
+  // del(key: number): Countries {
+  //   super.delete(key);
+  //   return this;
+  // }
+  // get size(): number {
+  //   return super.size;
+  // }
+
+  // get all_keys() {
+  //   return [...super.keys()];
+  // }
+
+  // get all_values() {
+  //   return [...super.values()];
+  // }
+
+  // get all_entries() {
+  //   return [...super.entries()];
+  // }
+}
+
+// export class FileEntities extends Map<number, FileEntity> {
+//   currentKey_ = -1;
+//   currentValue_: EveryEntity = null;
+
+//   fromJSONArray(array: any[]) {
+//     //expects array of objects with: name, tasksCount, isActive
+//     for (let i = 0; i < array.length; i++) {
+//       let o = this.createEntity();
+//       let a = array[i];
+//       let propName = '';
+//       for (propName in a) {
+//         o[propName] = a[propName];
+//       }
+//       this.add(o);
+//     }
+//   }
+
+//   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+//     for (let i = 0; i < entitiesArray.length; i++) {
+//       let a = entitiesArray[i];
+//       let o = Object.assign(a);
+//       o.type = type;
+//       if (activeOnly) {
+//         if (o['isActive']) this.add(o);
+//       } else {
+//         this.add(o);
+//       }
+//     }
+//   }
+
+//   createEntity() {
+//     return new FileEntity('');
+//   }
+
+//   get currentKey() {
+//     if (this.size>0 && this.currentKey_<0){
+//       this.currentKey_ = this.all_keys[0];
+//     }
+//     return this.currentKey_;
+//   }
+
+//   set currentKey(v: number) {
+//     this.currentKey_ = v;
+//     this.currentValue_ = this.get(this.currentKey_);
+//   }
+
+//   get currentValue() {
+//     if (this.currentKey_ == -1 && this.size > 0) {
+//       this.currentKey = this.all_keys[0];
+//     }
+//     return this.currentValue_;
+//   }
+
+//   add(value: FileEntity): FileEntities {
+//     super.set(super.size, value);
+//     return this;
+//   }
+
+//   edit(key: number, value: FileEntity): FileEntities {
+//     super.set(key, value);
+//     return this;
+//   }
+
+//   del(key: number): FileEntities {
+//     super.delete(key);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.size;
+//   }
+
+//   get all_keys() {
+//     return [...super.keys()];
+//   }
+
+//   get all_values() {
+//     return [...super.values()];
+//   }
+
+//   get all_entries() {
+//     return [...super.entries()];
+//   }
 // }
 
-export class Entities extends Map<number, EveryEntity> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
-
-  createEntity() {
-    return new Entity('');
-  }
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  add(value: EveryEntity): Entities {
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: EveryEntity): Entities {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): Entities {
-    super.delete(key);
-    return this;
-  }
-
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
-
-export class FileEntities extends Map<number, FileEntity> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  createEntity() {
-    return new FileEntity('');
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  add(value: FileEntity): FileEntities {
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: FileEntity): FileEntities {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): FileEntities {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
-
-export class Countries extends Map<number, Country> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  createEntity() {
-    let c = new Country('');
-    c.cities.add(new City('-NA-'));
-    return c;
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  cities = new Cities();
-  add(value: Country): Countries {
-    if (!value.cities == null) value.cities = new Cities();
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: Country): Countries {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): Countries {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
-
-export class Cities extends Map<number, City> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  createEntity() {
-    return new City('');
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  add(value: City): Cities {
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: City): Cities {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): Cities {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
-
-export class FunctionalEntities extends Map<number, FunctionalEntity> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  createEntity() {
-    return new FunctionalEntity('');
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  add(value: FunctionalEntity): FunctionalEntities {
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: FunctionalEntity): FunctionalEntities {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): FunctionalEntities {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
-
-export class Users extends Map<number, User> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  createEntity() {
-    return new User('', '', '');
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  add(value: User): Users {
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: User): Users {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): Users {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
-
-export class LegalEntities extends Map<number, LegalEntity> {
-  protected currentKey_ = -1;
-  protected currentValue_: EveryEntity = null;
-
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
-
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
-
-  createEntity() {
-    return new LegalEntity('');
-  }
-
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
-
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
-
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
-
-  add(value: LegalEntity): LegalEntities {
-    super.set(super.size, value);
-    return this;
-  }
-
-  edit(key: number, value: LegalEntity): LegalEntities {
-    super.set(key, value);
-    return this;
-  }
-
-  del(key: number): LegalEntities {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
-
-  get all_keys() {
-    return [...super.keys()];
-  }
-
-  get all_values() {
-    return [...super.values()];
-  }
-
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
+// export class Countries extends Map<number, Country> {
+//   currentKey_ = -1;
+//   currentValue_: EveryEntity = null;
+
+//   fromJSONArray(array: any[]) {
+//     //expects array of objects with: name, tasksCount, isActive
+//     for (let i = 0; i < array.length; i++) {
+//       let o = this.createEntity();
+//       let a = array[i];
+//       let propName = '';
+//       for (propName in a) {
+//         o[propName] = a[propName];
+//       }
+//       this.add(o);
+//     }
+//   }
+
+//   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+//     for (let i = 0; i < entitiesArray.length; i++) {
+//       let a = entitiesArray[i];
+//       let o = Object.assign(a);
+//       o.type = type;
+//       if (activeOnly) {
+//         if (o['isActive']) this.add(o);
+//       } else {
+//         this.add(o);
+//       }
+//     }
+//   }
+
+//   createEntity() {
+//     let c = new Country('');
+//     c.cities.add(new City('-NA-'));
+//     return c;
+//   }
+
+//   get currentKey() {
+//     if (this.size>0 && this.currentKey_<0){
+//       this.currentKey_ = this.all_keys[0];
+//     }
+//     return this.currentKey_;
+//   }
+
+//   set currentKey(v: number) {
+//     this.currentKey_ = v;
+//     this.currentValue_ = this.get(this.currentKey_);
+//   }
+
+//   get currentValue() {
+//     if (this.currentKey_ == -1 && this.size > 0) {
+//       this.currentKey = this.all_keys[0];
+//     }
+//     return this.currentValue_;
+//   }
+
+//   cities = new Cities();
+//   add(value: Country): Countries {
+//     if (!value.cities == null) value.cities = new Cities();
+//     super.set(super.size, value);
+//     return this;
+//   }
+
+//   edit(key: number, value: Country): Countries {
+//     super.set(key, value);
+//     return this;
+//   }
+
+//   del(key: number): Countries {
+//     super.delete(key);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.size;
+//   }
+
+//   get all_keys() {
+//     return [...super.keys()];
+//   }
+
+//   get all_values() {
+//     return [...super.values()];
+//   }
+
+//   get all_entries() {
+//     return [...super.entries()];
+//   }
+// }
+
+//export class Cities extends Entities {
+  // currentKey_ = -1;
+  // currentValue_: EveryEntity = null;
+
+  // fromJSONArray(array: any[]) {
+  //   //expects array of objects with: name, tasksCount, isActive
+  //   for (let i = 0; i < array.length; i++) {
+  //     let o = this.createEntity();
+  //     let a = array[i];
+  //     let propName = '';
+  //     for (propName in a) {
+  //       o[propName] = a[propName];
+  //     }
+  //     this.add(o);
+  //   }
+  // }
+
+  // fromArray(type: string,  entitiesArray: EveryEntity[]) {
+  //   for (let i = 0; i < entitiesArray.length; i++) {
+  //     let a = entitiesArray[i];
+  //     let o = Object.assign(a);
+  //     o.type = type;
+  //     if (activeOnly) {
+  //       if (o['isActive']) this.add(o);
+  //     } else {
+  //       this.add(o);
+  //     }
+  //   }
+  // }
+
+  // createEntity() {
+  //   return new City('');
+  // }
+
+  // get currentKey() {
+  //   if (this.size>0 && this.currentKey_<0){
+  //     this.currentKey_ = this.all_keys[0];
+  //   }
+  //   return this.currentKey_;
+  // }
+
+  // set currentKey(v: number) {
+  //   this.currentKey_ = v;
+  //   this.currentValue_ = this.get(this.currentKey_);
+  // }
+
+  // get currentValue() {
+  //   if (this.currentKey_ == -1 && this.size > 0) {
+  //     this.currentKey = this.all_keys[0];
+  //   }
+  //   return this.currentValue_;
+  // }
+
+  // add(value: City): Cities {
+  //   super.set(super.size, value);
+  //   return this;
+  // }
+
+  // edit(key: number, value: City): Cities {
+  //   super.set(key, value);
+  //   return this;
+  // }
+
+  // del(key: number): Cities {
+  //   super.delete(key);
+  //   return this;
+  // }
+  // get size(): number {
+  //   return super.size;
+  // }
+
+  // get all_keys() {
+  //   return [...super.keys()];
+  // }
+
+  // get all_values() {
+  //   return [...super.values()];
+  // }
+
+  // get all_entries() {
+  //   return [...super.entries()];
+  // }
+//}
+
+// export class FunctionalEntities extends Entities {
+  
+// }
+
+// export class FunctionalEntities extends Map<number, EveryEntity> {
+//   currentKey_ = -1;
+//   currentValue_: EveryEntity = null;
+
+//   fromJSONArray(array: any[]) {
+//     //expects array of objects with: name, tasksCount, isActive
+//     for (let i = 0; i < array.length; i++) {
+//       let o = this.createEntity();
+//       let a = array[i];
+//       let propName = '';
+//       for (propName in a) {
+//         o[propName] = a[propName];
+//       }
+//       this.add(o);
+//     }
+//   }
+
+//   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+//     for (let i = 0; i < entitiesArray.length; i++) {
+//       let a = entitiesArray[i];
+//       let o = Object.assign(a);
+//       o.type = type;
+//       if (activeOnly) {
+//         if (o['isActive']) this.add(o);
+//       } else {
+//         this.add(o);
+//       }
+//     }
+//   }
+
+//   createEntity() {
+//     return new FunctionalEntity('');
+//   }
+
+//   get currentKey() {
+//     if (this.size>0 && this.currentKey_<0){
+//       this.currentKey_ = this.all_keys[0];
+//     }
+//     return this.currentKey_;
+//   }
+
+//   set currentKey(v: number) {
+//     this.currentKey_ = v;
+//     this.currentValue_ = this.get(this.currentKey_);
+//   }
+
+//   get currentValue() {
+//     if (this.currentKey_ == -1 && this.size > 0) {
+//       this.currentKey = this.all_keys[0];
+//     }
+//     return this.currentValue_;
+//   }
+
+//   add(value: FunctionalEntity): FunctionalEntities {
+//     super.set(super.size, value);
+//     return this;
+//   }
+
+//   edit(key: number, value: EveryEntity): FunctionalEntities {
+//     super.set(key, value);
+//     return this;
+//   }
+
+//   del(key: number): FunctionalEntities {
+//     super.delete(key);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.size;
+//   }
+
+//   get all_keys() {
+//     return [...super.keys()];
+//   }
+
+//   get all_values() {
+//     return [...super.values()];
+//   }
+
+//   get all_entries() {
+//     return [...super.entries()];
+//   }
+// }
+
+// export class Users extends Map<number, User> {
+//   currentKey_ = -1;
+//   currentValue_: EveryEntity = null;
+
+//   fromJSONArray(array: any[]) {
+//     //expects array of objects with: name, tasksCount, isActive
+//     for (let i = 0; i < array.length; i++) {
+//       let o = this.createEntity();
+//       let a = array[i];
+//       let propName = '';
+//       for (propName in a) {
+//         o[propName] = a[propName];
+//       }
+//       this.add(o);
+//     }
+//   }
+
+//   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+//     for (let i = 0; i < entitiesArray.length; i++) {
+//       let a = entitiesArray[i];
+//       let o = Object.assign(a);
+//       o.type = type;
+//       if (activeOnly) {
+//         if (o['isActive']) this.add(o);
+//       } else {
+//         this.add(o);
+//       }
+//     }
+//   }
+
+//   createEntity() {
+//     return new User('', '', '');
+//   }
+
+//   get currentKey() {
+//     if (this.size>0 && this.currentKey_<0){
+//       this.currentKey_ = this.all_keys[0];
+//     }
+//     return this.currentKey_;
+//   }
+
+//   set currentKey(v: number) {
+//     this.currentKey_ = v;
+//     this.currentValue_ = this.get(this.currentKey_);
+//   }
+
+//   get currentValue() {
+//     if (this.currentKey_ == -1 && this.size > 0) {
+//       this.currentKey = this.all_keys[0];
+//     }
+//     return this.currentValue_;
+//   }
+
+//   add(value: User): Users {
+//     super.set(super.size, value);
+//     return this;
+//   }
+
+//   edit(key: number, value: User): Users {
+//     super.set(key, value);
+//     return this;
+//   }
+
+//   del(key: number): Users {
+//     super.delete(key);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.size;
+//   }
+
+//   get all_keys() {
+//     return [...super.keys()];
+//   }
+
+//   get all_values() {
+//     return [...super.values()];
+//   }
+
+//   get all_entries() {
+//     return [...super.entries()];
+//   }
+// }
+
+// export class LegalEntities extends Map<number, LegalEntity> {
+//   protected currentKey_ = -1;
+//   protected currentValue_: EveryEntity = null;
+
+//   fromJSONArray(array: any[]) {
+//     //expects array of objects with: name, tasksCount, isActive
+//     for (let i = 0; i < array.length; i++) {
+//       let o = this.createEntity();
+//       let a = array[i];
+//       let propName = '';
+//       for (propName in a) {
+//         o[propName] = a[propName];
+//       }
+//       this.add(o);
+//     }
+//   }
+
+//   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+//     for (let i = 0; i < entitiesArray.length; i++) {
+//       let a = entitiesArray[i];
+//       let o = Object.assign(a);
+//       o.type = type;
+//       if (activeOnly) {
+//         if (o['isActive']) this.add(o);
+//       } else {
+//         this.add(o);
+//       }
+//     }
+//   }
+
+//   createEntity() {
+//     return new LegalEntity('');
+//   }
+
+//   get currentKey() {
+//     if (this.size>0 && this.currentKey_<0){
+//       this.currentKey_ = this.all_keys[0];
+//     }
+//     return this.currentKey_;
+//   }
+
+//   set currentKey(v: number) {
+//     this.currentKey_ = v;
+//     this.currentValue_ = this.get(this.currentKey_);
+//   }
+
+//   get currentValue() {
+//     if (this.currentKey_ == -1 && this.size > 0) {
+//       this.currentKey = this.all_keys[0];
+//     }
+//     return this.currentValue_;
+//   }
+
+//   add(value: LegalEntity): LegalEntities {
+//     super.set(super.size, value);
+//     return this;
+//   }
+
+//   edit(key: number, value: LegalEntity): LegalEntities {
+//     super.set(key, value);
+//     return this;
+//   }
+
+//   del(key: number): LegalEntities {
+//     super.delete(key);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.size;
+//   }
+
+//   get all_keys() {
+//     return [...super.keys()];
+//   }
+
+//   get all_values() {
+//     return [...super.values()];
+//   }
+
+//   get all_entries() {
+//     return [...super.entries()];
+//   }
+// }
 
 // export class Companies extends LegalEntities{}
 
-export class NaturalEntities extends Map<number, NaturalEntity> {
-  currentKey_ = -1;
-  currentValue_: EveryEntity = null;
+// export class NaturalEntities extends Map<number, NaturalEntity> {
+//   currentKey_ = -1;
+//   currentValue_: EveryEntity = null;
 
-  fromJSONArray(array: any[]) {
-    //expects array of objects with: name, tasksCount, isActive
-    for (let i = 0; i < array.length; i++) {
-      let o = this.createEntity();
-      let a = array[i];
-      let propName = '';
+//   fromJSONArray(array: any[]) {
+//     //expects array of objects with: name, tasksCount, isActive
+//     for (let i = 0; i < array.length; i++) {
+//       let o = this.createEntity();
+//       let a = array[i];
+//       let propName = '';
 
-      for (propName in a) {
-        o[propName] = a[propName];
-      }
-      this.add(o);
-    }
-  }
+//       for (propName in a) {
+//         o[propName] = a[propName];
+//       }
+//       this.add(o);
+//     }
+//   }
 
-  fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
-      let o = Object.assign(a);
-      o.type = type;
-      if (activeOnly) {
-        if (o['isActive']) this.add(o);
-      } else {
-        this.add(o);
-      }
-    }
-  }
+//   fromArray(type: string, activeOnly: boolean, entitiesArray: EveryEntity[]) {
+//     for (let i = 0; i < entitiesArray.length; i++) {
+//       let a = entitiesArray[i];
+//       let o = Object.assign(a);
+//       o.type = type;
+//       if (activeOnly) {
+//         if (o['isActive']) this.add(o);
+//       } else {
+//         this.add(o);
+//       }
+//     }
+//   }
 
-  createEntity() {
-    return new NaturalEntity('', '', '');
-  }
+//   createEntity() {
+//     return new NaturalEntity('', '', '');
+//   }
 
-  get currentKey() {
-    if (this.size>0 && this.currentKey_<0){
-      this.currentKey_ = this.all_keys[0];
-    }
-    return this.currentKey_;
-  }
+//   get currentKey() {
+//     if (this.size>0 && this.currentKey_<0){
+//       this.currentKey_ = this.all_keys[0];
+//     }
+//     return this.currentKey_;
+//   }
 
-  set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
-  }
+//   set currentKey(v: number) {
+//     this.currentKey_ = v;
+//     this.currentValue_ = this.get(this.currentKey_);
+//   }
 
-  get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
-      this.currentKey = this.all_keys[0];
-    }
-    return this.currentValue_;
-  }
+//   get currentValue() {
+//     if (this.currentKey_ == -1 && this.size > 0) {
+//       this.currentKey = this.all_keys[0];
+//     }
+//     return this.currentValue_;
+//   }
 
-  add(value: NaturalEntity): NaturalEntities {
-    super.set(super.size, value);
-    return this;
-  }
+//   add(value: NaturalEntity): NaturalEntities {
+//     super.set(super.size, value);
+//     return this;
+//   }
 
-  edit(key: number, value: NaturalEntity): NaturalEntities {
-    super.set(key, value);
-    return this;
-  }
+//   edit(key: number, value: NaturalEntity): NaturalEntities {
+//     super.set(key, value);
+//     return this;
+//   }
 
-  del(key: number): NaturalEntities {
-    super.delete(key);
-    return this;
-  }
-  get size(): number {
-    return super.size;
-  }
+//   del(key: number): NaturalEntities {
+//     super.delete(key);
+//     return this;
+//   }
+//   get size(): number {
+//     return super.size;
+//   }
 
-  get all_keys() {
-    return [...super.keys()];
-  }
+//   get all_keys() {
+//     return [...super.keys()];
+//   }
 
-  get all_values() {
-    return [...super.values()];
-  }
+//   get all_values() {
+//     return [...super.values()];
+//   }
 
-  get all_entries() {
-    return [...super.entries()];
-  }
-}
+//   get all_entries() {
+//     return [...super.entries()];
+//   }
+// }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data.service';
-import { LegalEntity } from 'src/app/models';
+import { LegalEntity, FunctionalEntity, EveryEntity } from 'src/app/models';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   constructor(public dataService: DataService) { }
 
 
-  get legalEntity(){
+  get legalEntity(): EveryEntity{
     return this.dataService.getEntity(this.entityKey);
   }
 

@@ -21,7 +21,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() disabled = false;
   //@Input() values = new Map(); //Map of Entity();
-  @Input() values: Entities = new Entities();
+  @Input() values: Entities<EveryEntity>; // = new Entities<EveryEntity>();
   @Input() value = 0;
   @Input() showFlash = false;
   @Input() showPaperclip = false;

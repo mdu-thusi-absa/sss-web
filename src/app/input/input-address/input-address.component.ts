@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Country, Countries, Cities, Entities, City } from 'src/app/models';
+import { Country, Entities, City, Countries } from 'src/app/models';
 import { DataService } from 'src/app/data.service'
 
 @Component({
@@ -25,7 +25,7 @@ export class InputAddressComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
 
   countries: Countries;
-  cities: Cities;
+  cities: Entities<City>;
   countryIndex = -1;
   cityIndex = 0;
   countryText = '';
@@ -39,7 +39,7 @@ export class InputAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.data.countries;
-    this.cities = this.countries.get(this.getCountryIndex()).cities;  
+    this.cities = this.countries.get(this.getCountryIndex())['cities'];  
   }
 
   getID(){
@@ -72,7 +72,7 @@ export class InputAddressComponent implements OnInit {
 
   doAddCountry(event: any){
     let c = this.countries.get(+event)
-    this.cities = c.cities;
+    this.cities = c['cities'];
   }
 
   doChangeInputTextCountry(event: any){
@@ -94,7 +94,7 @@ export class InputAddressComponent implements OnInit {
 
   doSelectCountry(event: any){
     this.countryIndex = +event;
-    this.cities = this.countries.get(this.countryIndex).cities;
+    this.cities = this.countries.get(this.countryIndex)['cities'];
   }
 
   doSelectCity(event: any){

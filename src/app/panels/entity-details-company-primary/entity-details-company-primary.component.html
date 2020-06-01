@@ -12,17 +12,17 @@
   [placeholderLeft]="
     'Optional suffix - used to differenciate entities with the same name. E.g. Country of Incorporation (in brackets), used to differenciate entities with the same name, but from different countries'
   "
-  [valueLeft] = "legalEntity.suffix"
-  (onChangeLeft) = "legalEntity.isActive = $event"
+  [valueLeft] = "legalEntity['suffix']"
+  (onChangeLeft) = "legalEntity['isActive'] = $event"
 
   [typeRight]="'checkbox'"
   [titleRight]="'Active'"
-  [valueRight]="legalEntity.isActive"
+  [valueRight]="legalEntity['isActive']"
   [doHideByFilter]="true"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  (onChangeRight) = "legalEntity.isActive = $event"
+  (onChangeRight) = "legalEntity['isActive'] = $event"
   [showCheckLeft]="true"
   [showCheckRight]="true"
 >

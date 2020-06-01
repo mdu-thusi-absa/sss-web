@@ -10,19 +10,21 @@ import {
   Entities,
   FunctionalEntity,
   Countries,
-  NaturalEntities,
-  LegalEntities,
-  FunctionalEntities,
+  EveryEntity
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
-import { JsonPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+// import { JsonPipe } from '@angular/common';
+// import { HttpClient } from '@angular/common/http';
 import { jsonCompanies, jsonIndividuals } from './data-json/data-json.module';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  companies = new Entities<LegalEntity>(LegalEntity);
+  persons = new Entities<NaturalEntity>(NaturalEntity);
+  functionalEntities: Entities<EveryEntity>;
+
   constructor() {
     this.makeCountries();
     this.makeCompanyArray();
@@ -34,39 +36,37 @@ export class DataService {
   makeIndividuals(){
     let a = JSON.parse(jsonIndividuals);
     this.persons.fromJSONArray(a);
+  }
     
     // this.persons.add(new NaturalEntity('Froning', 'Richard', 'Mayham'))
     //  .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
     //  .add(new NaturalEntity('Fraser', 'Mat', 'ABSA'));
-
-  }
 
   makeCompanyArray(){
     let a = JSON.parse(jsonCompanies);
     this.companies.fromJSONArray(a);
   }
 
-  functionalEntities = new FunctionalEntities;
-
   makeFunctionalEntities(){
-    let showActiveOnly = false;
-    this.functionalEntities = new FunctionalEntities();
-    this.functionalEntities.fromArray('company',showActiveOnly,this.companies.all_values);
-    this.functionalEntities.fromArray('individual',showActiveOnly,this.persons.all_values);
-    this.functionalEntities.fromArray('user',showActiveOnly,this.users.all_values);
-    this.functionalEntities.fromArray('group',showActiveOnly,this.entityGroups.all_values);
-    this.functionalEntities.fromArray('trust',showActiveOnly,this.trusts.all_values);
-    this.functionalEntities.fromArray('auditor',showActiveOnly,this.auditors.all_values);
-    this.functionalEntities.fromArray('secretary',showActiveOnly,this.companySecretaries.all_values);
-    this.functionalEntities.fromArray('regulator',showActiveOnly,this.regulators.all_values);
-    this.functionalEntities.fromArray('regulation',showActiveOnly,this.regulations.all_values);
+    
+    this.functionalEntities = new Entities<EveryEntity>(Entity);
+    this.functionalEntities.fromArray('company',this.companies.all_values);
+    this.functionalEntities.fromArray('individual',this.persons.all_values);
+    this.functionalEntities.fromArray('user',this.users.all_values);
+    this.functionalEntities.fromArray('group',this.entityGroups.all_values);
+    this.functionalEntities.fromArray('trust',this.trusts.all_values);
+    this.functionalEntities.fromArray('auditor',this.auditors.all_values);
+    this.functionalEntities.fromArray('secretary',this.companySecretaries.all_values);
+    this.functionalEntities.fromArray('regulator',this.regulators.all_values);
+    this.functionalEntities.fromArray('regulation',this.regulations.all_values);
+    
   }
 
   getEntity(entityKey: number){
     return this.functionalEntities.get(entityKey);
   }
 
-  getFunctionalEntitiesAll(): FunctionalEntities{
+  getFunctionalEntitiesAll(): Entities<EveryEntity>{
     return this.functionalEntities;
   }
 
@@ -464,14 +464,14 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return t;
   }
 
-  countries = new Countries();
+  countries = new Countries(Country);
 
   getCountries() {
     return this.countries;
   }
 
   //months
-  months = new Entities()
+  months = new Entities<Entity>(Entity)
     .add(new Entity('01'))
     .add(new Entity('02'))
     .add(new Entity('03'))
@@ -489,7 +489,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
   }
   //industry
   //Entity Types
-  entityTypes = new Entities()
+  entityTypes = new Entities<Entity>(Entity)
     .add(new Entity('Company'))
     .add(new Entity('Individual'))
     .add(new Entity('User'))
@@ -505,7 +505,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.entityTypes;
   }
 
-  entityTypesPlural = new Entities()
+  entityTypesPlural = new Entities<Entity>(Entity)
     .add(new Entity('Companies'))
     .add(new Entity('Individuals'))
     .add(new Entity('Users'))
@@ -522,47 +522,47 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
   }
 
   //Business Area
-  businessAreas = new Entities()
+  businessAreas = new Entities<Entity>(Entity)
     .add(new Entity('Finance'))
     .add(new Entity('Property'))
     .add(new Entity('Retail'));
   getBusinessAreas() {
     return this.businessAreas;
   }
-  businessDivisions = new Entities()
+  businessDivisions = new Entities<Entity>(Entity)
     .add(new Entity('Div 1'))
     .add(new Entity('Div 2'))
     .add(new Entity('Div 3'));
   getBusinessDivisions() {
     return this.businessDivisions;
   }
-  legalClasses = new Entities()
+  legalClasses = new Entities<Entity>(Entity)
     .add(new Entity('Legal'))
     .add(new Entity('Illegal'));
   getLegalClasses() {
     return this.legalClasses;
   }
-  entityStatuses = new Entities()
+  entityStatuses = new Entities<Entity>(Entity)
     .add(new Entity('Active'))
     .add(new Entity('Dormant'))
     .add(new Entity('Closed'));
   getEntityStatuses() {
     return this.entityStatuses;
   }
-  entityStatusTiers = new Entities()
+  entityStatusTiers = new Entities<Entity>(Entity)
     .add(new Entity('Tier 1'))
     .add(new Entity('Tier 2'))
     .add(new Entity('Tier 3'));
   getEntityStatusTiers() {
     return this.entityStatusTiers;
   }
-  accountingClasses = new Entities()
+  accountingClasses = new Entities<Entity>(Entity)
     .add(new Entity('Accounted'))
     .add(new Entity('Not Accounted'));
   getAccountingClasses() {
     return this.accountingClasses;
   }
-  accountingTiers = new Entities()
+  accountingTiers = new Entities<Entity>(Entity)
     .add(new Entity('Top'))
     .add(new Entity('Middle'))
     .add(new Entity('Low'));
@@ -570,7 +570,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.accountingTiers;
   }
 
-  regulators = new Entities()
+  regulators = new Entities<LegalEntity>(Entity)
     .add(
       new LegalEntity('Financial Services Conduct Authority').set(
         'suffix',
@@ -582,7 +582,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.regulators;
   }
 
-  regulations = new Entities()
+  regulations = new Entities<LegalEntity>(Entity)
     .add(new LegalEntity('Companies Act 71 of 2008'))
     .add(
       new LegalEntity('Protection of Personal Information Act 4 of 2013').set(
@@ -600,20 +600,19 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.regulations;
   }
 
-  trusts = new Entities()
+  trusts = new Entities<LegalEntity>(Entity)
     .add(new LegalEntity('Northern Trust').set('suffix', 'NTH'))
     .add(new LegalEntity('BEE Trust').set('suffix', 'BEET'));
-  getTrusts(): Entities {
+
+  getTrusts(): Entities<LegalEntity> {
     return this.trusts;
   }
 
-  companies = new LegalEntities();
-
-  yesNo = new Entities().add(new Entity('Yes')).add(new Entity('No'));
+  yesNo = new Entities<Entity>(Entity).add(new Entity('Yes')).add(new Entity('No'));
   getYesNo() {
     return this.yesNo;
   }
-  periods = new Entities()
+  periods = new Entities<Entity>(Entity)
     .add(new Entity('Daily'))
     .add(new Entity('Weekly'))
     .add(new Entity('Monthly'))
@@ -622,14 +621,14 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
   getPeriods() {
     return this.periods;
   }
-  taskStatus = new Entities()
+  taskStatus = new Entities<Entity>(Entity)
     .add(new Entity('To Do'))
     .add(new Entity('Doing'))
     .add(new Entity('Done'));
   getTaskStatus() {
     return this.taskStatus;
   }
-  taskTypes = new Entities()
+  taskTypes = new Entities<Entity>(Entity)
     .add(new Entity('Appointment'))
     .add(new Entity('Resignation'))
     .add(new Entity('Rename'))
@@ -638,7 +637,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.taskTypes;
   }
 
-  contactPreferences = new Entities()
+  contactPreferences = new Entities<Entity>(Entity)
     .add(new Entity('Email'))
     .add(new Entity('Call landline'))
     .add(new Entity('Call cellphone'))
@@ -647,26 +646,26 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.contactPreferences;
   }
 
-  auditors = new Entities()
+  auditors = new Entities<LegalEntity>(Entity)
     .add(new LegalEntity('Deloitte'))
     .add(new LegalEntity('KPMG'))
     .add(new LegalEntity('PWC'));
   
-  companySecretaries = new Entities()
+  companySecretaries = new Entities<LegalEntity>(Entity)
     .add(new LegalEntity('Internal'))
     .add(new LegalEntity('PWC'));
 
-  entityGroups = new Entities()
+  entityGroups = new Entities<FunctionalEntity>(Entity)
     .add(new FunctionalEntity('- Default -').set('tasksCount', 7))
     .add(new FunctionalEntity('Africa').set('tasksCount', 3))
     .add(new FunctionalEntity('Europe').set('tasksCount', 18))
     .add(new FunctionalEntity('Asia').set('tasksCount', 2));
 
-  getEntityGroups(): Entities {
+  getEntityGroups(): Entities<Entity> {
     return this.entityGroups; //this.entityGroups;
   }
 
-  industries = new Entities()
+  industries = new Entities<Entity>(Entity)
     .add(new Entity('Banking'))
     .add(new Entity('Asset Management'))
     .add(new Entity('Property'));
@@ -679,7 +678,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
   getCompanySercetaries() {
     return this.companySecretaries;
   }
-  customTypes = new Entities()
+  customTypes = new Entities<Entity>(Entity)
     .add(new Entity('text'))
     .add(new Entity('date'))
     .add(new Entity('checkbox'))
@@ -690,7 +689,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     .add(new Entity('number'))
     .add(new Entity('contact'));
 
-  persons = new NaturalEntities();
+  
     // .add(new NaturalEntity('Froning', 'Richard', 'Mayham'))
     // .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
     // .add(new NaturalEntity('Fraser', 'Mat', 'ABSA'));
@@ -698,7 +697,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
   getPersons() {
     return this.persons;
   }
-  users = new Entities()
+  users = new Entities<User>(User)
     .add(new User('Anuchin', 'Vlad', 'ICDI').set('tasksCount', 3))
     .add(new User('Voznesensky', 'Alex', 'ICDI').set('tasksCount', 1))
     .add(new User('Kurchner', 'Ulrich', 'ICDI').set('tasksCount', 2))
@@ -712,7 +711,7 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
     return this.users;
   }
 
-  positions = new Entities()
+  positions = new Entities<Entity>(Entity)
     .add(new Entity('Director'))
     .add(new Entity('Auditor'))
     .add(new Entity('Secretary'))

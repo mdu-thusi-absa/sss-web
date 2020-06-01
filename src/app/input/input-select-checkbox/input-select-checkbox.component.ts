@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Entity, Entities } from 'src/app/models';
+import { Entity, Entities, EveryEntity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-select-checkbox',
@@ -8,7 +8,7 @@ import { Entity, Entities } from 'src/app/models';
 })
 export class InputSelectCheckboxComponent implements OnInit {
   @Input() title = '';
-  @Input() values = new Entities; //of entities
+  @Input() values: Entities<EveryEntity>; //of entities
   @Input() filterText = '';
   @Input() value = 0;
   @Input() doHideByFilter = false;

@@ -16,6 +16,8 @@
   [showDuplicate]="true"
   [showDownload]="true"
   (onFilter)="doFilter($event)"
+  (onSave) = "doSave()"
+  (onCancel) = "doCancel()"
 ></app-input-filter-add>
 <form autocomplete="off">
   <div *ngIf="entityType != 1 && entityType != 2" style="overflow-y: scroll;">

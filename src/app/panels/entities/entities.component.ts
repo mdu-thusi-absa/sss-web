@@ -3,7 +3,6 @@ import {
   FunctionalEntity,
   Entities,
   Entity,
-  FunctionalEntities,
   EveryEntity,
 } from '../../models';
 import { DataService } from 'src/app/data.service';
@@ -21,13 +20,13 @@ export class EntitiesComponent implements OnInit {
   isNewMessage = false;
   @Input() panelRows = 1;
   @Input() isNarrow = false;
-  entities: FunctionalEntities; // = new FunctionalEntities();
+  entities: Entities<EveryEntity>; // = new FunctionalEntities();
   //entitiesAll: FunctionalEntities;
   entityType = 0;
   entityTypeName = '';
   entityTypesPlural: any;
   entityTypeNamePlural = '';
-  entityTypeNames = new Entities();
+  entityTypeNames = new Entities<Entity>(Entity);
   showActiveOnly = true;
   isHiddenMap = new Map();
   mapEntityTypes = new Map();
@@ -39,6 +38,8 @@ export class EntitiesComponent implements OnInit {
   countTasks = 0;
   countDormant = 0;
   countActive = 0;
+
+  
 
 
   constructor(public dataService: DataService) {}
@@ -62,7 +63,7 @@ export class EntitiesComponent implements OnInit {
 
 
   loadEntities() {
-    this.dataService.makeFunctionalEntities();
+    //this.dataService.makeFunctionalEntities();
     this.entities = this.dataService.getFunctionalEntitiesAll();
     // this.listMap = new Map();
     // let f: FunctionalEntities;
@@ -85,8 +86,6 @@ export class EntitiesComponent implements OnInit {
       .get(this.entityType)
       .name.toLowerCase();
     this.onEntityTypeChange.emit(this.entityType);
-    //console.log('about');
-    
     this.calcIsHidden();
     this.setCounts();
     //select first visible element
@@ -157,7 +156,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Active() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e.isActive && e.type === this.entityTypeName
+        (e) => e['isActive'] && e.type === this.entityTypeName
       ).length;
     } else {
       return 0;
@@ -167,7 +166,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Dormant() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => !e.isActive && e.type === this.entityTypeName
+        (e) => !e['isActive'] && e.type === this.entityTypeName
       ).length;
     } else {
       return 0;
@@ -177,7 +176,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Tasks() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e.tasksCount > 0 && e.type === this.entityTypeName
+        (e) => e['tasksCount'] > 0 && e.type === this.entityTypeName
       ).length;
     } else {
       return 0;
@@ -185,7 +184,6 @@ export class EntitiesComponent implements OnInit {
   }
 
   getCount_All() {
-    //console.log(this.isHiddenMap);
     if (this.entities) {
       // return [...this.entities.values()].filter(
       //   (e) => e.type === this.entityTypeName
@@ -202,7 +200,6 @@ export class EntitiesComponent implements OnInit {
   }
 
   doChangeShowActive(event: any) {
-    //console.log('doChangeShowActive',event);
 
     this.showActiveOnly = event;
     
@@ -233,10 +230,8 @@ export class EntitiesComponent implements OnInit {
   }
 
   calcIsHidden() {
-    //console.log('in');
     
     if (this.entities) {
-      //console.log('if');
       
       // let a = [...this.entities.entries()];
       // this.isHiddenMap = new Map();
@@ -246,16 +241,12 @@ export class EntitiesComponent implements OnInit {
       // }
       this.isHiddenMap = new Map();
       let typeName = this.entityTypeName.toLowerCase();
-      //console.log(typeName);
       
       this.entities.forEach((value: FunctionalEntity, key: number) => {
-        //console.log(key, value);
         if (value.type == typeName) {
           this.isHiddenMap.set(key, this.shouldBeHidden(value));
         }
       });
-      //console.log(this.isHiddenMap);
-      
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity,  Entities } from 'src/app/models';
+import { NaturalEntity,  Entities, EveryEntity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-any',
@@ -13,7 +13,7 @@ export class InputAnyComponent implements OnInit {
 
   @Input() title = '';
   @Input() placeholder = '';
-  @Input() values: Entities; //: string[] | Person[] 
+  @Input() values: Entities<EveryEntity>; //: string[] | Person[] 
   @Input() value: string | boolean | NaturalEntity | number = '';
   @Input() disabled = false;
   @Input() maxValue = 1000;
