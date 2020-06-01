@@ -201,6 +201,7 @@
       (click)="doA()"
       
       [title]="(isA ? 'off: ':'on: ') + titleA"
+      [class.btn-blocked] = "disabledA"
     >
       <span class="glyphicon glyphicon-text-color"></span>
     </span>
@@ -208,6 +209,7 @@
       *ngIf="showTick"
       class="input-group-addon btn primary-color-reverse"
       (click)="doTick()"
+      [class.btn-blocked] = "disabledTick"
     >
       <span class="glyphicon glyphicon-ok"></span>
     </span>
@@ -228,6 +230,7 @@
       class="input-group-addon btn primary-color-reverse"
       style="border-left: none;"
       (click)="doFilterClear()"
+      [class.btn-blocked] = "disabledFilterCount"
     >
       <span class="glyphicon glyphicon-erase"></span>
     </span>
@@ -248,6 +251,7 @@
       style="border-left: none;"
       (click)="doShare()"
       [title]="'Share ' + title"
+      [class.btn-blocked] = "disabledShare"
     >
       <span class="glyphicon glyphicon-share-alt"></span>
     </span>
@@ -258,6 +262,7 @@
       style="border-left: none;"
       (click)="doT()"
       [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
+      [class.btn-blocked] = "disabledT"
     >
       <span
         class="glyphicon"
@@ -272,6 +277,7 @@
       style="border-left: none;"
       (click)="doDuplicate()"
       [title]="'Copy ' + title"
+      [class.btn-blocked] = "disabledDuplicate"
     >
       <span class="glyphicon glyphicon-duplicate"></span>
     </span>
@@ -282,6 +288,7 @@
       style="border-left: none;"
       (click)="doDownload()"
       [title]="'Download ' + title"
+      [class.btn-blocked] = "disabledDownload"
     >
       <span class="glyphicon glyphicon-cloud-download"></span>
     </span>
@@ -292,6 +299,7 @@
       style="border-left: none;"
       (click)="doSave()"
       [title]="'Save ' + title"
+      [class.btn-blocked] = "disabledSave"
     >
       <span class="glyphicon glyphicon-cloud-upload"></span>
     </span>
@@ -302,6 +310,7 @@
       style="border-left: none;"
       (click)="doDelete()"
       [title]="'Delete ' + title"
+      [class.btn-blocked] = "disabledDelete"
     >
       <span class="glyphicon" [class.glyphicon-minus]="showDelete"></span>
     </span>
@@ -312,6 +321,7 @@
       style="border-left: none;"
       (click)="doAdd()"
       [title]="'Add ' + title"
+      [class.btn-blocked] = "disabledAdd"
     >
       <span class="glyphicon" [class.glyphicon-plus]="showAdd"></span>
     </span>
@@ -322,6 +332,7 @@
       style="border-left: none;"
       (click)="doCancel()"
       [title]="'Discard changes'"
+      [class.btn-blocked] = "disabledCancel"
     >
       <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
     </span>

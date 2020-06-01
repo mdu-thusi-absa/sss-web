@@ -39,11 +39,17 @@
         <select
           class="form-control input-sm selectpicker"
           data-live-search="true"
-          style="font-size: small;border-radius: 3px;padding-left: 6px; padding-right: 6px;"
-          name="option"
+          style="
+            font-size: small;
+            border-radius: 3px;
+            padding-left: 6px;
+            padding-right: 6px;
+          "
+          
           [(ngModel)]="value"
           (change)="doChange($event)"
           [disabled]="disabled"
+          autocomplete="nope"
         >
           <option
             *ngFor="let e of values | keyvalue"
@@ -81,14 +87,13 @@
       </div>
     </div>
     <!--render for smaller screens-->
-    <div class="hidden-sm hidden-md hidden-lg">
+    <div class="hidden-sm hidden-md hidden-lg" >
       <div style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
-          style="font-size: small; margin-left: 0px;border-radius: 3px;"
-          name="option"
+          style="font-size: small; margin-left: 0px; border-radius: 3px;"
+          
           (change)="doChange($event)"
-          [attr.id]="'#select-Item'"
           autocomplete="nope"
           [disabled]="disabled"
         >
@@ -97,7 +102,6 @@
             [value]="e.key"
             [selected]="e.key == value"
             [hidden]="hideItem(e.value)"
-            class="input-sm"
             ><small>{{ e.value.name }}</small></option
           >
         </select>

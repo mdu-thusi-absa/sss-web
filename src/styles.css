@@ -1059,3 +1059,8 @@ hr {
 .border-radious-3 {
   border-radius:3px;
 }
+
+.btn-blocked {
+  color: #c2c2c2 !important; /* The important overrides the settings from bootstrap */
+  cursor: not-allowed;
+}

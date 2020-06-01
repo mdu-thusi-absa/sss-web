@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
+  HostListener,
 } from '@angular/core';
 import { EveryEntity, Entities, Entity } from '../../models';
 import { DataService } from 'src/app/data.service';
@@ -13,7 +14,7 @@ import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'app-input-select-entity',
   templateUrl: './input-select-entity.component.html',
-  styleUrls: ['./input-select-entity.component.css']
+  styleUrls: ['./input-select-entity.component.css'],
 })
 export class InputSelectEntityComponent implements OnInit {
   @Input() title = '';
@@ -51,20 +52,39 @@ export class InputSelectEntityComponent implements OnInit {
 
   constructor(public dataService: DataService) {}
 
-  getID(){
+  getID() {
     return this.dataService.getID(this.title);
   }
 
+  // public innerWidth: any;
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.innerWidth = window.innerWidth;
+  // }
+
+//   var rtime;
+// var timeout = false;
+// var delta = 200;
+// $(window).resize(function() {
+//     rtime = new Date();
+//     if (timeout === false) {
+//         timeout = true;
+//         setTimeout(resizeend, delta);
+//     }
+// });
+
+// function resizeend() {
+//     if (new Date() - rtime < delta) {
+//         setTimeout(resizeend, delta);
+//     } else {
+//         timeout = false;
+//         alert('Done resizing');
+//     }               
+// }
+
   ngOnInit(): void {
     this.entity = this.values.createEntity();
-    //this.entity = new Entity('');
-    // for (let i = 0; i < this.values.size; i++) {
-    //   this.fullNames.push(this.values[i].fullName);
-    // }
-    // for (let v of this.values.values()) {
-    //   this.fullNames.push(v.fullName);
-    // }
-    //this.setItem(this.value);
+    //this.innerWidth = window.innerWidth;
   }
 
   // showEdit(){
@@ -117,7 +137,7 @@ export class InputSelectEntityComponent implements OnInit {
         this.values.add(this.entity);
         this.value = i;
         this.isAdd = false;
-        
+
         let t = this.entity;
         this.onAdd.emit(this.value);
         this.onChange.emit(t);
@@ -149,14 +169,14 @@ export class InputSelectEntityComponent implements OnInit {
 
   doFilter(event: any) {
     this.listFilterText = event.toLowerCase();
-    this.clickSelect()
+    this.clickSelect();
   }
 
   clickSelect() {
     // setTimeout(function() {
     //   this.selectItem('click');
     // });
-  };
+  }
 
   doTask() {
     this.onTask.emit(this.title);
@@ -168,21 +188,23 @@ export class InputSelectEntityComponent implements OnInit {
 
   doDelete() {
     if (this.values.size > 0) {
-      let r = confirm('Are you sure you want to delete this ' + this.title + '?');
+      let r = confirm(
+        'Are you sure you want to delete this ' + this.title + '?'
+      );
       if (r) {
         this.values.del(this.value);
         this.value = this.values.all_keys[0];
-        this.onSelect.emit(this.value)
+        this.onSelect.emit(this.value);
       }
     }
   }
 
   //doEdit() {
-    // this.isAdd = false;
-    // this.text = this.values[+this.option];
-    // // if (!this.isDoInput) this.setFocus();
-    // this.isDoInput = !this.isDoInput;
-    //this.showEdit();
+  // this.isAdd = false;
+  // this.text = this.values[+this.option];
+  // // if (!this.isDoInput) this.setFocus();
+  // this.isDoInput = !this.isDoInput;
+  //this.showEdit();
   //}
 
   doAdd() {
@@ -199,15 +221,15 @@ export class InputSelectEntityComponent implements OnInit {
     this.isDoInput = false;
   }
 
-  doChangeInputText(event: any){
+  doChangeInputText(event: any) {
     this.entity.name = event;
   }
 
-  doChange(event: any){
+  doChange(event: any) {
     this.value = +event.target.value;
-    this.values.currentKey =this.value
+    this.values.currentKey = this.value;
     this.onSelect.emit(this.value);
-    this.onChange.emit(this.value)
+    this.onChange.emit(this.value);
   }
 
   //(keyup)="doKeyUp($event)"
@@ -222,20 +244,20 @@ export class InputSelectEntityComponent implements OnInit {
 
   countItems() {
     let r = 0;
-    if (!this.listFilterText){
+    if (!this.listFilterText) {
       r = this.values.size;
     } else {
       let v = this.values.all_values;
-      for (let i=0; i<this.values.size; i++){
+      for (let i = 0; i < this.values.size; i++) {
         let e: EveryEntity = v[i];
         if (e) {
           if (!this.hideItem(e)) {
-            r = r+1;
+            r = r + 1;
           }
         }
       }
     }
-    return r; 
+    return r;
     //let v = this.values.all_values;
     //v.filter((e) => !this.hideItem(e)).length;
   }
@@ -244,7 +266,10 @@ export class InputSelectEntityComponent implements OnInit {
     let r = false;
     if (this.listFilterText) {
       if (entity != undefined)
-        r = entity.name.toLowerCase().indexOf(this.listFilterText.toLowerCase()) === -1;
+        r =
+          entity.name
+            .toLowerCase()
+            .indexOf(this.listFilterText.toLowerCase()) === -1;
     }
     return r;
   }

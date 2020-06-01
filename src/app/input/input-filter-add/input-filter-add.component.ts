@@ -14,24 +14,19 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onAdd = new EventEmitter();
   @Output() onSave = new EventEmitter();
   @Output() onCancel = new EventEmitter();
+  
   @Input() filterCount = 0;
-  @Input() showAdd = false;
-  @Input() showTick = false;
-  @Input() showT = false;
+
   @Output() onTick = new EventEmitter();
   @Output() onT = new EventEmitter();
   @Input() title = '';
   @Input() titlePlural = '';
   @Input() titleT = '';
-  @Input() showList = false;
+  
   @Input() listValues: Entities<EveryEntity>;
   @Input() listValue = 0;
   @Output() onListChange = new EventEmitter();
 
-  @Input() showDelete = false;
-  @Input() showCancel = false;
-  @Input() showFilterCount = false;
-  @Input() showInputFilter = true;
   @Output() onDelete = new EventEmitter();
 
   showRadio = false;
@@ -50,6 +45,37 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showDownload = false;
   @Input() showDuplicate = false;
   @Input() showA = false;
+  @Input() showAdd = false;
+  @Input() showTick = false;
+  @Input() showT = false;
+  @Input() showList = false;
+  @Input() showDelete = false;
+  @Input() showCancel = false;
+  @Input() showFilterCount = false;
+  @Input() showInputFilter = true;
+
+  @Input() disabledFlash = false;
+  @Input() disabledPlay = false;
+  @Input() disabledPause = false;
+  @Input() disabledAll = false;
+  @Input() disabledOk = false;
+  @Input() disabledEyeOpen = false;
+  @Input() disabledEyeClose = false;
+  @Input() disabledSave = false;
+  @Input() disabledShare = false;
+  @Input() disabledDownload = false;
+  @Input() disabledDuplicate = false;
+  @Input() disabledA = false;
+  @Input() disabledAdd = false;
+  @Input() disabledTick = false;
+  @Input() disabledT = false;
+  @Input() disabledList = false;
+  @Input() disabledDelete = false;
+  @Input() disabledCancel = false;
+  @Input() disabledFilterCount = false;
+  @Input() disabledInputFilter = true;
+
+
   @Input() isNarrow = false;
   @Input() isA = false;
 

@@ -10,11 +10,16 @@
 
 <app-input-filter-add
   [title]="dataService.getEntityTypes().get(entityType).name"
-  [showSave]="dirty"
-  [showCancel]="dirty"
+  
+  [showSave]="true"
+  [showCancel]="true"
   [showT]="true"
   [showDuplicate]="true"
   [showDownload]="true"
+
+  [disabledSave] = "!dirty"
+  [disabledCancel] = "!dirty"
+
   (onFilter)="doFilter($event)"
   (onSave) = "doSave()"
   (onCancel) = "doCancel()"
