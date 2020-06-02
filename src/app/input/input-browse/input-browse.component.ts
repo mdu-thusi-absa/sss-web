@@ -19,7 +19,7 @@ export class InputBrowseComponent implements OnInit {
   fileToUpload: File = null;
 
 
-  constructor(public dataService: DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {}
 
@@ -43,7 +43,7 @@ export class InputBrowseComponent implements OnInit {
   }
 
   fileBrowse(event: any){
-    //let t = 'file-' + this.dataService.getID(this.title)
+    //let t = 'file-' + this.data.getID(this.title)
     let t = 'file';
     event.preventDefault();
 

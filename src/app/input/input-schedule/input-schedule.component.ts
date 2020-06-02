@@ -11,7 +11,7 @@ export class InputScheduleComponent implements OnInit {
   @Input() title = '';
   @Input() stepNumber = 0;
   @Input() hideBody = true;
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
   }

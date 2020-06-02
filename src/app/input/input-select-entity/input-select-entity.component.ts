@@ -50,10 +50,10 @@ export class InputSelectEntityComponent implements OnInit {
   @ViewChild('inputText') inputElement: ElementRef;
   @ViewChild('selectItem') selectItem: ElementRef;
 
-  constructor(public dataService: DataService) {}
+  constructor(public data: DataService) {}
 
   getID() {
-    return this.dataService.getID(this.title);
+    return this.data.getID(this.title);
   }
 
   // public innerWidth: any;

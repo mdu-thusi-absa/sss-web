@@ -12,7 +12,7 @@ export class StepComponent implements OnInit {
   @Input() stepNumber = 1;
   @Input() noHeader = false;
   @Input() hideBody = true;
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
   }

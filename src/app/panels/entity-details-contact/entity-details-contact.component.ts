@@ -1,5 +1,6 @@
 import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
 import { EveryEntity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-details-contact',
@@ -18,9 +19,10 @@ export class EntityDetailsContactComponent implements OnInit {
   @Output() onTask = new EventEmitter;
   @Output() onDirty = new EventEmitter;
 
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log( 'loaded:entities-details-contact');
   }
 
   doFile(event: any){

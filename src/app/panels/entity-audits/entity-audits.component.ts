@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task, Step } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-audits',
@@ -339,9 +340,10 @@ export class EntityAuditsComponent implements OnInit {
 
   ];
 
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log( 'loaded:entity-audits');
   }
 
   getCount_Done(){

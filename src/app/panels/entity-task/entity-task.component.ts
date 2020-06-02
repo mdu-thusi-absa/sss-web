@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { Task } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-task',
@@ -16,9 +17,10 @@ export class EntityTaskComponent implements OnInit {
 
   @Output() onClose = new EventEmitter()
   
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log('loaded:entity-task');
   }
 
   toggleDone(){

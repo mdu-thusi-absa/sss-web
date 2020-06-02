@@ -556,7 +556,7 @@
               panelRows == 2 && expandHistoryDetail
             "
           >
-            <div [hidden]="hideHistory">
+            <!-- <div [hidden]="hideHistory">
               <app-record-details [panelRows]="panelRows"></app-record-details>
             </div>
             <div [hidden]="hideFiles">
@@ -564,7 +564,7 @@
                 [panelRows]="panelRows"
                 [showFileFields]="showFileFields"
               ></app-files-details>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -715,35 +715,18 @@
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
               ></app-buttons-toolbar-button>
-
-              <!-- <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showPanelRight = !showPanelRight"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-              >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-menu-right]="showPanelRight"
-                  [class.glyphicon-menu-left]="!showPanelRight"
-                ></span> 
-              </a> -->
             </div>
           </div>
           <div class="panel-body mt3" [hidden]="hidePosts">
             <app-entity-messages [isNarrow]="true"></app-entity-messages>
-          </div>
+          </div> 
           <div class="panel-body mt3" [hidden]="hideTasks">
             <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
           </div>
           <div class="panel-body mt3" [hidden]="hideAudits">
             <app-entity-audits [isNarrow]="true"></app-entity-audits>
           </div>
-          <!-- <div class="panel-footer mt3">
-            <small>Last post: 3 days ago</small>
-          </div> -->
+          
         </div>
       </div>
     </div>

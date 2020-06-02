@@ -10,12 +10,16 @@ import { authConfig } from './sso.config';
 })
 
 //implements OnInit
-export class AppComponent {
+export class AppComponent implements OnInit {
   rdoMenu = 'Legal Entities';
   isLogedIn = true;
 
   constructor(private oauthService: OAuthService) {
     // this.configureSingleSignOn();
+  }
+
+  ngOnInit(): void {
+    //if (this.data.lg) console.log(new Date());
   }
 
   configureSingleSignOn() {

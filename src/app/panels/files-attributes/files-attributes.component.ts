@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 //import { Task, Step } from '../models/models';
 
 @Component({
@@ -52,13 +53,14 @@ export class FilesAttributesComponent implements OnInit {
   'Entity Financial Officer',
   'Public Officer (income tax)']
 
-  constructor() {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     // if (this.showFileFields.length==0){
     //   Object.assign(this.showFileFields, this.entities);
 
     // }
+    if (this.data.lg) console.log('loaded:file-attributes');
   }
 
   isFullScreen() {

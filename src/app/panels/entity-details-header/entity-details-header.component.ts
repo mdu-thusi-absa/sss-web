@@ -18,9 +18,10 @@ export class EntityDetailsHeaderComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log( 'loaded:entities-details-header');
   }
 
   doRecord(event: any){
@@ -36,6 +37,6 @@ export class EntityDetailsHeaderComponent implements OnInit {
   }
 
   doChangeEntityType(event: any){
-    
+
   }
 }

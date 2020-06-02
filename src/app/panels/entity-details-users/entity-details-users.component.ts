@@ -19,10 +19,10 @@ export class EntityDetailsUsersComponent implements OnInit {
   customCount = 1; //default number to display
   elements = new Array(this.customCount);
 
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    
+    if (this.data.lg) console.log( 'loaded:entities-details-users');
   }
 
   doRecord(event: any){

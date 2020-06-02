@@ -16,7 +16,7 @@ export class ButtonsToolbarButtonComponent implements OnInit {
 
   @Output() onClick = new EventEmitter();
 
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
   }

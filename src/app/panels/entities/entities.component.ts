@@ -42,14 +42,15 @@ export class EntitiesComponent implements OnInit {
   
 
 
-  constructor(public dataService: DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
-    this.entityTypeNames = this.dataService.entityTypes;
-    this.entityTypesPlural = this.dataService.getEntityTypesPlural();
+    this.entityTypeNames = this.data.entityTypes;
+    this.entityTypesPlural = this.data.getEntityTypesPlural();
     this.loadEntities();
     this.doEntityTypeChange(this.entityType);
     this.setCounts();
+    if (this.data.lg) console.log('loaded:entities');
     // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
    
@@ -63,8 +64,8 @@ export class EntitiesComponent implements OnInit {
 
 
   loadEntities() {
-    //this.dataService.makeFunctionalEntities();
-    this.entities = this.dataService.getFunctionalEntitiesAll();
+    //this.data.makeFunctionalEntities();
+    this.entities = this.data.getFunctionalEntitiesAll();
     // this.listMap = new Map();
     // let f: FunctionalEntities;
     // this.entitiesAll.forEach((value: FunctionalEntity, key: number) => {
@@ -203,7 +204,7 @@ export class EntitiesComponent implements OnInit {
 
     this.showActiveOnly = event;
     
-    //this.entities = this.dataService.getFunctionalEntitiesAll();
+    //this.entities = this.data.getFunctionalEntitiesAll();
     this.loadEntities();
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
       this.rdoActiveDormantAll = 'all';

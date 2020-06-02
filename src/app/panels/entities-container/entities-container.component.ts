@@ -10,12 +10,13 @@ import {MatCardModule} from '@angular/material/card'
   styleUrls: ['./entities-container.component.css'],
 })
 export class EntitiesContainerComponent implements OnInit {
-  constructor(public dataService: DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
     this.showFileFields = [];
-    this.entityTypes = this.dataService.entityTypes;
+    this.entityTypes = this.data.entityTypes;
+    if (this.data.lg) console.log( 'loaded:entities-container');
   }
 
   entityTypes: Entities<EveryEntity>;

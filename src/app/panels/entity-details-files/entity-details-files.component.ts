@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NaturalEntity, EveryEntity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-details-files',
@@ -23,12 +24,13 @@ export class EntityDetailsFilesComponent implements OnInit {
   elementsType: string[] = new Array(50); //max number
   selectedCount = 0;
 
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
     for(let i=0; i<this.elementsType.length; i++){
        this.elementsType[i] = 'text';
     }
+    if (this.data.lg) console.log( 'loaded:entities-details-files');
   }
 
   doSelectItem(event: any){

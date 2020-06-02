@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-record-details',
@@ -10,9 +11,10 @@ export class RecordDetailsComponent implements OnInit {
   applyAlert_value = '';
   showApplyAlert = false;
   @Input() panelRows: number;
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log('loaded:record-details');
   }
 
   showConfirm(attribute: string, value: string){

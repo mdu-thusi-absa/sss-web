@@ -17,7 +17,7 @@ export class InputPersonContactComponent implements OnInit {
   @Output() onRecord = new EventEmitter;
   @Output() onTask = new EventEmitter;
 
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
   }

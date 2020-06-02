@@ -6,7 +6,7 @@
       <a
         href="#"
         data-toggle="collapse"
-      [attr.data-target]="'#contact-' + dataService.getID(title)"
+      [attr.data-target]="'#contact-' + data.getID(title)"
         style="
           white-space: nowrap;
           display: inline-block;
@@ -23,7 +23,7 @@
     <div
       class="panel panel-body noborder nobottom less-padding collapse"
       [class.in]="!hideBody"
-      id="{{ 'contact-' + dataService.getID(title) }}"
+      id="{{ 'contact-' + data.getID(title) }}"
       style="margin-top: 0px;"
     >
 
@@ -32,7 +32,7 @@
         [doHideByFilter]="doHideByFilter"
         [typeLeft]="'person'"
         [titleLeft]="'Contact Person'"
-        [valuesLeft]="dataService.persons"
+        [valuesLeft]="data.persons"
         [typeRight]="'checkbox'"
         [titleRight]="'Active'"
         
@@ -66,7 +66,7 @@
       [doHideByFilter]="doHideByFilter"
       [typeLeft]="'select-entity'"
       [titleLeft]="'Contact Preference'"
-      [valuesLeft] = "dataService.contactPreferences"
+      [valuesLeft] = "data.contactPreferences"
       [valueLeft] = "0"
       [typeRight]="'text'"
       [titleRight]="'Email'"

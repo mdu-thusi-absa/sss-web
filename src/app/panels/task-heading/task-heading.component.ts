@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-task-heading',
@@ -9,9 +10,10 @@ import { Task } from '../../models';
 export class TaskHeadingComponent implements OnInit {
   @Input() task: Task;
   
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log('loaded:task-heading');
   }
 
 }

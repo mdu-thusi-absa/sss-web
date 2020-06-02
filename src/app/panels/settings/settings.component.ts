@@ -29,10 +29,11 @@ export class SettingsComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    this.persons = this.dataService.getPersons();
+    this.persons = this.data.getPersons();
+    if (this.data.lg) console.log('loaded:settings');
   }
 
   doFilter(event: any){

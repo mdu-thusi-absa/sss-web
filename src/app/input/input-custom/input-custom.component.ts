@@ -23,7 +23,7 @@ export class InputCustomComponent implements OnInit {
   @Output() onChangeCustomType = new EventEmitter();
 
 
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
     if (this.title=='') this.title = 'Custom ' + this.id;
@@ -42,7 +42,7 @@ export class InputCustomComponent implements OnInit {
   }
 
   doChangeCustomType(event: any){
-    this.customType = this.dataService.customTypes.get(event).name;
+    this.customType = this.data.customTypes.get(event).name;
   }
 
   doChangeTitle(event: any){

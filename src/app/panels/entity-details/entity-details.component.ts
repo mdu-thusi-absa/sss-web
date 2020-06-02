@@ -40,14 +40,15 @@ export class EntityDetailsComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  constructor(public dataService: DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
-    this.persons = this.dataService.getPersons();
-    this.entities = this.dataService.getFunctionalEntitiesAll();
+    this.persons = this.data.getPersons();
+    this.entities = this.data.getFunctionalEntitiesAll();
     if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
     }
+    if (this.data.lg) console.log( 'loaded:entities-details');
   }
 
   get entity():EveryEntity {

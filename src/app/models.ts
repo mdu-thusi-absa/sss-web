@@ -564,7 +564,9 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   fromJSONArray(array: any[],maxToLoad?: number) {
     let L = array.length;
-    if (maxToLoad) L = maxToLoad;
+    if (maxToLoad) {
+      L = (maxToLoad>L ? L : maxToLoad);
+    }
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
       a = Object.assign(a, array[i]);
@@ -633,8 +635,6 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   public sort() {
     let v = this.all_values;
     v.sort(Entity.compare);
-    //console.log(v);
-
     super.clear();
     for (let i = 0; i < v.length; i++) {
       this.add(v[i]);

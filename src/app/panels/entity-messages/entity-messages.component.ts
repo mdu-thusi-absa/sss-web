@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Message } from '../../models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-entity-messages',
@@ -15,7 +16,7 @@ export class EntityMessagesComponent implements OnInit {
   newMessage = new Message(new Date(),'vlad','New Article',true,''); 
   isFilterByTextToo = false;
 
-  constructor() {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.messages = [
@@ -157,6 +158,7 @@ Torsten Titze	Senior Manager: Public Affairs	info@de.sasol.com	T: +49 40 63 684 
       new Message(new Date(), 'sasha', 'Information 19', true,''),
       new Message(new Date(), 'ulrich', 'Information 20', true,''),
     ];
+    if (this.data.lg) console.log('loaded:entity-messages');
   }
 
   showMessagesThatAre(typ: string) {

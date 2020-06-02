@@ -17,7 +17,7 @@ export class ButtonsToggleComponent implements OnInit {
 
   @Output() onToggle = new EventEmitter();
 
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Entity, Task } from '../../models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-task-details',
@@ -16,9 +17,10 @@ export class TaskDetailsComponent implements OnInit {
   @Input() panelRows = 2;
   task: Task;
 
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log('loaded:task-details');
   }
 
   hideByFilter(caption: string){

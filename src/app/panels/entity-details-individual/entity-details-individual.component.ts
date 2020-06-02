@@ -16,9 +16,10 @@ export class EntityDetailsIndividualComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();
   @Output() onDirty = new EventEmitter();
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log( 'loaded:entities-details-individual');
   }
 
   doRecord(event: any){

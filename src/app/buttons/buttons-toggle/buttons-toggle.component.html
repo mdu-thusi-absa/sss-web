@@ -1,7 +1,7 @@
 <div *ngIf="showMe" style="display: inline-block; vertical-align: top;padding-right:1px;padding-left:1px;">
     <!-- svgPath: {{svgUrlPath}} -->
   <label
-    [attr.for]="'checkbox-toggle-' + dataService.getID(title)"
+    [attr.for]="'checkbox-toggle-' + data.getID(title)"
     class="btn btn-info btn-xs"
     style="padding: 1px"
     [class.active]="toggleValue"
@@ -31,7 +31,7 @@
   <input
     type="checkbox"
     style="display: none;"
-    [attr.id]="'checkbox-toggle-' + dataService.getID(title)"
+    [attr.id]="'checkbox-toggle-' + data.getID(title)"
     [checked]="toggleValue"
     (change)="doToggle($event)"
   />

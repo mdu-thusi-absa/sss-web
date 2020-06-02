@@ -2,8 +2,11 @@ import {
   Component,
   OnInit,
   Input,
-  ElementRef, ViewChild, AfterViewInit
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
 } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-files-details',
@@ -19,9 +22,9 @@ export class FilesDetailsComponent implements OnInit {
   colspanFile = 3;
   thTop = '67px';
   colWidth = 0;
-  colLeft0 = "28px"
-  colLeft1 = "75px"; //"82.74px";
-  colLeft2 = "125px"; //"165.3px";
+  colLeft0 = '28px';
+  colLeft1 = '75px'; //"82.74px";
+  colLeft2 = '125px'; //"165.3px";
   isDirty = false;
   isAdd = false;
 
@@ -34,19 +37,13 @@ export class FilesDetailsComponent implements OnInit {
   thCol2Left = 0;
   thCol3Width = 0;
 
-  ngAfterViewInit() {
- 
-}
+  ngAfterViewInit() {}
 
-ngAfterViewChecked(){
-  
-}
+  ngAfterViewChecked() {}
 
-ngAfterContentInit (){
-  
-}
+  ngAfterContentInit() {}
 
-  data = [
+  dataFiles = [
     [
       '82/03/13',
       'vlad',
@@ -621,29 +618,30 @@ ngAfterContentInit (){
     ],
   ];
 
-  constructor() {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.showFileFields = [];
+    if (this.data.lg) console.log('loaded:file-details');
   }
 
   doAdd() {
     this.isAdd = true;
   }
 
-  doSave(){
+  doSave() {
     //save to DB
     //if saved then mark it so
     //this.isAdd = false;
     this.isDirty = false;
   }
 
-  doCancel(){
+  doCancel() {
     this.isAdd = false;
     this.isDirty = false;
   }
 
-  doChangeCheckbox(event: any){
+  doChangeCheckbox(event: any) {
     this.isDirty = true;
   }
 
@@ -664,28 +662,30 @@ ngAfterContentInit (){
     return r;
   }
 
-  showIfInFilter(dataRow: any){
-    return dataRow[2].toLowerCase().indexOf(this.filterText.toLowerCase())>-1
+  showIfInFilter(dataRow: any) {
+    return dataRow[2].toLowerCase().indexOf(this.filterText.toLowerCase()) > -1;
   }
 
   getCountFiltered() {
-    return this.data.filter((e) => this.showDataRow(e[4]) && this.showIfInFilter(e)).length;
+    return this.dataFiles.filter(
+      (e) => this.showDataRow(e[4]) && this.showIfInFilter(e)
+    ).length;
   }
 
   doFilter(event: any) {
     this.filterText = event;
   }
 
-  doCheckField(option: string){
-    if (option=="when"){
+  doCheckField(option: string) {
+    if (option == 'when') {
       this.hideWhen = !this.hideWhen;
     }
-    if (option=="who"){
+    if (option == 'who') {
       this.hideWho = !this.hideWho;
     }
     if (this.hideWhen && this.hideWho) this.colspanFile = 3;
-    else if(this.hideWhen && !this.hideWho) this.colspanFile = 2;
-    else if(!this.hideWhen && this.hideWho) this.colspanFile = 2;
-    else if(!this.hideWhen && !this.hideWho) this.colspanFile = 1;
+    else if (this.hideWhen && !this.hideWho) this.colspanFile = 2;
+    else if (!this.hideWhen && this.hideWho) this.colspanFile = 2;
+    else if (!this.hideWhen && !this.hideWho) this.colspanFile = 1;
   }
 }

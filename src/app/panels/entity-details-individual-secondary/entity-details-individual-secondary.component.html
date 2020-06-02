@@ -24,8 +24,8 @@
 [filterText]="filterText"
 [doHideByFilter]="true"
 [titleLeft]="'Country'"
-[valuesLeft]="dataService.getCountries()"
-[valueLeft]="dataService.getDefault('countryKey')"
+[valuesLeft]="data.getCountries()"
+[valueLeft]="data.getDefault('countryKey')"
 [typeRight]="'text'"
 [titleRight]="'Passport Number'"
 (onFile)="doFile($event)"
@@ -53,7 +53,7 @@
   [doHideByFilter]="true"
   [typeLeft]="'select-entity'"
   [titleLeft]="'Current Employer'"
-  [valuesLeft] = "dataService.getCompanies()"
+  [valuesLeft] = "data.getCompanies()"
   [valueLeft] = "entity.currentEmployerKey"
 
   (onFile)="doFile($event)"
@@ -287,7 +287,7 @@
             <div class="col-xs-6">
               <app-input-select
                 [title]="'Position'"
-                [values]="dataService.getPositions()"
+                [values]="data.getPositions()"
                 [filterText]="filterText"
                 [value]="0"
               ></app-input-select>

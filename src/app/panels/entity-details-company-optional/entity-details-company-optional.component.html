@@ -7,13 +7,13 @@
   [doHideByFilter]="true"
   [typeLeft]="'select-entity'"
   [titleLeft]="'Appointed Company Secretary'"
-  [valuesLeft]="dataService.getCompanySercetaries()"
+  [valuesLeft]="data.getCompanySercetaries()"
   [valueLeft]="entity.appointedCompanySecretariatKey"
   (onChangeLeft)="entity.appointedCompanySecretariatKey = $event; onDirty.emit()"
 
   [typeRight]="'person'"
   [titleRight]="'Absa Group Secretariat Representative'"
-  [valuesRight]="dataService.getUsers()"
+  [valuesRight]="data.getUsers()"
   [valueRight]="entity.clientSecretarialRepresentativeKey"
   (onChangeRight)="entity.clientSecretarialRepresentativeKey = $event; onDirty.emit()"
   (onFile)="doFile($event)"
@@ -28,13 +28,13 @@
   [doHideByFilter]="true"
   [typeLeft]="'person'"
   [titleLeft]="'Legal Entity Executive (LEE)'"
-  [valuesLeft]="dataService.getPersons()"
+  [valuesLeft]="data.getPersons()"
   [valueLeft]="entity.legalEntityExecutiveKey"
       (onChangeLeft)="entity.legalEntityExecutiveKey = $event; onDirty.emit()"
 
   [typeRight]="'person'"
   [titleRight]="'Entity Financial Officer'"
-  [valuesRight]="dataService.getPersons()"
+  [valuesRight]="data.getPersons()"
   [valueRight]="entity.entityFinancialOfficerKey"
       (onChangeRight)="entity.entityFinancialOfficerKey = $event; onDirty.emit()"
 
@@ -50,7 +50,7 @@
   [doHideByFilter]="true"
   [typeLeft]="'person'"
   [titleLeft]="'Public Officer (income tax)'"
-  [valuesLeft]="dataService.getPersons()"
+  [valuesLeft]="data.getPersons()"
   [valueLeft]="entity.publicOfficerKey"
       (onChangeLeft)="entity.publicOfficerKey = $event; onDirty.emit()"
 
@@ -314,7 +314,7 @@
             <div class="col-xs-6">
               <app-input-select
                 [title]="'Position'"
-                [values]="dataService.getPositions()"
+                [values]="data.getPositions()"
                 [filterText]="filterText"
                 [value]="0"
               ></app-input-select>

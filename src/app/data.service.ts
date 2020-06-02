@@ -22,6 +22,7 @@ import { jsonCompanies, jsonIndividuals } from './data-json/data-json.module';
   providedIn: 'root',
 })
 export class DataService {
+  public lg = false;
   companies = new Entities<Company>(Company);
   persons = new Entities<NaturalEntity>(NaturalEntity);
   functionalEntities: Entities<EveryEntity>;
@@ -61,6 +62,7 @@ export class DataService {
     this.functionalEntities.fromArray('secretariat',this.companySecretaries.all_values);
     this.functionalEntities.fromArray('regulator',this.regulators.all_values);
     this.functionalEntities.fromArray('regulation',this.regulations.all_values);
+    if (this.lg) console.log('loaded');
     
   }
 

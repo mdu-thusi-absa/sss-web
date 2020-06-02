@@ -19,15 +19,15 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();
   @Output() onDirty = new EventEmitter();
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
 
   // get legalEntity(): EveryEntity{
-  //   return this.dataService.getEntity(this.entityKey);
+  //   return this.data.getEntity(this.entityKey);
   // }
 
   ngOnInit(): void {
-    
+    if (this.data.lg) console.log( 'loaded:entities-details-company-primary');
   }
 
   doRecord(event: any){

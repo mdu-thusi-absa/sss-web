@@ -52,7 +52,7 @@
   [doHideByFilter]="true"
   [typeLeft]="'select-checkbox'"
   [titleLeft]="'Entity Groups'"
-  [valuesLeft]="dataService.getEntityGroups()"
+  [valuesLeft]="data.getEntityGroups()"
   [valueLeft]="entity.entityGroups"
   (onChangeLeft)="entity.entityGroups = $event; onDirty.emit()"
   (onFile)="doFile($event)"
@@ -71,12 +71,12 @@
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
   [placeholderLeft]="'Country of Incorporation'"
-  [valuesLeft]="dataService.getCountries()"
+  [valuesLeft]="data.getCountries()"
   [valueLeft]="entity.countryKey"
   (onChangeLeft)="entity.countryKey = $event; onDirty.emit()"
 
   [titleRight]="'Industry'"
-  [valuesRight]="dataService.getIndustries()"
+  [valuesRight]="data.getIndustries()"
   [valueRight]="entity.industryKey"
   (onChangeRight)="entity.industryKey = $event; onDirty.emit()"
 
@@ -122,7 +122,7 @@
   [placeholderRight]="
     'Anniversary Date (month) of the incorporation of the entity'
   "
-  [valuesRight]="dataService.getMonths()"
+  [valuesRight]="data.getMonths()"
   [valueRight]="entity.anniversaryMonthKey"
   (onChangeRight) = "entity.anniversaryMonthKey = $event; onDirty.emit()"
 
@@ -147,7 +147,7 @@
 
   [typeRight]="'select-entity'"
   [titleRight]="'Financial Year End (month)'"
-  [valuesRight]="dataService.getMonths()"
+  [valuesRight]="data.getMonths()"
   [valueRight]="entity.financialYearEndMonthKey"
   [showAddRight]="false"
   [showDeleteRight]="false"

@@ -20,9 +20,10 @@ export class EntityDetailsCompanySecondaryComponent implements OnInit {
   @Output() onDirty = new EventEmitter();
 
   
-  constructor(public dataService: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (this.data.lg) console.log( 'loaded:entities-details-company-secondary');
   }
 
   doRecord(event: any){

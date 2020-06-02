@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Record } from '../../models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-records',
@@ -11,7 +12,7 @@ export class RecordsComponent implements OnInit {
   records: Record[];
   filterText = '';
   listTaskType = 'all';
-  constructor() {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.records = [
@@ -23,6 +24,7 @@ export class RecordsComponent implements OnInit {
       new Record(new Date(2017, 6, 15,9,15), 'dean', 'Send email', '', '', ''),
       new Record(new Date(2016, 4, 2,11,35), 'vlad', 'Resignation', '', '', ''),
     ];
+    if (this.data.lg) console.log('loaded:records');
   }
 
   isFullScreen() {
