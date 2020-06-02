@@ -25,7 +25,7 @@
       ></span
     ></a>
     <a
-      *ngIf = "showFilter && this.countItems>15"
+      *ngIf = "showFilter && (this.countItems>15 || !filterText)"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"
