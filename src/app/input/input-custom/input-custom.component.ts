@@ -16,6 +16,7 @@ export class InputCustomComponent implements OnInit {
   @Input() values: Entities<EveryEntity>; //string[] 
   @Input() persons: NaturalEntity[];
   @Input() showCheck = false;
+  @Input() isNarrow = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();

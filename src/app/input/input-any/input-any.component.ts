@@ -38,6 +38,7 @@ export class InputAnyComponent implements OnInit {
   @Input() showFlash = false;
   @Input() showPaperclip = false;
   @Input() showCD = false;
+  @Input() isNarrow = false;
   
   constructor() { }
 

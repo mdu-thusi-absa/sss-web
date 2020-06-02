@@ -6,6 +6,8 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+
   [typeLeft]="'text'"
   [titleLeft]="'Income Tax Number of the entity'"
   [valueLeft]="entity.incomeTaxNumber"
@@ -26,6 +28,8 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+
   [typeLeft]="'select-entity'"
   [titleLeft]="'Business Area'"
   [valuesLeft]="data.getBusinessAreas()"
@@ -46,6 +50,8 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+
   [typeLeft]="'select-entity'"
   [titleLeft]="'Legal Classification'"
   [valuesLeft]="data.getLegalClasses()"
@@ -66,6 +72,8 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+
   [typeLeft]="'select-entity'"
   [titleLeft]="'Entity Status'"
   [valuesLeft]="data.getEntityStatuses()"
@@ -86,6 +94,8 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+
   [typeLeft]="'select-entity'"
   [titleLeft]="'Accounting Classification'"
   [valuesLeft]="data.getAccountingClasses()"
@@ -108,6 +118,8 @@
 <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  
   [typeLeft]="'select-entity'"
   [titleLeft]="'Direct Parent'"
   [valuesLeft]="data.getCompanies()"

@@ -19,6 +19,7 @@ export class InputAddressComponent implements OnInit {
   //address text, country, city
   @Input() value: [string, string, string];
   @Input() hideBody = true;
+  @Input() isNarrow = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onTask = new EventEmitter();

@@ -64,17 +64,19 @@
     [class.entities-detail-form-full]="isFullScreen()"
     [class.entities-detail-form-half]="isHalfScreen()"
   >
-    <div [hidden]="hideHeader">
-      <app-entity-details-header
-        [isNarrow]="isNarrow"
-        [filterText]="filterText"
-        [entityKey]="entityKey"
-        [entity]="entity"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-        (onDirty)="dirty = true"
-      ></app-entity-details-header>
+    <div *ngIf="getIsLoaded(!hideHeader, 'header')">
+      <div [hidden]="hideHeader">
+        <app-entity-details-header
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [entityKey]="entityKey"
+          [entity]="entity"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+          (onDirty)="dirty = true"
+        ></app-entity-details-header>
+      </div>
     </div>
 
     <div [hidden]="entityType != 0">

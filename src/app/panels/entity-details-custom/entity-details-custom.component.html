@@ -20,6 +20,7 @@
 
 <div *ngFor="let e of elements; let i = index">
   <app-input-custom
+    [isNarrow]="isNarrow"
     [id]="i + 1"
     [title]="''"
     [filterText]="filterText"
