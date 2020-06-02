@@ -53,6 +53,8 @@ export class EntitiesContainerComponent implements OnInit {
   entityType = 0;
   entityKey = 0;
 
+  isPageLoaded: string[] = [];
+
   entities= ['Entity Name',
   'Registration Number',
   'Previous Name',
@@ -85,6 +87,19 @@ export class EntitiesContainerComponent implements OnInit {
   'Entity Executive',
   'Entity Financial Officer',
   'Public Officer (income tax)']
+
+  getIsLoaded(setTo: boolean, key: string) {
+    let r: boolean;
+    if (setTo){
+      r = setTo;
+      if (this.isPageLoaded.indexOf(key)<0) {
+        this.isPageLoaded.push(key);
+      } 
+    } else{
+      r = this.isPageLoaded.indexOf(key)>-1
+    }
+    return r;
+  }
 
   doEntityTypeChange(event: any){
     this.entityType = +event;

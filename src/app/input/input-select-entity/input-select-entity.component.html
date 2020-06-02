@@ -34,34 +34,27 @@
   <br [hidden]="!isShowingFilter" />
   <div [hidden]="isDoInput">
     <!--render for larger screens: buttons on the side -->
-    <div class="hidden-xs">
+    <div>
       <div class="input-group" style="width: 100%;">
         <select
-          class="form-control input-sm selectpicker"
-          data-live-search="true"
-          style="
-            font-size: small;
-            border-radius: 3px;
-            padding-left: 6px;
-            padding-right: 6px;
-          "
-          
-          [(ngModel)]="value"
+          class="form-control input-sm collapse in"
+          style="font-size: small;"
+          name="option"
           (change)="doChange($event)"
-          [disabled]="disabled"
-          autocomplete="nope"
+          style="padding-left: 6px; padding-right: 6px;"
+          [attr.id]="'#select-Item'"
         >
           <option
             *ngFor="let e of values | keyvalue"
             [value]="e.key"
             [selected]="e.key == value"
             [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.name }}</small></option
+            ><small>{{ e.value.name}}1</small></option
           >
         </select>
         <span
           *ngIf="showDelete && !disabled"
-          class="input-group-addon btn primary-color-reverse"
+          class="input-group-addon btn primary-color-reverse hidden-xs"
           style="border-right: none;"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
@@ -70,7 +63,7 @@
         </span>
         <span
           *ngIf="showEdit && !disabled"
-          class="input-group-addon btn primary-color-reverse"
+          class="input-group-addon btn primary-color-reverse hidden-xs"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
         >
@@ -78,7 +71,7 @@
         </span>
         <span
           *ngIf="showAdd && !disabled"
-          class="input-group-addon btn primary-color-reverse"
+          class="input-group-addon btn primary-color-reverse hidden-xs"
           (click)="doAdd()"
           [title]="'Add an ' + title"
         >
@@ -86,25 +79,9 @@
         </span>
       </div>
     </div>
-    <!--render for smaller screens-->
-    <div class="hidden-sm hidden-md hidden-lg" >
+    <!--render buttons for smaller screens-->
+    <div class="hidden-sm hidden-md hidden-lg">
       <div style="width: 100%;">
-        <select
-          class="form-control input-sm collapse in"
-          style="font-size: small; margin-left: 0px; border-radius: 3px;"
-          
-          (change)="doChange($event)"
-          autocomplete="nope"
-          [disabled]="disabled"
-        >
-          <option
-            *ngFor="let e of values | keyvalue"
-            [value]="e.key"
-            [selected]="e.key == value"
-            [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.name }}</small></option
-          >
-        </select>
         <span
           *ngIf="showDelete && !disabled"
           class="input-group-addon btn primary-color-reverse"
@@ -133,28 +110,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="panel panel-primary no-gutter nobottom" [hidden]="!isDoInput">
-    <div class="panel panel-body mt3 nobottom">
-      <app-buttons-cancel-save
-        [glyphOnly]="true"
-        (onSave)="doSave()"
-        (onCancel)="doCancel()"
-      ></app-buttons-cancel-save>
-      <div class="input-group-sm">
-        <label class="nobottom text-primary-bold">Surname</label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder=""
-          #inputText
-          [(ngModel)]="entity.name"
-          autocomplete="nope"
-          (keyup)="doKeyUp($event)"
-        />
-      </div>
-    </div>
-  </div> -->
 
   <app-input-select-text
     [isDoInput]="isDoInput"

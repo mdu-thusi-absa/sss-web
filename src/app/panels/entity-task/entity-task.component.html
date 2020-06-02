@@ -6,8 +6,8 @@
     <span class="glyphicon glyphicon-flash"></span>
     <a href="#"  (click)="isEdit = !isEdit"
     >
-      {{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }} :
-      {{ task.mainGoal.title }}
+      <small>{{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }} :
+      {{ task.mainGoal.title }}</small>
     </a>
     <!-- toggleDone() <a href="#" (click)="doEdit()" [hidden]="isEdit"
       ><span class="glyphicon glyphicon-pencil pull-right"></span

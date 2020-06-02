@@ -679,7 +679,7 @@
                 [toggleValue] = "!hideTasks"
               ></app-buttons-toggle>
 
-              <app-buttons-toggle
+              <!-- <app-buttons-toggle
                 [title]="'Articles'"
                 [placeholder]="'Articles Page'"
                 [glyphiconClass]="'glyphicon-comment'"
@@ -690,7 +690,7 @@
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
                 [toggleValue] = "!hidePosts"
-              ></app-buttons-toggle>
+              ></app-buttons-toggle> -->
               <app-buttons-toggle
                 [title]="'Audit'"
                 [placeholder]="'Audit Page'"
@@ -717,14 +717,14 @@
               ></app-buttons-toolbar-button>
             </div>
           </div>
-          <div class="panel-body mt3" [hidden]="hidePosts">
+          <!-- <div class="panel-body mt3" [hidden]="hidePosts">
             <app-entity-messages [isNarrow]="true"></app-entity-messages>
-          </div> 
-          <div class="panel-body mt3" [hidden]="hideTasks">
-            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
+          </div>  -->
+          <div class="panel-body mt3" *ngIf="getIsLoaded(!hideTasks, 'tasks')">
+            <app-entity-tasks [isNarrow]="true" [hidden] = "hideTasks"></app-entity-tasks>
           </div>
-          <div class="panel-body mt3" [hidden]="hideAudits">
-            <app-entity-audits [isNarrow]="true"></app-entity-audits>
+          <div class="panel-body mt3" *ngIf="getIsLoaded(!hideAudits, 'audits')">
+            <app-entity-audits [isNarrow]="true" [hidden] = "hideAudits"></app-entity-audits>
           </div>
           
         </div>

@@ -35,6 +35,7 @@ export class EntityDetailsComponent implements OnInit {
   private entity_BackUp: EveryEntity;
   entities: Entities<EveryEntity>;
   dirty = false;
+  isPageLoaded: string[] = [];
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -48,11 +49,24 @@ export class EntityDetailsComponent implements OnInit {
     if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
     }
-    if (this.data.lg) console.log( 'loaded:entities-details');
+    if (this.data.lg) console.log('loaded:entities-details');
   }
 
-  get entity():EveryEntity {
-    if (this.entityKeyT != this.entityKey) {    
+  getIsLoaded(setTo: boolean, key: string) {
+    let r: boolean;
+    if (setTo){
+      r = setTo;
+      if (this.isPageLoaded.indexOf(key)<0) {
+        this.isPageLoaded.push(key);
+      } 
+    } else{
+      r = this.isPageLoaded.indexOf(key)>-1
+    }
+    return r;
+  }
+
+  get entity(): EveryEntity {
+    if (this.entityKeyT != this.entityKey) {
       this.entity_ = this.entities.get(this.entityKey).clone();
       this.entity_BackUp = this.entity_.clone();
       this.entityKeyT = this.entityKey;
@@ -60,13 +74,13 @@ export class EntityDetailsComponent implements OnInit {
     return this.entity_;
   }
 
-  doSave(){
+  doSave() {
     let t = this.entities.get(this.entityKey);
-    t = Object.assign(t,this.entity_);
+    t = Object.assign(t, this.entity_);
     this.dirty = false;
   }
 
-  doCancel(){
+  doCancel() {
     this.entity_ = this.entities.get(this.entityKey).clone();
     this.entity_BackUp = this.entity_.clone();
     this.dirty = false;

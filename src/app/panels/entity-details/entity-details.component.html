@@ -135,14 +135,13 @@
           )
         "
       >
-        <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" /> -->
-
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 1">
+
+    <div *ngIf="getIsLoaded(entityType == 1, 'individual')">
       <div [hidden]="hidePrimary">
         <app-entity-details-individual
           [isNarrow]="isNarrow"
@@ -175,13 +174,13 @@
           )
         "
       >
-        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 2">
+
+    <div *ngIf="getIsLoaded(entityType == 2, 'user')">
       <div [hidden]="hidePrimary">
         <app-entity-details-user
           [isNarrow]="isNarrow"
@@ -208,7 +207,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 3">
+    <div *ngIf="getIsLoaded(entityType == 3, 'group')">
       <div [hidden]="hidePrimary">
         <app-entity-details-group
           [isNarrow]="isNarrow"
@@ -235,7 +234,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 4">
+    <div *ngIf="getIsLoaded(entityType == 4, 'trust')">
       <div [hidden]="hidePrimary">
         <app-entity-details-trust
           [isNarrow]="isNarrow"
@@ -262,7 +261,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 5">
+    <div *ngIf="getIsLoaded(entityType == 5, 'regulator')">
       <div [hidden]="hidePrimary">
         <app-entity-details-regulator
           [isNarrow]="isNarrow"
@@ -289,7 +288,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 6">
+    <div *ngIf="getIsLoaded(entityType == 6, 'regulation')">
       <div [hidden]="hidePrimary">
         <app-entity-details-regulation
           [isNarrow]="isNarrow"
@@ -316,7 +315,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 7">
+    <div *ngIf="getIsLoaded(entityType == 7, 'auditor')">
       <div [hidden]="hidePrimary">
         <app-entity-details-auditor
           [isNarrow]="isNarrow"
@@ -343,7 +342,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="entityType != 8">
+    <div *ngIf="getIsLoaded(entityType == 1, 'secretariat')">
       <div [hidden]="hidePrimary">
         <app-entity-details-secretary
           [isNarrow]="isNarrow"
@@ -370,39 +369,44 @@
         </div>
       </div>
     </div>
-    
-    <div [hidden]="hideContacts">
-      <app-entity-details-contact
-        [title]="'Company'"
-        [isNarrow]="isNarrow"
-        [filterText]="filterText"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-contact>
-    </div>
-    <div [hidden]="hideCustom">
-      <app-entity-details-custom
-        [title]="'Company'"
-        [isNarrow]="isNarrow"
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-custom>
-    </div>
-    <div [hidden]="hideFiles">
-      <app-entity-details-files
-        [title]="'Company'"
-        [isNarrow]="isNarrow"
-        [filterText]="filterText"
-        [persons]="persons"
-        (onFile)="doFile($event)"
-        (onRecord)="doRecord($event)"
-        (onTask)="doTask($event)"
-      ></app-entity-details-files>
-    </div>
 
+    <div *ngIf="getIsLoaded(!hideContacts, 'contacts')">
+      <div [hidden]="hideContacts">
+        <app-entity-details-contact
+          [title]="'Company'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
+    </div>
+    <div *ngIf="getIsLoaded(!hideContacts, 'custom')">
+      <div [hidden]="hideCustom">
+        <app-entity-details-custom
+          [title]="'Company'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+    </div>
+    <div *ngIf="getIsLoaded(!hideContacts, 'files')">
+      <div [hidden]="hideFiles">
+        <app-entity-details-files
+          [title]="'Company'"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+    </div>
   </div>
 </form>

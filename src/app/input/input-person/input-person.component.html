@@ -30,8 +30,8 @@
   </div>
   <br [hidden]="!isShowingFilter" />
   <div [hidden]="isDoInput">
-    <div class="hidden-xs">
-      <div class="input-group">
+    <div>
+      <div class="input-group"style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
           style="font-size: small;"
@@ -45,12 +45,12 @@
             [value]="e.key"
             [selected]="e.key == value"
             [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.fullName}}</small></option
+            ><small>{{ e.value.fullName}}3</small></option
           >
         </select>
         <span
           [hidden]="!showDelete"
-          class="input-group-addon btn primary-color-reverse"
+          class="input-group-addon btn primary-color-reverse hidden-xs"
           style = "border-right:none"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
@@ -59,7 +59,7 @@
         </span>
         <span
           [hidden]="!showEdit"
-          class="input-group-addon btn primary-color-reverse"
+          class="input-group-addon btn primary-color-reverse hidden-xs"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
         >
@@ -67,7 +67,7 @@
         </span>
         <span
           [hidden]="!showAdd"
-          class="input-group-addon btn primary-color-reverse"
+          class="input-group-addon btn primary-color-reverse hidden-xs"
           (click)="doAdd()"
           [title]="'Add an ' + title"
         >
@@ -77,22 +77,6 @@
     </div>
     <div class="hidden-sm hidden-md hidden-lg">
       <div >
-        <select
-          class="form-control input-sm collapse in"
-          style="font-size: small;"
-          name="option"
-          (change)="doChange($event)"
-          style="padding-left: 6px; padding-right: 6px;"
-          [attr.id]="'#select-Item'"
-        >
-          <option
-            *ngFor="let e of values | keyvalue"
-            [value]="e.key"
-            [selected]="e.key == value"
-            [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.fullName}}</small></option
-          >
-        </select>
         <span
           [hidden]="!showDelete"
           class="input-group-addon btn primary-color-reverse"

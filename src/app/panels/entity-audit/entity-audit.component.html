@@ -11,7 +11,7 @@
   <div class="panel-heading mt3">
     <span class="glyphicon glyphicon-check"></span>
     <a href="#" (click)="isEdit = !isEdit">
-      {{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }}
+      <small>{{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }}</small>
     </a>
     <!-- toggleDone() <a href="#" (click)="doEdit()" [hidden]="isEdit"
       ><span class="glyphicon glyphicon-pencil pull-right"></span
