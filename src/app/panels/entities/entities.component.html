@@ -40,7 +40,7 @@
     <div
       [class.entities-full]="isFullScreen()"
       [class.entities-half]="isHalfScreen()"
-      style="overflow-y: scroll; overflow-x: hidden; scrollbar-width: thin;"
+      style="overflow-y: scroll; overflow-x: auto; scrollbar-width: thin;"
     >
       <ng-container *ngFor="let t of entityTypeNames | keyvalue">
         <table

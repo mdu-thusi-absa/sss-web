@@ -10,7 +10,8 @@ import {
   Entities,
   FunctionalEntity,
   Countries,
-  EveryEntity
+  EveryEntity,
+  Company
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
@@ -21,7 +22,7 @@ import { jsonCompanies, jsonIndividuals } from './data-json/data-json.module';
   providedIn: 'root',
 })
 export class DataService {
-  companies = new Entities<LegalEntity>(LegalEntity);
+  companies = new Entities<Company>(Company);
   persons = new Entities<NaturalEntity>(NaturalEntity);
   functionalEntities: Entities<EveryEntity>;
 
@@ -45,6 +46,7 @@ export class DataService {
   makeCompanyArray(){
     let a = JSON.parse(jsonCompanies);
     this.companies.fromJSONArray(a);
+    this.companies.sort();
   }
 
   makeFunctionalEntities(){
@@ -706,7 +708,8 @@ this.countries.add(new Country("Zimbabwe").addCity(new City("Bulawayo")));
       new User('Small', 'James', '').set('tasksCount', 7).set('isActive', false)
     )
     .add(new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount', 15))
-    .add(new User('Stander', 'Lourika', 'ABSA').set('tasksCount', 7));
+    .add(new User('Stander', 'Lourika', 'ABSA').set('tasksCount', 7)).sort();
+
   getUsers() {
     return this.users;
   }
