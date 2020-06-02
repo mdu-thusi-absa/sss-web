@@ -10,19 +10,16 @@
 
 <app-input-filter-add
   [title]="dataService.getEntityTypes().get(entityType).name"
-
   [showSave]="true"
   [showCancel]="true"
   [showT]="true"
   [showDuplicate]="true"
   [showDownload]="true"
-
-  [disabledSave] = "!dirty"
-  [disabledCancel] = "!dirty"
-
+  [disabledSave]="!dirty"
+  [disabledCancel]="!dirty"
   (onFilter)="doFilter($event)"
-  (onSave) = "doSave()"
-  (onCancel) = "doCancel()"
+  (onSave)="doSave()"
+  (onCancel)="doCancel()"
 ></app-input-filter-add>
 <form autocomplete="off">
   <div *ngIf="entityType != 1 && entityType != 2" style="overflow-y: scroll;">
@@ -35,8 +32,8 @@
       [title]="'Entity Name*'"
       [placeholder]="'Legal name of the entity (required)'"
       [showCheck]="true"
-      [value] = "getEntityName()"
-      (onChange) = "setEntityName($event)"
+      [value]="getEntityName()"
+      (onChange)="setEntityName($event)"
     ></app-input-text>
   </div>
   <div *ngIf="entityType == 1 || entityType == 2">
@@ -44,7 +41,6 @@
       [typeLeft]="'text'"
       [typeRight]="'text'"
       [titleLeft]="'Surname'"
-
       [titleRight]="'First Name'"
       [doHideByFilter]="false"
       [showCheckLeft]="true"
@@ -53,62 +49,47 @@
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
       [overflowY]="'scroll'"
-
-      [valueLeft] = "getSurname()"
-      [valueRight] = "getFirstName()"
-
-      (onChangeLeft) = "setSurname($event)"
-      (onChangeRight) = "setFirstName($event)"
+      [valueLeft]="getSurname()"
+      [valueRight]="getFirstName()"
+      (onChangeLeft)="setSurname($event)"
+      (onChangeRight)="setFirstName($event)"
     >
     </app-input-duo>
   </div>
 
-  <div style="padding-bottom:5px"> </div>
+  <div style="padding-bottom: 5px;"></div>
   <hr>
 
   <div
     [class.entities-detail-form-full]="isFullScreen()"
     [class.entities-detail-form-half]="isHalfScreen()"
   >
-    <div style="padding-bottom: 5px;">
-      <app-input-duo
+
+  
+    <div [hidden]="hideHeader">
+      <app-entity-details-header
         [isNarrow]="isNarrow"
         [filterText]="filterText"
-        [doHideByFilter]="true"
-        [typeLeft]="'select-entity'"
-        [titleLeft]="'Entity Type'"
-        [valuesLeft]="dataService.getEntityTypes()"
-        [valueLeft]="entityType"
-        [showAddLeft]="false"
-        [showEditLeft]="false"
-        [showDeleteLeft]="false"
-        [showCheckLeft]="true"
-        [disabledLeft] = "true"
-
-        [typeRight]="'text'"
-        [titleRight]="'Internal Code'"
-        [showCheckRight]="true"
-        (onChangeLeft)="doChangeEntityType($event)"
+        [entityKey]="entityKey"
+        [entity]="entity"
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
         (onTask)="doTask($event)"
-      >
-      </app-input-duo>
+        (onDirty)="dirty = true"
+      ></app-entity-details-header>
     </div>
-    
-    
 
     <div [hidden]="entityType != 0">
       <div [hidden]="hidePrimary">
         <app-entity-details-company-primary
           [isNarrow]="isNarrow"
           [filterText]="filterText"
-          [entityKey] = "entityKey"
-          [entity] = "entity"
+          [entityKey]="entityKey"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
-          (onDirty) = "dirty = true"
+          (onDirty)="dirty = true"
         ></app-entity-details-company-primary>
       </div>
       <div [hidden]="hideSecondary">
@@ -116,7 +97,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
-          [entity] = "entity"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -127,7 +108,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
-          [entity] = "entity"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -180,16 +161,18 @@
           !(
             hidePrimary &&
             hideSecondary &&
-            hideOptional && hideContacts &&
+            hideOptional &&
+            hideContacts &&
             hideCustom &&
-            hideFiles
+            hideFiles &&
+            hideHeader
           )
         "
       >
         <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" /> -->
-        <hr>
+        
         <div class="h4 text-primary" style="margin-top: 5px;">
-          <u>Please tick above to select the detail pages to display</u>
+          <u>Please tick above to select the detail pages to display---</u>
         </div>
       </div>
     </div>
@@ -198,7 +181,7 @@
         <app-entity-details-individual
           [isNarrow]="isNarrow"
           [filterText]="filterText"
-          [entity] = "entity"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -208,7 +191,7 @@
         <app-entity-details-individual-secondary
           [isNarrow]="isNarrow"
           [filterText]="filterText"
-          [entity] = "entity"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
@@ -243,16 +226,24 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
-          [entity] = "entity"
+          [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
           (onTask)="doTask($event)"
         ></app-entity-details-files>
       </div>
       <div
-        [hidden]="!(hidePrimary && hideSecondary && hideContacts && hideCustom && hideFiles)"
+        [hidden]="
+          !(
+            hidePrimary &&
+            hideSecondary &&
+            hideContacts &&
+            hideCustom &&
+            hideFiles
+          )
+        "
       >
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -301,7 +292,7 @@
         ></app-entity-details-files>
       </div>
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -350,7 +341,7 @@
         ></app-entity-details-files>
       </div>
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -399,7 +390,7 @@
         ></app-entity-details-files>
       </div>
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -449,7 +440,7 @@
       </div>
 
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -499,7 +490,7 @@
       </div>
 
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -549,7 +540,7 @@
       </div>
 
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>
@@ -599,7 +590,7 @@
       </div>
 
       <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
-        <hr>
+        <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
         </div>

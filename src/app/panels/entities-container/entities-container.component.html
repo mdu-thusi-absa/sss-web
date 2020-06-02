@@ -318,6 +318,16 @@
 
                 <!-- <a href="#">Bah</a> -->
                 <app-buttons-toggle
+                  [title]="'Info'"
+                  [placeholder]="'Headline Informaion'"
+                  [glyphiconClass]="'glyphicon-pushpin'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideHeader"
+                  (onToggle)="hideHeader = !hideHeader"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <app-buttons-toggle
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
                   [glyphiconClass]="'glyphicon-flag'"
@@ -458,6 +468,7 @@
                 [hideCustom]="hideCustom"
                 [hideFiles]="hideDetailFiles"
                 [hideUsers]="false"
+                [hideHeader] = "hideHeader"
                 [hideContacts]="hideContacts"
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"

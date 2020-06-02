@@ -12,7 +12,7 @@ export class ButtonsToggleComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() glyphiconClass = 'glyphicon-flag';
   @Input() svgUrlPath = "'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\'"
-  @Input() placeholder = 'Toggle ' + this.title;
+  @Input() placeholder = '';
   @Input() showMe = true;
 
   @Output() onToggle = new EventEmitter();

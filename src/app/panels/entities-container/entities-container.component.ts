@@ -47,6 +47,8 @@ export class EntitiesContainerComponent implements OnInit {
   hideDetailFiles = true;
   hideUsers = true;
   hideContacts = true;
+  hideHeader = true;
+
   entityType = 0;
   entityKey = 0;
 

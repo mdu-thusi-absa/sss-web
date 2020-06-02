@@ -23,6 +23,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideOptional = false;
   @Input() hideCustom = false;
   @Input() hideFiles = false;
+  @Input() hideHeader = false;
   @Input() hideUsers = false;
   @Input() hideContacts = false;
   persons: Entities<NaturalEntity>;

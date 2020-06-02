@@ -45,8 +45,8 @@ export class DataService {
 
   makeCompanyArray(){
     let a = JSON.parse(jsonCompanies);
-    this.companies.fromJSONArray(a);
-    this.companies.sort();
+    this.companies.fromJSONArray(a,1000);
+    //this.companies.sort();
   }
 
   makeFunctionalEntities(){

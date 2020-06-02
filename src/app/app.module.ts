@@ -74,6 +74,7 @@ import { TestMaterialComponent } from './material/test-material/test-material.co
 import { MaterialModule } from './material/material.module';
 import { ButtonsToggleComponent } from './buttons/buttons-toggle/buttons-toggle.component';
 import { ButtonsToolbarButtonComponent } from './buttons/buttons-toolbar-button/buttons-toolbar-button.component';
+import { EntityDetailsHeaderComponent } from './panels/entity-details-header/entity-details-header.component';
 
 
 
@@ -143,6 +144,7 @@ import { ButtonsToolbarButtonComponent } from './buttons/buttons-toolbar-button/
     TestMaterialComponent,
     ButtonsToggleComponent,
     ButtonsToolbarButtonComponent,
+    EntityDetailsHeaderComponent,
     
   ],
   imports: [
