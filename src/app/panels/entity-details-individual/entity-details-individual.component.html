@@ -5,34 +5,6 @@
 
 <app-input-duo
   [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
-  [titleLeft]="'Suffix'"
-  [placeholderLeft]="
-    'Suffix - used to differenciate entities with the same name'
-  "
-  [valueLeft]="entity.suffix"
-  (onChangeLeft)="entity.suffix = $event; onDirty.emit()"
-  [typeRight]="'checkbox'"
-  [titleRight]="'Active'"
-  [valueRight]="entity.isActive"
-  (onChangeRight)="entity.isActive = $event; onDirty.emit()"
-  [doHideByFilter]="true"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
->
-</app-input-duo>
-
-<app-input-textarea
-  [title]="'Description'"
-  [placeholder]="'Notes...'"
-  [showCheck]="false"
-></app-input-textarea>
-
-<app-input-duo
-  [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
   [typeLeft]="'text'"

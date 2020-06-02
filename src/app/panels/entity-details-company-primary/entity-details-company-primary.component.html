@@ -3,30 +3,6 @@
   <u>Primary Details: Company</u>
 </div>
 
-<app-input-duo
-  [filterText]="filterText"
-  [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
-  [titleLeft]="'Suffix'"
-  [placeholderLeft]="
-    'Optional suffix - used to differenciate entities with the same name. E.g. Country of Incorporation (in brackets), used to differenciate entities with the same name, but from different countries'
-  "
-  [valueLeft]="entity.suffix"
-  (onChangeLeft)="entity.suffix = $event; onDirty.emit()"
-
-  [typeRight]="'checkbox'"
-  [titleRight]="'Active'"
-  [valueRight]="entity.isActive"
-  [doHideByFilter]="true"
-
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  (onChangeRight)="entity.isActive = $event; onDirty.emit()"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
->
-</app-input-duo>
 
 <app-input-duo
   [filterText]="filterText"

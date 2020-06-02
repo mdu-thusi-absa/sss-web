@@ -3,31 +3,6 @@
 </div>
 
 <app-input-duo
-  [isNarrow]="isNarrow"
-  [typeLeft]="'text'"
-  [titleLeft]="'Suffix'"
-  [placeholderLeft]="
-    'Suffix - used to differenciate entities with the same name'
-  "
-  [typeRight]="'checkbox'"
-  [titleRight]="'Active'"
-  [valueRight]="true"
-  [doHideByFilter]="false"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
->
-</app-input-duo>
-
-<app-input-textarea
-  [title]="'Description'"
-  [placeholder]="'Purpose, intent, notes...'"
-  [showCheck]="false"
-></app-input-textarea>
-
-<app-input-duo
 [isNarrow]="isNarrow"
 [typeLeft]="'select-entity'"
 [filterText]="filterText"

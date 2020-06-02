@@ -239,7 +239,8 @@
             hideSecondary &&
             hideContacts &&
             hideCustom &&
-            hideFiles
+            hideFiles &&
+            hideHeader
           )
         "
       >
@@ -291,7 +292,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-files>
       </div>
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
@@ -340,7 +342,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-files>
       </div>
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
@@ -389,7 +392,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-files>
       </div>
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
@@ -439,7 +443,8 @@
         ></app-entity-details-files>
       </div>
 
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
@@ -489,7 +494,8 @@
         ></app-entity-details-files>
       </div>
 
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
@@ -539,7 +545,8 @@
         ></app-entity-details-files>
       </div>
 
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>
@@ -589,7 +596,8 @@
         ></app-entity-details-files>
       </div>
 
-      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles)">
+      <div [hidden]="!(hidePrimary && hideContacts && hideCustom && hideFiles &&
+      hideHeader)">
         <hr />
         <div class="h4 text-primary" style="margin-top: 5px;">
           <u>Please tick above to select the detail pages to display</u>

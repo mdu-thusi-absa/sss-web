@@ -3,7 +3,32 @@
   <u>Headline Information</u>
 </div>
 
-<div style="padding-bottom: 5px;">
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [titleLeft]="'Suffix'"
+  [placeholderLeft]="
+    'Suffix - used to differenciate entities with the same name'
+  "
+  [typeRight]="'checkbox'"
+  [titleRight]="'Active'"
+  [valueRight]="true"
+  [doHideByFilter]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+>
+</app-input-duo>
+
+<app-input-textarea
+  [title]="'Description'"
+  [placeholder]="'Position, contact details...'"
+  [showCheck]="false"
+></app-input-textarea>
+
+<div>
     <app-input-duo
       [isNarrow]="isNarrow"
       [filterText]="filterText"
@@ -28,27 +53,6 @@
     >
     </app-input-duo>
   </div>
-
-<app-input-duo
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="'text'"
-  [titleLeft]="'Suffix'"
-  [typeRight] = "'checkbox'"
-  [titleRight] = "'Active'"
-  [valueRight]="true"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
-></app-input-duo>
-
-<app-input-textarea
-  [title]="'Description'"
-  [placeholder]="'Purpose, importance, selection criteria...'"
-  [showCheck]="false"
-></app-input-textarea>
 
 <div style="padding-bottom: 5px;"> </div>
 <hr>

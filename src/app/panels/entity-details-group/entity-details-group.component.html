@@ -3,27 +3,6 @@
   <u>Primary Details: Group</u>
 </div>
 
-<app-input-duo
-  [filterText]="filterText"
-  [doHideByFilter]="true"
-  [typeLeft]="'text'"
-  [titleLeft]="'Suffix'"
-  [typeRight] = "'checkbox'"
-  [titleRight] = "'Active'"
-  [valueRight]="true"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
-></app-input-duo>
-
-<app-input-textarea
-  [title]="'Description'"
-  [placeholder]="'Purpose, importance, selection criteria...'"
-  [showCheck]="false"
-></app-input-textarea>
-
 <div class="container-flex">
   <div class="row">
     <app-input-duo-column
