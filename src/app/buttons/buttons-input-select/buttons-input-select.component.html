@@ -24,8 +24,9 @@
         [title]="'Show more'"
       ></span
     ></a>
+    
     <a
-      *ngIf = "showFilter && (this.countItems>15 || !filterText)"
+      *ngIf = "showFilter && (this.countItems>15 || filterText.length>0)"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"
