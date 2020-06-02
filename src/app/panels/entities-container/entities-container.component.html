@@ -9,7 +9,7 @@
       >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3 primary-color" >
+          <div class="panel-heading mt3 primary-color">
             <small>
               <span class="glyphicon glyphicon-home"></span
               ><span>&nbsp;Entities</span></small
@@ -413,6 +413,22 @@
                     <small>&nbsp;Users</small></span
                   >
                 </label> -->
+                &nbsp;<span
+                  [style.display]="
+                    hideHeader &&
+                    hidePrimary &&
+                    hideSecondary &&
+                    hideOptional &&
+                    hideCustom &&
+                    hideDetailFiles
+                      ? 'inherit'
+                      : 'none'
+                  "
+                  class="hidden-xs"
+                >
+                  <span class="glyphicon glyphicon-arrow-left"></span> Select
+                  pages
+                </span>
               </div>
 
               <!-- </div> -->
@@ -427,8 +443,14 @@
             <div class="btn-group pull-right">
               <app-buttons-toolbar-button
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-                [placeholder]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-                [glyphiconClass]="showPanelRight ? 'glyphicon-menu-right' : 'glyphicon-menu-left'"
+                [placeholder]="
+                  (showPanelRight ? 'Hide' : 'Show') + ' right panel'
+                "
+                [glyphiconClass]="
+                  showPanelRight
+                    ? 'glyphicon-menu-right'
+                    : 'glyphicon-menu-left'
+                "
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
@@ -468,11 +490,11 @@
                 [hideCustom]="hideCustom"
                 [hideFiles]="hideDetailFiles"
                 [hideUsers]="false"
-                [hideHeader] = "hideHeader"
+                [hideHeader]="hideHeader"
                 [hideContacts]="hideContacts"
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"
-                [entityKey] = "entityKey"
+                [entityKey]="entityKey"
               ></app-entity-details>
             </div>
             <div [hidden]="entityType < entityTypes.size - 1">
@@ -653,11 +675,12 @@
                 [class.glyphicon-flash]="!hideTasks"
                 [class.glyphicon-check]="!hideAudits"
               ></span>
-              <span 
+              <span
                 >&nbsp;
                 {{
-                  hidePosts && hideAudits && hideTasks ? 'Choose page to view' :
-                  hidePosts && hideAudits
+                  hidePosts && hideAudits && hideTasks
+                    ? ""
+                    : hidePosts && hideAudits
                     ? "Tasks"
                     : hideAudits
                     ? "Articles"
@@ -665,6 +688,7 @@
                 }}
               </span>
             </small>
+
             <div class="btn-group pull-right">
               <app-buttons-toggle
                 [title]="'Tasks'"
@@ -673,10 +697,12 @@
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
-                (onToggle)="hideTasks = !hideTasks;  hidePosts = true; hideAudits = true;"
+                (onToggle)="
+                  hideTasks = !hideTasks; hidePosts = true; hideAudits = true
+                "
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
-                [toggleValue] = "!hideTasks"
+                [toggleValue]="!hideTasks"
               ></app-buttons-toggle>
 
               <!-- <app-buttons-toggle
@@ -698,16 +724,24 @@
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
-                (onToggle)="hideAudits = !hideAudits; hideTasks = true; hidePosts = true;"
+                (onToggle)="
+                  hideAudits = !hideAudits; hideTasks = true; hidePosts = true
+                "
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
-                [toggleValue] = "!hideAudits"
+                [toggleValue]="!hideAudits"
               ></app-buttons-toggle>
 
               <app-buttons-toolbar-button
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-                [placeholder]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-                [glyphiconClass]="showPanelRight ? 'glyphicon-menu-right' : 'glyphicon-menu-left'"
+                [placeholder]="
+                  (showPanelRight ? 'Hide' : 'Show') + ' right panel'
+                "
+                [glyphiconClass]="
+                  showPanelRight
+                    ? 'glyphicon-menu-right'
+                    : 'glyphicon-menu-left'
+                "
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
@@ -716,17 +750,40 @@
                 [showMe]="true"
               ></app-buttons-toolbar-button>
             </div>
+            <small>
+              <span
+                class="pull-right"
+                [style.display]="
+                  hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
+                "
+                style="vertical-align: bottom;"
+                >Select page&nbsp;<span
+                  class="glyphicon glyphicon-arrow-right"
+                ></span
+                >&nbsp;
+              </span>
+            </small>
           </div>
           <!-- <div class="panel-body mt3" [hidden]="hidePosts">
             <app-entity-messages [isNarrow]="true"></app-entity-messages>
           </div>  -->
-          <div class="panel-body mt3" *ngIf="getIsLoaded(!hideTasks, 'tasks')">
-            <app-entity-tasks [isNarrow]="true" [hidden] = "hideTasks"></app-entity-tasks>
+          <div
+            class="panel-body mt3"
+            *ngIf="getIsLoaded(!hideTasks, 'tasks')"
+            [hidden]="hideTasks"
+          >
+            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
           </div>
-          <div class="panel-body mt3" *ngIf="getIsLoaded(!hideAudits, 'audits')">
-            <app-entity-audits [isNarrow]="true" [hidden] = "hideAudits"></app-entity-audits>
+          <div
+            class="panel-body mt3"
+            *ngIf="getIsLoaded(!hideAudits, 'audits')"
+            [hidden]="hideAudits"
+          >
+            <app-entity-audits [isNarrow]="true"></app-entity-audits>
           </div>
-          
+        </div>
+        <div [hidden] = "!(hideTasks && hideAudits)" class="h4 text-primary" style="margin: 5px;">
+          <u>Please select a page to display</u>
         </div>
       </div>
     </div>

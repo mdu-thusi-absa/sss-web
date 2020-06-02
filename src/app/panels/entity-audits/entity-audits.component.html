@@ -1,10 +1,11 @@
 <app-input-filter-add
-  [filterCount]="getCountFiltered()"
+  [filterCount]="20"
   (onFilter)="doFilter($event)"
   (onT)="isFilterByTextToo = !isFilterByTextToo"
   [title]="'Changes'"
   [titlePlural]="'Changes'"
   [showFilterCount] = "true"
+  [showT] = "true"
 ></app-input-filter-add>
 <div class="entities-tasks">
   <div *ngFor="let task of list; let i = index" [hidden]="shouldHideTask(task)">
