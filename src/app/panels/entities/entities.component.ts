@@ -1,10 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FunctionalEntity,
-  Entities,
-  Entity,
-  EveryEntity,
-} from '../../models';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { FunctionalEntity, Entities, Entity, EveryEntity } from '../../models';
 import { DataService } from 'src/app/data.service';
 import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 import { ExecException } from 'child_process';
@@ -38,11 +33,42 @@ export class EntitiesComponent implements OnInit {
   countTasks = 0;
   countDormant = 0;
   countActive = 0;
-
-  
-
+  isLoadAll = false;
+  loadedMap = new Map();
+  limitVisibleRows = 50;
 
   constructor(public data: DataService) {}
+
+  // @HostListener('scroll', ['$event']) // for scroll events of the current element
+  // // @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScrollTable(event:any) {
+    //this.limitVisibleRows += 50;
+    this.isLoadAll = true;
+  }
+
+  getDoLoad(key: number, typeName: string, isActive: boolean) {
+    let n = 0;
+    let aLoaded: number[] = [];
+    if (!this.isLoadAll) {
+      if (this.loadedMap.has(typeName)) {
+        aLoaded = this.loadedMap.get(typeName);
+      } else {
+        this.loadedMap.set(typeName, aLoaded);
+      }
+      n = aLoaded.length;
+      if (n < this.limitVisibleRows) {
+        if (isActive) aLoaded.push(key);
+        this.loadedMap.set(typeName, aLoaded);
+        // console.log(this.isLoadAll,typeName,n);
+      }
+    }
+    //onscroll
+    //on filter
+    //on type change
+    //on radio
+    let r = aLoaded.indexOf(key) > -1 || this.isLoadAll;
+    return r;
+  }
 
   ngOnInit(): void {
     this.entityTypeNames = this.data.entityTypes;
@@ -53,7 +79,7 @@ export class EntitiesComponent implements OnInit {
     if (this.data.lg) console.log('loaded:entities');
     // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
-   
+
   //  ngAfterViewChecked(): void {
   //    try {
   //        if(this.fragment) {
@@ -61,7 +87,6 @@ export class EntitiesComponent implements OnInit {
   //        }
   //    } catch (e) { }
   //  }
-
 
   loadEntities() {
     //this.data.makeFunctionalEntities();
@@ -79,6 +104,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityTypeChange(event: any) {
+    this.isLoadAll = this.isLoadAll || this.entityType != +event;
     this.entityType = +event;
     this.entityTypeNamePlural = this.entityTypesPlural.get(
       this.entityType
@@ -90,7 +116,7 @@ export class EntitiesComponent implements OnInit {
     this.calcIsHidden();
     this.setCounts();
     //select first visible element
-    
+
     if (this.isHiddenMap) {
       if (this.isHiddenMap.size > 0) {
         if (this.isHiddenMap.entries()) {
@@ -114,7 +140,7 @@ export class EntitiesComponent implements OnInit {
     let inActive = true;
 
     //isType = e.type === this.entityTypeName;
-    if (this.showActiveOnly){
+    if (this.showActiveOnly) {
       inActive = e.isActive;
     }
 
@@ -197,13 +223,13 @@ export class EntitiesComponent implements OnInit {
 
   doFilter(event: any) {
     this.filterText = event;
+    this.isLoadAll = this.isLoadAll || this.filterText.length > 0;
     this.setCounts();
   }
 
   doChangeShowActive(event: any) {
-
     this.showActiveOnly = event;
-    
+
     //this.entities = this.data.getFunctionalEntitiesAll();
     this.loadEntities();
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
@@ -231,9 +257,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   calcIsHidden() {
-    
     if (this.entities) {
-      
       // let a = [...this.entities.entries()];
       // this.isHiddenMap = new Map();
       // for (let i = 0; i < a.length; i++) {
@@ -242,7 +266,7 @@ export class EntitiesComponent implements OnInit {
       // }
       this.isHiddenMap = new Map();
       let typeName = this.entityTypeName.toLowerCase();
-      
+
       this.entities.forEach((value: FunctionalEntity, key: number) => {
         if (value.type == typeName) {
           this.isHiddenMap.set(key, this.shouldBeHidden(value));
@@ -268,7 +292,7 @@ export class EntitiesComponent implements OnInit {
 
   doEntityChoose(entityKey: number) {
     //this.entities.currentKey = entityKey;
-    this.selectedEntityKey = entityKey
+    this.selectedEntityKey = entityKey;
     this.onEntityChange.emit(this.selectedEntityKey);
   }
 }
