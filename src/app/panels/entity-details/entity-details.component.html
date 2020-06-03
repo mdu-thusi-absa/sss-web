@@ -91,7 +91,7 @@
           (onDirty)="dirty = true"
         ></app-entity-details-company-primary>
       </div>
-      <div [hidden]="hideSecondary">
+      <div *ngIf="getIsLoaded(entityType == 1, 'company-secondary')" [hidden]="hideSecondary">
         <app-entity-details-company-secondary
           [isNarrow]="isNarrow"
           [filterText]="filterText"
@@ -102,7 +102,7 @@
           (onTask)="doTask($event)"
         ></app-entity-details-company-secondary>
       </div>
-      <div [hidden]="hideOptional">
+      <div *ngIf="getIsLoaded(entityType == 1, 'company-optional')" [hidden]="hideOptional">
         <app-entity-details-company-optional
           [isNarrow]="isNarrow"
           [filterText]="filterText"
@@ -137,7 +137,7 @@
           (onTask)="doTask($event)"
         ></app-entity-details-individual>
       </div>
-      <div [hidden]="hideSecondary">
+      <div *ngIf="getIsLoaded(entityType == 1, 'individual-secondary')" [hidden]="hideSecondary">
         <app-entity-details-individual-secondary
           [isNarrow]="isNarrow"
           [filterText]="filterText"

@@ -106,7 +106,7 @@
         </div> -->
 
         <!-- Records -->
-        <div
+        <!-- <div
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideHistory"
         >
@@ -116,9 +116,6 @@
               ><span class="hidden-xs hidden-sm">&nbsp;Records</span></small
             >
             <div class="btn-group pull-right">
-              <!-- <a href="#" class="btn btn-info btn-xs">
-                <span class="glyphicon glyphicon-refresh"></span>
-              </a> -->
               <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -145,13 +142,10 @@
           >
             <app-records [panelRows]="panelRows"></app-records>
           </div>
-          <!-- <div class="panel-footer mt3">
-            <small>Last refresh: 14:32</small>
-          </div> -->
-        </div>
+        </div> -->
 
         <!-- Files -->
-        <div
+        <!-- <div
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideFiles"
         >
@@ -160,16 +154,6 @@
               <span class="hidden-xs hidden-sm">&nbsp;Doc Types</span></small
             >
             <div class="btn-group pull-right">
-              <!-- <a href="#" class="btn btn-info btn-xs">
-                <span class="glyphicon glyphicon-refresh"></span>
-              </a> -->
-              <!-- <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideTasks('')"
-              >
-                <span class="glyphicon glyphicon-flash"></span>
-              </a> -->
               <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -202,10 +186,7 @@
               [showFileFields]="showFileFields"
             ></app-files-attributes>
           </div>
-          <!-- <div class="panel-footer mt3">
-            <small> Last refresh: 14:32</small>
-          </div> -->
-        </div>
+        </div> -->
       </div>
       <!--column 2: Details of Entities, Records, Docs-->
       <div
@@ -515,13 +496,10 @@
               ></app-settings>
             </div>
           </div>
-          <!-- <div class="panel-footer mt3">
-            <small>1 detail is not complete</small>
-          </div> -->
         </div>
 
         <!-- col 2: Record Detail -->
-        <div
+        <!-- <div
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideHistory && hideFiles"
         >
@@ -578,7 +556,7 @@
               panelRows == 2 && expandHistoryDetail
             "
           >
-            <!-- <div [hidden]="hideHistory">
+            <div [hidden]="hideHistory">
               <app-record-details [panelRows]="panelRows"></app-record-details>
             </div>
             <div [hidden]="hideFiles">
@@ -586,9 +564,9 @@
                 [panelRows]="panelRows"
                 [showFileFields]="showFileFields"
               ></app-files-details>
-            </div> -->
+            </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- col 2: Files Detail -->
         <!-- <div
@@ -665,6 +643,7 @@
         [class.hidden-xs]="!showPanelRight"
         [hidden]="!showPanelRight"
         [class.col-sm-5]="showPanelRight"
+        *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
       >
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3">
