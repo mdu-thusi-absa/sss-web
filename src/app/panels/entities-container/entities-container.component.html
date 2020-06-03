@@ -497,7 +497,7 @@
                 [entityKey]="entityKey"
               ></app-entity-details>
             </div>
-            <div [hidden]="entityType < entityTypes.size - 1">
+            <div *ngIf="getIsLoaded(entityType == entityTypes.size - 1, 'settings')" [hidden]="entityType < entityTypes.size - 1">
               <app-settings
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"
