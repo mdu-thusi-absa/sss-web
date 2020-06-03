@@ -67,6 +67,7 @@ export class InputSelectEntityComponent implements OnInit {
   getDoLoad(key: number) {
     let n = 0;
     if (this.isLoadAll) return true;
+    else if (key == this.value) return true;
     else {
       n = this.loadedArray.length;
       if (n < this.limitVisibleRows) {
@@ -110,6 +111,7 @@ export class InputSelectEntityComponent implements OnInit {
   ngOnInit(): void {
     this.entity = this.values.createEntity();
     //this.innerWidth = window.innerWidth;
+    if (!this.value) this.value = 0;
   }
 
   // showEdit(){
@@ -145,6 +147,7 @@ export class InputSelectEntityComponent implements OnInit {
   }
 
   doEdit() {
+    this.isLoadAll = true;
     this.isAdd = false;
     //this.text = this.values[+this.option].fullName;
     this.entity = this.values.get(this.value);
@@ -153,6 +156,7 @@ export class InputSelectEntityComponent implements OnInit {
   }
 
   showNew() {
+    this.isLoadAll = true;
     //dubs as save button for edit and new
     if (this.isDoInput) {
       //save is pressed
@@ -165,14 +169,14 @@ export class InputSelectEntityComponent implements OnInit {
 
         let t = this.entity;
         this.onAdd.emit(this.value);
-        this.onChange.emit(t);
+        this.onChange.emit(this.value);
       } else {
         //save for old item
         this.values.edit(this.value, this.entity);
         let id = this.value;
         let t = this.entity;
         this.onEdit.emit({ id, t });
-        this.onChange.emit(t);
+        this.onChange.emit(id);
       }
       //this.setItem(this.person);
     } else {
@@ -253,7 +257,7 @@ export class InputSelectEntityComponent implements OnInit {
 
   doChange(event: any) {
     this.value = +event.target.value;
-    this.values.currentKey = this.value;
+    //this.values.currentKey = this.value;
     this.onSelect.emit(this.value);
     this.onChange.emit(this.value);
   }

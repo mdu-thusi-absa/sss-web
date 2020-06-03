@@ -148,6 +148,7 @@ export class InputPersonComponent implements OnInit {
   }
 
   showNew() {
+    this.isLoadAll = true;
     //dubs as save button for edit and new
     if (this.isDoInput) {
       //save is pressed
