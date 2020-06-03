@@ -81,9 +81,10 @@
         class="list-group"
         style="margin-bottom: 0px; overflow-y: auto; "
         [style.max-height] = "showExpand ? '90px' : '270px'"
-      >
+        (scroll)="onScrollData($event)"
+        >
         <div *ngFor="let e of values | keyvalue" [hidden]="hideItem(e.value.name)">
-          <li
+          <li *ngIf="getDoLoad(e.key)"
             class="list-group-item input-sm"
             style="
               vertical-align: middle;

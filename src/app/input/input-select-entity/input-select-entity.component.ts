@@ -56,6 +56,31 @@ export class InputSelectEntityComponent implements OnInit {
     return this.data.getID(this.title);
   }
 
+  isLoadAll = false;
+  loadedArray: number[] = [];
+  limitVisibleRows = 10;
+  onScrollData(event:any) {
+    //this.limitVisibleRows += 50;
+    this.isLoadAll = true;
+  }
+
+  getDoLoad(key: number) {
+    let n = 0;
+    if (this.isLoadAll) return true;
+    else {
+      n = this.loadedArray.length;
+      if (n < this.limitVisibleRows) {
+        this.loadedArray.push(key);
+      }
+    }
+    //onscroll
+    //on filter
+    //on type change
+    //on radio
+    let r = this.loadedArray.indexOf(key) > -1 || this.isLoadAll;
+    return r;
+  }
+
   // public innerWidth: any;
   // @HostListener('window:resize', ['$event'])
   // onResize(event) {
@@ -169,6 +194,7 @@ export class InputSelectEntityComponent implements OnInit {
 
   doFilter(event: any) {
     this.listFilterText = event.toLowerCase();
+    this.isLoadAll = true;
     this.clickSelect();
   }
 

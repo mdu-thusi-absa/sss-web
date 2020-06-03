@@ -54,6 +54,31 @@ export class InputPersonComponent implements OnInit {
     return this.data.getID(this.title);
   }
 
+  isLoadAll = false;
+  loadedArray: number[] = [];
+  limitVisibleRows = 10;
+  onScrollData(event:any) {
+    //this.limitVisibleRows += 50;
+    this.isLoadAll = true;
+  }
+
+  getDoLoad(key: number) {
+    let n = 0;
+    if (this.isLoadAll) return true;
+    else {
+      n = this.loadedArray.length;
+      if (n < this.limitVisibleRows) {
+        this.loadedArray.push(key);
+      }
+    }
+    //onscroll
+    //on filter
+    //on type change
+    //on radio
+    let r = this.loadedArray.indexOf(key) > -1 || this.isLoadAll;
+    return r;
+  }
+
   ngOnInit(): void {
     if (this.values) {
       if (this.value) {

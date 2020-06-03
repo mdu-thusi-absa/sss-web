@@ -4,7 +4,9 @@
   style="margin-top: 5px; margin-right: 1px;"
 >
   <div>
-    <label class="nobottom text-primary-bold label-buttons-6">{{ title }}</label>
+    <label class="nobottom text-primary-bold label-buttons-6">{{
+      title
+    }}</label>
 
     <app-buttons-input-select
       [title]="title"
@@ -15,7 +17,7 @@
       [showFlash]="showFlash"
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
-      [showCheck] = "showCheck"
+      [showCheck]="showCheck"
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
@@ -31,25 +33,28 @@
   <br [hidden]="!isShowingFilter" />
   <div [hidden]="isDoInput">
     <div>
-      <div class="input-group"style="width: 100%;">
+      <div class="input-group" style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
           style="font-size: small;"
           (change)="doChange($event)"
           style="padding-left: 6px; padding-right: 6px;"
+          (focus)="onScrollData($event)"
         >
-          <option
-            *ngFor="let e of values | keyvalue"
-            [value]="e.key"
-            [selected]="e.key == value"
-            [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.fullName}}</small></option
-          >
+          <ng-container *ngFor="let e of values | keyvalue">
+            <option
+              *ngIf="getDoLoad(e.key)"
+              [value]="e.key"
+              [selected]="e.key == value"
+              [hidden]="hideItem(e.value)"
+              ><small>{{ e.value.fullName }}</small></option
+            >
+          </ng-container>
         </select>
         <span
           [hidden]="!showDelete"
           class="input-group-addon btn primary-color-reverse hidden-xs"
-          style = "border-right:none"
+          style="border-right: none;"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
         >
@@ -74,11 +79,11 @@
       </div>
     </div>
     <div class="hidden-sm hidden-md hidden-lg">
-      <div >
+      <div>
         <span
           [hidden]="!showDelete"
           class="input-group-addon btn primary-color-reverse"
-          style = "border-right:none"
+          style="border-right: none;"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
         >

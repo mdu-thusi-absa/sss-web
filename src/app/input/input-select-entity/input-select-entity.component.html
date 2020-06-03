@@ -41,14 +41,18 @@
           style="font-size: small;"
           (change)="doChange($event)"
           style="padding-left: 6px; padding-right: 6px;"
+          (focus)="onScrollData($event)"
         >
+        <ng-container *ngFor="let e of values | keyvalue">
           <option
-            *ngFor="let e of values | keyvalue"
+            *ngIf="getDoLoad(e.key)"
+            
             [value]="e.key"
             [selected]="e.key == value"
             [hidden]="hideItem(e.value)"
             ><small>{{ e.value.name}}</small></option
           >
+          </ng-container>
         </select>
         <span
           *ngIf="showDelete && !disabled"
