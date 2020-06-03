@@ -84,7 +84,7 @@
         (scroll)="onScrollData($event)"
         >
         <div *ngFor="let e of values | keyvalue" [hidden]="hideItem(e.value.name)">
-          <li *ngIf="getDoLoad(e.key)"
+          <li *ngIf="isLoadAll || getDoLoad(e.key)"
             class="list-group-item input-sm"
             style="
               vertical-align: middle;

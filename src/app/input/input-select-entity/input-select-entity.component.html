@@ -45,7 +45,7 @@
         >
         <ng-container *ngFor="let e of values | keyvalue">
           <option
-            *ngIf="getDoLoad(e.key)"
+            *ngIf="isLoadAll || getDoLoad(e.key)"
             
             [value]="e.key"
             [selected]="e.key == value"
