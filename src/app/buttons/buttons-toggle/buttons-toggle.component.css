@@ -10,3 +10,10 @@ label {
   #menu-toggle:checked + #menu {
     display: inline-block;
   }
+
+  .mat-icon {
+    vertical-align: middle;
+    font-size: 13px;
+    width: 11.9px;
+    height: 15px;
+  }

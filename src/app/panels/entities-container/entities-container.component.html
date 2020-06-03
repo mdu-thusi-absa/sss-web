@@ -11,9 +11,13 @@
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3 primary-color">
             <small>
-              <span class="glyphicon glyphicon-home"></span
-              ><span>&nbsp;Entities</span></small
-            >
+                <mat-icon
+                  aria-hidden="true"
+                  aria-label="Entities"
+                  >verified_user</mat-icon
+                >
+                &nbsp;Entities
+            </small>
             <div class="btn-group pull-right">
               <!-- <a
                 href="#"
@@ -301,7 +305,8 @@
                 <app-buttons-toggle
                   [title]="'Info'"
                   [placeholder]="'Headline Informaion'"
-                  [dataTarget] = "'#page-header'"
+                  [dataTarget]="'#page-header'"
+                  [matIcon] = "'priority_high'"
                   [glyphiconClass]="'glyphicon-pushpin'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideHeader"
@@ -312,7 +317,8 @@
                 <app-buttons-toggle
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
-                  [dataTarget] = "'#page-primary' + entityType"
+                  [dataTarget]="'#page-primary' + entityType"
+                  [matIcon] = "'star'"
                   [glyphiconClass]="'glyphicon-flag'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
@@ -325,7 +331,8 @@
                 <app-buttons-toggle
                   [title]="'Secondary'"
                   [placeholder]="'Secondary page'"
-                  [dataTarget] = "'#page-secondary' + entityType"
+                  [matIcon] = "'star_half'"
+                  [dataTarget]="'#page-secondary' + entityType"
                   [glyphiconClass]="'glyphicon-king'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
@@ -340,7 +347,8 @@
                 <app-buttons-toggle
                   [title]="'Optional'"
                   [placeholder]="'Optional page'"
-                  [dataTarget] = "'#page-optional' + entityType"
+                  [matIcon] = "'more'"
+                  [dataTarget]="'#page-optional' + entityType"
                   [glyphiconClass]="'glyphicon-gift'"
                   [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
                   [toggleValue]="!hideOptional"
@@ -351,7 +359,8 @@
                 <app-buttons-toggle
                   [title]="'Contacts'"
                   [placeholder]="'Contact page'"
-                  [dataTarget] = "'#page-contact'"
+                  [matIcon] = "'contacts'"
+                  [dataTarget]="'#page-contact'"
                   [glyphiconClass]="'glyphicon-envelope'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
                   [toggleValue]="!hideContacts"
@@ -362,7 +371,8 @@
                 <app-buttons-toggle
                   [title]="'Custom'"
                   [placeholder]="'Custom page'"
-                  [dataTarget] = "'#page-custom'"
+                  [matIcon] = "'build'"
+                  [dataTarget]="'#page-custom'"
                   [glyphiconClass]="'glyphicon-wrench'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
                   [toggleValue]="!hideCustom"
@@ -373,7 +383,8 @@
                 <app-buttons-toggle
                   [title]="'Files'"
                   [placeholder]="'Files page'"
-                  [dataTarget] = "'#page-file'"
+                  [dataTarget]="'#page-file'"
+                  [matIcon] = "'attachment'"
                   [glyphiconClass]="'glyphicon-paperclip'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideDetailFiles"
@@ -485,7 +496,12 @@
                 [entityKey]="entityKey"
               ></app-entity-details>
             </div>
-            <div *ngIf="getIsLoaded(entityType == entityTypes.size - 1, 'settings')" [hidden]="entityType < entityTypes.size - 1">
+            <div
+              *ngIf="
+                getIsLoaded(entityType == entityTypes.size - 1, 'settings')
+              "
+              [hidden]="entityType < entityTypes.size - 1"
+            >
               <app-settings
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"
@@ -679,6 +695,7 @@
               <app-buttons-toggle
                 [title]="'Tasks'"
                 [placeholder]="'Tasks Page'"
+                [matIcon] = "'flash_on'"
                 [glyphiconClass]="'glyphicon-flash'"
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
@@ -706,6 +723,7 @@
               <app-buttons-toggle
                 [title]="'Audit'"
                 [placeholder]="'Audit Page'"
+                [matIcon] = "'done_all'"
                 [glyphiconClass]="'glyphicon-check'"
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
@@ -768,7 +786,11 @@
             <app-entity-audits [isNarrow]="true"></app-entity-audits>
           </div>
         </div>
-        <div [hidden] = "!(hideTasks && hideAudits)" class="h4 text-primary" style="margin: 5px;">
+        <div
+          [hidden]="!(hideTasks && hideAudits)"
+          class="h4 text-primary"
+          style="margin: 5px;"
+        >
           <u>Please select a page to display</u>
         </div>
       </div>

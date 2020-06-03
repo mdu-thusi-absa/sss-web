@@ -1,15 +1,24 @@
-<div *ngIf="showMe" style="display: inline-block; vertical-align: top;padding-right:1px;padding-left:1px;">
-    <!-- svgPath: {{svgUrlPath}} -->
+<div
+  *ngIf="showMe"
+  style="
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 1px;
+    padding-left: 1px;
+  "
+>
+  <!-- svgPath: {{svgUrlPath}} -->
   <label
     [attr.for]="'checkbox-toggle-' + data.getID(title)"
     class="btn btn-info btn-xs"
-    style="padding: 1px"
+    style="padding: 1px;"
     [class.active]="toggleValue"
-    [title] = "placeholder"
+    [title]="placeholder"
     [attr.data-toggle]="dataTarget ? 'collapse' : ''"
     [attr.data-target]="dataTarget"
   >
-  &nbsp;<span [class]="'glyphicon ' + glyphiconClass" style="padding-right:2px"></span>
+    <!-- <span [class]="'glyphicon ' + glyphiconClass" style="padding-right:2px"></span> -->
+    <mat-icon aria-hidden="true" aria-label="Entities">{{matIcon}}</mat-icon><small>&nbsp;</small>
     <!-- <svg
       style="
         background-position: center;
@@ -21,12 +30,10 @@
       "
       [style.background-image] = "'url(\'' + svgUrlPath + '\')'"
     ></svg> -->
-  
-    
 
     <!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
 
-    <span class="hidden-xs " [hidden]="isNarrow">
+    <span class="hidden-xs" [hidden]="isNarrow">
       <small>{{ title }}&nbsp;</small></span
     >
   </label>

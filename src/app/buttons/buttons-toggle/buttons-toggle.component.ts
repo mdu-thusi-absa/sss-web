@@ -11,6 +11,7 @@ export class ButtonsToggleComponent implements OnInit {
   @Input() toggleValue = true;
   @Input() isNarrow = false;
   @Input() glyphiconClass = 'glyphicon-flag';
+  @Input() matIcon = 'home';
   @Input() svgUrlPath = "'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\'"
   @Input() placeholder = '';
   @Input() showMe = true;
