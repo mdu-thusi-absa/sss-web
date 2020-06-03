@@ -301,6 +301,7 @@
                 <app-buttons-toggle
                   [title]="'Info'"
                   [placeholder]="'Headline Informaion'"
+                  [dataTarget] = "'#page-header'"
                   [glyphiconClass]="'glyphicon-pushpin'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideHeader"
@@ -311,6 +312,7 @@
                 <app-buttons-toggle
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
+                  [dataTarget] = "'#page-primary' + entityType"
                   [glyphiconClass]="'glyphicon-flag'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
@@ -323,6 +325,7 @@
                 <app-buttons-toggle
                   [title]="'Secondary'"
                   [placeholder]="'Secondary page'"
+                  [dataTarget] = "'#page-secondary' + entityType"
                   [glyphiconClass]="'glyphicon-king'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
@@ -337,6 +340,7 @@
                 <app-buttons-toggle
                   [title]="'Optional'"
                   [placeholder]="'Optional page'"
+                  [dataTarget] = "'#page-optional' + entityType"
                   [glyphiconClass]="'glyphicon-gift'"
                   [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
                   [toggleValue]="!hideOptional"
@@ -347,6 +351,7 @@
                 <app-buttons-toggle
                   [title]="'Contacts'"
                   [placeholder]="'Contact page'"
+                  [dataTarget] = "'#page-contact'"
                   [glyphiconClass]="'glyphicon-envelope'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
                   [toggleValue]="!hideContacts"
@@ -356,7 +361,8 @@
                 ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Custom'"
-                  [placeholder]="'Contact page'"
+                  [placeholder]="'Custom page'"
+                  [dataTarget] = "'#page-custom'"
                   [glyphiconClass]="'glyphicon-wrench'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
                   [toggleValue]="!hideCustom"
@@ -367,6 +373,7 @@
                 <app-buttons-toggle
                   [title]="'Files'"
                   [placeholder]="'Files page'"
+                  [dataTarget] = "'#page-file'"
                   [glyphiconClass]="'glyphicon-paperclip'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideDetailFiles"

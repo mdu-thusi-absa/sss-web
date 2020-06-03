@@ -14,6 +14,7 @@ export class ButtonsToggleComponent implements OnInit {
   @Input() svgUrlPath = "'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\'"
   @Input() placeholder = '';
   @Input() showMe = true;
+  @Input() dataTarget: string;
 
   @Output() onToggle = new EventEmitter();
 

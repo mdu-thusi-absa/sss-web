@@ -43,6 +43,10 @@ export class EntityDetailsComponent implements OnInit {
 
   constructor(public data: DataService) {}
 
+  doTest(){
+    console.log('test');
+  }
+
   ngOnInit(): void {
     this.persons = this.data.getPersons();
     this.entities = this.data.getFunctionalEntitiesAll();

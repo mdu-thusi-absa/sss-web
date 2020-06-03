@@ -6,6 +6,8 @@
     style="padding: 1px"
     [class.active]="toggleValue"
     [title] = "placeholder"
+    [attr.data-toggle]="dataTarget ? 'collapse' : ''"
+    [attr.data-target]="dataTarget"
   >
   &nbsp;<span [class]="'glyphicon ' + glyphiconClass" style="padding-right:2px"></span>
     <!-- <svg

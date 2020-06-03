@@ -35,10 +35,8 @@
         <select
           class="form-control input-sm collapse in"
           style="font-size: small;"
-          [attr.name]="'option' + getID()"
           (change)="doChange($event)"
           style="padding-left: 6px; padding-right: 6px;"
-          [attr.id]="'#select-item' + getID()"
         >
           <option
             *ngFor="let e of values | keyvalue"
