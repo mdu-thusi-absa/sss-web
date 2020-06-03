@@ -14,7 +14,6 @@
   [showCancel]="true"
   [showT]="true"
   [showDuplicate]="true"
-  [showDownload]="true"
   [disabledSave]="!dirty"
   [disabledCancel]="!dirty"
   (onFilter)="doFilter($event)"
@@ -240,7 +239,7 @@
         ></app-entity-details-contact>
       </div>
     </div>
-    <div *ngIf="getIsLoaded(!hideContacts, 'custom')">
+    <div *ngIf="getIsLoaded(!hideCustom, 'custom')">
       <div [hidden]="hideCustom">
         <app-entity-details-custom
           [title]="'Company'"
@@ -253,7 +252,7 @@
         ></app-entity-details-custom>
       </div>
     </div>
-    <div *ngIf="getIsLoaded(!hideContacts, 'files')">
+    <div *ngIf="getIsLoaded(!hideFiles, 'files')">
       <div [hidden]="hideFiles">
         <app-entity-details-files
           [title]="'Company'"
