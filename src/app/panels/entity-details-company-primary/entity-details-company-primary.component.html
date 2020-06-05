@@ -95,9 +95,11 @@
   [titleLeft]="'Representative Office'"
   [valueLeft]="entity.representativeOffice"
   (onChangeLeft)="entity.representativeOffice = $event; onDirty.emit()"
+
   [titleRight]="'Foreign Branch'"
   [valueRight]="entity.foreignBrunch"
-  (onChangeLeft)="entity.foreignBrunch = $event; onDirty.emit()"
+  (onChangeRight)="entity.foreignBrunch = $event; onDirty.emit()"
+  
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
