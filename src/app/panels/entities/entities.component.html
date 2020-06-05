@@ -10,7 +10,7 @@
     [listValues]="entityTypesPlural"
     [listValue]="entityType"
     (onListChange)="doEntityTypeChange($event)"
-    [showFlash]="true"
+    [showFlash]="entityType != 0 && entityType < entityTypeNames.size - 1"
     [showPlay]="!this.showActiveOnly"
     [showPause]="!this.showActiveOnly"
     [showAll]="true"

@@ -101,6 +101,10 @@ export class EntitiesContainerComponent implements OnInit {
     return r;
   }
 
+  get entityTypeName(): string{
+    return this.entityTypes.get(this.entityType).name.toLowerCase();
+  }
+
   doEntityTypeChange(event: any){
     this.entityType = +event;
   }

@@ -562,7 +562,8 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     return new this.EntityType();
   }
 
-  fromJSONArray(array: any[],maxToLoad?: number) {
+  fromJSON(json: string,maxToLoad?: number) {
+    let array = JSON.parse(json)
     let L = array.length;
     if (maxToLoad) {
       L = (maxToLoad>L ? L : maxToLoad);

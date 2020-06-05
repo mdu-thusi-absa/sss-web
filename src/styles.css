@@ -285,7 +285,17 @@ body {
   color: white;
   border-color: var(--color-dark);
   box-shadow: none;
+  background-image: linear-gradient(var(--color-bright),var(--color-normal));
 }
+.primary-color:hover {
+  /* background-color: rgb(51, 122, 183); */
+  background-color: var(--color-bright); /*absa*/
+  color: white;
+  border-color: var(--color-dark);
+  box-shadow: none;
+  background-image: linear-gradient(var(--color-normal),var(--color-bright));
+}
+
 /* lable{
   border-color:  rgb(150,5,4);
 } */
@@ -357,6 +367,7 @@ table > tbody > tr.info > td,
   background-color: rgb(220, 0, 50);
   color: white;
   font-weight: normal;
+  background-image: linear-gradient(var(--color-dark), var(--color-bright));
 }
 td.info > a {
   color: white;
@@ -399,6 +410,7 @@ td.info > a {
   /* background-color: rgb(150, 5, 4); */
   /* border-color: white;  */
   box-shadow: none !important;
+  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 .btn-primary {
   background-color: rgb(220, 0, 50); /*absa*/
@@ -409,6 +421,7 @@ td.info > a {
   background-color: rgb(150, 5, 4);
   /* border-color: rgb(150, 5, 4); */
   box-shadow: none !important;
+  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 .btn-primary:active,
 .btn-primary.active:focus .btn-primary.active.focus,
@@ -416,6 +429,7 @@ td.info > a {
   background-color: rgb(150, 5, 4);
   border-color: rgb(150, 5, 4);
   box-shadow: none !important;
+  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 /* label.btn.btn-primary.active.focus,
 label.btn.btn-primary.active:focus,
@@ -520,81 +534,23 @@ label.btn.btn-primary:focus{
 .panel-info > label {
   color: white;
 }
-/* .btn-info.active.focus,
-.btn-info.active:focus,
-.btn-info.active:hover,
-.btn-info:active.focus,
-.btn-info:active:focus,
-.btn-info:active:hover,
-.open > .dropdown-toggle.btn-info.focus,
-.open > .dropdown-toggle.btn-info:focus,
-.open > .dropdown-toggle.btn-info:hover {
-  color: #fff;
-  background-color: rgb(240, 90, 120);
-  border-color: white; /*rgb(150, 5, 4); 
-} */
-
-/* .btn-info.active,
-.btn-info.focus,
-.open>.dropdown-toggle.btn-info
-.open>.data-toggle.btn-info
-{
-  color: #fff;
-  background-color: rgb(135,10,60); 
-  border-color: white; /*rgb(150, 5, 4); 
-} */
-
-/*btn-info*/
-/* .btn-info,
-.btn-info:hover {
-  color: #fff;
-  background-color: rgb(240, 90, 120);
-  border-color: white;
-} */
-/* .btn-info:hover {
-  color: #fff;
-  background-color: rgb(255,120,15);
-  border-color: white;
-} */
-
-/* .btn-info.active,
-.btn-info:active
-.btn-info:active:hover
-.btn-info.active:hover,
-.btn-info:active:hover,
-.btn-info.focus:hover,
-.btn-info:focus:hover {
-  color: #fff;
-  background-color: red;
-  border-color: white;
-} */
-
-/* .open > .dropdown-toggle.btn-info:hover {
-  color: #fff;
-  background-color: red;
-  border-color: white;
-} */
-
-/* .btn-info:active,
-.btn-info.active:focus,
-.btn-info:focus {
-  color: #fff;
-  background-color: rgb(150, 5, 4); 
-  border-color: white; 
-} */
 
 :root {
-  --bg-color-normal: rgb(240, 90, 120);
   --bg-color-smile: rgb(240, 50, 90);
   --bg-color-active: rgb(150, 5, 4);
 
   /* --color-maroon: rgb(150, 5, 4);
   --color-orange: rgb(250,85,30); */
 
+  --color-night: rgb(100,0,50);
   --color-dark: rgb(150, 5, 4);
-  --color-light: rgb(240, 90, 120);
-  --color-bright: rgb(220, 0, 50);
   --color-favicon: #b8202c;
+  --color-bright: rgb(220, 0, 50);
+  --color-normal: rgb(245, 45, 40);
+  --color-light: rgb(240, 90, 120);
+  
+  
+  
   /* rgb(240,50,90); */
   /* --color-text: rgb(250,85,30); */
   /* --color-text: rgb(240,90,120); */
@@ -604,20 +560,22 @@ label.btn.btn-primary:focus{
 
 .btn-info {
   color: #fff;
-  background-color: var(--bg-color-normal); /*care*/
+  background-color: var(--bg-color-light); /*care*/
   border-color: white; /*smile*/
   box-shadow: none;
+  background-image: linear-gradient(var(--color-normal), var(--color-light));
 }
 .btn-info:focus,
 .btn-info.focus {
   color: #fff;
-  background-color: var(--bg-color-normal);
+  background-color: var(--bg-color-light);
   border-color: white;
 }
 .btn-info:hover {
   color: #fff;
-  background-color: var(--bg-color-normal);
+  background-color: var(--bg-color-light);
   border-color: white;
+  background-image: linear-gradient(var(--color-light), var(--color-normal));
 }
 .btn-info:active,
 .btn-info.active,
@@ -626,6 +584,7 @@ label.btn.btn-primary:focus{
   background-color: var(--bg-color-dark);
   background-image: none;
   border-color: white;
+  background-image: linear-gradient(var(--color-dark), var(--color-favicon));
 }
 .btn-info:active:hover,
 .btn-info.active:hover,
@@ -639,6 +598,8 @@ label.btn.btn-primary:focus{
   color: #fff;
   background-color: var(--color-dark);
   border-color: white;
+  /* background-image: linear-gradient(var(--color-night), var(--color-dark)); */
+  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 .btn-info.disabled:hover,
 .btn-info[disabled]:hover,
@@ -654,7 +615,7 @@ fieldset[disabled] .btn-info.focus {
 }
 .btn-info .badge {
   color: white;
-  background-color: var(--bg-color-normal);
+  background-color: var(--bg-color-light);
 }
 
 .a {
@@ -688,6 +649,7 @@ fieldset[disabled] .btn-info.focus {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
+  background-image: linear-gradient(var(--color-dark), var(--color-favicon));
 }
 .primary-color-active:hover,
 .primary-color-active:active:hover,
@@ -703,13 +665,14 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.focus:focus:hover {
   background-color: var(--color-dark);
   /* border-color: rgb(150, 5, 4); */
-  color: var(--color-light);
+  color: white;
   box-shadow: none;
   outline: none;
   /* border: none !important; */
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
+  background-image: linear-gradient(var(--color-favicon),var(--color-dark));
 }
 
 .primary-color:focus,
@@ -990,6 +953,7 @@ background-color: rgba(0, 0, 0, 0);
   background-color: rgb(170, 5, 45);
   color: white;
   border-color: rgb(150, 5, 4);
+  background-image: linear-gradient(var(--color-dark), var(--color-bright));
 }
 .panel-info > .panel-heading {
   /* background-color: rgb(240, 90, 120); */

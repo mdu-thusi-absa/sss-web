@@ -11,6 +11,70 @@ import { CommonModule } from '@angular/common';
 })
 export class DataJsonModule { }
 
+export const jsonDashboards = `[
+  {"name":"Tasks","tasksCount":28,"isActive":true},
+  {"name":"Companies","tasksCount":13,"isActive":true},
+  {"name":"Individuals","tasksCount":12,"isActive":true},
+  {"name":"Users","tasksCount":17,"isActive":true},
+  {"name":"Groups","tasksCount": 25,"isActive":true},
+  {"name":"Trusts", "tasksCount": 0,"isActive":true},
+  {"name":"Regulators","tasksCount": 0,"isActive":true},
+  {"name":"Regulations","tasksCount": 0,"isActive":true},
+  {"name":"Auditors","tasksCount": 3,"isActive":true},
+  {"name":"Secretariats","tasksCount": 0,"isActive":true}
+]`;
+
+export const jsonMonths = `[
+  {"name":"01"},
+  {"name":"02"},
+  {"name":"03"},
+  {"name":"04"},
+  {"name":"05"},
+  {"name":"06"},
+  {"name":"07"},
+  {"name":"08"},
+  {"name":"09"},
+  {"name":"10"},
+  {"name":"11"},
+  {"name":"12"}
+]`
+
+export const jsonEntityTypes = `[
+  {"name":"Dashboard"},
+  {"name":"Company"},
+  {"name":"Individual"},
+  {"name":"User"},
+  {"name":"Group"},
+  {"name":"Trust"},
+  {"name":"Regulator"},
+  {"name":"Regulation"},
+  {"name":"Auditor"},
+  {"name":"Secretariat"},
+  {"name":"Setting"}
+]`;
+
+export const jsonEntityTypesPlural = `[
+  {"name":"Dashboards"},
+  {"name":"Companies"},
+  {"name":"Individuals"},
+  {"name":"Users"},
+  {"name":"Groups"},
+  {"name":"Trusts"},
+  {"name":"Regulators"},
+  {"name":"Regulations"},
+  {"name":"Auditors"},
+  {"name":"Secretariats"},
+  {"name":"Settings"}
+]`;
+
+export const jsonPeriods = `[
+  {"name":"Daily"},
+  {"name":"Weekly"},
+  {"name":"Monthly"},
+  {"name":"Quarterly"},
+  {"name":"Annualy"}
+]`
+
 export const jsonCompanies = `[
   {"name":"Aaron's, Inc.","suffix":"AAN","tasksCount":0,"isActive":false,"type":"company"},
 {"name":"Applied Optoelectronics, Inc.","suffix":"AAOI","tasksCount":1,"isActive":false,"type":"company"},

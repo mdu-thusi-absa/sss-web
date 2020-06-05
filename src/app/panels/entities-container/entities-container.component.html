@@ -11,12 +11,10 @@
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3 primary-color">
             <small>
-                <mat-icon
-                  aria-hidden="true"
-                  aria-label="Entities"
-                  >verified_user</mat-icon
-                >
-                &nbsp;Entities
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >verified_user</mat-icon
+              >
+              &nbsp;Entities
             </small>
             <div class="btn-group pull-right">
               <!-- <a
@@ -208,7 +206,9 @@
           "
         >
           <div class="panel-heading mt3">
-            <small [hidden]="entityType == entityTypes.size - 1">
+            <small
+              [hidden]="entityType == entityTypes.size - 1 || entityType == 0"
+            >
               <span class="glyphicon glyphicon-th-list"></span>
 
               <!-- <svg
@@ -306,7 +306,7 @@
                   [title]="'Info'"
                   [placeholder]="'Headline Informaion'"
                   [dataTarget]="'#page-header'"
-                  [matIcon] = "'priority_high'"
+                  [matIcon]="'priority_high'"
                   [glyphiconClass]="'glyphicon-pushpin'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideHeader"
@@ -317,8 +317,8 @@
                 <app-buttons-toggle
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
-                  [dataTarget]="'#page-primary' + entityType"
-                  [matIcon] = "'star'"
+                  [dataTarget]="'#page-primary-' + entityTypeName"
+                  [matIcon]="'star'"
                   [glyphiconClass]="'glyphicon-flag'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
@@ -331,8 +331,8 @@
                 <app-buttons-toggle
                   [title]="'Secondary'"
                   [placeholder]="'Secondary page'"
-                  [matIcon] = "'star_half'"
-                  [dataTarget]="'#page-secondary' + entityType"
+                  [matIcon]="'star_half'"
+                  [dataTarget]="'#page-secondary-' + entityTypeName"
                   [glyphiconClass]="'glyphicon-king'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
@@ -340,26 +340,26 @@
                   [toggleValue]="!hideSecondary"
                   (onToggle)="hideSecondary = !hideSecondary"
                   [isNarrow]="showPanelRight"
-                  [showMe]="entityType == 0 || entityType == 1"
+                  [showMe]="entityType == 1 || entityType == 2"
                 >
                 </app-buttons-toggle>
 
                 <app-buttons-toggle
                   [title]="'Optional'"
                   [placeholder]="'Optional page'"
-                  [matIcon] = "'more'"
-                  [dataTarget]="'#page-optional' + entityType"
+                  [matIcon]="'more'"
+                  [dataTarget]="'#page-optional-' + entityTypeName"
                   [glyphiconClass]="'glyphicon-gift'"
                   [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
                   [toggleValue]="!hideOptional"
                   (onToggle)="hideOptional = !hideOptional"
                   [isNarrow]="showPanelRight"
-                  [showMe]="entityType == 0"
+                  [showMe]="entityType == 1"
                 ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Contacts'"
                   [placeholder]="'Contact page'"
-                  [matIcon] = "'contacts'"
+                  [matIcon]="'contacts'"
                   [dataTarget]="'#page-contact'"
                   [glyphiconClass]="'glyphicon-envelope'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
@@ -371,7 +371,7 @@
                 <app-buttons-toggle
                   [title]="'Custom'"
                   [placeholder]="'Custom page'"
-                  [matIcon] = "'build'"
+                  [matIcon]="'build'"
                   [dataTarget]="'#page-custom'"
                   [glyphiconClass]="'glyphicon-wrench'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
@@ -384,7 +384,7 @@
                   [title]="'Files'"
                   [placeholder]="'Files page'"
                   [dataTarget]="'#page-file'"
-                  [matIcon] = "'attachment'"
+                  [matIcon]="'attachment'"
                   [glyphiconClass]="'glyphicon-paperclip'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideDetailFiles"
@@ -392,26 +392,6 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
-
-                <!-- &nbsp;<label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                  "
-                  ><input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hideUsers"
-                    (change)="hideUsers = !hideUsers"
-                  />
-                  <span class="hidden-md hidden-lg"> U</span>
-                  <span class="hidden-xs hidden-sm">
-                    <small>&nbsp;Users</small></span
-                  >
-                </label> -->
                 &nbsp;<span
                   [style.display]="
                     hideHeader &&
@@ -439,8 +419,15 @@
               <span>&nbsp;Settings</span>
             </small>
 
+            <small [hidden]="entityType != 0"
+              ><span class="glyphicon glyphicon-globe"></span>
+
+              <span>&nbsp;Dashboard</span>
+            </small>
+
             <div class="btn-group pull-right">
               <app-buttons-toolbar-button
+                [hidden]="entityType == entityTypes.size - 1"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
@@ -477,7 +464,15 @@
             [class.container-panel-center-full]="panelRows == 1"
             [class.container-panel-center-half]="panelRows == 2"
           >
-            <div [hidden]="entityType == entityTypes.size - 1">
+            <div
+              *ngIf="
+                getIsLoaded(
+                  entityType != 0 && entityType != entityTypes.size - 1,
+                  'entities'
+                )
+              "
+              [hidden]="entityType == 0 || entityType == entityTypes.size - 1"
+            >
               <app-entity-details
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"
@@ -518,11 +513,30 @@
                 [entityType]="entityType"
               ></app-settings>
             </div>
+            <div
+              *ngIf="getIsLoaded(entityType == 0, 'dashboard')"
+              [hidden]="entityType == entityTypes.size - 1 && entityType != 0"
+            >
+              <app-entity-details-dashboard
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityType"
+              ></app-entity-details-dashboard>
+            </div>
           </div>
-        </div>
 
-        <!-- col 2: Record Detail -->
-        <!-- <div
+          <!-- col 2: Record Detail -->
+          <!-- <div
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideHistory && hideFiles"
         >
@@ -591,8 +605,8 @@
           </div>
         </div> -->
 
-        <!-- col 2: Files Detail -->
-        <!-- <div
+          <!-- col 2: Files Detail -->
+          <!-- <div
           class="panel panel-primary no-gutter nobottom"
           [hidden]="hideFiles"
         >
@@ -659,141 +673,146 @@
             ></app-files-details>
           </div>
         </div> -->
+        </div>
+      
+        
       </div>
       <!-- column 3: Articles -->
       <div
-        class="col-xs-8"
-        [class.hidden-xs]="!showPanelRight"
-        [hidden]="!showPanelRight"
-        [class.col-sm-5]="showPanelRight"
-        *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
-      >
-        <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3">
-            <small
-              ><span
-                class="glyphicon"
-                [class.glyphicon-comment]="!hidePosts"
-                [class.glyphicon-flash]="!hideTasks"
-                [class.glyphicon-check]="!hideAudits"
-              ></span>
-              <span
-                >&nbsp;
-                {{
-                  hidePosts && hideAudits && hideTasks
-                    ? ""
-                    : hidePosts && hideAudits
-                    ? "Tasks"
-                    : hideAudits
-                    ? "Articles"
-                    : "Audit"
-                }}
-              </span>
-            </small>
+      class="col-xs-8"
+      [class.hidden-xs]="!showPanelRight"
+      
+      [class.col-sm-5]="showPanelRight"
+      [style.visibility] = "showPanelRight ? 'visible': 'hidden'"
+      style="transition: visibility 5s"
+      *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
+    >
+      <div class="panel panel-primary no-gutter nobottom">
+        <div class="panel-heading mt3">
+          <small
+            ><span
+              class="glyphicon"
+              [class.glyphicon-comment]="!hidePosts"
+              [class.glyphicon-flash]="!hideTasks"
+              [class.glyphicon-check]="!hideAudits"
+            ></span>
+            <span
+              >&nbsp;
+              {{
+                hidePosts && hideAudits && hideTasks
+                  ? ""
+                  : hidePosts && hideAudits
+                  ? "Tasks"
+                  : hideAudits
+                  ? "Articles"
+                  : "Audit"
+              }}
+            </span>
+          </small>
 
-            <div class="btn-group pull-right">
-              <app-buttons-toggle
-                [title]="'Tasks'"
-                [placeholder]="'Tasks Page'"
-                [matIcon] = "'flash_on'"
-                [glyphiconClass]="'glyphicon-flash'"
-                [svgUrlPath]="
-                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-                "
-                (onToggle)="
-                  hideTasks = !hideTasks; hidePosts = true; hideAudits = true
-                "
-                [isNarrow]="showPanelRight"
-                [showMe]="true"
-                [toggleValue]="!hideTasks"
-              ></app-buttons-toggle>
+          <div class="btn-group pull-right">
+            <app-buttons-toggle
+              [title]="'Tasks'"
+              [placeholder]="'Tasks Page'"
+              [matIcon]="'flash_on'"
+              [glyphiconClass]="'glyphicon-flash'"
+              [svgUrlPath]="
+                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+              "
+              (onToggle)="
+                hideTasks = !hideTasks; hidePosts = true; hideAudits = true
+              "
+              [isNarrow]="showPanelRight"
+              [showMe]="true"
+              [toggleValue]="!hideTasks"
+            ></app-buttons-toggle>
 
-              <!-- <app-buttons-toggle
-                [title]="'Articles'"
-                [placeholder]="'Articles Page'"
-                [glyphiconClass]="'glyphicon-comment'"
-                [svgUrlPath]="
-                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-                "
-                (onToggle)="hidePosts = !hidePosts; hideTasks = true; hideAudits = true; "
-                [isNarrow]="showPanelRight"
-                [showMe]="true"
-                [toggleValue] = "!hidePosts"
-              ></app-buttons-toggle> -->
-              <app-buttons-toggle
-                [title]="'Audit'"
-                [placeholder]="'Audit Page'"
-                [matIcon] = "'done_all'"
-                [glyphiconClass]="'glyphicon-check'"
-                [svgUrlPath]="
-                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-                "
-                (onToggle)="
-                  hideAudits = !hideAudits; hideTasks = true; hidePosts = true
-                "
-                [isNarrow]="showPanelRight"
-                [showMe]="true"
-                [toggleValue]="!hideAudits"
-              ></app-buttons-toggle>
+            <!-- <app-buttons-toggle
+            [title]="'Articles'"
+            [placeholder]="'Articles Page'"
+            [glyphiconClass]="'glyphicon-comment'"
+            [svgUrlPath]="
+              '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+            "
+            (onToggle)="hidePosts = !hidePosts; hideTasks = true; hideAudits = true; "
+            [isNarrow]="showPanelRight"
+            [showMe]="true"
+            [toggleValue] = "!hidePosts"
+          ></app-buttons-toggle> -->
+            <app-buttons-toggle
+              [title]="'Audit'"
+              [placeholder]="'Audit Page'"
+              [matIcon]="'done_all'"
+              [glyphiconClass]="'glyphicon-check'"
+              [svgUrlPath]="
+                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+              "
+              (onToggle)="
+                hideAudits = !hideAudits; hideTasks = true; hidePosts = true
+              "
+              [isNarrow]="showPanelRight"
+              [showMe]="true"
+              [toggleValue]="!hideAudits"
+            ></app-buttons-toggle>
 
-              <app-buttons-toolbar-button
-                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-                [placeholder]="
-                  (showPanelRight ? 'Hide' : 'Show') + ' right panel'
-                "
-                [glyphiconClass]="
-                  showPanelRight
-                    ? 'glyphicon-menu-right'
-                    : 'glyphicon-menu-left'
-                "
-                [svgUrlPath]="
-                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-                "
-                (onClick)="showPanelRight = !showPanelRight"
-                [isNarrow]="showPanelRight"
-                [showMe]="true"
-              ></app-buttons-toolbar-button>
-            </div>
-            <small>
-              <span
-                class="pull-right"
-                [style.display]="
-                  hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
-                "
-                style="vertical-align: bottom;"
-                >Select page&nbsp;<span
-                  class="glyphicon glyphicon-arrow-right"
-                ></span
-                >&nbsp;
-              </span>
-            </small>
+            <app-buttons-toolbar-button
+              [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+              [placeholder]="
+                (showPanelRight ? 'Hide' : 'Show') + ' right panel'
+              "
+              [glyphiconClass]="
+                showPanelRight
+                  ? 'glyphicon-menu-right'
+                  : 'glyphicon-menu-left'
+              "
+              [svgUrlPath]="
+                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+              "
+              (onClick)="showPanelRight = !showPanelRight"
+              [isNarrow]="showPanelRight"
+              [showMe]="true"
+            ></app-buttons-toolbar-button>
           </div>
-          <!-- <div class="panel-body mt3" [hidden]="hidePosts">
-            <app-entity-messages [isNarrow]="true"></app-entity-messages>
-          </div>  -->
-          <div
-            class="panel-body mt3"
-            *ngIf="getIsLoaded(!hideTasks, 'tasks')"
-            [hidden]="hideTasks"
-          >
-            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
-          </div>
-          <div
-            class="panel-body mt3"
-            *ngIf="getIsLoaded(!hideAudits, 'audits')"
-            [hidden]="hideAudits"
-          >
-            <app-entity-audits [isNarrow]="true"></app-entity-audits>
-          </div>
+          <small>
+            <span
+              class="pull-right"
+              [style.display]="
+                hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
+              "
+              style="vertical-align: bottom;"
+              >Select page&nbsp;<span
+                class="glyphicon glyphicon-arrow-right"
+              ></span
+              >&nbsp;
+            </span>
+          </small>
+        </div>
+        <!-- <div class="panel-body mt3" [hidden]="hidePosts">
+        <app-entity-messages [isNarrow]="true"></app-entity-messages>
+      </div>  -->
+        <div
+          class="panel-body mt3"
+          *ngIf="getIsLoaded(!hideTasks, 'tasks')"
+          [hidden]="hideTasks"
+        >
+          <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
         </div>
         <div
-          [hidden]="!(hideTasks && hideAudits)"
-          class="h4 text-primary"
-          style="margin: 5px;"
+          class="panel-body mt3"
+          *ngIf="getIsLoaded(!hideAudits, 'audits')"
+          [hidden]="hideAudits"
         >
-          <u>Please select a page to display</u>
+          <app-entity-audits [isNarrow]="true"></app-entity-audits>
         </div>
       </div>
+      <div
+        [hidden]="!(hideTasks && hideAudits)"
+        class="h4 text-primary"
+        style="margin: 5px;"
+      >
+        <u>Please select a page to display</u>
+      </div>
+    </div>
     </div>
   </div>
 </div>

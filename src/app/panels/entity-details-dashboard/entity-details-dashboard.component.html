@@ -1,0 +1,155 @@
+<app-input-filter-add
+  [title]="'Dashboard'"
+  [showT]="true"
+  (onFilter)="doFilter($event)"
+></app-input-filter-add>
+
+<form autocomplete="off">
+  <div
+    [class.settings-detail-form-full]="isFullScreen()"
+    [class.settings-detail-form-half]="isHalfScreen()"
+  >
+  <div class="h4 text-primary-h4" style="margin-top: 5px;">
+    <u>Dashboard: tasks in progress</u>
+  </div>
+  <hr>
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Dashboard: incomplete entities</u>
+    </div>
+    <hr>
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+        <u>Dashboard: incomplete companies</u>
+      </div>
+      <hr>
+      <div class="h4 text-primary-h4" style="margin-top: 5px;">
+        <u>Dashboard: incomplete individuals</u>
+      </div>
+      <hr>
+      <div class="h4 text-primary-h4" style="margin-top: 5px;">
+        <u>Dashboard: incomplete users</u>
+      </div>
+      <hr>
+      <div class="h4 text-primary-h4" style="margin-top: 5px;">
+        <u>Dashboard: incomplete groups</u>
+      </div>
+      <hr>
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+        <u>Dashboard: upcoming tasks</u>
+      </div>
+      <hr>
+<!-- 
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Countries'"
+      [valuesLeft]="data.countries"
+      [valueLeft]="data.getDefault('countryKey')"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Industries'"
+      [valuesRight]="data.industries"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
+
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Business Areas'"
+      [valuesLeft]="data.businessAreas"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Business Divisions'"
+      [valuesRight]="data.businessDivisions"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
+
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Legal Classes'"
+      [valuesLeft]="data.legalClasses"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Contact Preferences'"
+      [valuesRight]="data.contactPreferences"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
+
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Entity Statuses'"
+      [valuesLeft]="data.entityStatuses"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Entity Status Tiers'"
+      [valuesRight]="data.entityStatusTiers"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
+
+    <app-input-duo
+      [isNarrow]="isNarrow"
+      [typeLeft]="'select-entity'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [titleLeft]="'Accounting Classes'"
+      [valuesLeft]="data.accountingClasses"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Accounting Class Tiers'"
+      [valuesRight]="data.accountingTiers"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="true"
+      [showCheckRight]="true"
+    ></app-input-duo>
+<div style="padding-bottom: 5px;"> </div>
+    <hr>
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Settings: Contact Details</u>
+    </div>
+
+    <app-input-person-contact
+      [title]="'Super User Contact Details'"
+    ></app-input-person-contact>
+
+    <app-input-person-contact
+      [title]="'Support Contact Details'"
+    ></app-input-person-contact>
+
+    <app-input-address
+      [title]="'Entity Default Address'"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+    ></app-input-address> -->
+  </div>
+</form>

@@ -28,7 +28,10 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideContacts = false;
   persons: Entities<NaturalEntity>;
   @Input() panelRows = 1;
-  @Input() entityType = 0;
+  entityType_ = 0;
+  entityType_T = 0;
+  entityTypeName_ = '';
+  @Input() entityTypes =this.data.entityTypes
   @Input() entityKey = -1;
   entityKeyT = -1;
   private entity_: EveryEntity;
@@ -47,16 +50,36 @@ export class EntityDetailsComponent implements OnInit {
     console.log('test');
   }
 
+  @Input() set entityType(v: number){
+    this.entityType_ = v;
+  }
+
+  get entityTypeName(): string{
+    if (this.entityType_ != this.entityType_T){
+      this.entityTypeName_ = this.entityTypes.get(this.entityType_).name.toLowerCase();
+      this.entityType_T = this.entityType_;
+    }
+    return this.entityTypeName_;
+  }
+
+
+
   ngOnInit(): void {
     this.persons = this.data.getPersons();
     this.entities = this.data.getFunctionalEntitiesAll();
+    this.entityTypes = this.data.entityTypes;
     if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
     }
     if (this.data.lg) console.log('loaded:entities-details');
   }
 
-  getIsLoaded(setTo: boolean, key: string) {
+  getIsLoaded(keyType: string, keyPage: string) {
+    let setTo = true;
+    if (keyType=='entities') setTo = true;
+    else setTo = this.entityTypeName == keyType;
+    
+    let key = keyType + '-' + keyPage;
     let r: boolean;
     if (setTo){
       r = setTo;
@@ -173,7 +196,7 @@ export class EntityDetailsComponent implements OnInit {
     this.isPositionInput = !this.isPositionInput;
   }
 
-  doChangeEntityType(event: any) {
-    this.entityType = +event;
-  }
+  // doChangeEntityType(event: any) {
+  //   this.entityType = +event;
+  // }
 }

@@ -75,6 +75,7 @@ import { MaterialModule } from './material/material.module';
 import { ButtonsToggleComponent } from './buttons/buttons-toggle/buttons-toggle.component';
 import { ButtonsToolbarButtonComponent } from './buttons/buttons-toolbar-button/buttons-toolbar-button.component';
 import { EntityDetailsHeaderComponent } from './panels/entity-details-header/entity-details-header.component';
+import { EntityDetailsDashboardComponent } from './panels/entity-details-dashboard/entity-details-dashboard.component';
 
 
 
@@ -145,6 +146,7 @@ import { EntityDetailsHeaderComponent } from './panels/entity-details-header/ent
     ButtonsToggleComponent,
     ButtonsToolbarButtonComponent,
     EntityDetailsHeaderComponent,
+    EntityDetailsDashboardComponent,
     
   ],
   imports: [
