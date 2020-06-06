@@ -25,14 +25,33 @@
   [doHideByFilter]="true"
   [typeLeft]="'text'"
   [titleLeft]="'Employee Number'"
+
   [typeRight]="'text'"
-  [titleRight]="'Position / Job Grade'"
+  [titleRight]="'Office Location'"
+
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
   [showCheckLeft]="true"
   [showCheckRight]="true"
 ></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Position'"
+
+  [typeRight]="'text'"
+  [titleRight]="'Job Grade'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="true"
+  [showCheckRight]="true"
+></app-input-duo>
+
 <div style="padding-bottom: 5px;"> </div>
 <hr>
 <div class="container-flex">
