@@ -196,7 +196,7 @@
             <small
               [hidden]="entityType == entityTypes.size - 1 || entityType == 0"
             >
-              <mat-icon aria-hidden="true" aria-label="Entities">list</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
 
               <!-- <svg
               style="
@@ -382,23 +382,27 @@
                   "
                   class="hidden-xs"
                 >
-                <mat-icon aria-hidden="true" aria-label="Entities">keyboard_backspace</mat-icon> Select
-                  pages
+                  <mat-icon aria-hidden="true" aria-label="Entities"
+                    >arrow_back</mat-icon
+                  >
+                  Select pages
                 </span>
               </div>
 
               <!-- </div> -->
             </small>
 
-            <small [hidden]="entityType < entityTypes.size - 1"
+            <small [hidden]="entityType < entityTypes.size - 1">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >settings</mat-icon
               >
-              <mat-icon aria-hidden="true" aria-label="Entities">settings</mat-icon>
               <span>&nbsp;Settings</span>
             </small>
 
-            <small [hidden]="entityType != 0"
+            <small [hidden]="entityType != 0">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >public</mat-icon
               >
-              <mat-icon aria-hidden="true" aria-label="Entities">public</mat-icon>
               <span>&nbsp;Dashboard</span>
             </small>
 
@@ -409,7 +413,11 @@
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
                 "
-                [matIcon] = "showPanelRight ? 'keyboard_arrow_right' : 'keyboard_arrow_left' "
+                [matIcon]="
+                  showPanelRight
+                    ? 'keyboard_arrow_right'
+                    : 'keyboard_arrow_left'
+                "
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
@@ -612,134 +620,142 @@
           </div>
         </div> -->
         </div>
-      
-        
       </div>
       <!-- column 3: Articles -->
       <div
-      class="col-xs-8"
-      [class.hidden-xs]="!showPanelRight"
-      
-      [class.col-sm-5]="showPanelRight"
-      [style.visibility] = "showPanelRight ? 'visible': 'hidden'"
-      style="transition: visibility 5s"
-      *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
-    >
-      <div class="panel panel-primary no-gutter nobottom">
-        <div class="panel-heading mt3">
-          <small
-            ><mat-icon aria-hidden="true" aria-label="Entities" [style.display] = "hidePosts?'none':'inherit'">comment</mat-icon>
-            <mat-icon aria-hidden="true" aria-label="Entities" [style.display] = "hideTasks?'none':'inherit'">flash_on</mat-icon>
-            <mat-icon aria-hidden="true" aria-label="Entities" [style.display] = "hideAudits?'none':'inherit'">done_all</mat-icon>
-            <span
+        class="col-xs-8"
+        [class.hidden-xs]="!showPanelRight"
+        [class.col-sm-5]="showPanelRight"
+        [style.visibility]="showPanelRight ? 'visible' : 'hidden'"
+        style="transition: visibility 5s;"
+        *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
+      >
+        <div class="panel panel-primary no-gutter nobottom">
+          <div class="panel-heading mt3">
+            <small
+              ><mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [style.display]="hidePosts ? 'none' : 'inherit'"
+                >comment</mat-icon
               >
-              {{
-                hidePosts && hideAudits && hideTasks
-                  ? ""
-                  : hidePosts && hideAudits
-                  ? "Tasks"
-                  : hideAudits
-                  ? "Articles"
-                  : "Audit"
-              }}
-            </span>
-          </small>
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [style.display]="hideTasks ? 'none' : 'inherit'"
+                >flash_on</mat-icon
+              >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [style.display]="hideAudits ? 'none' : 'inherit'"
+                >done_all</mat-icon
+              >
+              <span>
+                {{
+                  hidePosts && hideAudits && hideTasks
+                    ? "&nbsp;"
+                    : hidePosts && hideAudits
+                    ? "Tasks"
+                    : hideAudits
+                    ? "Articles"
+                    : "Audit"
+                }}
+              </span>
+            </small>
 
-          <div class="btn-group pull-right">
-            <app-buttons-toggle
-              [title]="'Tasks'"
-              [placeholder]="'Tasks Page'"
-              [matIcon]="'flash_on'"
-              [svgUrlPath]="
-                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-              "
-              (onToggle)="
-                hideTasks = !hideTasks; hidePosts = true; hideAudits = true
-              "
-              [isNarrow]="showPanelRight"
-              [showMe]="true"
-              [toggleValue]="!hideTasks"
-            ></app-buttons-toggle>
+            <div class="btn-group pull-right">
+              
+              <app-buttons-toggle
+                [title]="'Tasks'"
+                [placeholder]="'Tasks Page'"
+                [matIcon]="'flash_on'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="
+                  hideTasks = !hideTasks; hidePosts = true; hideAudits = true
+                "
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue]="!hideTasks"
+              ></app-buttons-toggle>
+              <app-buttons-toggle
+                [title]="'Audit'"
+                [placeholder]="'Audit Page'"
+                [matIcon]="'done_all'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="
+                  hideAudits = !hideAudits; hideTasks = true; hidePosts = true
+                "
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue]="!hideAudits"
+              ></app-buttons-toggle>
 
-            <!-- <app-buttons-toggle
-            [title]="'Articles'"
-            [placeholder]="'Articles Page'"
-            [svgUrlPath]="
-              '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-            "
-            (onToggle)="hidePosts = !hidePosts; hideTasks = true; hideAudits = true; "
-            [isNarrow]="showPanelRight"
-            [showMe]="true"
-            [toggleValue] = "!hidePosts"
-          ></app-buttons-toggle> -->
-            <app-buttons-toggle
-              [title]="'Audit'"
-              [placeholder]="'Audit Page'"
-              [matIcon]="'done_all'"
-              [svgUrlPath]="
-                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-              "
-              (onToggle)="
-                hideAudits = !hideAudits; hideTasks = true; hidePosts = true
-              "
-              [isNarrow]="showPanelRight"
-              [showMe]="true"
-              [toggleValue]="!hideAudits"
-            ></app-buttons-toggle>
-
-            <app-buttons-toolbar-button
-              [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-              [placeholder]="
-                (showPanelRight ? 'Hide' : 'Show') + ' right panel'
-              "
-              [matIcon] = "showPanelRight ? 'keyboard_arrow_right':'keyboard_arrow_left'"
-              [svgUrlPath]="
-                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-              "
-              (onClick)="showPanelRight = !showPanelRight"
-              [isNarrow]="showPanelRight"
-              [showMe]="true"
-            ></app-buttons-toolbar-button>
+              <app-buttons-toolbar-button
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [placeholder]="
+                  (showPanelRight ? 'Hide' : 'Show') + ' right panel'
+                "
+                [matIcon]="
+                  showPanelRight
+                    ? 'keyboard_arrow_right'
+                    : 'keyboard_arrow_left'
+                "
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="showPanelRight = !showPanelRight"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+            </div>
+            <div class="pull-right">
+              <small>
+                <span
+                  class="pull-right"
+                  [style.display]="
+                    hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
+                  "
+                  style="vertical-align: bottom;"
+                  >Select page&nbsp;
+                  <mat-icon aria-hidden="true" aria-label="Entities"
+                    >arrow_forward</mat-icon
+                  >
+                  &nbsp;
+                </span>
+              </small>
+            </div>
           </div>
-          <small>
-            <span
-              class="pull-right"
-              [style.display]="
-                hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
-              "
-              style="vertical-align: bottom;"
-              >Select page&nbsp;
-              <mat-icon aria-hidden="true" aria-label="Entities">keyboard_arrow_right</mat-icon>
-              &nbsp;
-            </span>
-          </small>
-        </div>
-        <!-- <div class="panel-body mt3" [hidden]="hidePosts">
+          <!-- <div class="panel-body mt3" [hidden]="hidePosts">
         <app-entity-messages [isNarrow]="true"></app-entity-messages>
       </div>  -->
-        <div
-          class="panel-body mt3"
-          *ngIf="getIsLoaded(!hideTasks, 'tasks')"
-          [hidden]="hideTasks"
-        >
-          <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
+          <div
+            class="panel-body mt3"
+            *ngIf="getIsLoaded(!hideTasks, 'tasks')"
+            [hidden]="hideTasks"
+          >
+            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
+          </div>
+          <div
+            class="panel-body mt3"
+            *ngIf="getIsLoaded(!hideAudits, 'audits')"
+            [hidden]="hideAudits"
+          >
+            <app-entity-audits [isNarrow]="true"></app-entity-audits>
+          </div>
         </div>
         <div
-          class="panel-body mt3"
-          *ngIf="getIsLoaded(!hideAudits, 'audits')"
-          [hidden]="hideAudits"
+          [hidden]="!(hideTasks && hideAudits)"
+          class="h4 text-primary"
+          style="margin: 5px;"
         >
-          <app-entity-audits [isNarrow]="true"></app-entity-audits>
+          <u>Please select a page to display</u>
         </div>
       </div>
-      <div
-        [hidden]="!(hideTasks && hideAudits)"
-        class="h4 text-primary"
-        style="margin: 5px;"
-      >
-        <u>Please select a page to display</u>
-      </div>
-    </div>
     </div>
   </div>
 </div>
