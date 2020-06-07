@@ -16,7 +16,7 @@
         [class.active]="true"
         [class.focus]="radioChoice == 'flash'"
       />
-      <span class="glyphicon glyphicon-flash"></span>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">flash_on</mat-icon>
       <small class="hidden-xs">&nbsp;{{ countFlash }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionFlash }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -40,7 +40,7 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <span class="glyphicon glyphicon-play"></span>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">play_arrow</mat-icon>
       <small class="hidden-xs">&nbsp;{{ countPlay }}</small>
       <span class="hidden-xs" [hidden]="isNarrow"> {{ captionPlay }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -64,7 +64,7 @@
         value="pause"
         [checked]="radioChoice == 'pause'"
       />
-      <span class="glyphicon glyphicon-pause"></span>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">pause</mat-icon>
       <small class="hidden-xs">&nbsp;{{ countPause }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionPause }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -88,7 +88,7 @@
         value="ok"
         [checked]="radioChoice == 'ok'"
       />
-      <span class="glyphicon glyphicon-ok"></span>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">done</mat-icon>
       <small class="hidden-xs">&nbsp;{{ countOk }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionOk }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -112,7 +112,7 @@
         value="eye-close"
         [checked]="radioChoice == 'eye-close'"
       />
-      <span class="glyphicon glyphicon-eye-close"></span>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">visibility_off</mat-icon>
       <small class="hidden-xs">&nbsp;{{ countEyeClose }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionEyeClose }}</span>
       <!-- <span class="badge badge-xs"
@@ -136,7 +136,7 @@
         value="eye-open"
         [checked]="radioChoice == 'eye-open'"
       />
-      <span class="glyphicon glyphicon-eye-open"></span>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">visibility</mat-icon>
       <small class="hidden-xs">&nbsp;{{ countEyeOpen }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionEyeOpen }}</span>
       <!-- <span class="badge badge-xs"
@@ -160,15 +160,9 @@
         value="all"
         [checked]="radioChoice == 'all'"
       />
-      <span class="glyphicon glyphicon-asterisk"></span>
-      <small class="hidden-xs">&nbsp;{{ countAll }}</small
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">all_inclusive</mat-icon>
+      <small class="hidden-xs">&nbsp;&nbsp;{{ countAll }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionAll }}</span>
-      <!-- <span class="hidden-xs hidden-sm hidden-sm"> 
-        glyphicon-option-horizontal
-        <span class="badge badge-xs">
-          <small>{{ countAll }}</small></span
-        ></span
-      > -->
     </label>
   </div>
 </div>
@@ -202,8 +196,7 @@
       
       [title]="(isA ? 'off: ':'on: ') + titleA"
       [class.btn-blocked] = "disabledA"
-    >
-      <span class="glyphicon glyphicon-text-color"></span>
+    ><mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">format_color_text</mat-icon>
     </span>
     <span
       *ngIf="showTick"
@@ -211,7 +204,7 @@
       (click)="doTick()"
       [class.btn-blocked] = "disabledTick"
     >
-      <span class="glyphicon glyphicon-ok"></span>
+      <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">done_outline</mat-icon>
     </span>
 
     <input
@@ -232,7 +225,7 @@
       (click)="doFilterClear()"
       [class.btn-blocked] = "disabledFilterCount"
     >
-      <span class="glyphicon glyphicon-erase"></span>
+      <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
     </span>
 
     <span
@@ -253,7 +246,7 @@
       [title]="'Share ' + title"
       [class.btn-blocked] = "disabledShare"
     >
-      <span class="glyphicon glyphicon-share-alt"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">share</mat-icon>
     </span>
 
     <span
@@ -263,12 +256,10 @@
       (click)="doT()"
       [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
       [class.btn-blocked] = "disabledT"
+      [class.primary-color] = "isT"
+      [class.primary-color-reverse] = "!isT"
     >
-      <span
-        class="glyphicon"
-        [class.glyphicon-text-height]="isT"
-        [class.glyphicon-text-width]="!isT"
-      ></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear_all</mat-icon>
     </span>
 
     <span
@@ -279,7 +270,7 @@
       [title]="'Copy ' + title"
       [class.btn-blocked] = "disabledDuplicate"
     >
-      <span class="glyphicon glyphicon-duplicate"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">file_copy</mat-icon>
     </span>
 
     <span
@@ -290,7 +281,7 @@
       [title]="'Download ' + title"
       [class.btn-blocked] = "disabledDownload"
     >
-      <span class="glyphicon glyphicon-cloud-download"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
     </span>
 
     <span
@@ -301,7 +292,7 @@
       [title]="'Save ' + title"
       [class.btn-blocked] = "disabledSave"
     >
-      <span class="glyphicon glyphicon-cloud-upload"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">done</mat-icon>
     </span>
 
     <span
@@ -312,7 +303,7 @@
       [title]="'Delete ' + title"
       [class.btn-blocked] = "disabledDelete"
     >
-      <span class="glyphicon" [class.glyphicon-minus]="showDelete"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
     </span>
 
     <span
@@ -323,7 +314,7 @@
       [title]="'Add ' + title"
       [class.btn-blocked] = "disabledAdd"
     >
-      <span class="glyphicon" [class.glyphicon-plus]="showAdd"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">add</mat-icon>
     </span>
 
     <span
@@ -334,7 +325,7 @@
       [title]="'Discard changes'"
       [class.btn-blocked] = "disabledCancel"
     >
-      <span class="glyphicon" [class.glyphicon-remove]="showCancel"></span>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
     </span>
   </div>
 </div>

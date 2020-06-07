@@ -11,7 +11,7 @@
       value = 'Active'
       [checked]="rdoActiveInActiveAll == 'Active'"
        />
-      <span class="glyphicon glyphicon-play"></span>
+      <mat-icon aria-hidden="true" aria-label="Entities">play_arrow</mat-icon>
       <small>&nbsp;</small>
       <span class="badge badge-xs"><small>{{getTaskCountActive()}}</small></span>
     </label>
@@ -24,7 +24,7 @@
       value = 'Done'
       [checked]="rdoActiveInActiveAll == 'Done'"
        />
-      <span class="glyphicon glyphicon-ok"></span>
+      <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
       <small>&nbsp;</small>
       <span class="badge badge-xs"><small>{{getTaskCountDone()}}</small></span>
     </label>

@@ -20,7 +20,7 @@ export class TaskDetailsComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    if (this.data.lg) console.log('loaded:task-details');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:task-details');
   }
 
   hideByFilter(caption: string){

@@ -13,120 +13,12 @@
 
   <div class="btn-group pull-right">
     <a href="#" class="btn btn-primary primary-color btn-xs"
-      ><span
-        class="glyphicon"
-        [class.glyphicon-plus]="true"
-      ></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+  </a>
   </div>
 </form>
 
-<!-- Documents table -->
-<!-- <div
-class="form-group input-group-sm"
-[hidden]="!isEdit"
-style="margin-bottom: 5px;padding-left:3px;padding-right:3px"
->
-<a href="#" data-toggle="collapse" [attr.data-target]="'#docs-' + index"
-  >
-  <label class="nobottom text-primary-bold">Documents </label
-  ><span class="caret"></span>
-</a>
-<div  id="{{ 'docs-' + index }}" class="collapse">
-  <table
-    class="table table-condensed table-bordered table-hover less-bottom"
-    style="font-size: smaller;"
-  >
-    <thead class="info">
-      <tr class="info">
-        <th>Upload Date</th>
-        <th>Uploaded by</th>
-        <th>Description</th>
-        <th>Attachment</th>
-        <th>
-          Note
-          <div class="btn-group pull-right">
-            <a
-              href="#"
-              class="btn btn-primary primary-color btn-xs"
-              (click)="doAddDoc()"
-              ><span class="glyphicon glyphicon-plus"></span
-            ></a>
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2005/02/03</td>
-        <td>Vlad</td>
-        <td>MOI</td>
-        <td><a href="#">MOI.pdf</a></td>
-        <td>
-          <div class="btn-group pull-right">
-            <a
-              href="#"
-              class="btn btn-primary primary-color btn-xs"
-              (click)="doEditDoc(0)"
-              ><span class="glyphicon glyphicon-pencil"></span
-            ></a>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>2010/05/20</td>
-        <td>Dean</td>
-        <td>C14.3</td>
-        <td><a href="#">C14.3.pdf</a></td>
-        <td>
-          <div class="btn-group pull-right">
-            <a
-              href="#"
-              class="btn btn-primary primary-color btn-xs"
-              (click)="doEditDoc(1)"
-              ><span class="glyphicon glyphicon-pencil"></span
-            ></a>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>2015/10/20</td>
-        <td>Sasha</td>
-        <td>Resolution</td>
-        <td><a href="#">R.2015.10.05.pdf</a></td>
-        <td>
-          Restructuring
-          <div class="btn-group pull-right">
-            <a
-              href="#"
-              class="btn btn-primary primary-color btn-xs"
-              (click)="doEditDoc(2)"
-              ><span class="glyphicon glyphicon-pencil"></span
-            ></a>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>2019/10/20</td>
-        <td>Ulrich</td>
-        <td>Resolution</td>
-        <td><a href="#">R.2019.10.01.pdf</a></td>
-        <td>
-          Declaration of Dividend
-          <div class="btn-group pull-right">
-            <a
-              href="#"
-              class="btn btn-primary primary-color btn-xs"
-              (click)="doEditDoc(3)"
-              ><span class="glyphicon glyphicon-pencil"></span
-            ></a>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div> -->
 
 <div class="panel">
   <div></div>

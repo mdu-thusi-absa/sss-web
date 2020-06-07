@@ -39,6 +39,8 @@ export class EntityDetailsComponent implements OnInit {
   entities: Entities<EveryEntity>;
   dirty = false;
   isPageLoaded: string[] = [];
+  isPageLoaded_CalledToLoad: string[] = [];
+  isPageLoaded_index = 0;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -71,7 +73,7 @@ export class EntityDetailsComponent implements OnInit {
     if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
     }
-    if (this.data.lg) console.log('loaded:entities-details');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:entities-details');
   }
 
   getIsLoaded(keyType: string, keyPage: string) {
@@ -88,8 +90,26 @@ export class EntityDetailsComponent implements OnInit {
       } 
     } else{
       r = this.isPageLoaded.indexOf(key)>-1
+      //if not loaded load later
+      if (!r)
+        if (this.isPageLoaded_CalledToLoad.indexOf(key) == -1) {
+          this.isPageLoaded_CalledToLoad.push(key);
+          if (this.isPageLoaded.indexOf(key) == -1) {
+            this.isPageLoaded_index += 1;
+            setTimeout(
+              this.delayLoader,
+              this.isPageLoaded_index * 1000,
+              key,
+              this.isPageLoaded
+            );
+          }
+        }
     }
     return r;
+  }
+
+  delayLoader(key: string, isPageLoaded: string[]) {
+    if (isPageLoaded.indexOf(key) == -1) isPageLoaded.push(key);
   }
 
   get entity(): EveryEntity {

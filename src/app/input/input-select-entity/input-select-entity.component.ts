@@ -59,14 +59,17 @@ export class InputSelectEntityComponent implements OnInit {
   isLoadAll = false;
   loadedArray: number[] = [];
   limitVisibleRows = 10;
-  onScrollData(event:any) {
+  loadInterval: any;
+  onScrollData(event: any) {
     //this.limitVisibleRows += 50;
     this.isLoadAll = true;
   }
 
   getDoLoad(key: number) {
     let n = 0;
-    if (this.isLoadAll) return true;
+    if (this.isLoadAll) {
+      return true
+    }
     else if (key == this.value) return true;
     else {
       n = this.loadedArray.length;
@@ -82,36 +85,19 @@ export class InputSelectEntityComponent implements OnInit {
     return r;
   }
 
-  // public innerWidth: any;
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.innerWidth = window.innerWidth;
-  // }
-
-//   var rtime;
-// var timeout = false;
-// var delta = 200;
-// $(window).resize(function() {
-//     rtime = new Date();
-//     if (timeout === false) {
-//         timeout = true;
-//         setTimeout(resizeend, delta);
-//     }
-// });
-
-// function resizeend() {
-//     if (new Date() - rtime < delta) {
-//         setTimeout(resizeend, delta);
-//     } else {
-//         timeout = false;
-//         alert('Done resizing');
-//     }               
-// }
+  delayLoader(that: any) {
+    //lazy:ngOnInit() <- this.loadInterval = setInterval(this.delayLoader,5000,this);
+    if (that.limitVisibleRows < that.values.size) that.limitVisibleRows += 200;
+    else {
+      clearInterval(that.loadInterval)
+      that.isLoadAll = true;
+    }
+  }
 
   ngOnInit(): void {
     this.entity = this.values.createEntity();
-    //this.innerWidth = window.innerWidth;
     if (!this.value) this.value = 0;
+    //this.loadInterval = setInterval(this.delayLoader,5000,this);
   }
 
   // showEdit(){

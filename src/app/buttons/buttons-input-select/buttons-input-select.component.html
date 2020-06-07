@@ -5,76 +5,51 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doContract()"
-      ><span
-        class="glyphicon glyphicon-menu-up"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Show less'"
-      ></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show less'">keyboard_arrow_up</mat-icon>
+  </a>
     <a
       *ngIf = "showExpand && showExpandContract"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doExpand()"
-      ><span
-        class="glyphicon glyphicon-menu-down"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Show more'"
-      ></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show more'">keyboard_arrow_down</mat-icon>
+  </a>
     
     <a
       *ngIf = "showFilter && (this.countItems>15 || filterText.length>0)"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"
-      ><span
-        class="glyphicon glyphicon-filter"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Filter the list'"
-      ></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Filter the items'">filter_list</mat-icon>
+  </a>
 
     <a
       *ngIf="showCancel"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doEdit()"
-      ><span
-        class="glyphicon glyphicon-remove"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Cancel the changes'"
-      ></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Cancel the changes'">close</mat-icon>
+  </a>
 
     <a
       *ngIf="showEdit"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doEdit()"
-      ><span
-        class="glyphicon glyphicon-pencil"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Edit the selected item'"
-      ></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Edit selected item'">edit</mat-icon>
+  </a>
     <a
       *ngIf="showSave"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showNew()"
     >
-      <span
-        class="glyphicon glyphicon-cloud-upload"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Save'"
-      ></span>
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Save'">cloud_done</mat-icon>
     </a>
 
     <a
@@ -83,12 +58,7 @@
       class="btn  primary-color-reverse btn-xs"
       (click)="showNew()"
     >
-      <span
-        class="glyphicon glyphicon-plus"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Add an item to the list'"
-      ></span>
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Save'">add</mat-icon>
     </a>
     <a
       *ngIf="showDelete"
@@ -96,27 +66,16 @@
       class="btn  primary-color-reverse btn-xs"
       (click)="deleteItem()"
     >
-      <span
-        class="glyphicon glyphicon-minus"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="Delete the selected item"
-      ></span>
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Delete the selected item'">clear</mat-icon>
     </a>
 
     <a
       *ngIf="showFlash"
       href="#"
       class="btn  primary-color-reverse btn-xs"
+      (click)="doTask()"
     >
-      <span
-        class="glyphicon"
-        [class.glyphicon-flash]="true"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Manage tasks for ' + title"
-        (click)="doTask()"
-      ></span>
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show tasks'">flash_on</mat-icon>
     </a>
 
     <a
@@ -125,13 +84,7 @@
       class="btn primary-color-reverse btn-xs"
       (click)="doFile()"
     >
-      <span
-        class="glyphicon"
-        [class.glyphicon-paperclip]="true"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Source documents for ' + title"
-      ></span>
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Attachments'">attachment</mat-icon>
     </a>
     <a
       *ngIf="showCD"
@@ -139,13 +92,7 @@
       class="btn  primary-color-reverse btn-xs"
       (click)="doRecord()"
     >
-      <span
-        class="glyphicon"
-        [class.glyphicon-cd]="true"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Record of changes for ' + title"
-      ></span>
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Records'">cd</mat-icon>
     </a>
     <a
       *ngIf="showCheck"
@@ -153,12 +100,7 @@
       class="btn  primary-color-reverse btn-xs"
       (click)="doRecord()"
     >
-      <span
-        class="glyphicon glyphicon-check"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Audit of changes for ' + title"
-      ></span>
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show audit'">done_all</mat-icon>
     </a>
   </div>
   <div class="pull-right" [hidden]="!isFilter">

@@ -47,22 +47,20 @@
       />
       <span
         *ngIf="!disabled"
-        class="input-group-addon"
-        style = "border-left:none"
+        class="input-group-addon primary-color-reverse"
+        
         (click)="gotoToday()"
         [title]="'Today'"
       >
-        <span class="glyphicon glyphicon-time primary-color-reverse"></span>
+        <mat-icon aria-hidden="true" aria-label="Entities">today</mat-icon>
       </span>
       <span
         class="input-group-addon"
         (click)="disabled ? '' : dpDate.toggle()"
         [title]="(disabled ? '' : 'Choose ') + title"
+        [class.primary-color-reverse]="!disabled"
       >
-        <span
-          class="glyphicon glyphicon-calendar"
-          [class.primary-color-reverse]="!disabled"
-        ></span>
+        <mat-icon aria-hidden="true" aria-label="Entities">calendar_today</mat-icon>
       </span>
     </div>
   </div>

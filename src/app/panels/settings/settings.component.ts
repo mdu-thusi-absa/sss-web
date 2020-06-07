@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = this.data.getPersons();
-    if (this.data.lg) console.log('loaded:settings');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:settings');
   }
 
   doFilter(event: any){

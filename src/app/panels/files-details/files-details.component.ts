@@ -622,7 +622,7 @@ export class FilesDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.showFileFields = [];
-    if (this.data.lg) console.log('loaded:file-details');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:file-details');
   }
 
   doAdd() {

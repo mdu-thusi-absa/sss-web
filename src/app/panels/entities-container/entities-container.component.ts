@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Entities, EveryEntity } from 'src/app/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
-import {MatCardModule} from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card';
+import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 
 @Component({
   selector: 'app-entities-container',
@@ -16,7 +17,7 @@ export class EntitiesContainerComponent implements OnInit {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
     this.showFileFields = [];
     this.entityTypes = this.data.entityTypes;
-    if (this.data.lg) console.log( 'loaded:entities-container');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:entities-container');
   }
 
   entityTypes: Entities<EveryEntity>;
@@ -36,7 +37,7 @@ export class EntitiesContainerComponent implements OnInit {
   expandTaskDetail = false;
   expandHistoryDetail = false;
   expandFilesDetail = false;
-  
+
   innerWidth: any;
   showFileFields: string[];
   isShowAllFiles = true;
@@ -54,70 +55,92 @@ export class EntitiesContainerComponent implements OnInit {
   entityKey = 0;
 
   isPageLoaded: string[] = [];
+  isPageLoaded_index = 0;
+  isPageLoaded_CalledToLoad: string[] = [];
 
-  entities= ['Entity Name',
-  'Registration Number',
-  'Previous Name',
-  'Code',
-  'Suffix',
-  'Country',
-  'Industry',
-  'Representative Office',
-  'Foreign branch',
-  'Incorporation Date',
-  'Anniversary (month)',
-  'Business Start Date',
-  'Financial year end (month)',
-  'Income Tax Number',
-  'VAT Number',
-  'Registered office address',
-  'Postal address',
-  'Business Area',
-  'Business Division',
-  'Legal classification',
-  'Consolidated',
-  'Entity status',
-  'Entity status tiering',
-  'Accounting classification',
-  'Accounting classification tiering',
-  'Direct parent/ownership',
-  'Absa shareholding in entity (%)',
-  'Appointed company secretary',
-  'Internal secretary representative',
-  'Entity Executive',
-  'Entity Financial Officer',
-  'Public Officer (income tax)']
+  entities = [
+    'Entity Name',
+    'Registration Number',
+    'Previous Name',
+    'Code',
+    'Suffix',
+    'Country',
+    'Industry',
+    'Representative Office',
+    'Foreign branch',
+    'Incorporation Date',
+    'Anniversary (month)',
+    'Business Start Date',
+    'Financial year end (month)',
+    'Income Tax Number',
+    'VAT Number',
+    'Registered office address',
+    'Postal address',
+    'Business Area',
+    'Business Division',
+    'Legal classification',
+    'Consolidated',
+    'Entity status',
+    'Entity status tiering',
+    'Accounting classification',
+    'Accounting classification tiering',
+    'Direct parent/ownership',
+    'Absa shareholding in entity (%)',
+    'Appointed company secretary',
+    'Internal secretary representative',
+    'Entity Executive',
+    'Entity Financial Officer',
+    'Public Officer (income tax)',
+  ];
 
   getIsLoaded(setTo: boolean, key: string) {
     let r: boolean;
-    if (setTo){
+    if (setTo) {
       r = setTo;
-      if (this.isPageLoaded.indexOf(key)<0) {
+      if (this.isPageLoaded.indexOf(key) < 0) {
         this.isPageLoaded.push(key);
-      } 
-    } else{
-      r = this.isPageLoaded.indexOf(key)>-1
+      }
+    } else {
+      r = this.isPageLoaded.indexOf(key) > -1;
+      //if not loaded load later
+      if (!r)
+        if (this.isPageLoaded_CalledToLoad.indexOf(key) == -1) {
+          this.isPageLoaded_CalledToLoad.push(key);
+          if (this.isPageLoaded.indexOf(key) == -1) {
+            this.isPageLoaded_index += 1;
+            setTimeout(
+              this.delayLoader,
+              this.isPageLoaded_index * 1000,
+              key,
+              this.isPageLoaded
+            );
+          }
+        }
     }
     return r;
   }
 
-  get entityTypeName(): string{
+  delayLoader(key: string, isPageLoaded: string[]) {
+    if (isPageLoaded.indexOf(key) == -1) isPageLoaded.push(key);
+  }
+
+  get entityTypeName(): string {
     return this.entityTypes.get(this.entityType).name.toLowerCase();
   }
 
-  doEntityTypeChange(event: any){
+  doEntityTypeChange(event: any) {
     this.entityType = +event;
   }
 
-  doEntityChange(event: any){
+  doEntityChange(event: any) {
     this.entityKey = +event;
   }
 
-  doSelectFields(selectedFields: string[]){
+  doSelectFields(selectedFields: string[]) {
     this.showFileFields = selectedFields;
   }
 
-  showFilesAll(){
+  showFilesAll() {
     this.isShowAllFiles = true;
     this.showHideFiles('');
   }
@@ -134,18 +157,15 @@ export class EntitiesContainerComponent implements OnInit {
     this.showHideTasks();
   }
 
-  doSave_EntityDetail() {
-
-  }
-  doCancel_EntityDetail() {
-  }
+  doSave_EntityDetail() {}
+  doCancel_EntityDetail() {}
 
   private max(v: number, w: number) {
     if (v > w) return v;
     else return w;
   }
 
-  showHideAudits(){
+  showHideAudits() {
     this.hideAudits = !this.hideAudits;
     this.hidePosts = !this.hideAudits;
     this.hideTasks = !this.hideAudits;
@@ -153,19 +173,19 @@ export class EntitiesContainerComponent implements OnInit {
   showHideTasks() {
     this.hideTasks = !this.hideTasks;
     this.hidePosts = !this.hideTasks;
-    this.hideAudits = !this.hideTasks
+    this.hideAudits = !this.hideTasks;
   }
   showHideArticles() {
     this.hidePosts = !this.hidePosts;
     this.hideTasks = !this.hidePosts;
-    this.hideAudits = !this.hideTasks
+    this.hideAudits = !this.hideTasks;
   }
 
   showHideFiles(attribute: string, doShow: boolean = null) {
     this.showHide_(2, doShow);
     this.setPaneRowCount();
-    if (attribute.length>0) this.showFileFields = [attribute];
-    else{
+    if (attribute.length > 0) this.showFileFields = [attribute];
+    else {
       this.showFileFields = this.entities;
     }
   }
@@ -226,7 +246,7 @@ export class EntitiesContainerComponent implements OnInit {
       //this.hideTasks = b1;
       this.hideHistory = b0;
       this.hideFiles = b2;
-     // this.expandTaskDetail = bD1;
+      // this.expandTaskDetail = bD1;
       this.expandHistoryDetail = bD0;
       this.expandFilesDetail = bD2;
     } else if (hideIndex === 2) {
@@ -241,29 +261,24 @@ export class EntitiesContainerComponent implements OnInit {
 
   setPaneRowCount() {
     //this.panelRows = 1;
-    if (this.hideHistory && this.hideFiles)
-      this.panelRows = 1;
+    if (this.hideHistory && this.hideFiles) this.panelRows = 1;
 
     // if (!this.hideHistory && !this.hideFiles)
     //   this.panelRows = 1;
-    if (!this.hideHistory && this.hideFiles)
-      this.panelRows = 2;
-    if (this.hideHistory && !this.hideFiles)
-      this.panelRows = 2;
+    if (!this.hideHistory && this.hideFiles) this.panelRows = 2;
+    if (this.hideHistory && !this.hideFiles) this.panelRows = 2;
 
     // if (this.hideHistory && this.hideFiles)
     //   this.panelRows = 1;
-    if (!this.hideHistory && this.hideFiles)
-      this.panelRows = 2;
-    if (this.hideHistory && !this.hideFiles)
-      this.panelRows = 2;
+    if (!this.hideHistory && this.hideFiles) this.panelRows = 2;
+    if (this.hideHistory && !this.hideFiles) this.panelRows = 2;
   }
 
-  isFullPanel(): boolean{
-    return this.panelRows==0? true : this.panelRows==1;
+  isFullPanel(): boolean {
+    return this.panelRows == 0 ? true : this.panelRows == 1;
   }
-  isHalfPanel(): boolean{
-    return this.panelRows==0? false : this.panelRows==2;
+  isHalfPanel(): boolean {
+    return this.panelRows == 0 ? false : this.panelRows == 2;
   }
 
   // showForEntityType(label: number): boolean{

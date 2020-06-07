@@ -17,7 +17,6 @@
     [attr.data-toggle]="dataTarget ? 'collapse' : ''"
     [attr.data-target]="dataTarget"
   >
-    <!-- <span [class]="'glyphicon ' + glyphiconClass" style="padding-right:2px"></span> -->
     <mat-icon aria-hidden="true" aria-label="Entities">{{matIcon}}</mat-icon><small>&nbsp;</small>
     <!-- <svg
       style="
@@ -45,19 +44,6 @@
     (change)="doToggle($event)"
   />
 
-  <!-- <a
-    data-toggle="button"
-    href="#"
-    class="btn btn-info btn-xs"
-    (click)="doToggle()"
-    style="height: 19px; margin-top: 0px; vertical-align: top;"
-  >
-    <span [class]="'glyphicon ' + glyphiconClass"></span>
-
-    <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
-      <small> {{ title }} </small></span
-    >
-  </a> -->
 </div>
 
 <!--

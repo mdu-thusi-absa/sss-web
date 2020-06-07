@@ -1,10 +1,10 @@
 <div class="btn-group pull-right">
-  <a href="#" class="btn btn-info btn-xs" (click)="doSave()"
-    ><span class="glyphicon glyphicon-cloud-upload"></span>
+  <a href="#" class="btn btn-info btn-xs" (click)="doSave()">
+    <mat-icon aria-hidden="true" aria-label="Entities">cloud_done</mat-icon>
     <span [hidden]="glyphOnly"> Save</span></a
   >
-  <a href="#" class="btn btn-info btn-xs" (click)="doCancel()"
-    ><span class="glyphicon glyphicon-remove"></span>
+  <a href="#" class="btn btn-info btn-xs" (click)="doCancel()">
     <span [hidden]="glyphOnly">Cancel</span>
+    <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
   </a>
 </div>

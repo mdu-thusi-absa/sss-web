@@ -20,26 +20,19 @@
         class="btn btn-primary primary-color btn-xs"
         *ngIf="stepNumber != 1"
       >
-        <span
-          class="glyphicon"
-          [class.glyphicon-cloud-upload]="false"
-          [class.glyphicon-arrow-up]="true"
-        ></span>
+        <mat-icon aria-hidden="true" aria-label="Entities">keyboard_arrow_up</mat-icon>
       </a>
       <a
         href="#"
         class="btn btn-primary primary-color btn-xs"
         *ngIf="stepNumber != 4"
       >
-        <span
-          class="glyphicon"
-          [class.glyphicon-cloud-remove]="false"
-          [class.glyphicon-arrow-down]="true"
-        ></span>
+        <mat-icon aria-hidden="true" aria-label="Entities">keyboard_arrow_down</mat-icon>
       </a>
       <a href="#" class="btn btn-primary primary-color btn-xs"
-        ><span class="glyphicon" [class.glyphicon-remove]="true"></span
-      ></a>
+        >
+      <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+    </a>
     </div>
     <div class="form-group pull-right nobottom">
       <label class="checkbox-inline" style="padding-right: 8px;"

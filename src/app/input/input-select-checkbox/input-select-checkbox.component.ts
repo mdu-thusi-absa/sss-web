@@ -25,6 +25,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   isLoadAll = false;
   loadedArray: number[] = [];
   limitVisibleRows = 20;
+  loadInterval: any;
   onScrollData(event:any) {
     //this.limitVisibleRows += 50;
     this.isLoadAll = true;
@@ -71,10 +72,21 @@ export class InputSelectCheckboxComponent implements OnInit {
   // @ViewChild('inputText') inputElement: ElementRef;
   constructor() {}
 
+  delayLoader(that: any) {
+    //delay: ngOnInit() <- this.loadInterval = setInterval(this.delayLoader,7000,this);
+    if (that.limitVisibleRows < that.values.size) that.limitVisibleRows += 200;
+    else {
+      clearInterval(that.loadInterval)
+      that.isLoadAll = true;
+    }
+  }
+
+
   ngOnInit(): void {
     // this.values.sort();
     // this.option = this.values.indexOf().toString();
     //this.setItem(this.value);
+    //delay: this.loadInterval = setInterval(this.delayLoader,7000,this);
   }
 
   doContract(){

@@ -9,7 +9,7 @@ import { DataService } from 'src/app/data.service';
 export class ButtonsToolbarButtonComponent implements OnInit {
   @Input() title = 'menu';
   @Input() isNarrow = false;
-  @Input() glyphiconClass = 'glyphicon-flag';
+  @Input() matIcon = 'home';
   @Input() svgUrlPath = "'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\'"
   @Input() placeholder = 'Launch ' + this.title;
   @Input() showMe = true;

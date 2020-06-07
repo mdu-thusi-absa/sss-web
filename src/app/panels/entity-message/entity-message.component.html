@@ -1,14 +1,15 @@
 <div class="panel panel-success narrow" [class.panel-danger]="!message.isRead">
   <div class="panel-heading mt3">
-    <span class="glyphicon glyphicon-comment"></span>
+    <mat-icon aria-hidden="true" aria-label="Entities">chat_bubble</mat-icon>
     <a href="#" (click)="toggleReadUnread()">
       {{ message.whenString() }} : {{ message.title }}
     </a>
     <!-- <a href="#" class="btn btn-link btn-xs pull-right">Reply</a> -->
     <!-- <a href="#" class="pull-right">Reply</a> -->
     <a href="#" (click)="doEdit()" [hidden]="isEdit"
-      ><span class="glyphicon glyphicon-pencil pull-right"></span
-    ></a>
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" class="pull-right">edit</mat-icon>
+  </a>
 
     <app-buttons-cancel-save
       [hidden]="!isEdit"
@@ -63,8 +64,9 @@
                   href="#"
                   class="btn btn-primary primary-color btn-xs"
                   (click)="doAddDoc()"
-                  ><span class="glyphicon glyphicon-plus"></span
-                ></a>
+                  >
+                <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+              </a>
               </div>
             </th>
           </tr>
@@ -81,8 +83,9 @@
                   href="#"
                   class="btn btn-primary primary-color btn-xs"
                   (click)="doEditDoc(0)"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
+                  >
+                <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
+              </a>
               </div>
             </td>
           </tr>
@@ -97,8 +100,7 @@
                   href="#"
                   class="btn btn-primary primary-color btn-xs"
                   (click)="doEditDoc(1)"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
+                  ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
               </div>
             </td>
           </tr>
@@ -114,8 +116,7 @@
                   href="#"
                   class="btn btn-primary primary-color btn-xs"
                   (click)="doEditDoc(2)"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
+                  ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
               </div>
             </td>
           </tr>
@@ -131,8 +132,7 @@
                   href="#"
                   class="btn btn-primary primary-color btn-xs"
                   (click)="doEditDoc(3)"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
+                  ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
               </div>
             </td>
           </tr>

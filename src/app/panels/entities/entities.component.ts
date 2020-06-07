@@ -76,7 +76,7 @@ export class EntitiesComponent implements OnInit {
     this.loadEntities();
     this.doEntityTypeChange(this.entityType);
     this.setCounts();
-    if (this.data.lg) console.log('loaded:entities');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:entities');
     // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
 

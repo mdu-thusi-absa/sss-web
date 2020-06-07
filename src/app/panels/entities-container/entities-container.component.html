@@ -24,7 +24,6 @@
                 data-placement="bottom"
                 title="Refresh"
               >
-                <span class="glyphicon glyphicon-refresh"></span>
               </a> -->
 
               <!-- <a
@@ -35,7 +34,6 @@
                 data-placement="bottom"
                 [title]="(hideFiles ? 'Show' : 'Hide') + ' Docs panel'"
               >
-                <span class="glyphicon glyphicon-paperclip"></span>
               </a> -->
 
               <!-- <a
@@ -46,7 +44,6 @@
                 data-placement="bottom"
                 [title]="(hideHistory ? 'Show' : 'Hide') + ' Records panel'"
               >
-                <span class="glyphicon glyphicon-cd"></span>
               </a> -->
             </div>
           </div>
@@ -70,10 +67,8 @@
         <!-- Tasks hidden-->
         <!-- <div class="panel panel-primary no-gutter nobottom" [hidden]="true">
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-flash"></span><small> Tasks</small>
             <div class="btn-group pull-right">
               <a href="#" class="btn btn-info btn-xs">
-                <span class="glyphicon glyphicon-refresh"></span>
               </a>
               <a
                 href="#"
@@ -83,7 +78,6 @@
                 data-placement="bottom"
                 [title]="(hideFiles ? 'Show' : 'Hide') + ' Files panel'"
               >
-                <span class="glyphicon glyphicon-paperclip"></span>
               </a>
 
               <a
@@ -91,7 +85,6 @@
                 class="btn btn-info btn-xs"
                 (click)="showHideHistory()"
               >
-                <span class="glyphicon glyphicon-cd"></span>
               </a>
             </div>
           </div>
@@ -113,7 +106,6 @@
           [hidden]="hideHistory"
         >
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-cd"></span
             ><small
               ><span class="hidden-xs hidden-sm">&nbsp;Records</span></small
             >
@@ -126,14 +118,12 @@
                 data-placement="bottom"
                 [title]="(hideFiles ? 'Show' : 'Hide') + ' Docs panel'"
               >
-                <span class="glyphicon glyphicon-paperclip"></span>
               </a>
               <a
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showHideHistory()"
               >
-                <span class="glyphicon glyphicon-cd"></span>
               </a>
             </div>
           </div>
@@ -152,7 +142,6 @@
           [hidden]="hideFiles"
         >
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-folder-open"></span>&nbsp;<small>
               <span class="hidden-xs hidden-sm">&nbsp;Doc Types</span></small
             >
             <div class="btn-group pull-right">
@@ -164,14 +153,12 @@
                 data-placement="bottom"
                 [title]="(hideFiles ? 'Show' : 'Hide') + ' Docs panel'"
               >
-                <span class="glyphicon glyphicon-paperclip"></span>
               </a>
               <a
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showHideHistory()"
               >
-                <span class="glyphicon glyphicon-cd"></span>
               </a>
             </div>
           </div>
@@ -209,7 +196,7 @@
             <small
               [hidden]="entityType == entityTypes.size - 1 || entityType == 0"
             >
-              <span class="glyphicon glyphicon-th-list"></span>
+              <mat-icon aria-hidden="true" aria-label="Entities">list</mat-icon>
 
               <!-- <svg
               style="
@@ -238,7 +225,6 @@
                 </div> -->
                 <!-- <app-buttons-toggle
                 [title]="'Primary'"
-                [glyphiconClass] = "'glyphicon-flag'"
                 [toggleValue] = "hidePrimary"
                 (onToggle) = "hidePrimary = $event"
                 ></app-buttons-toggle> -->
@@ -259,7 +245,6 @@
                     class="btn btn-info btn-xs active"
                     (click)="hidePrimary = !hidePrimary"
                   >
-                    <span class="glyphicon glyphicon-flag"></span>
                   </a>
                   <span
                     class="hidden-xs hidden-sm hidden-md"
@@ -290,7 +275,6 @@
                       font-weight: normal;
                     "
                   >
-                    <span class="glyphicon glyphicon-flag"></span>
 
                     <span
                       class="hidden-xs hidden-sm hidden-md"
@@ -307,7 +291,6 @@
                   [placeholder]="'Headline Informaion'"
                   [dataTarget]="'#page-header'"
                   [matIcon]="'priority_high'"
-                  [glyphiconClass]="'glyphicon-pushpin'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideHeader"
                   (onToggle)="hideHeader = !hideHeader"
@@ -319,7 +302,6 @@
                   [placeholder]="'Primary page'"
                   [dataTarget]="'#page-primary-' + entityTypeName"
                   [matIcon]="'star'"
-                  [glyphiconClass]="'glyphicon-flag'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                   "
@@ -333,7 +315,6 @@
                   [placeholder]="'Secondary page'"
                   [matIcon]="'star_half'"
                   [dataTarget]="'#page-secondary-' + entityTypeName"
-                  [glyphiconClass]="'glyphicon-king'"
                   [svgUrlPath]="
                     '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
                   "
@@ -349,7 +330,6 @@
                   [placeholder]="'Optional page'"
                   [matIcon]="'more'"
                   [dataTarget]="'#page-optional-' + entityTypeName"
-                  [glyphiconClass]="'glyphicon-gift'"
                   [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
                   [toggleValue]="!hideOptional"
                   (onToggle)="hideOptional = !hideOptional"
@@ -361,7 +341,6 @@
                   [placeholder]="'Contact page'"
                   [matIcon]="'contacts'"
                   [dataTarget]="'#page-contact'"
-                  [glyphiconClass]="'glyphicon-envelope'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
                   [toggleValue]="!hideContacts"
                   (onToggle)="hideContacts = !hideContacts"
@@ -373,7 +352,6 @@
                   [placeholder]="'Custom page'"
                   [matIcon]="'build'"
                   [dataTarget]="'#page-custom'"
-                  [glyphiconClass]="'glyphicon-wrench'"
                   [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
                   [toggleValue]="!hideCustom"
                   (onToggle)="hideCustom = !hideCustom"
@@ -385,7 +363,6 @@
                   [placeholder]="'Files page'"
                   [dataTarget]="'#page-file'"
                   [matIcon]="'attachment'"
-                  [glyphiconClass]="'glyphicon-paperclip'"
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideDetailFiles"
                   (onToggle)="hideDetailFiles = !hideDetailFiles"
@@ -405,7 +382,7 @@
                   "
                   class="hidden-xs"
                 >
-                  <span class="glyphicon glyphicon-arrow-left"></span> Select
+                <mat-icon aria-hidden="true" aria-label="Entities">keyboard_backspace</mat-icon> Select
                   pages
                 </span>
               </div>
@@ -414,14 +391,14 @@
             </small>
 
             <small [hidden]="entityType < entityTypes.size - 1"
-              ><span class="glyphicon glyphicon-cog"></span>
-
+              >
+              <mat-icon aria-hidden="true" aria-label="Entities">settings</mat-icon>
               <span>&nbsp;Settings</span>
             </small>
 
             <small [hidden]="entityType != 0"
-              ><span class="glyphicon glyphicon-globe"></span>
-
+              >
+              <mat-icon aria-hidden="true" aria-label="Entities">public</mat-icon>
               <span>&nbsp;Dashboard</span>
             </small>
 
@@ -432,11 +409,7 @@
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
                 "
-                [glyphiconClass]="
-                  showPanelRight
-                    ? 'glyphicon-menu-right'
-                    : 'glyphicon-menu-left'
-                "
+                [matIcon] = "showPanelRight ? 'keyboard_arrow_right' : 'keyboard_arrow_left' "
                 [svgUrlPath]="
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
@@ -444,19 +417,6 @@
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
               ></app-buttons-toolbar-button>
-              <!-- <a
-                href="#"
-                class="btn btn-info btn-xs"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-              >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-menu-right]="showPanelRight"
-                  [class.glyphicon-menu-left]="!showPanelRight"
-                ></span>
-              </a> -->
             </div>
           </div>
           <div
@@ -541,7 +501,6 @@
           [hidden]="hideHistory && hideFiles"
         >
           <div class="panel-heading mt3">
-            <span class="glyphicon glyphicon-tasks"></span>
             <small> {{ hideHistory ? "Docs" : "Record Details" }}</small>
             <div class="btn-group pull-right">
               <a
@@ -552,7 +511,6 @@
                 data-placement="bottom"
                 [title]="'Minimise Detail panel'"
               >
-                <span class="glyphicon" [class.glyphicon-minus]="true"></span>
               </a>
               <a
                 href="#"
@@ -564,11 +522,7 @@
                   (expandHistoryDetail ? 'Shrink' : 'Expand') + ' Detail panel'
                 "
               >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-menu-down]="expandHistoryDetail"
-                  [class.glyphicon-menu-up]="!expandHistoryDetail"
-                ></span>
+                
               </a>
               <a
                 href="#"
@@ -578,11 +532,6 @@
                 data-placement="bottom"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
               >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-menu-right]="showPanelRight"
-                  [class.glyphicon-menu-left]="!showPanelRight"
-                ></span>
               </a>
             </div>
           </div>
@@ -612,8 +561,7 @@
         >
           <div class="panel-heading mt3">
             <small
-              ><span class="glyphicon glyphicon-paperclip"></span> Docs</small
-            >
+              >
             <div class="btn-group pull-right">
               <a
                 href="#"
@@ -623,7 +571,6 @@
                 data-placement="bottom"
                 [title]="'Minimise Detail panel'"
               >
-                <span class="glyphicon" [class.glyphicon-minus]="true"></span>
               </a>
               <a
                 href="#"
@@ -635,11 +582,6 @@
                   (expandFilesDetail ? 'Shrink' : 'Expand') + ' Detail panel'
                 "
               >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-menu-down]="expandFilesDetail"
-                  [class.glyphicon-menu-up]="!expandFilesDetail"
-                ></span>
               </a>
               <a
                 href="#"
@@ -649,11 +591,7 @@
                 data-placement="bottom"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
               >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-menu-right]="showPanelRight"
-                  [class.glyphicon-menu-left]="!showPanelRight"
-                ></span>
+                
               </a>
             </div>
           </div>
@@ -690,14 +628,11 @@
       <div class="panel panel-primary no-gutter nobottom">
         <div class="panel-heading mt3">
           <small
-            ><span
-              class="glyphicon"
-              [class.glyphicon-comment]="!hidePosts"
-              [class.glyphicon-flash]="!hideTasks"
-              [class.glyphicon-check]="!hideAudits"
-            ></span>
+            ><mat-icon aria-hidden="true" aria-label="Entities" [style.display] = "hidePosts?'none':'inherit'">comment</mat-icon>
+            <mat-icon aria-hidden="true" aria-label="Entities" [style.display] = "hideTasks?'none':'inherit'">flash_on</mat-icon>
+            <mat-icon aria-hidden="true" aria-label="Entities" [style.display] = "hideAudits?'none':'inherit'">done_all</mat-icon>
             <span
-              >&nbsp;
+              >
               {{
                 hidePosts && hideAudits && hideTasks
                   ? ""
@@ -715,7 +650,6 @@
               [title]="'Tasks'"
               [placeholder]="'Tasks Page'"
               [matIcon]="'flash_on'"
-              [glyphiconClass]="'glyphicon-flash'"
               [svgUrlPath]="
                 '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
               "
@@ -730,7 +664,6 @@
             <!-- <app-buttons-toggle
             [title]="'Articles'"
             [placeholder]="'Articles Page'"
-            [glyphiconClass]="'glyphicon-comment'"
             [svgUrlPath]="
               '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
             "
@@ -743,7 +676,6 @@
               [title]="'Audit'"
               [placeholder]="'Audit Page'"
               [matIcon]="'done_all'"
-              [glyphiconClass]="'glyphicon-check'"
               [svgUrlPath]="
                 '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
               "
@@ -760,11 +692,7 @@
               [placeholder]="
                 (showPanelRight ? 'Hide' : 'Show') + ' right panel'
               "
-              [glyphiconClass]="
-                showPanelRight
-                  ? 'glyphicon-menu-right'
-                  : 'glyphicon-menu-left'
-              "
+              [matIcon] = "showPanelRight ? 'keyboard_arrow_right':'keyboard_arrow_left'"
               [svgUrlPath]="
                 '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
               "
@@ -780,10 +708,9 @@
                 hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
               "
               style="vertical-align: bottom;"
-              >Select page&nbsp;<span
-                class="glyphicon glyphicon-arrow-right"
-              ></span
-              >&nbsp;
+              >Select page&nbsp;
+              <mat-icon aria-hidden="true" aria-label="Entities">keyboard_arrow_right</mat-icon>
+              &nbsp;
             </span>
           </small>
         </div>

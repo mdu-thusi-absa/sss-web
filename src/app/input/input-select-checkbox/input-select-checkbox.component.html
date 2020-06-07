@@ -109,24 +109,17 @@
               href="#"
               class="btn primary-color-reverse  btn-xs pull-right"
               (click)="doEdit(e.key)"
-              ><span
-                class="glyphicon glyphicon-pencil"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="'Edit the ' + e"
-              ></span
-            ></a>
+              style="border-left:none"
+              >
+            <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Edit ' + e.value.name">edit</mat-icon>
+          </a>
             <a
               href="#"
               class="btn primary-color-reverse  btn-xs pull-right"
               (click)="doDelete(e.key)"
-              ><span
-                class="glyphicon glyphicon-minus"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="'Delete ' + e"
-              ></span
-            ></a>
+              >
+            <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Delete ' + e.value.name">clear</mat-icon>
+          </a>
           </li>
         </div>
       </ul>

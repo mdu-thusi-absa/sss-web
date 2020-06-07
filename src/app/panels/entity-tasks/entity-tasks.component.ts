@@ -343,7 +343,7 @@ export class EntityTasksComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    if (this.data.lg) console.log('loaded:entity-tasks');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-tasks');
   }
 
   getCount_Done(){

@@ -3,15 +3,12 @@
   [class.panel-danger]="!task.mainGoal.isDone"
 >
   <div class="panel-heading mt3" >
-    <span class="glyphicon glyphicon-flash"></span>
+    <mat-icon aria-hidden="true" aria-label="Entities">flash_on</mat-icon>
     <a href="#"  (click)="isEdit = !isEdit"
     >
       <small>{{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }} :
       {{ task.mainGoal.title }}</small>
     </a>
-    <!-- toggleDone() <a href="#" (click)="doEdit()" [hidden]="isEdit"
-      ><span class="glyphicon glyphicon-pencil pull-right"></span
-    ></a> -->
 
     <app-buttons-cancel-save
       [hidden]="!isEdit"
@@ -49,8 +46,7 @@
 
       <!-- <div class="btn-group pull-right">
         <a href="#" class="btn btn-primary primary-color btn-xs"
-          ><span class="glyphicon" [class.glyphicon-plus]="true"></span
-        ></a>
+          ></a>
       </div> -->
     </form>
 
@@ -104,8 +100,10 @@
                     href="#"
                     class="btn btn-primary primary-color btn-xs"
                     (click)="doAddDoc()"
-                    ><span class="glyphicon glyphicon-plus"></span
-                  ></a>
+                    >
+                    
+                  <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+                </a>
                 </div>
               </th>
             </tr>
@@ -122,8 +120,8 @@
                     href="#"
                     class="btn btn-primary primary-color btn-xs"
                     (click)="doEditDoc(0)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
+                    ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
+                </a>
                 </div>
               </td>
             </tr>
@@ -138,8 +136,7 @@
                     href="#"
                     class="btn btn-primary primary-color btn-xs"
                     (click)="doEditDoc(1)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
+                    ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
                 </div>
               </td>
             </tr>
@@ -155,8 +152,7 @@
                     href="#"
                     class="btn btn-primary primary-color btn-xs"
                     (click)="doEditDoc(2)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
+                    ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
                 </div>
               </td>
             </tr>
@@ -172,8 +168,7 @@
                     href="#"
                     class="btn btn-primary primary-color btn-xs"
                     (click)="doEditDoc(3)"
-                    ><span class="glyphicon glyphicon-pencil"></span
-                  ></a>
+                    ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
                 </div>
               </td>
             </tr>

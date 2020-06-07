@@ -20,7 +20,7 @@ export class EntityTaskComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    if (this.data.lg) console.log('loaded:entity-task');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-task');
   }
 
   toggleDone(){

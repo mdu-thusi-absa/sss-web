@@ -29,7 +29,7 @@
       (click)="doMinus()"
       [title]="'Decrease'"
     >
-      <span class="glyphicon glyphicon-minus"></span>
+      <mat-icon aria-hidden="true" aria-label="Entities">remove</mat-icon>
     </span>
 
     <span
@@ -39,7 +39,7 @@
       [title]="'Increase'"
       style="border-left: solid var(--bg-color-active) 1px;"
     >
-      <span class="glyphicon glyphicon-plus"></span>
+      <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
     </span>
 
     <span
@@ -48,7 +48,7 @@
     (click)="doDownload()"
     [title]="'Download ' + title"
   >
-    <span class="glyphicon glyphicon-cloud-download"></span>
+    <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
   </span>
 
   <span
@@ -57,7 +57,7 @@
     (click)="doShare()"
     [title]="'Share ' + title"
   >
-    <span class="glyphicon glyphicon-share-alt"></span>
+    <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
   </span>
 
   </div>

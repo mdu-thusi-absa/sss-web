@@ -9,12 +9,11 @@
   class="panel panel-warning narrow"
 >
   <div class="panel-heading mt3">
-    <span class="glyphicon glyphicon-check"></span>
+    <mat-icon aria-hidden="true" aria-label="Entities">done_all</mat-icon>&nbsp;
     <a href="#" (click)="isEdit = !isEdit">
       <small>{{ task.mainGoal.whenStringCreated() }} : {{ task.mainGoal.whoCreated }}</small>
     </a>
     <!-- toggleDone() <a href="#" (click)="doEdit()" [hidden]="isEdit"
-      ><span class="glyphicon glyphicon-pencil pull-right"></span
     ></a> -->
 
     <app-buttons-cancel-save
@@ -39,8 +38,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showConfirm('Previous values', '')"
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">get_app</mat-icon>
+            </a>
             </div>
           </th>
           <th>
@@ -50,8 +50,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showConfirm('Change to', '')"
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">get_app</mat-icon>
+            </a>
             </div>
           </th>
         </tr>
@@ -71,8 +72,9 @@
                     'no appointment date'
                   )
                 "
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+            </a>
             </div>
           </td>
           <td>
@@ -84,8 +86,9 @@
                 (click)="
                   showConfirm('Appointment Date: Smith, John', '2020/02/13')
                 "
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+            </a>
             </div>
           </td>
         </tr>
@@ -98,8 +101,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showConfirm('Entity Name', 'New Co')"
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+            </a>
             </div>
           </td>
           <td>
@@ -109,8 +113,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showConfirm('Entity Name', 'Steady Bank (Pty) Ltd')"
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+            </a>
             </div>
           </td>
         </tr>
@@ -123,8 +128,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showConfirm('Share Issue', 'Ordinary: 1,000,000')"
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+            </a>
             </div>
           </td>
           <td>
@@ -134,8 +140,9 @@
                 href="#"
                 class="btn btn-info btn-xs"
                 (click)="showConfirm('Share Issue', 'Ordinary: 1,500,000')"
-                ><span class="glyphicon glyphicon-save"></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+            </a>
             </div>
           </td>
         </tr>

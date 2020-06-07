@@ -19,7 +19,7 @@ export class EntityMessageComponent implements OnInit {
   constructor(public data:DataService) {}
 
   ngOnInit(): void {
-    if (this.data.lg) console.log('loaded:entity-message');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-message');
   }
 
   toggleReadUnread() {

@@ -31,19 +31,9 @@
                 class="btn btn-primary primary-color btn-xs"
                 (click)="showAppointeeNewNew()"
               >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-remove]="isAppointeeNewInput"
-                  [class.glyphicon-plus]="!isAppointeeNewInput"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  [title]="
-                    isAppointeeNewInput
-                      ? 'Cancel the changes'
-                      : 'Add an appointment'
-                  "
-                ></span
-              ></a>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
+            </a>
             </div>
           </th>
         </tr>
@@ -60,12 +50,9 @@
                 class="btn btn-primary primary-color btn-xs"
                 (click)="showAppointeeNewEdit()"
               >
-                <span
-                  class="glyphicon"
-                  [class.glyphicon-remove]="isAppointeeNewInput"
-                  [class.glyphicon-pencil]="!isAppointeeNewInput"
-                ></span
-              ></a>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
+            </a>
             </div>
           </td>
         </tr>
@@ -80,12 +67,10 @@
                 href="#"
                 class="btn btn-primary primary-color btn-xs"
                 (click)="showAppointeeNewEdit()"
-                ><span
-                  class="glyphicon"
-                  [class.glyphicon-remove]="isAppointeeNewInput"
-                  [class.glyphicon-pencil]="!isAppointeeNewInput"
-                ></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
+            </a>
             </div>
           </td>
         </tr>
@@ -100,12 +85,10 @@
                 href="#"
                 class="btn btn-primary primary-color btn-xs"
                 (click)="showAppointeeNewEdit()"
-                ><span
-                  class="glyphicon"
-                  [class.glyphicon-remove]="isAppointeeNewInput"
-                  [class.glyphicon-pencil]="!isAppointeeNewInput"
-                ></span
-              ></a>
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
+            </a>
             </div>
           </td>
         </tr>
@@ -124,23 +107,15 @@
             class="btn btn-info btn-xs"
             (click)="showAppointeeNewNew()"
           >
-            <span
-              class="glyphicon glyphicon-remove"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Cancel the changes"
-            ></span>
+            
+            <mat-icon aria-hidden="true" aria-label="Entities" >clear</mat-icon>
           </a>
           <a
             href="#"
             class="btn btn-info btn-xs"
             (click)="showAppointeeNewNew()"
-            ><span
-              class="glyphicon glyphicon-cloud-upload"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Save the changes"
-            ></span>
+            >
+            <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">done</mat-icon>
           </a>
         </div>
       </div>
@@ -152,33 +127,17 @@
               href="#"
               class="btn btn-primary primary-color btn-xs"
               (click)="showAppointeeNew()"
-            >
-              <span
-                class="glyphicon"
-                [class.glyphicon-remove]="isAppointeeInput"
-                [class.glyphicon-pencil]="!isAppointeeInput"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="
-                  isAppointeeInput ? 'Cancel the changes' : 'Edit an appointee'
-                "
-              ></span>
+            >              
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeInput">edit</mat-icon>
             </a>
             <a
               href="#"
               class="btn btn-primary primary-color btn-xs"
               (click)="showAppointeeNew()"
             >
-              <span
-                class="glyphicon"
-                [class.glyphicon-cloud-upload]="isAppointeeInput"
-                [class.glyphicon-plus]="!isAppointeeInput"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="
-                  isAppointeeInput ? 'Save the changes' : 'Add an appointee'
-                "
-              ></span>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeInput">done</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeInput">add</mat-icon>
             </a>
           </div>
           <div class="input-group-sm" [hidden]="isAppointeeInput">

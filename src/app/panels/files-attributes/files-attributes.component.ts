@@ -60,7 +60,7 @@ export class FilesAttributesComponent implements OnInit {
     //   Object.assign(this.showFileFields, this.entities);
 
     // }
-    if (this.data.lg) console.log('loaded:file-attributes');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:file-attributes');
   }
 
   isFullScreen() {

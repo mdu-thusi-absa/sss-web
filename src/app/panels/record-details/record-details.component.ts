@@ -14,7 +14,7 @@ export class RecordDetailsComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    if (this.data.lg) console.log('loaded:record-details');
+    if (this.data.lg) console.log(new Date().getTime(),'loaded:record-details');
   }
 
   showConfirm(attribute: string, value: string){

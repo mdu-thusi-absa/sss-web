@@ -1,45 +1,54 @@
 <div class="btn-group pull-right" style="margin-right: 1px;">
-  <a *ngIf = "showFlash" href="#" class="btn primary-color-reverse btn-xs">
-    <span
-      class="glyphicon"
-      [class.glyphicon-flash]="true"
-      data-toggle="tooltip"
-      data-placement="bottom"
-      [title]="'Manage tasks for ' + title"
-      (click)="doTask()"
-    ></span>
-  </a>
-  <a  *ngIf = "showPaperclip" href="#" class="btn  primary-color-reverse btn-xs">
-    <span
-      class="glyphicon"
-      [class.glyphicon-paperclip]="true"
-      data-toggle="tooltip"
-      data-placement="bottom"
-      [title]="'Source documents for ' + title"
-      (click)="doFile()"
-    ></span>
-  </a>
-  <a  *ngIf = "showCD" href="#" class="btn  primary-color-reverse btn-xs">
-    <span
-      class="glyphicon"
-      [class.glyphicon-cd]="true"
-      data-toggle="tooltip"
-      data-placement="bottom"
-      [title]="'Record of changes for ' + title"
-      (click)="doRecord()"
-    ></span>
+  <a
+    *ngIf="showFlash"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doTask()"
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >flash_on</mat-icon
+    >
   </a>
   <a
-      *ngIf="showCheck"
-      href="#"
-      class="btn  primary-color-reverse btn-xs"
-      (click)="doRecord()"
+    *ngIf="showPaperclip"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doFile()"
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >attachment</mat-icon
     >
-      <span
-        class="glyphicon glyphicon-check"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        [title]="'Audit of changes for ' + title"
-      ></span>
-    </a>
+  </a>
+  <a
+    *ngIf="showCD"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doRecord()"
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >cd</mat-icon
+    >
+  </a>
+  <a
+    *ngIf="showCheck"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doRecord()"
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >done_all</mat-icon
+    >
+  </a>
 </div>
