@@ -984,6 +984,20 @@ body,
   margin: 0;
   font-family: Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
 }
+
+body{
+  /* background-image: url('src/assets/images/absa-logo-passion.jpg'); */
+  background: url('src/assets/images/absa-logo-passion.jpg');
+  background-repeat: no-repeat;
+  background-size: 40%;
+  background-attachment: fixed;
+  background-position: center;
+}
+.panel,.panel-body{
+  /* opacity: 0.1; */
+  /* background-image: url('src/assets/images/absa-logo-passion.jpg'); */
+  background: rgba(255,255,255, 0.65)
+}
 /* html, body { height: 100%; }
 body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Arial, Roboto, "Helvetica Neue", sans-serif; } */
 
