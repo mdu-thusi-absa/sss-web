@@ -469,7 +469,7 @@ label.btn.btn-primary:focus{
 .text-bright-bold {
   color: var(--color-bright);
   border-color: var(--color-bright);
-  font-weight: 550;
+  font-weight: var(--bold);
 }
 
 .text-primary {
@@ -500,7 +500,7 @@ label.btn.btn-primary:focus{
   /* color: rgb(150, 5, 4); */
   color: var(--color-dark);
   border-color: var(--color-dark);
-  font-weight: 550;
+  font-weight: var(--bold);
 }
 
 .info {
@@ -548,6 +548,7 @@ label.btn.btn-primary:focus{
   --color-bright: rgb(220, 0, 50);
   --color-normal: rgb(245, 45, 40);
   --color-light: rgb(240, 90, 120);
+  --bold: 550;
 
   /* rgb(240,50,90); */
   /* --color-text: rgb(250,85,30); */
@@ -981,7 +982,7 @@ background-color: rgba(0, 0, 0, 0);
 body,
 .mat-typography {
   margin: 0;
-  font-family: "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
+  font-family: Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
 }
 /* html, body { height: 100%; }
 body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Arial, Roboto, "Helvetica Neue", sans-serif; } */
