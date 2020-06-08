@@ -42,9 +42,13 @@ export class InputBrowseComponent implements OnInit {
     this.fileName = this.fileToUpload.name;
   }
 
+  getID(){
+    return this.data.getID(this.title);
+  }
+
   fileBrowse(event: any){
     //let t = 'file-' + this.data.getID(this.title)
-    let t = 'file';
+    let t = 'file-browser-' + this.getID();
     event.preventDefault();
 
     let element: HTMLElement = document.getElementById(t) as HTMLElement;

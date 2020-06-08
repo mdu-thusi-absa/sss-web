@@ -12,6 +12,7 @@ import {
   Countries,
   EveryEntity,
   Company,
+  FileEntity,
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
@@ -24,6 +25,7 @@ import {
   jsonEntityTypesPlural,
   jsonMonths,
   jsonPeriods,
+  jsonFiles,
 } from './data-json/data-json.module';
 
 @Injectable({
@@ -39,6 +41,7 @@ export class DataService {
   entityTypesPlural = new Entities<Entity>(Entity);
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
+  files = new Entities<FileEntity>(FileEntity);
 
   constructor() {
     this.loadStatic();
@@ -55,6 +58,7 @@ export class DataService {
     this.entityTypesPlural.fromJSON(jsonEntityTypesPlural);
     this.months.fromJSON(jsonMonths);
     this.periods.fromJSON(jsonPeriods);
+    this.files.fromJSON(jsonFiles);
   }
 
   makeIndividuals() {

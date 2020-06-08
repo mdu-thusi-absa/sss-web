@@ -129,9 +129,8 @@
   <a href="#" class="btn">hidden File Browse</a>
   <input
     type="file"
-    [attr.id]="'file'"
-    [attr.name]="'file'"
-    id="file"
+    [attr.id]="'file-browser-' + this.getID()"
+    [attr.name]="'file-browser-' + this.getID()"
     (change)="handleFileInput($event.target.files)"
   />
 </div>

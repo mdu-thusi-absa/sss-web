@@ -58,12 +58,6 @@
 
           <tbody>
             <ng-container *ngFor="let e of entities | keyvalue;let i = index">
-              <!-- <ng-container
-              *ngIf="
-                e.value.type == entityTypeNames.get(t.key).name.toLowerCase()
-              "
-              
-            > -->
               <ng-container
                 *ngIf="
                   e.value.type == entityTypeNames.get(t.key).name.toLowerCase() && getDoLoad(e.key, e.value.type,e.value.isActive)
@@ -114,22 +108,6 @@
               </ng-container>
             </ng-container>
           </tbody>
-
-          <!-- <tbody [hidden]="entityType != 0">
-          <tr
-            *ngFor="let e of entities | keyvalue"
-            [hidden]="isHiddenMap.get(e.key)"
-            [class.info]="e.value.isActive"
-          >
-            <td>
-              <a href="#" (click)="doEntityChoose(e.key)"
-                >{{ e.value.name }}
-              </a>
-            </td>
-            <td>{{ e.value.tasksCount }}</td>
-            <td>{{ e.value.suffix }}</td>
-          </tr>
-        </tbody> -->
         </table>
       </ng-container>
 
@@ -159,27 +137,7 @@
   >
   </app-input-date>
 
-  <!-- <app-input-duo
-        [isNarrow]="isNarrow"
-        [doHideByFilter]="false"
-        [typeLeft]="'date'"
-        [titleLeft]="'System Date'"
-        [disabledLeft] = "true"
-
-        [typeRight]="'checkbox'"
-        [titleRight]="'Active Only'"
-        [valueRight] = "true"
-
-        (onChangeRight)="doChangeShowActive($event)"
-      >
-      </app-input-duo> -->
   <div class="wide btn-group input-group-sm" style="vertical-align: middle;">
-    <!-- <app-input-checkbox [hidden] = "entityTypeName =='setting'"
-      [title]="'Active Only'"
-      [value]="showActiveOnly"
-      (onChange)="doChangeShowActive($event)"
-      [inline]="true"
-    ></app-input-checkbox> -->
     <a href="#" class="btn primary-color">
       <small>
         <mat-icon aria-hidden="true" aria-label="Entities">flight_takeoff</mat-icon>
@@ -217,4 +175,3 @@
   </div>
 </div> -->
 
-<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->

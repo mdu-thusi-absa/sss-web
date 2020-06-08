@@ -1,0 +1,48 @@
+<table class="table table-condensed table-bordered less-bottom">
+  <thead class="info">
+    <tr class="info">
+      <th *ngFor="let h of headings">
+        <small>{{ h }}</small>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <ng-container *ngFor="let e of entities | keyvalue; let i = index">
+      <ng-container *ngIf="getDoLoad(e)">
+        <tr [hidden]="isHiddenMap.get(e.key)">
+          <td
+            *ngFor="let f of fields"
+            [style.border-bottom]="
+              e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+            "
+          >
+            <a
+              href="#"
+              (click)="doEntityChoose(e.key)"
+              [attr.id]="e.key"
+              [attr.name]="e.key"
+              routerLink="."
+              fragment="e.key"
+              ><span [class.text-bright]="e.key == selectedEntityKey">
+                {{ e.value[f] }}</span
+              >
+            </a>
+          </td>
+        </tr>
+        <tr [hidden] = "hideEditRow.get(e.key)">
+            <td [attr.colspan] = "headings.length">
+          <app-input-any
+            [type]="'file'"
+            [title]="e.value.name"
+            [showTitleInput]="true"
+            [showSelect]="true"
+            [showShare]="true"
+            [showDownload]="true"
+          ></app-input-any>
+        </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>

@@ -24,7 +24,13 @@
   [showShareLeft] = "true"
 ></app-input-duo>
 
-<div *ngFor="let e of elements; let i = index">
+<app-input-table
+[headings] = "['Title','Name','Description']"
+[fields] = "['name','fileName','description']"
+[entities] = "data.files"
+></app-input-table>
+
+<!-- <div *ngFor="let e of elements; let i = index">
 
   <app-input-any
       [filterText]="filterText"
@@ -42,7 +48,7 @@
       (onTask)="doTask(i)" 
       (onCheck) = "doSelectItem($event)"
     ></app-input-any> 
-</div>
+</div> -->
 
 <div style="padding-bottom: 5px;"> </div>
 <hr>

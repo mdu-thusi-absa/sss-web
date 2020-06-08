@@ -76,6 +76,7 @@ import { ButtonsToggleComponent } from './buttons/buttons-toggle/buttons-toggle.
 import { ButtonsToolbarButtonComponent } from './buttons/buttons-toolbar-button/buttons-toolbar-button.component';
 import { EntityDetailsHeaderComponent } from './panels/entity-details-header/entity-details-header.component';
 import { EntityDetailsDashboardComponent } from './panels/entity-details-dashboard/entity-details-dashboard.component';
+import { InputTableComponent } from './input/input-table/input-table.component';
 
 
 
@@ -147,6 +148,7 @@ import { EntityDetailsDashboardComponent } from './panels/entity-details-dashboa
     ButtonsToolbarButtonComponent,
     EntityDetailsHeaderComponent,
     EntityDetailsDashboardComponent,
+    InputTableComponent,
     
   ],
   imports: [
