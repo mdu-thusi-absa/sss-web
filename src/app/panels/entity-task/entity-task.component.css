@@ -4,3 +4,9 @@
     width: 11.9px;
     height: 17px;
   }
+
+  .panel,.panel-body{
+    /* opacity: 0.1; */
+    /* background-image: url('src/assets/images/absa-logo-passion.jpg'); */
+    background: rgba(255,255,255, 0)
+  }
