@@ -285,7 +285,7 @@ body {
   color: white;
   border-color: var(--color-dark);
   box-shadow: none;
-  background-image: linear-gradient(var(--color-bright),var(--color-normal));
+  background-image: linear-gradient(var(--color-bright), var(--color-normal));
 }
 .primary-color:hover {
   /* background-color: rgb(51, 122, 183); */
@@ -293,7 +293,7 @@ body {
   color: white;
   border-color: var(--color-dark);
   box-shadow: none;
-  background-image: linear-gradient(var(--color-normal),var(--color-bright));
+  background-image: linear-gradient(var(--color-normal), var(--color-bright));
 }
 
 /* lable{
@@ -542,15 +542,13 @@ label.btn.btn-primary:focus{
   /* --color-maroon: rgb(150, 5, 4);
   --color-orange: rgb(250,85,30); */
 
-  --color-night: rgb(100,0,50);
+  --color-night: rgb(100, 0, 50);
   --color-dark: rgb(150, 5, 4);
   --color-favicon: #b8202c;
   --color-bright: rgb(220, 0, 50);
   --color-normal: rgb(245, 45, 40);
   --color-light: rgb(240, 90, 120);
-  
-  
-  
+
   /* rgb(240,50,90); */
   /* --color-text: rgb(250,85,30); */
   /* --color-text: rgb(240,90,120); */
@@ -672,7 +670,7 @@ fieldset[disabled] .btn-info.focus {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
-  background-image: linear-gradient(var(--color-favicon),var(--color-dark));
+  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 
 .primary-color:focus,
@@ -980,8 +978,13 @@ background-color: rgba(0, 0, 0, 0);
   background-color: var(--color-bright) !important;
 }
 
+body,
+.mat-typography {
+  margin: 0;
+  font-family: "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
+}
 /* html, body { height: 100%; }
-body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Roboto, "Helvetica Neue", sans-serif; } */
+body { margin: 0; font-family: "brave-sans","BraveSans","Brave Sans", Arial, Roboto, "Helvetica Neue", sans-serif; } */
 
 /*Set font family style as sample*/
 /* .glyphter {
