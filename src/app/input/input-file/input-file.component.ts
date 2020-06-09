@@ -32,6 +32,8 @@ export class InputFileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    setTimeout((that) => {that.value=true}, 1000, this);
+    setTimeout((that) => {that.value=false}, 2000, this);
   }
 
   doCheckField(event: any){

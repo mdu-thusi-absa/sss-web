@@ -11,6 +11,7 @@ export class InputTableComponent implements OnInit {
   @Input() fields: string[] = []; //lists attribute names from the objects to show
   @Input() entities: Entities<EveryEntity>;
   @Input() selectedEntityKey: number;
+  @Input() withCheckbox = "false"
   isHiddenMap = new Map();
   hideEditRow = new Map();
   @Input() inputType = 'file'

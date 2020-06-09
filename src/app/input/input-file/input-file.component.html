@@ -11,18 +11,14 @@
       href="#"
       data-toggle="collapse"
       [attr.data-target]="'#file-' + getID()"
-      style="
-        white-space: nowrap;
-        display: inline-block;
-        overflow: hidden;
-      "
+      style="white-space: nowrap; display: inline-block; overflow: hidden;"
     >
       <label class="nobottom text-primary-bold">{{ title }}</label>
     </a>
-    <div [hidden] = "false" class="form-group pull-right nobottom">
+    <div [hidden]="false" class="form-group pull-right nobottom">
       <label class="checkbox-inline" style="padding: 0px;"
-        >&nbsp;<input type="checkbox" value="" (change)="doCheckField($event)" /></label
-      >
+        >&nbsp;<input type="checkbox" value="" (change)="doCheckField($event)"
+      /></label>
     </div>
   </div>
 
@@ -38,26 +34,45 @@
           <div *ngIf="showTitleInput">
             <app-input-text
               [title]="'Title'"
+              [value]="title"
+              (onChange)="doChangeTitle($event)"
+              [showCheck]="[showCheck]"
+            ></app-input-text>
+          </div>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-checkbox
+            [title]="'Active'"
+            [value]="true"
+          ></app-input-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <!-- <div *ngIf="showTitleInput">
+            <app-input-text
+              [title]="'Title'"
               [value] = "title"
               (onChange) = "doChangeTitle($event)"
               [showCheck] = [showCheck]
             ></app-input-text>
-          </div>
+          </div> -->
           <!-- <div style="height:3px;"></div> -->
           <app-input-browse
-            [title]="title"
+            [title]="title + ' file name'"
             [showDisk]="true"
             [showLink]="true"
             [showMinus]="true"
-            [showDownload] = "true"
-            [showShare] = "true"
+            [showDownload]="true"
+            [showShare]="true"
           ></app-input-browse>
+          <app-input-date [title]="'Creation date'"></app-input-date>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
           <app-input-textarea
             [title]="'Description'"
             [placeholder]="'File or link contents description'"
-            [showCheck] = "false"
+            [showCheck]="false"
           ></app-input-textarea>
         </div>
       </div>

@@ -22,6 +22,8 @@ export class InputCheckboxComponent implements OnInit {
   @Input() showCD = false;
   @Input() showCheck = false;
   @Input() inline = false;
+  @Input() showTitle = true;
+  checked = true;
 
   doChange(event:  any){
      this.onChange.emit(event.target.checked);

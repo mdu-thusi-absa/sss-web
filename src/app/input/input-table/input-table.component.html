@@ -1,6 +1,10 @@
 <table class="table table-condensed table-bordered less-bottom">
   <thead class="info">
     <tr class="info">
+        
+        <th *ngIf="withCheckbox">
+            <input type="checkbox"/>
+        </th>
       <th *ngFor="let h of headings">
         <small>{{ h }}</small>
       </th>
@@ -11,6 +15,9 @@
     <ng-container *ngFor="let e of entities | keyvalue; let i = index">
       <ng-container *ngIf="getDoLoad(e)">
         <tr [hidden]="isHiddenMap.get(e.key)">
+            <td *ngIf="withCheckbox">
+                <input type="checkbox"/>
+            </td>
           <td
             *ngFor="let f of fields"
             [style.border-bottom]="
@@ -31,7 +38,7 @@
           </td>
         </tr>
         <tr [hidden] = "hideEditRow.get(e.key)">
-            <td [attr.colspan] = "headings.length">
+            <td [attr.colspan] = "headings.length + withCheckbox">
           <app-input-any
             [type]="'file'"
             [title]="e.value.name"

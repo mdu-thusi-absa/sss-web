@@ -77,6 +77,7 @@ import { ButtonsToolbarButtonComponent } from './buttons/buttons-toolbar-button/
 import { EntityDetailsHeaderComponent } from './panels/entity-details-header/entity-details-header.component';
 import { EntityDetailsDashboardComponent } from './panels/entity-details-dashboard/entity-details-dashboard.component';
 import { InputTableComponent } from './input/input-table/input-table.component';
+import { ButtonCheckComponent } from './buttons/button-check/button-check.component';
 
 
 
@@ -149,6 +150,7 @@ import { InputTableComponent } from './input/input-table/input-table.component';
     EntityDetailsHeaderComponent,
     EntityDetailsDashboardComponent,
     InputTableComponent,
+    ButtonCheckComponent,
     
   ],
   imports: [
