@@ -10,6 +10,7 @@ export class InputAnyComponent implements OnInit {
   @Input() type = ''; 
   @Input() filterText = '';
   @Input() doHideByFilter = true;
+  @Input() showPanelHeading = true;
 
   @Input() title = '';
   @Input() placeholder = '';

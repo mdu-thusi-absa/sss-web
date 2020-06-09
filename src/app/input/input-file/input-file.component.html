@@ -3,7 +3,7 @@
   style="margin-bottom: 5px; margin-top: 5px;"
   [hidden]="hideByFilter()"
 >
-  <div
+  <div *ngIf="showPanelHeading"
     class="panel panel-heading panel-info nobottom less-padding text-primary-bold"
     style="vertical-align: middle; padding-bottom: 0px;"
   >
@@ -15,11 +15,11 @@
     >
       <label class="nobottom text-primary-bold">{{ title }}</label>
     </a>
-    <div [hidden]="false" class="form-group pull-right nobottom">
+    <!-- <div [hidden]="false" class="form-group pull-right nobottom">
       <label class="checkbox-inline" style="padding: 0px;"
         >&nbsp;<input type="checkbox" value="" (change)="doCheckField($event)"
       /></label>
-    </div>
+    </div> -->
   </div>
 
   <div

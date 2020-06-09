@@ -21,6 +21,7 @@ export class TaskDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log(new Date().getTime(),'loaded:task-details');
+    this.data.progress += 1;
   }
 
   hideByFilter(caption: string){

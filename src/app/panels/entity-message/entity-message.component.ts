@@ -20,6 +20,7 @@ export class EntityMessageComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-message');
+    this.data.progress += 1;
   }
 
   toggleReadUnread() {

@@ -16,6 +16,7 @@
               >
               &nbsp;Entities
             </small>
+            
             <div class="btn-group pull-right">
               <!-- <a
                 href="#"
@@ -217,75 +218,6 @@
               >&nbsp;
               <!-- <div class="btn-group"> -->
               <div class="btn-group" style="vertical-align: top; height: 20px;">
-                <!-- <a href="#" style="vertical-align: top;" >Bah</a> -->
-                <!-- <div class="btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-info">
-                    <input type="checkbox" checked autocomplete="off"> Checked
-                  </label>
-                </div> -->
-                <!-- <app-buttons-toggle
-                [title]="'Primary'"
-                [toggleValue] = "hidePrimary"
-                (onToggle) = "hidePrimary = $event"
-                ></app-buttons-toggle> -->
-
-                <!-- <label
-                  style="
-                    white-space: nowrap;
-                    height: 20px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin-bottom: 0px;
-                    font-weight: normal;
-                  "
-                >
-                  <a
-                    data-toggle="button"
-                    href="#"
-                    class="btn btn-info btn-xs active"
-                    (click)="hidePrimary = !hidePrimary"
-                  >
-                  </a>
-                  <span
-                    class="hidden-xs hidden-sm hidden-md"
-                    [hidden]="showPanelRight"
-                  >
-                    <small> Primary </small></span
-                  >
-                </label> -->
-                <!--
-                    <img [src]="'assets/images/Plus.png'" style="height:20px;width:20px;text-align: center"> 
-                    <input
-                    type="checkbox"
-                    class="btn btn-info"
-                    [checked]="!hidePrimary"
-                    (change)="hidePrimary = !hidePrimary" /> -->
-                <!-- <a
-                  data-toggle="button"
-                  href="#"
-                  class="btn btn-info btn-xs active"
-                  (click)="hidePrimary = !hidePrimary"
-                  style="height:19px"
-                  ><label
-                    style="
-                      white-space: nowrap;
-                      overflow: hidden;
-                      display: inline-block;
-                      margin-bottom: 0px;
-                      font-weight: normal;
-                    "
-                  >
-
-                    <span
-                      class="hidden-xs hidden-sm hidden-md"
-                      [hidden]="showPanelRight"
-                    >
-                      <small> World </small></span
-                    >
-                  </label></a
-                > -->
-
-                <!-- <a href="#">Bah</a> -->
                 <app-buttons-toggle
                   [title]="'Info'"
                   [placeholder]="'Headline Informaion'"
@@ -389,7 +321,7 @@
                 </span>
               </div>
 
-              <!-- </div> -->
+             
             </small>
 
             <small [hidden]="entityType < entityTypes.size - 1">
@@ -627,8 +559,7 @@
         [class.hidden-xs]="!showPanelRight"
         [class.col-sm-5]="showPanelRight"
         [style.visibility]="showPanelRight ? 'visible' : 'hidden'"
-        style="transition: visibility 5s;"
-        *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
+        *ngIf="getIsLoaded(showPanelRight, 'panelRight',false)"
       >
         <div class="panel panel-primary no-gutter nobottom">
           <div class="panel-heading mt3">
@@ -735,6 +666,7 @@
       </div>  -->
           <div
             class="panel-body mt3"
+            style="margin-bottom: 0px;"
             *ngIf="getIsLoaded(!hideTasks, 'tasks')"
             [hidden]="hideTasks"
           >
@@ -742,6 +674,7 @@
           </div>
           <div
             class="panel-body mt3"
+            style="margin-bottom: 0px;"
             *ngIf="getIsLoaded(!hideAudits, 'audits')"
             [hidden]="hideAudits"
           >

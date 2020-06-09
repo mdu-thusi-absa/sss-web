@@ -21,6 +21,7 @@ export class EntityTaskComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-task');
+    this.data.progress += 1;
   }
 
   toggleDone(){

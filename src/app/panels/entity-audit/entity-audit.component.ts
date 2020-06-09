@@ -21,6 +21,7 @@ export class EntityAuditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entity-audit');
+    this.data.progress += 1;
   }
 
   toggleDone(){

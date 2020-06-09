@@ -17,6 +17,7 @@ export class EntityDetailsAuditorComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-auditor');
+    this.data.progress += 1;
   }
 
   doRecord(event: any){

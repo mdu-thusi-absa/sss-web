@@ -31,6 +31,7 @@ export class EntityDetailsCustomComponent implements OnInit {
        this.elementsType[i] = 'text';
     }
     if (this.data.lg) console.log( 'loaded:entities-details-custom');
+    this.data.progress += 1;
   }
 
   doRecord(event: any){

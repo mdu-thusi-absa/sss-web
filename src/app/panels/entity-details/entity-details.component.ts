@@ -74,6 +74,7 @@ export class EntityDetailsComponent implements OnInit {
       this.entityKey = this.entities.currentKey;
     }
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entities-details');
+    this.data.progress += 1;
   }
 
   getIsLoaded(keyType: string, keyPage: string) {

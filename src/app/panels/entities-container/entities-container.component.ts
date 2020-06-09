@@ -18,6 +18,7 @@ export class EntitiesContainerComponent implements OnInit {
     this.showFileFields = [];
     this.entityTypes = this.data.entityTypes;
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entities-container');
+    this.data.progress += 1;
   }
 
   entityTypes: Entities<EveryEntity>;
@@ -93,7 +94,7 @@ export class EntitiesContainerComponent implements OnInit {
     'Public Officer (income tax)',
   ];
 
-  getIsLoaded(setTo: boolean, key: string) {
+  getIsLoaded(setTo: boolean, key: string, doLazy: boolean=true) {
     let r: boolean;
     if (setTo) {
       r = setTo;
@@ -106,11 +107,11 @@ export class EntitiesContainerComponent implements OnInit {
       if (!r)
         if (this.isPageLoaded_CalledToLoad.indexOf(key) == -1) {
           this.isPageLoaded_CalledToLoad.push(key);
-          if (this.isPageLoaded.indexOf(key) == -1) {
+          if (doLazy && this.isPageLoaded.indexOf(key) == -1) {
             this.isPageLoaded_index += 1;
             setTimeout(
               this.delayLoader,
-              this.isPageLoaded_index * 1000,
+              this.isPageLoaded_index * 3000,
               key,
               this.isPageLoaded
             );
@@ -121,6 +122,7 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   delayLoader(key: string, isPageLoaded: string[]) {
+    //optimise lazy loader
     if (isPageLoaded.indexOf(key) == -1) isPageLoaded.push(key);
   }
 

@@ -77,6 +77,7 @@ export class EntitiesComponent implements OnInit {
     this.doEntityTypeChange(this.entityType);
     this.setCounts();
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entities');
+    this.data.progress += 1;
     // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
 
@@ -238,7 +239,7 @@ export class EntitiesComponent implements OnInit {
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'play') {
       this.rdoActiveDormantAll = 'all';
     }
-    this.calcIsHidden();
+    //this.calcIsHidden();
     this.setCounts();
   }
 
@@ -249,6 +250,14 @@ export class EntitiesComponent implements OnInit {
     this.countTasks = this.getCount_Tasks();
     this.countDormant = this.getCount_Dormant();
     this.countActive = this.getCount_Active();
+  }
+
+  getCountFiltered() {
+    if (this.entities) {
+      return [...this.isHiddenMap.values()].filter((e) => !e).length;
+    } else {
+      return 0;
+    }
   }
 
   doChangeRdo(event: any) {
@@ -272,14 +281,6 @@ export class EntitiesComponent implements OnInit {
           this.isHiddenMap.set(key, this.shouldBeHidden(value));
         }
       });
-    }
-  }
-
-  getCountFiltered() {
-    if (this.entities) {
-      return [...this.isHiddenMap.values()].filter((e) => !e).length;
-    } else {
-      return 0;
     }
   }
 

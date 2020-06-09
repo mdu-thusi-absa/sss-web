@@ -42,6 +42,7 @@ export class DataService {
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
   files = new Entities<FileEntity>(FileEntity);
+  progress = 0;
 
   constructor() {
     this.loadStatic();

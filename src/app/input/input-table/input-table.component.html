@@ -1,11 +1,25 @@
+<app-input-filter-add
+  [filterCount]="countSelected + ':' + countFiltered"
+  [showAdd]="true"
+  [showFilterCount]="true"
+  (onFilter)="filterText = $event"
+  [showInputFilter]="true"
+  [showShare] = "true"
+  [disabledShare] = "countSelected==0"
+></app-input-filter-add>
+<div style="padding-bottom: 5px;"></div>
+
 <table class="table table-condensed table-bordered less-bottom">
   <thead class="info">
-    <tr class="info">
-        
-        <th *ngIf="withCheckbox">
-            <input type="checkbox"/>
-        </th>
-      <th *ngFor="let h of headings">
+    <tr>
+      <th *ngIf="withCheckbox" width="20px">
+        <app-input-checkbox
+          [noTitle]="true"
+          [showSmall]="true"
+          (onChange)="checkForAll($event)"
+        ></app-input-checkbox>
+      </th>
+      <th *ngFor="let h of headings" class="info">
         <small>{{ h }}</small>
       </th>
     </tr>
@@ -15,9 +29,14 @@
     <ng-container *ngFor="let e of entities | keyvalue; let i = index">
       <ng-container *ngIf="getDoLoad(e)">
         <tr [hidden]="isHiddenMap.get(e.key)">
-            <td *ngIf="withCheckbox">
-                <input type="checkbox"/>
-            </td>
+          <td *ngIf="withCheckbox">
+            <app-input-checkbox
+              [noTitle]="true"
+              [showSmall]="true"
+              [value]="isChecked.get(e.key)"
+              (onChange)="checkItem(e.key, $event)"
+            ></app-input-checkbox>
+          </td>
           <td
             *ngFor="let f of fields"
             [style.border-bottom]="
@@ -37,17 +56,18 @@
             </a>
           </td>
         </tr>
-        <tr [hidden] = "hideEditRow.get(e.key)">
-            <td [attr.colspan] = "headings.length + withCheckbox">
-          <app-input-any
-            [type]="'file'"
-            [title]="e.value.name"
-            [showTitleInput]="true"
-            [showSelect]="true"
-            [showShare]="true"
-            [showDownload]="true"
-          ></app-input-any>
-        </td>
+        <tr *ngIf="!hideEditRow.get(e.key)">
+          <td [attr.colspan]="headings.length + withCheckbox">
+            <app-input-any
+              [type]="'file'"
+              [title]="e.value.name"
+              [showTitleInput]="true"
+              [showSelect]="true"
+              [showShare]="true"
+              [showDownload]="true"
+              [showPanelHeading] = "false"
+            ></app-input-any>
+          </td>
         </tr>
       </ng-container>
     </ng-container>

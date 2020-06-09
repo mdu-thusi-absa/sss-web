@@ -1,9 +1,8 @@
-
 <div class="h4 text-primary-h4" style="margin-top: 5px;">
-  <u>File Details: {{title}}</u>
+  <u>File Details: {{ title }}</u>
 </div>
 
-<app-input-duo
+<!-- <app-input-duo
   [typeLeft]="'number'"
   [titleLeft]="'Number of files'"
   [valueLeft]="1"
@@ -22,13 +21,13 @@
   [showPaperclipLeft]="false"
   [showDownloadLeft] = "true"
   [showShareLeft] = "true"
-></app-input-duo>
+></app-input-duo> -->
 
 <app-input-table
-[headings] = "['Title','Description']"
-[fields] = "['name','description']"
-[withCheckbox] = "true"
-[entities] = "data.files"
+  [headings]="['Title', 'Description']"
+  [fields]="['name', 'description']"
+  [withCheckbox]="true"
+  [entities]="data.files"
 ></app-input-table>
 
 <!-- <div *ngFor="let e of elements; let i = index">
@@ -51,5 +50,5 @@
     ></app-input-any> 
 </div> -->
 
-<div style="padding-bottom: 5px;"> </div>
-<hr>
+<div style="padding-bottom: 5px;"></div>
+<hr />

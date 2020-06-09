@@ -2,7 +2,7 @@
   [title]="'Dashboard'"
   [showT]="true"
   (onFilter)="doFilter($event)"
-  [titleT] = "'field values'"
+  [titleT]="'field values'"
 ></app-input-filter-add>
 
 <form autocomplete="off">
@@ -10,36 +10,37 @@
     [class.settings-detail-form-full]="isFullScreen()"
     [class.settings-detail-form-half]="isHalfScreen()"
   >
-  <app-input-checkbox [value]="false" [title]="'Active'"></app-input-checkbox>
-  <div class="h4 text-primary-h4" style="margin-top: 5px;">
-    <u>Dashboard: tasks in progress</u>
-  </div>
-  <hr>
+    <!-- progress:{{data.progress}} -->
+
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Dashboard: tasks in progress</u>
+    </div>
+    <hr />
     <div class="h4 text-primary-h4" style="margin-top: 5px;">
       <u>Dashboard: incomplete entities</u>
     </div>
-    <hr>
+    <hr />
     <div class="h4 text-primary-h4" style="margin-top: 5px;">
-        <u>Dashboard: incomplete companies</u>
-      </div>
-      <hr>
-      <div class="h4 text-primary-h4" style="margin-top: 5px;">
-        <u>Dashboard: incomplete individuals</u>
-      </div>
-      <hr>
-      <div class="h4 text-primary-h4" style="margin-top: 5px;">
-        <u>Dashboard: incomplete users</u>
-      </div>
-      <hr>
-      <div class="h4 text-primary-h4" style="margin-top: 5px;">
-        <u>Dashboard: incomplete groups</u>
-      </div>
-      <hr>
+      <u>Dashboard: incomplete companies</u>
+    </div>
+    <hr />
     <div class="h4 text-primary-h4" style="margin-top: 5px;">
-        <u>Dashboard: upcoming tasks</u>
-      </div>
-      <hr>
-<!-- 
+      <u>Dashboard: incomplete individuals</u>
+    </div>
+    <hr />
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Dashboard: incomplete users</u>
+    </div>
+    <hr />
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Dashboard: incomplete groups</u>
+    </div>
+    <hr />
+    <div class="h4 text-primary-h4" style="margin-top: 5px;">
+      <u>Dashboard: upcoming tasks</u>
+    </div>
+    <hr />
+    <!-- 
     <app-input-duo
       [isNarrow]="isNarrow"
       [typeLeft]="'select-entity'"

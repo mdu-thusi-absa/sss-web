@@ -159,6 +159,7 @@ Torsten Titze	Senior Manager: Public Affairs	info@de.sasol.com	T: +49 40 63 684 
       new Message(new Date(), 'ulrich', 'Information 20', true,''),
     ];
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-messages');
+    this.data.progress += 1;
   }
 
   showMessagesThatAre(typ: string) {

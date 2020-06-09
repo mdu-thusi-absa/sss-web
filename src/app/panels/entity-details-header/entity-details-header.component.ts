@@ -22,6 +22,7 @@ export class EntityDetailsHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-header');
+    this.data.progress += 1;
   }
 
   doRecord(event: any){

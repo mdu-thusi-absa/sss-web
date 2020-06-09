@@ -11,6 +11,8 @@ export class InputCheckboxComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() value = false;
   @Input() disabled = false;
+  @Input() noTitle = false;
+  @Input() showSmall = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -25,8 +27,9 @@ export class InputCheckboxComponent implements OnInit {
   @Input() showTitle = true;
   checked = true;
 
-  doChange(event:  any){
-     this.onChange.emit(event.target.checked);
+  doChange(){
+    this.value = !this.value;
+     this.onChange.emit(this.value);
   }
 
   doFile(){

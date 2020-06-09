@@ -1,16 +1,59 @@
-<div [@.disabled]="value"></div>
-
 <div
   [hidden]="hideByFilter()"
   style="margin-bottom: 0px; margin-top: 5px; vertical-align: middle;"
+  [style.margin-top]="noTitle ? '0px' : '5px'"
 >
+  <a
+    href="#"
+    class="btn primary-color"
+    [style.display]="value ? 'inline-block' : 'none'"
+    (click)="doChange()"
+  >
+    <mat-icon
+      [class.mat-icon-small]="showSmall"
+      aria-hidden="true"
+      aria-label="Entities"
+      >thumb_up</mat-icon
+    >
+  </a>
+  <a
+    href="#"
+    class="btn primary-color-reverse"
+    [style.display]="value ? 'none' : 'inline-block'"
+    (click)="doChange()"
+  >
+    <mat-icon
+      [class.mat-icon-small]="showSmall"
+      aria-hidden="true"
+      aria-label="Entities"
+    ></mat-icon>
+  </a>
   <label
+    [hidden]="noTitle"
+    style="padding-left: 5px; vertical-align: middle;"
+    class="nobottom text-primary-bold label-checkbox"
+    [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
+    (click)="doChange()"
+  >
+    {{ title }}
+  </label>
+
+  <!-- <label
     class="nobottom text-primary-bold label-checkbox"
     [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
   >
-    <mat-checkbox class="example-margin" [checked]="value" ></mat-checkbox
-    >&nbsp;{{title}}
-  </label>
+    <mat-checkbox class="example-margin" [checked]="value" ></mat-checkbox 
+    <a
+      *ngIf="showFlash"
+      href="#"
+      class="btn primary-color-reverse btn-xs"
+      (click)="doChange()"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">done_outline</mat-icon
+      >&nbsp;{{ title }}
+    </a>
+  </label> -->
+
   <!-- <div
     class="checkbox"
     style="margin-bottom: 0px; margin-top: 5px; vertical-align: middle;"

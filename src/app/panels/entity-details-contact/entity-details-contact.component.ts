@@ -23,6 +23,7 @@ export class EntityDetailsContactComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-contact');
+    this.data.progress += 1;
   }
 
   doFile(event: any){

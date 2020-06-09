@@ -20,6 +20,7 @@ export class EntityDetailsIndividualComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-individual');
+    this.data.progress += 1;
   }
 
   doRecord(event: any){

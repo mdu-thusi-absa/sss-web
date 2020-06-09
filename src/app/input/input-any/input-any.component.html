@@ -15,7 +15,6 @@
   [showShare]="showShare"
   [showCheck]="showCheck"
 ></app-input-number>
-
 <app-input-file
   *ngIf="type == 'file'"
   [filterText]="filterText"
@@ -31,6 +30,7 @@
   [showSelect]="showSelect"
   [showCheck]="showCheck"
   [isNarrow]="isNarrow"
+  [showPanelHeading] = "showPanelHeading"
 ></app-input-file>
 
 <app-input-address

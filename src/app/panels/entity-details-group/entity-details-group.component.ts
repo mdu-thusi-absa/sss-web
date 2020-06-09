@@ -17,6 +17,7 @@ export class EntityDetailsGroupComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-group');
+    this.data.progress += 1;
   }
 
   doRecord(event: any){

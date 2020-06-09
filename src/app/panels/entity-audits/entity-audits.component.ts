@@ -344,6 +344,7 @@ export class EntityAuditsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entity-audits');
+    this.data.progress += 1;
   }
 
   getCount_Done(){

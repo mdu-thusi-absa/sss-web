@@ -15,6 +15,7 @@ export class RecordDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log(new Date().getTime(),'loaded:record-details');
+    this.data.progress += 1;
   }
 
   showConfirm(attribute: string, value: string){

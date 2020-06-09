@@ -25,6 +25,7 @@ export class RecordsComponent implements OnInit {
       new Record(new Date(2016, 4, 2,11,35), 'vlad', 'Resignation', '', '', ''),
     ];
     if (this.data.lg) console.log(new Date().getTime(),'loaded:records');
+    this.data.progress += 1;
   }
 
   isFullScreen() {

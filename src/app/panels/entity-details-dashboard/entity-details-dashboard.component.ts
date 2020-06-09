@@ -34,6 +34,7 @@ export class EntityDetailsDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.persons = this.data.getPersons();
     if (this.data.lg) console.log(new Date().getTime(),'loaded:dashboard');
+    this.data.progress += 1;
   }
 
   doFilter(event: any){

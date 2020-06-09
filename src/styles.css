@@ -84,16 +84,18 @@ body {
   scrollbar-width: thin;
 } */
 .container-panel-left-full {
-  height: calc(100vh - 30px);
+  height: calc(100vh - 35px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
+  margin-bottom:0px;
 }
 .container-panel-center-full {
-  height: calc(100vh - 30px);
+  height: calc(100vh - 35px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
+  margin-bottom:0px;
 }
 
 .container-panel-left-half {
@@ -111,19 +113,24 @@ body {
 
 /*panel body for the tasks and messages*/
 .entities-tasks {
-  height: calc(100vh - 85px);
+  height: calc(100vh - 86px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.entities-audits {
+  height: calc(100vh - 65px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
 .entities-messages {
-  height: calc(100vh - 85px);
+  height: calc(100vh - 91px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 /*160*/
 .entities-detail-form-full {
-  height: calc(100vh - 131px);
+  height: calc(100vh - 136px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -158,7 +165,7 @@ body {
 } */
 
 .entities-full {
-  height: calc(100vh - 178px);
+  height: calc(100vh - 185px);
   overflow-y: auto;
 }
 

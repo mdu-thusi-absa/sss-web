@@ -20,6 +20,7 @@ export class InputFileComponent implements OnInit {
   @Input() showShare = false;
   @Input() showSelect = false;
   @Input() showCheck = false;
+  @Input() showPanelHeading = true;
   @Input() isNarrow = false;
 
   @Output() onTask = new EventEmitter();

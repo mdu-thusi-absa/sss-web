@@ -18,18 +18,7 @@ export const jsonFiles = `[
   {"fileName":"moi.pdf","name":"MOI 1","description":""},
   {"fileName":"res.pdf","name":"Resolution 3","description":"second file"},
   {"fileName":"res.pdf","name":"Resolution 4","description":"third file"},
-  {"fileName":"moi.pdf","name":"MOI 2","description":""},
-  {"fileName":"res.pdf","name":"Resolution 5","description":"second file"},
-  {"fileName":"res.pdf","name":"Resolution 6","description":"third file"},
-  {"fileName":"moi.pdf","name":"MOI 3","description":""},
-  {"fileName":"res.pdf","name":"Resolution 7","description":"second file"},
-  {"fileName":"res.pdf","name":"Resolution 8","description":"third file"},
-  {"fileName":"moi.pdf","name":"MOI 4","description":""},
-  {"fileName":"res.pdf","name":"Resolution 9","description":"second file"},
-  {"fileName":"res.pdf","name":"Resolution 10","description":"third file"},
-  {"fileName":"moi.pdf","name":"MOI 5","description":""},
-  {"fileName":"res.pdf","name":"Resolution 11","description":"second file"},
-  {"fileName":"res.pdf","name":"Resolution 12","description":"third file"}
+  {"fileName":"moi.pdf","name":"MOI 2","description":""}
 ]`;
 
 export const jsonDashboards = `[

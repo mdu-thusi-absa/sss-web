@@ -344,6 +344,7 @@ export class EntityTasksComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-tasks');
+    this.data.progress += 1;
   }
 
   getCount_Done(){

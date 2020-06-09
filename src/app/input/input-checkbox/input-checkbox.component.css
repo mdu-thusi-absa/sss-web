@@ -4,10 +4,27 @@
   border-color: black;
 } */
 
+.mat-icon {
+    vertical-align: middle;
+    font-size: 16px;
+    width: 15px;
+    height: 17px; 
+  }
+
+  .mat-icon-small {
+    vertical-align: middle;
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
 
 
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
     background-color: var(--color-bright) !important; /* Red background for example */
+  }
+
+  a{
+      padding:2px 4px;
   }
 
  

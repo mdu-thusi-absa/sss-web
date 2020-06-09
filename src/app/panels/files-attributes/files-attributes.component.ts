@@ -61,6 +61,7 @@ export class FilesAttributesComponent implements OnInit {
 
     // }
     if (this.data.lg) console.log(new Date().getTime(),'loaded:file-attributes');
+    this.data.progress += 1;
   }
 
   isFullScreen() {

@@ -17,6 +17,7 @@ export class EntityDetailsSecretaryComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-secretariat');
+    this.data.progress += 1;
   }
 
   doRecord(event: any){
