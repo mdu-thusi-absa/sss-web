@@ -1,11 +1,13 @@
 <div
   [hidden]="hideByFilter()"
-  style="margin-bottom: 0px; margin-top: 5px; vertical-align: middle;"
-  [style.margin-top]="noTitle ? '0px' : '5px'"
+  style="margin-bottom: 0px;  vertical-align: middle;display:inline-block"
+  [style.margin-top]="showSmall ? '0px' : '5px'"
 >
   <a
     href="#"
     class="btn primary-color"
+    [class.btn-xs] = "showSmall"
+    [class.a-small] = "showSmall"
     [style.display]="value ? 'inline-block' : 'none'"
     (click)="doChange()"
   >
@@ -19,6 +21,8 @@
   <a
     href="#"
     class="btn primary-color-reverse"
+    [class.btn-xs] = "showSmall"
+    [class.a-small] = "showSmall"
     [style.display]="value ? 'none' : 'inline-block'"
     (click)="doChange()"
   >
@@ -31,7 +35,8 @@
   <label
     [hidden]="noTitle"
     style="padding-left: 5px; vertical-align: middle;"
-    class="nobottom text-primary-bold label-checkbox"
+    class="nobottom label-checkbox text-primary"
+    [class.text-primary-bold] = "titleBold"
     [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
     (click)="doChange()"
   >

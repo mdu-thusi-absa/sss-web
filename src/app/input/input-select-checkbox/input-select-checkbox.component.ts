@@ -210,12 +210,10 @@ export class InputSelectCheckboxComponent implements OnInit {
     this.isDoInput = false;
   }
 
-  doCheckField(event: any){
-    let c = event.target.checked;
-    let p = +event.target.value;
-    let q = this.selectedItems.indexOf(p);
-    if (c){
-      if (q==-1) this.selectedItems.push(p) ;
+  doCheckField(key: number,checked: boolean){
+    let q = this.selectedItems.indexOf(key);
+    if (checked){
+      if (q==-1) this.selectedItems.push(key) ;
     }
     else{
       if (q>-1)  this.selectedItems.splice(q,1) 

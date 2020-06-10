@@ -87,24 +87,35 @@
           <li *ngIf="(isLoadAll || getDoLoad(e.key))"
             class="list-group-item input-sm"
             style="
-              vertical-align: middle;
+              vertical-align: top;
               padding-bottom: 5px;
               padding-top: 5px;
             "
           >
-            <label
+          <app-input-checkbox
+          [titleBold]="false"
+          [showSmall]="true"
+          [title]="e.value.name"
+          [value]="selectedItems.indexOf(e.key)>-1"
+          (onChange)="doCheckField(e.key, $event)"
+        ></app-input-checkbox>
+
+            <!-- <label
               class="nobottom text-primary-bold label-checkbox label-buttons-3"
               style="padding-left: 0px;"
-              ><input
+              >
+              <input
                 type="checkbox"
                 [value]="e.key"
                 [checked]="selectedItems.indexOf(e.key)>-1"
                 (change)="doCheckField($event)"
-              /><span
+              />
+              
+              <span
                 style="padding-top: 0px; margin-top: 10px; font-weight: normal;"
                 >&nbsp;{{ e.value.name }}</span
               ></label
-            >
+            > -->
             <a
               href="#"
               class="btn primary-color-reverse  btn-xs pull-right"
