@@ -26,6 +26,8 @@ import {
   jsonMonths,
   jsonPeriods,
   jsonFiles,
+  jsonDivisions,
+  jsonCompanyStatus,
 } from './data-json/data-json.module';
 
 @Injectable({
@@ -43,6 +45,8 @@ export class DataService {
   periods = new Entities<Entity>(Entity);
   files = new Entities<FileEntity>(FileEntity);
   progress = 0;
+  businessDivisions = new Entities<Entity>(Entity);
+  entityStatuses = new Entities<Entity>(Entity);
 
   constructor() {
     this.loadStatic();
@@ -54,12 +58,15 @@ export class DataService {
     this.makeFunctionalEntities();
   }
 
-  loadStatic(){
+  loadStatic() {
     this.entityTypes.fromJSON(jsonEntityTypes);
     this.entityTypesPlural.fromJSON(jsonEntityTypesPlural);
     this.months.fromJSON(jsonMonths);
     this.periods.fromJSON(jsonPeriods);
     this.files.fromJSON(jsonFiles);
+
+    this.businessDivisions.fromJSON(jsonDivisions);
+    this.entityStatuses.fromJSON(jsonCompanyStatus);
   }
 
   makeIndividuals() {
@@ -668,10 +675,7 @@ export class DataService {
   getBusinessAreas() {
     return this.businessAreas;
   }
-  businessDivisions = new Entities<Entity>(Entity)
-    .add(new Entity('Div 1'))
-    .add(new Entity('Div 2'))
-    .add(new Entity('Div 3'));
+
   getBusinessDivisions() {
     return this.businessDivisions;
   }
@@ -681,10 +685,7 @@ export class DataService {
   getLegalClasses() {
     return this.legalClasses;
   }
-  entityStatuses = new Entities<Entity>(Entity)
-    .add(new Entity('Active'))
-    .add(new Entity('Dormant'))
-    .add(new Entity('Closed'));
+  
   getEntityStatuses() {
     return this.entityStatuses;
   }
@@ -734,6 +735,12 @@ export class DataService {
         'suffix',
         'FICA'
       )
+    )
+    .add(
+      new LegalEntity('Trust Property Control Act 57 of 1988').set(
+        'suffix',
+        'TPCA'
+      )
     );
   getRegulations() {
     return this.regulations;
@@ -753,7 +760,7 @@ export class DataService {
   getYesNo() {
     return this.yesNo;
   }
-  
+
   getPeriods() {
     return this.periods;
   }

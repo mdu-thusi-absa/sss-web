@@ -21,6 +21,18 @@ export const jsonFiles = `[
   {"fileName":"moi.pdf","name":"MOI 2","description":""}
 ]`;
 
+export const jsonCompanyStatus = `[
+  {"name":"Active"},{"name":"Nontrading"},{"name":"Dormant, passively trading"},{"name":"Deregistered"}
+]`;
+
+export const jsonDivisions = `[
+  {"name":"Corporate Investment Banking"},
+  {"name":"Retail and Business Banking"},
+  {"name":"Enterprise function"},
+  {"name":"Absa Regional Operations"},
+  {"name":"AFS Group"}
+]`
+
 export const jsonDashboards = `[
   {"name":"Tasks","tasksCount":28,"isActive":true},
   {"name":"Companies","tasksCount":13,"isActive":true},
