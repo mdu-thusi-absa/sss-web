@@ -34,3 +34,7 @@ a {
 .a-small {
   padding: 1px 5px;
 }
+
+.comp-width{
+    width:calc(80% - 50px);
+}
