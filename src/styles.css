@@ -853,7 +853,7 @@ textarea {
   /* text-overflow: ellipsis; */
   overflow: hidden;
   display: inline-block;
-  width: calc(100%-27px);
+  width: calc(100%-30px);
 }
 .label-buttons-4 {
   /*display: block;*/
