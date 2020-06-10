@@ -55,34 +55,6 @@ body {
   padding-bottom: 3px;
 }
 
-/* .mt-0 {
-    margin-top: 0 !important;
-  } */
-
-/*main content of entities in full screen*/
-/* .panel-body-full {
-  height: calc(100vh - 93px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-} */
-
-/* .entities-detail-full{
-  height: calc(100vh - 91px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-} */
-
-/* .entities-detail-half{
-  height: calc(50vh - 72px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-} */
-
-/* .container-panel-right {
-  height: calc(100vh-0px);
-  overflow-y: hidden;
-  scrollbar-width: thin;
-} */
 .container-panel-left-full {
   height: calc(100vh - 35px);
   overflow-y: hidden;
@@ -128,7 +100,6 @@ body {
   overflow-x: hidden;
 }
 
-/*160*/
 .entities-detail-form-full {
   height: calc(100vh - 136px);
   overflow-y: scroll;
@@ -158,11 +129,6 @@ body {
 }
 
 /*for entities, tasks, records: halfs*/
-/* .panel-body-half {
-  height: calc(100vh / 2 - 71.5px);
-  overflow-y: auto;
-  scrollbar-width: thin;
-} */
 
 .entities-full {
   height: calc(100vh - 185px);
@@ -185,12 +151,6 @@ body {
   overflow-y: hidden;
   overflow-x: hidden;
 }
-
-/* .tasks-full {
-    height: calc(100vh - 117px);
-    overflow-y: auto;
-    overflow-x: hidden;
-  } */
 
 .tasks-half {
   height: calc(50vh - 152px);
@@ -228,38 +188,6 @@ body {
   overflow-x: auto;
 }
 
-/* .table-fixed thead {
-  width: 97%;
-}
-.table-fixed tbody {
-  height: 230px;
-  overflow-y: auto;
-  width: 100%;
-}
-.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
-  display: block;
-}
-.table-fixed tbody td, .table-fixed thead > tr> th {
-  float: left;
-  border-bottom-width: 0;
-} */
-
-/* .records-full {
-    height: calc(100vh - 120px);
-    overflow-y: auto;
-    overflow-x: hidden;
-  } */
-/* 
-  .headcol-1 {
-    position:absolute; 
-    width:5em; 
-    left:0;
-    top:auto;
-    border-right: 0px none black; 
-    border-top-width:3px; 
-    margin-top:-3px; 
-} */
-
 .records-half {
   height: calc(50vh - 133px);
   overflow-y: auto;
@@ -287,7 +215,6 @@ body {
 }
 
 .primary-color {
-  /* background-color: rgb(51, 122, 183); */
   background-color: var(--color-bright); /*absa*/
   color: white;
   border-color: var(--color-dark);
@@ -295,7 +222,6 @@ body {
   background-image: linear-gradient(var(--color-bright), var(--color-normal));
 }
 .primary-color:hover {
-  /* background-color: rgb(51, 122, 183); */
   background-color: var(--color-bright); /*absa*/
   color: white;
   border-color: var(--color-dark);
@@ -303,16 +229,9 @@ body {
   background-image: linear-gradient(var(--color-normal), var(--color-bright));
 }
 
-/* lable{
-  border-color:  rgb(150,5,4);
-} */
-
-/*rgb(236, 234, 234)*/
-/*rgb(240, 90, 120);*/
 .table > tbody > tr.info > td,
 .table > tbody > tr.info > th {
   background-color: rgb(236, 234, 234);
-  /* color: rgb(240, 90, 120); */
   color: rgb(85, 85, 85);
 }
 .table > tbody > tr.info > td > a,
@@ -337,27 +256,6 @@ table > tbody > tr.info > td,
   background-color: rgb(240, 50, 90); /*absa*/
   color: white;
 }
-/* table > tbody > tr.info > td:hover,
-.table > tbody > tr > td.info:hover,
-.table > tfoot > tr.info > td:hover,
-.table > tfoot > tr > td.info:hover,
-.table > thead > tr.info > td:hover,
-.table > thead > tr > td.info:hover,
-.tr:hover
- {
-  background-color: rgb(240, 50, 90); 
-  color: white;
-} */
-/* .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: rgb(240, 50, 90);
-} */
-
-/* .table-hover.info tbody.info tr.info:hover td.info, .table-hover tbody tr:hover th {
-  background-color: rgb(240, 50, 90);
-} */
-/* tr.info:hover{
-  background-color: rgb(240, 50, 90);
-} */
 
 .table-hover > tr > td:hover {
   background-color: white; /*absa*/
@@ -369,9 +267,7 @@ table > tbody > tr.info > td,
 .table > tbody > tr > th.info,
 .table > tbody > tr.info > th,
 .table > thead > tr > th.info {
-  /*background-color: rgb(220, 0, 50); absa*/
-  /* background-color: rgb(240, 90, 120); */
-  background-color: rgb(220, 0, 50);
+  background-color: var(--color-bright);
   color: white;
   font-weight: normal;
   background-image: linear-gradient(var(--color-dark), var(--color-bright));
@@ -380,93 +276,50 @@ td.info > a {
   color: white;
 }
 
-/* .table > tbody > tr.info > td > a {
-  color: white;
-} */
-
-/* .btn:active{
-  color:pink;
-} */
-/*background-color: rgb(150, 5, 4); /*absa*/
 .btn-primary.active.focus,
 .btn-primary.active.focus:focus,
 .btn-primary.focus,
 .btn-primary.active,
 .btn-primary.active:focus,
 .btn-primary:focus {
-  background-color: rgb(220, 0, 50);
-  border-color: rgb(150, 5, 4);
+  background-color: var(--color-bright);
+  border-color: var(--color-dark);
   box-shadow: none !important;
 }
 .btn:focus {
   box-shadow: none !important;
 }
-/* .btn-primary.active:focus {
-  background-color: rgb(150, 5, 4); 
-  border-color: white;
-} */
+
 .btn-primary.active:hover {
-  background-color: rgb(220, 0, 50);
-  /* background-color: rgb(150, 5, 4); */
+  background-color: var(--color-bright);
   /* border-color: white;  */
 }
 .btn-primary.active:focus,
 .btn-primary.active.focus,
 .btn-primary.active.focus:focus {
-  background-color: rgb(150, 5, 4);
-  /* background-color: rgb(150, 5, 4); */
+  background-color: var(--color-dark);
   /* border-color: white;  */
   box-shadow: none !important;
   background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 .btn-primary {
-  background-color: rgb(220, 0, 50); /*absa*/
-  border-color: rgb(150, 5, 4);
+  background-color: var(--color-bright); /*absa*/
+  border-color: var(--color-dark);
   box-shadow: none !important;
 }
 .btn-primary:hover {
-  background-color: rgb(150, 5, 4);
-  /* border-color: rgb(150, 5, 4); */
+  background-color: var(--color-dark);
   box-shadow: none !important;
   background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 .btn-primary:active,
 .btn-primary.active:focus .btn-primary.active.focus,
 .btn-primary.active.focus:focus {
-  background-color: rgb(150, 5, 4);
-  border-color: rgb(150, 5, 4);
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
   box-shadow: none !important;
   background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
-/* label.btn.btn-primary.active.focus,
-label.btn.btn-primary.active:focus,
-label.btn.btn-primary.active.focus:focus,
-label.btn.btn-primary:focus{
-  background-color: rgb(150, 5, 4);
-  border-color: rgb(150, 5, 4);
-} */
-/* .btn-primary:focus {
-  background-color: rgb(150, 5, 4);
-  border-color: white; 
-} */
-/* .btn:focus{
-  border-color: white;
-} */
-
-/* .btn.btn-primary.primary-color-active.active.focus,
-.btn.btn-primary.primary-color-active.active.focus:focus,
-.btn.btn-primary.primary-color-active.active:focus,
-.btn.btn-primary.primary-color-active.active,
-.btn.btn-primary.primary-color-active:active{
-  background-color: rgb(150, 5, 4);
-  border-color: white; 
-} */
-/* .btn:focus,.btn:active {
-  outline: none !important;
-  background-color: rgb(150, 5, 4) !important;
-  border-color: white !important;
-  box-shadow: none;
-} */
 
 .text-bright {
   color: var(--color-bright);
@@ -480,15 +333,11 @@ label.btn.btn-primary:focus{
 }
 
 .text-primary {
-  /* color: rgb(240, 90, 120); */
-  /* color: rgb(150, 5, 4); */
   color: var(--color-dark);
   border-color: var(--color-dark);
   font-weight: normal;
 }
 .text-primary:focus {
-  /* color: rgb(240, 90, 120); */
-  /* color: rgb(150, 5, 4); */
   color: var(--color-dark);
   border-color: var(--color-dark);
   font-weight: normal;
@@ -496,15 +345,11 @@ label.btn.btn-primary:focus{
 }
 
 .text-primary-h4 {
-  /* color: rgb(240, 90, 120); */
-  /* color: rgb(150, 5, 4); */
   color: var(--color-dark);
   border-color: var(--color-dark);
   font-weight: normal;
 }
 .text-primary-bold {
-  /* color: rgb(240, 90, 120); */
-  /* color: rgb(150, 5, 4); */
   color: var(--color-dark);
   border-color: var(--color-dark);
   font-weight: var(--bold);
@@ -543,26 +388,33 @@ label.btn.btn-primary:focus{
 }
 
 :root {
-  --bg-color-smile: rgb(240, 50, 90);
-  --bg-color-active: rgb(150, 5, 4);
+  
+  --absa-passion: rgb(220,0,50);
+  --absa-silver: rgb(115,100,100);
+  --absa-platinum: rgb(90,75,75);
+  --absa-graphite: rgb(45,35,35);
+  --absa-energy: rgb(255,120,15);
+  --absa-prepared: rgb(250,85,30);
 
-  /* --color-maroon: rgb(150, 5, 4);
-  --color-orange: rgb(250,85,30); */
+  --absa-warmth: rgb(190,0,40);
+  --absa-human: rgb(170,5,45);
+  --absa-grounded: rgb(150,5,40);
+  --absa-care: rgb(240,90,120);
+  --absa-smile: rgb(240,50,90);
+  --absa-surprise: rgb(175,20,75);
+  --absa-calm: rgb(135,10,60);
+  --absa-luxury: rgb(100,0,50);
+  
 
-  --color-night: rgb(100, 0, 50);
-  --color-dark: rgb(150, 5, 4);
-  --color-favicon: #b8202c;
-  --color-bright: rgb(220, 0, 50);
-  --color-normal: rgb(245, 45, 40);
-  --color-light: rgb(240, 90, 120);
+  --color-dark: var(--absa-grounded);
+  /* --color-favicon: #b8202c; rgb(184, 32, 44) */
+  --color-favicon: var(--absa-warmth);
+  /* --color-favicon: rgb(184, 32, 44); */
+  --color-bright: var(--absa-passion);
+  --color-normal: var(--absa-smile);
+  --color-light: var(--absa-care);
   --bold: 550;
-
-  /* rgb(240,50,90); */
-  /* --color-text: rgb(250,85,30); */
-  /* --color-text: rgb(240,90,120); */
 }
-/*rgb(240,90,120); care*/
-/*Smile rgb(240,50,90)*/
 
 .btn-info {
   color: #fff;
@@ -604,7 +456,6 @@ label.btn.btn-primary:focus{
   color: #fff;
   background-color: var(--color-dark);
   border-color: white;
-  /* background-image: linear-gradient(var(--color-night), var(--color-dark)); */
   background-image: linear-gradient(var(--color-favicon), var(--color-dark));
 }
 .btn-info.disabled:hover,
@@ -647,7 +498,6 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.focus:active,
 .primary-color-active.focus:focus {
   background-color: var(--color-dark);
-  /* border-color: rgb(150, 5, 4); */
   color: white;
   box-shadow: none;
   outline: none;
@@ -670,7 +520,6 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.focus:active:hover,
 .primary-color-active.focus:focus:hover {
   background-color: var(--color-dark);
-  /* border-color: rgb(150, 5, 4); */
   color: white;
   box-shadow: none;
   outline: none;
@@ -690,22 +539,18 @@ fieldset[disabled] .btn-info.focus {
   color: white;
 }
 
-/* color: rgb(51, 122, 183); original */
 .primary-color-reverse {
-  /* color: rgb(220, 0, 50); */
   color: var(--color-bright);
   background-color: white;
   border-color: var(--color-bright);
 }
 
 .primary-color-reverse:hover {
-  /* color: rgb(220, 0, 50); */
   color: black;
   background-color: white;
   border-color: black;
 }
 .primary-color-reverse-no-hover:hover {
-  /* color: rgb(220, 0, 50); */
   color: var(--color-bright);
   background-color: white;
   border-color: var(--color-bright);
@@ -715,26 +560,9 @@ fieldset[disabled] .btn-info.focus {
   border-color: var(--color-light);
 }
 
-/* background-color: rgb(55, 130, 190); original */
-/* .btn-primary.primary-color {
-  background-color: rgb(220, 0, 50); 
-  color: white;
-} */
-/* .btn-primary.primary-color:active {
-  background-color: rgb(55, 130, 190); original 
-  /background-color: pink; 
-  border-color: white;
-}
-.btn-primary.primary-color-active.active,
-.btn-primary.primary-color-active.focus {
-  /* background-color: rgb(55, 130, 190); original 
-  /* background-color: pink; 
-  border-color: white;
-} */
 
 .info-color {
-  /* background-color: rgb(81, 145, 201); */
-  background-color: rgb(220, 0, 50); /*absa*/
+  background-color: var(--color-bright); /*absa*/
   color: white;
 }
 
@@ -949,7 +777,7 @@ background-color: rgba(0, 0, 0, 0);
 } */
 
 .highlight {
-  background-color: rgb(220, 0, 50); /*absa*/
+  background-color: var(--color-bright); /*absa*/
   /* background-color: blue; original*/
 }
 /* 
@@ -961,22 +789,17 @@ background-color: rgba(0, 0, 0, 0);
   border: none;
   box-shadow: none;
 }
-/* .panel.noborder > .panel-heading {
-  border: 1px solid #dddddd;
-  border-radius: 0;
-} */
 
 .panel-primary > .panel-heading {
   background-color: rgb(170, 5, 45);
   color: white;
-  border-color: rgb(150, 5, 4);
+  border-color: var(--color-dark);
   background-image: linear-gradient(var(--color-dark), var(--color-bright));
 }
 .panel-info > .panel-heading {
-  /* background-color: rgb(240, 90, 120); */
   background-color: rgb(175, 20, 75);
   color: white;
-  border-color: rgb(150, 5, 4);
+  border-color: var(--color-dark);
 }
 .panel-.info > .panel-heading {
   color: white;
