@@ -14,6 +14,7 @@ import {
   Company,
   FileEntity,
   MeetingEntity,
+  MeetingGuestEntity,
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
@@ -51,7 +52,7 @@ export class DataService {
   businessDivisions = new Entities<Entity>(Entity);
   entityStatuses = new Entities<Entity>(Entity);
   meetings = new Entities<MeetingEntity>(MeetingEntity);
-  attendees = new Entities<NaturalEntity>(NaturalEntity);
+  attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
 
   constructor() {
     this.loadStatic();

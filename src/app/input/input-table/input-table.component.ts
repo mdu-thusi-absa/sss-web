@@ -32,6 +32,10 @@ export class InputTableComponent implements OnInit {
     this.countFiltered = this.entities.size;
   }
 
+  getType(v: any){
+    return typeof(v);
+  }
+
   set filterText(v: string) {
     if (v != this.filterText_) {
       this.filterText_ = v;
@@ -50,9 +54,12 @@ export class InputTableComponent implements OnInit {
   }
 
   checkItem(key: number, checkValue: boolean){
-    //console.log(key,checkValue);
     this.countSelected = this.countSelected + (checkValue ? 1:-1);
     this.isChecked.set(key,checkValue)
+  }
+
+  checkField(key: number, checkValue: boolean,fieldName: string){
+    this.entities.get(key).set(fieldName,checkValue);
   }
 
   doEntityChoose(key: number) {

@@ -2,8 +2,8 @@
     <u>Attendance Details: {{ title }}</u>
   </div>
   <app-input-table
-    [headings]="['Title', 'Description']"
-    [fields]="['name', 'description']"
+    [headings]="['Title', 'Attended','Description']"
+    [fields]="['name', 'attended','description']"
     [withCheckbox]="true"
     [entities]="data.attendees"
     [inputType] = "'person'"

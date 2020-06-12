@@ -405,6 +405,11 @@ export class User extends NaturalEntity {
     return t;
   }
 }
+
+export class MeetingGuestEntity extends NaturalEntity{
+  attended = false;
+}
+
 export class Message {
   constructor(
     public when: Date,
