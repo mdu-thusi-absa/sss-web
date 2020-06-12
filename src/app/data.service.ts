@@ -32,6 +32,7 @@ import {
   jsonCompanyStatus,
   jsonMeetings,
   jsonAttendees,
+  jsonTemplates,
 } from './data-json/data-json.module';
 
 @Injectable({
@@ -53,6 +54,7 @@ export class DataService {
   entityStatuses = new Entities<Entity>(Entity);
   meetings = new Entities<MeetingEntity>(MeetingEntity);
   attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
+  templates = new Entities<FileEntity>(FileEntity);
 
   constructor() {
     this.loadStatic();
@@ -75,6 +77,7 @@ export class DataService {
     this.files.fromJSON(jsonFiles);
     this.meetings.fromJSON(jsonMeetings);
     this.attendees.fromJSON(jsonAttendees);
+    this.templates.fromJSON(jsonTemplates);
   }
 
   makeIndividuals() {

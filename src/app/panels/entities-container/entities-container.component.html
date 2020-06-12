@@ -195,7 +195,7 @@
         >
           <div class="panel-heading mt3">
             <small
-              [hidden]="entityType == entityTypes.size - 1 || entityType == 0"
+              [hidden]="entityType > entityTypes.size - 3 || entityType == 0"
             >
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
 
@@ -217,7 +217,10 @@
                 >&nbsp;Entity Details</span
               >&nbsp;
               <!-- <div class="btn-group"> -->
-              <div class="btn-group" style="vertical-align: middle; height: 20px;">
+              <div
+                class="btn-group"
+                style="vertical-align: middle; height: 20px;"
+              >
                 <app-buttons-toggle
                   [title]="'Info'"
                   [placeholder]="'Headline Informaion'"
@@ -312,28 +315,42 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
-                
               </div>
               <span
-                  [style.display]="
-                    hideHeader &&
-                    hidePrimary &&
-                    hideSecondary &&
-                    hideOptional &&
-                    hideCustom &&
-                    hideDetailFiles &&
-                    hideMeetings
-                      ? 'inherit'
-                      : 'none'
-                  "
-                  class="hidden-xs"
-                  style="vertical-align: middle;"
+                [style.display]="
+                  hideHeader &&
+                  hidePrimary &&
+                  hideSecondary &&
+                  hideOptional &&
+                  hideCustom &&
+                  hideDetailFiles &&
+                  hideMeetings
+                    ? 'inherit'
+                    : 'none'
+                "
+                class="hidden-xs"
+                style="vertical-align: middle;"
+              >
+                <mat-icon aria-hidden="true" aria-label="Entities"
+                  >arrow_back</mat-icon
                 >
-                  <mat-icon aria-hidden="true" aria-label="Entities"
-                    >arrow_back</mat-icon
-                  >
-                  Select pages
-                </span>
+                Select pages
+              </span>
+            </small>
+
+
+            <small [hidden]="entityType != 0">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >public</mat-icon
+              >
+              <span>&nbsp;Dashboard</span>
+            </small>
+
+            <small [hidden]="entityType != entityTypes.size - 2">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >assignment</mat-icon
+              >
+              <span>&nbsp;Templates</span>
             </small>
 
             <small [hidden]="entityType < entityTypes.size - 1">
@@ -341,13 +358,6 @@
                 >settings</mat-icon
               >
               <span>&nbsp;Settings</span>
-            </small>
-
-            <small [hidden]="entityType != 0">
-              <mat-icon aria-hidden="true" aria-label="Entities"
-                >public</mat-icon
-              >
-              <span>&nbsp;Dashboard</span>
             </small>
 
             <div class="btn-group pull-right">
@@ -379,11 +389,11 @@
             <div
               *ngIf="
                 getIsLoaded(
-                  entityType != 0 && entityType != entityTypes.size - 1,
+                  entityType != 0 && entityType <= (entityTypes.size - 2),
                   'entities'
                 )
               "
-              [hidden]="entityType == 0 || entityType == entityTypes.size - 1"
+              [hidden]="entityType == 0 || entityType > (entityTypes.size - 3)"
             >
               <app-entity-details
                 [panelRows]="panelRows"
@@ -406,9 +416,18 @@
             </div>
             <div
               *ngIf="
-                getIsLoaded(entityType == entityTypes.size - 1, 'settings')
+                getIsLoaded(entityType == (entityTypes.size - 2), 'templates')
               "
-              [hidden]="entityType < entityTypes.size - 1"
+              [hidden]="entityType != (entityTypes.size - 2)"
+            >
+              <app-entity-details-doc-templates
+                [isNarrow]="showPanelRight"
+              ></app-entity-details-doc-templates>
+            </div>
+
+            <div
+              
+              [hidden]= "entityType!=(entityTypes.size - 1)"
             >
               <app-settings
                 [panelRows]="panelRows"
@@ -428,7 +447,7 @@
             </div>
             <div
               *ngIf="getIsLoaded(entityType == 0, 'dashboard')"
-              [hidden]="entityType == entityTypes.size - 1 && entityType != 0"
+              [hidden]="entityType != 0"
             >
               <app-entity-details-dashboard
                 [panelRows]="panelRows"
@@ -672,13 +691,11 @@
                 </span> -->
                 <span
                   [style.display]="
-                  hidePosts && hideAudits && hideTasks
-                      ? 'inherit'
-                      : 'none'
+                    hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
                   "
                   class="hidden-xs"
                   style="vertical-align: middle;"
-                >Select page
+                  >Select page
                   <mat-icon aria-hidden="true" aria-label="Entities"
                     >arrow_forwards</mat-icon
                   >&nbsp;

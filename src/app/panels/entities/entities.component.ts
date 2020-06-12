@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
 import { FunctionalEntity, Entities, Entity, EveryEntity } from '../../models';
 import { DataService } from 'src/app/data.service';
 import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
@@ -41,7 +48,7 @@ export class EntitiesComponent implements OnInit {
 
   // @HostListener('scroll', ['$event']) // for scroll events of the current element
   // // @HostListener('window:scroll', ['$event']) // for window scroll events
-  onScrollTable(event:any) {
+  onScrollTable(event: any) {
     //this.limitVisibleRows += 50;
     this.isLoadAll = true;
   }
@@ -76,7 +83,7 @@ export class EntitiesComponent implements OnInit {
     this.loadEntities();
     this.doEntityTypeChange(this.entityType);
     this.setCounts();
-    if (this.data.lg) console.log(new Date().getTime(),'loaded:entities');
+    if (this.data.lg) console.log(new Date().getTime(), 'loaded:entities');
     this.data.progress += 1;
     // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
@@ -293,7 +300,12 @@ export class EntitiesComponent implements OnInit {
 
   doEntityChoose(entityKey: number) {
     //this.entities.currentKey = entityKey;
-    this.selectedEntityKey = entityKey;
-    this.onEntityChange.emit(this.selectedEntityKey);
+    console.log(this.entityTypeName);
+    if (this.entityTypeName == 'dashboard') {
+      this.doEntityTypeChange(entityKey);
+    } else {
+      this.selectedEntityKey = entityKey;
+      this.onEntityChange.emit(this.selectedEntityKey);
+    }
   }
 }

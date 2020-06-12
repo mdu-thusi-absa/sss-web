@@ -82,6 +82,7 @@ import { EntityDetailsMeetingsComponent } from './panels/entity-details-meetings
 import { InputMeetingComponent } from './input/input-meeting/input-meeting.component';
 import { EntityDetailsAttendeesComponent } from './panels/entity-details-attendees/entity-details-attendees.component';
 import { ButtonCaretComponent } from './buttons/button-caret/button-caret.component';
+import { EntityDetailsDocTemplatesComponent } from './panels/entity-details-doc-templates/entity-details-doc-templates.component';
 
 
 
@@ -159,6 +160,7 @@ import { ButtonCaretComponent } from './buttons/button-caret/button-caret.compon
     InputMeetingComponent,
     EntityDetailsAttendeesComponent,
     ButtonCaretComponent,
+    EntityDetailsDocTemplatesComponent,
     
   ],
   imports: [

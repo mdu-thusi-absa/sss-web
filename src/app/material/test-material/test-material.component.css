@@ -12,7 +12,7 @@
 }
 
 
-@mixin styleStepLine($index) {
+/* @mixin styleStepLine($index) {
     .mat-horizontal-stepper-header {
         &+.mat-stepper-horizontal-line:nth-child(#{$index}) {
             height: 2px;
@@ -48,4 +48,4 @@
     @include styleStepLine(4);
     @include styleEditedStepIcon(1);
     @include styleEditedStepIcon(3);
-}
+} */

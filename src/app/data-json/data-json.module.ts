@@ -21,6 +21,16 @@ export const jsonFiles = `[
   {"fileName":"moi.pdf","name":"MOI 2","description":""}
 ]`;
 
+export const jsonTemplates = `[
+  {"fileName":"moi.pdf","name":"CoR14","description":"Register"},
+  {"fileName":"res.pdf","name":"CoR15","description":"Appoint"},
+  {"fileName":"res.pdf","name":"CoR16","description":"Share Issue"},
+  {"fileName":"moi.pdf","name":"CoR17","description":"Resign"},
+  {"fileName":"res.pdf","name":"CoR18","description":"Rename"},
+  {"fileName":"res.pdf","name":"CoR19","description":"Deregister"},
+  {"fileName":"moi.pdf","name":"CoR20","description":"Move Address"}
+]`;
+
 export const jsonAttendees= `[
   {"surname":"AEGIDIUS","firstName":"FREDERICK","suffix":"Europe North","tasksCount":3,"isActive":true,"type":"individual","attended":false},
   {"surname":"ANDERSEN","firstName":"RASMUS","suffix":"Africa Middle East","tasksCount":1,"isActive":true,"type":"individual","attended":true},
@@ -61,7 +71,8 @@ export const jsonDashboards = `[
   {"name":"Regulators","tasksCount": 0,"isActive":true},
   {"name":"Regulations","tasksCount": 0,"isActive":true},
   {"name":"Auditors","tasksCount": 3,"isActive":true},
-  {"name":"Secretariats","tasksCount": 0,"isActive":true}
+  {"name":"Secretariats","tasksCount": 0,"isActive":true},
+  {"name":"Templates","tasksCount": 0,"isActive":true}
 ]`;
 
 export const jsonMonths = `[
@@ -90,6 +101,7 @@ export const jsonEntityTypes = `[
   {"name":"Regulation"},
   {"name":"Auditor"},
   {"name":"Secretariat"},
+  {"name":"Template"},
   {"name":"Setting"}
 ]`;
 
@@ -104,6 +116,7 @@ export const jsonEntityTypesPlural = `[
   {"name":"Regulations"},
   {"name":"Auditors"},
   {"name":"Secretariats"},
+  {"name":"Templates"},
   {"name":"Settings"}
 ]`;
 
