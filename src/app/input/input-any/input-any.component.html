@@ -33,6 +33,24 @@
   [showPanelHeading] = "showPanelHeading"
 ></app-input-file>
 
+<app-input-meeting
+  *ngIf="type == 'meeting'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [showTitleInput]="showTitleInput"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onCheck) = "doCheck($event)"
+  [showDownload]="showDownload"
+  [showShare]="showShare"
+  [showSelect]="showSelect"
+  [showCheck]="showCheck"
+  [isNarrow]="isNarrow"
+  [showPanelHeading] = "showPanelHeading"
+></app-input-meeting>
+
 <app-input-address
   *ngIf="type == 'address'"
   [filterText]="filterText"

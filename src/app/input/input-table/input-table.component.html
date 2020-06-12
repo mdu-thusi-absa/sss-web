@@ -60,19 +60,40 @@
             </a>
           </td>
         </tr>
-        <tr *ngIf="!hideEditRow.get(e.key)">
+        <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'file'">
           <td [attr.colspan]="headings.length + withCheckbox">
-            <app-input-any
-              [type]="'file'"
+            <app-input-file
               [title]="e.value.name"
               [showTitleInput]="true"
               [showSelect]="true"
               [showShare]="true"
               [showDownload]="true"
               [showPanelHeading] = "false"
-            ></app-input-any>
+            ></app-input-file>
           </td>
         </tr>
+        <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'person'">
+          <td [attr.colspan]="headings.length + withCheckbox">
+            <app-input-person
+              [title]="e.value.name"
+              [values] = "data.persons"
+              [value] = "0"
+            ></app-input-person>
+          </td>
+        </tr>
+        <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'meeting'">
+          <td [attr.colspan]="headings.length + withCheckbox">
+            <app-input-meeting
+              [title]="e.value.name"
+              [showTitleInput]="true"
+              [showSelect]="true"
+              [showShare]="true"
+              [showDownload]="true"
+              [showPanelHeading] = "false"
+            ></app-input-meeting>
+          </td>
+        </tr>
+        
       </ng-container>
     </ng-container>
   </tbody>

@@ -1,0 +1,17 @@
+<div class="h4 text-primary-h4" style="margin-top: 5px;">
+    <u>Meetings Details: {{ title }}</u>
+  </div>
+  
+  <app-input-table
+    [headings]="['Date/Time','Title', 'Description']"
+    [fields]="['dateTime','name', 'description']"
+    [withCheckbox]="true"
+    [entities]="data.meetings"
+    [inputType]="'meeting'"
+  ></app-input-table>
+
+ 
+  
+  <div style="padding-bottom: 5px;"></div>
+  <hr />
+  

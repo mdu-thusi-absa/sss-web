@@ -78,7 +78,19 @@ export class City extends Entity {
 }
 export class FileEntity extends Entity {
   type = 'file';
-  title = '';
+  fileName = '';
+  dateTime: Date;
+  public clone() {
+    let t = new FileEntity(this.name);
+    t = Object.assign(t, this);
+    return t;
+  }
+}
+export class MeetingEntity extends Entity {
+  type = 'meeting';
+  dateTime: Date;
+  attendees = new Entities<NaturalEntity>(NaturalEntity);
+  files = new Entities<FileEntity>(FileEntity);
   public clone() {
     let t = new FileEntity(this.name);
     t = Object.assign(t, this);

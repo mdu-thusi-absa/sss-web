@@ -3,17 +3,16 @@ import { NaturalEntity, EveryEntity, FileEntity } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-entity-details-files',
-  templateUrl: './entity-details-files.component.html',
-  styleUrls: ['./entity-details-files.component.css'],
+  selector: 'app-entity-details-meetings',
+  templateUrl: './entity-details-meetings.component.html',
+  styleUrls: ['./entity-details-meetings.component.css']
 })
-export class EntityDetailsFilesComponent implements OnInit {
+export class EntityDetailsMeetingsComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
   @Input() title = '';
   @Input() persons: NaturalEntity[];
   @Input() entity: EveryEntity;
-  @Input() showTitle = true;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

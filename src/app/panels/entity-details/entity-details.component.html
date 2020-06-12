@@ -343,7 +343,7 @@
         style="padding: 0px; border: none;"
       >
         <app-entity-details-contact
-          [title]="'Company'"
+          [title]="entityTypeNameCapitilised"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           (onFile)="doFile($event)"
@@ -360,7 +360,7 @@
         style="padding: 0px; border: none;"
       >
         <app-entity-details-custom
-          [title]="'Company'"
+          [title]="entityTypeNameCapitilised"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -378,7 +378,7 @@
         style="padding: 0px; border: none;"
       >
         <app-entity-details-files
-          [title]="'Company'"
+          [title]="entityTypeNameCapitilised"
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [persons]="persons"
@@ -388,6 +388,25 @@
         ></app-entity-details-files>
       </div>
     </div>
+    <div *ngIf="getIsLoaded('entities', 'meetings')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideMeetings"
+        id="{{ 'page-meetings' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-meetings
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-meetings>
+      </div>
+    </div>
+
 
     <div
       [hidden]="
@@ -398,7 +417,8 @@
           hideContacts &&
           hideCustom &&
           hideFiles &&
-          hideHeader
+          hideHeader &&
+          hideMeetings
         )
       "
     >

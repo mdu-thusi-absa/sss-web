@@ -26,6 +26,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideHeader = false;
   @Input() hideUsers = false;
   @Input() hideContacts = false;
+  @Input() hideMeetings = false;
   persons: Entities<NaturalEntity>;
   @Input() panelRows = 1;
   entityType_ = 0;
@@ -62,6 +63,11 @@ export class EntityDetailsComponent implements OnInit {
       this.entityType_T = this.entityType_;
     }
     return this.entityTypeName_;
+  }
+
+  get entityTypeNameCapitilised(): string{
+    let t = this.entityTypeName;
+    return t.slice(0,1).toUpperCase() + t.slice(1);
   }
 
 

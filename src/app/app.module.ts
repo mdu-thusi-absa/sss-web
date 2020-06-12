@@ -78,6 +78,9 @@ import { EntityDetailsHeaderComponent } from './panels/entity-details-header/ent
 import { EntityDetailsDashboardComponent } from './panels/entity-details-dashboard/entity-details-dashboard.component';
 import { InputTableComponent } from './input/input-table/input-table.component';
 import { ButtonCheckComponent } from './buttons/button-check/button-check.component';
+import { EntityDetailsMeetingsComponent } from './panels/entity-details-meetings/entity-details-meetings.component';
+import { InputMeetingComponent } from './input/input-meeting/input-meeting.component';
+import { EntityDetailsAttendeesComponent } from './panels/entity-details-attendees/entity-details-attendees.component';
 
 
 
@@ -151,6 +154,9 @@ import { ButtonCheckComponent } from './buttons/button-check/button-check.compon
     EntityDetailsDashboardComponent,
     InputTableComponent,
     ButtonCheckComponent,
+    EntityDetailsMeetingsComponent,
+    InputMeetingComponent,
+    EntityDetailsAttendeesComponent,
     
   ],
   imports: [

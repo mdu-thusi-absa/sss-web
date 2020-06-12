@@ -1,0 +1,14 @@
+<div class="h4 text-primary-h4" style="margin-top: 5px;" [hidden]="!showTitle">
+    <u>Attendance Details: {{ title }}</u>
+  </div>
+  <app-input-table
+    [headings]="['Title', 'Description']"
+    [fields]="['name', 'description']"
+    [withCheckbox]="true"
+    [entities]="data.attendees"
+    [inputType] = "'person'"
+  ></app-input-table>
+  <ng-container *ngIf="showTitle">
+    <div style="padding-bottom: 5px;"></div>
+    <hr />
+  </ng-container>

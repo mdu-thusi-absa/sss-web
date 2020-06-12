@@ -21,6 +21,24 @@ export const jsonFiles = `[
   {"fileName":"moi.pdf","name":"MOI 2","description":""}
 ]`;
 
+export const jsonAttendees= `[
+  {"surname":"AEGIDIUS","firstName":"FREDERICK","suffix":"Europe North","tasksCount":3,"isActive":true,"type":"individual"},
+  {"surname":"ANDERSEN","firstName":"RASMUS","suffix":"Africa Middle East","tasksCount":1,"isActive":true,"type":"individual"},
+  {"surname":"ANDERSON","firstName":"CODY","suffix":"West Coast","tasksCount":1,"isActive":false,"type":"individual"},
+  {"surname":"ANDERSON","firstName":"ALEX","suffix":"Central East","tasksCount":3,"isActive":true,"type":"individual"},
+  {"surname":"BRIDGES","firstName":"JOSH","suffix":"West Coast","tasksCount":1,"isActive":true,"type":"individual"}
+]`;
+
+export const jsonMeetings = `[
+  {"dateTime":"2020-05-12 12:30","name":"Introduction","description":"Roles and Responsibilities"},
+  {"dateTime":"2020-06-12","name":"BRD","description":"Business Requirement Document"},
+  {"dateTime":"2020-07-12","name":"Approvals","description":"Committee approvals"},
+  {"dateTime":"2020-08-12","name":"POC","description":"Proof of Concept"},
+  {"dateTime":"2020-09-12","name":"POC Approvals","description":"POC approvals and comments"},
+  {"dateTime":"2020-10-12","name":"Version 1 Deployment","description":"First deployment and experience"},
+  {"dateTime":"2020-11-12","name":"Testing","description":"User testing"}
+]`;
+
 export const jsonCompanyStatus = `[
   {"name":"Active"},{"name":"Nontrading"},{"name":"Dormant, passively trading"},{"name":"Deregistered"}
 ]`;

@@ -301,6 +301,17 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
+                <app-buttons-toggle
+                  [title]="'Meetings'"
+                  [placeholder]="'Meetings page'"
+                  [dataTarget]="'#page-meetings'"
+                  [matIcon]="'group'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideMeetings"
+                  (onToggle)="hideMeetings = !hideMeetings"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
                 &nbsp;<span
                   [style.display]="
                     hideHeader &&
@@ -308,7 +319,8 @@
                     hideSecondary &&
                     hideOptional &&
                     hideCustom &&
-                    hideDetailFiles
+                    hideDetailFiles &&
+                    hideMeetings
                       ? 'inherit'
                       : 'none'
                   "
@@ -386,6 +398,7 @@
                 [hideUsers]="false"
                 [hideHeader]="hideHeader"
                 [hideContacts]="hideContacts"
+                [hideMeetings] = "hideMeetings"
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"
                 [entityKey]="entityKey"

@@ -67,6 +67,7 @@
       <div id="{{ 'files-' + getID() }}" class="collapse">
         <app-entity-details-files
           [title]="task.mainGoal.title"
+          [showTitle] = "false"
           [isNarrow]="isNarrow"
           [persons]="data.getPersons()"
         ></app-entity-details-files>

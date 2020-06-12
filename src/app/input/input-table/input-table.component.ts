@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entities, EveryEntity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-table',
@@ -21,7 +22,7 @@ export class InputTableComponent implements OnInit {
   countSelected = 0;
   @Input() inputType = 'file';
 
-  constructor() {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.entities.forEach((value, key, map) => {

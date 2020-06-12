@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, EveryEntity, FileEntity } from 'src/app/models';
+import { NaturalEntity, EveryEntity } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-entity-details-files',
-  templateUrl: './entity-details-files.component.html',
-  styleUrls: ['./entity-details-files.component.css'],
+  selector: 'app-entity-details-attendees',
+  templateUrl: './entity-details-attendees.component.html',
+  styleUrls: ['./entity-details-attendees.component.css']
 })
-export class EntityDetailsFilesComponent implements OnInit {
+export class EntityDetailsAttendeesComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
   @Input() title = '';
@@ -33,7 +33,10 @@ export class EntityDetailsFilesComponent implements OnInit {
     for (let i = 0; i < this.elementsType.length; i++) {
       this.elementsType[i] = 'text';
     }
-    if (this.data.lg) console.log('loaded:entities-details-files');
+    console.log(this.data.attendees);
+    console.log(this.data.files)
+    
+    if (this.data.lg) console.log('loaded:entities-details-attendees');
     this.data.progress += 1;
   }
 
@@ -69,3 +72,4 @@ export class EntityDetailsFilesComponent implements OnInit {
     this.elementsType = et;
   }
 }
+

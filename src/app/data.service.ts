@@ -13,6 +13,7 @@ import {
   EveryEntity,
   Company,
   FileEntity,
+  MeetingEntity,
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
@@ -28,6 +29,8 @@ import {
   jsonFiles,
   jsonDivisions,
   jsonCompanyStatus,
+  jsonMeetings,
+  jsonAttendees,
 } from './data-json/data-json.module';
 
 @Injectable({
@@ -47,6 +50,8 @@ export class DataService {
   progress = 0;
   businessDivisions = new Entities<Entity>(Entity);
   entityStatuses = new Entities<Entity>(Entity);
+  meetings = new Entities<MeetingEntity>(MeetingEntity);
+  attendees = new Entities<NaturalEntity>(NaturalEntity);
 
   constructor() {
     this.loadStatic();
@@ -63,10 +68,12 @@ export class DataService {
     this.entityTypesPlural.fromJSON(jsonEntityTypesPlural);
     this.months.fromJSON(jsonMonths);
     this.periods.fromJSON(jsonPeriods);
-    this.files.fromJSON(jsonFiles);
-
     this.businessDivisions.fromJSON(jsonDivisions);
     this.entityStatuses.fromJSON(jsonCompanyStatus);
+
+    this.files.fromJSON(jsonFiles);
+    this.meetings.fromJSON(jsonMeetings);
+    this.attendees.fromJSON(jsonAttendees);
   }
 
   makeIndividuals() {
