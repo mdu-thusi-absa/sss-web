@@ -347,8 +347,11 @@ td.info > a {
 .text-primary-h4 {
   color: var(--color-dark);
   border-color: var(--color-dark);
-  font-weight: normal;
+  font-weight: var(--bold);
+  font-size: large;
 }
+
+
 .text-primary-bold {
   color: var(--color-dark);
   border-color: var(--color-dark);
