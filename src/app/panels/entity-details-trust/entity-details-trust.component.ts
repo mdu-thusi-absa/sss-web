@@ -11,6 +11,7 @@ export class EntityDetailsTrustComponent implements OnInit {
   @Input() filterText = '';
   isAppointeeInput = false;
   isAppointeeNewInput =false;
+  isDown_Trustees = false;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

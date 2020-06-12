@@ -41,11 +41,17 @@
     [hidden]="!isEdit"
     style="margin-bottom: 5px;padding-left:3px;padding-right:3px"
   >
-    <a href="#" data-toggle="collapse" [attr.data-target]="'#docs-' + index"
+    <!-- <a href="#" data-toggle="collapse" [attr.data-target]="'#docs-' + index"
       >
       <label class="nobottom text-primary-bold">Documents </label
-      ><span class="caret"></span>
-    </a>
+      ><app-button-c1aret [isDown]="isDown_Documents"></app-button-caret>
+    </a> -->
+    <app-button-caret
+    [target]="'docs-' + index"
+    [title]="'Documents'"
+    [isDown]="isDown_Documents"
+  ></app-button-caret>
+
     <div  id="{{ 'docs-' + index }}" class="collapse">
       <table
         class="table table-condensed table-bordered table-hover less-bottom"

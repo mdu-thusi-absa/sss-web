@@ -63,14 +63,12 @@
     class="form-group input-group-sm"
     style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
   >
-    <a
-      href="#"
-      data-toggle="collapse"
-      [attr.data-target]="'#meeting-attendees-' + getID()"
-    >
-      <label class="nobottom text-primary-bold">Attendees </label
-      ><span class="caret"></span>
-    </a>
+    <app-button-caret
+      [title]="'Attendees'"
+      [target]="'meeting-attendees-' + getID()"
+      [isDown]="isDown_MeetingAttendees"
+    ></app-button-caret>
+
     <div id="{{ 'meeting-attendees-' + getID() }}" class="collapse">
       <app-entity-details-attendees
         [title]="title"
@@ -84,14 +82,11 @@
     class="form-group input-group-sm"
     style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
   >
-    <a
-      href="#"
-      data-toggle="collapse"
-      [attr.data-target]="'#meeting-files-' + getID()"
-    >
-      <label class="nobottom text-primary-bold">Files </label
-      ><span class="caret"></span>
-    </a>
+    <app-button-caret
+      [title]="'Files'"
+      [target]="'meeting-files-' + getID()"
+      [isDown]="isDown_Files"
+    ></app-button-caret>
     <div id="{{ 'meeting-files-' + getID() }}" class="collapse">
       <app-entity-details-files
         [title]="title"
@@ -100,6 +95,4 @@
       ></app-entity-details-files>
     </div>
   </div>
-
-  
 </div>

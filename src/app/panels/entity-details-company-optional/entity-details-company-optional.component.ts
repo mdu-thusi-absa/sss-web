@@ -14,6 +14,9 @@ export class EntityDetailsCompanyOptionalComponent implements OnInit {
   @Input() entity: Company;
   isAppointeeInput = false;
   isAppointeeNewInput =false;
+  isDown_ShareHolders = false;
+  isDown_Appointments = false;
+  isDown_ShareCertificates = false;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

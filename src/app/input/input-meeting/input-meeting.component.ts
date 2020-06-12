@@ -22,6 +22,8 @@ export class InputMeetingComponent implements OnInit {
   @Input() showCheck = false;
   @Input() showPanelHeading = true;
   @Input() isNarrow = false;
+  isDown_MeetingAttendees = false;
+  isDown_Files = false;
 
   @Output() onTask = new EventEmitter();
   @Output() onFile = new EventEmitter();

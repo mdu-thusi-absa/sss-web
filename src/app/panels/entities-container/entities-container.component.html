@@ -16,7 +16,7 @@
               >
               &nbsp;Entities
             </small>
-            
+
             <div class="btn-group pull-right">
               <!-- <a
                 href="#"
@@ -217,7 +217,7 @@
                 >&nbsp;Entity Details</span
               >&nbsp;
               <!-- <div class="btn-group"> -->
-              <div class="btn-group" style="vertical-align: top; height: 20px;">
+              <div class="btn-group" style="vertical-align: middle; height: 20px;">
                 <app-buttons-toggle
                   [title]="'Info'"
                   [placeholder]="'Headline Informaion'"
@@ -312,7 +312,9 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
-                &nbsp;<span
+                
+              </div>
+              <span
                   [style.display]="
                     hideHeader &&
                     hidePrimary &&
@@ -325,15 +327,13 @@
                       : 'none'
                   "
                   class="hidden-xs"
+                  style="vertical-align: middle;"
                 >
                   <mat-icon aria-hidden="true" aria-label="Entities"
                     >arrow_back</mat-icon
                   >
                   Select pages
                 </span>
-              </div>
-
-             
             </small>
 
             <small [hidden]="entityType < entityTypes.size - 1">
@@ -398,7 +398,7 @@
                 [hideUsers]="false"
                 [hideHeader]="hideHeader"
                 [hideContacts]="hideContacts"
-                [hideMeetings] = "hideMeetings"
+                [hideMeetings]="hideMeetings"
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"
                 [entityKey]="entityKey"
@@ -572,10 +572,10 @@
         [class.hidden-xs]="!showPanelRight"
         [class.col-sm-5]="showPanelRight"
         [style.visibility]="showPanelRight ? 'visible' : 'hidden'"
-        *ngIf="getIsLoaded(showPanelRight, 'panelRight',false)"
+        *ngIf="getIsLoaded(showPanelRight, 'panelRight', false)"
       >
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3">
+          <div class="panel-heading mt3" style="vertical-align: middle;">
             <small
               ><mat-icon
                 aria-hidden="true"
@@ -609,7 +609,6 @@
             </small>
 
             <div class="btn-group pull-right">
-              
               <app-buttons-toggle
                 [title]="'Tasks'"
                 [placeholder]="'Tasks Page'"
@@ -657,9 +656,9 @@
                 [showMe]="true"
               ></app-buttons-toolbar-button>
             </div>
-            <div class="pull-right">
+            <div class="pull-right" style="vertical-align: middle;">
               <small>
-                <span
+                <!-- <span
                   class="pull-right"
                   [style.display]="
                     hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
@@ -670,6 +669,19 @@
                     >arrow_forward</mat-icon
                   >
                   &nbsp;
+                </span> -->
+                <span
+                  [style.display]="
+                  hidePosts && hideAudits && hideTasks
+                      ? 'inherit'
+                      : 'none'
+                  "
+                  class="hidden-xs"
+                  style="vertical-align: middle;"
+                >Select page
+                  <mat-icon aria-hidden="true" aria-label="Entities"
+                    >arrow_forwards</mat-icon
+                  >&nbsp;
                 </span>
               </small>
             </div>

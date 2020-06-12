@@ -114,10 +114,15 @@
   [hidden]="hideByFilter('Appointments')"
   style="margin-top: 5px; margin-bottom: 5px;"
 >
-  <a href="#" data-toggle="collapse" data-target="#appointments">
+  <!-- <a href="#" data-toggle="collapse" data-target="#appointments">
     <label class="nobottom text-primary-bold">Appointments </label
-    ><span class="caret"></span>
-  </a>
+    ><app-button-c1aret [isDown]="isDown_Appointments"></app-button-caret>
+  </a> -->
+  <app-button-caret
+      [title]="'Appointments'"
+      [target]="'appointments'"
+      [isDown]="isDown_Appointments"
+    ></app-button-caret>
 
   <div id="appointments" class="collapse">
     <table
@@ -303,10 +308,15 @@
   [hidden]="hideByFilter('Share Issuance')"
   style="margin-bottom: 5px;"
 >
-  <a href="#" data-toggle="collapse" data-target="#shareIssuance">
+  <!-- <a href="#" data-toggle="collapse" data-target="#shareIssuance">
     <label class="nobottom text-primary-bold">Share Certificates </label
-    ><span class="caret"></span>
-  </a>
+    ><app-button-c1aret [isDown]="isDown_ShareCertificates"></app-button-caret>
+  </a> -->
+  <app-button-caret
+      [title]="'Share Certificates'"
+      [target]="'shareIssuance'"
+      [isDown]="isDown_ShareCertificates"
+    ></app-button-caret>
   <div id="shareIssuance" class="collapse">
     <table
       class="table table-condensed table-bordered table-hover less-bottom"
@@ -359,10 +369,16 @@
   [hidden]="hideByFilter('Share Holders')"
   style="margin-bottom: 5px;"
 >
-  <a href="#" data-toggle="collapse" data-target="#shareHolders">
+  <!-- <a href="#" data-toggle="collapse" data-target="#shareHolders">
     <label class="nobottom text-primary-bold">Share Holders </label
-    ><span class="caret"></span>
-  </a>
+    ><app-button-c1aret [isDown]="isDown_ShareHolders"></app-button-caret>
+  </a> -->
+
+  <app-button-caret
+  [title]="'Share Holders'"
+  [target]="'shareHolders'"
+  [isDown]="isDown_ShareHolders"
+></app-button-caret>
   <div id="shareHolders" class="collapse">
     <table
       class="table table-condensed table-bordered table-hover less-bottom"

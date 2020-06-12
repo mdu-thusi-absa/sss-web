@@ -13,6 +13,7 @@ export class EntityMessageComponent implements OnInit {
   @Input() docs: string[];
   @Input() isEdit = false;
   rows = 20;
+  isDown_Documents = false;
 
   @Output() onClose = new EventEmitter();
 

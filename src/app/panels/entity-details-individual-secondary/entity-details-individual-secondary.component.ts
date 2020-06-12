@@ -13,6 +13,7 @@ export class EntityDetailsIndividualSecondaryComponent implements OnInit {
   @Input() entity: Individual;
   isAppointeeInput = false;
   isAppointeeNewInput =false;
+  isDown_Appointments = false;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

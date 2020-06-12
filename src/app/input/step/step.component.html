@@ -3,7 +3,7 @@
     class="panel panel-heading nobottom less-padding text-primary-bold"
     [hidden]="noHeader"
   >
-    <a
+    <!-- <a
       href="#"
       data-toggle="collapse"
       [attr.data-target]="'#step-' + stepNumber"
@@ -13,26 +13,38 @@
       <label class="nobottom text-primary-bold"
         ><small>Step {{ stepNumber }}</small></label
       >
-    </a>
+    </a> -->
+    <small>
+      <app-button-caret
+        [title]="'Step ' + stepNumber"
+        [target]="'step-' + stepNumber"
+        [isDown]="!hideBody"
+        (onClick)="hideBody = !hideBody"
+      ></app-button-caret>
+    </small>
+
     <div class="btn-group pull-right">
       <a
         href="#"
         class="btn btn-primary primary-color btn-xs"
         *ngIf="stepNumber != 1"
       >
-        <mat-icon aria-hidden="true" aria-label="Entities">keyboard_arrow_up</mat-icon>
+        <mat-icon aria-hidden="true" aria-label="Entities"
+          >keyboard_arrow_up</mat-icon
+        >
       </a>
       <a
         href="#"
         class="btn btn-primary primary-color btn-xs"
         *ngIf="stepNumber != 4"
       >
-        <mat-icon aria-hidden="true" aria-label="Entities">keyboard_arrow_down</mat-icon>
-      </a>
-      <a href="#" class="btn btn-primary primary-color btn-xs"
+        <mat-icon aria-hidden="true" aria-label="Entities"
+          >keyboard_arrow_down</mat-icon
         >
-      <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
-    </a>
+      </a>
+      <a href="#" class="btn btn-primary primary-color btn-xs">
+        <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+      </a>
     </div>
     <div class="form-group pull-right nobottom">
       <label class="checkbox-inline" style="padding-right: 8px;"
@@ -42,7 +54,7 @@
   </div>
 
   <div
-    class="panel panel-body noborder nobottom less-padding collapse in"
+    class="panel panel-body noborder nobottom less-padding collapse"
     [class.in]="!hideBody"
     id="{{ 'step-' + stepNumber }}"
   >

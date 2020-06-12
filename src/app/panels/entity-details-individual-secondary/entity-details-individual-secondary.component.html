@@ -80,10 +80,15 @@
   [hidden]="hideByFilter('Appointments')"
   style="margin-top: 5px; margin-bottom: 5px;"
 >
-  <a href="#" data-toggle="collapse" data-target="#appointments-individual">
+  <!-- <a href="#" data-toggle="collapse" data-target="#appointments-individual">
     <label class="nobottom text-primary-bold">Appointments </label
-    ><span class="caret"></span>
-  </a>
+    ><app-button-c1aret [isDown]="isDown_Appointments"></app-button-caret>
+  </a> -->
+  <app-button-caret
+  [title]="'Appointments'"
+  [target]="'appointments-individual'"
+  [isDown]="isDown_Appointments"
+></app-button-caret>
 
   <div id="appointments-individual" class="collapse">
     <table

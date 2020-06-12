@@ -56,14 +56,20 @@
       [hidden]="!isEdit"
       style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
     >
-      <a
+      <!-- <a
         href="#"
         data-toggle="collapse"
         [attr.data-target]="'#files-' + getID()"
       >
         <label class="nobottom text-primary-bold">Files </label
-        ><span class="caret"></span>
-      </a>
+        ><app-button-c1aret [isDown]="isDown_Files"></app-button-caret>
+      </a> -->
+      <app-button-caret
+      [title]="'Files'"
+      [target]="'files-' + getID()"
+      [isDown]="isDown_Files"
+    ></app-button-caret>
+
       <div id="{{ 'files-' + getID() }}" class="collapse">
         <app-entity-details-files
           [title]="task.mainGoal.title"
@@ -79,14 +85,19 @@
       [hidden]="!isEdit"
       style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
     >
-      <a
+      <!-- <a
         href="#"
         data-toggle="collapse"
         [attr.data-target]="'#steps-' + getID()"
       >
         <label class="nobottom text-primary-bold">Sub tasks </label
-        ><span class="caret"></span>
-      </a>
+        ><app-button-caret [isDown]="isDown_SubTasks"></app-button-caret>
+      </a> -->
+      <app-button-caret
+      [title]="'Sub tasks'"
+      [target]="'steps-' + getID()"
+      [isDown]="isDown_SubTasks"
+    ></app-button-caret>
       <div id="{{ 'steps-' + getID() }}" class="collapse">
         <app-step [stepNumber]="1" [isNarrow]="isNarrow"></app-step>
       </div>

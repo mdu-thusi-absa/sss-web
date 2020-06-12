@@ -1,0 +1,15 @@
+<a
+  href="#"
+  data-toggle="collapse"
+  [attr.data-target]="'#' + target"
+  (click)="doClick()"
+>
+  <label class="nobottom text-primary-bold">{{ title }} </label
+  ><span
+    class="caret"
+    [style.display]="isDown ? 'none' : 'inline-block'"
+  ></span>
+  <span class="dropup" [style.display]="isDown ? 'inline-block' : 'none'">
+    <span class="caret"></span>
+  </span>
+</a>

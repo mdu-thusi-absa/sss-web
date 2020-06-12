@@ -81,6 +81,7 @@ import { ButtonCheckComponent } from './buttons/button-check/button-check.compon
 import { EntityDetailsMeetingsComponent } from './panels/entity-details-meetings/entity-details-meetings.component';
 import { InputMeetingComponent } from './input/input-meeting/input-meeting.component';
 import { EntityDetailsAttendeesComponent } from './panels/entity-details-attendees/entity-details-attendees.component';
+import { ButtonCaretComponent } from './buttons/button-caret/button-caret.component';
 
 
 
@@ -157,6 +158,7 @@ import { EntityDetailsAttendeesComponent } from './panels/entity-details-attende
     EntityDetailsMeetingsComponent,
     InputMeetingComponent,
     EntityDetailsAttendeesComponent,
+    ButtonCaretComponent,
     
   ],
   imports: [

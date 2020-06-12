@@ -14,6 +14,8 @@ export class EntityTaskComponent implements OnInit {
   @Input() docs : string[]
   @Input() isEdit = false;
   rows = 20;
+  isDown_SubTasks = false;
+  isDown_Files = false;
 
   @Output() onClose = new EventEmitter()
   
