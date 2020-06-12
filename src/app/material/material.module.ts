@@ -4,13 +4,15 @@ import {MatIconModule}from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatStepperModule} from '@angular/material/stepper';
 
 const MaterialComponents = [
   MatCardModule,
   MatButtonModule,
   MatIconModule,
   MatCheckboxModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatStepperModule
 ]
 
 @NgModule({
