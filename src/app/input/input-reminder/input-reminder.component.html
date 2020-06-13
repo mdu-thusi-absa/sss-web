@@ -1,0 +1,80 @@
+<div
+  class="panel panel-default"
+  style="margin-bottom: 5px; margin-top: 5px;"
+  [hidden]="hideByFilter()"
+>
+  <div
+    *ngIf="showPanelHeading"
+    class="panel panel-heading panel-info nobottom less-padding text-primary-bold"
+    style="vertical-align: middle; padding-bottom: 0px;"
+  >
+    <a
+      href="#"
+      data-toggle="collapse"
+      [attr.data-target]="'#reminder-' + getID()"
+      style="white-space: nowrap; display: inline-block; overflow: hidden;"
+    >
+      <label class="nobottom text-primary-bold">{{ title }}</label>
+    </a>
+  </div>
+
+  <div
+    class="panel panel-body noborder nobottom less-padding collapse"
+    [class.in]="hideBody"
+    id="{{ 'reminder-' + getID() }}"
+    style="margin-top: 0px;"
+  >
+    <div class="container-flex">
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <div *ngIf="showTitleInput">
+            <app-input-text
+              [title]="'Title'"
+              [value]="title"
+              (onChange)="doChangeTitle($event)"
+              [showCheck]="[showCheck]"
+            ></app-input-text>
+          </div>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-checkbox
+            [title]="'Active'"
+            [value]="true"
+          ></app-input-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-date [title]="'Start at'"></app-input-date>
+          <app-input-date [title]="'End date'"></app-input-date>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          <app-input-textarea
+            [title]="'Description'"
+            [placeholder]="'Notes for the reminder'"
+            [showCheck]="false"
+          ></app-input-textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="form-group input-group-sm"
+    style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
+  >
+    <app-button-caret
+      [title]="'Send Reminder To'"
+      [target]="'reminder-to-' + getID()"
+      [isDown]="isDown_sendTo"
+    ></app-button-caret>
+
+    <div id="{{ 'reminder-to-' + getID() }}" class="collapse">
+      <app-entity-details-attendees
+        [title]="title"
+        [showTitle]="false"
+        [isNarrow]="isNarrow"
+      ></app-entity-details-attendees>
+    </div>
+  </div>
+</div>

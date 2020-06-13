@@ -27,6 +27,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideUsers = false;
   @Input() hideContacts = false;
   @Input() hideMeetings = false;
+  @Input() hideReminders = false;
   persons: Entities<NaturalEntity>;
   @Input() panelRows = 1;
   entityType_ = 0;

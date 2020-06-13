@@ -406,6 +406,24 @@
         ></app-entity-details-meetings>
       </div>
     </div>
+    <div *ngIf="getIsLoaded('entities', 'reminders')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideReminders"
+        id="{{ 'page-reminders' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-reminders
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-reminders>
+      </div>
+    </div>
 
 
     <div
@@ -418,7 +436,8 @@
           hideCustom &&
           hideFiles &&
           hideHeader &&
-          hideMeetings
+          hideMeetings &&
+          hideReminders
         )
       "
     >

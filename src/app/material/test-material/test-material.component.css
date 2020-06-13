@@ -11,6 +11,10 @@
     padding-left:5px;
 }
 
+.list-group-item,.list-group-item:focus,.list-group-item:hover{
+    color:white;
+}
+
 
 /* @mixin styleStepLine($index) {
     .mat-horizontal-stepper-header {

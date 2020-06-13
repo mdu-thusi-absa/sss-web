@@ -10,6 +10,7 @@ export class TestMaterialComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  hide1 = true;
 
   constructor() {}
 

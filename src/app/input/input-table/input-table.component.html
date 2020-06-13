@@ -105,6 +105,17 @@
               ></app-input-meeting>
             </td>
           </tr>
+          <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'reminder'">
+            <td [attr.colspan]="headings.length + withCheckbox">
+              <app-input-reminder
+                [title]="e.value.name"
+                [showTitleInput]="true"
+                [showSelect]="true"
+                [showShare]="true"
+                [showPanelHeading]="false"
+              ></app-input-reminder>
+            </td>
+          </tr>
         </ng-container>
       </ng-container>
     </tbody>

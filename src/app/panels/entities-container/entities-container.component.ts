@@ -52,6 +52,7 @@ export class EntitiesContainerComponent implements OnInit {
   hideContacts = true;
   hideHeader = true;
   hideMeetings = true;
+  hideReminders = true;
 
   entityType = 0;
   entityKey = 0;

@@ -1,0 +1,15 @@
+<div class="panel panel-primary no-gutter nobottom" style="margin-top: 5px;">
+    <div
+      class="panel-heading mt3"
+      style="vertical-align: middle; cursor: pointer;"
+      [attr.data-target]="'#input-panel-' + getID()"
+      data-toggle="collapse"
+    >
+      {{title}}
+    </div>
+    <div class="panel-body mt3 collapse" style="margin-bottom: 0px;" [attr.id]="'input-panel-' + getID()">
+      <div style="overflow-y: scroll;max-height: 50vh;">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
