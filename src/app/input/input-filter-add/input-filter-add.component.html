@@ -227,6 +227,15 @@
     >
       <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
     </span>
+    <span
+      *ngIf="showSearch"
+      class="input-group-addon btn primary-color-reverse"
+      style="border-left: none;"
+      (click)="doFilter()"
+      [class.btn-blocked] = "filterText.length == -1"
+    >
+      <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">search</mat-icon>
+    </span>
 
     <span
       *ngIf="showFilterCount"

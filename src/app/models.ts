@@ -3,12 +3,25 @@ import { MapType } from '@angular/compiler';
 import { EntityMessageComponent } from './panels/entity-message/entity-message.component';
 import { maxHeaderSize } from 'http';
 import { LoginOptions } from 'angular-oauth2-oidc';
+import { etLocale } from 'ngx-bootstrap/chronos';
 
 export class Entity {
   public type = 'entity';
   public description: string;
+  public isActive = false;
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
+
+  inFilter(filterText: string, onlyActive: boolean):boolean{
+    if (onlyActive && !this.isActive) return false;
+    else if (filterText.length == 0) return true;
+    else{
+      let f = filterText.toLowerCase();
+      let inName = this.name.toLowerCase().indexOf(f)>-1
+      let inDescription = this.description.toLowerCase().indexOf(f)>-1
+      return inName || inDescription;
+    }
+  }
 
   set(propertyName: string, value: any) {
     this[propertyName] = value;
@@ -573,6 +586,17 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   constructor(private EntityType) {
     super();
+  }
+
+  filter(filterText: string, onlyActive: boolean): Entities<T>{
+    let ets = new Entities<T>(this.EntityType);
+    let v = this.all_values
+    for (let i=0; v.length<i;i++){
+      if (v[i].inFilter(filterText,onlyActive)){
+        ets.add(v[i])
+      }
+    }
+    return ets;
   }
 
   createEntity() {

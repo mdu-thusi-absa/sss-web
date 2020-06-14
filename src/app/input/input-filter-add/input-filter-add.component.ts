@@ -53,6 +53,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showCancel = false;
   @Input() showFilterCount = false;
   @Input() showInputFilter = true;
+  @Input() showSearch = false;
 
   @Input() disabledFlash = false;
   @Input() disabledPlay = false;

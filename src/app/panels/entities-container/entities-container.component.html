@@ -195,7 +195,7 @@
         >
           <div class="panel-heading mt3">
             <small
-              [hidden]="entityType > entityTypes.size - 3 || entityType == 0"
+              [hidden]="entityType > entityTypes.size - 3 || entityType == 0 || entityType == 1"
             >
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
 
@@ -357,6 +357,13 @@
               <span>&nbsp;Dashboard</span>
             </small>
 
+            <small [hidden]="entityType != 1">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >search</mat-icon
+              >
+              <span>&nbsp;Global Search</span>
+            </small>
+
             <small [hidden]="entityType != entityTypes.size - 2">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >assignment</mat-icon
@@ -404,7 +411,7 @@
                   'entities'
                 )
               "
-              [hidden]="entityType == 0 || entityType > entityTypes.size - 3"
+              [hidden]="entityType == 0 || entityType == 1 || entityType > entityTypes.size - 3"
             >
               <app-entity-details
                 [panelRows]="panelRows"
@@ -473,6 +480,26 @@
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"
               ></app-entity-details-dashboard>
+            </div>
+            <div
+              *ngIf="getIsLoaded(entityType == 1, 'globalsearch')"
+              [hidden]="entityType != 1"
+            >
+              <app-panel-glogal-search
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityType"
+              ></app-panel-glogal-search>
             </div>
           </div>
 

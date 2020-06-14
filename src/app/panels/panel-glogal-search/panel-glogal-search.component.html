@@ -1,0 +1,57 @@
+<app-input-filter-add
+  [title]="'Global search'"
+  [showA] = "true"
+  [isA] = "true"
+  [showSearch] = "true"
+  (onFilter)="doFilter($event)"
+></app-input-filter-add>
+
+<!-- <app-test-material></app-test-material> -->
+
+<form autocomplete="off">
+  <div
+    [class.settings-detail-form-full]="isFullScreen()"
+    [class.settings-detail-form-half]="isHalfScreen()"
+  >
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Companies</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Individuals</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Users</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Groups</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Trusts</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Regulators</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Regulations</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Auditors</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Secreteriats</u>
+    </div>
+    <hr />
+    <div class="text-primary-h4" style="margin-top: 5px;">
+      <u>Search results: Templates</u>
+    </div>
+    <hr />
+  </div>
+</form>
