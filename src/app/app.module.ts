@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { EnvServiceProvider } from './env.service.provider';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -180,7 +181,7 @@ import { PanelGlogalSearchComponent } from './panels/panel-glogal-search/panel-g
     OAuthModule.forRoot(),
     MaterialModule
   ],
-  providers: [],
+  providers: [EnvServiceProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

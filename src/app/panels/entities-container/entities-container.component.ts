@@ -4,6 +4,7 @@ import { Entities, EveryEntity } from 'src/app/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 import { MatCardModule } from '@angular/material/card';
 import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
+import { EnvService } from 'src/app/env.service';
 
 @Component({
   selector: 'app-entities-container',
@@ -11,7 +12,7 @@ import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
   styleUrls: ['./entities-container.component.css'],
 })
 export class EntitiesContainerComponent implements OnInit {
-  constructor(public data: DataService) {}
+  constructor(public data: DataService, public env: EnvService) {}
 
   ngOnInit(): void {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
