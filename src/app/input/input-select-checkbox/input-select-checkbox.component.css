@@ -6,6 +6,6 @@
   }
 
   .input-checkbox-compute-width{
-    width:calc(100%-100px);
+    width:calc(100%-50px);
     display:inline-block;
   }
