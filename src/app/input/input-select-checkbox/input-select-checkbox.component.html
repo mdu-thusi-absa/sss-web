@@ -1,10 +1,12 @@
 <div
   class="form-group input-group-sm nobottom"
   [hidden]="hideByFilter()"
-  style="margin-top: 5px; margin-right: 1px;margin-bottom: 5px;"
+  style="margin-top: 5px; margin-right: 1px; margin-bottom: 5px;"
 >
   <div class="input-group-sm" style="display: block;">
-    <label class="nobottom text-primary-bold label-buttons-7">{{ title }} </label>
+    <label class="nobottom text-primary-bold label-buttons-7"
+      >{{ title }}
+    </label>
 
     <!-- <app-buttons-input-select
       [title]="title"
@@ -32,15 +34,15 @@
       [showFlash]="showFlash"
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
-      [showCheck] = "showCheck"
+      [showCheck]="showCheck"
       [showFilter]="true"
       [showCancel]="false"
       [showSave]="false"
-      [showExpandContract] = "true"
-      [showExpand] = "showExpand"
-      [showContract] = "!showExpand"
-      (onExpand) = "doExpand()"
-      (onContract) = "doContract()"
+      [showExpandContract]="true"
+      [showExpand]="showExpand"
+      [showContract]="!showExpand"
+      (onExpand)="doExpand()"
+      (onContract)="doContract()"
       [countItems]="countItems()"
       [countItemsSelected]="countSelected()"
       (onAdd)="showNew()"
@@ -64,13 +66,13 @@
   </div> -->
 
   <app-input-select-text
-      [isDoInput]="isDoInput"
-      [showSave]="true"
-      [showCancel]="true"
-      [text]="text"
-      (onSave)="doSave($event)"
-      (onCancel)="doCancel()"
-    ></app-input-select-text>
+    [isDoInput]="isDoInput"
+    [showSave]="true"
+    [showCancel]="true"
+    [text]="text"
+    (onSave)="doSave($event)"
+    (onCancel)="doCancel()"
+  ></app-input-select-text>
 
   <br [hidden]="!isShowingFilter" />
   <!-- <div style="display:block;height:0px;max-height:0px"></div> -->
@@ -79,41 +81,53 @@
     <div class="input-group-sm">
       <ul
         class="list-group"
-        style="margin-bottom: 0px; overflow-y: auto; "
-        [style.max-height] = "showExpand ? '90px' : '270px'"
+        style="margin-bottom: 0px; overflow-y: auto;"
+        [style.max-height]="showExpand ? '90px' : '270px'"
         (scroll)="onScrollData($event)"
+      >
+        <div
+          *ngFor="let e of values | keyvalue"
+          [hidden]="hideItem(e.value.name)"
         >
-        <div *ngFor="let e of values | keyvalue" [hidden]="hideItem(e.value.name)">
-          <li *ngIf="(isLoadAll || getDoLoad(e.key))"
+          <li
+            *ngIf="isLoadAll || getDoLoad(e.key)"
             class="list-group-item input-sm"
-            style="
-              vertical-align: top;
-              padding-bottom: 5px;
-              padding-top: 5px;
-            "
+            style="vertical-align: top; padding-bottom: 5px; padding-top: 5px;"
           >
-          <app-input-checkbox
-          [titleBold]="false"
-          [showSmall]="true"
-          [title]="e.value.name"
-          [value]="selectedItems.indexOf(e.key)>-1"
-          (onChange)="doCheckField(e.key, $event)"
-        ></app-input-checkbox>
+            <div style="display:inline-block;width: 50px;">
+              <app-input-checkbox
+                [titleBold]="false"
+                [showSmall]="true"
+                [title]="e.value.name"
+                [value]="selectedItems.indexOf(e.key) > -1"
+                (onChange)="doCheckField(e.key, $event)"
+              ></app-input-checkbox>
+            </div>
             <a
               href="#"
-              class="btn primary-color-reverse  btn-xs pull-right"
+              class="btn primary-color-reverse btn-xs pull-right"
               (click)="doEdit(e.key)"
-              style="border-left:none"
+              style="border-left: none;"
+            >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [title]="'Edit ' + e.value.name"
+                >edit</mat-icon
               >
-            <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Edit ' + e.value.name">edit</mat-icon>
-          </a>
+            </a>
             <a
               href="#"
-              class="btn primary-color-reverse  btn-xs pull-right"
+              class="btn primary-color-reverse btn-xs pull-right"
               (click)="doDelete(e.key)"
+            >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [title]="'Delete ' + e.value.name"
+                >clear</mat-icon
               >
-            <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Delete ' + e.value.name">clear</mat-icon>
-          </a>
+            </a>
           </li>
         </div>
       </ul>
