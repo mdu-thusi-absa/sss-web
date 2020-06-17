@@ -19,7 +19,7 @@
   (onFilter)="doFilter($event)"
   (onSave)="doSave()"
   (onCancel)="doCancel()"
-  [titleT] = "'field values'"
+  [titleT]="'field values'"
 ></app-input-filter-add>
 <form autocomplete="off">
   <div
@@ -424,20 +424,18 @@
         ></app-entity-details-reminders>
       </div>
     </div>
-
-
     <div
       [hidden]="
         !(
           hidePrimary &&
-          (hideSecondary || (entityType != 0 && entityType != 1)) &&
-          (hideOptional || entityType != 0) &&
           hideContacts &&
           hideCustom &&
           hideFiles &&
           hideHeader &&
           hideMeetings &&
-          hideReminders
+          hideReminders &&
+          (hideSecondary || (entityTypeName!='company' && entityTypeName!='individual')) && 
+          (hideOptional || (entityTypeName!='company'))
         )
       "
     >

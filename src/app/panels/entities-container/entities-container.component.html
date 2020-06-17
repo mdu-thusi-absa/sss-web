@@ -259,7 +259,7 @@
                   [toggleValue]="!hideSecondary"
                   (onToggle)="hideSecondary = !hideSecondary"
                   [isNarrow]="showPanelRight"
-                  [showMe]="entityType == 1 || entityType == 2"
+                  [showMe]="entityType == 2 || entityType == 3"
                 >
                 </app-buttons-toggle>
 
@@ -272,7 +272,7 @@
                   [toggleValue]="!hideOptional"
                   (onToggle)="hideOptional = !hideOptional"
                   [isNarrow]="showPanelRight"
-                  [showMe]="entityType == 1"
+                  [showMe]="entityType == 2"
                 ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Contacts'"
@@ -364,7 +364,7 @@
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >search</mat-icon
               >
-              <span>&nbsp;Entities Search</span>
+              <span>&nbsp;System Search</span>
             </small>
 
             <small [hidden]="entityType != entityTypes.size - 2">

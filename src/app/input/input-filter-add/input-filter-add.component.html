@@ -231,7 +231,7 @@
       *ngIf="showSearch"
       class="input-group-addon btn primary-color-reverse"
       style="border-left: none;"
-      (click)="doFilter()"
+      (click)="doSearch()"
       [class.btn-blocked] = "filterText.length == -1"
     >
       <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">search</mat-icon>

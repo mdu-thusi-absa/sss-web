@@ -1,9 +1,23 @@
-<div *ngIf="showMe" style="display: inline-block; vertical-align: middle;padding-left:1px; padding-right:1px;">
-    <a href="#" (click)="doClick()" class="btn btn-info btn-xs"
-    style="padding: 1px"
-    [title] = "title">
-  
-  &nbsp;<mat-icon aria-hidden="true" aria-label="Entities">{{matIcon}}</mat-icon>&nbsp;
+<div
+  *ngIf="showMe"
+  style="
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 1px;
+    padding-right: 1px;
+  "
+>
+  <a
+    href="#"
+    (click)="doClick()"
+    class="btn btn-info btn-xs"
+    style="padding: 1px;"
+    [title]="title"
+  >
+    &nbsp;<mat-icon aria-hidden="true" aria-label="Entities">{{
+      matIcon
+    }}</mat-icon
+    >&nbsp;
     <!-- <svg
       style="
         background-position: center;
@@ -15,8 +29,6 @@
       "
       [style.background-image] = "'url(\'' + svgUrlPath + '\')'"
     ></svg> -->
-  
-    
 
     <!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
 

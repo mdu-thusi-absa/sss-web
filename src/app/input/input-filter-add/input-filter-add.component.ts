@@ -103,6 +103,7 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onDuplicate = new EventEmitter();
   @Output() onDownload = new EventEmitter();
   @Output() onA = new EventEmitter();
+  @Output() onSearch = new EventEmitter();
 
   isT = false;
   filterText = '';
@@ -153,6 +154,10 @@ export class InputFilterAddComponent implements OnInit {
     this.doFilter();
   }
 
+  doSearch(){
+    this.onSearch.emit(this.filterText);
+  }
+
   doAdd() {
     //this.isAdd = !this.isAdd;
     // if (this.isAdd) this.isSaved = false;
@@ -195,6 +200,7 @@ export class InputFilterAddComponent implements OnInit {
   doKey(event: any) {
     // without type info
     if (event.key === 'Escape') this.filterText = '';
+    if (event.key === 'Enter') this.doSearch();
     this.doFilter();
   }
 }

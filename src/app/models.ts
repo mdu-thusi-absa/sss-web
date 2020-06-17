@@ -590,10 +590,10 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   filter(filterText: string, onlyActive: boolean): Entities<T>{
     let ets = new Entities<T>(this.EntityType);
-    let v = this.all_values
+    let v = this.all_entries
     for (let i=0; v.length<i;i++){
-      if (v[i].inFilter(filterText,onlyActive)){
-        ets.add(v[i])
+      if (v[i][1].inFilter(filterText,onlyActive)){
+        ets.set(v[i][0],v[i][1])
       }
     }
     return ets;
