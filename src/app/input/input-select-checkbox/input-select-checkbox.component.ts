@@ -26,6 +26,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   loadedArray: number[] = [];
   limitVisibleRows = 20;
   loadInterval: any;
+  countAll = 0;
   onScrollData(event:any) {
     //this.limitVisibleRows += 50;
     this.isLoadAll = true;
@@ -180,7 +181,8 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   countItems(){
     let v = this.values.all_values;
-    return v.filter(e => !this.hideItem(e.name)).length;
+    this.countAll = v.filter(e => !this.hideItem(e.name)).length;
+    return this.countAll;
   }
   countSelected(){
     return this.selectedItems.length;
