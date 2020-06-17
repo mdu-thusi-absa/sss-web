@@ -4,3 +4,8 @@
     width: 11.9px;
     height: 13px;
   }
+
+  .input-checkbox-compute-width{
+    width:calc(100%-100px);
+    display:inline-block;
+  }
