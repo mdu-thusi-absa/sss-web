@@ -36,7 +36,7 @@ a {
 }
 
 .comp-width{
-    width:calc(100%-30px);
+    width:calc(100%-50px);
     overflow: hidden;
     white-space: nowrap;
 }
