@@ -115,11 +115,13 @@ export class FunctionalEntity extends Entity {
   public suffix = '';
   public tasksCount = 0;
   public isActive = true;
+
   public clone() {
     let t = new FunctionalEntity(this.name);
     t = Object.assign(t, this);
     return t;
   }
+
   contactDetails: Entities<ContactEntity>;
   customFields: Entities<CustomFieldEntity>;
   entityFiles: Entities<FileEntity>;
@@ -152,6 +154,7 @@ export class LegalEntity extends FunctionalEntity {
   public type = 'legal';
   //customFields: CustomFields;
   //entityFiles: FileEntities;
+
   public clone() {
     let t = new LegalEntity(this.name);
     t = Object.assign(t, this);
@@ -170,10 +173,17 @@ export class LegalEntity extends FunctionalEntity {
   }
 
   set name(v: string) {
+    //console.log(v);
+    
     if (v) {
       this.name_ = v;
       if (v.length>4)
-        if (v.toUpperCase() == v) this.name_ = super.capitalise(v);
+        if (v.toUpperCase() == v) {
+          this.name_ = super.capitalise(v);
+          super.name = this.name_;
+         // console.log(super.name,this.name_);
+          
+        }
     }
   }
 }
@@ -188,6 +198,9 @@ export class Shareholder extends LegalEntity {
   public clone() {
     return new Shareholder(this.name);
   }
+}
+export class Trust extends LegalEntity {
+  type = 'trust';
 }
 //todo: Appointments, ShareCertificates, Shareholders collections
 export class Company extends LegalEntity {
@@ -616,12 +629,22 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     }
   }
 
-  fromArray(type: string, entitiesArray: T[]) {
-    for (let i = 0; i < entitiesArray.length; i++) {
-      let a = entitiesArray[i];
+  // fromArray(type: string, entitiesArray: T[]) {
+  //   for (let i = 0; i < entitiesArray.length; i++) {
+  //     let a = entitiesArray[i]; 
+  //     // a = Object.assign(a,entitiesArray[i]);
+  //     a.type = type;
+  //     this.add(a);
+  //   }
+  // }
+
+  fromEntities(type: string, entities: Entities<T>){
+    entities.forEach((value, key, map) => {
+      let a = entities.createEntity();
+      a = Object.assign(a,value)
       a.type = type;
       this.add(a);
-    }
+    });
   }
 
   get currentKey() {

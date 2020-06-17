@@ -62,8 +62,8 @@ export const jsonDivisions = `[
 ]`
 
 export const jsonDashboards = `[
-  {"name":"Tasks","tasksCount":28,"isActive":true},
-  {"name":"System Search","tasksCount":20,"isActive":true},
+  {"name":"Dashboard","tasksCount":28,"isActive":true},
+  {"name":"Search","tasksCount":20,"isActive":true},
   {"name":"Companies","tasksCount":13,"isActive":true},
   {"name":"Individuals","tasksCount":12,"isActive":true},
   {"name":"Users","tasksCount":17,"isActive":true},
@@ -94,7 +94,7 @@ export const jsonMonths = `[
 
 export const jsonEntityTypes = `[
   {"name":"Dashboard"},
-  {"name":"System Search"},
+  {"name":"Search"},
   {"name":"Company"},
   {"name":"Individual"},
   {"name":"User"},
@@ -110,7 +110,7 @@ export const jsonEntityTypes = `[
 
 export const jsonEntityTypesPlural = `[
   {"name":"Dashboards"},
-  {"name":"System Searches"},
+  {"name":"Search"},
   {"name":"Companies"},
   {"name":"Individuals"},
   {"name":"Users"},

@@ -29,14 +29,14 @@
     [captionAll]="'All'"
     [captionPause]="'Inactive'"
     [isNarrow]="isNarrow"
-    [showInputFilter]="entityType != entityTypesPlural.size - 1"
+    [showInputFilter]="true"
     [showA]="true"
     [isA]="showActiveOnly"
     (onA)="doChangeShowActive($event)"
     [titleA]="'Active only ' + entityTypeNamePlural.toLowerCase()"
     [titleList]="'Select entity type'"
   ></app-input-filter-add>
-  <div [hidden]="entityType == entityTypesPlural.size - 1">
+  <div >
     <div
       [class.entities-full]="isFullScreen()"
       [class.entities-half]="isHalfScreen()"

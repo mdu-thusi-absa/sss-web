@@ -2,7 +2,7 @@
   [hidden]="hideByFilter()"
   style="margin-bottom: 0px;  vertical-align: middle;display:inline-block;"
   [style.margin-top]="showSmall ? '0px' : '5px'"
-  class="comp-width"
+  [class.comp-width] = "!noTitle"
 >
   <a
     href="#"
@@ -32,15 +32,14 @@
       aria-hidden="true"
       aria-label="Entities"
     ></mat-icon>
-  </a>
-  <label
+  </a><label
     [hidden]="noTitle"
-    style="padding-left: 5px; vertical-align: middle;overflow-x: hidden;display:inline-block;white-space: nowrap;"
+    style="vertical-align: middle;overflow-x: hidden;display:inline-block;white-space: nowrap;"
+    [style.padding-left] = "noTitle?'0px':'5px'"
     class="nobottom label-checkbox text-primary"
     [class.text-primary-bold] = "titleBold"
     [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
     (click)="doChange()"
-  >
-    {{ title }}
+  >{{ title }}
   </label>
 </div>

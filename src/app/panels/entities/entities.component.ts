@@ -299,11 +299,14 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityChoose(entityKey: number) {
-    //this.entities.currentKey = entityKey;
-    console.log(this.entityTypeName);
     if (this.entityTypeName == 'dashboard') {
       this.doEntityTypeChange(entityKey);
-    } else {
+    } 
+    else if (this.entityTypeName == 'search' || this.entityTypeName == 'template' || this.entityTypeName == 'setting'){
+      let t = this.entityTypeNames.size
+      this.doEntityTypeChange(entityKey % t);
+    }
+    else {
       this.selectedEntityKey = entityKey;
       this.onEntityChange.emit(this.selectedEntityKey);
     }

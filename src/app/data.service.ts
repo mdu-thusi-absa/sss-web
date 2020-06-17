@@ -86,6 +86,7 @@ export class DataService {
 
   makeDashboards() {
     this.dashboards.fromJSON(jsonDashboards);
+
     //this.companies.sort();
   }
   makeCompanies() {
@@ -95,22 +96,23 @@ export class DataService {
 
   makeFunctionalEntities() {
     this.functionalEntities = new Entities<EveryEntity>(Entity);
-    this.functionalEntities.fromArray('dashboard', this.dashboards.all_values);
-    this.functionalEntities.fromArray('company', this.companies.all_values);
-    this.functionalEntities.fromArray('individual', this.persons.all_values);
-    this.functionalEntities.fromArray('user', this.users.all_values);
-    this.functionalEntities.fromArray('group', this.entityGroups.all_values);
-    this.functionalEntities.fromArray('trust', this.trusts.all_values);
-    this.functionalEntities.fromArray('auditor', this.auditors.all_values);
-    this.functionalEntities.fromArray(
+    this.functionalEntities.fromEntities('dashboard', this.dashboards);
+    this.functionalEntities.fromEntities('search', this.dashboards);
+    this.functionalEntities.fromEntities('setting', this.dashboards);
+    this.functionalEntities.fromEntities('template', this.dashboards);
+
+    this.functionalEntities.fromEntities('company', this.companies);
+    this.functionalEntities.fromEntities('individual', this.persons);
+    this.functionalEntities.fromEntities('user', this.users);
+    this.functionalEntities.fromEntities('group', this.entityGroups);
+    this.functionalEntities.fromEntities('trust', this.trusts);
+    this.functionalEntities.fromEntities('auditor', this.auditors);
+    this.functionalEntities.fromEntities(
       'secretariat',
-      this.companySecretaries.all_values
+      this.companySecretaries
     );
-    this.functionalEntities.fromArray('regulator', this.regulators.all_values);
-    this.functionalEntities.fromArray(
-      'regulation',
-      this.regulations.all_values
-    );
+    this.functionalEntities.fromEntities('regulator', this.regulators);
+    this.functionalEntities.fromEntities('regulation', this.regulations);
     if (this.lg) console.log('loaded');
   }
 
@@ -696,7 +698,7 @@ export class DataService {
   getLegalClasses() {
     return this.legalClasses;
   }
-  
+
   getEntityStatuses() {
     return this.entityStatuses;
   }
@@ -721,7 +723,7 @@ export class DataService {
     return this.accountingTiers;
   }
 
-  regulators = new Entities<LegalEntity>(Entity)
+  regulators = new Entities<LegalEntity>(LegalEntity)
     .add(
       new LegalEntity('Financial Services Conduct Authority').set(
         'suffix',
@@ -733,7 +735,7 @@ export class DataService {
     return this.regulators;
   }
 
-  regulations = new Entities<LegalEntity>(Entity)
+  regulations = new Entities<LegalEntity>(LegalEntity)
     .add(new LegalEntity('Companies Act 71 of 2008'))
     .add(
       new LegalEntity('Protection of Personal Information Act 4 of 2013').set(
@@ -757,7 +759,7 @@ export class DataService {
     return this.regulations;
   }
 
-  trusts = new Entities<LegalEntity>(Entity)
+  trusts = new Entities<LegalEntity>(LegalEntity)
     .add(new LegalEntity('Northern Trust').set('suffix', 'NTH'))
     .add(new LegalEntity('BEE Trust').set('suffix', 'BEET'));
 
@@ -765,7 +767,7 @@ export class DataService {
     return this.trusts;
   }
 
-  yesNo = new Entities<Entity>(Entity)
+  yesNo = new Entities<Entity>(LegalEntity)
     .add(new Entity('Yes'))
     .add(new Entity('No'));
   getYesNo() {
@@ -800,16 +802,16 @@ export class DataService {
     return this.contactPreferences;
   }
 
-  auditors = new Entities<LegalEntity>(Entity)
+  auditors = new Entities<LegalEntity>(LegalEntity)
     .add(new LegalEntity('Deloitte'))
     .add(new LegalEntity('KPMG'))
     .add(new LegalEntity('PWC'));
 
-  companySecretaries = new Entities<LegalEntity>(Entity)
+  companySecretaries = new Entities<LegalEntity>(LegalEntity)
     .add(new LegalEntity('Internal'))
     .add(new LegalEntity('PWC'));
 
-  entityGroups = new Entities<FunctionalEntity>(Entity)
+  entityGroups = new Entities<FunctionalEntity>(FunctionalEntity)
     .add(new FunctionalEntity('- Default -').set('tasksCount', 7))
     .add(new FunctionalEntity('Africa').set('tasksCount', 3))
     .add(new FunctionalEntity('Europe').set('tasksCount', 18))
