@@ -200,19 +200,16 @@
         </div>
       </div>
     </div>
-    entityTypeName:{{entityTypeName}}{{entityTypeName != 'user'}}{{getIsLoaded('user', 'primary')}}
     <div
       *ngIf="getIsLoaded('user', 'primary')"
       [hidden]="entityTypeName != 'user'"
     >
-      user
       <div
         class="panel panel-body collapse"
         [class.in]="!hidePrimary"
         id="{{ 'page-primary-user' }}"
         style="padding: 0px; border: none;"
       >
-        user 2
         <app-entity-details-user
           [isNarrow]="isNarrow"
           [filterText]="filterText"
