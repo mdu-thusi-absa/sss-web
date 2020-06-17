@@ -181,8 +181,7 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   countItems(){
     let v = this.values.all_values;
-    this.countAll = v.filter(e => !this.hideItem(e.name)).length;
-    return this.countAll;
+    return v.filter(e => !this.hideItem(e.name)).length;
   }
   countSelected(){
     return this.selectedItems.length;

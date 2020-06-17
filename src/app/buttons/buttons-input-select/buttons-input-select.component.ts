@@ -46,6 +46,7 @@ export class ButtonsInputSelectComponent implements OnInit {
 
   @Input() countItemsSelected = -1;
   @Input() countItems = 0;
+  @Input() countTotalItems = 0;
 
   isFilter = false;
   filterText = '';

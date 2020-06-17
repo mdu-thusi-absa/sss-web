@@ -4,9 +4,8 @@
   style="margin-top: 5px; margin-right: 1px; margin-bottom: 5px;"
 >
   <div class="input-group-sm" style="display: block;">
-    <label class="nobottom text-primary-bold"
-      [class.label-buttons-4] = "countAll>15"
-      [class.label-buttons-3] = "countAll<=15"
+    <label class="nobottom text-primary-bold label-buttons-3"
+      [class.label-buttons-4] = "values.size>15"
       >{{ title }}
     </label>
 
@@ -37,7 +36,7 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
       [showCheck]="showCheck"
-      [showFilter]="countAll > 15"
+      [showFilter]="values.size>15"
       [showCancel]="false"
       [showSave]="false"
       [showExpandContract]="true"
@@ -46,6 +45,7 @@
       (onExpand)="doExpand()"
       (onContract)="doContract()"
       [countItems]="countItems()"
+      [countTotalItems] = "values.size"
       [countItemsSelected]="countSelected()"
       (onAdd)="showNew()"
       (onFile)="doFile()"
