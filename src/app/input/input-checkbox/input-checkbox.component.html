@@ -35,7 +35,7 @@
   </a>
   <label
     [hidden]="noTitle"
-    style="padding-left: 5px; vertical-align: middle;"
+    style="padding-left: 5px; vertical-align: middle;overflow-x: hidden;display:inline-block;white-space: nowrap;"
     class="nobottom label-checkbox text-primary"
     [class.text-primary-bold] = "titleBold"
     [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
@@ -43,69 +43,4 @@
   >
     {{ title }}
   </label>
-
-  <!-- <label
-    class="nobottom text-primary-bold label-checkbox"
-    [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
-  >
-    <mat-checkbox class="example-margin" [checked]="value" ></mat-checkbox 
-    <a
-      *ngIf="showFlash"
-      href="#"
-      class="btn primary-color-reverse btn-xs"
-      (click)="doChange()"
-    >
-      <mat-icon aria-hidden="true" aria-label="Entities">done_outline</mat-icon
-      >&nbsp;{{ title }}
-    </a>
-  </label> -->
-
-  <!-- <div
-    class="checkbox"
-    style="margin-bottom: 0px; margin-top: 5px; vertical-align: middle;"
-  >
-  
-    <label
-      class="nobottom text-primary-bold label-checkbox"
-      [class.label-buttons-3]="
-        showFlash || showPaperclip || showCheck || showCD
-      "
-      >
-      <input
-        type="checkbox"
-        value=""
-        [checked]="value"
-        [disabled]="disabled"
-        (change)="doChange($event)"
-      />
-      
-      <span *ngIf="showTitle"
-        class="hidden-xs"
-        [class.text-primary-bold]="!inline"
-        style="padding-top: 10px; margin-top: 10px;"
-        [style.word-wrap]="'none'"
-        >&nbsp;{{ title }}</span
-      >
-      <span *ngIf="showTitle"
-        class="hidden-sm hidden-md hidden-lg"
-        [class.text-primary-bold]="!inline"
-        [style.font-size] = "inline ? 'x-small' : 'normal'"
-        style="padding-top: 10px; margin-top: 10px; "
-        [style.word-wrap]="'none'"
-        >&nbsp;{{ title }}</span
-      >
-    </label>
-
-    <app-buttons-input-text
-      [title]="title"
-      (onTask)="doTask()"
-      (onFile)="doFile()"
-      (onRecord)="doRecord()"
-      [showFlash]="showFlash"
-      [showPaperclip]="showPaperclip"
-      [showCD]="showCD"
-      [showCheck]="showCheck"
-      [title]="title"
-    ></app-buttons-input-text>
-  </div> -->
 </div>

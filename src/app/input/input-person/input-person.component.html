@@ -4,7 +4,7 @@
   style="margin-top: 5px; margin-right: 1px;"
 >
   <div>
-    <label class="nobottom text-primary-bold label-buttons-6">{{
+    <label class="nobottom text-primary-bold label-buttons-3">{{
       title
     }}</label>
 
@@ -41,6 +41,7 @@
           style="padding-left: 6px; padding-right: 6px;"
           (focus)="onScrollData($event)"
         >
+        <option value="-1" [selected]="this.value<0">Please select</option>
           <ng-container *ngFor="let e of values | keyvalue">
             <option
               *ngIf="isLoadAll || getDoLoad(e.key)"
@@ -53,6 +54,7 @@
         </select>
         <span
           [hidden]="!showDelete"
+          [class.disabled] = "this.value < 0"
           class="input-group-addon btn primary-color-reverse hidden-xs"
           style="border-right: none;"
           (click)="doDelete()"
@@ -62,6 +64,7 @@
         </span>
         <span
           [hidden]="!showEdit"
+          [class.disabled] = "this.value < 0"
           class="input-group-addon btn primary-color-reverse hidden-xs"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
@@ -82,6 +85,7 @@
       <div>
         <span
           [hidden]="!showDelete"
+          [class.disabled] = "this.value < 0"
           class="input-group-addon btn primary-color-reverse"
           style="border-right: none;"
           (click)="doDelete()"
@@ -91,6 +95,7 @@
         </span>
         <span
           [hidden]="!showEdit"
+          [class.disabled] = "this.value < 0"
           class="input-group-addon btn primary-color-reverse"
           (click)="doEdit()"
           [title]="'Edit the 0' + title"

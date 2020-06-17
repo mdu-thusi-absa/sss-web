@@ -167,7 +167,7 @@ export class InputSelectEntityComponent implements OnInit {
         let t = this.entity;
         this.onEdit.emit({ id, t });
         this.onChange.emit(id);
-        setTimeout((that) => {that.value=0}, 5, this);
+        setTimeout((that) => {that.value=-1}, 5, this);
         setTimeout((that) => {that.value=id}, 10, this);
       }
       //this.setItem(this.person);

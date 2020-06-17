@@ -4,12 +4,13 @@
   [attr.data-target]="'#' + target"
   (click)="doClick()"
 >
-  <label class="nobottom text-primary-bold">{{ title }} </label
+  <label class="nobottom text-primary-bold" style="cursor: pointer;">{{ title }} </label
   ><span
     class="caret"
     [style.display]="isDown ? 'none' : 'inline-block'"
+    style="color: var(--color-dark);"
   ></span>
   <span class="dropup" [style.display]="isDown ? 'inline-block' : 'none'">
-    <span class="caret"></span>
+    <span class="caret" style="color: var(--color-dark);"></span>
   </span>
 </a>

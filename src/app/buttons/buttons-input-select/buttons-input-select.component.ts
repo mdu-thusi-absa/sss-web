@@ -133,7 +133,8 @@ export class ButtonsInputSelectComponent implements OnInit {
   filterInputWidth() {
     let r =
       24 *
-      ((this.showFlash ? 1 : 0) +
+      ((this.showExpandContract?1:0) + 
+      (this.showFlash ? 1 : 0) +
         (this.showPaperclip ? 1 : 0) +
         (this.showCD ? 1 : 0) +
         (this.showFilter ? 1 : 0) +
@@ -152,19 +153,19 @@ export class ButtonsInputSelectComponent implements OnInit {
   filterInputTotalWidth() {
     let r =
       24 *
-        ((this.showFlash ? 1 : 0) +
+        ((this.showExpandContract?1:0) + 
+          (this.showFlash ? 1 : 0) +
           (this.showPaperclip ? 1 : 0) +
           (this.showCD ? 1 : 0) +
-          (this.showFilter ? 1 : 0) +
+          (this.showFilter && (this.countItems>15 || this.filterText.length>0) ? 1 : 0) +
           (this.showEdit ? 1 : 0) +
           (this.showDelete ? 1 : 0) +
           (this.showCancel ? 1 : 0) +
           (this.showSave ? 1 : 0) +
           (this.showAdd ? 1 : 0) +
-          (this.showCheck ? 1 : 0)) +
-      30;
+          (this.showCheck ? 1 : 0));
 
-    if (r < 90) {
+    if (r < 90 && this.isFilter) {
       r = 90;
     }
     return r + 'px';

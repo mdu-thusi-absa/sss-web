@@ -167,6 +167,8 @@ export class InputPersonComponent implements OnInit {
         let t = this.person;
         this.onEdit.emit({ id, t });
         this.onChange.emit(t);
+        setTimeout((that) => {that.value=-1}, 5, this);
+        setTimeout((that) => {that.value=id}, 10, this);
       }
       //this.setItem(this.person);
     } else {

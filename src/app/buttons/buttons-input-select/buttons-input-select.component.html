@@ -1,5 +1,29 @@
 <div class="btn-group pull-right" [style.width]="filterInputTotalWidth()" >
   <div class="pull-right">
+    <!--style="overflow: hidden;"
+       {{[this.showContract,this.showFlash,this.showPaperclip,this.showCD,this.showFilter,this.showEdit,this.showDelete,this.showCancel,this.showSave,this.showAdd,this.showCheck]}} -->
+    <!-- {{((this.showContract?1:0) + 
+      (this.showFlash ? 1 : 0) +
+      (this.showPaperclip ? 1 : 0) +
+      (this.showCD ? 1 : 0) +
+      (this.showFilter && (this.countItems>15 || this.filterText.length>0) ? 1 : 0) +
+      (this.showEdit ? 1 : 0) +
+      (this.showDelete ? 1 : 0) +
+      (this.showCancel ? 1 : 0) +
+      (this.showSave ? 1 : 0) +
+      (this.showAdd ? 1 : 0) +
+      (this.showCheck ? 1 : 0))}} -->
+      <!-- {{('' + (this.showContract?1:0) + 
+        (this.showFlash ? 1 : 0) +
+        (this.showPaperclip ? 1 : 0) +
+        (this.showCD ? 1 : 0) +
+        (this.showFilter && (this.countItems>15 || this.filterText.length>0) ? 1 : 0) +
+        (this.showEdit ? 1 : 0) +
+        (this.showDelete ? 1 : 0) +
+        (this.showCancel ? 1 : 0) +
+        (this.showSave ? 1 : 0) +
+        (this.showAdd ? 1 : 0) +
+        (this.showCheck ? 1 : 0))}} -->
     <a
       *ngIf = "showContract && showExpandContract"
       href="#"

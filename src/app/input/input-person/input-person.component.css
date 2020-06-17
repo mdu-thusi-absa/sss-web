@@ -4,3 +4,10 @@
     width: 13px;
     height: 17px; 
   }
+
+  .input-group-addon{
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:10px;
+    padding-right:10px;
+  }
