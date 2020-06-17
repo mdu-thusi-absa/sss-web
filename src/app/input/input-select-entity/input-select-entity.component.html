@@ -43,14 +43,15 @@
           style="padding-left: 6px; padding-right: 6px;"
           (focus)="onScrollData($event)"
         >
+        <option *ngIf="this.value<0" selected disabled>Please select</option>
         <ng-container *ngFor="let e of values | keyvalue">
           <option
             *ngIf="(isLoadAll || getDoLoad(e.key))"
             
             [value]="e.key"
-            [selected]="e.key == value"
+            [selected] = "e.ke == value"
             [hidden]="hideItem(e.value)"
-            ><small>{{ e.value.name}}</small></option
+            ><small>{{e.value.name}}</small></option
           >
           </ng-container>
         </select>

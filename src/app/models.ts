@@ -197,31 +197,31 @@ export class Company extends LegalEntity {
   prevName: string;
   prevNameEffectiveDate: Date;
   entityGroups: Entities<Entity>;
-  countryKey: number;
-  industryKey: number;
+  countryKey = -1;
+  industryKey = -1;;
   representativeOffice: boolean;
   foreignBrunch: boolean;
   incorporationDate: Date;
-  anniversaryMonthKey: number;
+  anniversaryMonthKey = -1;;
   businessStartDate: Date;
-  financialYearEndMonthKey: number;
+  financialYearEndMonthKey = -1;;
   incomeTaxNumber: string;
   vatNumber: string;
-  businessAreaKey: number;
-  businessDivisionKey: number;
-  legalClassKey: number;
+  businessAreaKey = -1;;
+  businessDivisionKey = -1;;
+  legalClassKey = -1;;
   consolidated: boolean;
-  entityStatusKey: number;
-  entityStatusTieringKey: number;
-  accountingClassKey: number;
-  accountingClassificationTieringKey: number;
-  directParentKey: number;
+  entityStatusKey = -1;;
+  entityStatusTieringKey = -1;;
+  accountingClassKey = -1;;
+  accountingClassificationTieringKey = -1;;
+  directParentKey = -1;;
   shareholdingInEntity: number;
-  appointedCompanySecretariatKey: number;
-  clientSecretarialRepresentativeKey: number;
-  legalEntityExecutiveKey: number;
-  entityFinancialOfficerKey: number;
-  publicOfficerKey: number;
+  appointedCompanySecretariatKey = -1;;
+  clientSecretarialRepresentativeKey = -1;;
+  legalEntityExecutiveKey = -1;;
+  entityFinancialOfficerKey = -1;;
+  publicOfficerKey = -1;;
   shareCode: string;
   ISINCode: string;
   bloombergCode: string;
@@ -316,11 +316,11 @@ export class Individual extends NaturalEntity {
   SAPassportNumber: string;
   incomeTaxNumber: string;
   vatNumber: string;
-  countryKey: number;
+  countryKey = -1;;
   passportNumber: string;
   employeeNumber: string;
   position: string;
-  currentEmployerKey: number; //company
+  currentEmployerKey = -1;; //company
   //contact details
   //customFields
   //files
@@ -352,7 +352,7 @@ export class RegulatorEntity extends LegalEntity {
     t = Object.assign(t, this);
     return t;
   }
-  countryKey: number;
+  countryKey = -1;;
   regulationEntities: Entities<RegulationEntity>;
 }
 export class AuditorEntity extends LegalEntity {
@@ -363,7 +363,7 @@ export class AuditorEntity extends LegalEntity {
     return t;
   }
   professionalNumber: string;
-  partnerKey: number;
+  partnerKey = -1;;
   //todo: partners: Entities<NaturalEntity>
 }
 export class SecretariatEntity extends LegalEntity {
@@ -374,7 +374,7 @@ export class SecretariatEntity extends LegalEntity {
     return t;
   }
   professionalNumber: string;
-  partnerKey: number;
+  partnerKey = -1;;
   //todo: partners: Entities<NaturalEntity>
 }
 export class RegulationEntity extends FunctionalEntity {
@@ -384,7 +384,7 @@ export class RegulationEntity extends FunctionalEntity {
     t = Object.assign(t, this);
     return t;
   }
-  countryKey: number;
+  countryKey = -1;;
   regulatorEntities: Entities<RegulatorEntity>;
 }
 // export class Person extends NaturalEntity{

@@ -42,7 +42,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Output() onEdit = new EventEmitter();
   fullNames = [];
   isDoInput = false;
-  option = 0;
+  //option = 0;
   isAdd = false;
   listFilterText = '';
   isShowingFilter = false;
@@ -158,11 +158,17 @@ export class InputSelectEntityComponent implements OnInit {
         this.onChange.emit(this.value);
       } else {
         //save for old item
+
         this.values.edit(this.value, this.entity);
         let id = this.value;
+        // this.value = 0;
+        // this.value = id;
+        
         let t = this.entity;
         this.onEdit.emit({ id, t });
         this.onChange.emit(id);
+        setTimeout((that) => {that.value=0}, 5, this);
+        setTimeout((that) => {that.value=id}, 10, this);
       }
       //this.setItem(this.person);
     } else {
