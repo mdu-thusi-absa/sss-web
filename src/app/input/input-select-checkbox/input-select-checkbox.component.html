@@ -9,23 +9,6 @@
       >{{ title }}
     </label>
 
-    <!-- <app-buttons-input-select
-      [title]="title"
-      (onEdit)="showEdit()"
-      (onAdd)="showNew()"
-      (onDelete)="(deleteItem)"
-      [isDoInput]="isDoInput"
-      (onFile)="doFile()"
-      (onRecord)="doRecord()"
-      (onTask)="doTask()"
-      [showFlash]="showFlash"
-      [showPaperclip]="showPaperclip"
-      [showCD]="showCD"
-      [showFilter]="true"
-      (onFilter)="doFilter($event)"
-      (onShowingFilter) = "showingFilter($event)"
-    ></app-buttons-input-select> -->
-
     <app-buttons-input-select
       [title]="title"
       [isDoInput]="isDoInput"
@@ -55,17 +38,6 @@
       (onShowingFilter)="showingFilter($event)"
     ></app-buttons-input-select>
   </div>
-
-  <!-- <div class="input-group-sm" [hidden]="!isDoInput">
-    <input
-      type="text"
-      class="form-control"
-      placeholder=""
-      #inputText
-      name="text"
-      [(ngModel)]="text"
-    />
-  </div> -->
 
   <app-input-select-text
     [isDoInput]="isDoInput"
