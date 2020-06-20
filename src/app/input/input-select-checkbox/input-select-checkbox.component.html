@@ -64,7 +64,7 @@
           [hidden]="hideItem(e.value.name)"
         >
           <li
-            *ngIf="(isLoadAll || getDoLoad(e.key)) && (showSelectedOnly?selectedValues.indexOf(e.key)>-1:true)"
+            *ngIf="showSelectedOnly?selectedValues.indexOf(e.key)>-1:(isLoadAll || getDoLoad(e.key))"
             class="list-group-item input-sm"
             style="vertical-align: top; padding-bottom: 5px; padding-top: 5px;"
           >
