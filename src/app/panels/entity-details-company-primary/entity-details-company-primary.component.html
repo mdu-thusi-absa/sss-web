@@ -46,22 +46,16 @@
   [showCheckRight]="true"
 >
 </app-input-duo>
-<app-input-duo
+<app-input-select-checkbox-duo
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-  [typeLeft]="'select-checkbox'"
-  [titleLeft]="'Entity Groups'"
-  [valuesLeft]="data.getEntityGroups()"
-  [valueLeft]="entity.entityGroups"
-  (onChangeLeft)="entity.entityGroups = $event; onDirty.emit()"
-  (onFile)="doFile($event)"
-  (onRecord)="doRecord($event)"
-  (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [title]="'Entity Groups'"
+  [values]="data.getEntityGroups()"
+  [showCheck]="true"
 >
-</app-input-duo>
+</app-input-select-checkbox-duo>
+
 <app-input-duo
   [isNarrow]="isNarrow"
   [typeLeft]="'select-entity'"

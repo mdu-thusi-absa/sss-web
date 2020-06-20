@@ -88,6 +88,7 @@ import { InputPanelComponent } from './input/input-panel/input-panel.component';
 import { EntityDetailsRemindersComponent } from './panels/entity-details-reminders/entity-details-reminders.component';
 import { InputReminderComponent } from './input/input-reminder/input-reminder.component';
 import { PanelGlogalSearchComponent } from './panels/panel-glogal-search/panel-glogal-search.component';
+import { InputSelectCheckboxDuoComponent } from './input/input-select-checkbox-duo/input-select-checkbox-duo.component';
 
 
 
@@ -170,6 +171,7 @@ import { PanelGlogalSearchComponent } from './panels/panel-glogal-search/panel-g
     EntityDetailsRemindersComponent,
     InputReminderComponent,
     PanelGlogalSearchComponent,
+    InputSelectCheckboxDuoComponent,
     
   ],
   imports: [

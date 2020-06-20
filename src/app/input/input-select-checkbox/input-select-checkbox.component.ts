@@ -1,21 +1,30 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Entity, Entities, EveryEntity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-select-checkbox',
   templateUrl: './input-select-checkbox.component.html',
-  styleUrls: ['./input-select-checkbox.component.css']
+  styleUrls: ['./input-select-checkbox.component.css'],
 })
 export class InputSelectCheckboxComponent implements OnInit {
   @Input() title = '';
   @Input() values: Entities<EveryEntity>; //of entities
   @Input() filterText = '';
-  @Input() value = 0;
+  //@Input() value = [];
   @Input() doHideByFilter = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -27,7 +36,19 @@ export class InputSelectCheckboxComponent implements OnInit {
   limitVisibleRows = 20;
   loadInterval: any;
   countAll = 0;
-  onScrollData(event:any) {
+
+  isDoInput = false;
+  valueId = 0;
+  text = '';
+  entity = new Entity('');
+  doAdd = false;
+  listFilterText = '';
+  isShowingFilter = false;
+  @Input() selectedValues: number[] = [];
+  @Input() showSelectedOnly = false;
+  showExpand = true;
+
+  onScrollData(event: any) {
     //this.limitVisibleRows += 50;
     this.isLoadAll = true;
   }
@@ -59,17 +80,6 @@ export class InputSelectCheckboxComponent implements OnInit {
     this.onTask.emit(this.title);
   }
 
-
-  isDoInput = false;
-  valueId = 0;
-  text = '';
-  entity = new Entity('');
-  doAdd = false;
-  listFilterText = '';
-  isShowingFilter = false;
-  selectedItems: number [] = [0];
-  showExpand = true;
-
   // @ViewChild('inputText') inputElement: ElementRef;
   constructor() {}
 
@@ -77,33 +87,31 @@ export class InputSelectCheckboxComponent implements OnInit {
     //delay: ngOnInit() <- this.loadInterval = setInterval(this.delayLoader,7000,this);
     if (that.limitVisibleRows < that.values.size) that.limitVisibleRows += 200;
     else {
-      clearInterval(that.loadInterval)
+      clearInterval(that.loadInterval);
       that.isLoadAll = true;
     }
   }
-
 
   ngOnInit(): void {
     // this.values.sort();
     // this.option = this.values.indexOf().toString();
     //this.setItem(this.value);
     //delay: this.loadInterval = setInterval(this.delayLoader,7000,this);
+    console.log(this.selectedValues);
   }
 
-  doContract(){
+  doContract() {
     this.showExpand = true;
   }
 
-  doExpand(){
+  doExpand() {
     this.showExpand = false;
   }
-
 
   setItem(text: string) {
     // this.values.sort(function (a:string, b:string) {
     //   return String(a).toLowerCase().localeCompare(b.toLowerCase());
     // });
-
     // this.option = this.values.indexOf(text).toString();
     // this.selectedItems.push(+this.option);
   }
@@ -114,8 +122,6 @@ export class InputSelectCheckboxComponent implements OnInit {
           this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
       : false;
   }
-
-  
 
   showEdit() {
     this.doAdd = false;
@@ -131,12 +137,12 @@ export class InputSelectCheckboxComponent implements OnInit {
       if (this.doAdd) {
         //save for a new item
         let i = this.values.size;
-        this.selectedItems.push(i);
-        this.values.set(i,new Entity(this.text));
+        this.selectedValues.push(i);
+        this.values.set(i, new Entity(this.text));
         this.doAdd = false;
       } else {
         //save for old item
-        this.values.set(this.valueId,new Entity(this.text));
+        this.values.set(this.valueId, new Entity(this.text));
       }
       this.setItem(this.text);
     } else {
@@ -160,65 +166,69 @@ export class InputSelectCheckboxComponent implements OnInit {
   deleteItem() {
     let r = confirm('Are you sure you want to delete this item?');
     if (r) {
-      this.values.delete(this.valueId)
+      this.values.delete(this.valueId);
       this.valueId = this.values.keys[0];
     }
   }
 
-  doFilter(event: any){
+  doFilter(event: any) {
     this.listFilterText = event.toLowerCase();
     this.isLoadAll = true;
   }
 
-  hideItem(item: string){
+  hideItem(item: string) {
     let r = false;
-    if (this.listFilterText.length>0){
-      r = item.toLowerCase().indexOf(this.listFilterText)==-1;
+    if (this.listFilterText.length > 0) {
+      r = item.toLowerCase().indexOf(this.listFilterText) == -1;
     }
     return r;
-    
   }
 
-  countItems(){
-    let v = this.values.all_values;
-    return v.filter(e => !this.hideItem(e.name)).length;
-  }
-  countSelected(){
-    return this.selectedItems.length;
+  countItems() {
+    //console.log(this.values);
+    if (this.filterText == '') {
+      return this.values.size;
+    } else {
+      let v = this.values.all_values;
+      return v.filter((e) => !this.hideItem(e.name)).length;
+    }
   }
 
-  showingFilter(event:any){
+  countSelected() {
+    return this.selectedValues.length;
+  }
+
+  showingFilter(event: any) {
     this.isShowingFilter = event;
   }
 
-  doEdit(index: any){
+  doEdit(index: any) {
     this.valueId = index;
-    this.showEdit()
+    this.showEdit();
   }
 
-  doDelete(index: any){                     
+  doDelete(index: any) {
     this.valueId = index;
-    this.deleteItem()
+    this.deleteItem();
   }
 
-  doSave(event: any){
+  doSave(event: any) {
     this.text = event;
     this.entity.name = this.text;
-    this.showNew()
+    this.showNew();
   }
 
-  doCancel(){
+  doCancel() {
     this.isDoInput = false;
   }
 
-  doCheckField(key: number,checked: boolean){
-    let q = this.selectedItems.indexOf(key);
-    if (checked){
-      if (q==-1) this.selectedItems.push(key) ;
+  doCheckField(key: number, checked: boolean) {
+    let q = this.selectedValues.indexOf(key);
+    if (checked) {
+      if (q == -1) this.selectedValues.push(key);
+    } else {
+      if (q > -1) this.selectedValues.splice(q, 1);
     }
-    else{
-      if (q>-1)  this.selectedItems.splice(q,1) 
-    }
+    this.onChange.emit(this.selectedValues);
   }
-
 }

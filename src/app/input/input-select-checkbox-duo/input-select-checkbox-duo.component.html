@@ -1,0 +1,44 @@
+<div class="container-flex">
+  <div class="row" [style.overflow-y]="overflowY">
+    <div
+      class="col-xl-12 col-md-6 col-lg-6"
+      [class.col-sm-12]="isNarrow"
+      [class.col-md-12]="isNarrow"
+      [class.col-md-6]="!isNarrow"
+      [class.col-sm-6]="!isNarrow"
+    >
+      <app-input-select-checkbox
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="'Available ' + title"
+        [selectedValues]="selectedValues"
+        [values]="values"
+        [showFlash]="showFlash"
+        [showPaperclip]="showPaperclip"
+        [showCD]="showCD"
+        [showCheck]="showCheck"
+      ></app-input-select-checkbox>
+    </div>
+
+    <div
+      class="col-xl-12 col-lg-6"
+      [class.col-sm-12]="isNarrow"
+      [class.col-md-12]="isNarrow"
+      [class.col-md-6]="!isNarrow"
+      [class.col-sm-6]="!isNarrow"
+    >
+      <app-input-select-checkbox
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="'Selected ' + title"
+        [selectedValues]="selectedValues"
+        [values]="values"
+        [showFlash]="showFlash"
+        [showPaperclip]="showPaperclip"
+        [showCD]="showCD"
+        [showCheck]="showCheck"
+        [showSelectedOnly] = "true"
+      ></app-input-select-checkbox>
+    </div>
+  </div>
+</div>
