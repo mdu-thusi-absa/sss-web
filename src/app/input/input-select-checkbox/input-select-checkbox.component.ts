@@ -186,11 +186,15 @@ export class InputSelectCheckboxComponent implements OnInit {
 
   countItems() {
     //console.log(this.values);
-    if (this.filterText == '') {
-      return this.values.size;
+    if (this.showSelectedOnly) {
+      return this.selectedValues.length;
     } else {
-      let v = this.values.all_values;
-      return v.filter((e) => !this.hideItem(e.name)).length;
+      if (this.filterText == '') {
+        return this.values.size;
+      } else {
+        let v = this.values.all_values;
+        return v.filter((e) => !this.hideItem(e.name)).length;
+      }
     }
   }
 
