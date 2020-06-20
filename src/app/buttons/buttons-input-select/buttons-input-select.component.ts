@@ -44,9 +44,10 @@ export class ButtonsInputSelectComponent implements OnInit {
   @Input() showExpand = false;
   @Input() showContract = false;
 
-  @Input() countItemsSelected = -1;
+  @Input() countItemsSelected = 0;
+  @Input() countItemsVisible = 0;
   @Input() countItems = 0;
-  @Input() countTotalItems = 0;
+  //@Input() countTotalItems = 0;
 
   isFilter = false;
   filterText = '';
@@ -151,6 +152,10 @@ export class ButtonsInputSelectComponent implements OnInit {
     return r + 'px';
   }
 
+  get displayFilter(){
+    return this.countItems>15 || this.filterText.length>0;
+  }
+
   filterInputTotalWidth() {
     let r =
       24 *
@@ -158,7 +163,7 @@ export class ButtonsInputSelectComponent implements OnInit {
           (this.showFlash ? 1 : 0) +
           (this.showPaperclip ? 1 : 0) +
           (this.showCD ? 1 : 0) +
-          (this.showFilter && (this.countItems>15 || this.filterText.length>0) ? 1 : 0) +
+          (this.showFilter && this.displayFilter ? 1 : 0) +
           (this.showEdit ? 1 : 0) +
           (this.showDelete ? 1 : 0) +
           (this.showCancel ? 1 : 0) +

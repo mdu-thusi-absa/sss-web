@@ -13,7 +13,7 @@ export class InputCheckboxComponent implements OnInit {
   @Input() disabled = false;
   @Input() noTitle = false;
   @Input() showSmall = false;
-  @Input() titleBold = true;
+  //titleBold = true;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -26,6 +26,8 @@ export class InputCheckboxComponent implements OnInit {
   @Input() showCheck = false;
   @Input() inline = false;
   @Input() showTitle = true;
+  @Input() showEdit = false;
+  @Input() showDelete = false;
   checked = true;
 
   doChange(){

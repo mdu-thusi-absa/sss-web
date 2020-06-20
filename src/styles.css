@@ -417,6 +417,7 @@ td.info > a {
   --color-normal: var(--absa-smile);
   --color-light: var(--absa-care);
   --bold: 550;
+  --app-input-margin-top: 15px;
 }
 
 .btn-info {
@@ -678,29 +679,32 @@ textarea {
   width: 50%;
 } */
 
-.label-buttons-3 {
-  /*display: block;*/
+.label-buttons-1,.label-buttons-2,.label-buttons-3,.label-buttons-4,.label-buttons-5 {
   white-space: nowrap;
-  /* text-overflow: ellipsis; */
   overflow: hidden;
   display: inline-block;
-  width: calc(100%-72px);
+  vertical-align: bottom;
+}
+
+.label-buttons-1 {
+  width: calc(100% - 25px);
+  max-width: calc(100% - 25px);
+}
+.label-buttons-2 {
+  width: calc(100% - 48px);
+  max-width: calc(100% - 48px);
+}
+.label-buttons-3 {
+  width: calc(100% - 72px);
+  max-width: calc(100% - 72px);
 }
 .label-buttons-4 {
-  /*display: block;*/
-  white-space: nowrap;
-  /* text-overflow: ellipsis; */
-  overflow: hidden;
-  display: inline-block;
   width: calc(100% - 96px);
+  max-width: calc(100% - 96px);
 }
 .label-buttons-5 {
-  /*display: block;*/
-  white-space: nowrap;
-  /* text-overflow: ellipsis; */
-  overflow: hidden;
-  display: inline-block;
-  width: calc(100% - 115px);
+  width: calc(100% - 116px);
+  width: calc(100% - 116px);
 }
 
 .label-buttons-6 {
@@ -783,10 +787,13 @@ background-color: rgba(0, 0, 0, 0);
   background-color: var(--color-bright); /*absa*/
   /* background-color: blue; original*/
 }
-/* 
-.input-group-addon-xs{
-  padding: 3px, 6px;
-} */
+
+ .input-group-sm>label{
+  vertical-align:bottom;
+} 
+.app-input{
+  margin-top:var(--app-input-margin-top);
+}
 
 .panel.noborder {
   border: none;

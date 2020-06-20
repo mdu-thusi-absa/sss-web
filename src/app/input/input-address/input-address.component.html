@@ -27,15 +27,14 @@
       class="form-group pull-right nobottom"
       [hidden]="!allowDefaultAddressOption"
     >
-      <label class="checkbox-inline text-primary-bold" style="padding-right: 8px;"
+      <!-- <label class="checkbox-inline text-primary-bold" style="padding-right: 8px;"
         ><input type="checkbox" value="" /><small>Default Address</small></label
-      >
+      > -->
+      <small><app-input-checkbox [showSmall]="true" [title]="'Default Address'"></app-input-checkbox></small>
     </div>
 
     <div class="form-group pull-right nobottom" [hidden]="!allowCopyOption">
-      <label class="checkbox-inline text-primary-bold" style="padding-right: 8px;"
-        ><input type="checkbox" value="" /><small>Copy from above</small></label
-      >
+    <small><app-input-checkbox [showSmall]="true" [title]="'Copy from above'"></app-input-checkbox></small>
     </div>
   </div>
 

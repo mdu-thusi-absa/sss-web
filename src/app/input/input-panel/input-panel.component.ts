@@ -8,10 +8,14 @@ import { DataService } from 'src/app/data.service';
 })
 export class InputPanelComponent implements OnInit {
   @Input() title = ''
+  @Input() panelDefault = false;
+  @Input() panelPrimary = false;
+  @Input() panelInfo = false;
 
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
+    if (!this.panelPrimary && !this.panelInfo) this.panelDefault = true;
   }
 
   getID(){

@@ -40,9 +40,8 @@
       >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show more'">keyboard_arrow_down</mat-icon>
   </a>
-    
     <a
-      *ngIf = "showFilter && (this.countTotalItems>15 || filterText.length>0)"
+      *ngIf = "showFilter && displayFilter"
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"
@@ -134,7 +133,7 @@
         style="padding: 2px; "
         title="Number of items"
         ><small>
-          {{ (countItemsSelected == -1 ? "" : countItemsSelected + ":") + countItems}}</small
+          {{ (countItemsSelected == -1 ? "" : countItemsSelected + ":") + countItemsVisible}}</small
         >
       </span>
       <input

@@ -1,10 +1,12 @@
 <div
-  class="form-group input-group-sm nobottom"
+  class="form-group input-group-sm nobottom app-input"
   [hidden]="hideByFilter()"
-  style="margin-top: 5px; margin-right: 1px;"
+  style="margin-right: 1px;"
 >
-<div class="input-group-sm">
-    <label class="nobottom text-primary-bold label-buttons-3">{{ title }}</label>
+  <div class="input-group-sm" style="margin-bottom: 5px;">
+    <label class="nobottom text-primary-bold label-buttons-3">{{
+      title
+    }}</label>
 
     <app-buttons-input-text
       [title]="title"
@@ -14,8 +16,8 @@
       [showFlash]="showFlash"
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
-      [showCheck] = "showCheck"
-      [title] = "title"
+      [showCheck]="showCheck"
+      [title]="title"
     ></app-buttons-input-text>
   </div>
 
@@ -30,6 +32,6 @@
     (ngModelChange)="doChange($event)"
     data-toggle="tooltip"
     data-placement="bottom"
-    [title] = 'placeholder'
+    [title]="placeholder"
   />
 </div>

@@ -18,7 +18,8 @@ export class EntitiesContainerComponent implements OnInit {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
     this.showFileFields = [];
     this.entityTypes = this.data.entityTypes;
-    if (this.data.lg) console.log(new Date().getTime(),'loaded:entities-container');
+    if (this.data.lg)
+      console.log(new Date().getTime(), 'loaded:entities-container');
     this.data.progress += 1;
   }
 
@@ -97,7 +98,36 @@ export class EntitiesContainerComponent implements OnInit {
     'Public Officer (income tax)',
   ];
 
-  getIsLoaded(setTo: boolean, key: string, doLazy: boolean=true) {
+  get pagesAreExpanded() {
+    return (
+      !this.hidePrimary &&
+      !this.hideSecondary &&
+      !this.hideOptional &&
+      !this.hideCustom &&
+      !this.hideDetailFiles &&
+      !this.hideUsers &&
+      !this.hideContacts &&
+      !this.hideHeader &&
+      !this.hideMeetings &&
+      !this.hideReminders
+    );
+  }
+
+  expandContractAllPages() {
+    let needToHide = this.pagesAreExpanded;
+    this.hidePrimary = needToHide;
+    this.hideSecondary = needToHide;
+    this.hideOptional = needToHide;
+    this.hideCustom = needToHide;
+    this.hideDetailFiles = needToHide;
+    this.hideUsers = needToHide;
+    this.hideContacts = needToHide;
+    this.hideHeader = needToHide;
+    this.hideMeetings = needToHide;
+    this.hideReminders = needToHide;
+  }
+
+  getIsLoaded(setTo: boolean, key: string, doLazy: boolean = true) {
     let r: boolean;
     if (setTo) {
       r = setTo;

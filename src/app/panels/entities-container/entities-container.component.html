@@ -18,9 +18,7 @@
             </small>
 
             <div class="btn-group pull-right">
-              <span class="hidden-xs">
-              v:{{env.version}}
-              </span>
+              <span class="hidden-xs"> v:{{ env.version }} </span>
               <!-- <a
                 href="#"
                 class="btn btn-info btn-xs"
@@ -198,7 +196,11 @@
         >
           <div class="panel-heading mt3">
             <small
-              [hidden]="entityType > entityTypes.size - 3 || entityType == 0 || entityType == 1"
+              [hidden]="
+                entityType > entityTypes.size - 3 ||
+                entityType == 0 ||
+                entityType == 1
+              "
             >
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
 
@@ -384,6 +386,19 @@
             <div class="btn-group pull-right">
               <app-buttons-toolbar-button
                 [hidden]="entityType == entityTypes.size - 1"
+                [title]="''"
+                [placeholder]="'Expand/Contract all pages'"
+                [matIcon]="pagesAreExpanded?'unfold_less':'unfold_more'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="expandContractAllPages()"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+
+              <app-buttons-toolbar-button
+                [hidden]="entityType == entityTypes.size - 1"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
@@ -414,7 +429,11 @@
                   'entities'
                 )
               "
-              [hidden]="entityType == 0 || entityType == 1 || entityType > entityTypes.size - 3"
+              [hidden]="
+                entityType == 0 ||
+                entityType == 1 ||
+                entityType > entityTypes.size - 3
+              "
             >
               <app-entity-details
                 [panelRows]="panelRows"
@@ -430,7 +449,7 @@
                 [hideHeader]="hideHeader"
                 [hideContacts]="hideContacts"
                 [hideMeetings]="hideMeetings"
-                [hideReminders] = "hideReminders"
+                [hideReminders]="hideReminders"
                 [isNarrow]="showPanelRight"
                 [entityType]="entityType"
                 [entityKey]="entityKey"

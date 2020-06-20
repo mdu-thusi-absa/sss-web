@@ -1,8 +1,9 @@
 <div
   [hidden]="hideByFilter()"
   style="margin-bottom: 0px;  vertical-align: middle;display:inline-block;"
-  [style.margin-top]="showSmall ? '0px' : '5px'"
-  [class.comp-width] = "!noTitle"
+  class="app-input"
+  [style.margin-top]="showSmall ? '0px' : 'var(--app-input-margin-top)'"
+  [class.label-buttons-2]="showEdit || showDelete || showFlash || showPaperclip || showCheck || showCD"
 >
   <a
     href="#"
@@ -37,8 +38,7 @@
     style="vertical-align: middle;overflow-x: hidden;display:inline-block;white-space: nowrap;"
     [style.padding-left] = "noTitle?'0px':'5px'"
     class="nobottom label-checkbox text-primary"
-    [class.text-primary-bold] = "titleBold"
-    [class.label-buttons-3]="showFlash || showPaperclip || showCheck || showCD"
+    [class.text-primary-bold] = "!showSmall"
     (click)="doChange()"
   >{{ title }}
   </label>

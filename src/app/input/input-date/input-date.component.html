@@ -1,21 +1,26 @@
 <div [hidden]="hideByFilter()">
-  <div style="margin-right: 0px;" [style.margin-top]="inline ? '0px' : '5px'">
-    <app-buttons-input-text
-      (onFile)="doFile()"
-      (onRecord)="doRecord()"
-      (onTask)="doTask()"
-      [showFlash]="showFlash"
-      [showPaperclip]="showPaperclip"
-      [showCD]="showCD"
-      [showCheck]="showCheck"
-      [title]="title"
-    ></app-buttons-input-text>
-    <label
-      *ngIf="!inline && showTitle"
-      class="nobottom text-primary-bold label-buttons-3"
-      >{{ title }}</label
-    >
-
+  <div
+    style="margin-right: 0px;"
+    [style.margin-top]="inline ? '0px' : 'var(--app-input-margin-top)'"
+    class="app-input"
+  >
+    <div style="margin-bottom: 5px;">
+      <app-buttons-input-text
+        (onFile)="doFile()"
+        (onRecord)="doRecord()"
+        (onTask)="doTask()"
+        [showFlash]="showFlash"
+        [showPaperclip]="showPaperclip"
+        [showCD]="showCD"
+        [showCheck]="showCheck"
+        [title]="title"
+      ></app-buttons-input-text>
+      <label
+        *ngIf="!inline && showTitle"
+        class="nobottom text-primary-bold label-buttons-1"
+        >{{ title }}</label
+      >
+    </div>
     <div class="input-group date input-group-sm">
       <span
         *ngIf="inline && showTitle"
@@ -40,15 +45,14 @@
         [disabled]="disabled"
         autocomplete="nope"
         [title]="title"
-        (changeDate) = "doChange()"
-        (change) = "doChange()"
-        (onchange) = "doChange()"
-        (onchangeDate) = "doChange()"
+        (changeDate)="doChange()"
+        (change)="doChange()"
+        (onchange)="doChange()"
+        (onchangeDate)="doChange()"
       />
       <span
         *ngIf="!disabled"
         class="input-group-addon primary-color-reverse"
-        
         (click)="gotoToday()"
         [title]="'Today'"
       >
@@ -60,7 +64,9 @@
         [title]="(disabled ? '' : 'Choose ') + title"
         [class.primary-color-reverse]="!disabled"
       >
-        <mat-icon aria-hidden="true" aria-label="Entities">calendar_today</mat-icon>
+        <mat-icon aria-hidden="true" aria-label="Entities"
+          >calendar_today</mat-icon
+        >
       </span>
     </div>
   </div>

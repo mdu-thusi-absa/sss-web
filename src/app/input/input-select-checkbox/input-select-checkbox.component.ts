@@ -48,6 +48,11 @@ export class InputSelectCheckboxComponent implements OnInit {
   @Input() showSelectedOnly = false;
   showExpand = true;
 
+  get countItems(){
+    return (this.showSelectedOnly?this.selectedValues.length:this.values.size);
+  }
+
+
   onScrollData(event: any) {
     //this.limitVisibleRows += 50;
     this.isLoadAll = true;
@@ -184,7 +189,7 @@ export class InputSelectCheckboxComponent implements OnInit {
     return r;
   }
 
-  countItems() {
+  countItemsVisible() {
     //console.log(this.values);
     if (this.showSelectedOnly) {
       return this.selectedValues.length;
