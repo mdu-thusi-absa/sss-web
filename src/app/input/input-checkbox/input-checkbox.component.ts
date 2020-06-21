@@ -31,8 +31,10 @@ export class InputCheckboxComponent implements OnInit {
   checked = true;
 
   doChange(){
-    this.value = !this.value;
+    if (!this.disabled){
+      this.value = !this.value;
      this.onChange.emit(this.value);
+    }
   }
 
   doFile(){

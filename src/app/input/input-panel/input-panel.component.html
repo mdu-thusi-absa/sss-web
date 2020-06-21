@@ -2,6 +2,7 @@
     [class.panel-default] = "panelDefault"
     [class.panel-primary] = "panelPrimary"
     [class.panel-info] = "panelInfo"
+    
     >
     <div
       class="panel-heading mt3"
@@ -12,7 +13,7 @@
       {{title}}
     </div>
     <div class="panel-body mt3 collapse" style="margin-bottom: 0px;" [attr.id]="'input-panel-' + getID()">
-      <div style="overflow-y: scroll;max-height: 50vh;">
+      <div style="overflow-y: scroll;overflow-x: hidden;">
         <ng-content></ng-content>
       </div>
     </div>

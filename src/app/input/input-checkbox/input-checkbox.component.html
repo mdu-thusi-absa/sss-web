@@ -4,6 +4,7 @@
   class="app-input"
   [style.margin-top]="showSmall ? '0px' : 'var(--app-input-margin-top)'"
   [class.label-buttons-2]="showEdit || showDelete || showFlash || showPaperclip || showCheck || showCD"
+  [class.disabled] = "disabled"
 >
   <a
     href="#"
@@ -12,6 +13,7 @@
     [class.a-small] = "showSmall"
     [style.display]="value ? 'inline-block' : 'none'"
     (click)="doChange()"
+    [class.disabled] = "disabled"
   >
     <mat-icon
       [class.mat-icon-small]="showSmall"
@@ -27,6 +29,7 @@
     [class.a-small] = "showSmall"
     [style.display]="value ? 'none' : 'inline-block'"
     (click)="doChange()"
+    [class.disabled] = "disabled"
   >
     <mat-icon
       [class.mat-icon-small]="showSmall"

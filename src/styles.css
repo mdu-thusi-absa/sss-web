@@ -101,24 +101,28 @@ body {
 }
 
 .entities-detail-form-full {
-  height: calc(100vh - 136px);
+  height: calc(100vh - 145px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
 }
 
-.entities-detail-form-half {
+/* .entities-detail-form-half {
   height: calc(50vh - 110px);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-}
+} */
 
 .settings-detail-form-full {
   height: calc(100vh - 65px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
+}
+
+.disabled{
+  cursor: not-allowed;
 }
 
 .settings-detail-form-half {
@@ -793,6 +797,12 @@ background-color: rgba(0, 0, 0, 0);
 } 
 .app-input{
   margin-top:var(--app-input-margin-top);
+}
+.list-group-item{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom:5px;
+  padding-top:5px;
 }
 
 .panel.noborder {

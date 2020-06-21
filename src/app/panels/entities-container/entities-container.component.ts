@@ -105,7 +105,6 @@ export class EntitiesContainerComponent implements OnInit {
       !this.hideOptional &&
       !this.hideCustom &&
       !this.hideDetailFiles &&
-      !this.hideUsers &&
       !this.hideContacts &&
       !this.hideHeader &&
       !this.hideMeetings &&
@@ -120,7 +119,7 @@ export class EntitiesContainerComponent implements OnInit {
     this.hideOptional = needToHide;
     this.hideCustom = needToHide;
     this.hideDetailFiles = needToHide;
-    this.hideUsers = needToHide;
+    //this.hideUsers = needToHide;
     this.hideContacts = needToHide;
     this.hideHeader = needToHide;
     this.hideMeetings = needToHide;
