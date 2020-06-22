@@ -1,10 +1,11 @@
 <div
   class="form-group input-group-sm nobottom app-input"
+  [class.disabled] = "disabled"
   [hidden]="hideByFilter()"
   style="margin-right: 1px;"
 >
-  <div class="input-group-sm" style="margin-bottom: 5px;">
-    <label class="nobottom text-primary-bold label-buttons-3">{{
+  <div class="input-group-sm" style="margin-bottom: 5px;" [class.disabled]="disabled">
+    <label class="nobottom text-primary-bold label-buttons-3" [class.disabled]="disabled">{{
       title
     }}</label>
 

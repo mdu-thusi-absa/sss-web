@@ -171,7 +171,7 @@
   <select
     *ngIf="showList"
     class="form-control input-sm wide primary-color-input-reverse border-radious-3"
-    style="font-size: small; border-bottom: none;border-radius: 3px;"
+    style="font-size: small; border-top:none;border-bottom: none;border-radius: 3px;"
     (change)="doListChange($event)"
     [title] = "titleList"
   >
@@ -190,17 +190,19 @@
     <span
       *ngIf="showA"
       class="input-group-addon btn"
-      [class.primary-color-reverse]="!isA"
-      [class.primary-color]="isA"
+      [class.primary-color]="!isA"
+      [class.primary-color-active]="isA"
       (click)="doA()"
       
       [title]="(isA ? 'off: ':'on: ') + titleA"
       [class.btn-blocked] = "disabledA"
-    ><mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">format_color_text</mat-icon>
+    >
+    <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">format_color_text</mat-icon>
     </span>
+    
     <span
       *ngIf="showTick"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color"
       (click)="doTick()"
       [class.btn-blocked] = "disabledTick"
     >
@@ -220,7 +222,7 @@
 
     <span
       *ngIf="filterText.length > 0"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color"
       style="border-left: none;"
       (click)="doFilterClear()"
       [class.btn-blocked] = "disabledFilterCount"
@@ -229,7 +231,7 @@
     </span>
     <span
       *ngIf="showSearch"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color"
       style="border-left: none;"
       (click)="doSearch()"
       [class.btn-blocked] = "filterText.length == -1"
@@ -239,9 +241,9 @@
 
     <span
       *ngIf="showFilterCount"
-      class="input-group-addon primary-color-reverse primary-color-reverse-no-hover hidden-xs"
+      class="input-group-addon primary-color  hidden-xs"
       title="Number of items"
-      style="border-left: none; "
+      style="border-left: none; pointer-events: none"
       [title] = "'Showing ' + filterCount + ' items'"
     >
       {{ filterCount }}
@@ -249,7 +251,7 @@
 
     <span
       *ngIf="showShare"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color"
       style="border-left: none;"
       (click)="doShare()"
       [title]="'Share ' + title"
@@ -260,20 +262,20 @@
 
     <span
       *ngIf="showT"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color"
       style="border-left: none;"
       (click)="doT()"
       [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
       [class.btn-blocked] = "disabledT"
-      [class.primary-color] = "isT"
-      [class.primary-color-reverse] = "!isT"
+      [class.primary-color-active] = "isT"
+      [class.primary-color] = "!isT"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear_all</mat-icon>
     </span>
 
     <span
       *ngIf="showDuplicate"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color-active"
       style="border-left: none;"
       (click)="doDuplicate()"
       [title]="'Copy ' + title"
@@ -284,7 +286,7 @@
 
     <span
       *ngIf="showDownload"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color-active"
       style="border-left: none;"
       (click)="doDownload()"
       [title]="'Download ' + title"
@@ -295,7 +297,7 @@
 
     <span
       *ngIf="showSave"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color-active"
       style="border-left: none;"
       (click)="doSave()"
       [title]="'Save ' + title"
@@ -306,7 +308,7 @@
 
     <span
       *ngIf="showDelete"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color-active"
       style="border-left: none;"
       (click)="doDelete()"
       [title]="'Delete ' + title"
@@ -317,7 +319,7 @@
 
     <span
       *ngIf="showAdd"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color-active"
       style="border-left: none;"
       (click)="doAdd()"
       [title]="'Add ' + title"
@@ -328,7 +330,7 @@
 
     <span
       *ngIf="showCancel"
-      class="input-group-addon btn primary-color-reverse"
+      class="input-group-addon btn primary-color-active"
       style="border-left: none;"
       (click)="doCancel()"
       [title]="'Discard changes'"

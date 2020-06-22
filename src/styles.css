@@ -135,7 +135,7 @@ body {
 /*for entities, tasks, records: halfs*/
 
 .entities-full {
-  height: calc(100vh - 185px);
+  height: calc(100vh - 175px);
   overflow-y: auto;
 }
 
@@ -219,18 +219,22 @@ body {
 }
 
 .primary-color {
-  background-color: var(--color-bright); /*absa*/
-  color: white;
-  border-color: var(--color-dark);
+  color: var(--color-bright); /*absa*/
+  background-color: white;
+  border-color: var(--color-bright);
   box-shadow: none;
-  background-image: linear-gradient(var(--color-bright), var(--color-normal));
+  /* background-image: linear-gradient(var(--color-bright), var(--color-normal)); */
 }
 .primary-color:hover {
-  background-color: var(--color-bright); /*absa*/
-  color: white;
-  border-color: var(--color-dark);
-  box-shadow: none;
-  background-image: linear-gradient(var(--color-normal), var(--color-bright));
+  /* background-color: var(--color-bright); */
+  color: var(--color-bright); 
+  /* border-color: var(--color-dark); */
+  /* box-shadow: none; */
+  box-shadow: 0px 0px 3px var(--absa-graphite) !important;
+  border-top: 0px;
+  margin-bottom: 1px;
+  
+  /* background-image: linear-gradient(var(--color-normal), var(--color-bright)); */
 }
 
 .table > tbody > tr.info > td,
@@ -271,10 +275,10 @@ table > tbody > tr.info > td,
 .table > tbody > tr > th.info,
 .table > tbody > tr.info > th,
 .table > thead > tr > th.info {
-  background-color: var(--color-bright);
+  background-color: var(--color-dark);
   color: white;
   font-weight: normal;
-  background-image: linear-gradient(var(--color-dark), var(--color-bright));
+  /* background-image: linear-gradient(var(--color-dark), var(--color-bright)); */
 }
 td.info > a {
   color: white;
@@ -304,7 +308,7 @@ td.info > a {
   background-color: var(--color-dark);
   /* border-color: white;  */
   box-shadow: none !important;
-  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
+  /* background-image: linear-gradient(var(--color-favicon), var(--color-dark)); */
 }
 .btn-primary {
   background-color: var(--color-bright); /*absa*/
@@ -314,7 +318,7 @@ td.info > a {
 .btn-primary:hover {
   background-color: var(--color-dark);
   box-shadow: none !important;
-  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
+  /* background-image: linear-gradient(var(--color-favicon), var(--color-dark)); */
 }
 .btn-primary:active,
 .btn-primary.active:focus .btn-primary.active.focus,
@@ -413,44 +417,51 @@ td.info > a {
   --absa-luxury: rgb(100,0,50);
   
 
-  --color-dark: var(--absa-grounded);
-  /* --color-favicon: #b8202c; rgb(184, 32, 44) */
+  --color-dark: var(--absa-warmth);
   --color-favicon: var(--absa-warmth);
   /* --color-favicon: rgb(184, 32, 44); */
-  --color-bright: var(--absa-passion);
-  --color-normal: var(--absa-smile);
+  --color-bright: var(--absa-prepared); /*prev: passion*/
+  --color-normal: var(--absa-smile); /*only for gradient*/
   --color-light: var(--absa-care);
   --bold: 550;
   --app-input-margin-top: 15px;
 }
 
 .btn-info {
-  color: #fff;
-  background-color: var(--bg-color-light); /*care*/
-  border-color: white; /*smile*/
+  background-color: #fff;
+  color: var(--color-bright); /*care*/
+  border-color: var(--color-bright); /*care*/
   box-shadow: none;
-  background-image: linear-gradient(var(--color-normal), var(--color-light));
+  /* background-image: linear-gradient(var(--color-normal), var(--color-light)); */
 }
 .btn-info:focus,
 .btn-info.focus {
-  color: #fff;
-  background-color: var(--bg-color-light);
-  border-color: white;
+  background-color: #fff;
+  color: var(--color-bright);
+  border-color: var(--color-bright); /*care*/
+  /* border-color: white; */
 }
 .btn-info:hover {
-  color: #fff;
-  background-color: var(--bg-color-light);
-  border-color: white;
-  background-image: linear-gradient(var(--color-light), var(--color-normal));
+  border-top: 0px;
+  margin-bottom: 1px;
+  box-shadow: 0px 0px 3px var(--absa-graphite) !important;
+  border-color: var(--color-bright);
+  background-color: white;
+  color: var(--color-bright);
+  /* color: #fff;
+  background-color: var(--color-light); */
+  /* border-color: white; */
+  /* background-image: linear-gradient(var(--color-light), var(--color-normal)); */
 }
 .btn-info:active,
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
   color: #fff;
-  background-color: var(--bg-color-dark);
-  background-image: none;
-  border-color: white;
-  background-image: linear-gradient(var(--color-dark), var(--color-favicon));
+  background-color: var(--color-bright);
+  border-color: var(--color-bright);
+  /* background-image: none; */
+  /* border-color: white; */
+  /* background-image: linear-gradient(var(--color-dark), var(--color-favicon)); */
 }
 .btn-info:active:hover,
 .btn-info.active:hover,
@@ -461,10 +472,16 @@ td.info > a {
 .btn-info:active.focus,
 .btn-info.active.focus,
 .open > .dropdown-toggle.btn-info.focus {
-  color: #fff;
+  /* color: #fff;
   background-color: var(--color-dark);
-  border-color: white;
-  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
+  border-color: white; */
+  background-color: var(--color-bright);
+  border-color: var(--color-bright);
+  border-top: 0px;
+  margin-bottom: 1px;
+  box-shadow: 0px 0px 3px var(--absa-graphite) !important;
+
+  /* background-image: linear-gradient(var(--color-favicon), var(--color-dark)); */
 }
 .btn-info.disabled:hover,
 .btn-info[disabled]:hover,
@@ -505,15 +522,16 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.focus,
 .primary-color-active.focus:active,
 .primary-color-active.focus:focus {
-  background-color: var(--color-dark);
+  background-color: var(--color-bright);
+  border-color: var(--color-bright);
   color: white;
   box-shadow: none;
   outline: none;
-  /* border: none !important; */
+  /* border: none !important; 
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
-  box-shadow: none !important;
-  background-image: linear-gradient(var(--color-dark), var(--color-favicon));
+  box-shadow: none !important;*/
+  /* background-image: linear-gradient(var(--color-dark), var(--color-favicon)); */
 }
 .primary-color-active:hover,
 .primary-color-active:active:hover,
@@ -527,24 +545,27 @@ fieldset[disabled] .btn-info.focus {
 .primary-color-active.focus:hover,
 .primary-color-active.focus:active:hover,
 .primary-color-active.focus:focus:hover {
-  background-color: var(--color-dark);
+  /* background-color: var(--color-dark); */
   color: white;
-  box-shadow: none;
-  outline: none;
+  outline: none; 
+  
   /* border: none !important; */
-  -webkit-box-shadow: none !important;
+  /* -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
-  box-shadow: none !important;
-  background-image: linear-gradient(var(--color-favicon), var(--color-dark));
+  box-shadow: none !important; */
+  border-top: 0px;
+  margin-bottom: 1px;
+  box-shadow: 0px 0px 3px var(--absa-graphite) !important;
+  /* background-image: linear-gradient(var(--color-favicon), var(--color-dark)); */
 }
 
 .primary-color:focus,
 .primary-color.active:focus,
 .primary-color.active.focus,
 .primary-color.active.focus:focus {
-  background-color: var(--color-dark);
+  color: var(--color-dark);
   /* border-color: white; */
-  color: white;
+  background-color: white;
 }
 
 .primary-color-reverse {
@@ -554,23 +575,26 @@ fieldset[disabled] .btn-info.focus {
 }
 
 .primary-color-reverse:hover {
-  color: black;
+  /* color: black; */
   background-color: white;
-  border-color: black;
+  /* border-color: black; */
+  box-shadow: 0px 0px 3px var(--absa-graphite) !important;
 }
 .primary-color-reverse-no-hover:hover {
   color: var(--color-bright);
   background-color: white;
   border-color: var(--color-bright);
+  margin-bottom: 0px;
+  border-top:1px;
 }
 
 .primary-color-input-reverse {
-  border-color: var(--color-light);
+  border-color: var(--color-bright); /*prev: light*/
 }
 
 
 .info-color {
-  background-color: var(--color-bright); /*absa*/
+  background-color: var(--color-dark); /*absa*/
   color: white;
 }
 
@@ -814,13 +838,13 @@ background-color: rgba(0, 0, 0, 0);
   background-color: rgb(170, 5, 45);
   color: white;
   border-color: var(--color-dark);
-  background-image: linear-gradient(var(--color-dark), var(--color-bright));
+  /* background-image: linear-gradient(var(--color-dark), var(--color-bright)); */
 }
 .panel-primary > .panel-heading:hover {
   background-color: rgb(170, 5, 45);
   color: white;
   border-color: var(--color-dark);
-  background-image: linear-gradient(var(--color-bright), var(--color-dark));
+  /* background-image: linear-gradient(var(--color-bright), var(--color-dark)); */
 }
 .panel-info > .panel-heading {
   background-color: rgb(175, 20, 75);
@@ -849,12 +873,11 @@ background-color: rgba(0, 0, 0, 0);
 body,
 .mat-typography {
   margin: 0;
-  font-family: Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
+  font-family: Source Sans Pro, Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
 }
 
 body{
-  /* background-image: url('src/assets/images/absa-logo-passion.jpg'); */
-  background: url('src/assets/images/absa-logo-passion.jpg');
+  /* image background: url('src/assets/images/absa-logo-passion.jpg'); */
   background-repeat: no-repeat;
   background-size: 40%;
   background-attachment: fixed;

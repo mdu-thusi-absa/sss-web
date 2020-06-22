@@ -14,11 +14,13 @@
     style="padding: 1px;"
     [title]="title"
   >
-    &nbsp;<mat-icon aria-hidden="true" aria-label="Entities">{{
-      matIcon
-    }}</mat-icon
+    <mat-icon aria-hidden="true" aria-label="Entities">{{ matIcon }}</mat-icon>
+    <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
+      <small>{{ title }}&nbsp;</small></span
     >
-    <!-- <svg
+  </a>
+</div>
+<!-- <svg
       style="
         background-position: center;
         vertical-align:middle;
@@ -30,10 +32,4 @@
       [style.background-image] = "'url(\'' + svgUrlPath + '\')'"
     ></svg> -->
 
-    <!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
-
-    <span class="hidden-xs hidden-sm hidden-md" [hidden]="isNarrow">
-      <small>{{ title }}&nbsp;</small></span
-    >
-  </a>
-</div>
+<!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
