@@ -11,6 +11,8 @@ export class InputPanelComponent implements OnInit {
   @Input() panelDefault = false;
   @Input() panelPrimary = false;
   @Input() panelInfo = false;
+  @Input() maxHeight = "50%"
+  
 
   constructor(public data: DataService) { }
 

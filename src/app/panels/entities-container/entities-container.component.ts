@@ -112,18 +112,26 @@ export class EntitiesContainerComponent implements OnInit {
     );
   }
 
+  setHidePage(that: any, hidePage: string, setValue: boolean) {
+    that[hidePage] = setValue;
+  }
+
   expandContractAllPages() {
     let needToHide = this.pagesAreExpanded;
-    this.hidePrimary = needToHide;
-    this.hideSecondary = needToHide;
-    this.hideOptional = needToHide;
-    this.hideCustom = needToHide;
-    this.hideDetailFiles = needToHide;
-    //this.hideUsers = needToHide;
-    this.hideContacts = needToHide;
-    this.hideHeader = needToHide;
-    this.hideMeetings = needToHide;
-    this.hideReminders = needToHide;
+    let btns = ['hideHeader','hidePrimary','hideSecondary','hideOptional', 'hideCustom', 'hideDetailFiles', 'hideContacts', 'hideMeetings', 'hideReminders'];
+    for (let i=0;i<btns.length;i++){
+      setTimeout(this.setHidePage, (i+1)*3, this, btns[i], needToHide);
+    }
+    
+    // setTimeout(this.setHidePage, 10, this, 'hidePrimary', needToHide);
+    // setTimeout(this.setHidePage, 20, this, 'hideSecondary', needToHide);
+    // setTimeout(this.setHidePage, 30, this, 'hideOptional', needToHide);
+    // setTimeout(this.setHidePage, 40, this, 'hideCustom', needToHide);
+    // setTimeout(this.setHidePage, 50, this, 'hideDetailFiles', needToHide);
+    // //setTimeout(this.setHidePage,10,//this.hideUsers needToHide;
+    // setTimeout(this.setHidePage, 60, this, 'hideContacts', needToHide);
+    // setTimeout(this.setHidePage, 80, this, 'hideMeetings', needToHide);
+    // setTimeout(this.setHidePage, 90, this, 'hideReminders', needToHide);
   }
 
   getIsLoaded(setTo: boolean, key: string, doLazy: boolean = true) {

@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ElementRef,
+} from '@angular/core';
 import { Entities, EveryEntity } from 'src/app/models';
 
 @Component({
@@ -14,7 +21,7 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onAdd = new EventEmitter();
   @Output() onSave = new EventEmitter();
   @Output() onCancel = new EventEmitter();
-  
+
   @Input() filterCount = 0;
 
   @Output() onTick = new EventEmitter();
@@ -22,7 +29,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() title = '';
   @Input() titlePlural = '';
   @Input() titleT = '';
-  
+
   @Input() listValues: Entities<EveryEntity>;
   @Input() listValue = 0;
   @Output() onListChange = new EventEmitter();
@@ -76,7 +83,6 @@ export class InputFilterAddComponent implements OnInit {
   @Input() disabledFilterCount = false;
   @Input() disabledInputFilter = true;
 
-
   @Input() isNarrow = false;
   @Input() isA = false;
 
@@ -107,10 +113,11 @@ export class InputFilterAddComponent implements OnInit {
 
   isT = false;
   filterText = '';
-  @Input() captionFlash = ''
-  @Input() captionPlay = ''
-  @Input() captionPause = ''
-  @Input() captionAll = ''
+  dropDown = false;
+  @Input() captionFlash = '';
+  @Input() captionPlay = '';
+  @Input() captionPause = '';
+  @Input() captionAll = '';
   @Input() captionEyeOpen = '';
   @Input() captionEyeClose = '';
   @Input() captionOk = '';
@@ -154,7 +161,7 @@ export class InputFilterAddComponent implements OnInit {
     this.doFilter();
   }
 
-  doSearch(){
+  doSearch() {
     this.onSearch.emit(this.filterText);
   }
 
@@ -183,7 +190,7 @@ export class InputFilterAddComponent implements OnInit {
     this.onTick.emit();
   }
 
-  doA(){
+  doA() {
     this.isA = !this.isA;
     this.onA.emit(this.isA);
   }

@@ -1,6 +1,6 @@
 <div
   [hidden]="hideByFilter()"
-  style="margin-bottom: 0px;  vertical-align: middle;display:inline-block;"
+  style="margin-bottom: 0px;  padding:1px; vertical-align: middle;display:inline-block;"
   class="app-input"
   [style.margin-top]="showSmall ? '0px' : 'var(--app-input-margin-top)'"
   [class.label-buttons-2]="showEdit || showDelete || showFlash || showPaperclip || showCheck || showCD"
@@ -8,7 +8,7 @@
 >
   <a
     href="#"
-    class="btn primary-color"
+    class="btn primary-color btn-hover"
     [class.btn-xs] = "showSmall"
     [class.a-small] = "showSmall"
     [style.display]="value ? 'inline-block' : 'none'"
@@ -24,7 +24,7 @@
   </a>
   <a
     href="#"
-    class="btn primary-color-reverse"
+    class="btn primary-color btn-hover"
     [class.btn-xs] = "showSmall"
     [class.a-small] = "showSmall"
     [style.display]="value ? 'none' : 'inline-block'"

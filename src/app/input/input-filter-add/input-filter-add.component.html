@@ -2,7 +2,7 @@
   <div class="btn-group wide input-group-sm" data-toggle="buttons">
     <label
       *ngIf="showFlash"
-      class="btn primary-color btn-xs"
+      class="btn primary-color btn-hover btn-xs"
       (click)="doRadio('flash')"
       [class.primary-color-active]="radioChoice == 'flash'"
       [class.primary-color]="radioChoice != 'flash'"
@@ -16,7 +16,9 @@
         [class.active]="true"
         [class.focus]="radioChoice == 'flash'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">flash_on</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >flash_on</mat-icon
+      >
       <small class="hidden-xs">&nbsp;{{ countFlash }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionFlash }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -28,7 +30,7 @@
 
     <label
       *ngIf="showPlay"
-      class="btn btn-xs primary-color"
+      class="btn btn-xs primary-color btn-hover "
       [class.primary-color-active]="radioChoice == 'play'"
       [class.primary-color]="radioChoice != 'play'"
       (click)="doRadio('play')"
@@ -40,7 +42,9 @@
         value="play"
         [checked]="radioChoice == 'play'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">play_arrow</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >play_arrow</mat-icon
+      >
       <small class="hidden-xs">&nbsp;{{ countPlay }}</small>
       <span class="hidden-xs" [hidden]="isNarrow"> {{ captionPlay }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -52,7 +56,7 @@
 
     <label
       *ngIf="showPause"
-      class="btn primary-color btn-xs"
+      class="btn primary-color btn-hover btn-xs"
       (click)="doRadio('pause')"
       [class.primary-color-active]="radioChoice == 'pause'"
       [class.primary-color]="radioChoice != 'pause'"
@@ -64,7 +68,9 @@
         value="pause"
         [checked]="radioChoice == 'pause'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">pause</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >pause</mat-icon
+      >
       <small class="hidden-xs">&nbsp;{{ countPause }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionPause }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -76,7 +82,7 @@
 
     <label
       *ngIf="showOk"
-      class="btn primary-color btn-xs"
+      class="btn primary-color btn-hover btn-xs"
       (click)="doRadio('ok')"
       [class.primary-color-active]="radioChoice == 'ok'"
       [class.primary-color]="radioChoice != 'ok'"
@@ -88,7 +94,9 @@
         value="ok"
         [checked]="radioChoice == 'ok'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">done</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >done</mat-icon
+      >
       <small class="hidden-xs">&nbsp;{{ countOk }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionOk }}</span>
       <!-- <span class="hidden-xs hidden-sm hidden-sm">
@@ -100,7 +108,7 @@
 
     <label
       *ngIf="showEyeClose"
-      class="btn primary-color btn-xs"
+      class="btn primary-color btn-hover btn-xs"
       (click)="doRadio('eye-close')"
       [class.primary-color-active]="radioChoice == 'eye-close'"
       [class.primary-color]="radioChoice != 'eye-close'"
@@ -112,7 +120,9 @@
         value="eye-close"
         [checked]="radioChoice == 'eye-close'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">visibility_off</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >visibility_off</mat-icon
+      >
       <small class="hidden-xs">&nbsp;{{ countEyeClose }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionEyeClose }}</span>
       <!-- <span class="badge badge-xs"
@@ -124,7 +134,7 @@
 
     <label
       *ngIf="showEyeOpen"
-      class="btn primary-color btn-xs"
+      class="btn primary-color btn-hover btn-xs"
       (click)="doRadio('eye-open')"
       [class.primary-color-active]="radioChoice == 'eye-open'"
       [class.primary-color]="radioChoice != 'eye-open'"
@@ -136,7 +146,9 @@
         value="eye-open"
         [checked]="radioChoice == 'eye-open'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">visibility</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >visibility</mat-icon
+      >
       <small class="hidden-xs">&nbsp;{{ countEyeOpen }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionEyeOpen }}</span>
       <!-- <span class="badge badge-xs"
@@ -148,7 +160,7 @@
 
     <label
       *ngIf="showAll"
-      class="btn primary-color btn-xs"
+      class="btn primary-color btn-hover btn-hover btn-xs"
       [class.primary-color-active]="radioChoice == 'all'"
       [class.primary-color]="radioChoice != 'all'"
       (click)="doRadio('all')"
@@ -160,7 +172,9 @@
         value="all"
         [checked]="radioChoice == 'all'"
       />
-      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities">all_inclusive</mat-icon>
+      <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
+        >all_inclusive</mat-icon
+      >
       <small class="hidden-xs">&nbsp;&nbsp;{{ countAll }}</small
       ><span class="hidden-xs" [hidden]="isNarrow"> {{ captionAll }}</span>
     </label>
@@ -168,12 +182,19 @@
 </div>
 
 <div class="input-group input-group-sm" style="width: 100%;">
+
+  <!-- <app-input-dropdown></app-input-dropdown> -->
   <select
     *ngIf="showList"
     class="form-control input-sm wide primary-color-input-reverse border-radious-3"
-    style="font-size: small; border-top:none;border-bottom: none;border-radius: 3px;"
+    style="
+      font-size: small;
+      border-top: none;
+      border-bottom: none;
+      border-radius: 3px;
+    "
     (change)="doListChange($event)"
-    [title] = "titleList"
+    [title]="titleList"
   >
     <option
       *ngFor="let e of listValues.all_keys"
@@ -193,20 +214,23 @@
       [class.primary-color]="!isA"
       [class.primary-color-active]="isA"
       (click)="doA()"
-      
-      [title]="(isA ? 'off: ':'on: ') + titleA"
-      [class.btn-blocked] = "disabledA"
+      [title]="(isA ? 'off: ' : 'on: ') + titleA"
+      [class.btn-blocked]="disabledA"
     >
-    <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">format_color_text</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >format_color_text</mat-icon
+      >
     </span>
-    
+
     <span
       *ngIf="showTick"
-      class="input-group-addon btn primary-color"
+      class="input-group-addon btn primary-color btn-hover"
       (click)="doTick()"
-      [class.btn-blocked] = "disabledTick"
+      [class.btn-blocked]="disabledTick"
     >
-      <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">done_outline</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >done_outline</mat-icon
+      >
     </span>
 
     <input
@@ -215,62 +239,70 @@
       [placeholder]="'Search ' + titlePlural"
       [(ngModel)]="filterText"
       (keyup)="doKey($event)"
-      style="font-weight: normal; width: 100%;"
+      style="font-weight: normal; width: 100%;z-index: 999;"
       autocomplete="nope"
-      [title] = "'Type text to filter items'"
+      [title]="'Type text to filter items'"
     />
 
     <span
       *ngIf="filterText.length > 0"
-      class="input-group-addon btn primary-color"
+      class="input-group-addon btn primary-color btn-hover"
       style="border-left: none;"
       (click)="doFilterClear()"
-      [class.btn-blocked] = "disabledFilterCount"
+      [class.btn-blocked]="disabledFilterCount"
     >
-      <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >clear</mat-icon
+      >
     </span>
     <span
       *ngIf="showSearch"
-      class="input-group-addon btn primary-color"
+      class="input-group-addon btn primary-color btn-hover"
       style="border-left: none;"
       (click)="doSearch()"
-      [class.btn-blocked] = "filterText.length == -1"
+      [class.btn-blocked]="filterText.length == -1"
     >
-      <mat-icon  class="mat-icon-big" aria-hidden="true" aria-label="Entities">search</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >search</mat-icon
+      >
     </span>
 
     <span
       *ngIf="showFilterCount"
-      class="input-group-addon primary-color  hidden-xs"
+      class="input-group-addon primary-color hidden-xs"
       title="Number of items"
-      style="border-left: none; pointer-events: none"
-      [title] = "'Showing ' + filterCount + ' items'"
+      style="border-left: none; pointer-events: none;"
+      [title]="'Showing ' + filterCount + ' items'"
     >
       {{ filterCount }}
     </span>
 
     <span
       *ngIf="showShare"
-      class="input-group-addon btn primary-color"
+      class="input-group-addon btn primary-color btn-hover"
       style="border-left: none;"
       (click)="doShare()"
       [title]="'Share ' + title"
-      [class.btn-blocked] = "disabledShare"
+      [class.btn-blocked]="disabledShare"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">share</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >share</mat-icon
+      >
     </span>
 
     <span
       *ngIf="showT"
-      class="input-group-addon btn primary-color"
+      class="input-group-addon btn primary-color btn-hover"
       style="border-left: none;"
       (click)="doT()"
       [title]="(!isT ? 'Include ' : 'Exclude ') + titleT + ' in filter'"
-      [class.btn-blocked] = "disabledT"
-      [class.primary-color-active] = "isT"
-      [class.primary-color] = "!isT"
+      [class.btn-blocked]="disabledT"
+      [class.primary-color-active]="isT"
+      [class.primary-color]="!isT"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear_all</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >clear_all</mat-icon
+      >
     </span>
 
     <span
@@ -279,9 +311,11 @@
       style="border-left: none;"
       (click)="doDuplicate()"
       [title]="'Copy ' + title"
-      [class.btn-blocked] = "disabledDuplicate"
+      [class.btn-blocked]="disabledDuplicate"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">file_copy</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >file_copy</mat-icon
+      >
     </span>
 
     <span
@@ -290,9 +324,11 @@
       style="border-left: none;"
       (click)="doDownload()"
       [title]="'Download ' + title"
-      [class.btn-blocked] = "disabledDownload"
+      [class.btn-blocked]="disabledDownload"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >cloud_download</mat-icon
+      >
     </span>
 
     <span
@@ -301,9 +337,11 @@
       style="border-left: none;"
       (click)="doSave()"
       [title]="'Save ' + title"
-      [class.btn-blocked] = "disabledSave"
+      [class.btn-blocked]="disabledSave"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">done</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >done</mat-icon
+      >
     </span>
 
     <span
@@ -312,9 +350,11 @@
       style="border-left: none;"
       (click)="doDelete()"
       [title]="'Delete ' + title"
-      [class.btn-blocked] = "disabledDelete"
+      [class.btn-blocked]="disabledDelete"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >clear</mat-icon
+      >
     </span>
 
     <span
@@ -323,9 +363,11 @@
       style="border-left: none;"
       (click)="doAdd()"
       [title]="'Add ' + title"
-      [class.btn-blocked] = "disabledAdd"
+      [class.btn-blocked]="disabledAdd"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">add</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >add</mat-icon
+      >
     </span>
 
     <span
@@ -334,9 +376,11 @@
       style="border-left: none;"
       (click)="doCancel()"
       [title]="'Discard changes'"
-      [class.btn-blocked] = "disabledCancel"
+      [class.btn-blocked]="disabledCancel"
     >
-      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities">clear</mat-icon>
+      <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
+        >clear</mat-icon
+      >
     </span>
   </div>
 </div>

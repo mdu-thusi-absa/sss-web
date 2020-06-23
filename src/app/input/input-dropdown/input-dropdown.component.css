@@ -1,0 +1,50 @@
+.btn{
+    padding-top:4px;
+    padding-bottom:4px;
+}
+
+.modal-content{
+    border-radius: 3px;
+}
+
+.modal-body{
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:3px;
+    padding-bottom:3px;
+    max-height: 200px;
+    overflow-y:scroll;
+}
+
+a{
+    width:100%
+}
+
+ .mat-icon-big {
+    vertical-align: middle;
+    font-size: 15.8px;
+    width: 15.4px;
+    height: 15.4px; 
+  }
+
+  .modal-backdrop  {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: red !important;
+    filter: alpha(opacity=0) ;
+    opacity: 0 !important;
+  }
+
+  .modal-backdrop.in {
+    filter: alpha(opacity=0) !important;
+    opacity: 0 !important;
+  }
+
+  .modal.in {
+    filter: alpha(opacity=100) !important;
+    opacity: 1 !important;
+  }

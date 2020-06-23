@@ -1,7 +1,7 @@
 <div class="form-group">
   <div class="form=control btn-group wide input-group-sm" data-toggle="buttons">
     <label
-      class="btn btn-primary primary-color btn-xs"
+      class="btn btn-primary primary-color btn-hover btn-xs"
       (click)="rdoActiveInActiveAll = 'Active'"
       [class.active] = "rdoActiveInActiveAll == 'Active'"
       [class.focus]="rdoActiveInActiveAll == 'Active'"
@@ -16,7 +16,7 @@
       <span class="badge badge-xs"><small>{{getTaskCountActive()}}</small></span>
     </label>
     <label
-      class="btn btn-primary primary-color btn-xs" [class.active] = "rdoActiveInActiveAll == 'Done'"
+      class="btn btn-primary primary-color btn-hover btn-xs" [class.active] = "rdoActiveInActiveAll == 'Done'"
       (click)="rdoActiveInActiveAll = 'Done'"
     >
       <input type="radio" 
@@ -29,7 +29,7 @@
       <span class="badge badge-xs"><small>{{getTaskCountDone()}}</small></span>
     </label>
     <label
-      class="btn btn-primary primary-color btn-xs" [class.active] = "rdoActiveInActiveAll == 'All'"
+      class="btn btn-primary primary-color btn-hover btn-xs" [class.active] = "rdoActiveInActiveAll == 'All'"
       (click)="rdoActiveInActiveAll = 'All'"
     >
       <input

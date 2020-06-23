@@ -7,13 +7,14 @@
     <div
       class="panel-heading mt3"
       style="vertical-align: middle; cursor: pointer;"
+      
       [attr.data-target]="'#input-panel-' + getID()"
       data-toggle="collapse"
     >
       {{title}}
     </div>
-    <div class="panel-body mt3 collapse" style="margin-bottom: 0px;" [attr.id]="'input-panel-' + getID()">
-      <div style="overflow-y: scroll;overflow-x: hidden;">
+    <div class="panel-body mt3 collapse" style="margin-bottom: 0px;position:relative;z-index:9" [attr.id]="'input-panel-' + getID()">
+      <div style="overflow-y: scroll;overflow-x: hidden;" [style.maxHeight] = "maxHeight">
         <ng-content></ng-content>
       </div>
     </div>

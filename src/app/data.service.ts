@@ -645,22 +645,28 @@ export class DataService {
     return r;
   }
 
-  public getID(title: string) {
-    let s = / /g;
-    let t = title.toLowerCase().replace(s, '-');
-    s = /\//g;
-    t = t.toLowerCase().replace(s, '-');
-    s = /\:/g;
-    t = t.toLowerCase().replace(s, '-');
-    s = /\,/g;
-    t = t.toLowerCase().replace(s, '-');
-    s = /\-\-/g;
-    t = t.toLowerCase().replace(s, '-');
-    s = /\(/g;
-    t = t.toLowerCase().replace(s, '-');
-    s = /\)/g;
-    t = t.toLowerCase().replace(s, '-');
-    return t;
+  dataID = 0;
+  public getID(title?: string): string {
+    if (title) {
+      let s = / /g;
+      let t = title.toLowerCase().replace(s, '-');
+      s = /\//g;
+      t = t.toLowerCase().replace(s, '-');
+      s = /\:/g;
+      t = t.toLowerCase().replace(s, '-');
+      s = /\,/g;
+      t = t.toLowerCase().replace(s, '-');
+      s = /\-\-/g;
+      t = t.toLowerCase().replace(s, '-');
+      s = /\(/g;
+      t = t.toLowerCase().replace(s, '-');
+      s = /\)/g;
+      t = t.toLowerCase().replace(s, '-');
+      return t;
+    } else {
+      this.dataID += 1;
+      return this.dataID + '';
+    }
   }
 
   countries = new Countries(Country);
