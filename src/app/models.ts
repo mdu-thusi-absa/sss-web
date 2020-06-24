@@ -601,9 +601,11 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     super();
   }
 
-  get countInFilter(){
-    if (this.filterText_=='') return this.size;
-    else {return this.countInFilter_};
+  get countInFilter() {
+    if (this.filterText_ == '') return this.size;
+    else {
+      return this.countInFilter_;
+    }
   }
 
   filter(filterText: string, onlyActive: boolean): Entities<T> {
@@ -617,22 +619,30 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
         let a = this.createEntity();
         a = Object.assign(a, value);
         ets.add(a);
-        this.inFilterMap.set(key,true);
+        this.inFilterMap.set(key, true);
         this.countInFilter_ += 1;
-      }else{
-        this.inFilterMap.set(key,false);
+      } else {
+        this.inFilterMap.set(key, false);
       }
     });
     return ets;
   }
 
-  inFilter(key: number){
-    
-    if (this.filterText_==''){
-      return true;
-    }else{
+  inFilter(key: number, viewAll: boolean) {
+    if (this.filterText_ == '') {
+      if (viewAll) return true;
+      else {
+        return key < 10; //load only first 10 entities into a list, until required
+      }
+    } else {
       return this.inFilterMap.get(key);
     }
+  }
+
+  json(){
+    return this.all_keys.toString();
+    return JSON.stringify(this);
+
   }
 
   createEntity() {
@@ -660,6 +670,10 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   //     this.add(a);
   //   }
   // }
+
+  get(key: number){
+    return super.get(key);
+  }
 
   fromEntities(type: string, entities: Entities<T>) {
     entities.forEach((value, key, map) => {

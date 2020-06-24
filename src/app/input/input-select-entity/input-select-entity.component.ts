@@ -248,7 +248,7 @@ export class InputSelectEntityComponent implements OnInit {
   }
 
   doChange(event: any) {
-    this.value = +event.target.value;
+    this.value = +event;
     //this.values.currentKey = this.value;
     this.onSelect.emit(this.value);
     this.onChange.emit(this.value);

@@ -1,6 +1,22 @@
 .mat-icon {
-    vertical-align: middle;
-    font-size: 16px;
-    width: 13px;
-    height: 16px; 
-  }
+  vertical-align: middle;
+  font-size: 15px;
+  width: 15px;
+  height: 15px; 
+}
+
+.input-group-addon{
+  padding-top:3px;
+  padding-bottom:3px;
+  padding-left:9px;
+  padding-right:9px;
+  height: 16px;
+  width: 16px;
+}
+.input-group{
+  width:100%;
+}
+
+.form-control{
+  height:28px;
+}

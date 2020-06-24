@@ -18,7 +18,7 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
       [showCheck]="showCheck"
-      [showFilter]="true"
+      [showFilter]="false"
       [showCancel]="false"
       [showSave]="false"
       [showCheck]="showCheck"
@@ -35,7 +35,18 @@
   <div [hidden]="isDoInput">
     <!--render for larger screens: buttons on the side -->
     <div>
-      <div class="input-group" style="width: 100%;">
+      <app-input-dropdown [title] = title
+        [values] = "values"
+        [key] = "value"
+        (onChange) = "doChange($event)"
+        [showDelete] = "showDelete"
+        [showEdit] = "showEdit"
+        [showAdd] = "showAdd"
+        (onDelete) = "doDelete()"
+        (onEdit) = "doEdit()"
+        (onAdd) = "doAdd()"
+      ></app-input-dropdown>
+      <!-- <div class="input-group" style="width: 100%;">
         <select
           class="form-control input-sm collapse in"
           style="font-size: small;"
@@ -83,7 +94,7 @@
         >
           <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
         </span>
-      </div>
+      </div> -->
     </div>
     <!--render buttons for smaller screens-->
     <div class="hidden-sm hidden-md hidden-lg">

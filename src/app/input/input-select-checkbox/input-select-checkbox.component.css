@@ -9,3 +9,10 @@
     width:calc(100%);
     display:inline-block;
   }
+
+  .list-group-item{
+    height:28px;
+    padding-top:2px;
+    vertical-align: middle;
+    border-bottom:none;
+  }

@@ -12,8 +12,7 @@
     padding-right:5px;
     padding-top:3px;
     padding-bottom:3px;
-    max-height: 177px;
-    overflow-y:scroll;
+    max-height: 179px;
 }
 
 a{
@@ -21,12 +20,12 @@ a{
     text-decoration: none;
 }
 
- .mat-icon-big {
+ /* .mat-icon-big {
     vertical-align: middle;
-    font-size: 15.8px;
-    width: 15.4px;
-    height: 15.4px; 
-  }
+    font-size: 13.8px;
+    width: 13.4px;
+    height: 13.4px; 
+  } */
 
   .modal-backdrop  {
     position: fixed;
@@ -49,3 +48,23 @@ a{
     filter: alpha(opacity=100) !important;
     opacity: 1 !important;
   }
+
+  .mat-icon {
+    vertical-align: middle;
+    font-size: 15px;
+    width: 15px;
+    height: 15px; 
+  }
+
+  .input-group-addon{
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-left:9px;
+    padding-right:9px;
+    height: 16px;
+    width: 16px;
+  }
+
+  
+
+ 

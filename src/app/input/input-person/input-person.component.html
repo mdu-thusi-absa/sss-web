@@ -18,7 +18,7 @@
       [showPaperclip]="showPaperclip"
       [showCD]="showCD"
       [showCheck]="showCheck"
-      [showFilter]="true"
+      [showFilter]="false"
       [showCancel]="false"
       [showSave]="false"
       [countItems]="countItems()"
@@ -34,7 +34,18 @@
   <div [hidden]="isDoInput">
     <div>
       <div class="input-group" style="width: 100%;">
-        <select
+        <app-input-dropdown [title] = title
+        [values] = "values"
+        [key] = "value"
+        (onChange) = "doChange($event)"
+        [showDelete] = "showDelete"
+        [showEdit] = "showEdit"
+        [showAdd] = "showAdd"
+        (onDelete) = "doDelete()"
+        (onEdit) = "doEdit()"
+        (onAdd) = "doAdd()"
+      ></app-input-dropdown>
+        <!-- <select
           class="form-control input-sm collapse in"
           style="font-size: small;"
           (change)="doChange($event)"
@@ -78,7 +89,7 @@
           [title]="'Add an ' + title"
         >
           <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
-        </span>
+        </span> -->
       </div>
     </div>
     <div class="hidden-sm hidden-md hidden-lg">

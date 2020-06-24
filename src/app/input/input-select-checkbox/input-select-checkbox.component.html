@@ -57,7 +57,7 @@
       <ul
         class="list-group"
         style="margin-bottom: 0px; overflow-y: auto;"
-        [style.max-height]="showExpand ? '90px' : '270px'"
+        [style.max-height]="showExpand ? '84px' : '280px'"
         (scroll)="onScrollData($event)"
       >
         <div
@@ -67,7 +67,7 @@
           <li
             *ngIf="showSelectedOnly?selectedValues.indexOf(e.key)>-1:(isLoadAll || getDoLoad(e.key))"
             class="list-group-item input-sm"
-            style="vertical-align: top; padding-bottom: 5px; padding-top: 5px;"
+
           >
             <!-- <div class="input-checkbox-compute-width"> -->
               <app-input-checkbox

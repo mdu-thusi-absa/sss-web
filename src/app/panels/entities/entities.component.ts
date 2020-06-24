@@ -92,6 +92,8 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityTypeChange(event: any) {
+    // console.log('doEntityTypeChange',event);
+    
     this.isLoadAll = this.isLoadAll || this.entityType != +event;
     this.entityType = +event;
     this.entityTypeNamePlural = this.entityTypesPlural.get(
@@ -117,6 +119,7 @@ export class EntitiesComponent implements OnInit {
         }
       }
     }
+    // console.log('doEntityTypeChange:done',event);
   }
 
   shouldBeHidden(e: FunctionalEntity): boolean {

@@ -185,7 +185,7 @@
 
   <app-input-dropdown *ngIf="showList"
     [values] = "listValues"
-    [key] = "0"
+    [key] = "+listValue"
     (onChange) = "doListChange($event)"
   ></app-input-dropdown>
   <!-- <select
@@ -210,7 +210,7 @@
   </select> -->
 </div>
 
-<div [hidden]="!showInputFilter">
+<div [hidden]="!showInputFilter" style="margin-top:1px">
   <div class="input-group input-group-sm">
     <span
       *ngIf="showA"

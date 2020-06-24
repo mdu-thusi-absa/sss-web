@@ -239,7 +239,7 @@ export class InputPersonComponent implements OnInit {
   }
 
   doChange(event: any) {
-    this.value = +event.target.value;
+    this.value = +event;
     this.onSelect.emit(this.value);
     this.onChange.emit(this.value);
   }
