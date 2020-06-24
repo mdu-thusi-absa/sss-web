@@ -102,7 +102,7 @@
             </span>
           </div>
         </div>
-        <div style="max-height: 141px; overflow-y: scroll; overflow-x: hidden;">
+        <div style="max-height: 147px; overflow-y: scroll; overflow-x: hidden;">
           <div
             *ngIf="showNoSelection"
             (click)="selectMe(-1)"
@@ -113,9 +113,6 @@
               margin-bottom: 2px;
             "
           >
-            <!-- <a href="#" (click)="selectMe(-1)" routerLink="." fragment="-1"
-            ><span class="text-plain" [class.text-bright]="key == -1"> Please select</span>
-          </a> -->
             <a
               data-dismiss="modal"
               href="#"
@@ -131,13 +128,13 @@
             <div
               [hidden]="!values.inFilter(e.key, viewAll)"
               (click)="selectMe(e.key)"
-              style="cursor: pointer; font-size: small; margin-bottom: 2px;"
+              class="a-container"
             >
               <a
                 data-dismiss="modal"
                 href="#"
                 class="btn btn-sm primary-color"
-                style="width: 100%; text-align: left; border: none;"
+                style="text-align: left; border: none;"
                 (click)="selectMe(e.key)"
                 ><span
                   [class.text-plain]="e.key != key"
