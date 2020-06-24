@@ -7,18 +7,18 @@ import { etLocale } from 'ngx-bootstrap/chronos';
 
 export class Entity {
   public type = 'entity';
-  public description: string;
+  public description = '';
   public isActive = false;
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
 
-  inFilter(filterText: string, onlyActive: boolean):boolean{
+  inFilter(filterText: string, onlyActive: boolean): boolean {
     if (onlyActive && !this.isActive) return false;
     else if (filterText.length == 0) return true;
-    else{
+    else {
       let f = filterText.toLowerCase();
-      let inName = this.name.toLowerCase().indexOf(f)>-1
-      let inDescription = this.description.toLowerCase().indexOf(f)>-1
+      let inName = this.name.toLowerCase().indexOf(f) > -1;
+      let inDescription = this.description.toLowerCase().indexOf(f) > -1;
       return inName || inDescription;
     }
   }
@@ -173,16 +173,12 @@ export class LegalEntity extends FunctionalEntity {
   }
 
   set name(v: string) {
-    //console.log(v);
-    
     if (v) {
       this.name_ = v;
-      if (v.length>4)
+      if (v.length > 4)
         if (v.toUpperCase() == v) {
           this.name_ = super.capitalise(v);
           super.name = this.name_;
-         // console.log(super.name,this.name_);
-          
         }
     }
   }
@@ -211,30 +207,30 @@ export class Company extends LegalEntity {
   prevNameEffectiveDate: Date;
   entityGroups: Entities<Entity>;
   countryKey = -1;
-  industryKey = -1;;
+  industryKey = -1;
   representativeOffice: boolean;
   foreignBrunch: boolean;
   incorporationDate: Date;
-  anniversaryMonthKey = -1;;
+  anniversaryMonthKey = -1;
   businessStartDate: Date;
-  financialYearEndMonthKey = -1;;
+  financialYearEndMonthKey = -1;
   incomeTaxNumber: string;
   vatNumber: string;
-  businessAreaKey = -1;;
-  businessDivisionKey = -1;;
-  legalClassKey = -1;;
+  businessAreaKey = -1;
+  businessDivisionKey = -1;
+  legalClassKey = -1;
   consolidated: boolean;
-  entityStatusKey = -1;;
-  entityStatusTieringKey = -1;;
-  accountingClassKey = -1;;
-  accountingClassificationTieringKey = -1;;
-  directParentKey = -1;;
+  entityStatusKey = -1;
+  entityStatusTieringKey = -1;
+  accountingClassKey = -1;
+  accountingClassificationTieringKey = -1;
+  directParentKey = -1;
   shareholdingInEntity: number;
-  appointedCompanySecretariatKey = -1;;
-  clientSecretarialRepresentativeKey = -1;;
-  legalEntityExecutiveKey = -1;;
-  entityFinancialOfficerKey = -1;;
-  publicOfficerKey = -1;;
+  appointedCompanySecretariatKey = -1;
+  clientSecretarialRepresentativeKey = -1;
+  legalEntityExecutiveKey = -1;
+  entityFinancialOfficerKey = -1;
+  publicOfficerKey = -1;
   shareCode: string;
   ISINCode: string;
   bloombergCode: string;
@@ -329,11 +325,11 @@ export class Individual extends NaturalEntity {
   SAPassportNumber: string;
   incomeTaxNumber: string;
   vatNumber: string;
-  countryKey = -1;;
+  countryKey = -1;
   passportNumber: string;
   employeeNumber: string;
   position: string;
-  currentEmployerKey = -1;; //company
+  currentEmployerKey = -1; //company
   //contact details
   //customFields
   //files
@@ -365,7 +361,7 @@ export class RegulatorEntity extends LegalEntity {
     t = Object.assign(t, this);
     return t;
   }
-  countryKey = -1;;
+  countryKey = -1;
   regulationEntities: Entities<RegulationEntity>;
 }
 export class AuditorEntity extends LegalEntity {
@@ -376,7 +372,7 @@ export class AuditorEntity extends LegalEntity {
     return t;
   }
   professionalNumber: string;
-  partnerKey = -1;;
+  partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
 export class SecretariatEntity extends LegalEntity {
@@ -387,7 +383,7 @@ export class SecretariatEntity extends LegalEntity {
     return t;
   }
   professionalNumber: string;
-  partnerKey = -1;;
+  partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
 export class RegulationEntity extends FunctionalEntity {
@@ -397,7 +393,7 @@ export class RegulationEntity extends FunctionalEntity {
     t = Object.assign(t, this);
     return t;
   }
-  countryKey = -1;;
+  countryKey = -1;
   regulatorEntities: Entities<RegulatorEntity>;
 }
 // export class Person extends NaturalEntity{
@@ -432,7 +428,7 @@ export class User extends NaturalEntity {
   }
 }
 
-export class MeetingGuestEntity extends NaturalEntity{
+export class MeetingGuestEntity extends NaturalEntity {
   attended = false;
 }
 
@@ -596,31 +592,58 @@ export type EveryEntity =
 export class Entities<T extends EveryEntity> extends Map<number, T> {
   currentKey_ = -1;
   currentValue_: T = null;
+  private inFilterMap = new Map();
+  private filterText_ = '';
+  private onlyActive_ = true;
+  private countInFilter_ = 0;
 
   constructor(private EntityType) {
     super();
   }
 
-  filter(filterText: string, onlyActive: boolean): Entities<T>{
+  get countInFilter(){
+    if (this.filterText_=='') return this.size;
+    else {return this.countInFilter_};
+  }
+
+  filter(filterText: string, onlyActive: boolean): Entities<T> {
+    this.filterText_ = filterText;
+    this.onlyActive_ = onlyActive;
     let ets = new Entities<T>(this.EntityType);
-    let v = this.all_entries
-    for (let i=0; v.length<i;i++){
-      if (v[i][1].inFilter(filterText,onlyActive)){
-        ets.set(v[i][0],v[i][1])
+    this.inFilterMap = new Map();
+    this.countInFilter_ = 0;
+    this.forEach((value, key, map) => {
+      if (value.inFilter(this.filterText_, this.onlyActive_)) {
+        let a = this.createEntity();
+        a = Object.assign(a, value);
+        ets.add(a);
+        this.inFilterMap.set(key,true);
+        this.countInFilter_ += 1;
+      }else{
+        this.inFilterMap.set(key,false);
       }
-    }
+    });
     return ets;
+  }
+
+  inFilter(key: number){
+    
+    if (this.filterText_==''){
+      return true;
+    }else{
+      return this.inFilterMap.get(key);
+    }
   }
 
   createEntity() {
     return new this.EntityType();
   }
 
-  fromJSON(json: string,maxToLoad?: number) {
-    let array = JSON.parse(json)
+  fromJSON(json: string, maxToLoad?: number) {
+    let array = JSON.parse(json);
     let L = array.length;
     if (maxToLoad) {
-      L = (maxToLoad>L ? L : maxToLoad);
+      L = maxToLoad > L ? L : maxToLoad;
     }
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
@@ -631,17 +654,17 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   // fromArray(type: string, entitiesArray: T[]) {
   //   for (let i = 0; i < entitiesArray.length; i++) {
-  //     let a = entitiesArray[i]; 
+  //     let a = entitiesArray[i];
   //     // a = Object.assign(a,entitiesArray[i]);
   //     a.type = type;
   //     this.add(a);
   //   }
   // }
 
-  fromEntities(type: string, entities: Entities<T>){
+  fromEntities(type: string, entities: Entities<T>) {
     entities.forEach((value, key, map) => {
       let a = entities.createEntity();
-      a = Object.assign(a,value)
+      a = Object.assign(a, value);
       a.type = type;
       this.add(a);
     });

@@ -112,6 +112,8 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onSearch = new EventEmitter();
 
   isT = false;
+  isB = "false";
+
   filterText = '';
   dropDown = false;
   @Input() captionFlash = '';
@@ -134,6 +136,7 @@ export class InputFilterAddComponent implements OnInit {
       this.showEyeClose ||
       this.showEyeOpen ||
       this.showSave;
+      
   }
 
   doDuplicate() {
@@ -152,7 +155,7 @@ export class InputFilterAddComponent implements OnInit {
   }
 
   doListChange(event: any) {
-    this.listValue = +event.target.value;
+    this.listValue = +event;
     this.onListChange.emit(this.listValue);
   }
 

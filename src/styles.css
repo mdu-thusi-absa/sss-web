@@ -347,6 +347,12 @@ td.info > a {
   border-color: var(--color-bright);
   font-weight: normal;
 }
+.text-plain {
+  color: gray;
+  border-color: gray;
+  font-weight: normal;
+}
+
 .text-bright-bold {
   color: var(--color-bright);
   border-color: var(--color-bright);
@@ -633,7 +639,8 @@ input[type="color"]:focus,
 
 .form-control:focus {
   border-color: var(--color-bright);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 3px var(--color-bright);
+  /* box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 3px var(--color-bright); */
+  box-shadow: 0 0 3px var(--color-bright);
 }
 
 

@@ -12,12 +12,13 @@
     padding-right:5px;
     padding-top:3px;
     padding-bottom:3px;
-    max-height: 200px;
+    max-height: 177px;
     overflow-y:scroll;
 }
 
 a{
-    width:100%
+    width:100%;
+    text-decoration: none;
 }
 
  .mat-icon-big {

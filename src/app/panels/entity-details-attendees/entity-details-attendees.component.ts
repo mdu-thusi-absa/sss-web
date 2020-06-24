@@ -33,8 +33,6 @@ export class EntityDetailsAttendeesComponent implements OnInit {
     for (let i = 0; i < this.elementsType.length; i++) {
       this.elementsType[i] = 'text';
     }
-    console.log(this.data.attendees);
-    console.log(this.data.files)
     
     if (this.data.lg) console.log('loaded:entities-details-attendees');
     this.data.progress += 1;

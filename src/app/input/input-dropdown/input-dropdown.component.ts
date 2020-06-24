@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/data.service';
+import { Entities, EveryEntity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-dropdown',
@@ -7,16 +8,46 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./input-dropdown.component.css'],
 })
 export class InputDropdownComponent implements OnInit {
+  private filterText_ = '';
   showDrop = true;
   position = { top: 0, left: 0 };
   msg = '';
   id = '0'
+  @Input() values: Entities<EveryEntity>;
+  @Input() key = -1;
+  @Input() showNoSelection = false;
+  @Input() onlyActive = false;
 
+  @Output() onChange = new EventEmitter();
+
+  @ViewChild('inputFilter') inputFilter: ElementRef;
   constructor(public data: DataService) {}
 
   ngOnInit(): void {
-    this.id = '' + Math.floor(Math.random() * 10000);   
     this.id = this.data.getID();
+    this.filterText = '';
+  }
+
+  get filterText(){
+    return this.filterText_;
+  }
+
+  // countVisible = 0;
+  set filterText(v: string){
+    this.filterText_ = v;
+    this.values.filter(this.filterText_,false);
+    // if (this.filterText=='') this.countVisible = this.values.size;
+    // else {this.countVisible = this.values.filter(this.filterText_,false).size};
+  }
+
+  doKeyUp(event: any) {
+    if (event.key === 'Escape') {
+      //this.value = this.defaultValue;
+      this.filterText = '';
+    } 
+    // else if (event.key === 'Enter') {
+    //   this.doSave();
+    // }
   }
 
   setPosition(){
@@ -26,16 +57,12 @@ export class InputDropdownComponent implements OnInit {
       var rightPos = el[0].getBoundingClientRect().right  + $(window)['scrollLeft']();
       var topPos   = el[0].getBoundingClientRect().top    + $(window)['scrollTop']();
       var bottomPos= el[0].getBoundingClientRect().bottom + $(window)['scrollTop']();
-      //console.log({leftPos:leftPos,rightPos:rightPos,topPos:topPos,bottomPos:bottomPos})
 
       let dialog = $('#dropdown-dialog-' + this.id);
       
       dialog[0].style.left = leftPos+'px';
       dialog[0].style.top = (bottomPos) + 'px';
       dialog[0].style.width = (rightPos - leftPos) + 'px';
-      // console.log(this.id,'dialog',dialog);
-      // console.log('el',el);
-      // console.log(dialog[0].style.left);
   }
 
   ngAfterViewInit(): void{
@@ -43,8 +70,8 @@ export class InputDropdownComponent implements OnInit {
   }
 
   selectMe(key: number){
-    //console.log('selected',key);
-    
+    this.key = key;
+    this.onChange.emit(key);
   }
 
   get thisY(){
@@ -57,34 +84,20 @@ export class InputDropdownComponent implements OnInit {
   }
 
   ngAfterViewChecked(): void{
-    //this.getPosition(this.elRef.nativeElement);
   }
   
-  // move(ref: ElementRef) {
-  //   console.log('offset',this.elRef.nativeElement.offsetLeft);
-  // }
 
   doModal(event: any) {
 
     this.showDrop = true;
     this.setPosition();
-    
+    this.setFocus();
   }
 
-  // getPosition(element: any) {
+  setFocus() {
+    setTimeout(() => {
+      this.inputFilter.nativeElement.focus();
+    }, 0);
+  }
 
-
-  //   let offsetLeft = 0;
-  //   let offsetTop = 0;
-
-  //   let el = element;
-
-  //   while (el) {
-  //     offsetLeft += el.offsetLeft;
-  //     offsetTop += el.offsetTop; 
-  //     console.log(el, el.offsetTop,el.offsetTop);
-  //     el = el.parentElement;
-  //   }
-  //   this.position = { top: offsetTop, left: offsetLeft };
-  // }
 }

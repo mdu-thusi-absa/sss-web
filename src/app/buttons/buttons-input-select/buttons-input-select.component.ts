@@ -121,8 +121,6 @@ export class ButtonsInputSelectComponent implements OnInit {
   setFocus() {
     setTimeout(() => {
       this.inputFilter.nativeElement.focus();
-      // this will make the execution after the above boolean has changed
-      // this.searchElement.nativeElement.focus();
     }, 0);
   }
 

@@ -66,7 +66,6 @@ export class EntitiesComponent implements OnInit {
       if (n < this.limitVisibleRows) {
         if (isActive) aLoaded.push(key);
         this.loadedMap.set(typeName, aLoaded);
-        // console.log(this.isLoadAll,typeName,n);
       }
     }
     //onscroll
@@ -85,30 +84,11 @@ export class EntitiesComponent implements OnInit {
     this.setCounts();
     if (this.data.lg) console.log(new Date().getTime(), 'loaded:entities');
     this.data.progress += 1;
-    // this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
 
-  //  ngAfterViewChecked(): void {
-  //    try {
-  //        if(this.fragment) {
-  //            document.querySelector('#' + this.fragment).scrollIntoView();
-  //        }
-  //    } catch (e) { }
-  //  }
 
   loadEntities() {
-    //this.data.makeFunctionalEntities();
     this.entities = this.data.getFunctionalEntitiesAll();
-    // this.listMap = new Map();
-    // let f: FunctionalEntities;
-    // this.entitiesAll.forEach((value: FunctionalEntity, key: number) => {
-    //   if (!this.listMap.has(value.type)){
-    //     let f = new FunctionalEntities();
-    //     this.listMap.set(value.type,f)
-    //   }
-    //   f = this.listMap.get(value.type)
-    //   f.add() (key,value);
-    // });
   }
 
   doEntityTypeChange(event: any) {

@@ -29,16 +29,13 @@ export class InputSelectCheckboxDuoComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    //this.values = this.data.entityGroups;
   }
 
   doChange_Available(event: any){
-    //console.log(event);
     
   }
 
   doChange_Selected(event: any){
-    //console.log(event);
   }
 
 }

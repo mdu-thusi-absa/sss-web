@@ -98,11 +98,6 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.values.sort();
-    // this.option = this.values.indexOf().toString();
-    //this.setItem(this.value);
-    //delay: this.loadInterval = setInterval(this.delayLoader,7000,this);
-    //console.log(this.selectedValues);
   }
 
   doContract() {
@@ -190,7 +185,6 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   countItemsVisible() {
-    //console.log(this.values);
     if (this.showSelectedOnly) {
       return this.selectedValues.length;
     } else {
