@@ -1,6 +1,6 @@
 <div
   class="input-group input-group-sm"
-  style="width: 100%; vertical-align: middle;height:28px;"
+  style="width: 100%; vertical-align: middle;height:28px;margin-top:2px"
 >
   <!-- [style.border-bottom] = "(showDelete || showEdit || showAdd)?'1px solid':'none'" -->
   <a
@@ -131,6 +131,7 @@
               [hidden]="!values.inFilter(e.key, viewAll)"
               (click)="selectMe(e.key)"
               class="a-container"
+              (keydown) = "a_doKeyDown(e.key,$event)"
             >
               <a
                 data-dismiss="modal"
@@ -138,11 +139,12 @@
                 class="btn btn-sm primary-color"
                 style="text-align: left; border: none;"
                 (click)="selectMe(e.key)"
+                
                 ><span
                   [class.text-plain]="e.key != key"
                   [class.text-bright]="e.key == key"
                 >
-                  {{ e.value.name }}</span
+                  {{ e.value.allName }}</span
                 >
               </a>
             </div>

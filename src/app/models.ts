@@ -9,8 +9,14 @@ export class Entity {
   public type = 'entity';
   public description = '';
   public isActive = false;
+  public suffix = '';
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
+
+  get allName(){
+    if (this.suffix=='') return this.name;
+    else {return this.name + ' - ' + this.suffix}
+  }
 
   inFilter(filterText: string, onlyActive: boolean): boolean {
     if (onlyActive && !this.isActive) return false;
@@ -19,7 +25,8 @@ export class Entity {
       let f = filterText.toLowerCase();
       let inName = this.name.toLowerCase().indexOf(f) > -1;
       let inDescription = this.description.toLowerCase().indexOf(f) > -1;
-      return inName || inDescription;
+      let inSuffix = this.suffix.toLowerCase().indexOf(f) > -1;
+      return inName || inDescription || inSuffix; 
     }
   }
 
@@ -112,7 +119,6 @@ export class MeetingEntity extends Entity {
 }
 export class FunctionalEntity extends Entity {
   public type = 'functional';
-  public suffix = '';
   public tasksCount = 0;
   public isActive = true;
 

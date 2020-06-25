@@ -62,8 +62,13 @@ export class InputDropdownComponent implements OnInit {
 
     if (this.key == -1) return 'Please select';
     else {
-      return this.values.get(this.key).name;
+      return this.values.get(this.key).allName;
     }
+  }
+
+  a_doKeyDown(key: number, event: any){
+    let c = event.key;
+    if (key==12) this.setFocus();
   }
 
   doKeyUp(event: any) {
