@@ -1,13 +1,13 @@
 <div
   class="input-group input-group-sm"
-  style="width: 100%; vertical-align: middle;"
+  style="width: 100%; vertical-align: middle;height:28px;"
 >
   <!-- [style.border-bottom] = "(showDelete || showEdit || showAdd)?'1px solid':'none'" -->
   <a
     href="#"
     [attr.id]="'dropdown-button-' + id"
     class="btn btn-sm primary-color"
-    style="width: 100%; text-align: left;"
+    style="width: 100%; text-align: left; margin:0px"
     [style.border] = "(showDelete || showEdit || showAdd)?'1px solid':'none'"
     (click)="doModal($event)"
     data-toggle="modal"
@@ -19,7 +19,7 @@
     *ngIf="showDelete && !disabled"
     class="input-group-addon btn primary-color-reverse hidden-xs"
     [class.disabled]="this.key < 0"
-    style="border-right: none;"
+    style="border-left:none;"
     (click)="onDelete.emit()"
     [title]="'Delete the ' + title"
   >
@@ -29,6 +29,7 @@
     *ngIf="showEdit && !disabled"
     [class.disabled]="this.key < 0"
     class="input-group-addon btn primary-color-reverse hidden-xs"
+    style="border-left:none;"
     (click)="onEdit.emit()"
     [title]="'Edit the ' + title"
   >
@@ -37,6 +38,7 @@
   <span
     *ngIf="showAdd && !disabled"
     class="input-group-addon btn primary-color-reverse hidden-xs"
+    style="border-left:none;"
     (click)="onAdd.emit()"
     [title]="'Add an ' + title"
   >
