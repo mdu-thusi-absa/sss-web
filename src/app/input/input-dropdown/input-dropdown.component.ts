@@ -94,8 +94,6 @@ export class InputDropdownComponent implements OnInit {
       el[0].getBoundingClientRect().bottom + $(window)['scrollTop']();
 
     let dialog = $('#dropdown-dialog-' + this.id);
-    console.log($(window).height());
-    
     
     if (this.values.size>4){
       //this.maxHeight = 185

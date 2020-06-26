@@ -42,13 +42,14 @@
           adaptivePosition: true
         }"
         [placeholder]="placeholder"
-        [disabled]="disabled"
+        [disabled]="false"
         autocomplete="nope"
         [title]="title"
         (changeDate)="doChange()"
         (change)="doChange()"
         (onchange)="doChange()"
         (onchangeDate)="doChange()"
+        onkeydown="return false"
       />
       <span
         *ngIf="!disabled"

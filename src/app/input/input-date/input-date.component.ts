@@ -26,6 +26,11 @@ export class InputDateComponent implements OnInit {
   @Input() inline = false;
   @Input() showTitle = true;
 
+  onKeyDown(event: any) {   
+    console.log('1',event);
+    event.preventDefault();
+  }
+
   doFile(){
     this.onFile.emit(this.title);
   }
