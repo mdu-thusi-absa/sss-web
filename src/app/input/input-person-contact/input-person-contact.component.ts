@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data.service';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-person-contact',
@@ -10,7 +11,13 @@ export class InputPersonContactComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() isNarrow = false;
-  @Input() title = 'Contact details' 
+  title_ = 'Contact details';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() hideBody = true;
 
   @Output() onFile = new EventEmitter;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Country, Entities, City, Countries } from 'src/app/models';
+import { Country, Entities, City, Countries, Entity } from 'src/app/models';
 import { DataService } from 'src/app/data.service'
 
 @Component({
@@ -8,7 +8,14 @@ import { DataService } from 'src/app/data.service'
   styleUrls: ['./input-address.component.css'],
 })
 export class InputAddressComponent implements OnInit {
-  @Input() title = 'Address';
+  title_ = 'Address';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
+
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() disabled = false;
