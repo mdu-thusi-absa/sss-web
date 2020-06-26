@@ -63,8 +63,9 @@
                   <h4 class="modal-title">Modal Header</h4>
                 </div> -->
       <div class="modal-body">
-        <div [hidden]="values.size < 6" style="width:100%">
+        <div [hidden]="values_.size < 6" style="width:100%">
           <div
+            *ngIf="!dropUp"
             class="input-group input-group-sm"
             style="margin-bottom: 2px; margin-top: 2px;width:100%"
           >
@@ -112,11 +113,14 @@
               style="border-left: none; pointer-events: none;"
               [title]="'Showing ' + 0 + ' items'"
             >
-              {{ values.countInFilter }}
+              {{ values_.countInFilter }}
             </span>
           </div>
         </div>
-        <div style="max-height: 147px; overflow-y: scroll; overflow-x: hidden;">
+        <div style="overflow-x: hidden;"
+        [style.max-height] = "(filterHeight - searchInputHeight) + 'px'"
+        [style.overflow-y] = "this.values_.countInFilter>5?'scroll':'none'"
+        >
           <div
             *ngIf="showNoSelection"
             (click)="selectMe(-1)"
@@ -138,9 +142,9 @@
               >
             </a>
           </div>
-          <ng-container *ngFor="let e of values | keyvalue">
+          <ng-container *ngFor="let e of values_ | keyvalue">
             <div
-              [hidden]="!values.inFilter(e.key, viewAll)"
+              [hidden]="!values_.inFilter(e.key, viewAll)"
               (click)="selectMe(e.key)"
               class="a-container"
               (keydown) = "a_doKeyDown(e.key,$event)"
@@ -161,6 +165,60 @@
               </a>
             </div>
           </ng-container>
+        </div>
+        <div [hidden]="values_.size < 6" style="width:100%">
+          <div
+            *ngIf="dropUp"
+            class="input-group input-group-sm"
+            style="margin-bottom: 2px; margin-top: 2px;width:100%"
+          >
+          <span
+              class="input-group-addon btn primary-color btn-hover"
+              data-dismiss="modal"
+              [class.btn-blocked]="false"
+            >
+              <mat-icon
+                class="mat-icon-big"
+                aria-hidden="true"
+                aria-label="Entities"
+                >eject</mat-icon
+              >
+            </span>
+            <input
+              type="text"
+              class="form-control input-sm primary-color"
+              [placeholder]="'Search '"
+              style="font-weight: normal; width: 100%; z-index: 999;"
+              autocomplete="nope"
+              [title]="'Type text to filter items'"
+              [(ngModel)]="filterText"
+              tabindex="0"
+              #inputFilter
+              (keyup)="doKeyUp($event)"
+            />
+            <span
+              *ngIf="filterText != ''"
+              class="input-group-addon btn primary-color btn-hover"
+              style="border-left: none;"
+              (click)="filterText = ''"
+              [class.btn-blocked]="false"
+            >
+              <mat-icon
+                class="mat-icon-big"
+                aria-hidden="true"
+                aria-label="Entities"
+                >clear</mat-icon
+              >
+            </span>
+            <span
+              class="input-group-addon primary-color hidden-xs"
+              title="Number of items"
+              style="border-left: none; pointer-events: none;"
+              [title]="'Showing ' + 0 + ' items'"
+            >
+              {{ values_?values_.countInFilter:0 }}
+            </span>
+          </div>
         </div>
       </div>
       <!-- <div class="modal-footer">

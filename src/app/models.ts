@@ -607,6 +607,14 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     super();
   }
 
+  clone(){
+    let e = new Entities<T>(this.EntityType);
+    this.forEach((value,key,map)=>{
+      e.set(key,value);
+    });
+    return e;
+  }
+
   get countInFilter() {
     if (this.filterText_ == '') return this.size;
     else {
