@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, EveryEntity } from 'src/app/models';
+import { NaturalEntity, EveryEntity, Entity } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -10,7 +10,13 @@ import { DataService } from 'src/app/data.service';
 export class EntityDetailsAttendeesComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() persons: NaturalEntity[];
   @Input() entity: EveryEntity;
   @Input() showTitle = true;

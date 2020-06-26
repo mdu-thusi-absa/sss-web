@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import * as $ from 'jquery';
 import { DataService } from 'src/app/data.service';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-select',
@@ -17,7 +18,13 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./input-select.component.css'],
 })
 export class InputSelectComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() values = new Map();
   @Input() filterText = '';
   @Input() value = 0;

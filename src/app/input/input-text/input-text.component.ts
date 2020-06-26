@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-text',
@@ -6,7 +7,13 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./input-text.component.css'],
 })
 export class InputTextComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() placeholder = '';
   @Input() filterText = '';
   @Input() doHideByFilter = false;

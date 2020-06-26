@@ -10,7 +10,7 @@ export class InputPersonContactComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() isNarrow = false;
-  @Input() title = 'Contact Details' 
+  @Input() title = 'Contact details' 
   @Input() hideBody = true;
 
   @Output() onFile = new EventEmitter;

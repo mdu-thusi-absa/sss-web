@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data.service';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-browse',
@@ -9,7 +10,13 @@ import { DataService } from 'src/app/data.service';
 export class InputBrowseComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = false;
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() showDisk = false;
   @Input() showLink = false;
   @Input() showMinus = false;

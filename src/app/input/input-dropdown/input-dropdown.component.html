@@ -1,25 +1,89 @@
 <div
-  class="input-group input-group-sm"
-  style="width: 100%; vertical-align: middle;height:28px;margin-top:2px"
+  style="
+    width: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+    height: 28px;
+    margin-top: 2px;
+    overflow: hidden;
+  "
+  [attr.id]="'dropdown-group-' + id"
 >
   <!-- [style.border-bottom] = "(showDelete || showEdit || showAdd)?'1px solid':'none'" -->
   <a
     href="#"
     [attr.id]="'dropdown-button-' + id"
     class="btn btn-sm primary-color"
-    style="width: 100%; text-align: left; margin:0px"
-    [style.border] = "(showDelete || showEdit || showAdd)?'1px solid':'none'"
+    style="text-align: left; margin: 0px; display: inline-block;"
+    [class.a-width-buttons] = "(showDelete || showEdit || showAdd)"
+    [style.border]="showDelete || showEdit || showAdd ? '1px solid' : 'none'"
     (click)="doModal($event)"
     data-toggle="modal"
     [attr.data-target]="'#dropdown-' + id"
-    ><span class="caret" style="margin-right:5px"></span>{{value}}
+    ><span class="caret" style="margin-right: 5px;"></span>{{ value }}
     <!-- <div class="pull-right"><span class="caret"></span></div> -->
+  </a>
+  <div class="input-group-sm pull-right">
+    <span
+      *ngIf="showDelete && !disabled"
+      class="input-group-addon btn primary-color-reverse hidden-xs"
+      [class.disabled]="this.key < 0"
+      style="border-left: none;"
+      (click)="onDelete.emit()"
+      [title]="'Delete the ' + title"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+    </span>
+    <span
+      *ngIf="showEdit && !disabled"
+      [class.disabled]="this.key < 0"
+      class="input-group-addon btn primary-color-reverse hidden-xs"
+      (click)="onEdit.emit()"
+      [title]="'Edit the ' + title"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
+    </span>
+    <span
+      *ngIf="showAdd && !disabled"
+      class="input-group-addon btn primary-color-reverse hidden-xs"
+      style="border-left: none;"
+      (click)="onAdd.emit()"
+      [title]="'Add an ' + title"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+    </span>
+  </div>
+</div>
+
+<!-- <div
+  class="input-group input-group-sm"
+  style="
+    width: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+    height: 28px;
+    margin-top: 2px;
+    overflow-x: hidden;
+  "
+  [attr.id]="'dropdown-input-group-' + id"
+>
+  <a
+    href="#"
+    [attr.id]="'dropdown-button-' + id"
+    class="btn btn-sm primary-color"
+    style="text-align: left; margin: 0px; display: inline-block;"
+    [style.width]="'100%'"
+    [style.border]="showDelete || showEdit || showAdd ? '1px solid' : 'none'"
+    (click)="doModal($event)"
+    data-toggle="modal"
+    [attr.data-target]="'#dropdown-' + id"
+    ><span class="caret" style="margin-right: 5px;"></span>{{ value }}
   </a>
   <span
     *ngIf="showDelete && !disabled"
     class="input-group-addon btn primary-color-reverse hidden-xs"
     [class.disabled]="this.key < 0"
-    style="border-left:none;"
+    style="border-left: none;"
     (click)="onDelete.emit()"
     [title]="'Delete the ' + title"
   >
@@ -29,7 +93,7 @@
     *ngIf="showEdit && !disabled"
     [class.disabled]="this.key < 0"
     class="input-group-addon btn primary-color-reverse hidden-xs"
-    style="border-left:none;"
+    style="border-left: none;"
     (click)="onEdit.emit()"
     [title]="'Edit the ' + title"
   >
@@ -38,13 +102,13 @@
   <span
     *ngIf="showAdd && !disabled"
     class="input-group-addon btn primary-color-reverse hidden-xs"
-    style="border-left:none;"
+    style="border-left: none;"
     (click)="onAdd.emit()"
     [title]="'Add an ' + title"
   >
     <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
   </span>
-</div>
+</div> -->
 
 <!-- Modal -->
 
@@ -63,13 +127,13 @@
                   <h4 class="modal-title">Modal Header</h4>
                 </div> -->
       <div class="modal-body">
-        <div [hidden]="values_.size < 6" style="width:100%">
+        <div [hidden]="values_.size < 6" style="width: 100%;">
           <div
             *ngIf="!dropUp"
             class="input-group input-group-sm"
-            style="margin-bottom: 2px; margin-top: 2px;width:100%"
+            style="margin-bottom: 2px; margin-top: 2px; width: 100%;"
           >
-          <span
+            <span
               class="input-group-addon btn primary-color btn-hover"
               data-dismiss="modal"
               [class.btn-blocked]="false"
@@ -117,9 +181,12 @@
             </span>
           </div>
         </div>
-        <div style="overflow-x: hidden;"
-        [style.max-height] = "(filterHeight - searchInputHeight) + 'px'"
-        [style.overflow-y] = "this.values_.countInFilter>5?'scroll':'none'"
+        <div
+          style="overflow-x: hidden;"
+          [style.max-height]="filterHeight - searchInputHeight + 'px'"
+          [style.overflow-y]="
+            this.values_.countInFilter > 5 ? 'scroll' : 'none'
+          "
         >
           <div
             *ngIf="showNoSelection"
@@ -147,7 +214,7 @@
               [hidden]="!values_.inFilter(e.key, viewAll)"
               (click)="selectMe(e.key)"
               class="a-container"
-              (keydown) = "a_doKeyDown(e.key,$event)"
+              (keydown)="a_doKeyDown(e.key, $event)"
             >
               <a
                 data-dismiss="modal"
@@ -155,7 +222,6 @@
                 class="btn btn-sm primary-color"
                 style="text-align: left; border: none;"
                 (click)="selectMe(e.key)"
-                
                 ><span
                   [class.text-plain]="e.key != key"
                   [class.text-bright]="e.key == key"
@@ -166,13 +232,13 @@
             </div>
           </ng-container>
         </div>
-        <div [hidden]="values_.size < 6" style="width:100%">
+        <div [hidden]="values_.size < 6" style="width: 100%;">
           <div
             *ngIf="dropUp"
             class="input-group input-group-sm"
-            style="margin-bottom: 2px; margin-top: 2px;width:100%"
+            style="margin-bottom: 2px; margin-top: 2px; width: 100%;"
           >
-          <span
+            <span
               class="input-group-addon btn primary-color btn-hover"
               data-dismiss="modal"
               [class.btn-blocked]="false"
@@ -216,7 +282,7 @@
               style="border-left: none; pointer-events: none;"
               [title]="'Showing ' + 0 + ' items'"
             >
-              {{ values_?values_.countInFilter:0 }}
+              {{ values_ ? values_.countInFilter : 0 }}
             </span>
           </div>
         </div>

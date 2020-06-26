@@ -6,7 +6,7 @@ import {
   Input,
   ElementRef,
 } from '@angular/core';
-import { Entities, EveryEntity } from 'src/app/models';
+import { Entities, EveryEntity, Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-filter-add',
@@ -26,7 +26,13 @@ export class InputFilterAddComponent implements OnInit {
 
   @Output() onTick = new EventEmitter();
   @Output() onT = new EventEmitter();
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() titlePlural = '';
   @Input() titleT = '';
 

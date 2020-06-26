@@ -15,7 +15,13 @@ import { Entity, Entities, EveryEntity } from 'src/app/models';
   styleUrls: ['./input-select-checkbox.component.css'],
 })
 export class InputSelectCheckboxComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() values: Entities<EveryEntity>; //of entities
   @Input() filterText = '';
   //@Input() value = [];

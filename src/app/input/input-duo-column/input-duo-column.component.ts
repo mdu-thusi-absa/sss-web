@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
-import { NaturalEntity, Entities, EveryEntity } from '../../models'
+import { NaturalEntity, Entities, EveryEntity, Entity } from '../../models'
 
 @Component({
   selector: 'app-input-duo-column',
@@ -30,7 +30,13 @@ export class InputDuoColumnComponent implements OnInit {
 @Input() showShareLeft = false;
 @Input() showCheckLeft = false;
 
-@Input() title = ''; //for the panel
+title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  } //for the panel
 
 @Input() titleRight = '';
 @Input() placeholderRight = '';

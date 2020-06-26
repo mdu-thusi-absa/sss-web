@@ -1,5 +1,5 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
-import { EveryEntity, Entities } from 'src/app/models';
+import { EveryEntity, Entities, Entity } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -11,7 +11,13 @@ export class InputSelectCheckboxDuoComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText='';
   @Input() doHideByFilter = false;
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() values: Entities<EveryEntity>;
   @Input() selectedValues: number[] = [];
 

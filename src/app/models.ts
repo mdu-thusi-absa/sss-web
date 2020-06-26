@@ -13,9 +13,11 @@ export class Entity {
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
 
-  get allName(){
-    if (this.suffix=='') return this.name;
-    else {return this.name + ' - ' + this.suffix}
+  get allName() {
+    if (this.suffix == '') return this.name;
+    else {
+      return this.name + ' - ' + this.suffix;
+    }
   }
 
   inFilter(filterText: string, onlyActive: boolean): boolean {
@@ -26,7 +28,7 @@ export class Entity {
       let inName = this.name.toLowerCase().indexOf(f) > -1;
       let inDescription = this.description.toLowerCase().indexOf(f) > -1;
       let inSuffix = this.suffix.toLowerCase().indexOf(f) > -1;
-      return inName || inDescription || inSuffix; 
+      return inName || inDescription || inSuffix;
     }
   }
 
@@ -47,7 +49,7 @@ export class Entity {
     t = Object.assign(t, this);
     return t;
   }
-  protected capitalise(text: string): string {
+  static capitalise(text: string): string {
     if (!text) return text;
     let words = text.split(' ');
     if (words.length > 1) {
@@ -56,6 +58,30 @@ export class Entity {
         let word = words[i];
         if (word)
           s = s + ' ' + word[0].toUpperCase() + word.substr(1).toLowerCase();
+      }
+      return s.trim();
+    } else {
+      return text[0].toUpperCase() + text.substr(1).toLowerCase();
+    }
+  }
+
+  static sentanceCase(text: string) {
+    if (!text) return text;
+    let words = text.split(' ');
+    if (words.length > 1) {
+      let s = '';
+      for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        if (word)
+          if (word == word.toUpperCase()) s = s + ' ' + word;
+          else {
+            if (i == 0)
+              s =
+                s + ' ' + word[0].toUpperCase() + word.substr(1).toLowerCase();
+            else {
+              s = s + ' ' + word.toLowerCase();
+            }
+          }
       }
       return s.trim();
     } else {
@@ -183,7 +209,7 @@ export class LegalEntity extends FunctionalEntity {
       this.name_ = v;
       if (v.length > 4)
         if (v.toUpperCase() == v) {
-          this.name_ = super.capitalise(v);
+          this.name_ = Entity.capitalise(v);
           super.name = this.name_;
         }
     }
@@ -286,7 +312,7 @@ export class NaturalEntity extends FunctionalEntity {
   }
 
   set surname(v: string) {
-    this.surname_ = this.capitalise(v);
+    this.surname_ = Entity.capitalise(v);
     super.name = this.surname_ + ', ' + this.firstName_;
   }
 
@@ -295,7 +321,7 @@ export class NaturalEntity extends FunctionalEntity {
   }
 
   set firstName(v: string) {
-    this.firstName_ = this.capitalise(v);
+    this.firstName_ = Entity.capitalise(v);
     super.name = this.surname_ + ', ' + this.firstName_;
   }
 
@@ -608,18 +634,18 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     super();
   }
 
-  get version(){
-    return this.version_
+  get version() {
+    return this.version_;
   }
   //increment version
-  versionUp(){
-    this.version_ +=1;
+  versionUp() {
+    this.version_ += 1;
   }
 
-  clone(){
+  clone() {
     let e = new Entities<T>(this.EntityType);
-    this.forEach((value,key,map)=>{
-      e.set(key,value);
+    this.forEach((value, key, map) => {
+      e.set(key, value);
     });
     return e;
   }
@@ -662,10 +688,9 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     }
   }
 
-  json(){
+  json() {
     return this.all_keys.toString();
     return JSON.stringify(this);
-
   }
 
   createEntity() {
@@ -694,7 +719,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   //   }
   // }
 
-  get(key: number){
+  get(key: number) {
     return super.get(key);
   }
 

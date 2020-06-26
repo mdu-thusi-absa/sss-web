@@ -17,7 +17,13 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./input-select-entity.component.css'],
 })
 export class InputSelectEntityComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() disabled = false;

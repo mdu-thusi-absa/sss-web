@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-date',
@@ -6,7 +7,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./input-date.component.css'],
 })
 export class InputDateComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() filterText = '';
   @Input() doHideByFilter = true;
   @Input() placeholder = '';
@@ -25,11 +32,6 @@ export class InputDateComponent implements OnInit {
 
   @Input() inline = false;
   @Input() showTitle = true;
-
-  onKeyDown(event: any) {   
-    console.log('1',event);
-    event.preventDefault();
-  }
 
   doFile(){
     this.onFile.emit(this.title);

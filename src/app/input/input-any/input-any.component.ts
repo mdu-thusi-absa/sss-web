@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity,  Entities, EveryEntity } from 'src/app/models';
+import { NaturalEntity,  Entities, EveryEntity, Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-any',
@@ -12,7 +12,13 @@ export class InputAnyComponent implements OnInit {
   @Input() doHideByFilter = true;
   @Input() showPanelHeading = true;
 
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() placeholder = '';
   @Input() values: Entities<EveryEntity>; //: string[] | Person[] 
   @Input() value: string | boolean | NaturalEntity | number = '';

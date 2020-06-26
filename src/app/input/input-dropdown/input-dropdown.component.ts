@@ -45,9 +45,9 @@ export class InputDropdownComponent implements OnInit {
   sourceVersion_ = 0;
   //refresh values if the source version changes
   @Input() set sourceVersion(v: number) {
-    if (v!=this.sourceVersion_){
+    if (v != this.sourceVersion_) {
       this.sourceVersion_ = v;
-      this.values_ = this.sourceValues_.clone();    
+      this.values_ = this.sourceValues_.clone();
     }
   }
 
@@ -83,9 +83,31 @@ export class InputDropdownComponent implements OnInit {
     }
   }
 
+  // get aWidth() {
+  //   //'dropdown-input-group-' + id
+
+  //   if (this.showDelete || this.showEdit || this.showAdd) {
+  //     let eId = '#dropdown-input-group-' + this.id;
+  //     let el = $(eId);
+      
+
+  //     if (el[0]) {
+  //       var width = el[0].getBoundingClientRect().width;
+  //       //console.log(eId,el, el[0].getBoundingClientRect());
+  //       return width - 84 + 'px';
+  //     }
+  //     else {
+  //       return '100%';
+  //     }
+  //   }
+  //   else {
+  //     return '100%';
+  //   }
+  // }
+
   a_doKeyDown(key: number, event: any) {
     let c = event.key;
-    if (key == 12) this.setFocus();
+    if (key == this.values_.size-1) this.setFocus();
   }
 
   doKeyUp(event: any) {
@@ -105,7 +127,8 @@ export class InputDropdownComponent implements OnInit {
   setPosition(isFilter: boolean) {
     let dialog = $('#dropdown-dialog-' + this.id);
 
-    let el = $('#dropdown-button-' + this.id);
+    //let el = $('#dropdown-button-' + this.id);
+    let el = $('#dropdown-group-' + this.id);
 
     var leftPos =
       el[0].getBoundingClientRect().left + $(window)['scrollLeft']();
@@ -122,7 +145,8 @@ export class InputDropdownComponent implements OnInit {
       rowHeight * Math.min(this.values_.countInFilter, rowsToShow) +
       this.searchInputHeight;
     this.maxHeight =
-      rowHeight * Math.min(this.values_.size, rowsToShow) + this.searchInputHeight;
+      rowHeight * Math.min(this.values_.size, rowsToShow) +
+      this.searchInputHeight;
 
     let lowest = $(window).height() - this.maxHeight;
 

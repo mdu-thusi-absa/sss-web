@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-button-caret',
@@ -7,7 +8,13 @@ import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 })
 export class ButtonCaretComponent implements OnInit {
   @Input() isDown = true;
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() target = '';
 
   @Output() onClick = new EventEmitter();

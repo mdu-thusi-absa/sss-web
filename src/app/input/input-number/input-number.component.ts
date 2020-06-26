@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-number',
@@ -6,7 +7,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./input-number.component.css'],
 })
 export class InputNumberComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() placeholder = '';
   @Input() filterText = '';
   @Input() doHideByFilter = false;

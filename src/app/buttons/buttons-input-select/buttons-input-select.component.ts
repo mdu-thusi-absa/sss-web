@@ -7,6 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-buttons-input-select',
@@ -14,7 +15,13 @@ import {
   styleUrls: ['./buttons-input-select.component.css'],
 })
 export class ButtonsInputSelectComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
 
   @Output() onEdit = new EventEmitter();
   @Output() onAdd = new EventEmitter();

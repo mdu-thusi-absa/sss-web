@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/data.service';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-input-schedule',
@@ -8,7 +9,13 @@ import { DataService } from 'src/app/data.service';
 })
 export class InputScheduleComponent implements OnInit {
   @Input() isNarrow = false;
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() stepNumber = 0;
   @Input() hideBody = true;
   constructor(public data: DataService) { }

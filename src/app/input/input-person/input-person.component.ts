@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { NaturalEntity, Entities, EveryEntity } from '../../models';
+import { NaturalEntity, Entities, EveryEntity, Entity } from '../../models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -16,7 +16,13 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./input-person.component.css'],
 })
 export class InputPersonComponent implements OnInit {
-  @Input() title = '';
+  title_ = '';
+  @Input () set title(v: string){
+    this.title_ = Entity.sentanceCase(v);
+  }
+  get title(){
+    return this.title_;
+  }
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() disabled = false;
