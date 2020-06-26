@@ -77,8 +77,10 @@ export class EntitiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.entityTypeNames = this.data.entityTypes;
-    this.entityTypesPlural = this.data.getEntityTypesPlural();
+    // this.entityTypeNames = this.data.entityTypes;
+    // this.entityTypesPlural = this.data.getEntityTypesPlural();
+    this.entityTypeNames = this.data.dashboards;
+    this.entityTypesPlural = this.data.dashboardsPlural;
     this.loadEntities();
     this.doEntityTypeChange(this.entityType);
     this.setCounts();

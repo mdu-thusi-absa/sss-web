@@ -33,6 +33,7 @@ import {
   jsonMeetings,
   jsonAttendees,
   jsonTemplates,
+  jsonDashboardsPlural,
 } from './data-json/data-json.module';
 
 @Injectable({
@@ -44,8 +45,9 @@ export class DataService {
   persons = new Entities<NaturalEntity>(NaturalEntity);
   functionalEntities: Entities<EveryEntity>;
   dashboards = new Entities<Entity>(Entity);
+  dashboardsPlural = new Entities<Entity>(Entity);
   entityTypes = new Entities<Entity>(Entity);
-  entityTypesPlural = new Entities<Entity>(Entity);
+  
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
   files = new Entities<FileEntity>(FileEntity);
@@ -58,7 +60,6 @@ export class DataService {
 
   constructor() {
     this.loadStatic();
-    this.makeDashboards();
     this.makeCountries();
     this.makeCompanies();
     this.makeIndividuals();
@@ -67,8 +68,9 @@ export class DataService {
   }
 
   loadStatic() {
+    this.dashboards.fromJSON(jsonDashboards);
+    this.dashboardsPlural.fromJSON(jsonDashboardsPlural);
     this.entityTypes.fromJSON(jsonEntityTypes);
-    this.entityTypesPlural.fromJSON(jsonEntityTypesPlural);
     this.months.fromJSON(jsonMonths);
     this.periods.fromJSON(jsonPeriods);
     this.businessDivisions.fromJSON(jsonDivisions);
@@ -84,11 +86,6 @@ export class DataService {
     this.persons.fromJSON(jsonIndividuals);
   }
 
-  makeDashboards() {
-    this.dashboards.fromJSON(jsonDashboards);
-
-    //this.companies.sort();
-  }
   makeCompanies() {
     this.companies.fromJSON(jsonCompanies, 1000);
     //this.companies.sort();
@@ -680,10 +677,6 @@ export class DataService {
 
   getEntityTypes() {
     return this.entityTypes;
-  }
-
-  getEntityTypesPlural() {
-    return this.entityTypesPlural;
   }
 
   //Business Area

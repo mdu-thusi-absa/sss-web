@@ -64,6 +64,22 @@ export const jsonDivisions = `[
 export const jsonDashboards = `[
   {"name":"Dashboard","tasksCount":28,"isActive":true},
   {"name":"Search","tasksCount":20,"isActive":true},
+  {"name":"Company","tasksCount":13,"isActive":true},
+  {"name":"Individual","tasksCount":12,"isActive":true},
+  {"name":"User","tasksCount":17,"isActive":true},
+  {"name":"Group","tasksCount": 25,"isActive":true},
+  {"name":"Trust", "tasksCount": 0,"isActive":true},
+  {"name":"Regulator","tasksCount": 0,"isActive":true},
+  {"name":"Regulation","tasksCount": 0,"isActive":true},
+  {"name":"Auditor","tasksCount": 3,"isActive":true},
+  {"name":"Secretariat","tasksCount": 0,"isActive":true},
+  {"name":"Template","tasksCount": 0,"isActive":true},
+  {"name":"Setting","tasksCount": 0,"isActive":true}
+]`;
+
+export const jsonDashboardsPlural = `[
+  {"name":"Dashboard","tasksCount":28,"isActive":true},
+  {"name":"Search","tasksCount":20,"isActive":true},
   {"name":"Companies","tasksCount":13,"isActive":true},
   {"name":"Individuals","tasksCount":12,"isActive":true},
   {"name":"Users","tasksCount":17,"isActive":true},
@@ -93,8 +109,6 @@ export const jsonMonths = `[
 ]`
 
 export const jsonEntityTypes = `[
-  {"name":"Dashboard"},
-  {"name":"Search"},
   {"name":"Company"},
   {"name":"Individual"},
   {"name":"User"},
@@ -103,14 +117,10 @@ export const jsonEntityTypes = `[
   {"name":"Regulator"},
   {"name":"Regulation"},
   {"name":"Auditor"},
-  {"name":"Secretariat"},
-  {"name":"Template"},
-  {"name":"Setting"}
+  {"name":"Secretariat"}
 ]`;
 
 export const jsonEntityTypesPlural = `[
-  {"name":"Dashboards"},
-  {"name":"Search"},
   {"name":"Companies"},
   {"name":"Individuals"},
   {"name":"Users"},
@@ -119,9 +129,7 @@ export const jsonEntityTypesPlural = `[
   {"name":"Regulators"},
   {"name":"Regulations"},
   {"name":"Auditors"},
-  {"name":"Secretariats"},
-  {"name":"Templates"},
-  {"name":"Settings"}
+  {"name":"Secretariats"}
 ]`;
 
 export const jsonPeriods = `[
