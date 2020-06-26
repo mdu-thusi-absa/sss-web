@@ -940,7 +940,7 @@ background-color: rgba(0, 0, 0, 0);
 body,
 .mat-typography {
   margin: 0;
-  font-family: 'customFont', Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
+  font-family: 'customFont', 'Source Sans Pro', Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
 }
 
 body{
