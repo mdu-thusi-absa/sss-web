@@ -170,6 +170,7 @@ export class InputSelectEntityComponent implements OnInit {
         setTimeout((that) => {that.value=-1}, 5, this);
         setTimeout((that) => {that.value=id}, 10, this);
       }
+      this.values.versionUp();
       //this.setItem(this.person);
     } else {
       //new is clicked
@@ -217,6 +218,7 @@ export class InputSelectEntityComponent implements OnInit {
         this.values.del(this.value);
         this.value = this.values.all_keys[0];
         this.onSelect.emit(this.value);
+        this.values.versionUp();
       }
     }
   }

@@ -23,8 +23,10 @@ export class InputDropdownComponent implements OnInit {
   id = '0';
   viewAll = false;
   @Input() title = 'item';
+  sourceValues_: Entities<EveryEntity>;
   @Input() set values(v: Entities<EveryEntity>) {
-    this.values_ = v.clone();
+    this.sourceValues_ = v;
+    this.values_ = this.sourceValues_.clone();
   }
   values_: Entities<EveryEntity>;
   @Input() key = -1;
@@ -39,6 +41,15 @@ export class InputDropdownComponent implements OnInit {
   @Output() onDelete = new EventEmitter();
   @Output() onEdit = new EventEmitter();
   @Output() onAdd = new EventEmitter();
+
+  sourceVersion_ = 0;
+  //refresh values if the source version changes
+  @Input() set sourceVersion(v: number) {
+    if (v!=this.sourceVersion_){
+      this.sourceVersion_ = v;
+      this.values_ = this.sourceValues_.clone();    
+    }
+  }
 
   @ViewChild('inputFilter') inputFilter: ElementRef;
   constructor(public data: DataService) {}

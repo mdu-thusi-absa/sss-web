@@ -602,9 +602,18 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   private filterText_ = '';
   private onlyActive_ = true;
   private countInFilter_ = 0;
+  private version_ = 0;
 
   constructor(private EntityType) {
     super();
+  }
+
+  get version(){
+    return this.version_
+  }
+  //increment version
+  versionUp(){
+    this.version_ +=1;
   }
 
   clone(){

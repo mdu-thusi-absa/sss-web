@@ -171,6 +171,7 @@ export class InputPersonComponent implements OnInit {
         setTimeout((that) => {that.value=id}, 10, this);
       }
       //this.setItem(this.person);
+      this.values.versionUp();
     } else {
       //new is clicked
       this.isAdd = true;
@@ -213,6 +214,7 @@ export class InputPersonComponent implements OnInit {
       if (r) {
         this.values.delete(this.value);
         this.value = [...this.values.keys()][0];
+        this.values.versionUp();
       }
     }
   }
