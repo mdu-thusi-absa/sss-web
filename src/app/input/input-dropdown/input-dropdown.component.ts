@@ -81,6 +81,7 @@ export class InputDropdownComponent implements OnInit {
     // }
   }
 
+  maxHeight = 187;
   setPosition() {
     let el = $('#dropdown-button-' + this.id);
 
@@ -93,9 +94,21 @@ export class InputDropdownComponent implements OnInit {
       el[0].getBoundingClientRect().bottom + $(window)['scrollTop']();
 
     let dialog = $('#dropdown-dialog-' + this.id);
-
+    console.log($(window).height());
+    
+    
+    if (this.values.size>4){
+      //this.maxHeight = 185
+    }else{
+      this.maxHeight = 27.33 * this.values.size + 8;
+    }
+    let lowest = $(window).height() - this.maxHeight;
+    let top = topPos;
+    if (lowest<topPos) {
+      top = bottomPos - this.maxHeight;
+    }
     dialog[0].style.left = leftPos + 'px';
-    dialog[0].style.top = bottomPos + 'px';
+    dialog[0].style.top = top + 'px';
     dialog[0].style.width = rightPos - leftPos + 'px';
   }
 
