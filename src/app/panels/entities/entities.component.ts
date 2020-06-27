@@ -32,7 +32,7 @@ export class EntitiesComponent implements OnInit {
   showActiveOnly = true;
   isHiddenMap = new Map();
   mapEntityTypes = new Map();
-  @Output() onEntityTypeChange = new EventEmitter();
+  @Output() onDashboardChange = new EventEmitter();
   @Output() onEntityChange = new EventEmitter();
   selectedEntityKey: number;
   countFiltered = 0;
@@ -104,7 +104,7 @@ export class EntitiesComponent implements OnInit {
     this.entityTypeName = this.entityTypeNames
       .get(this.entityType)
       .name.toLowerCase();
-    this.onEntityTypeChange.emit(this.entityType);
+    this.onDashboardChange.emit(this.entityType);
     this.calcIsHidden();
     this.setCounts();
     //select first visible element

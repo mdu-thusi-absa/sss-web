@@ -210,7 +210,7 @@
   </select> -->
 </div>
 
-<div [hidden]="!showInputFilter" style="margin-top:1px">
+<div [hidden]="!showInputFilter" [style.margin-top]="showList?'0px':'1px'">
   <div class="input-group input-group-sm">
     <span
       *ngIf="showA"

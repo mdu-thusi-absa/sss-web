@@ -54,13 +54,17 @@ export class EntityDetailsComponent implements OnInit {
     console.log('test');
   }
 
-  @Input() set entityType(v: number){
-    this.entityType_ = v;
+  dashboardKey_ = 0;
+  @Input() set dashboardKey(v: number){
+    this.dashboardKey_ = v;
+    this.entityType_ = v - 2;
   }
 
   get entityTypeName(): string{
+    // console.log(this.entityType_);
+    
     if (this.entityType_ != this.entityType_T){
-      this.entityTypeName_ = this.entityTypes.get(this.entityType_).name.toLowerCase();
+      this.entityTypeName_ = this.data.dashboards.get(this.dashboardKey_).name.toLowerCase();
       this.entityType_T = this.entityType_;
     }
     return this.entityTypeName_;

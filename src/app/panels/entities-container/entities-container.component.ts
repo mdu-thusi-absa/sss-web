@@ -17,13 +17,13 @@ export class EntitiesContainerComponent implements OnInit {
   ngOnInit(): void {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
     this.showFileFields = [];
-    this.entityTypes = this.data.entityTypes;
+    this.dashboards = this.data.dashboards;
     if (this.data.lg)
       console.log(new Date().getTime(), 'loaded:entities-container');
     this.data.progress += 1;
   }
 
-  entityTypes: Entities<EveryEntity>;
+  dashboards: Entities<EveryEntity>;
   title = 'SSS';
   name: string = 'Max';
 
@@ -56,7 +56,7 @@ export class EntitiesContainerComponent implements OnInit {
   hideMeetings = true;
   hideReminders = true;
 
-  entityType = 0;
+  dashboardKey = 0;
   entityKey = 0;
 
   isPageLoaded: string[] = [];
@@ -166,12 +166,14 @@ export class EntitiesContainerComponent implements OnInit {
     if (isPageLoaded.indexOf(key) == -1) isPageLoaded.push(key);
   }
 
-  get entityTypeName(): string {
-    return this.entityTypes.get(this.entityType).name.toLowerCase();
+  get dashboardName(): string {
+    return this.dashboards.get(this.dashboardKey).name.toLowerCase();
   }
 
-  doEntityTypeChange(event: any) {
-    this.entityType = +event;
+  doDashboardChange(event: any) {
+    console.log(event);
+    
+    this.dashboardKey = +event;
   }
 
   doEntityChange(event: any) {
