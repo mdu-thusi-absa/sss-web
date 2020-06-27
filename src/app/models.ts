@@ -629,9 +629,29 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   private onlyActive_ = true;
   private countInFilter_ = 0;
   private version_ = 0;
+  private firstKey_ = -1;
+  private lastKey_ = -1;
+  private firstKeyInFilter_ = -1;
+  private lastKeyInFilter_ = -1;
 
   constructor(private EntityType) {
     super();
+  }
+
+  get firstKey(){
+    return this.firstKey_;
+  }
+
+  get lastKey(){
+    return this.lastKey_;
+  }
+
+  get firstKeyInFilter(){
+    return this.firstKeyInFilter_==-1?this.firstKey:this.firstKeyInFilter_;
+  }
+
+  get lastKeyInFilter(){
+    return this.lastKeyInFilter_==-1?this.lastKey:this.lastKeyInFilter_;
   }
 
   get version() {
@@ -645,7 +665,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   clone() {
     let e = new Entities<T>(this.EntityType);
     this.forEach((value, key, map) => {
-      e.set(key, value);
+      e.add(value,key);
     });
     return e;
   }
@@ -667,9 +687,11 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
       if (value.inFilter(this.filterText_, this.onlyActive_)) {
         let a = this.createEntity();
         a = Object.assign(a, value);
-        ets.add(a);
+        ets.add(a,key);
         this.inFilterMap.set(key, true);
         this.countInFilter_ += 1;
+        if (this.firstKeyInFilter_ == -1) this.firstKeyInFilter_ = key;
+        this.lastKeyInFilter_ = key;
       } else {
         this.inFilterMap.set(key, false);
       }
@@ -690,7 +712,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   json() {
     return this.all_keys.toString();
-    return JSON.stringify(this);
+    //return JSON.stringify(this);
   }
 
   createEntity() {
@@ -751,8 +773,12 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     return this.currentValue_;
   }
 
-  add(value: T): Entities<T> {
-    super.set(super.size, value);
+  add(value: T, existingKey = -1): Entities<T> {
+    let key = existingKey;
+    if (existingKey==-1) key = super.size;
+    if (this.firstKey_==-1) this.firstKey_ = key;
+    this.lastKey_ = key;
+    super.set(key, value);
     return this;
   }
 

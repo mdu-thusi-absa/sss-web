@@ -52,6 +52,9 @@ export class InputDropdownComponent implements OnInit {
   }
 
   @ViewChild('inputFilter') inputFilter: ElementRef;
+  //dynamic ViewChild?
+  //let el = $('#dropdown-group-' + this.id);
+  //@ViewChild('dropdown-item-' + this.id + '-' + this.values) firstItem: ElementRef;
   constructor(public data: DataService) {}
 
   ngOnInit(): void {
@@ -83,41 +86,41 @@ export class InputDropdownComponent implements OnInit {
     }
   }
 
-  // get aWidth() {
-  //   //'dropdown-input-group-' + id
-
-  //   if (this.showDelete || this.showEdit || this.showAdd) {
-  //     let eId = '#dropdown-input-group-' + this.id;
-  //     let el = $(eId);
-      
-
-  //     if (el[0]) {
-  //       var width = el[0].getBoundingClientRect().width;
-  //       //console.log(eId,el, el[0].getBoundingClientRect());
-  //       return width - 84 + 'px';
-  //     }
-  //     else {
-  //       return '100%';
-  //     }
-  //   }
-  //   else {
-  //     return '100%';
-  //   }
-  // }
-
   a_doKeyDown(key: number, event: any) {
     let c = event.key;
-    if (key == this.values_.size-1) this.setFocus();
-  }
 
-  doKeyUp(event: any) {
-    if (event.key === 'Escape') {
-      //this.value = this.defaultValue;
+    if (c == 'Tab') {
+      if (this.dropUp) {
+        if (key == this.values_.lastKeyInFilter) {
+          this.setFocus(event);
+        }
+      } else {
+        if (key == this.values_.lastKeyInFilter) {
+          if (this.values_.size < 6) {
+            this.setFocusItem(event, this.values_.firstKeyInFilter);
+          } else {
+            this.setFocus(event);
+          }
+        }
+      }
+    } else if (c == 'Escape') {
       this.filterText = '';
     }
-    // else if (event.key === 'Enter') {
-    //   this.doSave();
-    // }
+  }
+
+  doSearchKeyUp(event: any) {
+    if (event.key === 'Escape') {
+      this.filterText = '';
+    } else if (event.key === 'Tab') {
+    }
+  }
+
+  doSearchKeyDown(event: any) {
+    if (event.key === 'Tab') {
+      if (this.dropUp) {
+        this.setFocusItem(event, this.values_.firstKeyInFilter);
+      }
+    }
   }
 
   maxHeight = 175.5;
@@ -183,12 +186,25 @@ export class InputDropdownComponent implements OnInit {
     this.viewAll = true;
     this.showDrop = true;
     this.setPosition(false);
-    this.setFocus();
+    this.setFocus(event);
   }
 
-  setFocus() {
+  setFocus(event: any) {
+    if (this.values_.size < 6) {
+      this.setFocusItem(event, this.values_.firstKeyInFilter);
+    } else {
+      setTimeout(() => {
+        this.inputFilter.nativeElement.focus();
+      }, 0);
+    }
+    event.preventDefault();
+  }
+
+  setFocusItem(event: any, key: number) {
     setTimeout(() => {
-      this.inputFilter.nativeElement.focus();
+      document.getElementById('dropdown-item-' + this.id + '-' + key).focus();
     }, 0);
+    event.preventDefault();
+
   }
 }
