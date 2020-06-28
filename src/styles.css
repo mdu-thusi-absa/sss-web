@@ -932,15 +932,15 @@ background-color: rgba(0, 0, 0, 0);
   background-color: var(--color-bright) !important;
 }
 
-@font-face {
+/* @font-face {
   font-family: customFont;
   src: url(assets/fonts/SourceSansPro-Regular.otf) format("opentype");
-}
+} */
 
 body,
 .mat-typography {
   margin: 0;
-  font-family: 'customFont', 'Source Sans Pro', Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
+  font-family: 'Source Sans Pro', Roboto, "brave-sans", "BraveSans", "Brave Sans", Arial,sans-serif;
 }
 
 body{

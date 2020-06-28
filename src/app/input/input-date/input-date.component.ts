@@ -8,10 +8,10 @@ import { Entity } from 'src/app/models';
 })
 export class InputDateComponent implements OnInit {
   title_ = '';
-  @Input () set title(v: string){
+  @Input() set title(v: string) {
     this.title_ = Entity.sentanceCase(v);
   }
-  get title(){
+  get title() {
     return this.title_;
   }
   @Input() filterText = '';
@@ -33,41 +33,52 @@ export class InputDateComponent implements OnInit {
   @Input() inline = false;
   @Input() showTitle = true;
 
-  doFile(){
+  doKeyDown(event: any) {
+    let c = event.key;
+    console.log(c);
+    if (c == 'Tab' ) {
+    }else if( c == 'Enter'){
+      // document.getElementById('dpDate').toggle();
+    } else{
+      return false;
+    }
+  }
+
+  doFile() {
     this.onFile.emit(this.title);
   }
-  doRecord(){
+  doRecord() {
     this.onFile.emit(this.title);
   }
-  doTask(){
+  doTask() {
     this.onTask.emit(this.title);
   }
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  hideByFilter(){
+  hideByFilter() {
     if (!this.doHideByFilter) return false;
-    else return (
-      this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
-    );
+    else
+      return (
+        this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
+      );
   }
 
-  gotoToday(){
+  gotoToday() {
     this.value = new Date();
   }
 
-  get value_(){
+  get value_() {
     return this.value;
   }
 
-  set value_(v){
-    this.value = v
-    this.onChange.emit(this.value)
+  set value_(v) {
+    this.value = v;
+    this.onChange.emit(this.value);
   }
 
-  doChange(){
-    this.onChange.emit(this.value)
+  doChange() {
+    this.onChange.emit(this.value);
   }
 }

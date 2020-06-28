@@ -49,7 +49,8 @@
         (change)="doChange()"
         (onchange)="doChange()"
         (onchangeDate)="doChange()"
-        onkeydown="return false"
+        readonly
+        (keydown) = "$event.key == 'Enter'? dpDate.toggle():''"
       />
       <span
         *ngIf="!disabled"

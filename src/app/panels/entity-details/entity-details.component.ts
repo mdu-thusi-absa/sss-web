@@ -30,8 +30,8 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideReminders = false;
   persons: Entities<NaturalEntity>;
   @Input() panelRows = 1;
-  entityType_ = 0;
-  entityType_T = 0;
+  entityType_ = -1;
+  entityType_T = -2;
   entityTypeName_ = '';
   @Input() entityTypes =this.data.entityTypes
   @Input() entityKey = -1;
