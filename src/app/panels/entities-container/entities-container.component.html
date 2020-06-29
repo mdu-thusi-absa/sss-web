@@ -331,6 +331,17 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
+                <app-buttons-toggle
+                  [title]="'Reports'"
+                  [placeholder]="'Reports page'"
+                  [dataTarget]="'#page-reports'"
+                  [matIcon]="'print'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideReports"
+                  (onToggle)="hideReports = !hideReports"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
               </div>
               <span
                 [style.display]="
@@ -341,7 +352,8 @@
                   hideCustom &&
                   hideDetailFiles &&
                   hideMeetings &&
-                  hideReminders
+                  hideReminders &&
+                  hideReports
                     ? 'inherit'
                     : 'none'
                 "
@@ -450,6 +462,7 @@
                 [hideContacts]="hideContacts"
                 [hideMeetings]="hideMeetings"
                 [hideReminders]="hideReminders"
+                [hideReports] = "hideReports"
                 [isNarrow]="showPanelRight"
                 [dashboardKey]="dashboardKey"
                 [entityKey]="entityKey"

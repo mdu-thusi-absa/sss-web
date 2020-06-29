@@ -55,6 +55,7 @@ export class EntitiesContainerComponent implements OnInit {
   hideHeader = true;
   hideMeetings = true;
   hideReminders = true;
+  hideReports = true;
 
   dashboardKey = 0;
   entityKey = 0;
@@ -108,7 +109,8 @@ export class EntitiesContainerComponent implements OnInit {
       !this.hideContacts &&
       !this.hideHeader &&
       !this.hideMeetings &&
-      !this.hideReminders
+      !this.hideReminders &&
+      !this.hideReports
     );
   }
 

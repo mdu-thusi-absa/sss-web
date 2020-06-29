@@ -11,7 +11,7 @@
     class="btn primary-color btn-hover"
     [class.btn-xs] = "showSmall"
     [class.a-small] = "showSmall"
-    [style.display]="value ? 'inline-block' : 'none'"
+    
     (click)="doChange()"
     [class.disabled] = "disabled"
   >
@@ -19,10 +19,10 @@
       [class.mat-icon-small]="showSmall"
       aria-hidden="true"
       aria-label="Entities"
-      >done_outline</mat-icon
+      >{{value?'done_outline':''}}</mat-icon
     >
   </a>
-  <a
+  <!-- <a
     href="#"
     class="btn primary-color btn-hover"
     [class.btn-xs] = "showSmall"
@@ -36,7 +36,8 @@
       aria-hidden="true"
       aria-label="Entities"
     ></mat-icon>
-  </a><label
+  </a> -->
+  <label
     [hidden]="noTitle"
     style="vertical-align: middle;overflow-x: hidden;display:inline-block;white-space: nowrap;"
     [style.padding-left] = "noTitle?'0px':'5px'"

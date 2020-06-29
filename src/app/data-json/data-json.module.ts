@@ -49,6 +49,14 @@ export const jsonMeetings = `[
   {"dateTime":"2020-11-12","name":"Testing","description":"User testing"}
 ]`;
 
+export const jsonReports = `[
+  {"dateTime":"2020-05-12 12:30","name":"Organogram","description":"Structure of holdings"},
+  {"dateTime":"2020-06-12","name":"Regisry","description":"Directors registry"},
+  {"dateTime":"2020-07-12","name":"CIPC 14","description":"CIPC form form..."},
+  {"dateTime":"2020-08-12","name":"CIPC 15","description":"CIPC form form..."},
+  {"dateTime":"2020-09-12","name":"CIPC 39","description":"CIPC form form..."}
+]`;
+
 export const jsonCompanyStatus = `[
   {"name":"Active"},{"name":"Nontrading"},{"name":"Dormant, passively trading"},{"name":"Deregistered"}
 ]`;

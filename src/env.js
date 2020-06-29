@@ -2,7 +2,7 @@
     window.__env = window.__env || {};
   
     // API url
-    window.__env.apiUrl = 'http://dev.your-api.com';
+    window.__env.apiUrl = 'http://webapi.server.com';
     window.__env.version = '0.463';
   
     // Whether or not to enable debug mode

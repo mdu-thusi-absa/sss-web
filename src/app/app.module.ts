@@ -90,6 +90,7 @@ import { InputReminderComponent } from './input/input-reminder/input-reminder.co
 import { PanelGlogalSearchComponent } from './panels/panel-glogal-search/panel-glogal-search.component';
 import { InputSelectCheckboxDuoComponent } from './input/input-select-checkbox-duo/input-select-checkbox-duo.component';
 import { InputDropdownComponent } from './input/input-dropdown/input-dropdown.component';
+import { EntityReportsComponent } from './panels/entity-reports/entity-reports.component';
 
 
 
@@ -174,6 +175,7 @@ import { InputDropdownComponent } from './input/input-dropdown/input-dropdown.co
     PanelGlogalSearchComponent,
     InputSelectCheckboxDuoComponent,
     InputDropdownComponent,
+    EntityReportsComponent,
     
   ],
   imports: [

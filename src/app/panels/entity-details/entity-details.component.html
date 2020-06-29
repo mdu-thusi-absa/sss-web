@@ -422,6 +422,25 @@
         ></app-entity-details-reminders>
       </div>
     </div>
+    <div *ngIf="getIsLoaded('entities', 'reports')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideReports"
+        id="{{ 'page-reports' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-reports
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-reports>
+      </div>
+    </div>
+
     <div
       [hidden]="
         !(
@@ -432,6 +451,7 @@
           hideHeader &&
           hideMeetings &&
           hideReminders &&
+          hideReports &&
           (hideSecondary || (entityTypeName!='company' && entityTypeName!='individual')) && 
           (hideOptional || (entityTypeName!='company'))
         )

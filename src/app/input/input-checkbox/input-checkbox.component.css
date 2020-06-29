@@ -4,9 +4,9 @@
 
 .mat-icon {
   vertical-align: middle;
-  font-size: 16px;
+  font-size: 15px;
   width: 15px;
-  height: 16px;
+  height: 17px;
 }
 
 .mat-icon-small {
@@ -40,3 +40,7 @@ a {
     overflow: hidden;
     white-space: nowrap;
 }
+
+/* .btn:hover{
+
+} */
