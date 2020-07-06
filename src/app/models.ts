@@ -2,10 +2,11 @@ import { Capability } from 'protractor';
 import { MapType } from '@angular/compiler';
 import { EntityMessageComponent } from './panels/entity-message/entity-message.component';
 import { maxHeaderSize } from 'http';
-import { LoginOptions } from 'angular-oauth2-oidc';
+// import { LoginOptions } from 'angular-oauth2-oidc';
 import { etLocale } from 'ngx-bootstrap/chronos';
 
 export class Entity {
+  public id: number = null;
   public type = 'entity';
   public description = '';
   public isActive = false;
@@ -728,6 +729,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
       a = Object.assign(a, array[i]);
+      if (a.id) a.key = a.id;
       this.add(a);
     }
   }

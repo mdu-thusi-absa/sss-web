@@ -88,14 +88,13 @@ export class EntitiesComponent implements OnInit {
     this.data.progress += 1;
   }
 
-
   loadEntities() {
     this.entities = this.data.getFunctionalEntitiesAll();
   }
 
   doEntityTypeChange(event: any) {
     // console.log('doEntityTypeChange',event);
-    
+
     this.isLoadAll = this.isLoadAll || this.entityType != +event;
     this.entityType = +event;
     this.entityTypeNamePlural = this.entityTypesPlural.get(
@@ -114,8 +113,17 @@ export class EntitiesComponent implements OnInit {
         if (this.isHiddenMap.entries()) {
           try {
             let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
-            //this.entities.currentKey = k;
-            this.selectedEntityKey = k;
+            if (
+              this.entityTypeName == 'search' ||
+              this.entityTypeName == 'template' ||
+              this.entityTypeName == 'setting'
+            ) {
+              let t = this.entityTypeNames.size;
+              //this.selectedEntityKey = entityKey % t + 1;
+              this.selectedEntityKey = k + this.entityType;
+            } else {
+              this.selectedEntityKey = k;
+            }
             this.onEntityChange.emit(this.selectedEntityKey);
           } catch (e) {}
         }
@@ -286,12 +294,15 @@ export class EntitiesComponent implements OnInit {
   doEntityChoose(entityKey: number) {
     if (this.entityTypeName == 'dashboard') {
       this.doEntityTypeChange(entityKey);
-    } 
-    else if (this.entityTypeName == 'search' || this.entityTypeName == 'template' || this.entityTypeName == 'setting'){
-      let t = this.entityTypeNames.size
+    } else if (
+      this.entityTypeName == 'search' ||
+      this.entityTypeName == 'template' ||
+      this.entityTypeName == 'setting'
+    ) {
+      let t = this.entityTypeNames.size;
+      //this.selectedEntityKey = entityKey % t + 1;
       this.doEntityTypeChange(entityKey % t);
-    }
-    else {
+    } else {
       this.selectedEntityKey = entityKey;
       this.onEntityChange.emit(this.selectedEntityKey);
     }

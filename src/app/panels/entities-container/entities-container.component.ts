@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Entities, EveryEntity } from 'src/app/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
-import { MatCardModule } from '@angular/material/card';
-import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
+// import { MatCardModule } from '@angular/material/card';
+// import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 import { EnvService } from 'src/app/env.service';
+import { version } from 'package.json';
 
 @Component({
   selector: 'app-entities-container',
@@ -26,6 +27,7 @@ export class EntitiesContainerComponent implements OnInit {
   dashboards: Entities<EveryEntity>;
   title = 'SSS';
   name: string = 'Max';
+  public appVersion: string = version;
 
   showPanelRight = false;
   hidePosts = true;
@@ -120,7 +122,7 @@ export class EntitiesContainerComponent implements OnInit {
 
   expandContractAllPages() {
     let needToHide = this.pagesAreExpanded;
-    let btns = ['hideHeader','hidePrimary','hideSecondary','hideOptional', 'hideCustom', 'hideDetailFiles', 'hideContacts', 'hideMeetings', 'hideReminders'];
+    let btns = ['hideHeader','hidePrimary','hideSecondary','hideOptional', 'hideContacts', 'hideCustom', 'hideDetailFiles', 'hideMeetings', 'hideReminders','hideReports'];
     for (let i=0;i<btns.length;i++){
       setTimeout(this.setHidePage, (i+1)*3, this, btns[i], needToHide);
     }
@@ -173,7 +175,7 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   doDashboardChange(event: any) {
-    console.log(event);
+    //console.log(event);
     
     this.dashboardKey = +event;
   }

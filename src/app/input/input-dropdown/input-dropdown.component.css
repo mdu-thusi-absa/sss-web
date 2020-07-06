@@ -101,3 +101,7 @@ a:focus {
 .form-control {
   height: 28px;
 }
+
+a:focus{
+  outline: 1px solid var(--color-bright);
+}

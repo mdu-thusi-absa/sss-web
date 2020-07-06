@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
-import { authConfig } from './sso.config';
+// import { OAuthService } from 'angular-oauth2-oidc';
+// import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+// import { authConfig } from './sso.config';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   rdoMenu = 'Legal Entities';
   isLogedIn = true;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(){
+  //constructor(private oauthService: OAuthService) {
     // this.configureSingleSignOn();
   }
 
@@ -51,10 +52,10 @@ export class AppComponent implements OnInit {
   // }
 
   login() {
-    this.oauthService.initImplicitFlow();
+    // this.oauthService.initImplicitFlow();
   }
 
   logout() {
-    this.oauthService.logOut();
+    // this.oauthService.logOut();
   }
 }

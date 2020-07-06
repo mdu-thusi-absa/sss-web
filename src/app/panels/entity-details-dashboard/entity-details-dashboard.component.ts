@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity, Entities, EveryEntity, NaturalEntity } from '../../models'
 import { DataService } from 'src/app/data.service';
 
+
 @Component({
   selector: 'app-entity-details-dashboard',
   templateUrl: './entity-details-dashboard.component.html',
@@ -11,6 +12,7 @@ export class EntityDetailsDashboardComponent implements OnInit {
   filterText = '';
   isCountryInput = false;
   isPositionInput = false;
+  
   @Input() isNarrow = false;
   @Input() hidePrimary = false;
   @Input() hideSecondary = false;

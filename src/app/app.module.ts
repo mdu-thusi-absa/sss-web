@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { EnvServiceProvider } from './env.service.provider';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { OAuthModule } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+// import { OAuthModule } from 'angular-oauth2-oidc';
+// import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -184,7 +184,7 @@ import { EntityReportsComponent } from './panels/entity-reports/entity-reports.c
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     HttpClientModule,
-    OAuthModule.forRoot(),
+    // OAuthModule.forRoot(),
     MaterialModule
   ],
   providers: [EnvServiceProvider],

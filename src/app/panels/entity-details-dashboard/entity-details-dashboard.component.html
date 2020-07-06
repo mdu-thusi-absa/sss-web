@@ -1,11 +1,56 @@
 <app-input-filter-add
   [title]="'Dashboard'"
-  [titlePlural] = "'Dashboard'"
+  [titlePlural]="'Dashboard'"
   [showT]="true"
   (onFilter)="doFilter($event)"
   [titleT]="'field values'"
 ></app-input-filter-add>
 
+<!-- <svg class="bi" width="32" height="32" fill="currentColor">
+  <use xlink:href="bootstrap-icons.svg#heart-fill"/>
+</svg>-->
+<!-- <img
+  src="/assets/icons/heart.svg"
+  class="primary-color text-primary"
+  style="color: red;fill:yellow"
+  alt=""
+  width="32"
+  height="32"
+  title="Bootstrap"
+  fill="yellow"
+/>
+<svg
+  style="
+    background-position: center;
+    background-color: white;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    color: red;
+    fill: yellow;
+  "
+  fill="yellow"
+  
+><path src='/assets/icons/heart.svg'></path></svg>
+<object data="/assets/icons/heart.svg" type="image/svg+xml" style="fill:red;color:yellow"  fill="yellow">h</object>
+<img src="/assets/icons/heart.svg" style="fill:red;color:white;background-color: blue;" fill="yellow">
+d
+<div style="
+  background-image: url('/assets/icons/heart.svg');
+  color:yellow;fill:red;
+"
+fill="yellow"
+></div> -->
+<!-- e
+<svg viewBox="0 0 100 100"  fill="yellow">
+  <use xlink:href="/assets/icons/heart.svg"></use>
+</svg> -->
+<!-- f
+<svg class="bi text-success" width="32" height="32" fill="yellow">
+  <use src="/assets/icons/alarm.svg"/>
+</svg>
+g -->
 <!-- <app-test-material></app-test-material> -->
 
 <form autocomplete="off">
@@ -13,9 +58,8 @@
     [class.settings-detail-form-full]="isFullScreen()"
     [class.settings-detail-form-half]="isHalfScreen()"
   >
-
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: tasks in progress</u>
+      Dashboard: tasks in progress
     </div>
     <!-- <app-input-duo
   [filterText]="filterText"
@@ -32,27 +76,27 @@
 </app-input-duo> -->
     <hr />
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: incomplete entities</u>
+      Dashboard: incomplete entities
     </div>
     <hr />
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: incomplete companies</u>
+      Dashboard: incomplete companies
     </div>
     <hr />
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: incomplete individuals</u>
+      Dashboard: incomplete individuals
     </div>
     <hr />
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: incomplete users</u>
+      Dashboard: incomplete users
     </div>
     <hr />
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: incomplete groups</u>
+      Dashboard: incomplete groups
     </div>
     <hr />
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Dashboard: upcoming tasks</u>
+      Dashboard: upcoming tasks
     </div>
     <hr />
     <!-- 
@@ -153,7 +197,7 @@
 <div style="padding-bottom: 5px;"> </div>
     <hr>
     <div class="text-primary-h4" style="margin-top: 5px;">
-      <u>Settings: Contact Details</u>
+      Settings: Contact Details
     </div>
 
     <app-input-person-contact
