@@ -58,9 +58,10 @@ g -->
     [class.settings-detail-form-full]="isFullScreen()"
     [class.settings-detail-form-half]="isHalfScreen()"
   >
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <!-- <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: tasks in progress
-    </div>
+    </div> -->
+    <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="true"></app-label-h>
     <!-- <app-input-duo
   [filterText]="filterText"
   [isNarrow]="isNarrow"
@@ -74,31 +75,34 @@ g -->
   [showCheckRight]="true"
 >
 </app-input-duo> -->
-    <hr />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+   
+    <!-- <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete entities
     </div>
-    <hr />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <hr /> -->
+    <app-label-h [title]="'Dashboard: incomplete entities'" [hr]="true"></app-label-h>
+    <app-label-h [title]="'Dashboard: upcoming tasks'" [hr]="true"></app-label-h>
+<!--     
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete companies
     </div>
     <hr />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete individuals
     </div>
     <hr />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete users
     </div>
     <hr />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete groups
     </div>
     <hr />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: upcoming tasks
     </div>
-    <hr />
+    <hr /> -->
     <!-- 
     <app-input-duo
       [isNarrow]="isNarrow"
@@ -196,7 +200,7 @@ g -->
     ></app-input-duo>
 <div style="padding-bottom: 5px;"> </div>
     <hr>
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Settings: Contact Details
     </div>
 

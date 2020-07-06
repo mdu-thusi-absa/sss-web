@@ -14,7 +14,7 @@
     [class.settings-detail-form-half]="isHalfScreen()"
   >
   <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" />
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <div class="text-primary-h 4" style="margin-top: 5px;">
       Settings: Miscellaneous
     </div>
   <app-input-duo
@@ -33,10 +33,10 @@
       
     ></app-input-duo> -->
     <!-- <hr class="text-primary-bold" style="height: 1px; margin: 0px;" /> -->
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <!-- <div class="text-primary-h 4" style="margin-top: 5px;">
       Settings: maintain lists and select defaults
-    </div>
-
+    </div> -->
+    <app-label-h [title]="'Settings: maintain lists and select defaults'"></app-label-h>
     <app-input-duo
       [isNarrow]="isNarrow"
       [typeLeft]="'select-entity'"
@@ -133,10 +133,10 @@
     ></app-input-duo>
 <div style="padding-bottom: 5px;"> </div>
     <hr>
-    <div class="text-primary-h4" style="margin-top: 5px;">
+    <!-- <div class="text-primary-h 4" style="margin-top: 5px;">
       Settings: contact details
-    </div>
-
+    </div> -->
+    <app-label-h [title]="'Settings: contact details'"></app-label-h>
     <app-input-person-contact
       [title]="'Super User Contact Details'"
     ></app-input-person-contact>

@@ -1,6 +1,7 @@
-<div class="text-primary-h4" style="margin-top: 5px;" [hidden]="!showTitle">
-  File Details: {{ title }}
-</div>
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;" [hidden]="!showTitle">
+  File details: {{ title }}
+</div> -->
+<app-label-h [title]="'File details: ' + title" [hidden]="!showTitle"></app-label-h>
 
 <app-input-table
   [headings]="['Title', 'Description']"

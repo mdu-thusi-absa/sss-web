@@ -1,6 +1,7 @@
-<div class="text-primary-h4" style="margin-top: 5px;" [hidden]="!showTitle">
-    Attendance Details: {{ title }}
-  </div>
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;" >
+    Attendance details: {{ title }}
+  </div> -->
+  <app-label-h [title]="'Attendance details: ' + title " [hidden]="!showTitle"></app-label-h>
   <app-input-table
     [headings]="['Title', 'Attended','Description']"
     [fields]="['name', 'attended','description']"

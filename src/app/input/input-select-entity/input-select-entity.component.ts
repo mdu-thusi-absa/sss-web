@@ -52,6 +52,7 @@ export class InputSelectEntityComponent implements OnInit {
   isAdd = false;
   listFilterText = '';
   isShowingFilter = false;
+  @Input() showSmall = false;
 
   @ViewChild('inputText') inputElement: ElementRef;
   @ViewChild('selectItem') selectItem: ElementRef;

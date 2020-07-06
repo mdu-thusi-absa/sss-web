@@ -1,7 +1,7 @@
-<div class="text-primary-h4" style="margin-top: 5px;">
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
     Reports Details: {{ title }}
-  </div>
-  
+  </div> -->
+  <app-label-h [title]="'Reports Details: ' + title"></app-label-h>
   <app-input-table
     [headings]="['Title', 'Description']"
     [fields]="['name', 'description']"

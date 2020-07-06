@@ -1,7 +1,7 @@
-<div class="text-primary-h4" style="margin-top: 5px;">
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
     Meetings Details: {{ title }}
-  </div>
-  
+  </div> -->
+  <app-label-h [title]="'Meetings Details: ' + title"></app-label-h>
   <app-input-table
     [headings]="['Date/Time','Title', 'Description']"
     [fields]="['dateTime','name', 'description']"

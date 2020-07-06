@@ -76,10 +76,13 @@ export class Entity {
         if (word)
           if (word == word.toUpperCase()) s = s + ' ' + word;
           else {
-            if (i == 0)
+            if (i == 0) {
               s =
                 s + ' ' + word[0].toUpperCase() + word.substr(1).toLowerCase();
-            else {
+            } else if (words[i - 1][words[i - 1].length - 1] === ':') {
+              s =
+                s + ' ' + word[0].toUpperCase() + word.substr(1).toLowerCase();
+            } else {
               s = s + ' ' + word.toLowerCase();
             }
           }
@@ -639,20 +642,22 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     super();
   }
 
-  get firstKey(){
+  get firstKey() {
     return this.firstKey_;
   }
 
-  get lastKey(){
+  get lastKey() {
     return this.lastKey_;
   }
 
-  get firstKeyInFilter(){
-    return this.firstKeyInFilter_==-1?this.firstKey:this.firstKeyInFilter_;
+  get firstKeyInFilter() {
+    return this.firstKeyInFilter_ == -1
+      ? this.firstKey
+      : this.firstKeyInFilter_;
   }
 
-  get lastKeyInFilter(){
-    return this.lastKeyInFilter_==-1?this.lastKey:this.lastKeyInFilter_;
+  get lastKeyInFilter() {
+    return this.lastKeyInFilter_ == -1 ? this.lastKey : this.lastKeyInFilter_;
   }
 
   get version() {
@@ -666,7 +671,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   clone() {
     let e = new Entities<T>(this.EntityType);
     this.forEach((value, key, map) => {
-      e.add(value,key);
+      e.add(value, key);
     });
     return e;
   }
@@ -688,7 +693,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
       if (value.inFilter(this.filterText_, this.onlyActive_)) {
         let a = this.createEntity();
         a = Object.assign(a, value);
-        ets.add(a,key);
+        ets.add(a, key);
         this.inFilterMap.set(key, true);
         this.countInFilter_ += 1;
         if (this.firstKeyInFilter_ == -1) this.firstKeyInFilter_ = key;
@@ -777,8 +782,8 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   add(value: T, existingKey = -1): Entities<T> {
     let key = existingKey;
-    if (existingKey==-1) key = super.size;
-    if (this.firstKey_==-1) this.firstKey_ = key;
+    if (existingKey == -1) key = super.size;
+    if (this.firstKey_ == -1) this.firstKey_ = key;
     this.lastKey_ = key;
     super.set(key, value);
     return this;

@@ -1,7 +1,8 @@
 
-<div class="text-primary-h4" style="margin-top: 5px;">
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
   Contact Details: {{ title }}
-</div>
+</div> -->
+<app-label-h [title]="'Contact Details: ' + title"></app-label-h>
 
 <app-input-person-contact
 [filterText] = "filterText"

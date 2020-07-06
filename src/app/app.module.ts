@@ -91,6 +91,7 @@ import { PanelGlogalSearchComponent } from './panels/panel-glogal-search/panel-g
 import { InputSelectCheckboxDuoComponent } from './input/input-select-checkbox-duo/input-select-checkbox-duo.component';
 import { InputDropdownComponent } from './input/input-dropdown/input-dropdown.component';
 import { EntityReportsComponent } from './panels/entity-reports/entity-reports.component';
+import { LabelHComponent } from './input/label-h/label-h.component';
 
 
 
@@ -176,6 +177,7 @@ import { EntityReportsComponent } from './panels/entity-reports/entity-reports.c
     InputSelectCheckboxDuoComponent,
     InputDropdownComponent,
     EntityReportsComponent,
+    LabelHComponent,
     
   ],
   imports: [

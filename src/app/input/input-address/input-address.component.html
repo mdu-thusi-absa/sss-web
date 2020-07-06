@@ -30,7 +30,7 @@
       <!-- <label class="checkbox-inline text-primary-bold" style="padding-right: 8px;"
         ><input type="checkbox" value="" /><small>Default Address</small></label
       > -->
-      <small><app-input-checkbox [showSmall]="true" [title]="'Default Address'"></app-input-checkbox></small>
+      <small><app-input-checkbox [showSmall]="true" [title]="'Default Address'" ></app-input-checkbox></small>
     </div>
 
     <div class="form-group pull-right nobottom" [hidden]="!allowCopyOption">
@@ -57,6 +57,7 @@
           ></app-input-textarea>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+          
           <app-input-select-entity
             [title]="'Country'"
             [values]="countries"
@@ -71,6 +72,7 @@
             [showAdd] = "true"
             [showEdit] = "true"
             [showDelete] = "true"
+            [showSmall]="true"
           ></app-input-select-entity>
 
           <!-- <div style="height: 3px;"></div> -->
@@ -86,6 +88,7 @@
             [showAdd] = "true"
             [showEdit] = "true"
             [showDelete] = "true"
+            [showSmall]="true"
           >
           </app-input-select-entity>
         </div>
