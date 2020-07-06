@@ -428,7 +428,7 @@ td.info > a {
   --color-dark: var(--absa-warmth);
   --color-favicon: var(--absa-warmth);
   /* --color-favicon: rgb(184, 32, 44); */
-  --color-bright: var(--absa-prepared); /*prev: passion*/
+  --color-bright: var(--absa-prepared); /*prev: prepared*/
   --color-normal: var(--absa-smile); /*only for gradient*/
   --color-light: var(--absa-care);
   --bold: 550;

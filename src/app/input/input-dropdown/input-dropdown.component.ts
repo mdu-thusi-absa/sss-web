@@ -36,6 +36,7 @@ export class InputDropdownComponent implements OnInit {
   @Input() showEdit = false;
   @Input() showAdd = false;
   @Input() disabled = false;
+  @Input() marginTop = '0';
 
   @Output() onChange = new EventEmitter();
   @Output() onDelete = new EventEmitter();
