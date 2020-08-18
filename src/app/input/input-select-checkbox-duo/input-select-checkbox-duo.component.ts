@@ -32,7 +32,10 @@ export class InputSelectCheckboxDuoComponent implements OnInit {
   @Output() onTask  = new EventEmitter();
   @Output() onChange = new EventEmitter();
 
-  constructor(public data: DataService) { }
+  eid = 'input-select-checkbox-duo'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

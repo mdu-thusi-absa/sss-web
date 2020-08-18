@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Country, Entities, City, Countries, Entity } from 'src/app/models';
-import { DataService } from 'src/app/data.service'
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-address',
@@ -9,10 +9,10 @@ import { DataService } from 'src/app/data.service'
 })
 export class InputAddressComponent implements OnInit {
   title_ = 'Address';
-  @Input () set title(v: string){
+  @Input() set title(v: string) {
     this.title_ = Entity.sentanceCase(v);
   }
-  get title(){
+  get title() {
     return this.title_;
   }
 
@@ -39,21 +39,22 @@ export class InputAddressComponent implements OnInit {
   countryText = '';
   cityText = '';
 
+  eid = 'input-address'
   constructor(private data: DataService) {
-        if (this.countryIndex < 0){
-          this.countryIndex = data.getDefault('countryKey');
-        }
+    if (this.countryIndex < 0) {
+      this.countryIndex = data.getDefault('countryKey');
+    }
+    this.eid = this.data.getID('',this.eid);
   }
 
   ngOnInit(): void {
     this.countries = this.data.countries;
-    this.cities = this.countries.get(this.getCountryIndex())['cities'];  
+    this.cities = this.countries.get(this.getCountryIndex())['cities'];
   }
 
-  getID(){
+  getID() {
     return this.data.getID(this.title);
   }
-
 
   doFile() {
     this.onFile.emit(this.title);
@@ -73,39 +74,38 @@ export class InputAddressComponent implements OnInit {
       );
   }
 
-  doEditCountry(event: any){
+  doEditCountry(event: any) {
     //expects id, new name
     //this.data.editCountry(event.id,event.name);
   }
 
-  doAddCountry(event: any){
-    let c = this.countries.get(+event)
+  doAddCountry(event: any) {
+    let c = this.countries.get(+event);
     this.cities = c['cities'];
   }
 
-  doChangeInputTextCountry(event: any){
+  doChangeInputTextCountry(event: any) {
     this.countryText = event.name;
   }
 
-  doChangeInputTextCity(event: any){
+  doChangeInputTextCity(event: any) {
     this.cityText = event.name;
   }
 
-  getCountryIndex(){
-    if (this.countries.has(this.countryIndex)){
-    }
-    else{
+  getCountryIndex() {
+    if (this.countries.has(this.countryIndex)) {
+    } else {
       this.countryIndex = this.countries.all_keys[0];
     }
-    return this.countryIndex
+    return this.countryIndex;
   }
 
-  doSelectCountry(event: any){
+  doSelectCountry(event: any) {
     this.countryIndex = +event;
     this.cities = this.countries.get(this.countryIndex)['cities'];
   }
 
-  doSelectCity(event: any){
+  doSelectCity(event: any) {
     this.cityIndex = +event;
   }
 }

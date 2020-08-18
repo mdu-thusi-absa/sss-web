@@ -36,6 +36,7 @@ import {
   jsonDashboardsPlural,
   jsonReports,
 } from './data-json/data-json.module';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Injectable({
   providedIn: 'root',
@@ -646,7 +647,7 @@ export class DataService {
   }
 
   dataID = 0;
-  public getID(title?: string): string {
+  public getID(title?: string,prefix?: string): string {
     if (title) {
       let s = / /g;
       let t = title.toLowerCase().replace(s, '-');
@@ -663,7 +664,11 @@ export class DataService {
       s = /\)/g;
       t = t.toLowerCase().replace(s, '-');
       return t;
-    } else {
+    } else if(prefix){
+      this.dataID += 1;
+      return prefix + '-' + this.dataID;
+    }
+    else {
       this.dataID += 1;
       return this.dataID + '';
     }

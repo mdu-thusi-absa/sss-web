@@ -56,7 +56,10 @@ export class InputDropdownComponent implements OnInit {
   //dynamic ViewChild?
   //let el = $('#dropdown-group-' + this.id);
   //@ViewChild('dropdown-item-' + this.id + '-' + this.values) firstItem: ElementRef;
-  constructor(public data: DataService) {}
+  eid = 'input-dropdown'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     this.id = this.data.getID();

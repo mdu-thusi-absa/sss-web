@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, ElementFinder, WebElement, WebElementPromise } from 'protractor';
 
 export class AppPage {
   navigateTo(): Promise<unknown> {
@@ -6,6 +6,10 @@ export class AppPage {
   }
 
   getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+    return element(by.id('input-filter-add-1')).getText() as Promise<string>;
+  }
+
+  getLeft_Filter(): ElementFinder {
+    return element(by.id('input-filter-add-1')) as ElementFinder;
   }
 }

@@ -8,9 +8,15 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it(`filter entities by d'`, () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('sss app is running!');
+    // browser.sleep(1000)
+    let lf = page.getLeft_Filter();
+    lf.sendKeys('d');
+    browser.sleep(2000)
+    //console.log(t);
+    
+    // expect(page.getTitleText()).toEqual('sss app is running!');
   });
 
   afterEach(async () => {

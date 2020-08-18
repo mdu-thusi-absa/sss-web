@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputSelectCheckboxComponent } from './input-select-checkbox.component';
+// import { InputSelectCheckboxComponent } from './input-select-checkbox.component';
 
-describe('InputSelectCheckboxComponent', () => {
-  let component: InputSelectCheckboxComponent;
-  let fixture: ComponentFixture<InputSelectCheckboxComponent>;
+// describe('InputSelectCheckboxComponent', () => {
+//   let component: InputSelectCheckboxComponent;
+//   let fixture: ComponentFixture<InputSelectCheckboxComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ InputSelectCheckboxComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ InputSelectCheckboxComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InputSelectCheckboxComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(InputSelectCheckboxComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

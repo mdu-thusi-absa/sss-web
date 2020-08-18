@@ -71,7 +71,11 @@ export class InputSelectComponent implements OnInit {
 
   @ViewChild('inputText') inputElement: ElementRef;
   @ViewChild('select-entity-type') selectEntityType: ElementRef;
-  constructor(public data: DataService) {}
+
+  eid = 'input-select'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     // this.values.sort();

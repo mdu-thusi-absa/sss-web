@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonCheckComponent } from './button-check.component';
+// import { ButtonCheckComponent } from './button-check.component';
 
-describe('ButtonCheckComponent', () => {
-  let component: ButtonCheckComponent;
-  let fixture: ComponentFixture<ButtonCheckComponent>;
+// describe('ButtonCheckComponent', () => {
+//   let component: ButtonCheckComponent;
+//   let fixture: ComponentFixture<ButtonCheckComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ButtonCheckComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ ButtonCheckComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonCheckComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(ButtonCheckComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

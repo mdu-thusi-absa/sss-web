@@ -22,7 +22,10 @@ export class InputTableComponent implements OnInit {
   countSelected = 0;
   @Input() inputType = 'file';
 
-  constructor(public data: DataService) {}
+  eid = 'input-table'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     this.entities.forEach((value, key, map) => {

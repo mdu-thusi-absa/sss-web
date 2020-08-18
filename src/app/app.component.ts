@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 
 //implements OnInit
 export class AppComponent implements OnInit {
+  public title = 'sss';
   rdoMenu = 'Legal Entities';
   isLogedIn = true;
 

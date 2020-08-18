@@ -7,6 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-select-text',
@@ -36,7 +37,10 @@ export class InputSelectTextComponent implements OnInit {
     if (value) this.setFocus();
   }
 
-  constructor() {}
+  eid = 'input-select-text'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {}
 

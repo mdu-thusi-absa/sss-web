@@ -57,7 +57,10 @@ export class InputSelectEntityComponent implements OnInit {
   @ViewChild('inputText') inputElement: ElementRef;
   @ViewChild('selectItem') selectItem: ElementRef;
 
-  constructor(public data: DataService) {}
+  eid = 'input-select-entity'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   getID() {
     return this.data.getID(this.title);

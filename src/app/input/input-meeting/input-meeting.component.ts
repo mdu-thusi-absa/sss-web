@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-meeting',
@@ -32,7 +33,10 @@ export class InputMeetingComponent implements OnInit {
   @Output() onCheck = new EventEmitter();
 
 
-  constructor() { }
+  eid = 'input-meeting'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     setTimeout((that) => {that.value=true}, 1000, this);

@@ -14,7 +14,10 @@ export class InputPanelComponent implements OnInit {
   @Input() maxHeight = "50%"
   
 
-  constructor(public data: DataService) { }
+  eid = 'input-custom'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     if (!this.panelPrimary && !this.panelInfo) this.panelDefault = true;

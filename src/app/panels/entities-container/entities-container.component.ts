@@ -138,7 +138,8 @@ export class EntitiesContainerComponent implements OnInit {
     // setTimeout(this.setHidePage, 90, this, 'hideReminders', needToHide);
   }
 
-  getIsLoaded(setTo: boolean, key: string, doLazy: boolean = true) {
+  doLazy = false
+  getIsLoaded(setTo: boolean, key: string) {
     let r: boolean;
     if (setTo) {
       r = setTo;
@@ -151,7 +152,7 @@ export class EntitiesContainerComponent implements OnInit {
       if (!r)
         if (this.isPageLoaded_CalledToLoad.indexOf(key) == -1) {
           this.isPageLoaded_CalledToLoad.push(key);
-          if (doLazy && this.isPageLoaded.indexOf(key) == -1) {
+          if (this.doLazy && this.isPageLoaded.indexOf(key) == -1) {
             this.isPageLoaded_index += 1;
             setTimeout(
               this.delayLoader,

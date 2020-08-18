@@ -24,7 +24,10 @@ export class InputPersonContactComponent implements OnInit {
   @Output() onRecord = new EventEmitter;
   @Output() onTask = new EventEmitter;
 
-  constructor(public data: DataService) { }
+  eid = 'input-person-contact'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

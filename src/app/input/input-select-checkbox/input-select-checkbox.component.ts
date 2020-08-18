@@ -8,6 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { Entity, Entities, EveryEntity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-select-checkbox',
@@ -92,7 +93,10 @@ export class InputSelectCheckboxComponent implements OnInit {
   }
 
   // @ViewChild('inputText') inputElement: ElementRef;
-  constructor() {}
+  eid = 'input-select-checkbox';
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   delayLoader(that: any) {
     //delay: ngOnInit() <- this.loadInterval = setInterval(this.delayLoader,7000,this);

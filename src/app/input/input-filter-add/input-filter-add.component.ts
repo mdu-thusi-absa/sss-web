@@ -7,6 +7,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { Entities, EveryEntity, Entity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-filter-add',
@@ -26,7 +27,7 @@ export class InputFilterAddComponent implements OnInit {
 
   @Output() onTick = new EventEmitter();
   @Output() onT = new EventEmitter();
-  title_ = '';
+  title_ = 'input-filter-add';
   @Input () set title(v: string){
     this.title_ = Entity.sentanceCase(v);
   }
@@ -130,7 +131,10 @@ export class InputFilterAddComponent implements OnInit {
   @Input() captionEyeClose = '';
   @Input() captionOk = '';
 
-  constructor() {}
+  eid = 'input-filter-add';
+  constructor(public data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     this.showRadio =

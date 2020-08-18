@@ -18,7 +18,11 @@ export class InputScheduleComponent implements OnInit {
   }
   @Input() stepNumber = 0;
   @Input() hideBody = true;
-  constructor(public data: DataService) { }
+  
+  eid = 'input-schedule'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

@@ -25,8 +25,10 @@ export class InputBrowseComponent implements OnInit {
   fileName = '';
   fileToUpload: File = null;
 
-
-  constructor(public data: DataService) {}
+  eid = 'input-browse'
+  constructor(public data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {}
 

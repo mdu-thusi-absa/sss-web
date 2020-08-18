@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
 import { NaturalEntity, Entities, EveryEntity, Entity } from '../../models'
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-duo-column',
@@ -70,7 +71,10 @@ title_ = '';
 @Input() showCDLeft = false;
 @Input() showCDRight = false;
 
-constructor() { }
+eid = 'input-duo-column'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
 ngOnInit(): void {
   if (this.placeholderLeft=='') this.placeholderLeft = this.titleLeft;

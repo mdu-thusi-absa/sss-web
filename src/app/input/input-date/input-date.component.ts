@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-date',
@@ -53,7 +54,11 @@ export class InputDateComponent implements OnInit {
   doTask() {
     this.onTask.emit(this.title);
   }
-  constructor() {}
+  
+  eid = 'input-date'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {}
 

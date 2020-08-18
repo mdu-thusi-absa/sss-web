@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Entity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-text',
@@ -41,7 +42,10 @@ export class InputTextComponent implements OnInit {
     this.onTask.emit(this.title);
   }
 
-  constructor() {}
+  eid = 'input-text'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     if (this.placeholder === '') this.placeholder = this.title;

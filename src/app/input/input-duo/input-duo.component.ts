@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
 import { NaturalEntity, Entities, EveryEntity } from '../../models'
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-duo',
@@ -65,7 +66,10 @@ export class InputDuoComponent implements OnInit {
 
   @Input() overflowY="auto"
 
-  constructor() { }
+  eid = 'input-duo'
+  constructor(private data:DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     if (this.placeholderLeft=='') this.placeholderLeft = this.titleLeft;

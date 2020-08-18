@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NaturalEntity,  Entities, EveryEntity, Entity } from 'src/app/models';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-input-any',
@@ -47,7 +48,10 @@ export class InputAnyComponent implements OnInit {
   @Input() showCD = false;
   @Input() isNarrow = false;
   
-  constructor() { }
+  eid = 'input-any'
+  constructor(private data: DataService) { 
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }
