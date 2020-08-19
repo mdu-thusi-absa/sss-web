@@ -3,9 +3,9 @@
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
-  [showSaveNext] = "taskFlow.isCurrent"
+  [showSaveNext] = "true"
   (onSaveNext) = "doSaveNext()"
-  [showSavePrev] = "taskFlow.isCurrent"
+  [showSavePrev] = "showSavePrev"
   (onSavePrev) = "doSavePrev()"
 > 
   <app-input-select-entity

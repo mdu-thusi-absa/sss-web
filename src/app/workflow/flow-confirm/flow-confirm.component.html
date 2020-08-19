@@ -1,10 +1,10 @@
 <app-input-panel
-  [title]="'Confirm'"
+  [title]="taskFlow.name"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
-  [showSaveNext] = "taskFlow.isCurrent"
-  [showSavePrev] = "taskFlow.isCurrent"
+  [showSaveNext] = "true"
+  [showSavePrev] = "showSavePrev"
   (onSaveNext) = "doSaveNext()"
 >
   {{ taskFlow.description }}

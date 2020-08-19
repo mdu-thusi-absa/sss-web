@@ -896,8 +896,92 @@ export class TaskFlowFormInput{
 export class TaskFlowForm extends TaskFlow{
   type = 'form'
   inputs: TaskFlowFormInput[] = [];
+
+  addInput(type: string,title: string,description: string): TaskFlowForm{
+    let inp = new TaskFlowFormInput();
+    inp.type = type;
+    inp.title = title
+    inp.description = description;
+    this.inputs.push(inp);
+    return this;
+  }
 }
 
 export class WorkFlow extends TaskFlow{
   tasks: TaskFlow[] = [];
+  private currentTaskIndex_ = 0;
+
+  public next(){
+    this.tasks[this.currentTaskIndex_].isCurrent = false;
+    this.tasks[this.currentTaskIndex_].isDone = true;
+    
+    //save info
+    //mark next as current
+    if (this.countTasks > this.currentTaskIndex+1)
+      this.currentTaskIndex_ ++; //= this.currentTaskIndex_ + 1;
+      this.tasks[this.currentTaskIndex_].isCurrent = true;
+  }
+
+  public prev(){
+    this.tasks[this.currentTaskIndex_].isCurrent = false;
+    this.tasks[this.currentTaskIndex_].isDone = false;
+    
+    //save info
+    //mark next as current
+    if (this.currentTaskIndex_>0)
+      this.currentTaskIndex_ --; //= this.currentTaskIndex_ + 1;
+      this.tasks[this.currentTaskIndex_].isCurrent = true;
+  }
+
+  public get currentTaskIndex(): number{
+    return this.currentTaskIndex_;
+  }
+
+  public get countTasks(): number{
+    return this.tasks.length;
+  }
+
+  addForm(name: string): TaskFlowForm{
+    let t = new TaskFlowForm();
+    t.name = name;
+    this.tasks.push(t);
+    return t;
+  }
+
+  addUpload(name: string): TaskFlowUploadDocs{
+    let t = new TaskFlowUploadDocs();
+    t.name = name;
+    this.tasks.push(t);
+    return t;
+  }
+
+  addReminder(name: string): TaskFlowReminder{
+    let t = new TaskFlowReminder();
+    t.name = name;
+    this.tasks.push(t);
+    return t;
+  }
+
+  addSelect(name: string, source: enumTaskFlowSelectSource): TaskFlowSelect{
+    let t = new TaskFlowSelect();
+    t.name = name;
+    t.sourceType = source;
+    this.tasks.push(t);
+    return t;
+  }
+
+  addSubmit(name: string): TaskFlowSubmitDocs{
+    let t = new TaskFlowSubmitDocs();
+    t.name = name;
+    this.tasks.push(t);
+    return t;
+  }
+  
+  addConfirm(name: string): TaskFlowConfirm{
+    let t = new TaskFlowConfirm();
+    t.name = name;
+    this.tasks.push(t);
+    return t;
+  }
+
 }

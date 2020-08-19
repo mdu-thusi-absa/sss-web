@@ -58,7 +58,7 @@ export class DataService {
   dashboards = new Entities<Entity>(Entity);
   dashboardsPlural = new Entities<Entity>(Entity);
   entityTypes = new Entities<Entity>(Entity);
-  
+
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
   files = new Entities<FileEntity>(FileEntity);
@@ -79,76 +79,50 @@ export class DataService {
     this.makeFunctionalEntities();
   }
 
-  public getWorkFlowSample(): WorkFlow{
+  public getWorkFlowSample(): WorkFlow {
     let workFlow = new WorkFlow();
-    workFlow.name = 'Amend company details'
-    workFlow.description = 'Execute a company secretariat task'
+    workFlow.name = 'Amend company registered address';
+    workFlow.description = 'Execute a company secretariat task';
 
-    let taskFlowSelect_Country = new TaskFlowSelect();
-    taskFlowSelect_Country.name = 'Country of the company'
-    taskFlowSelect_Country.sourceType = enumTaskFlowSelectSource.Country;
-    taskFlowSelect_Country.isCurrent = true;
-    workFlow.tasks.push(taskFlowSelect_Country)
+    workFlow.addSelect(
+      'Country of the company',
+      enumTaskFlowSelectSource.Country
+    ).isCurrent = true;
 
-    // let taskFlowSelect_Task = new TaskFlowSelect();
-    // taskFlowSelect_Task.name = 'Select task to perform'
-    // taskFlowSelect_Country.sourceType = enumTaskFlowSelectSource.TaskFlow;
-    // workFlow.tasks.push(taskFlowSelect_Task)
+    workFlow.addSelect(
+      'Company to be amended',
+      enumTaskFlowSelectSource.Company
+    );
 
-    let taskFlowSelect_Company = new TaskFlowSelect();
-    taskFlowSelect_Company.name = 'Company to be amended'
-    taskFlowSelect_Company.sourceType = enumTaskFlowSelectSource.Company;
-    workFlow.tasks.push(taskFlowSelect_Company)
+    workFlow
+      .addForm('New address')
+      .addInput('address', 'Amendment', 'New address for the company');
 
-    let taskFlowUpload = new TaskFlowUploadDocs();
-    taskFlowUpload.name = 'Upload supporting files'
-    workFlow.tasks.push(taskFlowUpload)
+    workFlow.addUpload('Upload supporting files');
 
-    let taskFlowForm = new TaskFlowForm();
-    taskFlowForm.name = 'CoR 21.1';
-    let inp = new TaskFlowFormInput();
-    inp.type = 'date';
-    inp.title = 'Date of change of the address'
-    taskFlowForm.inputs.push(inp);
-    inp = new TaskFlowFormInput();
-    inp.type = 'date';
-    inp.title = 'Effective Date';
-    inp.description = 'at least five business days after filling';
-    taskFlowForm.inputs.push(inp);
-    workFlow.tasks.push(taskFlowForm);
+    workFlow
+      .addForm('CoR 21.1')
+      .addInput('date', 'Date of change of the address', '')
+      .addInput(
+        'date',
+        'Effective Date',
+        'At least five business days after filling'
+      );
 
-    let taskFlowSubmit = new TaskFlowSubmitDocs();
-    taskFlowSubmit.name = 'Submit following files'
-    workFlow.tasks.push(taskFlowSubmit)
+    workFlow.addSubmit('Submit following files to CIPC');
 
-    taskFlowForm = new TaskFlowForm();
-    taskFlowForm.name = 'Submition to CIPC';
-    inp = new TaskFlowFormInput();
-    inp.type = 'text';
-    inp.title = 'Reference code';
-    inp.description = 'Reference code of the application';
-    taskFlowForm.inputs.push(inp);
-    inp = new TaskFlowFormInput();
-    inp.type = 'checkbox';
-    inp.title = 'Confirm submission'
-    taskFlowForm.inputs.push(inp);
-    workFlow.tasks.push(taskFlowForm);
+    workFlow
+      .addForm('Submission to CIPC')
+      .addInput('text', 'Reference code', 'Reference code of the application')
+      .addInput('checkbox', 'Confirm submission', '');
 
-    let taskFlowSet_Reminder = new TaskFlowReminder();
-    taskFlowSet_Reminder.name = 'Send reminder on'
-    workFlow.tasks.push(taskFlowSet_Reminder)
+    workFlow.addReminder('Set reminder to follow up CIPC');
 
-    let taskFlowConfirm_Approval = new TaskFlowConfirm();
-    taskFlowConfirm_Approval.name = 'Confirm approval from CIPC'
-    workFlow.tasks.push(taskFlowConfirm_Approval)
+    workFlow.addConfirm('Confirm approval from CIPC');
 
-    taskFlowUpload = new TaskFlowUploadDocs();
-    taskFlowUpload.name = 'Upload approval files from CIPC'
-    workFlow.tasks.push(taskFlowUpload)
+    workFlow.addUpload('Upload approval files from CIPC');
 
-    taskFlowConfirm_Approval = new TaskFlowConfirm();
-    taskFlowConfirm_Approval.name = 'Confirm completion of task'
-    workFlow.tasks.push(taskFlowConfirm_Approval)
+    workFlow.addConfirm('Confirm completion of task');
 
     return workFlow;
   }
@@ -730,7 +704,7 @@ export class DataService {
   }
 
   dataID = 0;
-  public getID(title?: string,prefix?: string): string {
+  public getID(title?: string, prefix?: string): string {
     if (title) {
       let s = / /g;
       let t = title.toLowerCase().replace(s, '-');
@@ -747,11 +721,10 @@ export class DataService {
       s = /\)/g;
       t = t.toLowerCase().replace(s, '-');
       return t;
-    } else if(prefix){
+    } else if (prefix) {
       this.dataID += 1;
       return prefix + '-' + this.dataID;
-    }
-    else {
+    } else {
       this.dataID += 1;
       return this.dataID + '';
     }

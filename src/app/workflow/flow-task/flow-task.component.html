@@ -3,42 +3,49 @@
   [collapsed]="false"
   [panelPrimary]="true"
 >
+    {{workFlow.currentTaskIndex+1}}:{{workFlow.countTasks}}
   {{ workFlow.description }}
 
   <ng-container *ngFor="let t of workFlow.tasks; let i = index">
     <app-flow-confirm
       *ngIf="t.type == 'confirm'"
       [taskFlow]="t"
+      [showSavePrev] = "i>0"
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-confirm>
     <app-flow-select
       *ngIf="t.type == 'select'"
       [taskFlow]="t"
+      [showSavePrev] = "i>0"
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-select>
     <app-flow-set-reminder
       *ngIf="t.type == 'set-reminder'"
       [taskFlow]="t"
+      [showSavePrev] = "i>0"
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-set-reminder>
     <app-flow-submit-docs
       *ngIf="t.type == 'submit-docs'"
       [taskFlow]="t"
+      [showSavePrev] = "i>0"
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-submit-docs>
     <app-flow-upload-docs
       *ngIf="t.type == 'upload-docs'"
       [taskFlow]="t"
+      [showSavePrev] = "i>0"
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-upload-docs>
     <app-flow-form
       *ngIf="t.type == 'form'"
       [taskFlow]="t"
+      [showSavePrev] = "i>0"
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-form>

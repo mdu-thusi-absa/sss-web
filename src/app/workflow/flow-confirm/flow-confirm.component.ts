@@ -10,6 +10,7 @@ export class FlowConfirmComponent implements OnInit {
   @Input() taskFlow = new TaskFlowConfirm();
   value = false;
   @Output() onSaveNext = new EventEmitter();
+  @Input() showSavePrev = false;
 
   constructor() {}
 

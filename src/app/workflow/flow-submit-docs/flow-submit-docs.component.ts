@@ -9,6 +9,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class FlowSubmitDocsComponent implements OnInit {
   @Input() taskFlow = new TaskFlowSubmitDocs();
+  @Input() showSavePrev = false;
   @Output() onSaveNext = new EventEmitter();
   
   constructor(public data: DataService) { }

@@ -17,20 +17,11 @@ export class FlowTaskComponent implements OnInit {
 
   doSaveNext(taskIndex: number) {
     //verify here or in each flow, report individually, before moving on
-    this.workFlow.tasks[taskIndex].isCurrent = false;
-    this.workFlow.tasks[taskIndex].isDone = true;
-    //save info
-    //mark next as current
-    if (this.workFlow.tasks.length > taskIndex+1)
-      this.workFlow.tasks[taskIndex + 1].isCurrent = true;
+    this.workFlow.next();
   }
 
   doSavePrev(taskIndex: number) {
     //verify here or in each flow, report individually, before moving on
-    this.workFlow.tasks[taskIndex].isCurrent = false;
-    //save info
-    //mark next as current
-    if (taskIndex>0)
-      this.workFlow.tasks[taskIndex - 1].isCurrent = true;
+    this.workFlow.prev();
   }
 }

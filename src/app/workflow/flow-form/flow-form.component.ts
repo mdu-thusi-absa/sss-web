@@ -8,6 +8,7 @@ import { TaskFlowForm } from 'src/app/models';
 })
 export class FlowFormComponent implements OnInit {
   @Input() taskFlow: TaskFlowForm;
+  @Input() showSavePrev = false;
   @Output() onChange = new EventEmitter();
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();

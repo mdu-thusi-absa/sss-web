@@ -11,6 +11,7 @@ export class FlowSelectComponent implements OnInit {
   @Input() taskFlow = new TaskFlowSelect();
   @Input() values: Entities<EveryEntity>; // = new Entities<EveryEntity>();
   @Input() value = 0;
+  @Input() showSavePrev = false;
   @Output() onChange = new EventEmitter();
   @Output() onSaveNext = new EventEmitter();
   

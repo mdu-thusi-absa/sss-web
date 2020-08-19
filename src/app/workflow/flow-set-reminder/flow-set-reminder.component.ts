@@ -8,6 +8,7 @@ import { TaskFlowReminder } from 'src/app/models';
 })
 export class FlowSetReminderComponent implements OnInit {
   @Input() taskFlow = new TaskFlowReminder();
+  @Input() showSavePrev = false;
   @Output() onSaveNext = new EventEmitter();
   
   constructor() { }
