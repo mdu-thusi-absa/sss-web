@@ -23,7 +23,7 @@ export class InputTableComponent implements OnInit {
   @Input() inputType = 'file';
 
   eid = 'input-table'
-  constructor(private data:DataService) {
+  constructor(public data:DataService) {
     this.eid = this.data.getID('',this.eid);
   }
 

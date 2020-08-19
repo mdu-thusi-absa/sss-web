@@ -833,3 +833,71 @@ export class Countries extends Entities<Country> {
     return this;
   }
 }
+
+export class TaskFlow{
+  type = 'task flow type'
+  name = 'Task Flow name'
+  whenStarted = new Date();
+  whenDone = new Date();
+  whoCreated = ''
+  isDone = false;
+  isCurrent = false;
+  description = '';
+  notes = ''
+}
+
+export enum enumTaskFlowSelectSource{
+  Country = 0,
+  Company = 1,
+  Individual = 2,
+  User = 3,
+  TaskFlow = 4
+}
+
+export class TaskFlowSelect extends TaskFlow{
+  type = 'select';
+  sourceType: enumTaskFlowSelectSource;
+  value: 0; //value of the selected item key
+}
+
+export class TaskFlowConfirm extends TaskFlow{
+  type = 'confirm';
+  value: boolean;
+}
+
+export class TaskFlowDoc extends TaskFlow{
+  type = 'doc';
+  doc: string; // file name
+}
+
+export class TaskFlowUploadDocs extends TaskFlow{
+  type = 'upload-docs';
+  docs: TaskFlowDoc[] ; // file name
+}
+
+export class TaskFlowSubmitDocs extends TaskFlow{
+  type='submit-docs';
+  docs: TaskFlowDoc[] ; // file name
+  whoTo: string; //submit to whom
+}
+
+export class TaskFlowReminder extends TaskFlow{
+  type='set-reminder';
+  reminderDate = new Date();
+}
+
+export class TaskFlowFormInput{
+  type = 'text';
+  title = 'Input';
+  description = '';
+  value: any = '';
+}
+
+export class TaskFlowForm extends TaskFlow{
+  type = 'form'
+  inputs: TaskFlowFormInput[] = [];
+}
+
+export class WorkFlow extends TaskFlow{
+  tasks: TaskFlow[] = [];
+}

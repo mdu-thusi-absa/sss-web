@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data.service';
+
 
 @Component({
   selector: 'app-input-panel',
@@ -11,11 +12,19 @@ export class InputPanelComponent implements OnInit {
   @Input() panelDefault = false;
   @Input() panelPrimary = false;
   @Input() panelInfo = false;
+  @Input() panelSuccess = false;
+  @Input() panelDanger = false;
   @Input() maxHeight = "50%"
+  @Input() collapsed = true;
+  @Input() showSaveNext = false;
+  @Input() showSavePrev = false;
+
+  @Output() onSaveNext = new EventEmitter();
+  @Output() onSavePrev = new EventEmitter();
   
 
-  eid = 'input-custom'
-  constructor(private data:DataService) {
+  eid = 'input-panel'
+  constructor(public data:DataService) {
     this.eid = this.data.getID('',this.eid);
   }
 
@@ -23,8 +32,6 @@ export class InputPanelComponent implements OnInit {
     if (!this.panelPrimary && !this.panelInfo) this.panelDefault = true;
   }
 
-  getID(){
-    return this.data.getID(this.title);
-  }
+
 
 }

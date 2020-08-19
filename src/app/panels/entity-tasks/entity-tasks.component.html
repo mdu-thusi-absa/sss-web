@@ -29,14 +29,15 @@
 
 ></app-input-filter-add>
 <div class="entities-tasks">
-  <app-entity-task
+  <app-flow-task [workFlow]="workFlow" [hidden]="!isNew"></app-flow-task>
+  <!-- <app-entity-task
     style="margin-top: 0px;"
     [hidden]="!isNew"
     [task]="newTask"
     [isEdit]="isNew"
     (onClose)="isNew = false"
     [isNarrow] = "isNarrow"
-  ></app-entity-task>
+  ></app-entity-task> -->
 
   <div
     *ngFor="let task of list; let i = index"

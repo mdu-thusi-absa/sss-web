@@ -46,6 +46,8 @@
       <ng-container *ngFor="let t of entityTypeNames | keyvalue">
         <table
           class="table table-condensed table-bordered less-bottom"
+          [class.table-show] = "entityType == t.key"
+          [class.table-hide] = "entityType != t.key"
           [hidden]="entityType != t.key"
         >
           <thead class="info">
@@ -65,7 +67,8 @@
               >
                 <tr
                   [class.info]="e.value.isActive"
-                  [hidden]="isHiddenMap.get(e.key)"
+                  [class.tr-hide]="isHiddenMap.get(e.key)"
+                  [class.tr-show]="!isHiddenMap.get(e.key)"
                 >
                   <td
                     [style.border-bottom]="
@@ -75,7 +78,7 @@
                     <a
                       href="#"
                       (click)="doEntityChoose(e.key)"
-                      [attr.id]="e.key"
+                      [attr.id]="eid + '-a-' + e.key"
                       [attr.name]="e.key"
                       routerLink="."
                       fragment="e.key"

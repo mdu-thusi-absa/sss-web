@@ -20,7 +20,7 @@ export class InputScheduleComponent implements OnInit {
   @Input() hideBody = true;
   
   eid = 'input-schedule'
-  constructor(private data:DataService) {
+  constructor(public data:DataService) {
     this.eid = this.data.getID('',this.eid);
   }
 

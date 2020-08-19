@@ -1,0 +1,19 @@
+<app-input-panel
+  [title]="'Files for submision'"
+  [collapsed]="true"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+  [showSaveNext]="taskFlow.isCurrent"
+  (onSaveNext) = "doSaveNext()"
+  [showSavePrev] = "taskFlow.isCurrent"
+  (onSavePrev) = "doSavePrev()"
+>
+  {{ taskFlow.description }}
+  <app-input-table
+    [headings]="['Title', 'Description']"
+    [fields]="['name', 'description']"
+    [withCheckbox]="true"
+    [entities]="data.files"
+    [inputType]="'file'"
+  ></app-input-table>
+</app-input-panel>

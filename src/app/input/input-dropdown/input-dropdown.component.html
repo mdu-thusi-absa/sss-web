@@ -7,20 +7,20 @@
     overflow: hidden;
   "
   [style.margin-top] = "marginTop"
-  [attr.id]="'dropdown-group-' + id"
+  [attr.id]="'dropdown-group-' + eid"
 >
   <!-- [style.border-bottom] = "(showDelete || showEdit || showAdd)?'1px solid':'none'" -->
 
     <a
       href="#"
-      [attr.id]="'dropdown-button-' + id"
+      [attr.id]="'dropdown-button-' + eid"
       class="btn btn-sm primary-color"
       style="text-align: left; margin: 0px; display: inline-block;"
       [class.a-width-buttons]="showDelete || showEdit || showAdd"
       [style.border]="showDelete || showEdit || showAdd ? '1px solid' : 'none'"
       (click)="doModal($event)"
       data-toggle="modal"
-      [attr.data-target]="'#dropdown-' + id"
+      [attr.data-target]="'#dropdown-' + eid"
       ><span class="caret" style="margin-right: 5px;"></span>{{ value }}
       <!-- <div class="pull-right"><span class="caret"></span></div> -->
     </a>
@@ -113,9 +113,9 @@
 
 <!-- Modal -->
 
-<div [attr.id]="'dropdown-' + id" class="modal" role="dialog">
+<div [attr.id]="'dropdown-' + eid" class="modal" role="dialog">
   <div
-    [attr.id]="'dropdown-dialog-' + id"
+    [attr.id]="'dropdown-dialog-' + eid"
     class="modal-dialog modal-sm"
     style="position: fixed; margin: 0px; width: 100%;"
     [style.left]="thisX + 'px'"
@@ -219,7 +219,7 @@
               (keydown)="a_doKeyDown(e.key, $event)"
             >
               <a
-                [attr.id]="'dropdown-item-' + id + '-' + e.key"
+                [attr.id]="'dropdown-item-' + eid + '-' + e.key"
                 data-dismiss="modal"
                 href="#"
                 class="btn btn-sm primary-color"

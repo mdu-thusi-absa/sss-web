@@ -1,0 +1,17 @@
+<app-input-panel
+  [title]="taskFlow.name"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+  [showSaveNext] = "taskFlow.isCurrent"
+  (onSaveNext) = "doSaveNext()"
+  [showSavePrev] = "taskFlow.isCurrent"
+  (onSavePrev) = "doSavePrev()"
+> 
+  <app-input-select-entity
+    [title]="'Please select one'"
+    [value]="value"
+    [values]="values"
+    [showSmall]="true"
+  ></app-input-select-entity>
+</app-input-panel>

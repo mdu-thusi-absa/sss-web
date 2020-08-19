@@ -1,0 +1,20 @@
+<app-input-panel
+  [title]="'Form: ' + taskFlow.name"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+  [showSaveNext] = "taskFlow.isCurrent"
+  (onSaveNext) = "doSaveNext()"
+  [showSavePrev] = "taskFlow.isCurrent"
+  (onSavePrev) = "doSavePrev()"
+>
+  {{ taskFlow.description }}
+  
+  <app-input-any *ngFor="let inp of taskFlow.inputs"
+    [type] = "inp.type"
+    [value] = 'inp.value'
+    [title] = 'inp.title'
+    [placeholder] = 'inp.title'
+  ></app-input-any>
+</app-input-panel>
+

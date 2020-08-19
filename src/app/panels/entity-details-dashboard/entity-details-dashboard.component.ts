@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Entities, EveryEntity, NaturalEntity } from '../../models'
+import { Entity, Entities, EveryEntity, NaturalEntity, WorkFlow } from '../../models'
 import { DataService } from 'src/app/data.service';
 
 
@@ -31,7 +31,11 @@ export class EntityDetailsDashboardComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  constructor(public data: DataService) { }
+  workFlow: WorkFlow;
+
+  constructor(public data: DataService) { 
+    this.workFlow = data.getWorkFlowSample();
+  }
 
   ngOnInit(): void {
     this.persons = this.data.getPersons();

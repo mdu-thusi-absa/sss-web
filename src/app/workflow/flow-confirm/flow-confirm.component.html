@@ -1,0 +1,17 @@
+<app-input-panel
+  [title]="'Confirm'"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+  [showSaveNext] = "taskFlow.isCurrent"
+  [showSavePrev] = "taskFlow.isCurrent"
+  (onSaveNext) = "doSaveNext()"
+>
+  {{ taskFlow.description }}
+  <app-input-checkbox
+    [title]="taskFlow.name"
+    [value]="value"
+    [showSmall]="true"
+  ></app-input-checkbox>
+  <!-- (onCheck) = "doCheck($event)" -->
+</app-input-panel>

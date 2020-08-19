@@ -25,7 +25,7 @@ export class InputCustomComponent implements OnInit {
 
 
   eid = 'input-custom'
-  constructor(private data:DataService) {
+  constructor(public data:DataService) {
     this.eid = this.data.getID('',this.eid);
   }
 

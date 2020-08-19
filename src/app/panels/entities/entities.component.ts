@@ -44,7 +44,10 @@ export class EntitiesComponent implements OnInit {
   loadedMap = new Map();
   limitVisibleRows = 50;
 
-  constructor(public data: DataService) {}
+  eid = 'panel-entities'
+  constructor(public data: DataService) {
+    this.eid = data.getID('',this.eid)
+  }
 
   // @HostListener('scroll', ['$event']) // for scroll events of the current element
   // // @HostListener('window:scroll', ['$event']) // for window scroll events

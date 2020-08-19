@@ -32,3 +32,17 @@ table {
     width: 13px;
     height: 16px; 
   }
+
+  /*classes for the protractor locators*/
+  .tr-show{
+    display: table-row;
+  }
+  .tr-hide{
+    display:none;
+  }
+  .table-show{
+    display: table;
+  }
+  .table-hide{
+    display:none;
+  }

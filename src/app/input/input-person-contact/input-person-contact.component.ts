@@ -25,7 +25,7 @@ export class InputPersonContactComponent implements OnInit {
   @Output() onTask = new EventEmitter;
 
   eid = 'input-person-contact'
-  constructor(private data:DataService) {
+  constructor(public data:DataService) {
     this.eid = this.data.getID('',this.eid);
   }
 

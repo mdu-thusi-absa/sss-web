@@ -1,0 +1,23 @@
+<app-input-panel
+  [title]="'Set reminder'"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+  [showSaveNext] = "taskFlow.isCurrent"
+  (onSaveNext) = "doSaveNext()"
+  [showSavePrev] = "taskFlow.isCurrent"
+  (onSavePrev) = "doSavePrev()"
+>
+  {{ taskFlow.description }}
+  <app-input-date
+    [title]="'Date of the reminder'"
+    [value]="taskFlow.reminderDate"
+    [inline]="true"
+  ></app-input-date>
+
+  <app-input-textarea
+    [title]="'Reminder message'"
+    [text]="'Please follow up with CIPC regarding application #12345'"
+  >
+  </app-input-textarea>
+</app-input-panel>

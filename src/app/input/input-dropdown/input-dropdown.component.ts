@@ -19,8 +19,7 @@ export class InputDropdownComponent implements OnInit {
   private filterText_ = '';
   showDrop = true;
   position = { top: 0, left: 0 };
-  //msg = '';
-  id = '0';
+ 
   viewAll = false;
   @Input() title = 'item';
   sourceValues_: Entities<EveryEntity>;
@@ -54,15 +53,14 @@ export class InputDropdownComponent implements OnInit {
 
   @ViewChild('inputFilter') inputFilter: ElementRef;
   //dynamic ViewChild?
-  //let el = $('#dropdown-group-' + this.id);
-  //@ViewChild('dropdown-item-' + this.id + '-' + this.values) firstItem: ElementRef;
+  //let el = $('#dropdown-group-' + this.eid);
+  //@ViewChild('dropdown-item-' + this.eid + '-' + this.values) firstItem: ElementRef;
   eid = 'input-dropdown'
   constructor(private data:DataService) {
     this.eid = this.data.getID('',this.eid);
   }
 
   ngOnInit(): void {
-    this.id = this.data.getID();
     this.filterText = '';
   }
 
@@ -132,10 +130,10 @@ export class InputDropdownComponent implements OnInit {
   searchInputHeight = 38;
   dropUp = false;
   setPosition(isFilter: boolean) {
-    let dialog = $('#dropdown-dialog-' + this.id);
+    let dialog = $('#dropdown-dialog-' + this.eid);
 
-    //let el = $('#dropdown-button-' + this.id);
-    let el = $('#dropdown-group-' + this.id);
+    //let el = $('#dropdown-button-' + this.eid);
+    let el = $('#dropdown-group-' + this.eid);
 
     var leftPos =
       el[0].getBoundingClientRect().left + $(window)['scrollLeft']();
@@ -206,7 +204,7 @@ export class InputDropdownComponent implements OnInit {
 
   setFocusItem(event: any, key: number) {
     setTimeout(() => {
-      document.getElementById('dropdown-item-' + this.id + '-' + key).focus();
+      document.getElementById('dropdown-item-' + this.eid + '-' + key).focus();
     }, 0);
     event.preventDefault();
 

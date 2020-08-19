@@ -15,6 +15,15 @@ import {
   FileEntity,
   MeetingEntity,
   MeetingGuestEntity,
+  WorkFlow,
+  TaskFlowConfirm,
+  TaskFlowSelect,
+  enumTaskFlowSelectSource,
+  TaskFlowReminder,
+  TaskFlowSubmitDocs,
+  TaskFlowUploadDocs,
+  TaskFlowForm,
+  TaskFlowFormInput,
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
@@ -68,6 +77,80 @@ export class DataService {
     this.makeIndividuals();
 
     this.makeFunctionalEntities();
+  }
+
+  public getWorkFlowSample(): WorkFlow{
+    let workFlow = new WorkFlow();
+    workFlow.name = 'Amend company details'
+    workFlow.description = 'Execute a company secretariat task'
+
+    let taskFlowSelect_Country = new TaskFlowSelect();
+    taskFlowSelect_Country.name = 'Country of the company'
+    taskFlowSelect_Country.sourceType = enumTaskFlowSelectSource.Country;
+    taskFlowSelect_Country.isCurrent = true;
+    workFlow.tasks.push(taskFlowSelect_Country)
+
+    // let taskFlowSelect_Task = new TaskFlowSelect();
+    // taskFlowSelect_Task.name = 'Select task to perform'
+    // taskFlowSelect_Country.sourceType = enumTaskFlowSelectSource.TaskFlow;
+    // workFlow.tasks.push(taskFlowSelect_Task)
+
+    let taskFlowSelect_Company = new TaskFlowSelect();
+    taskFlowSelect_Company.name = 'Company to be amended'
+    taskFlowSelect_Company.sourceType = enumTaskFlowSelectSource.Company;
+    workFlow.tasks.push(taskFlowSelect_Company)
+
+    let taskFlowUpload = new TaskFlowUploadDocs();
+    taskFlowUpload.name = 'Upload supporting files'
+    workFlow.tasks.push(taskFlowUpload)
+
+    let taskFlowForm = new TaskFlowForm();
+    taskFlowForm.name = 'CoR 21.1';
+    let inp = new TaskFlowFormInput();
+    inp.type = 'date';
+    inp.title = 'Date of change of the address'
+    taskFlowForm.inputs.push(inp);
+    inp = new TaskFlowFormInput();
+    inp.type = 'date';
+    inp.title = 'Effective Date';
+    inp.description = 'at least five business days after filling';
+    taskFlowForm.inputs.push(inp);
+    workFlow.tasks.push(taskFlowForm);
+
+    let taskFlowSubmit = new TaskFlowSubmitDocs();
+    taskFlowSubmit.name = 'Submit following files'
+    workFlow.tasks.push(taskFlowSubmit)
+
+    taskFlowForm = new TaskFlowForm();
+    taskFlowForm.name = 'Submition to CIPC';
+    inp = new TaskFlowFormInput();
+    inp.type = 'text';
+    inp.title = 'Reference code';
+    inp.description = 'Reference code of the application';
+    taskFlowForm.inputs.push(inp);
+    inp = new TaskFlowFormInput();
+    inp.type = 'checkbox';
+    inp.title = 'Confirm submission'
+    taskFlowForm.inputs.push(inp);
+    workFlow.tasks.push(taskFlowForm);
+
+    let taskFlowSet_Reminder = new TaskFlowReminder();
+    taskFlowSet_Reminder.name = 'Send reminder on'
+    workFlow.tasks.push(taskFlowSet_Reminder)
+
+    let taskFlowConfirm_Approval = new TaskFlowConfirm();
+    taskFlowConfirm_Approval.name = 'Confirm approval from CIPC'
+    workFlow.tasks.push(taskFlowConfirm_Approval)
+
+    taskFlowUpload = new TaskFlowUploadDocs();
+    taskFlowUpload.name = 'Upload approval files from CIPC'
+    workFlow.tasks.push(taskFlowUpload)
+
+    taskFlowConfirm_Approval = new TaskFlowConfirm();
+    taskFlowConfirm_Approval.name = 'Confirm completion of task'
+    workFlow.tasks.push(taskFlowConfirm_Approval)
+
+    return workFlow;
   }
 
   loadStatic() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task, Step } from 'src/app/models';
+import { Task, Step, WorkFlow } from 'src/app/models';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -340,7 +340,10 @@ export class EntityTasksComponent implements OnInit {
 
   ];
 
-  constructor(public data: DataService) { }
+  workFlow: WorkFlow;
+  constructor(public data: DataService) { 
+    this.workFlow = data.getWorkFlowSample();
+  }
 
   ngOnInit(): void {
     if (this.data.lg) console.log(new Date().getTime(),'loaded:entity-tasks');

@@ -92,6 +92,13 @@ import { InputSelectCheckboxDuoComponent } from './input/input-select-checkbox-d
 import { InputDropdownComponent } from './input/input-dropdown/input-dropdown.component';
 import { EntityReportsComponent } from './panels/entity-reports/entity-reports.component';
 import { LabelHComponent } from './input/label-h/label-h.component';
+import { FlowSelectComponent } from './workflow/flow-select/flow-select.component';
+import { FlowConfirmComponent } from './workflow/flow-confirm/flow-confirm.component';
+import { FlowUploadDocsComponent } from './workflow/flow-upload-docs/flow-upload-docs.component';
+import { FlowSubmitDocsComponent } from './workflow/flow-submit-docs/flow-submit-docs.component';
+import { FlowSetReminderComponent } from './workflow/flow-set-reminder/flow-set-reminder.component';
+import { FlowTaskComponent } from './workflow/flow-task/flow-task.component';
+import { FlowFormComponent } from './workflow/flow-form/flow-form.component';
 
 
 
@@ -178,6 +185,13 @@ import { LabelHComponent } from './input/label-h/label-h.component';
     InputDropdownComponent,
     EntityReportsComponent,
     LabelHComponent,
+    FlowSelectComponent,
+    FlowConfirmComponent,
+    FlowUploadDocsComponent,
+    FlowSubmitDocsComponent,
+    FlowSetReminderComponent,
+    FlowTaskComponent,
+    FlowFormComponent,
     
   ],
   imports: [

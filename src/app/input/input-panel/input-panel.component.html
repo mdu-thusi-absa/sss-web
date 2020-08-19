@@ -1,21 +1,53 @@
-<div class="panel  no-gutter nobottom app-input"
-    [class.panel-default] = "panelDefault"
-    [class.panel-primary] = "panelPrimary"
-    [class.panel-info] = "panelInfo"
-    
-    >
-    <div
-      class="panel-heading mt3"
-      style="vertical-align: middle; cursor: pointer;"
-      
-      [attr.data-target]="'#input-panel-' + getID()"
-      data-toggle="collapse"
-    >
-      {{title}}
+<div
+  class="panel no-gutter nobottom app-input"
+  [class.panel-default]="panelDefault"
+  [class.panel-primary]="panelPrimary"
+  [class.panel-info]="panelInfo"
+  [class.panel-success]="panelSuccess"
+  [class.panel-danger]="panelDanger"
+>
+  <div
+    class="panel-heading mt3"
+    style="vertical-align: middle; cursor: pointer;"
+    [attr.data-target]="'#input-panel-' + eid"
+  >
+  <div class="btn-group pull-right" >
+    <app-buttons-toolbar-button
+      [hidden]="false"
+      [placeholder]="'Expand/Collapse'"
+      [showMe]="true"
+      [matIcon] = "'unfold_more'"
+      (onClick) = "collapsed=!collapsed"
+    ></app-buttons-toolbar-button>
+    <app-buttons-toolbar-button *ngIf = "showSavePrev"
+      [hidden]="false"
+      [title]="'Save & Prev'"
+      [placeholder]="'Save and move to the previous task'"
+      [showMe]="true"
+      [matIcon] = "'skip_previous'"
+      (onClick) = "onSavePrev.emit()"
+    ></app-buttons-toolbar-button>
+    <app-buttons-toolbar-button *ngIf = "showSaveNext"
+      [hidden]="false"
+      [title]="'Save & Next'"
+      [placeholder]="'Save and move to the next task'"
+      [showMe]="true"
+      [matIcon] = "'skip_next'"
+      (onClick) = "onSaveNext.emit()"
+    ></app-buttons-toolbar-button>
     </div>
-    <div class="panel-body mt3 collapse" style="margin-bottom: 0px;position:relative;z-index:9" [attr.id]="'input-panel-' + getID()">
-      <div style="overflow-y: scroll;overflow-x: hidden;" [style.maxHeight] = "maxHeight">
-        <ng-content></ng-content>
-      </div>
-    </div>
+    {{ title }}
   </div>
+  <!-- data-toggle="collapse" -->
+
+  <div
+    class="panel-body mt3"
+    [class.collapse]="collapsed"
+    style="margin-bottom: 0px; position: relative; z-index: 9;"
+    [attr.id]="'input-panel-' + eid"
+    style="overflow-y: scroll; overflow-x: hidden;"
+    [style.maxHeight]="maxHeight"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

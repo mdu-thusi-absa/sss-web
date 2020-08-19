@@ -82,6 +82,8 @@ g -->
     <hr /> -->
     <app-label-h [title]="'Dashboard: incomplete entities'" [hr]="true"></app-label-h>
     <app-label-h [title]="'Dashboard: upcoming tasks'" [hr]="true"></app-label-h>
+    
+<app-flow-task [workFlow]="workFlow"></app-flow-task>
 <!--     
     <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete companies
@@ -218,4 +220,7 @@ g -->
       [doHideByFilter]="true"
     ></app-input-address> -->
   </div>
+  
 </form>
+
+
