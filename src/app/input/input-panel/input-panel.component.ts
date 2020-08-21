@@ -18,6 +18,7 @@ export class InputPanelComponent implements OnInit {
   @Input() collapsed = true;
   @Input() showSaveNext = false;
   @Input() showSavePrev = false;
+  @Input() showClose = false;
 
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();

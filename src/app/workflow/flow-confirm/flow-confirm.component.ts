@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowConfirm, TaskFlow } from 'src/app/models';
+import { TaskFlowConfirm } from 'src/app/models';
 
 @Component({
   selector: 'app-flow-confirm',

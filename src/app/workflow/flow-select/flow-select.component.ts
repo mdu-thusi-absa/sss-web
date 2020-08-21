@@ -29,6 +29,7 @@ export class FlowSelectComponent implements OnInit {
 
   doChange(event: any) {
     this.value = +event;
+    this.taskFlow.value = +this.value;
     this.onChange.emit(this.value);
   }
 

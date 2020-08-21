@@ -34,13 +34,19 @@ export class EntityDetailsDashboardComponent implements OnInit {
   workFlow: WorkFlow;
 
   constructor(public data: DataService) { 
-    this.workFlow = data.getWorkFlowSample();
+    
   }
 
   ngOnInit(): void {
     this.persons = this.data.getPersons();
     if (this.data.lg) console.log(new Date().getTime(),'loaded:dashboard');
     this.data.progress += 1;
+    this.workFlow = this.data.getWorkFlowSample();
+    this.workFlow.start();
+    // console.log(this.workFlow.rootTask);
+    
+    // console.log(this.workFlow.tasks);
+    
   }
 
   doFilter(event: any){

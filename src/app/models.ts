@@ -834,154 +834,316 @@ export class Countries extends Entities<Country> {
   }
 }
 
-export class TaskFlow{
-  type = 'task flow type'
-  name = 'Task Flow name'
+export class TaskFlowSubTask {
+  // '' means no operator; can be: ==, >, <, maybe(in, not in)
+  constructor(
+    public taskFlow: TaskFlow,
+    public conditionalValue: any = 0,
+    public conditionalOperator: string = ''
+  ) {}
+}
+
+export class TaskFlow {
+  type = 'task flow type'; // to differenciate task types, and JSON names
+  name = 'Task Flow name for labels etc.';
+  description = '';
+  value: any = '';
   whenStarted = new Date();
   whenDone = new Date();
-  whoCreated = ''
+  whoCreated = '';
   isDone = false;
   isCurrent = false;
-  description = '';
-  notes = ''
+  notes = '';
+  parent: TaskFlow = null;
+  subTasks: TaskFlowSubTask[] = [];
+  /*
+    subTasks are there to provide the next task
+  */
+  addNext(taskFlow: TaskFlow) {
+    taskFlow.parent = this;
+    let t = new TaskFlowSubTask(taskFlow);
+    this.subTasks.push(t);
+  }
+
+  addNextFork(
+    taskFlow: TaskFlow,
+    conditionalValue: any,
+    conditionalOperator: string
+  ) {
+    taskFlow.parent = this;
+    let t = new TaskFlowSubTask(
+      taskFlow,
+      conditionalValue,
+      conditionalOperator
+    );
+    this.subTasks.push(t);
+  }
+
+  getNext(): TaskFlow {
+    let t: TaskFlow = null;
+    if (this.subTasks.length > 0) {
+      t = this.subTasks[0].taskFlow;
+    } else {
+      for (let i = 0; i < this.subTasks.length; i++) {
+        let s = this.subTasks[i];
+        if (eval(this.value + s.conditionalOperator + s.conditionalValue)) {
+          t = this.subTasks[0].taskFlow;
+        }
+      }
+    }
+    return t;
+  }
+
+  getPrev(): TaskFlow {
+    return this.parent;
+  }
 }
 
-export enum enumTaskFlowSelectSource{
+export enum enumTaskFlowSelectSource {
   Country = 0,
-  Company = 1,
-  Individual = 2,
-  User = 3,
-  TaskFlow = 4
+  Company,
+  Individual,
+  User,
+  Custom,
 }
 
-export class TaskFlowSelect extends TaskFlow{
+export class TaskFlowSelect extends TaskFlow {
   type = 'select';
   sourceType: enumTaskFlowSelectSource;
-  value: 0; //value of the selected item key
+  value = 0; //the key of the selected item
+  customEntities: Entities<Entity> = null;
 }
 
-export class TaskFlowConfirm extends TaskFlow{
+export class TaskFlowConfirm extends TaskFlow {
   type = 'confirm';
   value: boolean;
 }
 
-export class TaskFlowDoc extends TaskFlow{
+export class TaskFlowDoc extends TaskFlow {
   type = 'doc';
   doc: string; // file name
 }
 
-export class TaskFlowUploadDocs extends TaskFlow{
+export class TaskFlowUploadDocs extends TaskFlow {
   type = 'upload-docs';
-  docs: TaskFlowDoc[] ; // file name
+  docs: TaskFlowDoc[]; // file name
 }
 
-export class TaskFlowSubmitDocs extends TaskFlow{
-  type='submit-docs';
-  docs: TaskFlowDoc[] ; // file name
+export class TaskFlowSubmitDocs extends TaskFlow {
+  type = 'submit-docs';
+  docs: TaskFlowDoc[]; // file name
   whoTo: string; //submit to whom
 }
 
-export class TaskFlowReminder extends TaskFlow{
-  type='set-reminder';
-  reminderDate = new Date();
+export class TaskFlowReminder extends TaskFlow {
+  type = 'set-reminder';
+  reminderDate_ = new Date();
+  offsetDays_ = 0;
+
+  set offsetDays(v: number) {
+    this.offsetDays_ = v;
+    this.addDays();
+  }
+
+  get reminderDate() {
+    return this.reminderDate_;
+  }
+
+  public addDays() {
+    let date = new Date(new Date().valueOf());
+    date.setDate(date.getDate() + this.offsetDays_);
+    this.reminderDate_ = date;
+  }
 }
 
-export class TaskFlowFormInput{
+export class TaskFlowFormInput {
   type = 'text';
   title = 'Input';
   description = '';
   value: any = '';
 }
 
-export class TaskFlowForm extends TaskFlow{
-  type = 'form'
+export class TaskFlowForm extends TaskFlow {
+  type = 'form';
   inputs: TaskFlowFormInput[] = [];
 
-  addInput(type: string,title: string,description: string): TaskFlowForm{
+  addInput(type: string, title: string, description: string): TaskFlowForm {
     let inp = new TaskFlowFormInput();
     inp.type = type;
-    inp.title = title
+    inp.title = title;
     inp.description = description;
     this.inputs.push(inp);
     return this;
   }
 }
 
-export class WorkFlow extends TaskFlow{
-  tasks: TaskFlow[] = [];
-  private currentTaskIndex_ = 0;
+export class TaskFlowMessage extends TaskFlow {
+  type = 'message';
+}
 
-  public next(){
-    this.tasks[this.currentTaskIndex_].isCurrent = false;
-    this.tasks[this.currentTaskIndex_].isDone = true;
-    
-    //save info
-    //mark next as current
-    if (this.countTasks > this.currentTaskIndex+1)
-      this.currentTaskIndex_ ++; //= this.currentTaskIndex_ + 1;
-      this.tasks[this.currentTaskIndex_].isCurrent = true;
+export class TaskFlowError extends TaskFlow {
+  type = 'error';
+  text = '';
+}
+
+// tasks[]: maintains the current state of the workflow/path, with each node = TaskFlow.
+// getNext, getPrev: Follows the path with
+// rootTask: first TaskFlow. Build tree by using TaskFlow object add..., then assign to rootTask;
+export class WorkFlow extends TaskFlow {
+  name = 'Workflow';
+  public rootTask: TaskFlow = null;
+  private currentTask: TaskFlow = null;
+  //private lastAddedTask: TaskFlow = null;
+  private currentTaskIndex_ = -1;
+  public tasks: TaskFlow[] = [];
+
+  // loads the rootTask, and builds the obvious branch, until the first fork
+  public start(): boolean {
+    this.tasks = [this.rootTask];
+    this.currentTask = this.rootTask;
+    this.currentTask.isCurrent = true;
+    if (this.currentTask) this.currentTaskIndex_ = 0;
+    return this.build(this.rootTask);
   }
 
-  public prev(){
-    this.tasks[this.currentTaskIndex_].isCurrent = false;
-    this.tasks[this.currentTaskIndex_].isDone = false;
-    
-    //save info
-    //mark next as current
-    if (this.currentTaskIndex_>0)
-      this.currentTaskIndex_ --; //= this.currentTaskIndex_ + 1;
-      this.tasks[this.currentTaskIndex_].isCurrent = true;
+  private evalCondition(value: any, operator: string, compareTo: any){
+    let mO = ['>','<','==']
+    let mS = ['in','notin']
+    if (mO.indexOf(operator)){
+      return eval(value + operator + compareTo);
+    } else if (mS.indexOf(operator)){
+      if (operator=='in'){
+        return compareTo.indexOf(value)>-1;
+      } else if (operator=='notin'){
+        return compareTo.indexOf(value)==-1;
+      }
+    }
+    return false;
   }
 
-  public get currentTaskIndex(): number{
+  private build(fromTask: TaskFlow): boolean {
+    let t: TaskFlow = null;
+    if (this.currentTaskIndex_ == this.tasks.length - 1) {
+      if (fromTask) {
+        let t = fromTask;
+        while (t.subTasks.length == 1) {
+          t = t.subTasks[0].taskFlow;
+          this.tasks.push(t);
+        }
+        if (t.isDone && t.subTasks.length > 1) {
+          for (let i = 0; i < t.subTasks.length; i++) {
+            let sOp = t.subTasks[i].conditionalOperator;
+            let sV = t.subTasks[i].conditionalValue;
+            if (this.evalCondition(fromTask.value,sOp,sV)) {
+              // console.log(fromTask.value + sOp + sV + ' is true');
+              t = t.subTasks[i].taskFlow;
+              this.tasks.push(t);
+              this.build(t);
+              break;
+            }
+          }
+        }
+        return true;
+      }
+      return false;
+    }
+    return true;
+  }
+
+  public moveToNext(): TaskFlow {
+    this.currentTask.isDone = true;
+    if (this.build(this.currentTask)) {
+      if (this.currentTaskIndex_ < this.tasks.length - 1) {
+        this.currentTaskIndex_++;
+        this.currentTask.isCurrent = false;
+        this.currentTask = this.tasks[this.currentTaskIndex_];
+        this.currentTask.isCurrent = true;
+        this.build(this.currentTask);
+      }
+      return this.currentTask;
+    }
+    return null;
+  }
+
+  public moveToPrev(): TaskFlow {
+    if (this.currentTask.parent) {
+      this.currentTask.isCurrent = false;
+      this.currentTaskIndex_--;
+      // this.tasks = this.tasks.slice(0,this.currentTaskIndex_); //delete
+      this.currentTask = this.tasks[this.currentTaskIndex_];
+      this.currentTask.isCurrent = true;
+      if (this.currentTask.subTasks.length > 1) {
+        let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
+        this.tasks = v;
+        console.log(v);
+      }
+
+      // if (this.currentTask.subTasks.length > 1) {
+      //   console.log(1,this.tasks);
+      //   console.log(2,this.currentTaskIndex_);
+      //   let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
+      //   this.tasks = v;
+      //   console.log(3,this.tasks);
+      //   this.build(this.currentTask);
+      // }
+      return this.currentTask;
+    }
+    return null;
+  }
+
+  public get currentTaskIndex(): number {
     return this.currentTaskIndex_;
   }
 
-  public get countTasks(): number{
+  public get countTasks(): number {
     return this.tasks.length;
   }
 
-  addForm(name: string): TaskFlowForm{
-    let t = new TaskFlowForm();
-    t.name = name;
-    this.tasks.push(t);
-    return t;
-  }
+  // addForm(name: string): TaskFlowForm {
+  //   let t = new TaskFlowForm();
+  //   t.name = name;
+  //   this.addNext_(t);
+  //   return t;
+  // }
 
-  addUpload(name: string): TaskFlowUploadDocs{
-    let t = new TaskFlowUploadDocs();
-    t.name = name;
-    this.tasks.push(t);
-    return t;
-  }
+  // addUpload(name: string): TaskFlowUploadDocs {
+  //   let t = new TaskFlowUploadDocs();
+  //   t.name = name;
+  //   this.addNext_(t);
+  //   return t;
+  // }
 
-  addReminder(name: string): TaskFlowReminder{
-    let t = new TaskFlowReminder();
-    t.name = name;
-    this.tasks.push(t);
-    return t;
-  }
+  // addReminder(name: string): TaskFlowReminder {
+  //   let t = new TaskFlowReminder();
+  //   t.name = name;
+  //   this.addNext_(t);
+  //   return t;
+  // }
 
-  addSelect(name: string, source: enumTaskFlowSelectSource): TaskFlowSelect{
-    let t = new TaskFlowSelect();
-    t.name = name;
-    t.sourceType = source;
-    this.tasks.push(t);
-    return t;
-  }
+  // addSelect(
+  //   name: string,
+  //   source: enumTaskFlowSelectSource,
+  //   customEntities: Entities<Entity> = null
+  // ): TaskFlowSelect {
+  //   let t = new TaskFlowSelect();
+  //   t.name = name;
+  //   t.sourceType = source;
+  //   t.customEntities = customEntities;
+  //   this.addNext_(t);
+  //   return t;
+  // }
 
-  addSubmit(name: string): TaskFlowSubmitDocs{
-    let t = new TaskFlowSubmitDocs();
-    t.name = name;
-    this.tasks.push(t);
-    return t;
-  }
-  
-  addConfirm(name: string): TaskFlowConfirm{
-    let t = new TaskFlowConfirm();
-    t.name = name;
-    this.tasks.push(t);
-    return t;
-  }
+  // addSubmit(name: string): TaskFlowSubmitDocs {
+  //   let t = new TaskFlowSubmitDocs();
+  //   t.name = name;
+  //   this.addNext_(t);
+  //   return t;
+  // }
 
+  // addConfirm(name: string): TaskFlowConfirm {
+  //   let t = new TaskFlowConfirm();
+  //   t.name = name;
+  //   this.addNext_(t);
+  //   return t;
+  // }
 }

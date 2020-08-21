@@ -11,32 +11,43 @@
     style="vertical-align: middle; cursor: pointer;"
     [attr.data-target]="'#input-panel-' + eid"
   >
-  <div class="btn-group pull-right" >
-    <app-buttons-toolbar-button
+    <div class="btn-group pull-right">
+      <!-- <app-buttons-toolbar-button
       [hidden]="false"
       [placeholder]="'Expand/Collapse'"
       [showMe]="true"
       [matIcon] = "'unfold_more'"
       (onClick) = "collapsed=!collapsed"
-    ></app-buttons-toolbar-button>
-    <app-buttons-toolbar-button *ngIf = "showSavePrev"
-      [hidden]="false"
-      [title]="'Save & Prev'"
-      [placeholder]="'Save and move to the previous task'"
-      [showMe]="true"
-      [matIcon] = "'skip_previous'"
-      (onClick) = "onSavePrev.emit()"
-    ></app-buttons-toolbar-button>
-    <app-buttons-toolbar-button *ngIf = "showSaveNext"
-      [hidden]="false"
-      [title]="'Save & Next'"
-      [placeholder]="'Save and move to the next task'"
-      [showMe]="true"
-      [matIcon] = "'skip_next'"
-      (onClick) = "onSaveNext.emit()"
-    ></app-buttons-toolbar-button>
+    ></app-buttons-toolbar-button> -->
+      <app-buttons-toolbar-button
+        *ngIf="showSavePrev"
+        [hidden]="false"
+        [title]="'Save & Prev'"
+        [placeholder]="'Save and move to the previous task'"
+        [showMe]="true"
+        [matIcon]="'skip_previous'"
+        (onClick)="onSavePrev.emit()"
+      ></app-buttons-toolbar-button>
+      <app-buttons-toolbar-button
+        *ngIf="showSaveNext"
+        [hidden]="false"
+        [title]="'Save & Next'"
+        [placeholder]="'Save and move to the next task'"
+        [showMe]="true"
+        [matIcon]="'skip_next'"
+        (onClick)="onSaveNext.emit()"
+      ></app-buttons-toolbar-button>
+      <app-buttons-toolbar-button
+        *ngIf="showClose"
+        [hidden]="false"
+        [title]="'Close'"
+        [placeholder]="'Close'"
+        [showMe]="true"
+        [matIcon]="'close'"
+        (onClick)="onSaveNext.emit()"
+      ></app-buttons-toolbar-button>
     </div>
-    <div (click) = "collapsed=!collapsed">{{ title }}</div>
+    <div (click)="collapsed = !collapsed">{{ title }}</div>
   </div>
   <!-- data-toggle="collapse" -->
 

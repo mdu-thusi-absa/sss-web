@@ -24,6 +24,7 @@ import {
   TaskFlowUploadDocs,
   TaskFlowForm,
   TaskFlowFormInput,
+  TaskFlowMessage,
 } from './models';
 import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
@@ -84,45 +85,87 @@ export class DataService {
     workFlow.name = 'Amend company registered address';
     workFlow.description = 'Execute a company secretariat task';
 
-    workFlow.addSelect(
-      'Country of the company',
-      enumTaskFlowSelectSource.Country
-    ).isCurrent = true;
+    let a = new TaskFlowSelect();
+    a.name = 'Country of the company';
+    a.sourceType = enumTaskFlowSelectSource.Country;
+    workFlow.rootTask = a;
 
-    workFlow.addSelect(
-      'Company to be amended',
-      enumTaskFlowSelectSource.Company
+    let b1 = new TaskFlowMessage();
+    b1.name = '2 0'
+    b1.description = '0 0 Message'
+    a.addNextFork(b1,2,'==');
+
+    let b2 = new TaskFlowMessage();
+    b2.name = '2 1'
+    b2.description = '0 1 Message'
+    b1.addNext(b2);
+
+    let c1 = new TaskFlowMessage();
+    c1.name = '1 0'
+    c1.description = '1 0 Message'
+    a.addNextFork(c1,1,'==');
+
+    let c2 = new TaskFlowMessage();
+    c2.name = '1 1'
+    c1.description = '1 1 Message'
+    c1.addNext(c2);
+
+
+    let b = new TaskFlowSelect();
+    b.name = 'Company to be amended';
+    b.sourceType = enumTaskFlowSelectSource.Company;
+    a.addNextFork(b,0,'==');
+    
+    let c = new TaskFlowForm();
+    c.name = 'New address';
+    c.addInput('address', 'Amendment', 'New address for the company');
+    b.addNext(c);
+    
+    let d = new TaskFlowUploadDocs();
+    d.name = 'Upload supporting files';
+    c.addNext(d);
+
+    let e = new TaskFlowForm();
+    e.name = 'CoR 21.1';
+    e.addInput('date', 'Date of change of the address', '');
+    e.addInput(
+      'date',
+      'Effective Date',
+      'At least five business days after filling'
     );
+    d.addNext(e);
 
-    workFlow
-      .addForm('New address')
-      .addInput('address', 'Amendment', 'New address for the company');
+    let f = new TaskFlowSubmitDocs();
+    f.name = 'Submit following files to CIPC';
+    e.addNext(f);
 
-    workFlow.addUpload('Upload supporting files');
+    let g = new TaskFlowForm();
+    g.name = 'Submission to CIPC';
+    g.addInput('text', 'Reference code', 'Reference code of the application')
+    g.addInput('checkbox', 'Confirm submission', '');
+    f.addNext(g);
 
-    workFlow
-      .addForm('CoR 21.1')
-      .addInput('date', 'Date of change of the address', '')
-      .addInput(
-        'date',
-        'Effective Date',
-        'At least five business days after filling'
-      );
+    let h = new TaskFlowReminder();
+    h.name = 'Set reminder to follow up CIPC';
+    h.offsetDays = 10;
+    g.addNext(h);
 
-    workFlow.addSubmit('Submit following files to CIPC');
+    let i = new TaskFlowConfirm();
+    i.name = 'Confirm approval from CIPC';
+    h.addNext(i);
 
-    workFlow
-      .addForm('Submission to CIPC')
-      .addInput('text', 'Reference code', 'Reference code of the application')
-      .addInput('checkbox', 'Confirm submission', '');
+    let j = new TaskFlowUploadDocs();
+    j.name = 'Upload approval files from CIPC';
+    i.addNext(j);
 
-    workFlow.addReminder('Set reminder to follow up CIPC');
+    let k = new TaskFlowConfirm();
+    k.name = 'Confirm completion of task';
+    j.addNext(k);
 
-    workFlow.addConfirm('Confirm approval from CIPC');
-
-    workFlow.addUpload('Upload approval files from CIPC');
-
-    workFlow.addConfirm('Confirm completion of task');
+    let l = new TaskFlowMessage();
+    l.name = 'End of task'
+    l.description = 'Task has been completed'
+    k.addNext(l);
 
     return workFlow;
   }

@@ -99,6 +99,7 @@ import { FlowSubmitDocsComponent } from './workflow/flow-submit-docs/flow-submit
 import { FlowSetReminderComponent } from './workflow/flow-set-reminder/flow-set-reminder.component';
 import { FlowTaskComponent } from './workflow/flow-task/flow-task.component';
 import { FlowFormComponent } from './workflow/flow-form/flow-form.component';
+import { FlowMessageComponent } from './workflow/flow-message/flow-message.component';
 
 
 
@@ -192,6 +193,7 @@ import { FlowFormComponent } from './workflow/flow-form/flow-form.component';
     FlowSetReminderComponent,
     FlowTaskComponent,
     FlowFormComponent,
+    FlowMessageComponent,
     
   ],
   imports: [

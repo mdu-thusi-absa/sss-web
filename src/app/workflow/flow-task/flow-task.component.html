@@ -49,5 +49,13 @@
       (onSaveNext) = "doSaveNext(i)"
       (onSavePrev) = "doSavePrev(i)"
     ></app-flow-form>
+    <app-flow-message
+      *ngIf="t.type == 'message'"
+      [taskFlow]="t"
+      [showSavePrev] = "i>0"
+      [showSaveNext] = "i < workFlow.tasks.length"
+      (onSaveNext) = "doSaveNext(i)"
+      (onSavePrev) = "doSavePrev(i)"
+    ></app-flow-message>
   </ng-container>
 </app-input-panel>

@@ -17,11 +17,11 @@ export class FlowTaskComponent implements OnInit {
 
   doSaveNext(taskIndex: number) {
     //verify here or in each flow, report individually, before moving on
-    this.workFlow.next();
+    this.workFlow.moveToNext();
   }
 
   doSavePrev(taskIndex: number) {
     //verify here or in each flow, report individually, before moving on
-    this.workFlow.prev();
+    this.workFlow.moveToPrev();
   }
 }
