@@ -21,7 +21,7 @@ export class EntityDetailsDashboardComponent implements OnInit {
   @Input() hideFiles = false;
   @Input() hideUsers = false;
   @Input() hideContacts = false;
-  persons = new Entities<NaturalEntity>(NaturalEntity);
+  // persons = new Entities<NaturalEntity>(NaturalEntity);
   @Input() panelRows = 1;
   @Input() entityType = 0;
   //@Input() entityKey = 0;
@@ -38,7 +38,7 @@ export class EntityDetailsDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.persons = this.data.getPersons();
+    //this.persons = this.data.getIndividuals();
     if (this.data.lg) console.log(new Date().getTime(),'loaded:dashboard');
     this.data.progress += 1;
     this.workFlow = this.data.getWorkFlowSample();

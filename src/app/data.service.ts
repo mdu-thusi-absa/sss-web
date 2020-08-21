@@ -45,6 +45,24 @@ import {
   jsonTemplates,
   jsonDashboardsPlural,
   jsonReports,
+  jsonCountriesWithTasks,
+  jsonCountries,
+  jsonPortfolios,
+  jsonCities,
+  jsonUsers,
+  jsonBusinessAreas,
+  jsonAccountingClasses,
+  jsonAccountingTiers,
+  jsonRegulators,
+  jsonRegulations,
+  jsonTrusts,
+  jsonYesNo,
+  jsonTaskStatus,
+  jsonTaskTypes,
+  jsonContactPreferences,
+  jsonAuditors,
+  jsonSecretariats,
+  jsonIndustries,
 } from './data-json/data-json.module';
 import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
@@ -54,11 +72,13 @@ import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 export class DataService {
   public lg = false;
   companies = new Entities<Company>(Company);
-  persons = new Entities<NaturalEntity>(NaturalEntity);
+  companiesWithTasks = new Entities<Company>(Company);
+  individuals = new Entities<NaturalEntity>(NaturalEntity);
   functionalEntities: Entities<EveryEntity>;
   dashboards = new Entities<Entity>(Entity);
   dashboardsPlural = new Entities<Entity>(Entity);
   entityTypes = new Entities<Entity>(Entity);
+  portfolios = new Entities<Entity>(Entity);
 
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
@@ -70,14 +90,78 @@ export class DataService {
   attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
   templates = new Entities<FileEntity>(FileEntity);
   reports = new Entities<Entity>(Entity);
+  cities = new Entities<Entity>(Entity);
+  users = new Entities<User>(User);
+  businessAreas = new Entities<Entity>(Entity);
+  legalClasses = new Entities<Entity>(Entity);
+  entityStatusTiers = new Entities<Entity>(Entity);
+  accountingClasses = new Entities<Entity>(Entity);
+  accountingTiers = new Entities<Entity>(Entity);
+  regulations = new Entities<Entity>(Entity);
+  yesNo = new Entities<Entity>(Entity);
+  taskStatus = new Entities<Entity>(Entity);
+  taskTypes = new Entities<Entity>(Entity);
+  contactPreferences = new Entities<Entity>(Entity);
+  industries = new Entities<Entity>(Entity);
+
+  regulators = new Entities<LegalEntity>(LegalEntity);
+  trusts = new Entities<LegalEntity>(LegalEntity);
+  auditors = new Entities<LegalEntity>(LegalEntity);
+  secretariats = new Entities<LegalEntity>(LegalEntity);
 
   constructor() {
     this.loadStatic();
     this.makeCountries();
     this.makeCompanies();
     this.makeIndividuals();
+    this.makeFromJSON(this.portfolios, jsonPortfolios);
+    this.makeFromJSON(this.cities, jsonCities);
+    this.makeFromJSON(this.users, jsonUsers);
+    this.makeFromJSON(this.businessAreas, jsonBusinessAreas);
+    this.makeFromJSON(this.legalClasses, jsonBusinessAreas);
+    this.makeFromJSON(this.entityStatusTiers, jsonBusinessAreas);
+    this.makeFromJSON(this.accountingClasses, jsonAccountingClasses);
+    this.makeFromJSON(this.accountingTiers, jsonAccountingTiers);
+    this.makeFromJSON(this.regulators, jsonRegulators);
+    this.makeFromJSON(this.regulations, jsonRegulations);
+    this.makeFromJSON(this.trusts, jsonTrusts);
+    this.makeFromJSON(this.yesNo, jsonYesNo);
+    this.makeFromJSON(this.taskStatus, jsonTaskStatus);
+    this.makeFromJSON(this.taskTypes, jsonTaskTypes);
+    this.makeFromJSON(this.contactPreferences, jsonContactPreferences);
+    this.makeFromJSON(this.auditors, jsonAuditors);
+    this.makeFromJSON(this.secretariats, jsonSecretariats);
+    this.makeFromJSON(this.industries, jsonIndustries);
 
     this.makeFunctionalEntities();
+  }
+
+  public getList(
+    enumSource: enumTaskFlowSelectSource,
+    customArray?: any[]
+  ): Entities<Entity> {
+    let v: Entities<Entity>;
+    switch (enumSource) {
+      case enumTaskFlowSelectSource.Companies:
+        return this.getCompaniesFromCountries(customArray); //containing keys for countries
+      case enumTaskFlowSelectSource.Countries:
+        return this.getCountries();
+      case enumTaskFlowSelectSource.CountriesWithTasks:
+        return this.getCountriesWithTasks();
+      case enumTaskFlowSelectSource.Custom:
+        let e = new Entities<Entity>(Entity);
+        e.fromArray(customArray); //containing string[] of options
+        return e;
+      case enumTaskFlowSelectSource.Individuals:
+        return this.getIndividuals();
+      case enumTaskFlowSelectSource.IndividualsFromCountries:
+        return this.getIndividualsFromCountries(customArray); //containing keys for the countries
+      case enumTaskFlowSelectSource.Users:
+        return this.getUsers();
+      default:
+        return null;
+        break;
+    }
   }
 
   public getWorkFlowSample(): WorkFlow {
@@ -87,40 +171,39 @@ export class DataService {
 
     let a = new TaskFlowSelect();
     a.name = 'Country of the company';
-    a.sourceType = enumTaskFlowSelectSource.Country;
+    a.sourceType = enumTaskFlowSelectSource.CountriesWithTasks;
     workFlow.rootTask = a;
 
     let b1 = new TaskFlowMessage();
-    b1.name = '2 0'
-    b1.description = '0 0 Message'
-    a.addNextFork(b1,2,'==');
+    b1.name = '2 0';
+    b1.description = '0 0 Message';
+    a.addNextFork(b1, 2, '==');
 
     let b2 = new TaskFlowMessage();
-    b2.name = '2 1'
-    b2.description = '0 1 Message'
+    b2.name = '2 1';
+    b2.description = '0 1 Message';
     b1.addNext(b2);
 
     let c1 = new TaskFlowMessage();
-    c1.name = '1 0'
-    c1.description = '1 0 Message'
-    a.addNextFork(c1,1,'==');
+    c1.name = '1 0';
+    c1.description = '1 0 Message';
+    a.addNextFork(c1, 1, '==');
 
     let c2 = new TaskFlowMessage();
-    c2.name = '1 1'
-    c1.description = '1 1 Message'
+    c2.name = '1 1';
+    c1.description = '1 1 Message';
     c1.addNext(c2);
-
 
     let b = new TaskFlowSelect();
     b.name = 'Company to be amended';
-    b.sourceType = enumTaskFlowSelectSource.Company;
-    a.addNextFork(b,0,'==');
-    
+    b.sourceType = enumTaskFlowSelectSource.CompaniesFromCountries;
+    a.addNextFork(b, 0, '==');
+
     let c = new TaskFlowForm();
     c.name = 'New address';
     c.addInput('address', 'Amendment', 'New address for the company');
     b.addNext(c);
-    
+
     let d = new TaskFlowUploadDocs();
     d.name = 'Upload supporting files';
     c.addNext(d);
@@ -141,7 +224,7 @@ export class DataService {
 
     let g = new TaskFlowForm();
     g.name = 'Submission to CIPC';
-    g.addInput('text', 'Reference code', 'Reference code of the application')
+    g.addInput('text', 'Reference code', 'Reference code of the application');
     g.addInput('checkbox', 'Confirm submission', '');
     f.addNext(g);
 
@@ -163,8 +246,8 @@ export class DataService {
     j.addNext(k);
 
     let l = new TaskFlowMessage();
-    l.name = 'End of task'
-    l.description = 'Task has been completed'
+    l.name = 'End of task';
+    l.description = 'Task has been completed';
     k.addNext(l);
 
     return workFlow;
@@ -187,11 +270,12 @@ export class DataService {
   }
 
   makeIndividuals() {
-    this.persons.fromJSON(jsonIndividuals);
+    this.individuals.fromJSON(jsonIndividuals);
   }
 
   makeCompanies() {
     this.companies.fromJSON(jsonCompanies, 1000);
+    this.companies.fromJSON(jsonCountriesWithTasks, 1000);
     //this.companies.sort();
   }
 
@@ -203,14 +287,14 @@ export class DataService {
     this.functionalEntities.fromEntities('template', this.dashboards);
 
     this.functionalEntities.fromEntities('company', this.companies);
-    this.functionalEntities.fromEntities('individual', this.persons);
+    this.functionalEntities.fromEntities('individual', this.individuals);
     this.functionalEntities.fromEntities('user', this.users);
-    this.functionalEntities.fromEntities('group', this.entityGroups);
+    this.functionalEntities.fromEntities('portfolio', this.portfolios);
     this.functionalEntities.fromEntities('trust', this.trusts);
     this.functionalEntities.fromEntities('auditor', this.auditors);
     this.functionalEntities.fromEntities(
       'secretariat',
-      this.companySecretaries
+      this.secretariats
     );
     this.functionalEntities.fromEntities('regulator', this.regulators);
     this.functionalEntities.fromEntities('regulation', this.regulations);
@@ -226,518 +310,15 @@ export class DataService {
   }
 
   makeCountries() {
-    this.countries.add(new Country('Afghanistan').addCity(new City('Baghlan')));
-    this.countries.add(
-      new Country('Algeria')
-        .addCity(new City('Baraki'))
-        .addCity(new City('Barika'))
-        .addCity(new City('Batna'))
-        .addCity(new City('Béchar'))
-        .addCity(new City('Béjaïa'))
-        .addCity(new City('Biskra'))
-        .addCity(new City('Blida'))
-        .addCity(new City('Bordj Bou Arréridj'))
-        .addCity(new City('Bordj El Kiffan'))
-        .addCity(new City('Bou Saâda'))
-        .addCity(new City('Bouïra'))
-    );
-    this.countries.add(new Country('Angola').addCity(new City('Benguela')));
-    this.countries.add(
-      new Country('Argentina')
-        .addCity(new City('Bahía Blanca'))
-        .addCity(new City('Bariloche'))
-        .addCity(new City('Buenos Aires'))
-    );
-    this.countries.add(
-      new Country('Australia')
-        .addCity(new City('Ballarat'))
-        .addCity(new City('Brisbane'))
-    );
-    this.countries.add(new Country('Azerbaijan').addCity(new City('Baku')));
-    this.countries.add(
-      new Country('Bangladesh')
-        .addCity(new City('Barisal'))
-        .addCity(new City('Bogra'))
-    );
-    this.countries.add(
-      new Country('Belarus')
-        .addCity(new City('Babruysk'))
-        .addCity(new City('Baranovichi'))
-        .addCity(new City('Barysaw'))
-        .addCity(new City('Brest, Brest'))
-    );
-    this.countries.add(
-      new Country('Belgium')
-        .addCity(new City('Bruges'))
-        .addCity(new City('Brussels'))
-    );
-    this.countries.add(
-      new Country('Bosnia and Herzegovina').addCity(new City('Banja Luka'))
-    );
-    this.countries.add(
-      new Country('Brazil')
-        .addCity(new City('Bacabal'))
-        .addCity(new City('Bagé'))
-        .addCity(new City('Balneário Camboriú'))
-        .addCity(new City('Barbacena'))
-        .addCity(new City('Barcarena'))
-        .addCity(new City('Barra Mansa'))
-        .addCity(new City('Barreiras'))
-        .addCity(new City('Barretos'))
-        .addCity(new City('Barueri'))
-        .addCity(new City('Bauru'))
-        .addCity(new City('Belém'))
-        .addCity(new City('Belford Roxo'))
-        .addCity(new City('Belo Horizonte'))
-        .addCity(new City('Bento Goncalves'))
-        .addCity(new City('Betim'))
-        .addCity(new City('Birigui'))
-        .addCity(new City('Blumenau'))
-        .addCity(new City('Boa Vista'))
-        .addCity(new City('Botucatu'))
-        .addCity(new City('Bragança'))
-        .addCity(new City('Bragança Paulista'))
-        .addCity(new City('Brasília'))
-        .addCity(new City('Brusque'))
-    );
-    this.countries.add(
-      new Country('Brunei').addCity(new City('Bandar Seri Begawan'))
-    );
-    this.countries.add(new Country('Bulgaria').addCity(new City('Burgas')));
-    this.countries.add(
-      new Country('Burkina Faso').addCity(new City('Bobo-Dioulasso'))
-    );
-    this.countries.add(new Country('Burundi').addCity(new City('Bujumbura')));
-    this.countries.add(new Country('Cambodia').addCity(new City('Battambang')));
-    this.countries.add(
-      new Country('Cameroon')
-        .addCity(new City('Bafoussam'))
-        .addCity(new City('Bamenda'))
-    );
-    this.countries.add(
-      new Country('Canada')
-        .addCity(new City('Barrie'))
-        .addCity(new City('Brampton'))
-        .addCity(new City('Burlington, Ontario'))
-        .addCity(new City('Burnaby'))
-    );
-    this.countries.add(
-      new Country('Central African Republic').addCity(new City('Bangui'))
-    );
-    this.countries.add(
-      new Country('China')
-        .addCity(new City('Baicheng'))
-        .addCity(new City('Baise'))
-        .addCity(new City('Baishan'))
-        .addCity(new City('Baiyin'))
-        .addCity(new City('Baoding'))
-        .addCity(new City('Baoji'))
-        .addCity(new City('Baoshan'))
-        .addCity(new City('Baotou'))
-        .addCity(new City('Bayannur'))
-        .addCity(new City('Bazhou'))
-        .addCity(new City("Bei'an"))
-        .addCity(new City('Beihai'))
-        .addCity(new City('Beijing'))
-        .addCity(new City('Beipiao'))
-        .addCity(new City('Bengbu'))
-        .addCity(new City('Benxi'))
-        .addCity(new City('Binzhou'))
-        .addCity(new City('Bole'))
-        .addCity(new City('Botou'))
-        .addCity(new City('Bozhou'))
-    );
-    this.countries.add(
-      new Country('Colombia')
-        .addCity(new City('Barrancabermeja'))
-        .addCity(new City('Barranquilla'))
-        .addCity(new City('Bello'))
-        .addCity(new City('Bogota'))
-        .addCity(new City('Bucaramanga'))
-        .addCity(new City('Buenaventura'))
-    );
-    this.countries.add(new Country('Cuba').addCity(new City('Bayamo')));
-    this.countries.add(new Country('Czech Republic').addCity(new City('Brno')));
-    this.countries.add(
-      new Country('Democratic Republic of the Congo')
-        .addCity(new City('Boma'))
-        .addCity(new City('Bukavu'))
-    );
-    this.countries.add(
-      new Country('Dominican Republic')
-        .addCity(new City('Bajos de Haina'))
-        .addCity(new City('Baní'))
-        .addCity(new City('Boca Chica'))
-        .addCity(new City('Bonao'))
-    );
-    this.countries.add(
-      new Country('Egypt')
-        .addCity(new City('Banha'))
-        .addCity(new City('Bani Suwayf'))
-    );
-    this.countries.add(
-      new Country('Ethiopia')
-        .addCity(new City('Bahir Dar'))
-        .addCity(new City('Bishoftu'))
-    );
-    this.countries.add(
-      new Country('France')
-        .addCity(new City('Besançon'))
-        .addCity(new City('Bordeaux'))
-        .addCity(new City('Boulogne-Billancourt'))
-        .addCity(new City('Brest, Brittany'))
-    );
-    this.countries.add(new Country('Gambia').addCity(new City('Banjul')));
-    this.countries.add(new Country('Georgia').addCity(new City('Batumi')));
-    this.countries.add(
-      new Country('Germany')
-        .addCity(new City('Bergisch Gladbach'))
-        .addCity(new City('Berlin'))
-        .addCity(new City('Bielefeld'))
-        .addCity(new City('Bochum'))
-        .addCity(new City('Bonn'))
-        .addCity(new City('Bottrop'))
-        .addCity(new City('Braunschweig'))
-        .addCity(new City('Bremen'))
-        .addCity(new City('Bremerhaven'))
-    );
-    this.countries.add(
-      new Country('Guinea-Bissau').addCity(new City('Bissau'))
-    );
-    this.countries.add(new Country('Hungary').addCity(new City('Budapest')));
-    this.countries.add(
-      new Country('India')
-        .addCity(new City('Badlapur'))
-        .addCity(new City('Bagaha'))
-        .addCity(new City('Bagalkot'))
-        .addCity(new City('Bahadurgarh'))
-        .addCity(new City('Baharampur'))
-        .addCity(new City('Bahraich'))
-        .addCity(new City('Baidyabati'))
-        .addCity(new City('Baleshwar'))
-        .addCity(new City('Ballia'))
-        .addCity(new City('Bally, Bally-Jagachha'))
-        .addCity(new City('Bally, Howrah'))
-        .addCity(new City('Balurghat'))
-        .addCity(new City('Banda'))
-        .addCity(new City('Bangalore'))
-        .addCity(new City('Bangaon'))
-        .addCity(new City('Bankura'))
-        .addCity(new City('Bansberia'))
-        .addCity(new City('Banswara'))
-        .addCity(new City('Baran'))
-        .addCity(new City('Baranagar'))
-        .addCity(new City('Barasat'))
-        .addCity(new City('Baraut'))
-        .addCity(new City('Bardhaman'))
-        .addCity(new City('Bareilly'))
-        .addCity(new City('Baripada'))
-        .addCity(new City('Barnala'))
-        .addCity(new City('Barrackpur'))
-        .addCity(new City('Barshi'))
-        .addCity(new City('Basirhat'))
-        .addCity(new City('Basti'))
-        .addCity(new City('Batala'))
-        .addCity(new City('Bathinda'))
-        .addCity(new City('Beawar'))
-        .addCity(new City('Beed'))
-        .addCity(new City('Begusarai'))
-        .addCity(new City('Belgaum'))
-        .addCity(new City('Bellary'))
-        .addCity(new City('Berhampur'))
-        .addCity(new City('Bettiah'))
-        .addCity(new City('Betul'))
-        .addCity(new City('Bhadrak'))
-        .addCity(new City('Bhadravati'))
-        .addCity(new City('Bhadreswar'))
-        .addCity(new City('Bhagalpur'))
-        .addCity(new City('Bhalswa Jahangir Pur'))
-        .addCity(new City('Bharatpur, Rajasthan'))
-        .addCity(new City('Bharuch'))
-        .addCity(new City('Bhatpara'))
-        .addCity(new City('Bhavnagar'))
-        .addCity(new City('Bhilai'))
-        .addCity(new City('Bhilwara'))
-        .addCity(new City('Bhimavaram'))
-        .addCity(new City('Bhind'))
-        .addCity(new City('Bhiwadi'))
-        .addCity(new City('Bhiwandi'))
-        .addCity(new City('Bhiwani'))
-        .addCity(new City('Bhopal'))
-        .addCity(new City('Bhubaneswar'))
-        .addCity(new City('Bhuj'))
-        .addCity(new City('Bhusawal'))
-        .addCity(new City('Bidar'))
-        .addCity(new City('Bidhannagar'))
-        .addCity(new City('Bihar Sharif'))
-        .addCity(new City('Bijapur'))
-        .addCity(new City('Bikaner'))
-        .addCity(new City('Bilaspur'))
-        .addCity(new City('Bokaro Steel City'))
-        .addCity(new City('Botad'))
-        .addCity(new City('Budaun'))
-        .addCity(new City('Bulandshahr'))
-        .addCity(new City('Bundi'))
-        .addCity(new City('Burari'))
-        .addCity(new City('Burhanpur'))
-        .addCity(new City('Buxar'))
-    );
-    this.countries.add(
-      new Country('Indonesia')
-        .addCity(new City('Balikpapan'))
-        .addCity(new City('Banda Aceh'))
-        .addCity(new City('Bandar Lampung'))
-        .addCity(new City('Bandung'))
-        .addCity(new City('Banjarmasin'))
-        .addCity(new City('Batam'))
-        .addCity(new City('Batu'))
-        .addCity(new City('Bekasi'))
-        .addCity(new City('Bengkulu'))
-        .addCity(new City('Binjai'))
-        .addCity(new City('Bitung'))
-        .addCity(new City('Blitar'))
-        .addCity(new City('Bogor'))
-    );
-    this.countries.add(
-      new Country('Iran')
-        .addCity(new City('Babol'))
-        .addCity(new City('Bandar Abbas'))
-        .addCity(new City('Bandar-e Anzali'))
-        .addCity(new City('Bandar-e Mahshahr'))
-        .addCity(new City('Behbahan'))
-        .addCity(new City('Birjand'))
-        .addCity(new City('Bojnord'))
-        .addCity(new City('Borujerd'))
-        .addCity(new City('Bukan'))
-        .addCity(new City('Bushehr'))
-    );
-    this.countries.add(
-      new Country('Iraq')
-        .addCity(new City('Baghdad'))
-        .addCity(new City('Baqubah'))
-        .addCity(new City('Bashiqa'))
-        .addCity(new City('Basra'))
-    );
-    this.countries.add(
-      new Country('Israel')
-        .addCity(new City('Bat Yam'))
-        .addCity(new City('Beersheba'))
-        .addCity(new City('Beit Shemesh'))
-        .addCity(new City('Bnei Brak'))
-    );
-    this.countries.add(
-      new Country('Italy')
-        .addCity(new City('Bari'))
-        .addCity(new City('Bergamo'))
-        .addCity(new City('Bologna'))
-        .addCity(new City('Bolzano'))
-        .addCity(new City('Brescia'))
-    );
-    this.countries.add(new Country('Ivory Coast').addCity(new City('Bouaké')));
-    this.countries.add(new Country('Japan').addCity(new City('Beppu')));
-    this.countries.add(new Country('Kyrgyzstan').addCity(new City('Bishkek')));
-    this.countries.add(new Country('Lebanon').addCity(new City('Beirut')));
-    this.countries.add(new Country('Libya').addCity(new City('Benghazi')));
-    this.countries.add(new Country('Malawi').addCity(new City('Blantyre')));
-    this.countries.add(
-      new Country('Malaysia')
-        .addCity(new City('Batu Pahat'))
-        .addCity(new City('Bintulu'))
-    );
-    this.countries.add(new Country('Mali').addCity(new City('Bamako')));
-    this.countries.add(
-      new Country('Mauritius').addCity(new City('Beau-Bassin Rose-Hill'))
-    );
-    this.countries.add(
-      new Country('Mexico').addCity(new City('Benito Juárez'))
-    );
-    this.countries.add(new Country('Moldova').addCity(new City('Bălți')));
-    this.countries.add(
-      new Country('Morocco')
-        .addCity(new City('Beni Mellal'))
-        .addCity(new City('Berkane'))
-        .addCity(new City('Berrechid'))
-    );
-    this.countries.add(new Country('Mozambique').addCity(new City('Beira')));
-    this.countries.add(new Country('Myanmar').addCity(new City('Bago')));
-    this.countries.add(
-      new Country('Nepal')
-        .addCity(new City('Bharatpur, Chitwan'))
-        .addCity(new City('Bhimdatta'))
-        .addCity(new City('Biratnagar'))
-        .addCity(new City('Birgunj'))
-        .addCity(new City('Butwal'))
-    );
-    this.countries.add(new Country('Netherlands').addCity(new City('Breda')));
-    this.countries.add(new Country('Norway').addCity(new City('Bergen')));
-    this.countries.add(
-      new Country('Oman')
-        .addCity(new City('Barka'))
-        .addCity(new City('Bawshar'))
-    );
-    this.countries.add(
-      new Country('Pakistan')
-        .addCity(new City('Bahawalnagar'))
-        .addCity(new City('Bahawalpur'))
-        .addCity(new City('Bhalwal'))
-        .addCity(new City('Burewala'))
-    );
-    this.countries.add(
-      new Country('Philippines')
-        .addCity(new City('Bacolod'))
-        .addCity(new City('Bacoor'))
-        .addCity(new City('Bago'))
-        .addCity(new City('Baguio'))
-        .addCity(new City('Baliuag'))
-        .addCity(new City('Batangas City'))
-        .addCity(new City('Bayambang'))
-        .addCity(new City('Bayawan'))
-        .addCity(new City('Baybay'))
-        .addCity(new City('Biñan'))
-        .addCity(new City('Binangonan'))
-        .addCity(new City('Bocaue'))
-        .addCity(new City('Bongao'))
-        .addCity(new City('Bulan'))
-        .addCity(new City('Butuan'))
-    );
-    this.countries.add(
-      new Country('Poland')
-        .addCity(new City('Białystok'))
-        .addCity(new City('Bielsko-Biała'))
-        .addCity(new City('Bydgoszcz'))
-        .addCity(new City('Bytom'))
-    );
-    this.countries.add(new Country('Portugal').addCity(new City('Braga')));
-    this.countries.add(new Country('Puerto Rico').addCity(new City('Bayamón')));
-    this.countries.add(
-      new Country('Republic of the Congo').addCity(new City('Brazzaville'))
-    );
-    this.countries.add(
-      new Country('Romania')
-        .addCity(new City('Bacău'))
-        .addCity(new City('Baia Mare'))
-        .addCity(new City('Botoșani'))
-        .addCity(new City('Brăila'))
-        .addCity(new City('Brașov'))
-        .addCity(new City('Bucharest'))
-        .addCity(new City('Buzău'))
-    );
-    this.countries.add(
-      new Country('Russia')
-        .addCity(new City('Balakovo'))
-        .addCity(new City('Balashikha'))
-        .addCity(new City('Barnaul'))
-        .addCity(new City('Bataysk'))
-        .addCity(new City('Belgorod'))
-        .addCity(new City('Berezniki'))
-        .addCity(new City('Biysk'))
-        .addCity(new City('Blagoveshchensk'))
-        .addCity(new City('Bratsk'))
-        .addCity(new City('Bryansk'))
-    );
-    this.countries.add(
-      new Country('Saudi Arabia').addCity(new City('Buraidah'))
-    );
-    this.countries.add(new Country('Serbia').addCity(new City('Belgrade')));
-    this.countries.add(new Country('Sierra Leone').addCity(new City('Bo')));
-    this.countries.add(new Country('Slovakia').addCity(new City('Bratislava')));
-    this.countries.add(
-      new Country('Somalia')
-        .addCity(new City('Baidoa'))
-        .addCity(new City('Berbera'))
-        .addCity(new City('Borama'))
-        .addCity(new City('Bosaso'))
-        .addCity(new City('Burao'))
-    );
-    this.countries.add(
-      new Country('South Africa')
-        .addCity(new City('Benoni'))
-        .addCity(new City('Bloemfontein'))
-        .addCity(new City('Boksburg'))
-        .addCity(new City('Botshabelo'))
-        .addCity(new City('Pretoria'))
-        .addCity(new City('Johannesburg'))
-    );
-    this.countries.add(
-      new Country('South Korea')
-        .addCity(new City('Bucheon'))
-        .addCity(new City('Busan'))
-    );
-    this.countries.add(
-      new Country('Spain')
-        .addCity(new City('Badajoz'))
-        .addCity(new City('Badalona'))
-        .addCity(new City('Barakaldo'))
-        .addCity(new City('Barcelona'))
-        .addCity(new City('Bilbao'))
-        .addCity(new City('Burgos'))
-    );
-    this.countries.add(
-      new Country('Switzerland')
-        .addCity(new City('Basel'))
-        .addCity(new City('Bern'))
-    );
-    this.countries.add(new Country('Thailand').addCity(new City('Bangkok')));
-    this.countries.add(new Country('Tunisia').addCity(new City('Bizerte')));
-    this.countries.add(
-      new Country('Turkey')
-        .addCity(new City('Balıkesir'))
-        .addCity(new City('Bandırma'))
-        .addCity(new City('Batman'))
-        .addCity(new City('Bolu'))
-        .addCity(new City('Bursa'))
-    );
-    this.countries.add(
-      new Country('Ukraine')
-        .addCity(new City('Berdyansk'))
-        .addCity(new City('Bila Tserkva'))
-    );
-    this.countries.add(
-      new Country('United Kingdom')
-        .addCity(new City('Belfast'))
-        .addCity(new City('Birmingham'))
-        .addCity(new City('Blackburn'))
-        .addCity(new City('Blackpool'))
-        .addCity(new City('Bolton'))
-        .addCity(new City('Bournemouth'))
-        .addCity(new City('Bradford'))
-        .addCity(new City('Brighton'))
-        .addCity(new City('Bristol'))
-    );
-    this.countries.add(
-      new Country('United States')
-        .addCity(new City('Bakersfield'))
-        .addCity(new City('Baltimore'))
-        .addCity(new City('Baton Rouge'))
-        .addCity(new City('Beaumont'))
-        .addCity(new City('Bellevue'))
-        .addCity(new City('Berkeley'))
-        .addCity(new City('Billings'))
-        .addCity(new City('Birmingham, Alabama'))
-        .addCity(new City('Boise'))
-        .addCity(new City('Boston'))
-        .addCity(new City('Boulder'))
-        .addCity(new City('Bridgeport'))
-        .addCity(new City('Brownsville'))
-        .addCity(new City('Buffalo'))
-        .addCity(new City('Burbank'))
-    );
-    this.countries.add(new Country('Uzbekistan').addCity(new City('Bukhara')));
-    this.countries.add(
-      new Country('Venezuela')
-        .addCity(new City('Barcelona, Anzoátegui'))
-        .addCity(new City('Barinas'))
-        .addCity(new City('Barquisimeto'))
-        .addCity(new City('Baruta'))
-    );
-    this.countries.add(
-      new Country('Vietnam').addCity(new City('Buôn Ma Thuột'))
-    );
-    this.countries.add(new Country('Zimbabwe').addCity(new City('Bulawayo')));
+    this.countries.fromJSON(jsonCountries);
   }
 
   getCompanies() {
     return this.companies;
+  }
+
+  getCountriesWithTasks() {
+    return this.companiesWithTasks;
   }
 
   getDefault(key: string): any {
@@ -787,10 +368,6 @@ export class DataService {
   }
 
   //Business Area
-  businessAreas = new Entities<Entity>(Entity)
-    .add(new Entity('Finance'))
-    .add(new Entity('Property'))
-    .add(new Entity('Retail'));
   getBusinessAreas() {
     return this.businessAreas;
   }
@@ -798,9 +375,7 @@ export class DataService {
   getBusinessDivisions() {
     return this.businessDivisions;
   }
-  legalClasses = new Entities<Entity>(Entity)
-    .add(new Entity('Legal'))
-    .add(new Entity('Illegal'));
+ 
   getLegalClasses() {
     return this.legalClasses;
   }
@@ -808,74 +383,29 @@ export class DataService {
   getEntityStatuses() {
     return this.entityStatuses;
   }
-  entityStatusTiers = new Entities<Entity>(Entity)
-    .add(new Entity('Tier 1'))
-    .add(new Entity('Tier 2'))
-    .add(new Entity('Tier 3'));
+  
   getEntityStatusTiers() {
     return this.entityStatusTiers;
   }
-  accountingClasses = new Entities<Entity>(Entity)
-    .add(new Entity('Accounted'))
-    .add(new Entity('Not Accounted'));
-  getAccountingClasses() {
-    return this.accountingClasses;
-  }
-  accountingTiers = new Entities<Entity>(Entity)
-    .add(new Entity('Top'))
-    .add(new Entity('Middle'))
-    .add(new Entity('Low'));
+
   getAccountingTier() {
     return this.accountingTiers;
   }
 
-  regulators = new Entities<LegalEntity>(LegalEntity)
-    .add(
-      new LegalEntity('Financial Services Conduct Authority').set(
-        'suffix',
-        'FSCA'
-      )
-    )
-    .add(new LegalEntity('South Africian Reserve Bank').set('suffix', 'SARB'));
   getRegulators() {
     return this.regulators;
   }
 
-  regulations = new Entities<LegalEntity>(LegalEntity)
-    .add(new LegalEntity('Companies Act 71 of 2008'))
-    .add(
-      new LegalEntity('Protection of Personal Information Act 4 of 2013').set(
-        'suffix',
-        'POPI'
-      )
-    )
-    .add(
-      new LegalEntity('Financial Intelligence Centre Act 38 of 2001').set(
-        'suffix',
-        'FICA'
-      )
-    )
-    .add(
-      new LegalEntity('Trust Property Control Act 57 of 1988').set(
-        'suffix',
-        'TPCA'
-      )
-    );
+
   getRegulations() {
     return this.regulations;
   }
-
-  trusts = new Entities<LegalEntity>(LegalEntity)
-    .add(new LegalEntity('Northern Trust').set('suffix', 'NTH'))
-    .add(new LegalEntity('BEE Trust').set('suffix', 'BEET'));
 
   getTrusts(): Entities<LegalEntity> {
     return this.trusts;
   }
 
-  yesNo = new Entities<Entity>(LegalEntity)
-    .add(new Entity('Yes'))
-    .add(new Entity('No'));
+
   getYesNo() {
     return this.yesNo;
   }
@@ -883,61 +413,33 @@ export class DataService {
   getPeriods() {
     return this.periods;
   }
-  taskStatus = new Entities<Entity>(Entity)
-    .add(new Entity('To Do'))
-    .add(new Entity('Doing'))
-    .add(new Entity('Done'));
+
   getTaskStatus() {
     return this.taskStatus;
   }
-  taskTypes = new Entities<Entity>(Entity)
-    .add(new Entity('Appointment'))
-    .add(new Entity('Resignation'))
-    .add(new Entity('Rename'))
-    .add(new Entity('General'));
+
   getTaskTypes() {
     return this.taskTypes;
   }
 
-  contactPreferences = new Entities<Entity>(Entity)
-    .add(new Entity('Email'))
-    .add(new Entity('Call landline'))
-    .add(new Entity('Call cellphone'))
-    .add(new Entity('SMS or Text'));
   getContactPreferences() {
     return this.contactPreferences;
   }
 
-  auditors = new Entities<LegalEntity>(LegalEntity)
-    .add(new LegalEntity('Deloitte'))
-    .add(new LegalEntity('KPMG'))
-    .add(new LegalEntity('PWC'));
-
-  companySecretaries = new Entities<LegalEntity>(LegalEntity)
-    .add(new LegalEntity('Internal'))
-    .add(new LegalEntity('PWC'));
-
-  entityGroups = new Entities<FunctionalEntity>(FunctionalEntity)
-    .add(new FunctionalEntity('- Default -').set('tasksCount', 7))
-    .add(new FunctionalEntity('Africa').set('tasksCount', 3))
-    .add(new FunctionalEntity('Europe').set('tasksCount', 18))
-    .add(new FunctionalEntity('Asia').set('tasksCount', 2));
-
-  getEntityGroups(): Entities<Entity> {
-    return this.entityGroups; //this.entityGroups;
+  private makeFromJSON(data: Entities<EveryEntity>, json: string) {
+    data.fromJSON(json);
   }
 
-  industries = new Entities<Entity>(Entity)
-    .add(new Entity('Banking'))
-    .add(new Entity('Asset Management'))
-    .add(new Entity('Property'));
+  getPortfolios(): Entities<Entity> {
+    return this.portfolios;
+  }
 
   getIndustries() {
     return this.industries;
   }
 
   getCompanySercetaries() {
-    return this.companySecretaries;
+    return this.secretariats;
   }
   customTypes = new Entities<Entity>(Entity)
     .add(new Entity('text'))
@@ -954,20 +456,31 @@ export class DataService {
   // .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
   // .add(new NaturalEntity('Fraser', 'Mat', 'ABSA'));
 
-  getPersons() {
-    return this.persons;
+  getIndividualsFromCountries(countriesArray: number[]) {
+    let ps = this.getIndividuals();
+    let e = new Entities<NaturalEntity>(NaturalEntity);
+    ps.forEach((value, key, map) => {
+      if (countriesArray.indexOf(value.countryKey) > -1) {
+        e.add(value);
+      }
+    });
+    return e;
   }
-  users = new Entities<User>(User)
-    .add(new User('Anuchin', 'Vlad', 'ICDI').set('tasksCount', 3))
-    .add(new User('Voznesensky', 'Alex', 'ICDI').set('tasksCount', 1))
-    .add(new User('Kurchner', 'Ulrich', 'ICDI').set('tasksCount', 2))
-    .add(new User('Kopelowitz', 'Dean', 'ICDI').set('tasksCount', 5))
-    .add(
-      new User('Small', 'James', '').set('tasksCount', 7).set('isActive', false)
-    )
-    .add(new User('Rajagopaul', 'Samantha', 'Sam').set('tasksCount', 15))
-    .add(new User('Stander', 'Lourika', 'ABSA').set('tasksCount', 7))
-    .sort();
+
+  getCompaniesFromCountries(countriesArray: number[]) {
+    let ps = this.getCompanies();
+    let e = new Entities<Company>(Company);
+    ps.forEach((value, map) => {
+      if (countriesArray.indexOf(value.countryKey) > -1) {
+        e.add(value);
+      }
+    });
+    return e;
+  }
+
+  getIndividuals() {
+    return this.individuals;
+  }
 
   getUsers() {
     return this.users;

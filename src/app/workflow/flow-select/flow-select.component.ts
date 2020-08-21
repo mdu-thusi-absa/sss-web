@@ -19,12 +19,7 @@ export class FlowSelectComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-  
-    if (this.taskFlow.sourceType == enumTaskFlowSelectSource.Country){
-      this.values = this.data.getCountries();
-    } else if (this.taskFlow.sourceType == enumTaskFlowSelectSource.Company){
-      this.values = this.data.getCompanies();
-    }
+    this.values = this.data.getList(this.taskFlow.sourceType);
   }
 
   doChange(event: any) {

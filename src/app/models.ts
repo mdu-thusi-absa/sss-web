@@ -6,7 +6,7 @@ import { maxHeaderSize } from 'http';
 import { etLocale } from 'ngx-bootstrap/chronos';
 
 export class Entity {
-  public id: number = null;
+  public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
   public type = 'entity';
   public description = '';
   public isActive = false;
@@ -151,6 +151,7 @@ export class FunctionalEntity extends Entity {
   public type = 'functional';
   public tasksCount = 0;
   public isActive = true;
+  public countryKey = -1;
 
   public clone() {
     let t = new FunctionalEntity(this.name);
@@ -242,7 +243,7 @@ export class Company extends LegalEntity {
   prevName: string;
   prevNameEffectiveDate: Date;
   entityGroups: Entities<Entity>;
-  countryKey = -1;
+  // countryKey = -1;
   industryKey = -1;
   representativeOffice: boolean;
   foreignBrunch: boolean;
@@ -671,7 +672,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   clone() {
     let e = new Entities<T>(this.EntityType);
     this.forEach((value, key, map) => {
-      e.add(value, key);
+      e.add(value);
     });
     return e;
   }
@@ -693,7 +694,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
       if (value.inFilter(this.filterText_, this.onlyActive_)) {
         let a = this.createEntity();
         a = Object.assign(a, value);
-        ets.add(a, key);
+        ets.add(a);
         this.inFilterMap.set(key, true);
         this.countInFilter_ += 1;
         if (this.firstKeyInFilter_ == -1) this.firstKeyInFilter_ = key;
@@ -727,6 +728,11 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   fromJSON(json: string, maxToLoad?: number) {
     let array = JSON.parse(json);
+    this.fromArray(array, maxToLoad);
+  }
+
+  fromArray(data: any[], maxToLoad?: number) {
+    let array = data;
     let L = array.length;
     if (maxToLoad) {
       L = maxToLoad > L ? L : maxToLoad;
@@ -734,8 +740,12 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
       a = Object.assign(a, array[i]);
-      if (a.id) a.key = a.id;
-      this.add(a);
+      // if (a.key) {
+        
+        this.add(a);
+      // }else{
+      //   this.add(a);
+      // }
     }
   }
 
@@ -780,10 +790,11 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     return this.currentValue_;
   }
 
-  add(value: T, existingKey = -1): Entities<T> {
-    let key = existingKey;
-    if (existingKey == -1) key = super.size;
-    if (this.firstKey_ == -1) this.firstKey_ = key;
+  add(value: T): Entities<T> {
+    // let key = existingKey;
+    // if (existingKey == -1) key = super.size;
+    let key = value.key
+    if (this.firstKey_ == -1) this.firstKey_ = value.key;
     this.lastKey_ = key;
     super.set(key, value);
     return this;
@@ -900,11 +911,14 @@ export class TaskFlow {
 }
 
 export enum enumTaskFlowSelectSource {
-  Country = 0,
-  Company,
-  Individual,
-  User,
+  Countries,
+  Companies,
+  Individuals,
+  Users,
   Custom,
+  CountriesWithTasks,
+  IndividualsFromCountries,
+  CompaniesFromCountries,
 }
 
 export class TaskFlowSelect extends TaskFlow {
@@ -1006,16 +1020,16 @@ export class WorkFlow extends TaskFlow {
     return this.build(this.rootTask);
   }
 
-  private evalCondition(value: any, operator: string, compareTo: any){
-    let mO = ['>','<','==']
-    let mS = ['in','notin']
-    if (mO.indexOf(operator)){
+  private evalCondition(value: any, operator: string, compareTo: any) {
+    let mO = ['>', '<', '=='];
+    let mS = ['in', 'notin'];
+    if (mO.indexOf(operator)) {
       return eval(value + operator + compareTo);
-    } else if (mS.indexOf(operator)){
-      if (operator=='in'){
-        return compareTo.indexOf(value)>-1;
-      } else if (operator=='notin'){
-        return compareTo.indexOf(value)==-1;
+    } else if (mS.indexOf(operator)) {
+      if (operator == 'in') {
+        return compareTo.indexOf(value) > -1;
+      } else if (operator == 'notin') {
+        return compareTo.indexOf(value) == -1;
       }
     }
     return false;
@@ -1034,7 +1048,7 @@ export class WorkFlow extends TaskFlow {
           for (let i = 0; i < t.subTasks.length; i++) {
             let sOp = t.subTasks[i].conditionalOperator;
             let sV = t.subTasks[i].conditionalValue;
-            if (this.evalCondition(fromTask.value,sOp,sV)) {
+            if (this.evalCondition(fromTask.value, sOp, sV)) {
               // console.log(fromTask.value + sOp + sV + ' is true');
               t = t.subTasks[i].taskFlow;
               this.tasks.push(t);
