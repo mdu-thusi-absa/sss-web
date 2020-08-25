@@ -6,7 +6,7 @@ import {
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-files-details',

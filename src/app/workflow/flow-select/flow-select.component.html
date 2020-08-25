@@ -1,5 +1,5 @@
 <app-input-panel
-  [title]="taskFlow.name"
+  [title]="taskFlow.name + (choiceValue? ': ' + choiceValue:'')"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
@@ -11,7 +11,7 @@
   <app-input-select-entity
     [title]="'Please select one'"
     [value]="value"
-    [values]="values"
+    [values] = "taskFlow.values"
     [showSmall]="true"
     (onChange) = "doChange($event)"
   ></app-input-select-entity>

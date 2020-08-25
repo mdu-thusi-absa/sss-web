@@ -61,7 +61,26 @@ g -->
     <!-- <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: tasks in progress
     </div> -->
+
+    
+
+    <app-label-h [title]="'Dashboard: reminders'" [hr]="true"></app-label-h>
+    <app-input-table
+    [headings]="['Date/Time','Title', 'Description']"
+    [fields]="['dateTime','name', 'description']"
+    [withCheckbox]="true"
+    [entities]="data.meetings"
+    [inputType]="'reminder'"
+  ></app-input-table>
+
     <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="true"></app-label-h>
+    <app-input-table
+    [headings]="['Date/Time','Title', 'Description']"
+    [fields]="['dateTime','name', 'description']"
+    [withCheckbox]="true"
+    [entities]="data.meetings"
+    [inputType]="'reminder'"
+  ></app-input-table>
     <!-- <app-input-duo
   [filterText]="filterText"
   [isNarrow]="isNarrow"
@@ -71,8 +90,8 @@ g -->
   [placeholderLeft]="'Registration Number of the Entity'"
   [titleRight]="'Curr. Name Effective Date'"
   [doHideByFilter]="true"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 >
 </app-input-duo> -->
    
@@ -80,10 +99,10 @@ g -->
       Dashboard: incomplete entities
     </div>
     <hr /> -->
-    <app-label-h [title]="'Dashboard: incomplete entities'" [hr]="true"></app-label-h>
-    <app-label-h [title]="'Dashboard: upcoming tasks'" [hr]="true"></app-label-h>
     
-<app-flow-task [workFlow]="workFlow"></app-flow-task>
+    
+
+<!-- <app-flow-task [workFlow]="workFlow"></app-flow-task> -->
 <!--     
     <div class="text-primary-h 4" style="margin-top: 5px;">
       Dashboard: incomplete companies
@@ -121,8 +140,8 @@ g -->
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -140,8 +159,8 @@ g -->
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -159,8 +178,8 @@ g -->
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -178,8 +197,8 @@ g -->
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -197,8 +216,8 @@ g -->
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 <div style="padding-bottom: 5px;"> </div>
     <hr>

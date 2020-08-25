@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-record-details',

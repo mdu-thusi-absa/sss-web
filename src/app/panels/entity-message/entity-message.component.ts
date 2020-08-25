@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Message } from '../../models';
-import { DataService } from 'src/app/data.service';
+import { Message } from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-entity-message',

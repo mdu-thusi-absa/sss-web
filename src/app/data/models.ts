@@ -1,9 +1,11 @@
 import { Capability } from 'protractor';
 import { MapType } from '@angular/compiler';
-import { EntityMessageComponent } from './panels/entity-message/entity-message.component';
+import { EntityMessageComponent } from '../panels/entity-message/entity-message.component';
 import { maxHeaderSize } from 'http';
 // import { LoginOptions } from 'angular-oauth2-oidc';
 import { etLocale } from 'ngx-bootstrap/chronos';
+import { data } from 'jquery';
+import { DataService } from './data.service';
 
 export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
@@ -93,38 +95,39 @@ export class Entity {
     }
   }
 }
-export class Country extends Entity {
-  public type = 'country';
-  public cities = new Entities<City>(City);
+// export class Country extends Entity {
+//   public type = 'country';
+//   public cities = new Entities<City>(City);
 
-  constructor(public name: string) {
-    super(name);
-    this.cities.add(new City('-NA-'));
-  }
+//   constructor(public name: string) {
+//     super(name);
+//     this.cities.add(new City('-NA-'));
+//   }
 
-  public clone() {
-    let t = new Country(this.name);
-    t = Object.assign(t, this);
-    return t;
-  }
+//   public clone() {
+//     let t = new Country(this.name);
+//     t = Object.assign(t, this);
+//     return t;
+//   }
 
-  addCity(city: City): Country {
-    if (this.cities.size > 0) {
-      if ((this.cities.get(0).name = '-NA-')) {
-        this.cities.del(0);
-      }
-    }
-    this.cities.add(city);
-    return this;
-  }
-}
+//   addCity(city: City): Country {
+//     if (this.cities.size > 0) {
+//       if ((this.cities.get(0).name = '-NA-')) {
+//         this.cities.del(0);
+//       }
+//     }
+//     this.cities.add(city);
+//     return this;
+//   }
+// }
 export class City extends Entity {
   public type = 'city';
-  public clone() {
-    let t = new City(this.name);
-    t = Object.assign(t, this);
-    return t;
-  }
+  public countryKey = -1;
+  // public clone() {
+  //   let t = new City(this.name);
+  //   t = Object.assign(t, this);
+  //   return t;
+  // }
 }
 export class FileEntity extends Entity {
   type = 'file';
@@ -372,7 +375,7 @@ export class Individual extends NaturalEntity {
   //files
 }
 export class GroupEntity extends FunctionalEntity {
-  public type = 'group';
+  public type = 'portfolio';
   public clone() {
     let t = new GroupEntity(this.name);
     t = Object.assign(t, this);
@@ -618,7 +621,6 @@ export class CustomField {
 
 export type EveryEntity =
   | Entity
-  | Country
   | City
   | FunctionalEntity
   | User
@@ -641,6 +643,22 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   constructor(private EntityType) {
     super();
+  }
+
+  select(fieldName: string, equalTo: any): Entities<T> {
+    let ets = new Entities<T>(this.EntityType);
+    console.log(fieldName, equalTo, this.size);
+
+    this.forEach((value, key, map) => {
+      // console.log(value[fieldName],equalTo);
+
+      if (value[fieldName] === equalTo) {
+        let a = this.createEntity();
+        a = Object.assign(a, value);
+        ets.add(a);
+      }
+    });
+    return ets;
   }
 
   get firstKey() {
@@ -726,23 +744,24 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     return new this.EntityType();
   }
 
-  fromJSON(json: string, maxToLoad?: number) {
+  fromJSON(json: string, maxToLoad?: number, setType?: string) {
     let array = JSON.parse(json);
-    this.fromArray(array, maxToLoad);
+    if (setType) this.fromArray(array, maxToLoad,setType);
+    else this.fromArray(array, maxToLoad);
   }
 
-  fromArray(data: any[], maxToLoad?: number) {
+  fromArray(data: any[], maxToLoad: number=-1,setType?: string) {
     let array = data;
     let L = array.length;
-    if (maxToLoad) {
+    if (maxToLoad>-1) {
       L = maxToLoad > L ? L : maxToLoad;
     }
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
       a = Object.assign(a, array[i]);
       // if (a.key) {
-        
-        this.add(a);
+      if (setType) a.type = setType;
+      this.add(a);
       // }else{
       //   this.add(a);
       // }
@@ -793,7 +812,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   add(value: T): Entities<T> {
     // let key = existingKey;
     // if (existingKey == -1) key = super.size;
-    let key = value.key
+    let key = value.key;
     if (this.firstKey_ == -1) this.firstKey_ = value.key;
     this.lastKey_ = key;
     super.set(key, value);
@@ -837,13 +856,13 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   }
 }
 
-export class Countries extends Entities<Country> {
-  add(value: Country): Countries {
-    if (!value.cities == null) value.cities = new Entities<City>(Country);
-    super.set(super.size, value);
-    return this;
-  }
-}
+// export class Countries extends Entities<Country> {
+//   add(value: Country): Countries {
+//     if (!value.cities == null) value.cities = new Entities<City>(Country);
+//     super.set(super.size, value);
+//     return this;
+//   }
+// }
 
 export class TaskFlowSubTask {
   // '' means no operator; can be: ==, >, <, maybe(in, not in)
@@ -866,7 +885,10 @@ export class TaskFlow {
   isCurrent = false;
   notes = '';
   parent: TaskFlow = null;
+  parentValue: any = ''
   subTasks: TaskFlowSubTask[] = [];
+  constructor(protected data:DataService){}
+  init(){} // to be implemented by child classes, if they need to initialise data
   /*
     subTasks are there to provide the next task
   */
@@ -890,42 +912,58 @@ export class TaskFlow {
     this.subTasks.push(t);
   }
 
-  getNext(): TaskFlow {
-    let t: TaskFlow = null;
-    if (this.subTasks.length > 0) {
-      t = this.subTasks[0].taskFlow;
-    } else {
-      for (let i = 0; i < this.subTasks.length; i++) {
-        let s = this.subTasks[i];
-        if (eval(this.value + s.conditionalOperator + s.conditionalValue)) {
-          t = this.subTasks[0].taskFlow;
-        }
-      }
-    }
-    return t;
-  }
+  // getNext(): TaskFlow {
+  //   let t: TaskFlow = null;
+  //   if (this.subTasks.length > 0) {
+  //     t = this.subTasks[0].taskFlow;
+  //   } else {
+  //     for (let i = 0; i < this.subTasks.length; i++) {
+  //       let s = this.subTasks[i];
+  //       if (eval(this.value + s.conditionalOperator + s.conditionalValue)) {
+  //         t = this.subTasks[0].taskFlow;
+  //       }
+  //     }
+  //   }
+  //   return t;
+  // }
 
-  getPrev(): TaskFlow {
-    return this.parent;
-  }
+  // getPrev(): TaskFlow {
+  //   return this.parent;
+  // }
 }
 
-export enum enumTaskFlowSelectSource {
-  Countries,
-  Companies,
-  Individuals,
-  Users,
+export enum EnumEntityType {
+  Dashboard,
+  Search,
+  Company,
+  Individual,
+  User,
+  Portfolio,
+  Trust,
+  Regulator,
+  Regulation,
+  Auditor,
+  Secretariat,
+  Template,
+  Setting,
+  Country,
+  City,
   Custom,
-  CountriesWithTasks,
-  IndividualsFromCountries,
-  CompaniesFromCountries,
+  CountryWithTasks,
+  IndividualFromCountries,
+  CompanyFromCountries,
 }
 
 export class TaskFlowSelect extends TaskFlow {
   type = 'select';
-  sourceType: enumTaskFlowSelectSource;
+  sourceType: EnumEntityType;
   value = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
+  values: Entities<EveryEntity>
+  init(){
+    // console.log('do init')
+    this.values = this.data.getEntities(this.sourceType,[this.parentValue])
+  }
 }
 
 export class TaskFlowConfirm extends TaskFlow {
@@ -1013,6 +1051,7 @@ export class WorkFlow extends TaskFlow {
 
   // loads the rootTask, and builds the obvious branch, until the first fork
   public start(): boolean {
+    //this.rootTask.init()
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
@@ -1039,9 +1078,11 @@ export class WorkFlow extends TaskFlow {
     let t: TaskFlow = null;
     if (this.currentTaskIndex_ == this.tasks.length - 1) {
       if (fromTask) {
+        fromTask.init()
         let t = fromTask;
         while (t.subTasks.length == 1) {
           t = t.subTasks[0].taskFlow;
+          t.init()
           this.tasks.push(t);
         }
         if (t.isDone && t.subTasks.length > 1) {
@@ -1051,6 +1092,8 @@ export class WorkFlow extends TaskFlow {
             if (this.evalCondition(fromTask.value, sOp, sV)) {
               // console.log(fromTask.value + sOp + sV + ' is true');
               t = t.subTasks[i].taskFlow;
+              t.parentValue = sV;
+              t.init()
               this.tasks.push(t);
               this.build(t);
               break;

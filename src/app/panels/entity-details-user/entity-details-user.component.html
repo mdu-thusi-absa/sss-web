@@ -16,8 +16,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -32,8 +32,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -48,8 +48,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <div style="padding-bottom: 5px;"> </div>
@@ -58,9 +58,9 @@
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-  [title]="'Access Groups as Secretary'"
-  [values]="data.getEntityGroups()"
-  [showCheck]="true"
+  [title]="'Access portfolios as Secretary'"
+  [values]="data.getPortfolios()"
+  [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
 
@@ -68,9 +68,9 @@
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-  [title]="'Access Groups as View-Only'"
-  [values]="data.getEntityGroups()"
-  [showCheck]="true"
+  [title]="'Access portfolios as View-Only'"
+  [values]="data.getPortfolios()"
+  [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
 
@@ -82,7 +82,7 @@
   [doHideByFilter]="true"
   [title]="'Access Companies as Secretary'"
   [values]="data.companies"
-  [showCheck]="true"
+  [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
 
@@ -92,14 +92,14 @@
   [doHideByFilter]="true"
   [title]="'Access Companies as View-Only'"
   [values]="data.companies"
-  [showCheck]="true"
+  [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
 
 <!-- <div class="container-flex">
   <div class="row">
     <app-input-duo-column
-      [title]="'Manager access: Groups'"
+      [title]="'Manager access: Portfolios'"
       [isNarrow]="isNarrow"
       [filterText]="filterText"
       [doHideByFilter]="true"
@@ -108,17 +108,17 @@
       [valueLeft]="false"
       [typeRight]="'select-checkbox'"
       [titleRight]="'Select specific groups'"
-      [valuesRight]="data.getEntityGroups()"
+      [valuesRight]="data.getPortfolios()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo-column>
 
     <app-input-duo-column
-    [title]="'Admin access: Groups'"
+    [title]="'Admin access: Portfolios'"
       [isNarrow]="isNarrow"
       [filterText]="filterText"
       [doHideByFilter]="true"
@@ -127,13 +127,13 @@
       [valueLeft]="false"
       [typeRight]="'select-checkbox'"
       [titleRight]="'Select specific groups'"
-      [valuesRight]="data.getEntityGroups()"
+      [valuesRight]="data.getPortfolios()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     >
     </app-input-duo-column>
   </div>
@@ -153,8 +153,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo-column>
     
     <app-input-duo-column
@@ -172,8 +172,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     >
     </app-input-duo-column>
   </div>

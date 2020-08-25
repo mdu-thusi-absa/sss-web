@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Record } from '../../models';
-import { DataService } from 'src/app/data.service';
+import { Record } from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-records',

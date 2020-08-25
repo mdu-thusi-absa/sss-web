@@ -32,7 +32,7 @@
         [doHideByFilter]="doHideByFilter"
         [typeLeft]="'person'"
         [titleLeft]="'Contact Person'"
-        [valuesLeft]="data.persons"
+        [valuesLeft]="data.individuals"
         [typeRight]="'checkbox'"
         [titleRight]="'Active'"
         
@@ -40,8 +40,8 @@
         (onFile)="doFile($event)"
         (onRecord)="doRecord($event)"
         (onTask)="doTask($event)"
-        [showCheckLeft]="true"
-        [showCheckRight]="true"
+        [showCheckLeft]="false"
+        [showCheckRight]="false"
         [isNarrow] = "isNarrow"
       ></app-input-duo>
 
@@ -56,8 +56,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
       [isNarrow] = "isNarrow"
     ></app-input-duo>
 
@@ -74,8 +74,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
       [isNarrow] = "isNarrow"
     ></app-input-duo>
 
@@ -90,8 +90,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
       [isNarrow] = "isNarrow"
     ></app-input-duo>
       <app-input-textarea

@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import {
   NaturalEntity,
   Entity,
-  Country,
   LegalEntity,
   User,
   GroupEntity,
   City,
   Entities,
   FunctionalEntity,
-  Countries,
   EveryEntity,
   Company,
   FileEntity,
@@ -18,23 +16,24 @@ import {
   WorkFlow,
   TaskFlowConfirm,
   TaskFlowSelect,
-  enumTaskFlowSelectSource,
   TaskFlowReminder,
   TaskFlowSubmitDocs,
   TaskFlowUploadDocs,
   TaskFlowForm,
   TaskFlowFormInput,
   TaskFlowMessage,
+  EnumEntityType,
+  RegulationEntity,
 } from './models';
-import { EntityDetailsFilesComponent } from './panels/entity-details-files/entity-details-files.component';
+import { EntityDetailsFilesComponent } from '../panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
 // import { HttpClient } from '@angular/common/http';
 import {
   jsonCompanies,
   jsonIndividuals,
   jsonDashboards,
-  jsonEntityTypes,
-  jsonEntityTypesPlural,
+  // jsonEntityTypes,
+  // jsonEntityTypesPlural,
   jsonMonths,
   jsonPeriods,
   jsonFiles,
@@ -63,7 +62,7 @@ import {
   jsonAuditors,
   jsonSecretariats,
   jsonIndustries,
-} from './data-json/data-json.module';
+} from './data-json.module';
 import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Injectable({
@@ -71,93 +70,167 @@ import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 })
 export class DataService {
   public lg = false;
-  companies = new Entities<Company>(Company);
-  companiesWithTasks = new Entities<Company>(Company);
   individuals = new Entities<NaturalEntity>(NaturalEntity);
   functionalEntities: Entities<EveryEntity>;
   dashboards = new Entities<Entity>(Entity);
   dashboardsPlural = new Entities<Entity>(Entity);
   entityTypes = new Entities<Entity>(Entity);
-  portfolios = new Entities<Entity>(Entity);
 
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
-  files = new Entities<FileEntity>(FileEntity);
   progress = 0;
   businessDivisions = new Entities<Entity>(Entity);
   entityStatuses = new Entities<Entity>(Entity);
-  meetings = new Entities<MeetingEntity>(MeetingEntity);
-  attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
-  templates = new Entities<FileEntity>(FileEntity);
   reports = new Entities<Entity>(Entity);
-  cities = new Entities<Entity>(Entity);
+  
   users = new Entities<User>(User);
   businessAreas = new Entities<Entity>(Entity);
   legalClasses = new Entities<Entity>(Entity);
   entityStatusTiers = new Entities<Entity>(Entity);
   accountingClasses = new Entities<Entity>(Entity);
   accountingTiers = new Entities<Entity>(Entity);
-  regulations = new Entities<Entity>(Entity);
+  
   yesNo = new Entities<Entity>(Entity);
   taskStatus = new Entities<Entity>(Entity);
   taskTypes = new Entities<Entity>(Entity);
   contactPreferences = new Entities<Entity>(Entity);
   industries = new Entities<Entity>(Entity);
+  entityTypesPlural = new Entities<Entity>(Entity);
 
+  companies = new Entities<Company>(Company);
+  countriesWithTasks = new Entities<Entity>(Entity);
+  files = new Entities<FileEntity>(FileEntity);
+  portfolios = new Entities<GroupEntity>(GroupEntity);
+  meetings = new Entities<MeetingEntity>(MeetingEntity);
+  attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
+  templates = new Entities<FileEntity>(FileEntity);
+  cities = new Entities<City>(City);
+  regulations = new Entities<RegulationEntity>(RegulationEntity);
   regulators = new Entities<LegalEntity>(LegalEntity);
   trusts = new Entities<LegalEntity>(LegalEntity);
   auditors = new Entities<LegalEntity>(LegalEntity);
   secretariats = new Entities<LegalEntity>(LegalEntity);
+  countries = new Entities<Entity>(Entity);
 
   constructor() {
-    this.loadStatic();
-    this.makeCountries();
-    this.makeCompanies();
-    this.makeIndividuals();
-    this.makeFromJSON(this.portfolios, jsonPortfolios);
-    this.makeFromJSON(this.cities, jsonCities);
-    this.makeFromJSON(this.users, jsonUsers);
-    this.makeFromJSON(this.businessAreas, jsonBusinessAreas);
-    this.makeFromJSON(this.legalClasses, jsonBusinessAreas);
-    this.makeFromJSON(this.entityStatusTiers, jsonBusinessAreas);
-    this.makeFromJSON(this.accountingClasses, jsonAccountingClasses);
-    this.makeFromJSON(this.accountingTiers, jsonAccountingTiers);
-    this.makeFromJSON(this.regulators, jsonRegulators);
-    this.makeFromJSON(this.regulations, jsonRegulations);
-    this.makeFromJSON(this.trusts, jsonTrusts);
-    this.makeFromJSON(this.yesNo, jsonYesNo);
-    this.makeFromJSON(this.taskStatus, jsonTaskStatus);
-    this.makeFromJSON(this.taskTypes, jsonTaskTypes);
-    this.makeFromJSON(this.contactPreferences, jsonContactPreferences);
-    this.makeFromJSON(this.auditors, jsonAuditors);
-    this.makeFromJSON(this.secretariats, jsonSecretariats);
-    this.makeFromJSON(this.industries, jsonIndustries);
+    this.dashboards.fromJSON(jsonDashboards);
+    this.dashboardsPlural.fromJSON(jsonDashboardsPlural);
+    this.entityTypes.fromJSON(jsonDashboards);
+    this.months.fromJSON(jsonMonths);
+    this.periods.fromJSON(jsonPeriods);
+    this.yesNo.fromJSON(jsonYesNo);
 
-    this.makeFunctionalEntities();
+    this.accountingClasses.fromJSON(jsonAccountingClasses);
+    this.accountingTiers.fromJSON(jsonAccountingTiers);
+    
+    this.businessAreas.fromJSON(jsonBusinessAreas);
+    this.businessDivisions.fromJSON(jsonDivisions);
+    this.cities.fromJSON(jsonCities);
+    this.companies.fromJSON(jsonCompanies, 1000);
+    this.countriesWithTasks.fromJSON(jsonCountriesWithTasks, 1000);
+    // console.log(this.countriesWithTasks);
+    
+    this.contactPreferences.fromJSON(jsonContactPreferences);
+    this.entityStatuses.fromJSON(jsonCompanyStatus);
+    this.entityStatusTiers.fromJSON(jsonBusinessAreas);
+    this.entityTypesPlural.fromJSON(jsonDashboardsPlural);
+    this.legalClasses.fromJSON(jsonBusinessAreas);
+    this.industries.fromJSON(jsonIndustries);
+    this.taskStatus.fromJSON(jsonTaskStatus);
+    this.taskTypes.fromJSON(jsonTaskTypes);
+
+    this.attendees.fromJSON(jsonAttendees);
+    this.auditors.fromJSON(jsonAuditors,-1,'auditor');
+    this.countries.fromJSON(jsonCountries);
+    this.files.fromJSON(jsonFiles);
+    this.individuals.fromJSON(jsonIndividuals);
+    this.meetings.fromJSON(jsonMeetings);
+    this.portfolios.fromJSON(jsonPortfolios);
+    this.regulations.fromJSON(jsonRegulations);
+    this.regulators.fromJSON(jsonRegulators);
+    this.reports.fromJSON(jsonReports);
+    this.secretariats.fromJSON(jsonSecretariats,-1,'secretariat');
+    this.templates.fromJSON(jsonTemplates);
+    this.trusts.fromJSON(jsonTrusts);
+    this.users.fromJSON(jsonUsers);
+
+    // this.makeFunctionalEntities();
   }
 
-  public getList(
-    enumSource: enumTaskFlowSelectSource,
+  //   getEntities(enumEntityType: EnumEntityType){
+  //   switch (enumEntityType) {
+  //     case EnumEntityType.Company:
+  //       return  this.companies;
+  //     case EnumEntityType.Individual:
+  //       return  this.individuals;
+  //     case EnumEntityType.User:
+  //       return  this.users;
+  //     case EnumEntityType.Portfolio:
+  //       return  this.portfolios;
+  //     case EnumEntityType.Trust:
+  //       return  this.trusts;
+  //     case EnumEntityType.Auditor:
+  //       return  this.auditors;
+  //     case EnumEntityType.Secretariat:
+  //       return  this.secretariats;
+  //     case EnumEntityType.Regulator:
+  //       return  this.regulators;
+  //     case EnumEntityType.Regulation:
+  //       return  this.regulations;
+  //     default:
+  //       return this.dashboards;
+  //   }
+  // }
+
+  public getEntities(
+    enumSource: EnumEntityType,
     customArray?: any[]
   ): Entities<Entity> {
     let v: Entities<Entity>;
     switch (enumSource) {
-      case enumTaskFlowSelectSource.Companies:
+      case EnumEntityType.Company:
+        return this.companies;
+      case EnumEntityType.CompanyFromCountries:
         return this.getCompaniesFromCountries(customArray); //containing keys for countries
-      case enumTaskFlowSelectSource.Countries:
+      case EnumEntityType.Country:
         return this.getCountries();
-      case enumTaskFlowSelectSource.CountriesWithTasks:
+      case EnumEntityType.CountryWithTasks:
         return this.getCountriesWithTasks();
-      case enumTaskFlowSelectSource.Custom:
+      case EnumEntityType.City:
+        return this.cities;
+      case EnumEntityType.Custom:
         let e = new Entities<Entity>(Entity);
         e.fromArray(customArray); //containing string[] of options
         return e;
-      case enumTaskFlowSelectSource.Individuals:
+      case EnumEntityType.Individual:
         return this.getIndividuals();
-      case enumTaskFlowSelectSource.IndividualsFromCountries:
+      case EnumEntityType.IndividualFromCountries:
         return this.getIndividualsFromCountries(customArray); //containing keys for the countries
-      case enumTaskFlowSelectSource.Users:
+      case EnumEntityType.User:
         return this.getUsers();
+      case EnumEntityType.Company:
+        return this.companies;
+      case EnumEntityType.Individual:
+        return this.individuals;
+      case EnumEntityType.User:
+        return this.users;
+      case EnumEntityType.Portfolio:
+        return this.portfolios;
+      case EnumEntityType.Trust:
+        return this.trusts;
+      case EnumEntityType.Auditor:
+        return this.auditors;
+      case EnumEntityType.Secretariat:
+        return this.secretariats;
+      case EnumEntityType.Regulator:
+        return this.regulators;
+      case EnumEntityType.Regulation:
+        return this.regulations;
+      case EnumEntityType.Dashboard:
+      case EnumEntityType.Search:
+      case EnumEntityType.Template:
+      case EnumEntityType.Setting:
+        return this.dashboards;
       default:
         return null;
         break;
@@ -165,87 +238,96 @@ export class DataService {
   }
 
   public getWorkFlowSample(): WorkFlow {
-    let workFlow = new WorkFlow();
+    let workFlow = new WorkFlow(this);
     workFlow.name = 'Amend company registered address';
     workFlow.description = 'Execute a company secretariat task';
 
-    let a = new TaskFlowSelect();
+    let a = new TaskFlowSelect(this);
     a.name = 'Country of the company';
-    a.sourceType = enumTaskFlowSelectSource.CountriesWithTasks;
+    a.sourceType = EnumEntityType.CountryWithTasks;
     workFlow.rootTask = a;
 
-    let b1 = new TaskFlowMessage();
-    b1.name = '2 0';
-    b1.description = '0 0 Message';
-    a.addNextFork(b1, 2, '==');
+    let b1 = new TaskFlowMessage(this);
+    b1.name = 'System message';
+    b1.description = 'Tasks have not been setup for this country';
+    a.addNextFork(b1, 83, '==');
 
-    let b2 = new TaskFlowMessage();
-    b2.name = '2 1';
-    b2.description = '0 1 Message';
-    b1.addNext(b2);
+    // let b2 = new TaskFlowMessage(this);
+    // b2.name = '2 1';
+    // b2.description = '0 1 Message';
+    // b1.addNext(b2);
 
-    let c1 = new TaskFlowMessage();
-    c1.name = '1 0';
-    c1.description = '1 0 Message';
-    a.addNextFork(c1, 1, '==');
+    let c1 = new TaskFlowMessage(this);
+    c1.name = 'System message';
+    c1.description = 'Tasks have not been setup for this country';
+    a.addNextFork(c1, 111, '==');
 
-    let c2 = new TaskFlowMessage();
+    let c2 = new TaskFlowMessage(this);
     c2.name = '1 1';
     c1.description = '1 1 Message';
     c1.addNext(c2);
 
-    let b = new TaskFlowSelect();
+    let b = new TaskFlowSelect(this);
     b.name = 'Company to be amended';
-    b.sourceType = enumTaskFlowSelectSource.CompaniesFromCountries;
-    a.addNextFork(b, 0, '==');
+    b.sourceType = EnumEntityType.CompanyFromCountries;
+    a.addNextFork(b, 29, '==');
 
-    let c = new TaskFlowForm();
+    let c = new TaskFlowForm(this);
     c.name = 'New address';
     c.addInput('address', 'Amendment', 'New address for the company');
     b.addNext(c);
 
-    let d = new TaskFlowUploadDocs();
+    let d = new TaskFlowUploadDocs(this);
     d.name = 'Upload supporting files';
     c.addNext(d);
 
-    let e = new TaskFlowForm();
+    let e = new TaskFlowForm(this);
     e.name = 'CoR 21.1';
     e.addInput('date', 'Date of change of the address', '');
     e.addInput(
       'date',
-      'Effective Date',
+      'Effective date',
       'At least five business days after filling'
     );
     d.addNext(e);
 
-    let f = new TaskFlowSubmitDocs();
-    f.name = 'Submit following files to CIPC';
-    e.addNext(f);
+    let e1 = new TaskFlowConfirm(this);
+    e1.name = 'Request approval';
+    e.addNext(e1);
 
-    let g = new TaskFlowForm();
+    let e2 = new TaskFlowConfirm(this);
+    e2.name = 'Approval received';
+    e2.value = true
+    e1.addNext(e2);
+
+    let f = new TaskFlowSubmitDocs(this);
+    f.name = 'Submit following files to CIPC';
+    e2.addNext(f);
+
+    let g = new TaskFlowForm(this);
     g.name = 'Submission to CIPC';
     g.addInput('text', 'Reference code', 'Reference code of the application');
     g.addInput('checkbox', 'Confirm submission', '');
     f.addNext(g);
 
-    let h = new TaskFlowReminder();
+    let h = new TaskFlowReminder(this);
     h.name = 'Set reminder to follow up CIPC';
     h.offsetDays = 10;
     g.addNext(h);
 
-    let i = new TaskFlowConfirm();
+    let i = new TaskFlowConfirm(this);
     i.name = 'Confirm approval from CIPC';
     h.addNext(i);
 
-    let j = new TaskFlowUploadDocs();
+    let j = new TaskFlowUploadDocs(this);
     j.name = 'Upload approval files from CIPC';
     i.addNext(j);
 
-    let k = new TaskFlowConfirm();
+    let k = new TaskFlowConfirm(this);
     k.name = 'Confirm completion of task';
     j.addNext(k);
 
-    let l = new TaskFlowMessage();
+    let l = new TaskFlowMessage(this);
     l.name = 'End of task';
     l.description = 'Task has been completed';
     k.addNext(l);
@@ -253,72 +335,39 @@ export class DataService {
     return workFlow;
   }
 
-  loadStatic() {
-    this.dashboards.fromJSON(jsonDashboards);
-    this.dashboardsPlural.fromJSON(jsonDashboardsPlural);
-    this.entityTypes.fromJSON(jsonEntityTypes);
-    this.months.fromJSON(jsonMonths);
-    this.periods.fromJSON(jsonPeriods);
-    this.businessDivisions.fromJSON(jsonDivisions);
-    this.entityStatuses.fromJSON(jsonCompanyStatus);
+  // makeFunctionalEntities() {
+  //   this.functionalEntities = new Entities<EveryEntity>(Entity);
+  //   this.functionalEntities.fromEntities('dashboard', this.dashboards);
+  //   this.functionalEntities.fromEntities('search', this.dashboards);
+  // this.functionalEntities.fromEntities('setting', this.dashboards);
+  // this.functionalEntities.fromEntities('template', this.dashboards);
 
-    this.files.fromJSON(jsonFiles);
-    this.meetings.fromJSON(jsonMeetings);
-    this.attendees.fromJSON(jsonAttendees);
-    this.templates.fromJSON(jsonTemplates);
-    this.reports.fromJSON(jsonReports);
-  }
-
-  makeIndividuals() {
-    this.individuals.fromJSON(jsonIndividuals);
-  }
-
-  makeCompanies() {
-    this.companies.fromJSON(jsonCompanies, 1000);
-    this.companies.fromJSON(jsonCountriesWithTasks, 1000);
-    //this.companies.sort();
-  }
-
-  makeFunctionalEntities() {
-    this.functionalEntities = new Entities<EveryEntity>(Entity);
-    this.functionalEntities.fromEntities('dashboard', this.dashboards);
-    this.functionalEntities.fromEntities('search', this.dashboards);
-    this.functionalEntities.fromEntities('setting', this.dashboards);
-    this.functionalEntities.fromEntities('template', this.dashboards);
-
-    this.functionalEntities.fromEntities('company', this.companies);
-    this.functionalEntities.fromEntities('individual', this.individuals);
-    this.functionalEntities.fromEntities('user', this.users);
-    this.functionalEntities.fromEntities('portfolio', this.portfolios);
-    this.functionalEntities.fromEntities('trust', this.trusts);
-    this.functionalEntities.fromEntities('auditor', this.auditors);
-    this.functionalEntities.fromEntities(
-      'secretariat',
-      this.secretariats
-    );
-    this.functionalEntities.fromEntities('regulator', this.regulators);
-    this.functionalEntities.fromEntities('regulation', this.regulations);
-    if (this.lg) console.log('loaded');
-  }
+  // this.functionalEntities.fromEntities('company', this.companies);
+  // this.functionalEntities.fromEntities('individual', this.individuals);
+  // this.functionalEntities.fromEntities('user', this.users);
+  // this.functionalEntities.fromEntities('portfolio', this.portfolios);
+  // this.functionalEntities.fromEntities('trust', this.trusts);
+  // this.functionalEntities.fromEntities('auditor', this.auditors);
+  // this.functionalEntities.fromEntities('secretariat', this.secretariats);
+  // this.functionalEntities.fromEntities('regulator', this.regulators);
+  // this.functionalEntities.fromEntities('regulation', this.regulations);
+  //   if (this.lg) console.log('loaded');
+  // }
 
   getEntity(entityKey: number) {
     return this.functionalEntities.get(entityKey);
   }
 
-  getFunctionalEntitiesAll(): Entities<EveryEntity> {
-    return this.functionalEntities;
-  }
-
-  makeCountries() {
-    this.countries.fromJSON(jsonCountries);
-  }
+  // getFunctionalEntitiesAll(): Entities<EveryEntity> {
+  //   return this.functionalEntities;
+  // }
 
   getCompanies() {
     return this.companies;
   }
 
   getCountriesWithTasks() {
-    return this.companiesWithTasks;
+    return this.countriesWithTasks;
   }
 
   getDefault(key: string): any {
@@ -354,8 +403,6 @@ export class DataService {
     }
   }
 
-  countries = new Countries(Country);
-
   getCountries() {
     return this.countries;
   }
@@ -375,7 +422,7 @@ export class DataService {
   getBusinessDivisions() {
     return this.businessDivisions;
   }
- 
+
   getLegalClasses() {
     return this.legalClasses;
   }
@@ -383,7 +430,7 @@ export class DataService {
   getEntityStatuses() {
     return this.entityStatuses;
   }
-  
+
   getEntityStatusTiers() {
     return this.entityStatusTiers;
   }
@@ -396,7 +443,6 @@ export class DataService {
     return this.regulators;
   }
 
-
   getRegulations() {
     return this.regulations;
   }
@@ -404,7 +450,6 @@ export class DataService {
   getTrusts(): Entities<LegalEntity> {
     return this.trusts;
   }
-
 
   getYesNo() {
     return this.yesNo;
@@ -426,12 +471,12 @@ export class DataService {
     return this.contactPreferences;
   }
 
-  private makeFromJSON(data: Entities<EveryEntity>, json: string) {
-    data.fromJSON(json);
-  }
-
   getPortfolios(): Entities<Entity> {
     return this.portfolios;
+  }
+
+  getAccountingClasses(): Entities<Entity> {
+    return this.accountingClasses;
   }
 
   getIndustries() {
@@ -468,6 +513,7 @@ export class DataService {
   }
 
   getCompaniesFromCountries(countriesArray: number[]) {
+    console.log(countriesArray)
     let ps = this.getCompanies();
     let e = new Entities<Company>(Company);
     ps.forEach((value, map) => {

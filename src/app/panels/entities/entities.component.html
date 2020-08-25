@@ -1,13 +1,13 @@
 <div class="form-group">
   <app-input-filter-add
     [filterCount]="countFiltered"
-    [showAdd]="true"
+    [showAdd]="false"
     [showFilterCount]="true"
     (onFilter)="doFilter($event)"
     [title]="entityTypeName"
     [titlePlural]="entityTypeNamePlural"
     [showList]="true"
-    [listValues]="entityTypesPlural"
+    [listValues]="this.data.dashboardsPlural"
     [listValue]="entityType"
     (onListChange)="doEntityTypeChange($event)"
     [showFlash]="entityType != 0 && entityType < entityTypeNames.size - 1"
@@ -59,6 +59,51 @@
           </thead>
 
           <tbody>
+                <tr  *ngFor="let e of entities | keyvalue;let i = index"
+                  [class.info]="e.value.isActive"
+                  [class.tr-hide]="isHiddenMap.get(e.key)"
+                  [class.tr-show]="!isHiddenMap.get(e.key)"
+                >
+                  <td
+                    [style.border-bottom]="
+                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                    "
+                  >
+                    <a
+                      href="#"
+                      (click)="doEntityChoose(e.key)"
+                      [attr.id]="eid + '-a-' + e.key"
+                      [attr.name]="e.key"
+                      routerLink="."
+                      fragment="e.key"
+                      ><span [class.text-bright]="e.key == selectedEntityKey">
+                        {{ e.value.name }}</span
+                      >
+                    </a>
+                  </td>
+                  <td
+                    [style.border-bottom]="
+                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                    "
+                  >
+                    <span
+                      [class.text-bright]="e.key == selectedEntityKey"
+                      >{{ e.value.tasksCount }}</span
+                    >
+                  </td>
+                  <td
+                    [style.border-bottom]="
+                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                    "
+                  >
+                    <span
+                      [class.text-bright]="e.key == selectedEntityKey"
+                      >{{ e.value.suffix }}</span
+                    >
+                  </td>
+                </tr>
+          </tbody>
+          <!-- <tbody hidden>
             <ng-container *ngFor="let e of entities | keyvalue;let i = index">
               <ng-container
                 *ngIf="
@@ -110,7 +155,7 @@
                 </tr>
               </ng-container>
             </ng-container>
-          </tbody>
+          </tbody> -->
         </table>
       </ng-container>
 

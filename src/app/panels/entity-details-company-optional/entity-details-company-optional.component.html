@@ -14,15 +14,15 @@
   (onChangeLeft)="entity.appointedCompanySecretariatKey = $event; onDirty.emit()"
 
   [typeRight]="'person'"
-  [titleRight]="'Absa Group Secretariat Representative'"
+  [titleRight]="'Absa group secretariat representative'"
   [valuesRight]="data.getUsers()"
   [valueRight]="entity.clientSecretarialRepresentativeKey"
   (onChangeRight)="entity.clientSecretarialRepresentativeKey = $event; onDirty.emit()"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -32,21 +32,21 @@
 
   [typeLeft]="'person'"
   [titleLeft]="'Legal Entity Executive (LEE)'"
-  [valuesLeft]="data.getPersons()"
+  [valuesLeft]="data.getIndividuals()"
   [valueLeft]="entity.legalEntityExecutiveKey"
       (onChangeLeft)="entity.legalEntityExecutiveKey = $event; onDirty.emit()"
 
   [typeRight]="'person'"
   [titleRight]="'Entity Financial Officer'"
-  [valuesRight]="data.getPersons()"
+  [valuesRight]="data.getIndividuals()"
   [valueRight]="entity.entityFinancialOfficerKey"
       (onChangeRight)="entity.entityFinancialOfficerKey = $event; onDirty.emit()"
 
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -56,7 +56,7 @@
 
   [typeLeft]="'person'"
   [titleLeft]="'Public Officer (income tax)'"
-  [valuesLeft]="data.getPersons()"
+  [valuesLeft]="data.getIndividuals()"
   [valueLeft]="entity.publicOfficerKey"
       (onChangeLeft)="entity.publicOfficerKey = $event; onDirty.emit()"
 
@@ -64,8 +64,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -74,13 +74,13 @@
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [titleLeft]="'Share Code'"
-  [showCheckLeft]="true"
+  [showCheckLeft]="false"
   [valueLeft]="entity.shareCode"
       (onChangeLeft)="entity.shareCode = $event; onDirty.emit()"
 
   [typeRight]="'text'"
   [titleRight]="'ISIN Code'"
-  [showCheckRight]="true"
+  [showCheckRight]="false"
   [valueLeft]="entity.ISINCode"
       (onChangeLeft)="entity.ISINCode = $event; onDirty.emit()"
 
@@ -95,13 +95,13 @@
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [titleLeft]="'Bloomberg Code'"
-  [showCheckLeft]="true"
+  [showCheckLeft]="false"
   [valueLeft]="entity.bloombergCode"
       (onChangeLeft)="entity.bloombergCode = $event; onDirty.emit()"
 
   [typeRight]="'text'"
   [titleRight]="'Reuters Code'"
-  [showCheckRight]="true"
+  [showCheckRight]="false"
   [valueRight]="entity.reutersCode"
       (onChangeRight)="entity.reutersCode = $event; onDirty.emit()"
 
@@ -138,13 +138,13 @@
           <th>
             Resigned
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewNew()"
               >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
-            </a>
+            </a> -->
             </div>
           </th>
         </tr>
@@ -156,14 +156,14 @@
           <td>2015/04/03</td>
           <td>
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewEdit()"
               >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
-            </a>
+            </a> -->
             </div>
           </td>
         </tr>
@@ -174,12 +174,12 @@
           <td>
             2018/05/15
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewEdit()"
                 ><mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
-                <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon></a>
+                <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon></a> -->
             </div>
           </td>
         </tr>
@@ -190,12 +190,12 @@
           <td>
             2018/05/15
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewEdit()"
                 ><mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
-                <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon></a>
+                <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon></a> -->
             </div>
           </td>
         </tr>
@@ -209,7 +209,7 @@
       <div class="panel panel-heading mt3 nobottom">
         <small>New Appointment</small>
         <div class="btn-group pull-right">
-          <a
+          <!-- <a
             href="#"
             class="btn btn-info btn-xs"
             (click)="showAppointeeNewNew()"
@@ -223,14 +223,14 @@
             (click)="showAppointeeNewNew()"
             >
             <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
-          </a>
+          </a> -->
         </div>
       </div>
       <div class="panel panel-body mt3 nobottom">
         <div class="form-group input-group-sm nobottom">
           <label class="nobottom text-primary-bold">Appointee</label>
           <div class="btn-group pull-right">
-            <a
+            <!-- <a
               href="#"
               class="btn btn-primary primary-color btn-hover btn-xs"
               (click)="showAppointeeNew()"
@@ -245,7 +245,7 @@
             >
             <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
             <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
-            </a>
+            </a> -->
           </div>
           <div class="input-group-sm" [hidden]="isAppointeeInput">
             <select class="form-control input-sm" style="font-size: small;">
@@ -295,8 +295,8 @@
           [titleLeft]="'Appointment Date'"
           [titleRight]="'Resignation Date'"
           [filterText]="filterText"
-          [showCheckLeft]="true"
-          [showCheckRight]="true"
+          [showCheckLeft]="false"
+          [showCheckRight]="false"
         ></app-input-duo>
       </div>
     </div>
@@ -330,11 +330,11 @@
           <th>
             Weight
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon></a> -->
             </div>
           </th>
         </tr>
@@ -347,13 +347,13 @@
           <td>
             100%
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
               >
                 <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
-              </a>
+              </a> -->
             </div>
           </td>
         </tr>
@@ -393,11 +393,11 @@
           <th>
             Capital
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon></a> -->
             </div>
           </th>
         </tr>
@@ -411,11 +411,11 @@
           <td>
             11%
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a> -->
             </div>
           </td>
         </tr>
@@ -427,11 +427,11 @@
           <td>
             38%
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a> -->
             </div>
           </td>
         </tr>
@@ -443,11 +443,11 @@
           <td>
             12%
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a> -->
             </div>
           </td>
         </tr>
@@ -459,11 +459,11 @@
           <td>
             20%
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a> -->
             </div>
           </td>
         </tr>
@@ -475,11 +475,11 @@
           <td>
             19%
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointmentEdit()"
-                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a>
+                ><mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon></a> -->
             </div>
           </td>
         </tr>

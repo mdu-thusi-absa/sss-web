@@ -18,8 +18,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 >
 </app-input-duo>
 
@@ -41,12 +41,12 @@
       [showAddLeft]="false"
       [showEditLeft]="false"
       [showDeleteLeft]="false"
-      [showCheckLeft]="true"
+      [showCheckLeft]="false"
       [disabledLeft] = "true"
 
       [typeRight]="'text'"
       [titleRight]="'Internal Code'"
-      [showCheckRight]="true"
+      [showCheckRight]="false"
       (onChangeLeft)="doChangeEntityType($event)"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"

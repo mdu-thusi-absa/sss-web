@@ -6,8 +6,8 @@ import {
   EventEmitter,
   HostListener,
 } from '@angular/core';
-import { FunctionalEntity, Entities, Entity, EveryEntity } from '../../models';
-import { DataService } from 'src/app/data.service';
+import { FunctionalEntity, Entities, Entity, EveryEntity, EnumEntityType } from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 import { ExecException } from 'child_process';
 
@@ -22,11 +22,11 @@ export class EntitiesComponent implements OnInit {
   isNewMessage = false;
   @Input() panelRows = 1;
   @Input() isNarrow = false;
+  @Input() entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
   entities: Entities<EveryEntity>; // = new FunctionalEntities();
   //entitiesAll: FunctionalEntities;
-  entityType = 0;
+  entityType: EnumEntityType = EnumEntityType.Dashboard;
   entityTypeName = '';
-  entityTypesPlural: any;
   entityTypeNamePlural = '';
   entityTypeNames = new Entities<Entity>(Entity);
   showActiveOnly = true;
@@ -44,9 +44,9 @@ export class EntitiesComponent implements OnInit {
   loadedMap = new Map();
   limitVisibleRows = 50;
 
-  eid = 'panel-entities'
+  eid = 'panel-entities';
   constructor(public data: DataService) {
-    this.eid = data.getID('',this.eid)
+    this.eid = data.getID('', this.eid);
   }
 
   // @HostListener('scroll', ['$event']) // for scroll events of the current element
@@ -83,29 +83,30 @@ export class EntitiesComponent implements OnInit {
     // this.entityTypeNames = this.data.entityTypes;
     // this.entityTypesPlural = this.data.getEntityTypesPlural();
     this.entityTypeNames = this.data.dashboards;
-    this.entityTypesPlural = this.data.dashboardsPlural;
-    this.loadEntities();
+    //this.loadEntities();
     this.doEntityTypeChange(this.entityType);
     this.setCounts();
-    if (this.data.lg) console.log(new Date().getTime(), 'loaded:entities');
+    // if (this.data.lg) console.log(new Date().getTime(), 'loaded:entities');
     this.data.progress += 1;
   }
 
-  loadEntities() {
-    this.entities = this.data.getFunctionalEntitiesAll();
-  }
+  // loadEntities() {
+  //   this.entities = this.data.getFunctionalEntitiesAll();
+  // }
 
   doEntityTypeChange(event: any) {
-    // console.log('doEntityTypeChange',event);
 
     this.isLoadAll = this.isLoadAll || this.entityType != +event;
     this.entityType = +event;
-    this.entityTypeNamePlural = this.entityTypesPlural.get(
-      this.entityType
-    ).name;
+
+    this.entityTypeNamePlural = this.data.entityTypesPlural.get(event).name;
     this.entityTypeName = this.entityTypeNames
       .get(this.entityType)
       .name.toLowerCase();
+
+    this.entities = this.data.getEntities(this.entityType);
+
+
     this.onDashboardChange.emit(this.entityType);
     this.calcIsHidden();
     this.setCounts();
@@ -132,7 +133,6 @@ export class EntitiesComponent implements OnInit {
         }
       }
     }
-    // console.log('doEntityTypeChange:done',event);
   }
 
   shouldBeHidden(e: FunctionalEntity): boolean {
@@ -235,7 +235,7 @@ export class EntitiesComponent implements OnInit {
     this.showActiveOnly = event;
 
     //this.entities = this.data.getFunctionalEntitiesAll();
-    this.loadEntities();
+    //this.loadEntities();
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
       this.rdoActiveDormantAll = 'all';
     }
@@ -280,9 +280,9 @@ export class EntitiesComponent implements OnInit {
       let typeName = this.entityTypeName.toLowerCase();
 
       this.entities.forEach((value: FunctionalEntity, key: number) => {
-        if (value.type == typeName) {
+        //if (value.type == typeName) {
           this.isHiddenMap.set(key, this.shouldBeHidden(value));
-        }
+        //}
       });
     }
   }
@@ -295,6 +295,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityChoose(entityKey: number) {
+
     if (this.entityTypeName == 'dashboard') {
       this.doEntityTypeChange(entityKey);
     } else if (

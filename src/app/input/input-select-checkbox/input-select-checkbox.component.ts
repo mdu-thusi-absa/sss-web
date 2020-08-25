@@ -7,8 +7,8 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Entity, Entities, EveryEntity } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { Entity, Entities, EveryEntity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-select-checkbox',

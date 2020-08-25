@@ -1,6 +1,6 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
-import { EveryEntity, Entities, Entity } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { EveryEntity, Entities, Entity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-select-checkbox-duo',

@@ -7,8 +7,8 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-import { DataService } from 'src/app/data.service';
-import { Entities, EveryEntity } from 'src/app/models';
+import { DataService } from 'src/app/data/data.service';
+import { Entities, EveryEntity } from 'src/app/data/models';
 
 @Component({
   selector: 'app-input-dropdown',
@@ -19,7 +19,7 @@ export class InputDropdownComponent implements OnInit {
   private filterText_ = '';
   showDrop = true;
   position = { top: 0, left: 0 };
- 
+
   viewAll = false;
   @Input() title = 'item';
   sourceValues_: Entities<EveryEntity>;
@@ -55,9 +55,9 @@ export class InputDropdownComponent implements OnInit {
   //dynamic ViewChild?
   //let el = $('#dropdown-group-' + this.eid);
   //@ViewChild('dropdown-item-' + this.eid + '-' + this.values) firstItem: ElementRef;
-  eid = 'input-dropdown'
-  constructor(private data:DataService) {
-    this.eid = this.data.getID('',this.eid);
+  eid = 'input-dropdown';
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('', this.eid);
   }
 
   ngOnInit(): void {
@@ -80,11 +80,22 @@ export class InputDropdownComponent implements OnInit {
   }
 
   get value() {
-    if (this.key == undefined) this.key = -1;
+    if (this.values_) {
+      if (this.key == undefined) {
+        if (this.values_.size > 0) this.key = this.values_.firstKey;
+        else this.key = -1;
+      }
+    } else {
+      return null;
+    }
+
+    //console.log(this.key);
 
     if (this.key == -1) return 'Please select';
     else {
-      return this.values_.get(this.key).allName;
+      let v = this.values_.get(this.key);
+      if (v) return this.values_.get(this.key).allName;
+      else return null;
     }
   }
 
@@ -125,11 +136,15 @@ export class InputDropdownComponent implements OnInit {
     }
   }
 
-  maxHeight = 175.5;
-  filterHeight = 175.5;
+  maxHeight = 273; //175.5;
+  filterHeight = 273; //175.5;
   searchInputHeight = 38;
   dropUp = false;
+  
   setPosition(isFilter: boolean) {
+    const rowHeight = 27.3;
+    const rowsToShow = 10;
+    this.maxHeight = rowHeight * rowsToShow;
     let dialog = $('#dropdown-dialog-' + this.eid);
 
     //let el = $('#dropdown-button-' + this.eid);
@@ -143,8 +158,7 @@ export class InputDropdownComponent implements OnInit {
     var bottomPos =
       el[0].getBoundingClientRect().bottom + $(window)['scrollTop']();
 
-    const rowHeight = 27.3;
-    const rowsToShow = 5;
+    
     this.searchInputHeight = 38 * (this.values_.size > rowsToShow ? 1 : 0);
     this.filterHeight =
       rowHeight * Math.min(this.values_.countInFilter, rowsToShow) +
@@ -207,6 +221,5 @@ export class InputDropdownComponent implements OnInit {
       document.getElementById('dropdown-item-' + this.eid + '-' + key).focus();
     }, 0);
     event.preventDefault();
-
   }
 }

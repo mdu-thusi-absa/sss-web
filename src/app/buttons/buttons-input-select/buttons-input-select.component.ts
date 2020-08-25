@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Entity } from 'src/app/models';
+import { Entity } from 'src/app/data/models';
 
 @Component({
   selector: 'app-buttons-input-select',
@@ -46,7 +46,7 @@ export class ButtonsInputSelectComponent implements OnInit {
   @Input() showCancel = true;
   @Input() showSave = true;
   @Input() showAdd = true;
-  @Input() showCheck = true;
+  @Input() showCheck = false;
   @Input() showExpandContract = false;
   @Input() showExpand = false;
   @Input() showContract = false;

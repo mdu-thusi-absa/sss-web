@@ -7,8 +7,8 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { NaturalEntity, Entities, EveryEntity, Entity } from '../../models';
-import { DataService } from 'src/app/data.service';
+import { NaturalEntity, Entities, EveryEntity, Entity } from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-person',

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
-import { NaturalEntity, Entities, EveryEntity, Entity } from '../../models'
-import { DataService } from 'src/app/data.service';
+import { NaturalEntity, Entities, EveryEntity, Entity } from '../../data/models'
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-duo-column',

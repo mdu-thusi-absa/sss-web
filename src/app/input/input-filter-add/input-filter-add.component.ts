@@ -6,8 +6,8 @@ import {
   Input,
   ElementRef,
 } from '@angular/core';
-import { Entities, EveryEntity, Entity } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { Entities, EveryEntity, Entity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-filter-add',

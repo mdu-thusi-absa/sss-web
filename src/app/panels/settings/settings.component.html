@@ -44,7 +44,7 @@
       [doHideByFilter]="true"
       [titleLeft]="'Countries'"
       [valuesLeft]="data.countries"
-      [valueLeft]="data.getDefault('countryKey')"
+      [valueLeft]="data.countries.firstKey"
       [typeRight]="'select-entity'"
       [titleRight]="'Industries'"
       [valuesRight]="data.industries"
@@ -52,8 +52,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -71,8 +71,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -90,8 +90,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -109,8 +109,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 
     <app-input-duo
@@ -128,8 +128,8 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
     ></app-input-duo>
 <div style="padding-bottom: 5px;"> </div>
     <hr>

@@ -21,8 +21,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -42,8 +42,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -63,8 +63,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -84,8 +84,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -107,8 +107,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -127,8 +127,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-panel [title]="'PI Score'" [panelPrimary]="true">
@@ -143,8 +143,8 @@
     [typeRight]="'text'"
     [titleRight]="'Total Points (calculated)'"
     [disabledRight] = "true"
-    [showCheckLeft]="true"
-    [showCheckRight]="true"
+    [showCheckLeft]="false"
+    [showCheckRight]="false"
   ></app-input-duo>
 
   <app-input-duo
@@ -159,8 +159,8 @@
     [titleRight]="'Third Party Liability (Rm)'"
     [valueRight]="0"
     (onChangeRight)="entity.shareholdingInEntity = $event; onDirty.emit()"
-    [showCheckLeft]="true"
-    [showCheckRight]="true"
+    [showCheckLeft]="false"
+    [showCheckRight]="false"
   ></app-input-duo>
   <app-input-duo
     [filterText]="filterText"
@@ -173,8 +173,8 @@
     [typeRight]="'text'"
     [titleRight]="'Fiduciary Holdings (Rm)'"
     [valueRight]="0"
-    [showCheckLeft]="true"
-    [showCheckRight]="true"
+    [showCheckLeft]="false"
+    [showCheckRight]="false"
   ></app-input-duo>
 
   <ul class="list-group app-input" style="margin-bottom:0px">

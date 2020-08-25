@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/data.service';
-import { Entities, EveryEntity } from 'src/app/models';
+import { DataService } from 'src/app/data/data.service';
+import { Entities, EveryEntity, EnumEntityType } from 'src/app/data/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 // import { MatCardModule } from '@angular/material/card';
 // import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
@@ -59,8 +59,9 @@ export class EntitiesContainerComponent implements OnInit {
   hideReminders = true;
   hideReports = true;
 
-  dashboardKey = 0;
+  //dashboardKey = 0;
   entityKey = 0;
+  entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
 
   isPageLoaded: string[] = [];
   isPageLoaded_index = 0;
@@ -172,13 +173,14 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   get dashboardName(): string {
-    return this.dashboards.get(this.dashboardKey).name.toLowerCase();
+    return this.dashboards.get(this.entityTypeKey).name.toLowerCase();
   }
 
   doDashboardChange(event: any) {
     //console.log(event);
     
-    this.dashboardKey = +event;
+    //this.dashboardKey = +event;
+    this.entityTypeKey = +event;
   }
 
   doEntityChange(event: any) {

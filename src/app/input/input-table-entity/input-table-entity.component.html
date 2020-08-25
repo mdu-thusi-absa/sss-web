@@ -1,0 +1,35 @@
+<app-input-filter-add
+  [filterCount]="countFiltered"
+  [showAdd]="true"
+  [showFilterCount]="true"
+  (onFilter)="filterText = $event"
+  [showInputFilter]="true"
+></app-input-filter-add>
+<div style="padding-bottom: 5px;"></div>
+
+<small>
+  <table class="table table-condensed table-bordered less-bottom">
+    <!-- <thead class="info">
+      <tr>
+        <th *ngFor="let h of headings" class="info">
+          <small>{{ h }}</small>
+        </th>
+      </tr>
+    </thead> 
+    [hidden]="isHiddenMap.get(e)"
+-->
+
+    <tbody>
+      <ng-container *ngFor="let e of fields | keyvalue; let i = index">
+        <tr *ngIf="!isHiddenMap.get(i)">
+          <td class="info" style="width: 30%;">
+            {{ headings[i] }}
+          </td>
+          <td>
+            {{ entity[fields[i]] }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</small>

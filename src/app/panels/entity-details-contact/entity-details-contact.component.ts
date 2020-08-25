@@ -1,6 +1,6 @@
 import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
-import { EveryEntity } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { EveryEntity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-entity-details-contact',

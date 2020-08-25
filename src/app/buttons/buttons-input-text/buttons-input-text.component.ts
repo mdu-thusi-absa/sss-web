@@ -14,7 +14,7 @@ export class ButtonsInputTextComponent implements OnInit {
   @Input() showFlash = false;
   @Input() showPaperclip = false;
   @Input() showCD = false;
-  @Input() showCheck = true;
+  @Input() showCheck = false;
 
   constructor() { }
 

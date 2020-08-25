@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowReminder } from 'src/app/models';
+import { TaskFlowReminder } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-flow-set-reminder',
@@ -7,11 +8,11 @@ import { TaskFlowReminder } from 'src/app/models';
   styleUrls: ['./flow-set-reminder.component.css']
 })
 export class FlowSetReminderComponent implements OnInit {
-  @Input() taskFlow = new TaskFlowReminder();
+  @Input() taskFlow = new TaskFlowReminder(this.data);
   @Input() showSavePrev = false;
   @Output() onSaveNext = new EventEmitter();
   
-  constructor() { }
+  constructor(public data:DataService) { }
 
   ngOnInit(): void {
   }

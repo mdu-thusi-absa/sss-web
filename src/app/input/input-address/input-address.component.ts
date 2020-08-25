@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Country, Entities, City, Countries, Entity } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { Entities, City, Entity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-address',
@@ -32,7 +32,7 @@ export class InputAddressComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();
 
-  countries: Countries;
+  countries: Entities<Entity>;
   cities: Entities<City>;
   countryIndex = -1;
   cityIndex = 0;
@@ -41,15 +41,20 @@ export class InputAddressComponent implements OnInit {
 
   eid = 'input-address'
   constructor(private data: DataService) {
-    if (this.countryIndex < 0) {
-      this.countryIndex = data.getDefault('countryKey');
-    }
     this.eid = this.data.getID('',this.eid);
   }
 
   ngOnInit(): void {
-    this.countries = this.data.countries;
-    this.cities = this.countries.get(this.getCountryIndex())['cities'];
+    this.countries = this.data.countries
+    this.countryIndex = this.countries.currentKey
+    //this.cities = this.countries.get(this.getCountryIndex())['cities'];
+    this.cities = this.data.cities; //.select('countryKey',this.getCountryIndex());
+    // console.log(this.countries)
+    // console.log(this.cities)
+    if (this.countryIndex < 0) {
+      this.countryIndex = this.data.getDefault('countryKey');
+    }
+    
   }
 
   getID() {
@@ -80,8 +85,9 @@ export class InputAddressComponent implements OnInit {
   }
 
   doAddCountry(event: any) {
-    let c = this.countries.get(+event);
-    this.cities = c['cities'];
+    //let c = this.countries.get(+event);
+    this.cities = this.data.cities.select('countryKey',this.getCountryIndex());
+    //this.cities = c['cities'];
   }
 
   doChangeInputTextCountry(event: any) {
@@ -102,7 +108,10 @@ export class InputAddressComponent implements OnInit {
 
   doSelectCountry(event: any) {
     this.countryIndex = +event;
-    this.cities = this.countries.get(this.countryIndex)['cities'];
+    //this.cities = this.countries.get(this.countryIndex)['cities'];
+    //console.log(event);
+    this.cities = this.data.cities.select('countryKey',this.getCountryIndex());
+    this.cityIndex = this.cities.currentKey    
   }
 
   doSelectCity(event: any) {

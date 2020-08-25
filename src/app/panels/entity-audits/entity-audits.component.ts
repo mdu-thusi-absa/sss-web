@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task, Step } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { Task, Step } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-entity-audits',

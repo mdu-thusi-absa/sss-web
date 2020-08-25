@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, EveryEntity } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { Entities, EveryEntity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-table',

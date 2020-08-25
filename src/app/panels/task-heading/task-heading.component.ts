@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../../models';
-import { DataService } from 'src/app/data.service';
+import { Task } from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-task-heading',

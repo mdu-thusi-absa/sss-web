@@ -8,8 +8,8 @@ import {
   ElementRef,
   HostListener,
 } from '@angular/core';
-import { EveryEntity, Entities, Entity } from '../../models';
-import { DataService } from 'src/app/data.service';
+import { EveryEntity, Entities, Entity } from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-input-select-entity',

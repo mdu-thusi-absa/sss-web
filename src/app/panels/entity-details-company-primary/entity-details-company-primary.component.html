@@ -20,8 +20,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 >
 </app-input-duo>
 <app-input-duo
@@ -42,17 +42,17 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 >
 </app-input-duo>
 <app-input-select-checkbox-duo
   [isNarrow]="isNarrow"
   [filterText]="filterText"
   [doHideByFilter]="true"
-  [title]="'Entity Groups'"
-  [values]="data.getEntityGroups()"
-  [showCheck]="true"
+  [title]="'Entity portolios'"
+  [values]="data.getPortfolios()"
+  [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
 
@@ -76,8 +76,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -97,8 +97,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -108,7 +108,7 @@
   [typeLeft]="'date'"
   [titleLeft]="'Incorporation Date'"
   [placeholderLeft]="'Incorporation date of the entity'"
-  [showCheckLeft]="true"
+  [showCheckLeft]="false"
   [valueLeft] = "entity.incorporationDate"
   (onChangeLeft) = "entity.incorporationDate = $event; onDirty.emit()"
 
@@ -137,7 +137,7 @@
   [typeLeft]="'date'"
   [titleLeft]="'Business start date of the entity'"
   [valueLeft]="entity.businessStartDate"
-  [showCheckLeft]="true"
+  [showCheckLeft]="false"
   (onChangeLeft) = "entity.businessStartDate = $event; onDirty.emit()"
 
   [typeRight]="'select-entity'"

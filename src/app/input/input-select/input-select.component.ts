@@ -9,8 +9,8 @@ import {
   HostListener,
 } from '@angular/core';
 import * as $ from 'jquery';
-import { DataService } from 'src/app/data.service';
-import { Entity } from 'src/app/models';
+import { DataService } from 'src/app/data/data.service';
+import { Entity } from 'src/app/data/models';
 
 @Component({
   selector: 'app-input-select',

@@ -8,6 +8,12 @@
   />
 </div> -->
 
+<!-- <app-input-table-entity
+  [entity]="{ a: 1, b: 2, c: 3 }"
+  [fields]="['a', 'b', 'c']"
+  [headings]="['a', 'b', 'c']"
+></app-input-table-entity> -->
+
 <app-input-filter-add
   [title]="entityTypeName"
   [showSave]="true"
@@ -34,7 +40,7 @@
       (onTask)="doTask($event)"
       [title]="'Entity Name*'"
       [placeholder]="'Legal name of the entity (required)'"
-      [showCheck]="true"
+      [showCheck]="false"
       [value]="getEntityName()"
       (onChange)="setEntityName($event)"
     ></app-input-text>
@@ -46,8 +52,8 @@
       [titleLeft]="'Surname'"
       [titleRight]="'First Name'"
       [doHideByFilter]="false"
-      [showCheckLeft]="true"
-      [showCheckRight]="true"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
@@ -60,7 +66,6 @@
     </app-input-duo>
   </div>
   <div style="padding-bottom: 5px;"></div>
-
   <hr />
   <div style="padding-bottom: 5px;"></div>
   <div
@@ -78,6 +83,7 @@
           [isNarrow]="isNarrow"
           [filterText]="filterText"
           [entityKey]="entityKey"
+          [entityTypeKey]="entityTypeKey"
           [entity]="entity"
           (onFile)="doFile($event)"
           (onRecord)="doRecord($event)"
@@ -220,7 +226,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('group', 'primary')"
-      [hidden]="entityTypeName != 'group'"
+      [hidden]="entityTypeName != 'portfolio'"
     >
       <div
         class="panel panel-body collapse"
@@ -452,13 +458,16 @@
           hideMeetings &&
           hideReminders &&
           hideReports &&
-          (hideSecondary || (entityTypeName!='company' && entityTypeName!='individual')) && 
-          (hideOptional || (entityTypeName!='company'))
+          (hideSecondary ||
+            (entityTypeName != 'company' && entityTypeName != 'individual')) &&
+          (hideOptional || entityTypeName != 'company')
         )
       "
     >
-      <app-label-h [title]="'Please select detail pages to display'"></app-label-h>
+      <app-label-h
+        [title]="'Please select detail pages to display'"
+      ></app-label-h>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   </div>
 </form>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { TaskFlowSubmitDocs } from 'src/app/models';
-import { DataService } from 'src/app/data.service';
+import { TaskFlowSubmitDocs } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-flow-submit-docs',
@@ -8,7 +8,7 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./flow-submit-docs.component.css']
 })
 export class FlowSubmitDocsComponent implements OnInit {
-  @Input() taskFlow = new TaskFlowSubmitDocs();
+  @Input() taskFlow = new TaskFlowSubmitDocs(this.data);
   @Input() showSavePrev = false;
   @Output() onSaveNext = new EventEmitter();
   

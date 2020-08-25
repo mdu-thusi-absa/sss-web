@@ -5,8 +5,9 @@ import {
   EveryEntity,
   Entities,
   FunctionalEntity,
-} from '../../models';
-import { DataService } from 'src/app/data.service';
+  EnumEntityType,
+} from '../../data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-entity-details',
@@ -34,7 +35,7 @@ export class EntityDetailsComponent implements OnInit {
   entityType_ = -1;
   entityType_T = -2;
   entityTypeName_ = '';
-  @Input() entityTypes =this.data.entityTypes
+  @Input() entityTypes = this.data.entityTypes
   @Input() entityKey = -1;
   entityKeyT = -1;
   private entity_: EveryEntity;
@@ -51,21 +52,38 @@ export class EntityDetailsComponent implements OnInit {
 
   constructor(public data: DataService) {}
 
+  // isType(entityTypeKey: EnumEntityType,typeName: string): boolean{
+  //   return this.entityTypes.get(entityTypeKey).name == typeName;
+  // }
+
   doTest(){
     console.log('test');
   }
 
-  dashboardKey_ = 0;
-  @Input() set dashboardKey(v: number){
-    this.dashboardKey_ = v;
-    this.entityType_ = v - 2;
+  // dashboardKey_ = 0;
+  // @Input() set dashboardKey(v: number){
+  //   this.dashboardKey_ = v;
+  //   this.entityType_ = v - 2;
+  // }
+
+  entityTypeKey_: EnumEntityType = EnumEntityType.Company;
+  @Input() set entityTypeKey(v: EnumEntityType){
+    this.entityTypeKey_ = v;
+    this.entities = this.data.getEntities(this.entityTypeKey_)
+    this.entityTypeName_ = this.data.dashboards.get(this.entityTypeKey_).name.toLowerCase();
+    // console.log(this.entityTypeKey);
+    
+  }
+
+  get entityTypeKey(){
+    return this.entityTypeKey_;
   }
 
   get entityTypeName(): string{
     // console.log(this.entityType_);
     
     if (this.entityType_ != this.entityType_T){
-      this.entityTypeName_ = this.data.dashboards.get(this.dashboardKey_).name.toLowerCase();
+      this.entityTypeName_ = this.data.dashboards.get(this.entityTypeKey).name.toLowerCase();
       this.entityType_T = this.entityType_;
     }
     return this.entityTypeName_;
@@ -79,8 +97,9 @@ export class EntityDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.persons = this.data.getPersons();
-    this.entities = this.data.getFunctionalEntitiesAll();
+    this.persons = this.data.getIndividuals();
+    //this.entities = this.data.getFunctionalEntitiesAll();
+    this.entities = this.data.getEntities(this.entityTypeKey)
     this.entityTypes = this.data.entityTypes;
     if (this.entityKey < 0) {
       this.entityKey = this.entities.currentKey;
@@ -125,11 +144,13 @@ export class EntityDetailsComponent implements OnInit {
     if (isPageLoaded.indexOf(key) == -1) isPageLoaded.push(key);
   }
 
+  entityTypeKeyT: number = -1;
   get entity(): EveryEntity {
-    if (this.entityKeyT != this.entityKey) {
+    if (this.entityKeyT != this.entityKey || this.entityTypeKeyT != this.entityTypeKey) {
       this.entity_ = this.entities.get(this.entityKey).clone();
       this.entity_BackUp = this.entity_.clone();
-      this.entityKeyT = this.entityKey;
+      this.entityKeyT = this.entityKey
+      this.entityTypeKeyT = this.entityTypeKey
     }
     return this.entity_;
   }

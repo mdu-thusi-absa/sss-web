@@ -14,8 +14,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 >
 </app-input-duo>
 
@@ -32,8 +32,8 @@
 (onFile)="doFile($event)"
 (onRecord)="doRecord($event)"
 (onTask)="doTask($event)"
-[showCheckLeft]="true"
-[showCheckRight]="true"
+[showCheckLeft]="false"
+[showCheckRight]="false"
 ></app-input-duo>
 
 <app-input-duo
@@ -46,8 +46,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 <app-input-duo
   [filterText]="filterText"
@@ -60,7 +60,7 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
+  [showCheckLeft]="false"
 
 ></app-input-duo>
 
@@ -104,14 +104,14 @@
           <th>
             Resigned
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewNew()"
               >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
-            </a>
+            </a> -->
             </div>
           </th>
         </tr>
@@ -123,14 +123,14 @@
           <td>2015/04/03</td>
           <td>
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewEdit()"
               >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
-            </a>
+            </a> -->
             </div>
           </td>
         </tr>
@@ -141,14 +141,14 @@
           <td>
             2018/05/15
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewEdit()"
                 >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
-            </a>
+            </a> -->
             </div>
           </td>
         </tr>
@@ -159,14 +159,14 @@
           <td>
             2018/05/15
             <div class="btn-group pull-right">
-              <a
+              <!-- <a
                 href="#"
                 class="btn btn-primary primary-color btn-hover btn-xs"
                 (click)="showAppointeeNewEdit()"
                 >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
-            </a>
+            </a> -->
             </div>
           </td>
         </tr>
@@ -180,7 +180,7 @@
       <div class="panel panel-heading mt3 nobottom">
         <small>New Appointment</small>
         <div class="btn-group pull-right">
-          <a
+          <!-- <a
             href="#"
             class="btn btn-info btn-xs"
             (click)="showAppointeeNewNew()"
@@ -193,14 +193,14 @@
             (click)="showAppointeeNewNew()"
             >
             <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
-          </a>
+          </a> -->
         </div>
       </div>
       <div class="panel panel-body mt3 nobottom">
         <div class="form-group input-group-sm nobottom">
           <label class="nobottom text-primary-bold">Appointee</label>
           <div class="btn-group pull-right">
-            <a
+            <!-- <a
               href="#"
               class="btn btn-primary primary-color btn-xs"
               (click)="showAppointeeNew()"
@@ -215,7 +215,7 @@
             >
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeInput">done</mat-icon>
               <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeInput">add</mat-icon>
-            </a>
+            </a> -->
           </div>
           <div class="input-group-sm" [hidden]="isAppointeeInput">
             <select class="form-control input-sm" style="font-size: small;">
@@ -265,8 +265,8 @@
           [titleLeft]="'Appointment Date'"
           [titleRight]="'Resignation Date'"
           [filterText]="filterText"
-          [showCheckLeft]="true"
-          [showCheckRight]="true"
+          [showCheckLeft]="false"
+          [showCheckRight]="false"
         ></app-input-duo>
       </div>
     </div>
@@ -283,8 +283,8 @@
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
   (onTask)="doTask($event)"
-  [showCheckLeft]="true"
-  [showCheckRight]="true"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
 ></app-input-duo>
 <div style="padding-bottom: 5px;"> </div>
 <hr>

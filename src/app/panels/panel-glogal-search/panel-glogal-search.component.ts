@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Entities, EveryEntity, NaturalEntity } from '../../models'
-import { DataService } from 'src/app/data.service';
+import { Entity, Entities, EveryEntity, NaturalEntity } from '../../data/models'
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-panel-glogal-search',
@@ -32,7 +32,7 @@ export class PanelGlogalSearchComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    this.persons = this.data.getPersons();
+    this.persons = this.data.getIndividuals();
     if (this.data.lg) console.log(new Date().getTime(),'loaded:dashboard');
     this.data.progress += 1;
   }

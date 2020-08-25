@@ -57,6 +57,7 @@
             <app-entities
               [panelRows]="panelRows"
               [isNarrow]="showPanelRight"
+              [entityTypeKey] = "entityTypeKey"
               (onDashboardChange)="doDashboardChange($event)"
               (onEntityChange)="doEntityChange($event)"
             ></app-entities>
@@ -197,9 +198,9 @@
           <div class="panel-heading mt3">
             <small
               [hidden]="
-                dashboardKey > dashboards.size - 3 ||
-                dashboardKey == 0 ||
-                dashboardKey == 1
+                entityTypeKey > dashboards.size - 3 ||
+                entityTypeKey == 0 ||
+                entityTypeKey == 1
               "
             >
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
@@ -261,7 +262,7 @@
                   [toggleValue]="!hideSecondary"
                   (onToggle)="hideSecondary = !hideSecondary"
                   [isNarrow]="showPanelRight"
-                  [showMe]="dashboardKey == 2 || dashboardKey == 3"
+                  [showMe]="entityTypeKey == 2 || entityTypeKey == 3"
                 >
                 </app-buttons-toggle>
 
@@ -274,7 +275,7 @@
                   [toggleValue]="!hideOptional"
                   (onToggle)="hideOptional = !hideOptional"
                   [isNarrow]="showPanelRight"
-                  [showMe]="dashboardKey == 2"
+                  [showMe]="entityTypeKey == 2"
                 ></app-buttons-toggle>
                 <app-buttons-toggle
                   [title]="'Contacts'"
@@ -367,28 +368,28 @@
               </span>
             </small>
 
-            <small [hidden]="dashboardKey != 0">
+            <small [hidden]="entityTypeKey != 0">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >public</mat-icon
               >
               <span>&nbsp;Dashboard</span>
             </small>
 
-            <small [hidden]="dashboardKey != 1">
+            <small [hidden]="entityTypeKey != 1">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >search</mat-icon
               >
               <span>&nbsp;Search</span>
             </small>
 
-            <small [hidden]="dashboardKey != dashboards.size - 2">
+            <small [hidden]="entityTypeKey != dashboards.size - 2">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >assignment</mat-icon
               >
               <span>&nbsp;Templates</span>
             </small>
 
-            <small [hidden]="dashboardKey < dashboards.size - 1">
+            <small [hidden]="entityTypeKey < dashboards.size - 1">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >settings</mat-icon
               >
@@ -397,7 +398,7 @@
 
             <div class="btn-group pull-right">
               <app-buttons-toolbar-button
-                [hidden]="dashboardKey == dashboards.size - 1"
+                [hidden]="entityTypeKey == dashboards.size - 1"
                 [title]="''"
                 [placeholder]="'Expand/Contract all pages'"
                 [matIcon]="pagesAreExpanded?'unfold_less':'unfold_more'"
@@ -410,7 +411,7 @@
               ></app-buttons-toolbar-button>
 
               <app-buttons-toolbar-button
-                [hidden]="dashboardKey == dashboards.size - 1"
+                [hidden]="entityTypeKey == dashboards.size - 1"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
@@ -437,14 +438,14 @@
             <div
               *ngIf="
                 getIsLoaded(
-                  dashboardKey != 0 && dashboardKey <= dashboards.size - 2,
+                  entityTypeKey != 0 && entityTypeKey <= dashboards.size - 2,
                   'entities'
                 )
               "
               [hidden]="
-              dashboardKey == 0 ||
-                dashboardKey == 1 ||
-                dashboardKey > dashboards.size - 3
+              entityTypeKey == 0 ||
+                entityTypeKey == 1 ||
+                entityTypeKey > dashboards.size - 3
               "
             >
               <app-entity-details
@@ -464,22 +465,22 @@
                 [hideReminders]="hideReminders"
                 [hideReports] = "hideReports"
                 [isNarrow]="showPanelRight"
-                [dashboardKey]="dashboardKey"
                 [entityKey]="entityKey"
+                [entityTypeKey]="entityTypeKey"
               ></app-entity-details>
             </div>
             <div
               *ngIf="
-                getIsLoaded(dashboardKey == dashboards.size - 2, 'templates')
+                getIsLoaded(entityTypeKey == dashboards.size - 2, 'templates')
               "
-              [hidden]="dashboardKey != dashboards.size - 2"
+              [hidden]="entityTypeKey != dashboards.size - 2"
             >
               <app-entity-details-doc-templates
                 [isNarrow]="showPanelRight"
               ></app-entity-details-doc-templates>
             </div>
 
-            <div [hidden]="dashboardKey != dashboards.size - 1">
+            <div [hidden]="entityTypeKey != dashboards.size - 1">
               <app-settings
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"
@@ -493,12 +494,12 @@
                 [hideUsers]="false"
                 [hideContacts]="hideContacts"
                 [isNarrow]="showPanelRight"
-                [entityType]="dashboardKey"
+                [entityType]="entityTypeKey"
               ></app-settings>
             </div>
             <div
-              *ngIf="getIsLoaded(dashboardKey == 0, 'dashboard')"
-              [hidden]="dashboardKey != 0"
+              *ngIf="getIsLoaded(entityTypeKey == 0, 'dashboard')"
+              [hidden]="entityTypeKey != 0"
             >
               <app-entity-details-dashboard
                 [panelRows]="panelRows"
@@ -513,12 +514,12 @@
                 [hideUsers]="false"
                 [hideContacts]="hideContacts"
                 [isNarrow]="showPanelRight"
-                [entityType]="dashboardKey"
+                [entityType]="entityTypeKey"
               ></app-entity-details-dashboard>
             </div>
             <div
-              *ngIf="getIsLoaded(dashboardKey == 1, 'globalsearch')"
-              [hidden]="dashboardKey != 1"
+              *ngIf="getIsLoaded(entityTypeKey == 1, 'globalsearch')"
+              [hidden]="entityTypeKey != 1"
             >
               <app-panel-glogal-search
                 [panelRows]="panelRows"
@@ -533,7 +534,7 @@
                 [hideUsers]="false"
                 [hideContacts]="hideContacts"
                 [isNarrow]="showPanelRight"
-                [entityType]="dashboardKey"
+                [entityType]="entityTypeKey"
               ></app-panel-glogal-search>
             </div>
           </div>

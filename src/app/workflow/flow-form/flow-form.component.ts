@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowForm } from 'src/app/models';
+import { TaskFlowForm } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-flow-form',
@@ -13,7 +14,7 @@ export class FlowFormComponent implements OnInit {
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();
 
-  constructor() {}
+  constructor(public data:DataService) {}
 
   ngOnInit(): void {}
 
