@@ -6,7 +6,7 @@ import {
   EventEmitter,
   HostListener,
 } from '@angular/core';
-import { FunctionalEntity, Entities, Entity, EveryEntity, EnumEntityType } from '../../data/models';
+import { EntityFunctional, Entities, Entity, EveryEntity, EnumEntityType } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
 import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 import { ExecException } from 'child_process';
@@ -102,7 +102,7 @@ export class EntitiesComponent implements OnInit {
     this.entityTypeNamePlural = this.data.entityTypesPlural.get(event).name;
     this.entityTypeName = this.entityTypeNames
       .get(this.entityType)
-      .name.toLowerCase();
+      .name.toLowerCase()
 
     this.entities = this.data.getEntities(this.entityType);
 
@@ -135,7 +135,7 @@ export class EntitiesComponent implements OnInit {
     }
   }
 
-  shouldBeHidden(e: FunctionalEntity): boolean {
+  shouldBeHidden(e: EntityFunctional): boolean {
     let inFilter = true;
     let inName = true;
     let inSuffix = true;
@@ -279,7 +279,7 @@ export class EntitiesComponent implements OnInit {
       this.isHiddenMap = new Map();
       let typeName = this.entityTypeName.toLowerCase();
 
-      this.entities.forEach((value: FunctionalEntity, key: number) => {
+      this.entities.forEach((value: EntityFunctional, key: number) => {
         //if (value.type == typeName) {
           this.isHiddenMap.set(key, this.shouldBeHidden(value));
         //}

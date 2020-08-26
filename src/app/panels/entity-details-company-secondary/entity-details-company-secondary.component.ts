@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, Company } from 'src/app/data/models';
+import { EntityNatural, EntityCompany } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { DataService } from 'src/app/data/data.service';
 export class EntityDetailsCompanySecondaryComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() persons: NaturalEntity[];
-  @Input() entity: Company;
+  @Input() persons: EntityNatural[];
+  @Input() entity: EntityCompany;
   
 
   @Output() onRecord = new EventEmitter();

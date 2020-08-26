@@ -261,7 +261,7 @@ table > tbody > tr.info > td,
 .table > tfoot > tr > td.info,
 .table > thead > tr.info > td,
 .table > thead > tr > td.info {
-  background-color: rgb(240, 50, 90); /*absa*/
+  background-color: var(--color-dark); /*absa*/
   color: white;
 }
 

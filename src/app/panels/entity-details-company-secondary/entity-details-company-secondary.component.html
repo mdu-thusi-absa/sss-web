@@ -1,8 +1,4 @@
-<!-- <hr class="text-primary-bold" style='height: 1px;margin:0px'> -->
-
-<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
-  Secondary details: Company
-</div> -->
+<!-- 
 <app-label-h [title]="'Secondary details: Company'"></app-label-h>
 <app-input-duo
   [filterText]="filterText"
@@ -10,13 +6,13 @@
   [isNarrow]="isNarrow"
   [typeLeft]="'text'"
   [titleLeft]="'Income Tax Number of the entity'"
-  [valueLeft]="entity.incomeTaxNumber"
+  [valueLeft]="entity.incomeTax"
   (onChangeLeft)="entity.incomeTaxNumber = $event; onDirty.emit()"
   [typeRight]="'text'"
   [titleRight]="'Value Added Tax (VAT) Number'"
   [placeholderRight]="'VAT Number of the enity'"
   [valuesRight]="[]"
-  [valueRight]="entity.vatNumber"
+  [valueRight]="entity.vatCode"
   (onChangeRight)="entity.vatNumber = $event; onDirty.emit()"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -58,7 +54,7 @@
   [typeRight]="'checkbox'"
   [titleRight]="'Consolidated'"
   [valuesRight]="[]"
-  [valueRight]="entity.consolidated"
+  [valueRight]="entity.consolidatedKey"
   (onChangeRight)="entity.consolidated = $event; onDirty.emit()"
   (onFile)="doFile($event)"
   (onRecord)="doRecord($event)"
@@ -100,7 +96,7 @@
   [typeRight]="'select-entity'"
   [titleRight]="'Accounting Classification Tiering'"
   [valuesRight]="data.getAccountingTier()"
-  [valueRight]="entity.accountingClassificationTieringKey"
+  [valueRight]="entity.accountingClassTierKey"
   (onChangeRight)="
     entity.accountingClassificationTieringKey = $event; onDirty.emit()
   "
@@ -118,7 +114,7 @@
   [typeLeft]="'select-entity'"
   [titleLeft]="'Direct Parent'"
   [valuesLeft]="data.getCompanies()"
-  [valueLeft]="entity.directParentKey"
+  [valueLeft]="entity.parentCompanyKey"
   (onChangeLeft)="entity.directParentKey = $event; onDirty.emit()"
   [typeRight]="'text'"
   [titleRight]="'Absa Shareholding in Entity (%)'"
@@ -206,4 +202,4 @@
 </app-input-panel>
 
 <div style="padding-bottom: 5px;"></div>
-<hr />
+<hr /> -->

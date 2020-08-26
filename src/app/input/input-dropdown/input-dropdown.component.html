@@ -15,21 +15,21 @@
       href="#"
       [attr.id]="'dropdown-button-' + eid"
       class="btn btn-sm primary-color"
-      style="text-align: left; margin: 0px; display: inline-block;"
+      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;"
       [class.a-width-buttons]="showDelete || showEdit || showAdd"
-      [style.border]="showDelete || showEdit || showAdd ? '1px solid' : 'none'"
+      [style.border]="showDelete || showEdit || showAdd ? '1px white' : 'none'"
       (click)="doModal($event)"
       data-toggle="modal"
       [attr.data-target]="'#dropdown-' + eid"
       ><span class="caret" style="margin-right: 5px;"></span>{{ value }}
-      <!-- <div class="pull-right"><span class="caret"></span></div> -->
+      <!-- 1px solid <div class="pull-right"><span class="caret"></span></div> -->
     </a>
   <div class="input-group-sm pull-right">
     <span
       *ngIf="showDelete && !disabled"
       class="input-group-addon btn primary-color-reverse hidden-xs"
       [class.disabled]="this.key < 0"
-      style="border-left: none;"
+      style="border-left: 1px solid;"
       (click)="onDelete.emit()"
       [title]="'Delete the ' + title"
     >

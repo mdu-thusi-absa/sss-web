@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { LegalEntity, FunctionalEntity, EveryEntity, Company } from 'src/app/data/models';
+import { EntityLegal, EntityFunctional, EveryEntity,EntityCompany, EnumEntityType } from 'src/app/data/models';
 
 
 @Component({
@@ -12,7 +12,8 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
   @Input() entityKey: number;
-  @Input() entity: Company;
+  @Input() entity: EntityCompany;
+  entityType = EnumEntityType.Company
   //@Input() legalEntity: LegalEntity;
 
   @Output() onRecord = new EventEmitter();
@@ -29,6 +30,8 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-company-primary');
     this.data.progress += 1;
+    console.log(this.entity);
+    
   }
 
   doRecord(event: any){

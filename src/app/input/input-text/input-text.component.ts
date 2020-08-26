@@ -15,6 +15,7 @@ export class InputTextComponent implements OnInit {
   get title(){
     return this.title_;
   }
+  @Input() showSmall = false;
   @Input() placeholder = '';
   @Input() filterText = '';
   @Input() doHideByFilter = false;

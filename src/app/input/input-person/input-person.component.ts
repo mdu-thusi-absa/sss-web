@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { NaturalEntity, Entities, EveryEntity, Entity } from '../../data/models';
+import { EntityNatural, Entities, EveryEntity, Entity } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class InputPersonComponent implements OnInit {
   @Input() showDelete = true;
   @Input() showCheck = false;
 
-  person = new NaturalEntity('', '', '');
+  person = new EntityNatural('', '', '');
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
@@ -128,7 +128,7 @@ export class InputPersonComponent implements OnInit {
     this.onRecord.emit(this.title);
   }
 
-  setItem(person: NaturalEntity) {
+  setItem(person: EntityNatural) {
     // this.values.sort(function (a, b) {
     //   return a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase());
     // });
@@ -151,7 +151,7 @@ export class InputPersonComponent implements OnInit {
 
   doEdit() {
     this.isAdd = false;
-    this.person = this.values.get(this.value) as NaturalEntity;
+    this.person = this.values.get(this.value) as EntityNatural;
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
   }
@@ -184,7 +184,7 @@ export class InputPersonComponent implements OnInit {
     } else {
       //new is clicked
       this.isAdd = true;
-      this.person = new NaturalEntity('', '', '');
+      this.person = new EntityNatural('', '', '');
     }
     if (!this.isDoInput) this.setFocus();
     this.isDoInput = !this.isDoInput;
@@ -273,7 +273,7 @@ export class InputPersonComponent implements OnInit {
   hideItem(person: EveryEntity) {
     let r = false;
     if (this.listFilterText.length > 0) {
-      r = (person as NaturalEntity).fullName.toLowerCase().indexOf(this.listFilterText) === -1;
+      r = (person as EntityNatural).fullName.toLowerCase().indexOf(this.listFilterText) === -1;
     }
     return r;
   }

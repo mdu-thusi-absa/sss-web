@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   Entity,
-  NaturalEntity,
+  EntityNatural,
   EveryEntity,
   Entities,
-  FunctionalEntity,
+  EntityFunctional,
   EnumEntityType,
 } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
@@ -30,7 +30,7 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideMeetings = false;
   @Input() hideReminders = false;
   @Input() hideReports = false;
-  persons: Entities<NaturalEntity>;
+  persons: Entities<EntityNatural>;
   @Input() panelRows = 1;
   entityType_ = -1;
   entityType_T = -2;
@@ -57,7 +57,7 @@ export class EntityDetailsComponent implements OnInit {
   // }
 
   doTest(){
-    console.log('test');
+    // console.log('test');
   }
 
   // dashboardKey_ = 0;
@@ -70,10 +70,19 @@ export class EntityDetailsComponent implements OnInit {
   @Input() set entityTypeKey(v: EnumEntityType){
     this.entityTypeKey_ = v;
     this.entities = this.data.getEntities(this.entityTypeKey_)
+    // console.log(this.entities);
+    
     this.entityTypeName_ = this.data.dashboards.get(this.entityTypeKey_).name.toLowerCase();
     // console.log(this.entityTypeKey);
     
   }
+
+  entityKey_ = -1
+
+  // set @Input() entityKey (v: number) {
+  //   this.entityKey_ = v;
+  //   this.entity = this.entities.get(this.entityKey_)
+  // };
 
   get entityTypeKey(){
     return this.entityTypeKey_;
@@ -145,13 +154,26 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   entityTypeKeyT: number = -1;
-  get entity(): EveryEntity {
+  get entity (): EveryEntity {
     if (this.entityKeyT != this.entityKey || this.entityTypeKeyT != this.entityTypeKey) {
-      this.entity_ = this.entities.get(this.entityKey).clone();
-      this.entity_BackUp = this.entity_.clone();
+      // console.log(this.entity_);
+      // console.log(this.entities.get(this.entityKey));
+      // let f = this.entities.get(this.entityKey);
+      // let d = f.copy()
+      // console.log(f,d);
+      // let e = this.entities.get(this.entityKey).clone();
+      // console.log(e);
+      
+      
+      this.entity_ = this.entities.get(this.entityKey).copy();
+      // console.log(this.entities);
+      
+      this.entity_BackUp = this.entity_.copy();
       this.entityKeyT = this.entityKey
       this.entityTypeKeyT = this.entityTypeKey
     }
+    // console.log(this.entity_);
+    
     return this.entity_;
   }
 
@@ -162,8 +184,8 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   doCancel() {
-    this.entity_ = this.entities.get(this.entityKey).clone();
-    this.entity_BackUp = this.entity_.clone();
+    this.entity_ = this.entities.get(this.entityKey).copy();
+    this.entity_BackUp = this.entity_.copy();
     this.dirty = false;
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { NaturalEntity } from 'src/app/data/models';
+import { EntityNatural } from 'src/app/data/models';
 
 @Component({
   selector: 'app-entity-details-individual',
@@ -10,7 +10,7 @@ import { NaturalEntity } from 'src/app/data/models';
 export class EntityDetailsIndividualComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() entity: NaturalEntity;
+  @Input() entity: EntityNatural;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

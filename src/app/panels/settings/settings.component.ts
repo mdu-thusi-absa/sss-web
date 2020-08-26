@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Entities, EveryEntity, NaturalEntity } from '../../data/models'
+import { Entity, Entities, EveryEntity, EntityNatural } from '../../data/models'
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
   @Input() hideFiles = false;
   @Input() hideUsers = false;
   @Input() hideContacts = false;
-  persons = new Entities<NaturalEntity>(NaturalEntity);
+  persons = new Entities<EntityNatural>(EntityNatural);
   @Input() panelRows = 1;
   @Input() entityType = 0;
   //@Input() entityKey = 0;

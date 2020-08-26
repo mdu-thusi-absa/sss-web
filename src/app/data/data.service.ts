@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
-  NaturalEntity,
+  EntityNatural,
   Entity,
-  LegalEntity,
-  User,
+  EntityLegal,
+  EntityUser,
   GroupEntity,
-  City,
+  EntityCity,
   Entities,
-  FunctionalEntity,
+  EntityFunctional,
   EveryEntity,
-  Company,
+  EntityCompany,
   FileEntity,
   MeetingEntity,
   MeetingGuestEntity,
@@ -62,6 +62,13 @@ import {
   jsonAuditors,
   jsonSecretariats,
   jsonIndustries,
+  jsonAccountingClassTier,
+  jsonConsolidated,
+  jsonLegalClass,
+  jsonEntityStatus,
+  jsonEntityStatusTier,
+  jsonBusinessDivision,
+  jsonCompanyTypes,
 } from './data-json.module';
 import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
@@ -70,50 +77,53 @@ import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 })
 export class DataService {
   public lg = false;
-  individuals = new Entities<NaturalEntity>(NaturalEntity);
-  functionalEntities: Entities<EveryEntity>;
+  // regulators = new Entities<EntityLegal>(EntityLegal);
+  // trusts = new Entities<EntityLegal>(EntityLegal);
+  accountingClasses = new Entities<Entity>(Entity);
+  accountingClassTiers = new Entities<Entity>(Entity);
+  attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
+  auditors = new Entities<EntityLegal>(EntityLegal);
+  businessAreas = new Entities<Entity>(Entity);
+  //businessAreas = new Entities<Entity>(Entity);
+  businessDivisions = new Entities<Entity>(Entity);
+  //businessDivisions = new Entities<Entity>(Entity);
+  cities = new Entities<EntityCity>(EntityCity);
+  companies = new Entities<EntityCompany>(EntityCompany);
+  companyTypes = new Entities<Entity>(Entity);
+  consolidated = new Entities<Entity>(Entity);
+  contactPreferences = new Entities<Entity>(Entity);
+  countries = new Entities<Entity>(Entity);
+  countriesWithTasks = new Entities<Entity>(Entity);
   dashboards = new Entities<Entity>(Entity);
   dashboardsPlural = new Entities<Entity>(Entity);
+  entityStatus = new Entities<Entity>(Entity);
+  entityStatuses = new Entities<Entity>(Entity);
+  // entityStatusTier = new Entities<Entity>(Entity);
+  entityStatusTiers = new Entities<Entity>(Entity);
   entityTypes = new Entities<Entity>(Entity);
-
+  entityTypesPlural = new Entities<Entity>(Entity);
+  files = new Entities<FileEntity>(FileEntity);
+  functionalEntities: Entities<EveryEntity>;
+  individuals = new Entities<EntityNatural>(EntityNatural);
+  industries = new Entities<Entity>(Entity);
+  legalClasses = new Entities<Entity>(Entity);
+  //legalClasses = new Entities<Entity>(Entity);
+  meetings = new Entities<MeetingEntity>(MeetingEntity);
   months = new Entities<Entity>(Entity);
   periods = new Entities<Entity>(Entity);
-  progress = 0;
-  businessDivisions = new Entities<Entity>(Entity);
-  entityStatuses = new Entities<Entity>(Entity);
-  reports = new Entities<Entity>(Entity);
-  
-  users = new Entities<User>(User);
-  businessAreas = new Entities<Entity>(Entity);
-  legalClasses = new Entities<Entity>(Entity);
-  entityStatusTiers = new Entities<Entity>(Entity);
-  accountingClasses = new Entities<Entity>(Entity);
-  accountingTiers = new Entities<Entity>(Entity);
-  
-  yesNo = new Entities<Entity>(Entity);
-  taskStatus = new Entities<Entity>(Entity);
-  taskTypes = new Entities<Entity>(Entity);
-  contactPreferences = new Entities<Entity>(Entity);
-  industries = new Entities<Entity>(Entity);
-  entityTypesPlural = new Entities<Entity>(Entity);
-
-  companies = new Entities<Company>(Company);
-  countriesWithTasks = new Entities<Entity>(Entity);
-  files = new Entities<FileEntity>(FileEntity);
   portfolios = new Entities<GroupEntity>(GroupEntity);
-  meetings = new Entities<MeetingEntity>(MeetingEntity);
-  attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
-  templates = new Entities<FileEntity>(FileEntity);
-  cities = new Entities<City>(City);
+  progress = 0;
   regulations = new Entities<RegulationEntity>(RegulationEntity);
-  regulators = new Entities<LegalEntity>(LegalEntity);
-  trusts = new Entities<LegalEntity>(LegalEntity);
-  auditors = new Entities<LegalEntity>(LegalEntity);
-  secretariats = new Entities<LegalEntity>(LegalEntity);
-  countries = new Entities<Entity>(Entity);
+  reports = new Entities<Entity>(Entity);
+  secretariats = new Entities<EntityLegal>(EntityLegal);
+  taskStatuses = new Entities<Entity>(Entity);
+  taskTypes = new Entities<Entity>(Entity);
+  templates = new Entities<FileEntity>(FileEntity);
+  users = new Entities<EntityUser>(EntityUser);
+  yesNo = new Entities<Entity>(Entity);
 
   constructor() {
-    this.dashboards.fromJSON(jsonDashboards);
+    this.dashboards.fromJSON(jsonDashboardsPlural);
     this.dashboardsPlural.fromJSON(jsonDashboardsPlural);
     this.entityTypes.fromJSON(jsonDashboards);
     this.months.fromJSON(jsonMonths);
@@ -121,38 +131,49 @@ export class DataService {
     this.yesNo.fromJSON(jsonYesNo);
 
     this.accountingClasses.fromJSON(jsonAccountingClasses);
-    this.accountingTiers.fromJSON(jsonAccountingTiers);
-    
+    // this.accountingTiers.fromJSON(jsonAccountingTiers);
+
     this.businessAreas.fromJSON(jsonBusinessAreas);
     this.businessDivisions.fromJSON(jsonDivisions);
     this.cities.fromJSON(jsonCities);
     this.companies.fromJSON(jsonCompanies, 1000);
     this.countriesWithTasks.fromJSON(jsonCountriesWithTasks, 1000);
     // console.log(this.countriesWithTasks);
-    
+
     this.contactPreferences.fromJSON(jsonContactPreferences);
     this.entityStatuses.fromJSON(jsonCompanyStatus);
     this.entityStatusTiers.fromJSON(jsonBusinessAreas);
     this.entityTypesPlural.fromJSON(jsonDashboardsPlural);
     this.legalClasses.fromJSON(jsonBusinessAreas);
     this.industries.fromJSON(jsonIndustries);
-    this.taskStatus.fromJSON(jsonTaskStatus);
+    // this.taskStatus.fromJSON(jsonTaskStatus);
     this.taskTypes.fromJSON(jsonTaskTypes);
 
-    this.attendees.fromJSON(jsonAttendees);
-    this.auditors.fromJSON(jsonAuditors,-1,'auditor');
+    // this.attendees.fromJSON(jsonAttendees);
+    this.auditors.fromJSON(jsonAuditors, -1, 'auditor');
     this.countries.fromJSON(jsonCountries);
     this.files.fromJSON(jsonFiles);
     this.individuals.fromJSON(jsonIndividuals);
     this.meetings.fromJSON(jsonMeetings);
     this.portfolios.fromJSON(jsonPortfolios);
     this.regulations.fromJSON(jsonRegulations);
-    this.regulators.fromJSON(jsonRegulators);
+    // this.regulators.fromJSON(jsonRegulators);
     this.reports.fromJSON(jsonReports);
-    this.secretariats.fromJSON(jsonSecretariats,-1,'secretariat');
+    this.secretariats.fromJSON(jsonSecretariats, -1, 'secretariat');
     this.templates.fromJSON(jsonTemplates);
-    this.trusts.fromJSON(jsonTrusts);
+    // this.trusts.fromJSON(jsonTrusts);
     this.users.fromJSON(jsonUsers);
+    this.companyTypes.fromJSON(jsonCompanyTypes);
+
+    // this.accountingClass.fromJSON(jsonAccountingClasses);
+    // this.accountingClassTier.fromJSON(jsonAccountingClassTier);
+    // this.consolidated.fromJSON(jsonConsolidated);
+    // this.businessArea.fromJSON(jsonBusinessAreas);
+    // this.legalClass.fromJSON(jsonLegalClass);
+    // this.entityStatus.fromJSON(jsonEntityStatus);
+    // this.entityStatusTier.fromJSON(jsonEntityStatusTier);
+    // this.businessDivision.fromJSON(jsonBusinessDivision);
+    // this.companyType.fromJSON(jsonCompanyType);
 
     // this.makeFunctionalEntities();
   }
@@ -182,16 +203,153 @@ export class DataService {
   //   }
   // }
 
+  public getEntityHeadingsMap(
+    enumEntityType: EnumEntityType
+  ): Map<string, string> {
+    let m = new Map();
+    switch (enumEntityType) {
+      case EnumEntityType.Company:
+        m.set('suffix', 'Suffix')
+          .set('companyTypeKey', 'Entity type')
+          .set('internalCode', 'Internal code')
+          .set('leCode', 'LE number')
+          .set('registrationCode', 'Entity registration number')
+          .set('portfolioKeys', 'Portfolios')
+          .set('countryKey', 'Country of Incorporation')
+          .set('isRepresentativeOffice', 'Representative Office ')
+          .set('isForeignBranch', 'Foreign Branch ')
+          .set('incorporationDate', 'Incorporation date')
+          .set('businessAreaKey', 'Business area')
+          .set('legalClassKey', 'Legal classification')
+          .set('entityStatusKey', 'Entity status')
+          .set('entityStatusTierKey', 'Entity status tiering')
+          .set('incomeTax', 'Income tax number of the entity')
+          .set('vatCode', 'Value added tax (VAT) number')
+          .set('businessDivisionKey', 'Business division')
+          .set('consolidatedKey', 'Consolidated/non-consolidated')
+          .set('consolidateUnder', 'Consolidate under (Bank/Group)')
+          .set('accountingClassKey', 'Accounting classification')
+          .set('accountingClassTierKey', 'Accounting classification tiering')
+          .set(
+            'parentCompanyKey',
+            'Direct Parent/Ownership (Major Shareholder)'
+          )
+          .set('parentHolding', 'Direct Parent - % ownership - ')
+          .set(
+            'holdingParentCompanyKey',
+            'Absa shareholding in entity - Shareholder'
+          )
+          .set('holdingHolding', 'Absa shareholding in the entity – % ')
+          .set(
+            'objectivePublishedDesc',
+            'Business objective/Nature of business activities per Annual Financial Statements'
+          )
+          .set(
+            'objectiveRegisteredDesc',
+            'Business objective/Nature of business activities per Memorandum of Incorporation'
+          )
+          .set('picScore', 'PI Score')
+          .set('secretariatKey', 'Appointed company secretary')
+          .set('secretaryKey', 'Absa group secretariat representative')
+          .set('leeKey', 'Legal entity executive (LEE)')
+          .set('leeAppointedDate', 'LEE appointed date')
+          .set('foKey', 'Entity financial officer')
+          .set('foAppointedDate', 'Entity financial officer appointed date')
+          .set('publicOfficerKey', 'Public officer (income tax)')
+          .set('publicOfficerAppointedDate', 'Public office appointment date')
+          .set('auditorKey', 'Auditors')
+          .set('auditorAppointedDate', 'Auditor appointment date')
+          .set('auditPartnerKey', 'Audit Parner')
+          .set('auditAppointedDate', 'Audit partner appointment date')
+          .set('listedCode', 'Share code')
+          .set('isinCode', 'ISIN code')
+          .set('leiCode', 'LEI Number (Bloomberg code)')
+          .set('reutersCode', 'Reuters code')
+          .set('regulatorKyes', 'Regulators');
+        break;
+      default:
+    }
+    return m;
+  }
+
+  public getEntitiesByKeyField(fieldNameKey: string, optionsArray?: any[]) {
+    let f = fieldNameKey;
+    let s: EnumEntityType;
+    switch (f) {
+      case 'countryKey':
+        s = EnumEntityType.Country;
+        break;
+      case 'parentCompanyKey':
+        s = EnumEntityType.Company;
+        break;
+      case 'holdingParentCompanyKey':
+        s = EnumEntityType.Company;
+        break;
+      case 'secretariatKey':
+        s = EnumEntityType.Secretariat;
+        break;
+      case 'auditorKey':
+        s = EnumEntityType.Auditor;
+        break;
+      case 'accountingClassKey':
+        s = EnumEntityType.AccountingClass;
+        break;
+      case 'accountingClassTierKey':
+        s = EnumEntityType.AccountingClassTier;
+        break;
+      case 'consolidatedKey':
+        console.log('hello');
+
+        s = EnumEntityType.Consolidated;
+        break;
+      case 'businessAreaKey':
+        s = EnumEntityType.BusinessArea;
+        break;
+      case 'legalClassKey':
+        s = EnumEntityType.LegalClass;
+        break;
+      case 'entityStatusKey':
+        s = EnumEntityType.EntityStatus;
+        break;
+      case 'entityStatusTierKey':
+        s = EnumEntityType.EntityStatusTier;
+        break;
+      case 'businessDivisionKey':
+        s = EnumEntityType.BusinessDivision;
+        break;
+      case 'companyTypeKey':
+        s = EnumEntityType.CompanyType;
+        break;
+      case 'secretaryKey':
+        s = EnumEntityType.Secretariat;
+        break;
+      case 'leeKey':
+        s = EnumEntityType.Individual;
+        break;
+      case 'foKey':
+        s = EnumEntityType.Individual;
+        break;
+      case 'auditPartnerKey':
+        s = EnumEntityType.Auditor;
+        break;
+      case 'publicOfficerKey':
+        s = EnumEntityType.Individual;
+        break;
+    }
+
+    return this.getEntities(s, optionsArray);
+  }
+
   public getEntities(
     enumSource: EnumEntityType,
-    customArray?: any[]
+    optionsArray?: any[]
   ): Entities<Entity> {
     let v: Entities<Entity>;
     switch (enumSource) {
       case EnumEntityType.Company:
         return this.companies;
       case EnumEntityType.CompanyFromCountries:
-        return this.getCompaniesFromCountries(customArray); //containing keys for countries
+        return this.getCompaniesFromCountries(optionsArray); //containing keys for countries
       case EnumEntityType.Country:
         return this.getCountries();
       case EnumEntityType.CountryWithTasks:
@@ -200,12 +358,12 @@ export class DataService {
         return this.cities;
       case EnumEntityType.Custom:
         let e = new Entities<Entity>(Entity);
-        e.fromArray(customArray); //containing string[] of options
+        e.fromArray(optionsArray); //containing string[] of options
         return e;
       case EnumEntityType.Individual:
         return this.getIndividuals();
       case EnumEntityType.IndividualFromCountries:
-        return this.getIndividualsFromCountries(customArray); //containing keys for the countries
+        return this.getIndividualsFromCountries(optionsArray); //containing keys for the countries
       case EnumEntityType.User:
         return this.getUsers();
       case EnumEntityType.Company:
@@ -216,24 +374,45 @@ export class DataService {
         return this.users;
       case EnumEntityType.Portfolio:
         return this.portfolios;
-      case EnumEntityType.Trust:
-        return this.trusts;
+      // case EnumEntityType.Trust:
+      //   return this.trusts;
       case EnumEntityType.Auditor:
         return this.auditors;
       case EnumEntityType.Secretariat:
         return this.secretariats;
-      case EnumEntityType.Regulator:
-        return this.regulators;
+      // case EnumEntityType.Regulator:
+      //   return this.regulators;
       case EnumEntityType.Regulation:
         return this.regulations;
+      case EnumEntityType.DashboardsPlural:
+        return this.dashboardsPlural;
       case EnumEntityType.Dashboard:
       case EnumEntityType.Search:
       case EnumEntityType.Template:
       case EnumEntityType.Setting:
         return this.dashboards;
+      case EnumEntityType.BusinessArea:
+        return this.businessAreas;
+      case EnumEntityType.LegalClass:
+        return this.legalClasses;
+      case EnumEntityType.EntityStatus:
+        return this.entityStatus;
+      case EnumEntityType.EntityStatusTier:
+        return this.entityStatusTiers;
+      case EnumEntityType.BusinessDivision:
+        return this.businessDivisions;
+      case EnumEntityType.Consolidated:
+        return this.consolidated;
+      case EnumEntityType.AccountingClass:
+        return this.accountingClasses;
+      case EnumEntityType.AccountingClassTier:
+        return this.accountingClassTiers;
+      case EnumEntityType.CompanyType:
+        return this.companyTypes;
+      case EnumEntityType.Consolidated:
+        return this.consolidated;
       default:
         return null;
-        break;
     }
   }
 
@@ -297,7 +476,7 @@ export class DataService {
 
     let e2 = new TaskFlowConfirm(this);
     e2.name = 'Approval received';
-    e2.value = true
+    e2.value = true;
     e1.addNext(e2);
 
     let f = new TaskFlowSubmitDocs(this);
@@ -435,21 +614,21 @@ export class DataService {
     return this.entityStatusTiers;
   }
 
-  getAccountingTier() {
-    return this.accountingTiers;
-  }
+  // getAccountingTier() {
+  //   return this.accountingTiers;
+  // }
 
-  getRegulators() {
-    return this.regulators;
-  }
+  // getRegulators() {
+  //   return this.regulators;
+  // }
 
-  getRegulations() {
-    return this.regulations;
-  }
+  // getRegulations() {
+  //   return this.regulations;
+  // }
 
-  getTrusts(): Entities<LegalEntity> {
-    return this.trusts;
-  }
+  // getTrusts(): Entities<EntityLegal> {
+  //   return this.trusts;
+  // }
 
   getYesNo() {
     return this.yesNo;
@@ -459,9 +638,9 @@ export class DataService {
     return this.periods;
   }
 
-  getTaskStatus() {
-    return this.taskStatus;
-  }
+  // getTaskStatus() {
+  //   return this.taskStatus;
+  // }
 
   getTaskTypes() {
     return this.taskTypes;
@@ -503,7 +682,7 @@ export class DataService {
 
   getIndividualsFromCountries(countriesArray: number[]) {
     let ps = this.getIndividuals();
-    let e = new Entities<NaturalEntity>(NaturalEntity);
+    let e = new Entities<EntityNatural>(EntityNatural);
     ps.forEach((value, key, map) => {
       if (countriesArray.indexOf(value.countryKey) > -1) {
         e.add(value);
@@ -513,9 +692,9 @@ export class DataService {
   }
 
   getCompaniesFromCountries(countriesArray: number[]) {
-    console.log(countriesArray)
+    console.log(countriesArray);
     let ps = this.getCompanies();
-    let e = new Entities<Company>(Company);
+    let e = new Entities<EntityCompany>(EntityCompany);
     ps.forEach((value, map) => {
       if (countriesArray.indexOf(value.countryKey) > -1) {
         e.add(value);

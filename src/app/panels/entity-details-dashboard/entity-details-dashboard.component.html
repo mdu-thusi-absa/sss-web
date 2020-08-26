@@ -64,7 +64,7 @@ g -->
 
     
 
-    <app-label-h [title]="'Dashboard: reminders'" [hr]="true"></app-label-h>
+    <app-label-h [title]="'Dashboard: reminders'" [hr]="false"></app-label-h>
     <app-input-table
     [headings]="['Date/Time','Title', 'Description']"
     [fields]="['dateTime','name', 'description']"
@@ -73,7 +73,7 @@ g -->
     [inputType]="'reminder'"
   ></app-input-table>
 
-    <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="true"></app-label-h>
+    <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="false"></app-label-h>
     <app-input-table
     [headings]="['Date/Time','Title', 'Description']"
     [fields]="['dateTime','name', 'description']"

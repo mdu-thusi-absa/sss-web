@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity, EveryEntity, FileEntity, Entity } from 'src/app/data/models';
+import { EntityNatural, EveryEntity, FileEntity, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class EntityDetailsRemindersComponent implements OnInit {
   get title(){
     return this.title_;
   }
-  @Input() persons: NaturalEntity[];
+  @Input() persons: EntityNatural[];
   @Input() entity: EveryEntity;
 
   @Output() onRecord = new EventEmitter();

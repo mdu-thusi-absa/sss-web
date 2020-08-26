@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, City, Entity } from 'src/app/data/models';
+import { Entities, EntityCity, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class InputAddressComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
 
   countries: Entities<Entity>;
-  cities: Entities<City>;
+  cities: Entities<EntityCity>;
   countryIndex = -1;
   cityIndex = 0;
   countryText = '';

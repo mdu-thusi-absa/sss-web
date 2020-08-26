@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity } from 'src/app/data/models';
+import { EntityNatural } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data/data.service';
 export class EntityDetailsUsersComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() users: NaturalEntity[];
+  @Input() users: EntityNatural[];
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

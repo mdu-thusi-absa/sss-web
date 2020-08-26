@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NaturalEntity,  Entities, EveryEntity, Entity } from 'src/app/data/models';
+import { EntityNatural,  Entities, EveryEntity, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class InputAnyComponent implements OnInit {
   }
   @Input() placeholder = '';
   @Input() values: Entities<EveryEntity>; //: string[] | Person[] 
-  @Input() value: string | boolean | NaturalEntity | number = '';
+  @Input() value: string | boolean | EntityNatural | number = '';
   @Input() disabled = false;
   @Input() maxValue = 1000;
   @Input() minValue = -1000;

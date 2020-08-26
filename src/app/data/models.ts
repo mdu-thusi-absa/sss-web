@@ -47,11 +47,12 @@ export class Entity {
     return r;
   }
 
-  public clone() {
-    let t = new Entity(this.name);
+  public copy() {
+    let t = Object.prototype.constructor(this);
     t = Object.assign(t, this);
     return t;
   }
+
   static capitalise(text: string): string {
     if (!text) return text;
     let words = text.split(' ');
@@ -120,7 +121,7 @@ export class Entity {
 //     return this;
 //   }
 // }
-export class City extends Entity {
+export class EntityCity extends Entity {
   public type = 'city';
   public countryKey = -1;
   // public clone() {
@@ -142,7 +143,7 @@ export class FileEntity extends Entity {
 export class MeetingEntity extends Entity {
   type = 'meeting';
   dateTime: Date;
-  attendees = new Entities<NaturalEntity>(NaturalEntity);
+  attendees = new Entities<EntityNatural>(EntityNatural);
   files = new Entities<FileEntity>(FileEntity);
   public clone() {
     let t = new FileEntity(this.name);
@@ -150,14 +151,14 @@ export class MeetingEntity extends Entity {
     return t;
   }
 }
-export class FunctionalEntity extends Entity {
+export class EntityFunctional extends Entity {
   public type = 'functional';
   public tasksCount = 0;
   public isActive = true;
   public countryKey = -1;
 
   public clone() {
-    let t = new FunctionalEntity(this.name);
+    let t = new EntityFunctional(this.name);
     t = Object.assign(t, this);
     return t;
   }
@@ -190,13 +191,13 @@ export class ContactEntity extends Entity {
     return t;
   }
 }
-export class LegalEntity extends FunctionalEntity {
+export class EntityLegal extends EntityFunctional {
   public type = 'legal';
   //customFields: CustomFields;
   //entityFiles: FileEntities;
 
   public clone() {
-    let t = new LegalEntity(this.name);
+    let t = new EntityLegal(this.name);
     t = Object.assign(t, this);
     return t;
   }
@@ -224,69 +225,70 @@ export class LegalEntity extends FunctionalEntity {
   }
 }
 export class Appointment {
-  person: NaturalEntity;
-  legalEntity: LegalEntity;
+  person: EntityNatural;
+  legalEntity: EntityLegal;
   appointmentDate: Date;
   resignationDate: Date;
 }
-export class Shareholder extends LegalEntity {
+export class Shareholder extends EntityLegal {
   sharesHolding: number; //only current, todo: historic record, types of shares
   public clone() {
     return new Shareholder(this.name);
   }
 }
-export class Trust extends LegalEntity {
+export class Trust extends EntityLegal {
   type = 'trust';
 }
 //todo: Appointments, ShareCertificates, Shareholders collections
-export class Company extends LegalEntity {
+export class EntityCompany extends EntityLegal {
   type = 'company';
-  registrationNumber: string;
-  currNameEffectiveDate: Date;
-  prevName: string;
-  prevNameEffectiveDate: Date;
-  entityGroups: Entities<Entity>;
-  // countryKey = -1;
-  industryKey = -1;
-  representativeOffice: boolean;
-  foreignBrunch: boolean;
-  incorporationDate: Date;
-  anniversaryMonthKey = -1;
-  businessStartDate: Date;
-  financialYearEndMonthKey = -1;
-  incomeTaxNumber: string;
-  vatNumber: string;
-  businessAreaKey = -1;
-  businessDivisionKey = -1;
-  legalClassKey = -1;
-  consolidated: boolean;
-  entityStatusKey = -1;
-  entityStatusTieringKey = -1;
-  accountingClassKey = -1;
-  accountingClassificationTieringKey = -1;
-  directParentKey = -1;
-  shareholdingInEntity: number;
-  appointedCompanySecretariatKey = -1;
-  clientSecretarialRepresentativeKey = -1;
-  legalEntityExecutiveKey = -1;
-  entityFinancialOfficerKey = -1;
-  publicOfficerKey = -1;
-  shareCode: string;
-  ISINCode: string;
-  bloombergCode: string;
-  reutersCode: string;
-  // collection
-  //appointments: Appointments;
-  //shareCertificates: Certificates;
-  //shareholders: Shareholders;
-
-  // constructor(name: string) {
-  //   super(name);
-  //   super.name = this.capitalise(name);
-  // }
+  companyTypeKey: number = 0;
+  internalCode: string = '';
+  leCode: string = '';
+  registrationCode: string = '';
+  portfolioKeys: number[] = [];
+  countryKey: number = -1;
+  isRepresentativeOffice: boolean = false;
+  isForeignBranch: boolean = false;
+  incorporationDate: Date = null;
+  businessAreaKey: number = -1;
+  legalClassKey: number = -1;
+  entityStatusKey: number = -1;
+  entityStatusTierKey: number = -1;
+  incomeTax: string = '';
+  vatCode: string = '';
+  businessDivisionKey: number = -1;
+  consolidatedKey: number = -1;
+  consolidateUnder: string = '';
+  accountingClassKey: number = -1;
+  accountingClassTierKey: number = -1;
+  parentCompanyKey: number = -1;
+  parentHolding: number = 0;
+  holdingParentCompanyKey: number = -1;
+  holdingHolding: number = 0;
+  objectivePublishedDesc: string = '';
+  objectiveRegisteredDesc: string = '';
+  picScore: string = '';
+  secretariatKey: number = -1;
+  secretaryKey: number = -1;
+  leeKey: number = -1;
+  leeAppointedDate: Date = null;
+  foKey: number = -1;
+  foAppointedDate: Date = null;
+  publicOfficerKey: number = -1;
+  publicOfficerAppointedDate: Date = null;
+  auditorKey: number = -1;
+  auditorAppointedDate: Date = null;
+  auditPartnerKey: number = -1;
+  auditAppointedDate: Date = null;
+  listedCode: string = '';
+  isinCode: string = '';
+  leiCode: string = '';
+  reutersCode: string = '';
+  regulatorKyes: number[] = [];
 }
 //let company = new Company('a');
-export class NaturalEntity extends FunctionalEntity {
+export class EntityNatural extends EntityFunctional {
   public type = 'natural';
   public email: string;
   public cellNumber: string;
@@ -303,7 +305,7 @@ export class NaturalEntity extends FunctionalEntity {
   }
 
   public clone() {
-    let t = new NaturalEntity(this.surname, this.firstName, this.suffix);
+    let t = new EntityNatural(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
     return t;
   }
@@ -347,7 +349,7 @@ export class NaturalEntity extends FunctionalEntity {
     super.name = v;
   }
 }
-export class Individual extends NaturalEntity {
+export class Individual extends EntityNatural {
   public clone() {
     let t = new Individual(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
@@ -360,7 +362,7 @@ export class Individual extends NaturalEntity {
   prevSurname: string;
   prevFirstName: string;
   entityGroups: Entities<GroupEntity>;
-  entityCompanies: Entities<Company>;
+  entityCompanies: Entities<EntityCompany>;
   SAIDnumber: string;
   SAPassportNumber: string;
   incomeTaxNumber: string;
@@ -374,18 +376,18 @@ export class Individual extends NaturalEntity {
   //customFields
   //files
 }
-export class GroupEntity extends FunctionalEntity {
+export class GroupEntity extends EntityFunctional {
   public type = 'portfolio';
   public clone() {
     let t = new GroupEntity(this.name);
     t = Object.assign(t, this);
     return t;
   }
-  companies: Entities<Company>;
-  usersManagers: Entities<User>;
-  userAdmins: Entities<User>;
+  companies: Entities<EntityCompany>;
+  usersManagers: Entities<EntityUser>;
+  userAdmins: Entities<EntityUser>;
 }
-export class TrustEntity extends LegalEntity {
+export class TrustEntity extends EntityLegal {
   public type = 'trust';
   public clone() {
     let t = new TrustEntity(this.name);
@@ -394,7 +396,7 @@ export class TrustEntity extends LegalEntity {
   }
   //todo: trusteesAppointments: Entities<User>;
 }
-export class RegulatorEntity extends LegalEntity {
+export class RegulatorEntity extends EntityLegal {
   public type = 'regulator';
   public clone() {
     let t = new RegulatorEntity(this.name);
@@ -404,7 +406,7 @@ export class RegulatorEntity extends LegalEntity {
   countryKey = -1;
   regulationEntities: Entities<RegulationEntity>;
 }
-export class AuditorEntity extends LegalEntity {
+export class AuditorEntity extends EntityLegal {
   public type = 'auditor';
   public clone() {
     let t = new AuditorEntity(this.name);
@@ -415,7 +417,7 @@ export class AuditorEntity extends LegalEntity {
   partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
-export class SecretariatEntity extends LegalEntity {
+export class SecretariatEntity extends EntityLegal {
   public type = 'regulator';
   public clone() {
     let t = new SecretariatEntity(this.name);
@@ -426,7 +428,7 @@ export class SecretariatEntity extends LegalEntity {
   partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
-export class RegulationEntity extends FunctionalEntity {
+export class RegulationEntity extends EntityFunctional {
   public type = 'regulation';
   public clone() {
     let t = new RegulationEntity(this.name);
@@ -445,15 +447,15 @@ export class RegulationEntity extends FunctionalEntity {
 //     super(surname,firstName,suffix);
 //   }
 // }
-export class User extends NaturalEntity {
+export class EntityUser extends EntityNatural {
   activationDate: Date;
   deactivationDate: Date;
   employeeNumber: string;
   position: string;
   managerGroups: Entities<GroupEntity>;
   adminGroups: Entities<GroupEntity>;
-  managerCompanies: Entities<Company>;
-  adminCompanies: Entities<Company>;
+  managerCompanies: Entities<EntityCompany>;
+  adminCompanies: Entities<EntityCompany>;
   constructor(
     public surname: string,
     public firstName: string,
@@ -462,13 +464,13 @@ export class User extends NaturalEntity {
     super(surname, firstName, suffix);
   }
   public clone() {
-    let t = new User(this.surname, this.firstName, this.suffix);
+    let t = new EntityUser(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
     return t;
   }
 }
 
-export class MeetingGuestEntity extends NaturalEntity {
+export class MeetingGuestEntity extends EntityNatural {
   attended = false;
 }
 
@@ -621,12 +623,12 @@ export class CustomField {
 
 export type EveryEntity =
   | Entity
-  | City
-  | FunctionalEntity
-  | User
-  | LegalEntity
-  | NaturalEntity
-  | Company;
+  | EntityCity
+  | EntityFunctional
+  | EntityUser
+  | EntityLegal
+  | EntityNatural
+  | EntityCompany;
 
 export class Entities<T extends EveryEntity> extends Map<number, T> {
   currentKey_ = -1;
@@ -746,14 +748,14 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   fromJSON(json: string, maxToLoad?: number, setType?: string) {
     let array = JSON.parse(json);
-    if (setType) this.fromArray(array, maxToLoad,setType);
+    if (setType) this.fromArray(array, maxToLoad, setType);
     else this.fromArray(array, maxToLoad);
   }
 
-  fromArray(data: any[], maxToLoad: number=-1,setType?: string) {
+  fromArray(data: any[], maxToLoad: number = -1, setType?: string) {
     let array = data;
     let L = array.length;
-    if (maxToLoad>-1) {
+    if (maxToLoad > -1) {
       L = maxToLoad > L ? L : maxToLoad;
     }
     for (let i = 0; i < L; i++) {
@@ -883,12 +885,14 @@ export class TaskFlow {
   whoCreated = '';
   isDone = false;
   isCurrent = false;
+  isEnd = false;
   notes = '';
   parent: TaskFlow = null;
-  parentValue: any = ''
+  parentValue: any = '';
   subTasks: TaskFlowSubTask[] = [];
-  constructor(protected data:DataService){}
-  init(){} // to be implemented by child classes, if they need to initialise data
+
+  constructor(protected data: DataService) {}
+  init() {} // to be implemented by child classes, if they need to initialise data
   /*
     subTasks are there to provide the next task
   */
@@ -952,6 +956,17 @@ export enum EnumEntityType {
   CountryWithTasks,
   IndividualFromCountries,
   CompanyFromCountries,
+  DashboardsPlural,
+
+  AccountingClass,
+  AccountingClassTier,
+  Consolidated,
+  BusinessArea,
+  LegalClass,
+  EntityStatus,
+  EntityStatusTier,
+  BusinessDivision,
+  CompanyType,
 }
 
 export class TaskFlowSelect extends TaskFlow {
@@ -959,10 +974,10 @@ export class TaskFlowSelect extends TaskFlow {
   sourceType: EnumEntityType;
   value = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
-  values: Entities<EveryEntity>
-  init(){
+  values: Entities<EveryEntity>;
+  init() {
     // console.log('do init')
-    this.values = this.data.getEntities(this.sourceType,[this.parentValue])
+    this.values = this.data.getEntities(this.sourceType, [this.parentValue]);
   }
 }
 
@@ -1048,6 +1063,7 @@ export class WorkFlow extends TaskFlow {
   //private lastAddedTask: TaskFlow = null;
   private currentTaskIndex_ = -1;
   public tasks: TaskFlow[] = [];
+  public que: TaskFlow[] = []; // que of tasks to come back to when isEnd taskFlow is true
 
   // loads the rootTask, and builds the obvious branch, until the first fork
   public start(): boolean {
@@ -1057,6 +1073,14 @@ export class WorkFlow extends TaskFlow {
     this.currentTask.isCurrent = true;
     if (this.currentTask) this.currentTaskIndex_ = 0;
     return this.build(this.rootTask);
+  }
+  public loopFromQue() {
+    let q = this.que.pop();
+    this.tasks.push(q);
+    this.currentTask = q;
+    this.currentTask.isCurrent = true;
+    this.currentTaskIndex_++;
+    return this.build(this.currentTask);
   }
 
   private evalCondition(value: any, operator: string, compareTo: any) {
@@ -1078,11 +1102,11 @@ export class WorkFlow extends TaskFlow {
     let t: TaskFlow = null;
     if (this.currentTaskIndex_ == this.tasks.length - 1) {
       if (fromTask) {
-        fromTask.init()
+        fromTask.init();
         let t = fromTask;
         while (t.subTasks.length == 1) {
           t = t.subTasks[0].taskFlow;
-          t.init()
+          t.init();
           this.tasks.push(t);
         }
         if (t.isDone && t.subTasks.length > 1) {
@@ -1093,7 +1117,7 @@ export class WorkFlow extends TaskFlow {
               // console.log(fromTask.value + sOp + sV + ' is true');
               t = t.subTasks[i].taskFlow;
               t.parentValue = sV;
-              t.init()
+              t.init();
               this.tasks.push(t);
               this.build(t);
               break;
@@ -1109,15 +1133,24 @@ export class WorkFlow extends TaskFlow {
 
   public moveToNext(): TaskFlow {
     this.currentTask.isDone = true;
-    if (this.build(this.currentTask)) {
-      if (this.currentTaskIndex_ < this.tasks.length - 1) {
-        this.currentTaskIndex_++;
-        this.currentTask.isCurrent = false;
-        this.currentTask = this.tasks[this.currentTaskIndex_];
-        this.currentTask.isCurrent = true;
-        this.build(this.currentTask);
+    if (this.currentTask.isEnd) {
+      if (this.que.length == 0) this.isEnd = true;
+      else {
+        // set currentTask from que
+        this.loopFromQue();
+        return this.currentTask;
       }
-      return this.currentTask;
+    } else {
+      if (this.build(this.currentTask)) {
+        if (this.currentTaskIndex_ < this.tasks.length - 1) {
+          this.currentTaskIndex_++;
+          this.currentTask.isCurrent = false;
+          this.currentTask = this.tasks[this.currentTaskIndex_];
+          this.currentTask.isCurrent = true;
+          this.build(this.currentTask);
+        }
+        return this.currentTask;
+      }
     }
     return null;
   }

@@ -14,7 +14,7 @@
   [headings]="['a', 'b', 'c']"
 ></app-input-table-entity> -->
 
-<app-input-filter-add
+<!-- <app-input-filter-add
   [title]="entityTypeName"
   [showSave]="true"
   [showCancel]="true"
@@ -26,10 +26,10 @@
   (onSave)="doSave()"
   (onCancel)="doCancel()"
   [titleT]="'field values'"
-></app-input-filter-add>
+></app-input-filter-add> -->
 <form autocomplete="off">
   <div
-    [hidden]="entityTypeName == 'individual' || entityTypeName == 'user'"
+    [hidden]="entityTypeName == 'individuals' || entityTypeName == 'users'"
     style="overflow-y: scroll;"
   >
     <app-input-text
@@ -38,14 +38,16 @@
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
       (onTask)="doTask($event)"
-      [title]="'Entity Name*'"
+      [title]="'Entity Name'"
       [placeholder]="'Legal name of the entity (required)'"
       [showCheck]="false"
       [value]="getEntityName()"
       (onChange)="setEntityName($event)"
+      [disabled] = "true"
+      [showSmall] = "true"
     ></app-input-text>
   </div>
-  <div [hidden]="entityTypeName != 'individual' && entityTypeName != 'user'">
+  <div [hidden]="entityTypeName != 'individuals' && entityTypeName != 'users'">
     <app-input-duo
       [typeLeft]="'text'"
       [typeRight]="'text'"
@@ -95,7 +97,7 @@
 
     <div
       *ngIf="getIsLoaded('company', 'primary')"
-      [hidden]="entityTypeName != 'company'"
+      [hidden]="entityTypeName != 'companies'"
     >
       <div
         class="panel panel-body collapse"
@@ -116,7 +118,7 @@
       </div>
       <div
         *ngIf="getIsLoaded('company', 'secondary')"
-        [hidden]="entityTypeName != 'company'"
+        [hidden]="entityTypeName != 'companies'"
       >
         <div
           class="panel panel-body collapse"
@@ -137,7 +139,7 @@
       </div>
       <div
         *ngIf="getIsLoaded('company', 'optional')"
-        [hidden]="entityTypeName != 'company'"
+        [hidden]="entityTypeName != 'companies'"
       >
         <div
           class="panel panel-body collapse"
@@ -170,7 +172,7 @@
 
     <div
       *ngIf="getIsLoaded('individual', 'primary')"
-      [hidden]="entityTypeName != 'individual'"
+      [hidden]="entityTypeName != 'individuals'"
     >
       <div
         class="panel panel-body collapse"
@@ -207,7 +209,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('user', 'primary')"
-      [hidden]="entityTypeName != 'user'"
+      [hidden]="entityTypeName != 'users'"
     >
       <div
         class="panel panel-body collapse"
@@ -226,7 +228,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('group', 'primary')"
-      [hidden]="entityTypeName != 'portfolio'"
+      [hidden]="entityTypeName != 'portfolios'"
     >
       <div
         class="panel panel-body collapse"
@@ -245,7 +247,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('trust', 'primary')"
-      [hidden]="entityTypeName != 'trust'"
+      [hidden]="entityTypeName != 'trusts'"
     >
       <div
         class="panel panel-body collapse"
@@ -264,7 +266,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('regulator', 'primary')"
-      [hidden]="entityTypeName != 'regulator'"
+      [hidden]="entityTypeName != 'regulators'"
     >
       <div
         class="panel panel-body collapse"
@@ -283,7 +285,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('regulation', 'primary')"
-      [hidden]="entityTypeName != 'regulation'"
+      [hidden]="entityTypeName != 'regulations'"
     >
       <div
         class="panel panel-body collapse"
@@ -302,7 +304,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('auditor', 'primary')"
-      [hidden]="entityTypeName != 'auditor'"
+      [hidden]="entityTypeName != 'auditors'"
     >
       <div
         class="panel panel-body collapse"
@@ -321,7 +323,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('secreteriat', 'primary')"
-      [hidden]="entityTypeName != 'secretariat'"
+      [hidden]="entityTypeName != 'secretariats'"
     >
       <div
         class="panel panel-body collapse"
@@ -459,8 +461,8 @@
           hideReminders &&
           hideReports &&
           (hideSecondary ||
-            (entityTypeName != 'company' && entityTypeName != 'individual')) &&
-          (hideOptional || entityTypeName != 'company')
+            (entityTypeName != 'companies' && entityTypeName != 'individuals')) &&
+          (hideOptional || entityTypeName != 'companies')
         )
       "
     >

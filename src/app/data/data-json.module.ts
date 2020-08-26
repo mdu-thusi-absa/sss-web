@@ -7,6 +7,96 @@ import { CommonModule } from '@angular/common';
 })
 export class DataJsonModule {}
 
+export const jsonAccountingClass = `[
+  {"key":0,"name":"Group holding company: Subsidiaries"},
+  {"key":1,"name":"Joint ventures - equity accounted"},
+  {"key":2,"name":"Structured entity"},
+  {"key":3,"name":"Unconsolidated structured entity"},
+  {"key":4,"name":"Associates - equity accounted"},
+  {"key":5,"name":"Investments"},
+  {"key":6,"name":"Unlisted equity investments held at fair value through profit or loss - property valuation"},
+  {"key":7,"name":"Group holding company "}
+  ]`
+  
+
+export const jsonAccountingClassTier = `[
+  {"key":0,"name":"Tier 1"},
+  {"key":1,"name":"Tier 2"},
+  {"key":2,"name":"Tier 3"},
+  {"key":3,"name":"Tier 4"},
+  {"key":4,"name":"Tier 5"},
+  {"key":5,"name":"Tier 6"}
+  ]`
+  
+
+export const jsonConsolidated = `[
+  {"key":0,"name":"Consolidated"},
+  {"key":1,"name":"Not Consolidated"}
+  ]`
+  
+
+export const jsonBusinessArea = `[
+  {"key":0,"name":"Head Office Function"},
+  {"key":1,"name":"Retail and Business Banking (RBB)"},
+  {"key":2,"name":"Corporate and Investment Bank (CIB)"},
+  {"key":3,"name":"Absa Financial Services Group (AFS)"},
+  {"key":4,"name":"Absa Regional Operations (ARO)"},
+  {"key":5,"name":"Enterprise Function"},
+  {"key":6,"name":"Head Office Function"}
+  ]`
+  
+
+export const jsonLegalClass = `[
+  {"key":0,"name":"Group holding company Subsidiaries"},
+  {"key":1,"name":"Joint ventures"},
+  {"key":2,"name":"Structured special purpose"},
+  {"key":3,"name":"Structured special purpose - Trust"},
+  {"key":4,"name":"Associates - significant influence but no control over its operating and financial policies"},
+  {"key":5,"name":"Association agreement"},
+  {"key":6,"name":"Investments"},
+  {"key":7,"name":"Joint arrangement"},
+  {"key":8,"name":"Group holding company "}
+  ]`
+  
+
+export const jsonEntityStatus = `[
+  {"key":0,"name":"Active"},
+  {"key":1,"name":"Passively Trading"},
+  {"key":2,"name":"Non Trading"},
+  {"key":3,"name":"Dormant"},
+  {"key":4,"name":"Process of deregistration"}
+  ]`
+  
+
+export const jsonEntityStatusTier = `[
+  {"key":0,"name":"Tier 1"},
+  {"key":1,"name":"Tier 2"},
+  {"key":2,"name":"Tier 3"},
+  {"key":3,"name":"Tier 4"},
+  {"key":4,"name":"Tier 5"},
+  {"key":5,"name":"Tier 6"}
+  ]`
+  
+
+export const jsonBusinessDivision = `[
+  {"key":0,"name":"Retail"},
+  {"key":1,"name":"Investments"},
+  {"key":2,"name":"Credit"}
+  ]`
+  
+
+  export const jsonCompanyTypes = `[
+    {"key":0,"name":"Fund"},
+    {"key":1,"name":"Investment"},
+    {"key":2,"name":"Joint Venture"},
+    {"key":3,"name":"Non-profit company"},
+    {"key":4,"name":"Private company"},
+    {"key":5,"name":"Public Company"},
+    {"key":6,"name":"Scheme"},
+    {"key":7,"name":"Trust"}
+    ]`
+    
+
 export const jsonIndustries = `[
   {"key":0,"name":"Banking"},
   {"key":1,"name":"Asset Management"},
@@ -255,16 +345,17 @@ export const jsonDashboards = `[
   {"key":1,"name":"Search","tasksCount":20,"isActive":true},
   {"key":2,"name":"Company","tasksCount":13,"isActive":true},
   {"key":3,"name":"Individual","tasksCount":12,"isActive":true},
-  {"key":4,"name":"User","tasksCount":17,"isActive":true},
-  {"key":5,"name":"Portfolio","tasksCount": 25,"isActive":true},
-  {"key":6,"name":"Trust", "tasksCount": 0,"isActive":true},
-  {"key":7,"name":"Regulator","tasksCount": 0,"isActive":true},
-  {"key":8,"name":"Regulation","tasksCount": 0,"isActive":true},
-  {"key":9,"name":"Auditor","tasksCount": 3,"isActive":true},
-  {"key":10,"name":"Secretariat","tasksCount": 0,"isActive":true},
-  {"key":11,"name":"Template","tasksCount": 0,"isActive":true},
-  {"key":12,"name":"Setting","tasksCount": 0,"isActive":true}
+  {"key":4,"name":"User","tasksCount":17,"isActive":true}
 ]`;
+
+// {"key":5,"name":"Portfolio","tasksCount": 25,"isActive":true},
+//   {"key":6,"name":"Trust", "tasksCount": 0,"isActive":true},
+//   {"key":7,"name":"Regulator","tasksCount": 0,"isActive":true},
+//   {"key":8,"name":"Regulation","tasksCount": 0,"isActive":true},
+//   {"key":9,"name":"Auditor","tasksCount": 3,"isActive":true},
+//   {"key":10,"name":"Secretariat","tasksCount": 0,"isActive":true},
+//   {"key":11,"name":"Template","tasksCount": 0,"isActive":true},
+//   {"key":12,"name":"Setting","tasksCount": 0,"isActive":true}
 
 export const jsonDashboardsPlural = `[
   {"key":0,"name":"Dashboard","tasksCount":28,"isActive":true},
@@ -272,15 +363,16 @@ export const jsonDashboardsPlural = `[
   {"key":2,"name":"Companies","tasksCount":13,"isActive":true},
   {"key":3,"name":"Individuals","tasksCount":12,"isActive":true},
   {"key":4,"name":"Users","tasksCount":17,"isActive":true},
-  {"key":5,"name":"Portfolios","tasksCount": 25,"isActive":true},
-  {"key":6,"name":"Trusts", "tasksCount": 0,"isActive":true},
-  {"key":7,"name":"Regulators","tasksCount": 0,"isActive":true},
-  {"key":8,"name":"Regulations","tasksCount": 0,"isActive":true},
-  {"key":9,"name":"Auditors","tasksCount": 3,"isActive":true},
-  {"key":10,"name":"Secretariats","tasksCount": 0,"isActive":true},
-  {"key":11,"name":"Templates","tasksCount": 0,"isActive":true},
-  {"key":12,"name":"Settings","tasksCount": 0,"isActive":true}
+  {"key":5,"name":"Portfolios","tasksCount": 25,"isActive":true}
 ]`;
+
+// {"key":6,"name":"Trusts", "tasksCount": 0,"isActive":true},
+  // {"key":7,"name":"Regulators","tasksCount": 0,"isActive":true},
+  // {"key":8,"name":"Regulations","tasksCount": 0,"isActive":true},
+  // {"key":9,"name":"Auditors","tasksCount": 3,"isActive":true},
+  // {"key":10,"name":"Secretariats","tasksCount": 0,"isActive":true},
+  // {"key":11,"name":"Templates","tasksCount": 0,"isActive":true},
+  // {"key":12,"name":"Settings","tasksCount": 0,"isActive":true}
 
 export const jsonMonths = `[
   {"key":0,"name":"01"},
