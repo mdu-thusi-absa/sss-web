@@ -438,14 +438,13 @@
             <div
               *ngIf="
                 getIsLoaded(
-                  entityTypeKey != 0 && entityTypeKey <= dashboards.size - 2,
+                  entityTypeKey != 0,
                   'entities'
                 )
               "
               [hidden]="
               entityTypeKey == 0 ||
-                entityTypeKey == 1 ||
-                entityTypeKey > dashboards.size - 3
+                entityTypeKey == 1
               "
             >
               <app-entity-details
@@ -469,7 +468,7 @@
                 [entityTypeKey]="entityTypeKey"
               ></app-entity-details>
             </div>
-            <div
+            <!-- <div
               *ngIf="
                 getIsLoaded(entityTypeKey == dashboards.size - 2, 'templates')
               "
@@ -478,9 +477,9 @@
               <app-entity-details-doc-templates
                 [isNarrow]="showPanelRight"
               ></app-entity-details-doc-templates>
-            </div>
+            </div> -->
 
-            <div [hidden]="entityTypeKey != dashboards.size - 1">
+            <!-- <div [hidden]="entityTypeKey != dashboards.size - 1">
               <app-settings
                 [panelRows]="panelRows"
                 (onFile)="doFile($event)"
@@ -496,7 +495,7 @@
                 [isNarrow]="showPanelRight"
                 [entityType]="entityTypeKey"
               ></app-settings>
-            </div>
+            </div> -->
             <div
               *ngIf="getIsLoaded(entityTypeKey == 0, 'dashboard')"
               [hidden]="entityTypeKey != 0"
