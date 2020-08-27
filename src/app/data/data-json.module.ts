@@ -155,10 +155,13 @@ export const jsonRegulations = `[
   ]`;
   
 
-export const jsonRegulators = `[
-  {"key":0,"name":"Financial Services Conduct Authority","suffix":"FSCA"},
-  {"key":1,"name":"South Africian Reserve Bank","suffix":"SARB"}
-  ]`;
+  export const jsonRegulators = `[
+    {"key":0,"name":"Financial Services Conduct Authority","suffix":"FSCA"},
+    {"key":1,"name":"South Africian Reserve Bank","suffix":"SARB"},
+    {"key":2,"name":"JSE","suffix":"JSE"},
+    {"key":3,"name":"Securities and Exchange Commission","suffix":"SEC"}
+    ]`;
+    
   
   
 
@@ -362,11 +365,12 @@ export const jsonDashboardsPlural = `[
   {"key":1,"name":"Search","tasksCount":20,"isActive":true},
   {"key":2,"name":"Companies","tasksCount":13,"isActive":true},
   {"key":3,"name":"Individuals","tasksCount":12,"isActive":true},
-  {"key":4,"name":"Users","tasksCount":17,"isActive":true},
-  {"key":5,"name":"Portfolios","tasksCount": 25,"isActive":true}
+  {"key":4,"name":"Users","tasksCount":17,"isActive":true}
 ]`;
 
-// {"key":6,"name":"Trusts", "tasksCount": 0,"isActive":true},
+  // ,
+  // {"key":5,"name":"Portfolios","tasksCount": 25,"isActive":true}
+  // {"key":6,"name":"Trusts", "tasksCount": 0,"isActive":true},
   // {"key":7,"name":"Regulators","tasksCount": 0,"isActive":true},
   // {"key":8,"name":"Regulations","tasksCount": 0,"isActive":true},
   // {"key":9,"name":"Auditors","tasksCount": 3,"isActive":true},

@@ -246,7 +246,7 @@ export class EntityCompany extends EntityLegal {
   internalCode: string = '';
   leCode: string = '';
   registrationCode: string = '';
-  portfolioKeys: number[] = [];
+  portfolioKeys: number[] = [1,2];
   countryKey: number = -1;
   isRepresentativeOffice: boolean = false;
   isForeignBranch: boolean = false;
@@ -285,7 +285,7 @@ export class EntityCompany extends EntityLegal {
   isinCode: string = '';
   leiCode: string = '';
   reutersCode: string = '';
-  regulatorKyes: number[] = [];
+  regulatorKeys: number[] = [0,1];
 }
 //let company = new Company('a');
 export class EntityNatural extends EntityFunctional {
@@ -687,6 +687,11 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
   //increment version
   versionUp() {
     this.version_ += 1;
+  }
+
+  getClearCopy(){
+    let e = new Entities<T>(this.EntityType);
+    return e
   }
 
   clone() {

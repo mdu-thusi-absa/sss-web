@@ -1,3 +1,4 @@
+<ng-container *ngIf = "isHiddenMap.size > 20">
 <app-input-filter-add
   [filterCount]="countSelected + ':' + countFiltered"
   [showAdd]="true"
@@ -11,9 +12,13 @@
   [titleA]="'Active only files'"
 ></app-input-filter-add>
 <div style="padding-bottom: 5px;"></div>
+</ng-container>
 
 <small>
-  <table class="table table-condensed table-bordered less-bottom">
+  <table class="table table-condensed table-bordered less-bottom"
+    [style.padding-bottom] = "noPadding?'0px':'10px'"
+    [style.margin-bottom] = "noPadding?'0px':'10px'"
+  >
     <thead class="info">
       <tr>
         <th *ngIf="withCheckbox" width="20px">
@@ -73,7 +78,7 @@
             </td>
           </tr>
           <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'file'">
-            <td [attr.colspan]="headings.length + withCheckbox">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
               <app-input-file
                 [title]="e.value.name"
                 [showTitleInput]="true"
@@ -85,7 +90,7 @@
             </td>
           </tr>
           <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'person'">
-            <td [attr.colspan]="headings.length + withCheckbox">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
               <app-input-person
                 [title]="e.value.name"
                 [values]="data.individuals"
@@ -94,7 +99,7 @@
             </td>
           </tr>
           <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'meeting'">
-            <td [attr.colspan]="headings.length + withCheckbox">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
               <app-input-meeting
                 [title]="e.value.name"
                 [showTitleInput]="true"
@@ -106,7 +111,7 @@
             </td>
           </tr>
           <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'reminder'">
-            <td [attr.colspan]="headings.length + withCheckbox">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
               <app-input-reminder
                 [title]="e.value.name"
                 [showTitleInput]="true"

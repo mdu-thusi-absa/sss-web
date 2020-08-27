@@ -13,7 +13,7 @@ export class InputTableEntityComponent implements OnInit {
   headingsMap = new Map(); //lists headings in th
   headings: string[] = [];
   fields: string[] = [];
-  values: string[] = [];
+  values: any[] = [];
   filterText_ = '';
 
   isHiddenMap = new Map();
@@ -59,7 +59,6 @@ export class InputTableEntityComponent implements OnInit {
       let v = this.entity_[fieldName];
       if (fieldName.slice(-3) == 'Key') {
         let d = this.data.getEntitiesByKeyField(fieldName);
-        // console.log(fieldName, d);
         if (d) {
           if (d.has(+v)) {
             return d.get(+v).name;
@@ -67,9 +66,18 @@ export class InputTableEntityComponent implements OnInit {
         } else {
           return 'Empty list';
         }
+      } else if (fieldName.slice(-4) == 'Keys') {
+        let L = fieldName.length;
+        let fName = fieldName.slice(0, L - 1);
+        let d = this.data.getEntitiesByKeyField(fName, [], [0, 1]);
+        return d;
+      } else if (typeof v === 'boolean') {
+        if (v) return 'Yes';
+        else return 'No';
+      } else {
+        if (v != null) return v + '';
+        else return 'Not set';
       }
-      if (v) return v + '';
-      else return 'Not set';
     }
     return '';
   }
@@ -120,7 +128,10 @@ export class InputTableEntityComponent implements OnInit {
     // console.log(this.filterText);
     if (this.filterText.length == 0) return false;
     // console.log(fieldName, this.entity[fieldName]);
-    return value.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
+    if (typeof value === 'object')
+      return true
+    else
+      return value.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
 
   calcIsHidden() {

@@ -121,6 +121,7 @@ export class DataService {
   templates = new Entities<FileEntity>(FileEntity);
   users = new Entities<EntityUser>(EntityUser);
   yesNo = new Entities<Entity>(Entity);
+  regulators = new Entities<EntityLegal>(EntityLegal);
 
   constructor() {
     this.dashboards.fromJSON(jsonDashboardsPlural);
@@ -156,6 +157,7 @@ export class DataService {
     this.individuals.fromJSON(jsonIndividuals);
     this.meetings.fromJSON(jsonMeetings);
     this.portfolios.fromJSON(jsonPortfolios);
+    // console.log(this.portfolios)
     this.regulations.fromJSON(jsonRegulations);
     // this.regulators.fromJSON(jsonRegulators);
     this.reports.fromJSON(jsonReports);
@@ -164,6 +166,7 @@ export class DataService {
     // this.trusts.fromJSON(jsonTrusts);
     this.users.fromJSON(jsonUsers);
     this.companyTypes.fromJSON(jsonCompanyTypes);
+    this.regulators.fromJSON(jsonRegulators);
 
     // this.accountingClass.fromJSON(jsonAccountingClasses);
     // this.accountingClassTier.fromJSON(jsonAccountingClassTier);
@@ -216,8 +219,8 @@ export class DataService {
           .set('registrationCode', 'Entity registration number')
           .set('portfolioKeys', 'Portfolios')
           .set('countryKey', 'Country of Incorporation')
-          .set('isRepresentativeOffice', 'Representative Office ')
-          .set('isForeignBranch', 'Foreign Branch ')
+          .set('isRepresentativeOffice', 'Representative Office')
+          .set('isForeignBranch', 'Foreign Branch')
           .set('incorporationDate', 'Incorporation date')
           .set('businessAreaKey', 'Business area')
           .set('legalClassKey', 'Legal classification')
@@ -234,12 +237,12 @@ export class DataService {
             'parentCompanyKey',
             'Direct Parent/Ownership (Major Shareholder)'
           )
-          .set('parentHolding', 'Direct Parent - % ownership - ')
+          .set('parentHolding', 'Direct Parent - % ownership')
           .set(
             'holdingParentCompanyKey',
             'Absa shareholding in entity - Shareholder'
           )
-          .set('holdingHolding', 'Absa shareholding in the entity – % ')
+          .set('holdingHolding', 'Absa shareholding in the entity – %')
           .set(
             'objectivePublishedDesc',
             'Business objective/Nature of business activities per Annual Financial Statements'
@@ -265,14 +268,21 @@ export class DataService {
           .set('isinCode', 'ISIN code')
           .set('leiCode', 'LEI Number (Bloomberg code)')
           .set('reutersCode', 'Reuters code')
-          .set('regulatorKyes', 'Regulators');
+          .set('regulatorKeys', 'Regulators');
+        break;
+      case EnumEntityType.Regulator:
+        m.set('suffix', 'Code').set('name', 'Name');
         break;
       default:
     }
     return m;
   }
 
-  public getEntitiesByKeyField(fieldNameKey: string, optionsArray?: any[]) {
+  public getEntitiesByKeyField(
+    fieldNameKey: string,
+    optionsArray?: any[],
+    keysArray?: any[]
+  ) {
     let f = fieldNameKey;
     let s: EnumEntityType;
     switch (f) {
@@ -298,8 +308,6 @@ export class DataService {
         s = EnumEntityType.AccountingClassTier;
         break;
       case 'consolidatedKey':
-        console.log('hello');
-
         s = EnumEntityType.Consolidated;
         break;
       case 'businessAreaKey':
@@ -335,85 +343,138 @@ export class DataService {
       case 'publicOfficerKey':
         s = EnumEntityType.Individual;
         break;
+      case 'regulatorKey':
+        s = EnumEntityType.Regulator;
+        break;
+      case 'portfolioKey':
+        s = EnumEntityType.Portfolio;
+        break;
     }
 
-    return this.getEntities(s, optionsArray);
+    return this.getEntities(s, optionsArray, keysArray);
   }
 
   public getEntities(
     enumSource: EnumEntityType,
-    optionsArray?: any[]
-  ): Entities<Entity> {
-    let v: Entities<Entity>;
+    optionsArray?: any[],
+    keysArray?: any[] // used to get a subset of the Entities
+  ): Entities<EveryEntity> {
+    let v: Entities<EveryEntity>;
     switch (enumSource) {
       case EnumEntityType.Company:
-        return this.companies;
+        v = this.companies;
+        break;
       case EnumEntityType.CompanyFromCountries:
-        return this.getCompaniesFromCountries(optionsArray); //containing keys for countries
+        v = this.getCompaniesFromCountries(optionsArray); //containing keys for countries
       case EnumEntityType.Country:
-        return this.getCountries();
+        v = this.getCountries();
+        break;
       case EnumEntityType.CountryWithTasks:
-        return this.getCountriesWithTasks();
+        v = this.getCountriesWithTasks();
+        break;
       case EnumEntityType.City:
-        return this.cities;
+        v = this.cities;
+        break;
       case EnumEntityType.Custom:
         let e = new Entities<Entity>(Entity);
         e.fromArray(optionsArray); //containing string[] of options
-        return e;
+        v = e;
+        break;
       case EnumEntityType.Individual:
-        return this.getIndividuals();
+        v = this.getIndividuals();
+        break;
       case EnumEntityType.IndividualFromCountries:
-        return this.getIndividualsFromCountries(optionsArray); //containing keys for the countries
+        v = this.getIndividualsFromCountries(optionsArray); //containing keys for the countries
+        break;
       case EnumEntityType.User:
-        return this.getUsers();
+        v = this.getUsers();
+        break;
       case EnumEntityType.Company:
-        return this.companies;
+        v = this.companies;
+        break;
       case EnumEntityType.Individual:
-        return this.individuals;
+        v = this.individuals;
+        break;
       case EnumEntityType.User:
-        return this.users;
+        v = this.users;
+        break;
       case EnumEntityType.Portfolio:
-        return this.portfolios;
+        v = this.portfolios;
+        break;
       // case EnumEntityType.Trust:
       //   return this.trusts;
       case EnumEntityType.Auditor:
-        return this.auditors;
+        v = this.auditors;
+        break;
       case EnumEntityType.Secretariat:
-        return this.secretariats;
-      // case EnumEntityType.Regulator:
-      //   return this.regulators;
+        v = this.secretariats;
+        break;
+      case EnumEntityType.Regulator:
+        v = this.regulators;
+        break;
       case EnumEntityType.Regulation:
-        return this.regulations;
+        v = this.regulations;
+        break;
       case EnumEntityType.DashboardsPlural:
-        return this.dashboardsPlural;
+        v = this.dashboardsPlural;
+        break;
       case EnumEntityType.Dashboard:
       case EnumEntityType.Search:
       case EnumEntityType.Template:
       case EnumEntityType.Setting:
-        return this.dashboards;
+        v = this.dashboards;
+        break;
       case EnumEntityType.BusinessArea:
-        return this.businessAreas;
+        v = this.businessAreas;
+        break;
       case EnumEntityType.LegalClass:
-        return this.legalClasses;
+        v = this.legalClasses;
+        break;
       case EnumEntityType.EntityStatus:
-        return this.entityStatus;
+        v = this.entityStatus;
+        break;
       case EnumEntityType.EntityStatusTier:
-        return this.entityStatusTiers;
+        v = this.entityStatusTiers;
+        break;
       case EnumEntityType.BusinessDivision:
-        return this.businessDivisions;
+        v = this.businessDivisions;
+        break;
       case EnumEntityType.Consolidated:
-        return this.consolidated;
+        v = this.consolidated;
+        break;
       case EnumEntityType.AccountingClass:
-        return this.accountingClasses;
+        v = this.accountingClasses;
+        break;
       case EnumEntityType.AccountingClassTier:
-        return this.accountingClassTiers;
+        v = this.accountingClassTiers;
+        break;
       case EnumEntityType.CompanyType:
-        return this.companyTypes;
+        v = this.companyTypes;
+        break;
       case EnumEntityType.Consolidated:
-        return this.consolidated;
+        v = this.consolidated;
+        break;
+      case EnumEntityType.Portfolio:
+        v = this.portfolios;
+        break;
       default:
-        return null;
+        v = new Entities<Entity>(Entity);
     }
+
+    if (v) {
+      let r = v.getClearCopy();
+      if (keysArray) {        
+        for (let i = 0; i < keysArray.length; i++) {
+          const key = keysArray[i];
+          let o = v.get(key);
+          r.set(key, o);
+        }
+        return r;
+      } else {
+        return v;
+      }
+    }
+    return v;
   }
 
   public getWorkFlowSample(): WorkFlow {

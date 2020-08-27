@@ -63,7 +63,7 @@ body {
   margin-bottom:0px;
 }
 .container-panel-center-full {
-  height: calc(100vh - 35px);
+  height: calc(100vh - 37px);
   overflow-y: hidden;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -101,7 +101,7 @@ body {
 }
 
 .entities-detail-form-full {
-  height: calc(100vh - 145px);
+  height: calc(100vh - 100px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;

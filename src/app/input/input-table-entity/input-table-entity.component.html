@@ -24,8 +24,18 @@
           <td class="info" style="width: 30%;">
             {{ headings[i] }}
           </td>
-          <td>
-            {{ values[i] }}
+          <td style="padding:0px">
+            <ng-container *ngIf="fields[i].slice(-4) == 'Keys'">
+              <app-input-table
+                [headings]="['Name']"
+                [fields]="['name']"
+                [entities]="values[i]"
+                [noPadding] = "true"
+              ></app-input-table>
+            </ng-container>
+            <ng-container *ngIf="fields[i].slice(-4) != 'Keys'">
+              {{ values[i] }}
+            </ng-container>
           </td>
         </tr>
       </ng-container>

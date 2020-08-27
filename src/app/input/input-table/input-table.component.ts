@@ -12,7 +12,8 @@ export class InputTableComponent implements OnInit {
   @Input() fields: string[] = []; //lists attribute names from the objects to show
   @Input() entities: Entities<EveryEntity>;
   @Input() selectedEntityKey: number;
-  @Input() withCheckbox = 'false';
+  @Input() withCheckbox = false;
+  @Input() noPadding = false
   filterText_ = '';
 
   isHiddenMap = new Map();
@@ -20,7 +21,7 @@ export class InputTableComponent implements OnInit {
   hideEditRow = new Map();
   countFiltered = 0;
   countSelected = 0;
-  @Input() inputType = 'file';
+  @Input() inputType = '';
 
   eid = 'input-table'
   constructor(public data:DataService) {

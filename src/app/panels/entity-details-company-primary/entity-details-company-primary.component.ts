@@ -30,7 +30,7 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.lg) console.log( 'loaded:entities-details-company-primary');
     this.data.progress += 1;
-    console.log(this.entity);
+    // console.log(this.entity);
     
   }
 
