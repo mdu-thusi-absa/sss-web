@@ -74,7 +74,7 @@
     [class.entities-detail-form-full]="isFullScreen()"
     [class.entities-detail-form-half]="isHalfScreen()"
   >
-    <div *ngIf="getIsLoaded('entities', 'header')">
+    <!-- <div *ngIf="getIsLoaded('entities', 'header')">
       <div
         class="panel panel-body collapse"
         [class.in]="!hideHeader"
@@ -93,7 +93,7 @@
           (onDirty)="dirty = true"
         ></app-entity-details-header>
       </div>
-    </div>
+    </div> -->
 
     <div
       *ngIf="getIsLoaded('company', 'primary')"
@@ -116,7 +116,7 @@
           (onDirty)="dirty = true"
         ></app-entity-details-company-primary>
       </div>
-      <div
+      <!-- <div
         *ngIf="getIsLoaded('company', 'secondary')"
         [hidden]="entityTypeName != 'companies'"
       >
@@ -157,7 +157,7 @@
             (onTask)="doTask($event)"
           ></app-entity-details-company-optional>
         </div>
-      </div>
+      </div> -->
       <!-- <div [hidden]="hideUsers">
         <app-entity-details-users
           [isNarrow]="isNarrow"
@@ -189,7 +189,7 @@
           (onTask)="doTask($event)"
         ></app-entity-details-individual>
       </div>
-      <div *ngIf="getIsLoaded('individual', 'secondary')">
+      <!-- <div *ngIf="getIsLoaded('individual', 'secondary')">
         <div
           class="panel panel-body collapse"
           [class.in]="!hideSecondary"
@@ -205,7 +205,7 @@
             (onTask)="doTask($event)"
           ></app-entity-details-individual-secondary>
         </div>
-      </div>
+      </div> -->
     </div>
     <div
       *ngIf="getIsLoaded('user', 'primary')"
@@ -245,7 +245,7 @@
         ></app-entity-details-group>
       </div>
     </div>
-    <div
+    <!-- <div
       *ngIf="getIsLoaded('trust', 'primary')"
       [hidden]="entityTypeName != 'trusts'"
     >
@@ -263,8 +263,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-trust>
       </div>
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       *ngIf="getIsLoaded('regulator', 'primary')"
       [hidden]="entityTypeName != 'regulators'"
     >
@@ -282,8 +282,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-regulator>
       </div>
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       *ngIf="getIsLoaded('regulation', 'primary')"
       [hidden]="entityTypeName != 'regulations'"
     >
@@ -301,8 +301,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-regulation>
       </div>
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       *ngIf="getIsLoaded('auditor', 'primary')"
       [hidden]="entityTypeName != 'auditors'"
     >
@@ -320,8 +320,8 @@
           (onTask)="doTask($event)"
         ></app-entity-details-auditor>
       </div>
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       *ngIf="getIsLoaded('secreteriat', 'primary')"
       [hidden]="entityTypeName != 'secretariats'"
     >
@@ -339,7 +339,7 @@
           (onTask)="doTask($event)"
         ></app-entity-details-secretary>
       </div>
-    </div>
+    </div> -->
 
     <div *ngIf="getIsLoaded('entities', 'contacts')">
       <div
