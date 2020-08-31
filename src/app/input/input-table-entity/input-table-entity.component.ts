@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EveryEntity, EnumEntityType } from 'src/app/data/models';
+import { AnyEntity, EnumEntityType, Entities } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -8,13 +8,14 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./input-table-entity.component.css'],
 })
 export class InputTableEntityComponent implements OnInit {
-  entity_: EveryEntity;
-  @Input() source: EnumEntityType;
+  entity_: AnyEntity;
+  @Input() entityTypeKey: EnumEntityType;
   headingsMap = new Map(); //lists headings in th
   headings: string[] = [];
   fields: string[] = [];
   values: any[] = [];
   filterText_ = '';
+  @Input() noPadding = false;
 
   isHiddenMap = new Map();
   countFiltered = 0;
@@ -31,12 +32,14 @@ export class InputTableEntityComponent implements OnInit {
     //   this.hideEditRow.set(key, true);
     //   this.isChecked.set(key,false);
     // });
-    this.headingsMap = this.data.getEntityHeadingsMap(this.source);
+    // console.log(this.entity_,this.entity_.type);
+    // this.entityTypeKey = this.entity_.type
+    this.headingsMap = this.data.getEntityHeadingsMap(this.entityTypeKey);
+    // console.log(this.entityTypeKey);
     this.headings = Array.from(this.headingsMap.values());
     this.fields = Array.from(this.headingsMap.keys());
     this.countFiltered = this.headings.length;
     this.loadValues();
-    // console.log(this.fields.length,this.values.length);
   }
 
   loadValues() {
@@ -49,37 +52,15 @@ export class InputTableEntityComponent implements OnInit {
     }
   }
 
-  @Input() set entity(entity_: EveryEntity) {
+  @Input() set entity(entity_: AnyEntity) {
     this.entity_ = entity_;
     this.loadValues();
   }
 
-  getFieldValue(fieldName: string) {
-    if (this.entity_) {
-      let v = this.entity_[fieldName];
-      if (fieldName.slice(-3) == 'Key') {
-        let d = this.data.getEntitiesByKeyField(fieldName);
-        if (d) {
-          if (d.has(+v)) {
-            return d.get(+v).name;
-          } else return 'Not set';
-        } else {
-          return 'Empty list';
-        }
-      } else if (fieldName.slice(-4) == 'Keys') {
-        let L = fieldName.length;
-        let fName = fieldName.slice(0, L - 1);
-        let d = this.data.getEntitiesByKeyField(fName, [], [0, 1]);
-        return d;
-      } else if (typeof v === 'boolean') {
-        if (v) return 'Yes';
-        else return 'No';
-      } else {
-        if (v != null) return v + '';
-        else return 'Not set';
-      }
-    }
-    return '';
+  getFieldValue(fieldName: string):string|Entities<AnyEntity> {
+    let d = this.data.getEntityFieldValue(this.entity_,fieldName) 
+    // console.log(fieldName,d)
+    return d
   }
 
   getType(v: any) {
@@ -120,7 +101,7 @@ export class InputTableEntityComponent implements OnInit {
   //   this.hideEditRow.set(key, visible);
   // }
 
-  getDoLoad(e: EveryEntity) {
+  getDoLoad(e: AnyEntity) {
     return true;
   }
 

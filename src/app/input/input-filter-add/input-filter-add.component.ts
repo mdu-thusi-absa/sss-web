@@ -6,7 +6,7 @@ import {
   Input,
   ElementRef,
 } from '@angular/core';
-import { Entities, EveryEntity, Entity } from 'src/app/data/models';
+import { Entities, AnyEntity, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -37,7 +37,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titlePlural = '';
   @Input() titleT = '';
 
-  @Input() listValues: Entities<EveryEntity>;
+  @Input() listValues: Entities<AnyEntity>;
   @Input() listValue = 0;
   @Output() onListChange = new EventEmitter();
 

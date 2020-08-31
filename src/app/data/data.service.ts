@@ -1,279 +1,200 @@
 import { Injectable } from '@angular/core';
-import {
-  EntityNatural,
-  Entity,
-  EntityLegal,
-  EntityUser,
-  GroupEntity,
-  EntityCity,
-  Entities,
-  EntityFunctional,
-  EveryEntity,
-  EntityCompany,
-  FileEntity,
-  MeetingEntity,
-  MeetingGuestEntity,
-  WorkFlow,
-  TaskFlowConfirm,
-  TaskFlowSelect,
-  TaskFlowReminder,
-  TaskFlowSubmitDocs,
-  TaskFlowUploadDocs,
-  TaskFlowForm,
-  TaskFlowFormInput,
-  TaskFlowMessage,
-  EnumEntityType,
-  RegulationEntity,
-} from './models';
-import { EntityDetailsFilesComponent } from '../panels/entity-details-files/entity-details-files.component';
+import * as M from './models';
+//import { EntityDetailsFilesComponent } from '../panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
 // import { HttpClient } from '@angular/common/http';
-import {
-  jsonCompanies,
-  jsonIndividuals,
-  jsonDashboards,
-  // jsonEntityTypes,
-  // jsonEntityTypesPlural,
-  jsonMonths,
-  jsonPeriods,
-  jsonFiles,
-  jsonDivisions,
-  jsonCompanyStatus,
-  jsonMeetings,
-  jsonAttendees,
-  jsonTemplates,
-  jsonDashboardsPlural,
-  jsonReports,
-  jsonCountriesWithTasks,
-  jsonCountries,
-  jsonPortfolios,
-  jsonCities,
-  jsonUsers,
-  jsonBusinessAreas,
-  jsonAccountingClasses,
-  jsonAccountingTiers,
-  jsonRegulators,
-  jsonRegulations,
-  jsonTrusts,
-  jsonYesNo,
-  jsonTaskStatus,
-  jsonTaskTypes,
-  jsonContactPreferences,
-  jsonAuditors,
-  jsonSecretariats,
-  jsonIndustries,
-  jsonAccountingClassTier,
-  jsonConsolidated,
-  jsonLegalClass,
-  jsonEntityStatus,
-  jsonEntityStatusTier,
-  jsonBusinessDivision,
-  jsonCompanyTypes,
-} from './data-json.module';
-import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
+//import {jsonAccountingClasses, jsonAddresses, mapCompanyHeadings}  from './data-json.module';
+import * as D from './data-json.module';
+import { visitValue } from '@angular/compiler/src/util';
+// import { data } from 'jquery';
+//import { mapCompanyHeadings } from './data-json.module';
+//import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   public lg = false;
-  // regulators = new Entities<EntityLegal>(EntityLegal);
-  // trusts = new Entities<EntityLegal>(EntityLegal);
-  accountingClasses = new Entities<Entity>(Entity);
-  accountingClassTiers = new Entities<Entity>(Entity);
-  attendees = new Entities<MeetingGuestEntity>(MeetingGuestEntity);
-  auditors = new Entities<EntityLegal>(EntityLegal);
-  businessAreas = new Entities<Entity>(Entity);
-  //businessAreas = new Entities<Entity>(Entity);
-  businessDivisions = new Entities<Entity>(Entity);
-  //businessDivisions = new Entities<Entity>(Entity);
-  cities = new Entities<EntityCity>(EntityCity);
-  companies = new Entities<EntityCompany>(EntityCompany);
-  companyTypes = new Entities<Entity>(Entity);
-  consolidated = new Entities<Entity>(Entity);
-  contactPreferences = new Entities<Entity>(Entity);
-  countries = new Entities<Entity>(Entity);
-  countriesWithTasks = new Entities<Entity>(Entity);
-  dashboards = new Entities<Entity>(Entity);
-  dashboardsPlural = new Entities<Entity>(Entity);
-  entityStatus = new Entities<Entity>(Entity);
-  entityStatuses = new Entities<Entity>(Entity);
-  // entityStatusTier = new Entities<Entity>(Entity);
-  entityStatusTiers = new Entities<Entity>(Entity);
-  entityTypes = new Entities<Entity>(Entity);
-  entityTypesPlural = new Entities<Entity>(Entity);
-  files = new Entities<FileEntity>(FileEntity);
-  functionalEntities: Entities<EveryEntity>;
-  individuals = new Entities<EntityNatural>(EntityNatural);
-  industries = new Entities<Entity>(Entity);
-  legalClasses = new Entities<Entity>(Entity);
-  //legalClasses = new Entities<Entity>(Entity);
-  meetings = new Entities<MeetingEntity>(MeetingEntity);
-  months = new Entities<Entity>(Entity);
-  periods = new Entities<Entity>(Entity);
-  portfolios = new Entities<GroupEntity>(GroupEntity);
+  entityTypes = new M.Entities<M.Entity>(M.Entity);
+  accountingClasses = new M.Entities<M.Entity>(M.Entity);
+  accountingClassTiers = new M.Entities<M.Entity>(M.Entity);
+  addresses = new M.Entities<M.EntityAddress>(M.EntityAddress);
+  attendees = new M.Entities<M.EntityMeetingGuest>(M.EntityMeetingGuest);
+  auditors = new M.Entities<M.EntityLegal>(M.EntityLegal);
+  businessAreas = new M.Entities<M.Entity>(M.Entity);
+  businessDivisions = new M.Entities<M.Entity>(M.Entity);
+  cities = new M.Entities<M.EntityCity>(M.EntityCity);
+  companies = new M.Entities<M.EntityCompany>(M.EntityCompany);
+  companyTypes = new M.Entities<M.Entity>(M.Entity);
+  consolidation = new M.Entities<M.Entity>(M.Entity);
+  contactPreferences = new M.Entities<M.Entity>(M.Entity);
+  countries = new M.Entities<M.Entity>(M.Entity);
+  countriesWithTasks = new M.Entities<M.Entity>(M.Entity);
+  entityStatuses = new M.Entities<M.Entity>(M.Entity);
+  entityStatusTiers = new M.Entities<M.Entity>(M.Entity);
+  files = new M.Entities<M.EntityFile>(M.EntityFile);
+  individuals = new M.Entities<M.EntityNatural>(M.EntityNatural);
+  industries = new M.Entities<M.Entity>(M.Entity);
+  legalClasses = new M.Entities<M.Entity>(M.Entity);
+  meetings = new M.Entities<M.EntityMeeting>(M.EntityMeeting);
+  months = new M.Entities<M.Entity>(M.Entity);
+  periods = new M.Entities<M.Entity>(M.Entity);
+  portfolios = new M.Entities<M.EntityPortfolio>(M.EntityPortfolio);
+  regulations = new M.Entities<M.EntityRegulation>(M.EntityRegulation);
+  reports = new M.Entities<M.Entity>(M.Entity);
+  secretariats = new M.Entities<M.EntityLegal>(M.EntityLegal);
+  taskStatuses = new M.Entities<M.Entity>(M.Entity);
+  taskTypes = new M.Entities<M.Entity>(M.Entity);
+  templates = new M.Entities<M.EntityFile>(M.EntityFile);
+  users = new M.Entities<M.EntityUser>(M.EntityUser);
+  yesNo = new M.Entities<M.Entity>(M.Entity);
+  regulators = new M.Entities<M.EntityLegal>(M.EntityLegal);
+  shareholdings = new M.Entities<M.EntityShareholding>(M.EntityShareholding);
+  capacities = new M.Entities<M.Entity>(M.Entity);
+  properties = new M.Entities<M.EntityProperty>(M.EntityProperty);
+  appointments = new M.Entities<M.EntityAppointment>(M.EntityAppointment);
+  contactTypes = new M.Entities<M.Entity>(M.Entity);
+  contacts = new M.Entities<M.EntityContact>(M.EntityContact);
+  custom = new M.Entities<M.Entity>(M.Entity);
+
+  shareCertificates = new M.Entities<M.EntityShareCertificate>(
+    M.EntityShareCertificate
+  );
+  anniversaryMonths = new M.Entities<M.Entity>(M.Entity);
+
+  shareHolderTypes = new M.Entities<M.Entity>(M.Entity);
+  menus = new M.Entities<M.Entity>(M.Entity);
+  trusts = new M.Entities<M.EntityTrust>(M.EntityTrust);
+  parentCompanies = this.companies;
+  holdingParentCompanies = this.companies;
+  countryWithTasks = new M.Entities<M.Entity>(M.Entity)
+
   progress = 0;
-  regulations = new Entities<RegulationEntity>(RegulationEntity);
-  reports = new Entities<Entity>(Entity);
-  secretariats = new Entities<EntityLegal>(EntityLegal);
-  taskStatuses = new Entities<Entity>(Entity);
-  taskTypes = new Entities<Entity>(Entity);
-  templates = new Entities<FileEntity>(FileEntity);
-  users = new Entities<EntityUser>(EntityUser);
-  yesNo = new Entities<Entity>(Entity);
-  regulators = new Entities<EntityLegal>(EntityLegal);
 
-  constructor() {
-    this.dashboards.fromJSON(jsonDashboardsPlural);
-    this.dashboardsPlural.fromJSON(jsonDashboardsPlural);
-    this.entityTypes.fromJSON(jsonDashboards);
-    this.months.fromJSON(jsonMonths);
-    this.periods.fromJSON(jsonPeriods);
-    this.yesNo.fromJSON(jsonYesNo);
-
-    this.accountingClasses.fromJSON(jsonAccountingClasses);
-    // this.accountingTiers.fromJSON(jsonAccountingTiers);
-
-    this.businessAreas.fromJSON(jsonBusinessAreas);
-    this.businessDivisions.fromJSON(jsonDivisions);
-    this.cities.fromJSON(jsonCities);
-    this.companies.fromJSON(jsonCompanies, 1000);
-    this.countriesWithTasks.fromJSON(jsonCountriesWithTasks, 1000);
-    // console.log(this.countriesWithTasks);
-
-    this.contactPreferences.fromJSON(jsonContactPreferences);
-    this.entityStatuses.fromJSON(jsonCompanyStatus);
-    this.entityStatusTiers.fromJSON(jsonBusinessAreas);
-    this.entityTypesPlural.fromJSON(jsonDashboardsPlural);
-    this.legalClasses.fromJSON(jsonBusinessAreas);
-    this.industries.fromJSON(jsonIndustries);
-    // this.taskStatus.fromJSON(jsonTaskStatus);
-    this.taskTypes.fromJSON(jsonTaskTypes);
-
-    // this.attendees.fromJSON(jsonAttendees);
-    this.auditors.fromJSON(jsonAuditors, -1, 'auditor');
-    this.countries.fromJSON(jsonCountries);
-    this.files.fromJSON(jsonFiles);
-    this.individuals.fromJSON(jsonIndividuals);
-    this.meetings.fromJSON(jsonMeetings);
-    this.portfolios.fromJSON(jsonPortfolios);
-    // console.log(this.portfolios)
-    this.regulations.fromJSON(jsonRegulations);
-    // this.regulators.fromJSON(jsonRegulators);
-    this.reports.fromJSON(jsonReports);
-    this.secretariats.fromJSON(jsonSecretariats, -1, 'secretariat');
-    this.templates.fromJSON(jsonTemplates);
-    // this.trusts.fromJSON(jsonTrusts);
-    this.users.fromJSON(jsonUsers);
-    this.companyTypes.fromJSON(jsonCompanyTypes);
-    this.regulators.fromJSON(jsonRegulators);
-
-    // this.accountingClass.fromJSON(jsonAccountingClasses);
-    // this.accountingClassTier.fromJSON(jsonAccountingClassTier);
-    // this.consolidated.fromJSON(jsonConsolidated);
-    // this.businessArea.fromJSON(jsonBusinessAreas);
-    // this.legalClass.fromJSON(jsonLegalClass);
-    // this.entityStatus.fromJSON(jsonEntityStatus);
-    // this.entityStatusTier.fromJSON(jsonEntityStatusTier);
-    // this.businessDivision.fromJSON(jsonBusinessDivision);
-    // this.companyType.fromJSON(jsonCompanyType);
-
-    // this.makeFunctionalEntities();
+  // private capitaliseText(text: string){
+  //   return text.slice(0,1).toUpperCase() + text.slice(1)
+  // }
+  getEntityFieldValue(
+    entity: M.AnyEntity,
+    fieldName: string
+  ): string | M.Entities<M.AnyEntity> {
+    if (entity) {
+      let v = entity[fieldName];
+      if (fieldName.slice(-3) == 'Key') {
+        // console.log('getEntityFieldValue', fieldName);
+        let d = this.getEntitiesByKeyField(fieldName);
+        if (d) {
+          if (d.has(+v)) {
+            return d.get(+v).name;
+          } else return 'Not set';
+        } else {
+          return 'Empty list';
+        }
+      } else if (fieldName.slice(-4) == 'Keys') {
+        // console.log('getEntityFieldValue', fieldName, '[0,1]');
+        let d = this.getEntitiesByKeyField(fieldName, [], [0, 1]);
+        if (d) return d;
+        console.log('Entities for key not found:', fieldName);
+      } else if (fieldName.slice(-2) == 'Is') {
+        if (v) return 'Yes';
+        else return 'No';
+      } else {
+        if (v != null) return v + '';
+        else return 'Not set';
+      }
+    }
+    return '';
   }
 
-  //   getEntities(enumEntityType: EnumEntityType){
-  //   switch (enumEntityType) {
-  //     case EnumEntityType.Company:
-  //       return  this.companies;
-  //     case EnumEntityType.Individual:
-  //       return  this.individuals;
-  //     case EnumEntityType.User:
-  //       return  this.users;
-  //     case EnumEntityType.Portfolio:
-  //       return  this.portfolios;
-  //     case EnumEntityType.Trust:
-  //       return  this.trusts;
-  //     case EnumEntityType.Auditor:
-  //       return  this.auditors;
-  //     case EnumEntityType.Secretariat:
-  //       return  this.secretariats;
-  //     case EnumEntityType.Regulator:
-  //       return  this.regulators;
-  //     case EnumEntityType.Regulation:
-  //       return  this.regulations;
-  //     default:
-  //       return this.dashboards;
-  //   }
+  constructor() {
+    // static and DB entities
+    try {
+      // console.log('trying entityTypes.fromJSON');
+      
+      this.entityTypes.fromJSON(D.jsonEntityTypes);
+    } catch (e) {
+      // console.log('Loading entityTypes from JSON', e);
+    }
+    this.entityTypes.forEach((value, key, map) => {
+      let sourceType = value.sourceType;
+
+      if (sourceType == 'json') {
+        // console.log('trying fromJSON',value.storeName);
+        let d = eval('this.' + value.storeName);
+        try {
+          d.fromJSON(D.mapJSON.get(key));
+        } catch (e) {
+          console.log('Loading from JSON: key, store', key, value.storeName, e);
+        }
+      }
+    });
+
+    // this.dataMap.forEach((value, key, map) => {
+    //   let d = eval('this.' + key);
+    //   d.fromJSON(value);
+    // });
+
+    // derivative entities
+    // menus
+    let mTemp = new Map();
+    this.entityTypes.forEach((value, key, map) => {
+      if (value['dashboardIndex'] > -1) {
+        mTemp.set(value['dashboardIndex'], value);
+        //this.menus.set(key,value)
+      }
+    });
+    for (let i = 0; i < mTemp.size; i++) {
+      let menu = mTemp.get(i);
+      // console.log(menu);
+      this.menus.set(menu['key'], menu);
+    }
+
+    //
+    this.entityTypes.forEach((value, key, map) => {
+      if (value['canHoldSharesIs']) this.shareHolderTypes.set(key, value);
+    });
+  }
+
+  getDashboards() {
+    return this.menus;
+  }
+
+  getParentCompanies() {
+    return this.companies;
+  }
+
+  getHoldingParentCompanies() {
+    return this.companies;
+  }
+
+  getSecretaries() {
+    return this.individuals;
+  }
+
+  getLee(){
+    return this.individuals
+  }
+
+  // getAnniversaryMonths(){
+  //   return this.months
+  // }
+
+  // variableName(varObj) {
+  //   return Object.keys({ varObj: 0 })[0];
   // }
 
   public getEntityHeadingsMap(
-    enumEntityType: EnumEntityType
+    enumEntityType: M.EnumEntityType
   ): Map<string, string> {
-    let m = new Map();
+    let m: Map<string, string>;
+
     switch (enumEntityType) {
-      case EnumEntityType.Company:
-        m.set('suffix', 'Suffix')
-          .set('companyTypeKey', 'Entity type')
-          .set('internalCode', 'Internal code')
-          .set('leCode', 'LE number')
-          .set('registrationCode', 'Entity registration number')
-          .set('portfolioKeys', 'Portfolios')
-          .set('countryKey', 'Country of Incorporation')
-          .set('isRepresentativeOffice', 'Representative Office')
-          .set('isForeignBranch', 'Foreign Branch')
-          .set('incorporationDate', 'Incorporation date')
-          .set('businessAreaKey', 'Business area')
-          .set('legalClassKey', 'Legal classification')
-          .set('entityStatusKey', 'Entity status')
-          .set('entityStatusTierKey', 'Entity status tiering')
-          .set('incomeTax', 'Income tax number of the entity')
-          .set('vatCode', 'Value added tax (VAT) number')
-          .set('businessDivisionKey', 'Business division')
-          .set('consolidatedKey', 'Consolidated/non-consolidated')
-          .set('consolidateUnder', 'Consolidate under (Bank/Group)')
-          .set('accountingClassKey', 'Accounting classification')
-          .set('accountingClassTierKey', 'Accounting classification tiering')
-          .set(
-            'parentCompanyKey',
-            'Direct Parent/Ownership (Major Shareholder)'
-          )
-          .set('parentHolding', 'Direct Parent - % ownership')
-          .set(
-            'holdingParentCompanyKey',
-            'Absa shareholding in entity - Shareholder'
-          )
-          .set('holdingHolding', 'Absa shareholding in the entity – %')
-          .set(
-            'objectivePublishedDesc',
-            'Business objective/Nature of business activities per Annual Financial Statements'
-          )
-          .set(
-            'objectiveRegisteredDesc',
-            'Business objective/Nature of business activities per Memorandum of Incorporation'
-          )
-          .set('picScore', 'PI Score')
-          .set('secretariatKey', 'Appointed company secretary')
-          .set('secretaryKey', 'Absa group secretariat representative')
-          .set('leeKey', 'Legal entity executive (LEE)')
-          .set('leeAppointedDate', 'LEE appointed date')
-          .set('foKey', 'Entity financial officer')
-          .set('foAppointedDate', 'Entity financial officer appointed date')
-          .set('publicOfficerKey', 'Public officer (income tax)')
-          .set('publicOfficerAppointedDate', 'Public office appointment date')
-          .set('auditorKey', 'Auditors')
-          .set('auditorAppointedDate', 'Auditor appointment date')
-          .set('auditPartnerKey', 'Audit Parner')
-          .set('auditAppointedDate', 'Audit partner appointment date')
-          .set('listedCode', 'Share code')
-          .set('isinCode', 'ISIN code')
-          .set('leiCode', 'LEI Number (Bloomberg code)')
-          .set('reutersCode', 'Reuters code')
-          .set('regulatorKeys', 'Regulators');
-        break;
-      case EnumEntityType.Regulator:
-        m.set('suffix', 'Code').set('name', 'Name');
+      case M.EnumEntityType.Company:
+        m = new Map(eval(D.mapCompanyHeadings));
         break;
       default:
+        m = new Map(eval(`[['name','Name'],['suffix','Suffix']]`));
+        break;
     }
     return m;
   }
@@ -284,186 +205,45 @@ export class DataService {
     keysArray?: any[]
   ) {
     let f = fieldNameKey;
-    let s: EnumEntityType;
-    switch (f) {
-      case 'countryKey':
-        s = EnumEntityType.Country;
-        break;
-      case 'parentCompanyKey':
-        s = EnumEntityType.Company;
-        break;
-      case 'holdingParentCompanyKey':
-        s = EnumEntityType.Company;
-        break;
-      case 'secretariatKey':
-        s = EnumEntityType.Secretariat;
-        break;
-      case 'auditorKey':
-        s = EnumEntityType.Auditor;
-        break;
-      case 'accountingClassKey':
-        s = EnumEntityType.AccountingClass;
-        break;
-      case 'accountingClassTierKey':
-        s = EnumEntityType.AccountingClassTier;
-        break;
-      case 'consolidatedKey':
-        s = EnumEntityType.Consolidated;
-        break;
-      case 'businessAreaKey':
-        s = EnumEntityType.BusinessArea;
-        break;
-      case 'legalClassKey':
-        s = EnumEntityType.LegalClass;
-        break;
-      case 'entityStatusKey':
-        s = EnumEntityType.EntityStatus;
-        break;
-      case 'entityStatusTierKey':
-        s = EnumEntityType.EntityStatusTier;
-        break;
-      case 'businessDivisionKey':
-        s = EnumEntityType.BusinessDivision;
-        break;
-      case 'companyTypeKey':
-        s = EnumEntityType.CompanyType;
-        break;
-      case 'secretaryKey':
-        s = EnumEntityType.Secretariat;
-        break;
-      case 'leeKey':
-        s = EnumEntityType.Individual;
-        break;
-      case 'foKey':
-        s = EnumEntityType.Individual;
-        break;
-      case 'auditPartnerKey':
-        s = EnumEntityType.Auditor;
-        break;
-      case 'publicOfficerKey':
-        s = EnumEntityType.Individual;
-        break;
-      case 'regulatorKey':
-        s = EnumEntityType.Regulator;
-        break;
-      case 'portfolioKey':
-        s = EnumEntityType.Portfolio;
-        break;
-    }
+    let s: M.EnumEntityType;
 
-    return this.getEntities(s, optionsArray, keysArray);
+    this.entityTypes.forEach((value, key, map) => {
+      let keyName = value['keyName'];
+      let keysName = keyName + 's';
+      if (keyName == fieldNameKey || keysName == fieldNameKey) {
+        s = key;
+      }
+    });
+    let d = this.getEntities(s, optionsArray, keysArray);
+    if (d) return d;
+    else console.log('Store not found, field:' + fieldNameKey);
+    return;
   }
 
   public getEntities(
-    enumSource: EnumEntityType,
+    enumSource: M.EnumEntityType,
     optionsArray?: any[],
-    keysArray?: any[] // used to get a subset of the Entities
-  ): Entities<EveryEntity> {
-    let v: Entities<EveryEntity>;
-    switch (enumSource) {
-      case EnumEntityType.Company:
-        v = this.companies;
-        break;
-      case EnumEntityType.CompanyFromCountries:
-        v = this.getCompaniesFromCountries(optionsArray); //containing keys for countries
-      case EnumEntityType.Country:
-        v = this.getCountries();
-        break;
-      case EnumEntityType.CountryWithTasks:
-        v = this.getCountriesWithTasks();
-        break;
-      case EnumEntityType.City:
-        v = this.cities;
-        break;
-      case EnumEntityType.Custom:
-        let e = new Entities<Entity>(Entity);
-        e.fromArray(optionsArray); //containing string[] of options
-        v = e;
-        break;
-      case EnumEntityType.Individual:
-        v = this.getIndividuals();
-        break;
-      case EnumEntityType.IndividualFromCountries:
-        v = this.getIndividualsFromCountries(optionsArray); //containing keys for the countries
-        break;
-      case EnumEntityType.User:
-        v = this.getUsers();
-        break;
-      case EnumEntityType.Company:
-        v = this.companies;
-        break;
-      case EnumEntityType.Individual:
-        v = this.individuals;
-        break;
-      case EnumEntityType.User:
-        v = this.users;
-        break;
-      case EnumEntityType.Portfolio:
-        v = this.portfolios;
-        break;
-      // case EnumEntityType.Trust:
-      //   return this.trusts;
-      case EnumEntityType.Auditor:
-        v = this.auditors;
-        break;
-      case EnumEntityType.Secretariat:
-        v = this.secretariats;
-        break;
-      case EnumEntityType.Regulator:
-        v = this.regulators;
-        break;
-      case EnumEntityType.Regulation:
-        v = this.regulations;
-        break;
-      case EnumEntityType.DashboardsPlural:
-        v = this.dashboardsPlural;
-        break;
-      case EnumEntityType.Dashboard:
-      case EnumEntityType.Search:
-      case EnumEntityType.Template:
-      case EnumEntityType.Setting:
-        v = this.dashboards;
-        break;
-      case EnumEntityType.BusinessArea:
-        v = this.businessAreas;
-        break;
-      case EnumEntityType.LegalClass:
-        v = this.legalClasses;
-        break;
-      case EnumEntityType.EntityStatus:
-        v = this.entityStatus;
-        break;
-      case EnumEntityType.EntityStatusTier:
-        v = this.entityStatusTiers;
-        break;
-      case EnumEntityType.BusinessDivision:
-        v = this.businessDivisions;
-        break;
-      case EnumEntityType.Consolidated:
-        v = this.consolidated;
-        break;
-      case EnumEntityType.AccountingClass:
-        v = this.accountingClasses;
-        break;
-      case EnumEntityType.AccountingClassTier:
-        v = this.accountingClassTiers;
-        break;
-      case EnumEntityType.CompanyType:
-        v = this.companyTypes;
-        break;
-      case EnumEntityType.Consolidated:
-        v = this.consolidated;
-        break;
-      case EnumEntityType.Portfolio:
-        v = this.portfolios;
-        break;
-      default:
-        v = new Entities<Entity>(Entity);
+    keysArray?: any[] // used to get a subset of the Model.Entities
+  ): M.Entities<M.AnyEntity> {
+    let v: M.Entities<M.AnyEntity>;
+    let source = this.entityTypes.get(enumSource);
+    if (source) {
+      let sourceType = source.sourceType;
+      if (sourceType == 'json' || sourceType == 'redirect') v = eval('this.' + source.storeName);
+      else if (sourceType=='function'){
+        // must be a function
+        let f = 'this.' + source.storeName + '()';
+        if (optionsArray)
+          f = 'this.' + source.storeName + '(' + optionsArray + ')';
+        v = eval(f);
+      }
+    } else {
+      console.log('Source not found, type:' + enumSource);
     }
 
     if (v) {
-      let r = v.getClearCopy();
-      if (keysArray) {        
+      let r = v.getClearCopy(); // just the structure
+      if (keysArray) {
         for (let i = 0; i < keysArray.length; i++) {
           const key = keysArray[i];
           let o = v.get(key);
@@ -473,55 +253,59 @@ export class DataService {
       } else {
         return v;
       }
+    } else {
+      // entities not found
+      console.log('Not found entities for:' + enumSource);
     }
+    //if (!v) console.log('Dataset not found, type:', M.EnumEntityType)
     return v;
   }
 
-  public getWorkFlowSample(): WorkFlow {
-    let workFlow = new WorkFlow(this);
+  public getWorkFlowSample(): M.WorkFlow {
+    let workFlow = new M.WorkFlow(this);
     workFlow.name = 'Amend company registered address';
     workFlow.description = 'Execute a company secretariat task';
 
-    let a = new TaskFlowSelect(this);
+    let a = new M.TaskFlowSelect(this);
     a.name = 'Country of the company';
-    a.sourceType = EnumEntityType.CountryWithTasks;
+    a.sourceType = M.EnumEntityType.CountryWithTasks;
     workFlow.rootTask = a;
 
-    let b1 = new TaskFlowMessage(this);
+    let b1 = new M.TaskFlowMessage(this);
     b1.name = 'System message';
     b1.description = 'Tasks have not been setup for this country';
     a.addNextFork(b1, 83, '==');
 
-    // let b2 = new TaskFlowMessage(this);
+    // let b2 = new M.TaskFlowMessage(this);
     // b2.name = '2 1';
     // b2.description = '0 1 Message';
     // b1.addNext(b2);
 
-    let c1 = new TaskFlowMessage(this);
+    let c1 = new M.TaskFlowMessage(this);
     c1.name = 'System message';
     c1.description = 'Tasks have not been setup for this country';
     a.addNextFork(c1, 111, '==');
 
-    let c2 = new TaskFlowMessage(this);
+    let c2 = new M.TaskFlowMessage(this);
     c2.name = '1 1';
     c1.description = '1 1 Message';
     c1.addNext(c2);
 
-    let b = new TaskFlowSelect(this);
+    let b = new M.TaskFlowSelect(this);
     b.name = 'Company to be amended';
-    b.sourceType = EnumEntityType.CompanyFromCountries;
+    b.sourceType = M.EnumEntityType.CompaniesFromCountry;
     a.addNextFork(b, 29, '==');
 
-    let c = new TaskFlowForm(this);
+    let c = new M.TaskFlowForm(this);
     c.name = 'New address';
     c.addInput('address', 'Amendment', 'New address for the company');
     b.addNext(c);
 
-    let d = new TaskFlowUploadDocs(this);
+    let d = new M.TaskFlowUploadDocs(this);
     d.name = 'Upload supporting files';
     c.addNext(d);
 
-    let e = new TaskFlowForm(this);
+    let e = new M.TaskFlowForm(this);
     e.name = 'CoR 21.1';
     e.addInput('date', 'Date of change of the address', '');
     e.addInput(
@@ -531,79 +315,48 @@ export class DataService {
     );
     d.addNext(e);
 
-    let e1 = new TaskFlowConfirm(this);
+    let e1 = new M.TaskFlowConfirm(this);
     e1.name = 'Request approval';
     e.addNext(e1);
 
-    let e2 = new TaskFlowConfirm(this);
+    let e2 = new M.TaskFlowConfirm(this);
     e2.name = 'Approval received';
     e2.value = true;
     e1.addNext(e2);
 
-    let f = new TaskFlowSubmitDocs(this);
+    let f = new M.TaskFlowSubmitDocs(this);
     f.name = 'Submit following files to CIPC';
     e2.addNext(f);
 
-    let g = new TaskFlowForm(this);
+    let g = new M.TaskFlowForm(this);
     g.name = 'Submission to CIPC';
     g.addInput('text', 'Reference code', 'Reference code of the application');
     g.addInput('checkbox', 'Confirm submission', '');
     f.addNext(g);
 
-    let h = new TaskFlowReminder(this);
+    let h = new M.TaskFlowReminder(this);
     h.name = 'Set reminder to follow up CIPC';
     h.offsetDays = 10;
     g.addNext(h);
 
-    let i = new TaskFlowConfirm(this);
+    let i = new M.TaskFlowConfirm(this);
     i.name = 'Confirm approval from CIPC';
     h.addNext(i);
 
-    let j = new TaskFlowUploadDocs(this);
+    let j = new M.TaskFlowUploadDocs(this);
     j.name = 'Upload approval files from CIPC';
     i.addNext(j);
 
-    let k = new TaskFlowConfirm(this);
+    let k = new M.TaskFlowConfirm(this);
     k.name = 'Confirm completion of task';
     j.addNext(k);
 
-    let l = new TaskFlowMessage(this);
+    let l = new M.TaskFlowMessage(this);
     l.name = 'End of task';
     l.description = 'Task has been completed';
     k.addNext(l);
 
     return workFlow;
-  }
-
-  // makeFunctionalEntities() {
-  //   this.functionalEntities = new Entities<EveryEntity>(Entity);
-  //   this.functionalEntities.fromEntities('dashboard', this.dashboards);
-  //   this.functionalEntities.fromEntities('search', this.dashboards);
-  // this.functionalEntities.fromEntities('setting', this.dashboards);
-  // this.functionalEntities.fromEntities('template', this.dashboards);
-
-  // this.functionalEntities.fromEntities('company', this.companies);
-  // this.functionalEntities.fromEntities('individual', this.individuals);
-  // this.functionalEntities.fromEntities('user', this.users);
-  // this.functionalEntities.fromEntities('portfolio', this.portfolios);
-  // this.functionalEntities.fromEntities('trust', this.trusts);
-  // this.functionalEntities.fromEntities('auditor', this.auditors);
-  // this.functionalEntities.fromEntities('secretariat', this.secretariats);
-  // this.functionalEntities.fromEntities('regulator', this.regulators);
-  // this.functionalEntities.fromEntities('regulation', this.regulations);
-  //   if (this.lg) console.log('loaded');
-  // }
-
-  getEntity(entityKey: number) {
-    return this.functionalEntities.get(entityKey);
-  }
-
-  // getFunctionalEntitiesAll(): Entities<EveryEntity> {
-  //   return this.functionalEntities;
-  // }
-
-  getCompanies() {
-    return this.companies;
   }
 
   getCountriesWithTasks() {
@@ -650,9 +403,9 @@ export class DataService {
     return this.months;
   }
 
-  getEntityTypes() {
-    return this.entityTypes;
-  }
+  // getEntityTypes() {
+  //   return this.entityTypes;
+  // }
 
   //Business Area
   getBusinessAreas() {
@@ -687,7 +440,7 @@ export class DataService {
   //   return this.regulations;
   // }
 
-  // getTrusts(): Entities<EntityLegal> {
+  // getTrusts(): Model.Entities<Model.EntityLegal> {
   //   return this.trusts;
   // }
 
@@ -711,11 +464,11 @@ export class DataService {
     return this.contactPreferences;
   }
 
-  getPortfolios(): Entities<Entity> {
+  getPortfolios(): M.Entities<M.Entity> {
     return this.portfolios;
   }
 
-  getAccountingClasses(): Entities<Entity> {
+  getAccountingClasses(): M.Entities<M.Entity> {
     return this.accountingClasses;
   }
 
@@ -726,16 +479,16 @@ export class DataService {
   getCompanySercetaries() {
     return this.secretariats;
   }
-  customTypes = new Entities<Entity>(Entity)
-    .add(new Entity('text'))
-    .add(new Entity('date'))
-    .add(new Entity('checkbox'))
-    .add(new Entity('textarea'))
-    .add(new Entity('person'))
-    .add(new Entity('address'))
-    .add(new Entity('file'))
-    .add(new Entity('number'))
-    .add(new Entity('contact'));
+  customTypes = new M.Entities<M.Entity>(M.Entity)
+    .add(new M.Entity('text'))
+    .add(new M.Entity('date'))
+    .add(new M.Entity('checkbox'))
+    .add(new M.Entity('textarea'))
+    .add(new M.Entity('person'))
+    .add(new M.Entity('address'))
+    .add(new M.Entity('file'))
+    .add(new M.Entity('number'))
+    .add(new M.Entity('contact'));
 
   // .add(new NaturalEntity('Froning', 'Richard', 'Mayham'))
   // .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
@@ -743,7 +496,7 @@ export class DataService {
 
   getIndividualsFromCountries(countriesArray: number[]) {
     let ps = this.getIndividuals();
-    let e = new Entities<EntityNatural>(EntityNatural);
+    let e = new M.Entities<M.EntityNatural>(M.EntityNatural);
     ps.forEach((value, key, map) => {
       if (countriesArray.indexOf(value.countryKey) > -1) {
         e.add(value);
@@ -752,16 +505,15 @@ export class DataService {
     return e;
   }
 
-  getCompaniesFromCountries(countriesArray: number[]) {
-    console.log(countriesArray);
-    let ps = this.getCompanies();
-    let e = new Entities<EntityCompany>(EntityCompany);
-    ps.forEach((value, map) => {
-      if (countriesArray.indexOf(value.countryKey) > -1) {
-        e.add(value);
-      }
-    });
-    return e;
+  getCompaniesFromCountry(countryKey: number) {
+    // let e = this.companies.getClearCopy()
+    // this.companies.forEach((value, map) => {
+    //   if (countrKey === value.countryKey) {
+    //     e.add(value);
+    //   }
+    // });
+    // return e;
+    return this.companies.select('countryKey',countryKey);
   }
 
   getIndividuals() {
@@ -772,14 +524,14 @@ export class DataService {
     return this.users;
   }
 
-  positions = new Entities<Entity>(Entity)
-    .add(new Entity('Director'))
-    .add(new Entity('Auditor'))
-    .add(new Entity('Secretary'))
-    .add(new Entity('Public Officer'));
-  getPositions() {
-    return this.positions;
-  }
+  // positions = new M.Entities<M.Entity>(M.Entity)
+  //   .add(new M.Entity('Director'))
+  //   .add(new M.Entity('Auditor'))
+  //   .add(new M.Entity('Secretary'))
+  //   .add(new M.Entity('Public Officer'));
+  // getPositions() {
+  //   return this.positions;
+  // }
   //Regulatory Types
   //Accounty Classifications
   //...

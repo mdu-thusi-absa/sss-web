@@ -8,7 +8,7 @@ import {
   ElementRef,
   HostListener,
 } from '@angular/core';
-import { EveryEntity, Entities, Entity } from '../../data/models';
+import { AnyEntity, Entities, Entity } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() disabled = false;
   //@Input() values = new Map(); //Map of Entity();
-  @Input() values: Entities<EveryEntity>; // = new Entities<EveryEntity>();
+  @Input() values: Entities<AnyEntity>; // = new Entities<EveryEntity>();
   @Input() value = 0;
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -38,7 +38,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Input() showDelete = false;
   @Input() showCheck = false;
 
-  entity: EveryEntity;
+  entity: AnyEntity;
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
@@ -121,7 +121,7 @@ export class InputSelectEntityComponent implements OnInit {
     this.onRecord.emit(this.title);
   }
 
-  setItem(entity: EveryEntity) {
+  setItem(entity: AnyEntity) {
     // this.values.sort(function (a, b) {
     //   return a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase());
     // });
@@ -283,7 +283,7 @@ export class InputSelectEntityComponent implements OnInit {
     } else {
       let v = this.values.all_values;
       for (let i = 0; i < this.values.size; i++) {
-        let e: EveryEntity = v[i];
+        let e: AnyEntity = v[i];
         if (e) {
           if (!this.hideItem(e)) {
             r = r + 1;
@@ -296,7 +296,7 @@ export class InputSelectEntityComponent implements OnInit {
     //v.filter((e) => !this.hideItem(e)).length;
   }
 
-  hideItem(entity: EveryEntity) {
+  hideItem(entity: AnyEntity) {
     let r = false;
     if (this.listFilterText) {
       if (entity != undefined)

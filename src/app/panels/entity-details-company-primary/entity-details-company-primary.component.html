@@ -3,7 +3,11 @@
   Primary details: company
 </div> -->
 
-<app-input-table-entity [entity]="entity" [source]="entityType" [title] = "'Company attributes'"></app-input-table-entity>
+<app-input-table-entity
+  [entityTypeKey] = "entityType"
+  [entity]="entity"
+  [title]="'Company attributes'"
+></app-input-table-entity>
 
 <!-- <app-label-h [title]="'Primary details: company'"></app-label-h> -->
 

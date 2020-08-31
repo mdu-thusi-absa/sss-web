@@ -1,5 +1,5 @@
 import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
-import { EveryEntity } from 'src/app/data/models';
+import { AnyEntity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class EntityDetailsContactComponent implements OnInit {
   @Input() doHideByFilter = false;
   @Input() isNarrow = false;
   @Input() title = 'Contacts Page'
-  @Input() entity: EveryEntity;
+  @Input() entity: AnyEntity;
 
   @Output() onFile = new EventEmitter;
   @Output() onRecord = new EventEmitter;

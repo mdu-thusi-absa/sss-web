@@ -1,7 +1,7 @@
 import { Component, OnInit, Output,Input,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 import { InputCustomComponent } from 'src/app/input/input-custom/input-custom.component';
-import { EveryEntity, EnumEntityType } from 'src/app/data/models';
+import { AnyEntity, EnumEntityType } from 'src/app/data/models';
 
 @Component({
   selector: 'app-entity-details-header',
@@ -14,7 +14,7 @@ export class EntityDetailsHeaderComponent implements OnInit {
   @Input() title='';
   @Input() entityKey: number;
   @Input() entityTypeKey: EnumEntityType;
-  @Input() entity: EveryEntity;
+  @Input() entity: AnyEntity;
 
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();

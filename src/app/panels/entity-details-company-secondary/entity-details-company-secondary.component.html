@@ -113,7 +113,7 @@
   [isNarrow]="isNarrow"
   [typeLeft]="'select-entity'"
   [titleLeft]="'Direct Parent'"
-  [valuesLeft]="data.getCompanies()"
+  [valuesLeft]="data.companies"
   [valueLeft]="entity.parentCompanyKey"
   (onChangeLeft)="entity.directParentKey = $event; onDirty.emit()"
   [typeRight]="'text'"

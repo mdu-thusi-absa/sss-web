@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { Entities, EveryEntity, EnumEntityType } from 'src/app/data/models';
+import { Entities, AnyEntity, EnumEntityType } from 'src/app/data/models';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 // import { MatCardModule } from '@angular/material/card';
 // import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
@@ -18,13 +18,11 @@ export class EntitiesContainerComponent implements OnInit {
   ngOnInit(): void {
     this.panelRows = 1; //this.hideHistory && this.hideFiles ? 1 : 2;
     this.showFileFields = [];
-    this.dashboards = this.data.dashboards;
     if (this.data.lg)
       console.log(new Date().getTime(), 'loaded:entities-container');
     this.data.progress += 1;
   }
 
-  dashboards: Entities<EveryEntity>;
   title = 'SSS';
   name: string = 'Max';
   public appVersion: string = version;
@@ -60,7 +58,7 @@ export class EntitiesContainerComponent implements OnInit {
   hideReports = true;
 
   //dashboardKey = 0;
-  entityKey = 0;
+  entityKey = EnumEntityType.Dashboard;
   entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
 
   isPageLoaded: string[] = [];
@@ -117,17 +115,43 @@ export class EntitiesContainerComponent implements OnInit {
     );
   }
 
+  isPage(name: string) {
+    let r = false;
+    if (name == 'dashboard') {
+      r = this.entityTypeKey == EnumEntityType.Dashboard;
+    } else if (name == 'search') {
+      r = this.entityTypeKey == EnumEntityType.Search;
+    } else if (name == 'detail') {
+      r = !(
+        this.entityTypeKey == EnumEntityType.Search ||
+        this.entityTypeKey == EnumEntityType.Dashboard
+      );
+    }
+    return r;
+  }
+
   setHidePage(that: any, hidePage: string, setValue: boolean) {
     that[hidePage] = setValue;
   }
 
   expandContractAllPages() {
     let needToHide = this.pagesAreExpanded;
-    let btns = ['hideHeader','hidePrimary','hideSecondary','hideOptional', 'hideContacts', 'hideCustom', 'hideDetailFiles', 'hideMeetings', 'hideReminders','hideReports'];
-    for (let i=0;i<btns.length;i++){
-      setTimeout(this.setHidePage, (i+1)*3, this, btns[i], needToHide);
+    let btns = [
+      'hideHeader',
+      'hidePrimary',
+      'hideSecondary',
+      'hideOptional',
+      'hideContacts',
+      'hideCustom',
+      'hideDetailFiles',
+      'hideMeetings',
+      'hideReminders',
+      'hideReports',
+    ];
+    for (let i = 0; i < btns.length; i++) {
+      setTimeout(this.setHidePage, (i + 1) * 3, this, btns[i], needToHide);
     }
-    
+
     // setTimeout(this.setHidePage, 10, this, 'hidePrimary', needToHide);
     // setTimeout(this.setHidePage, 20, this, 'hideSecondary', needToHide);
     // setTimeout(this.setHidePage, 30, this, 'hideOptional', needToHide);
@@ -139,7 +163,7 @@ export class EntitiesContainerComponent implements OnInit {
     // setTimeout(this.setHidePage, 90, this, 'hideReminders', needToHide);
   }
 
-  doLazy = true
+  doLazy = false;
   getIsLoaded(setTo: boolean, key: string) {
     let r: boolean;
     if (setTo) {
@@ -157,7 +181,7 @@ export class EntitiesContainerComponent implements OnInit {
             this.isPageLoaded_index += 1;
             setTimeout(
               this.delayLoader,
-              this.isPageLoaded_index * 3000,
+              this.isPageLoaded_index * 500,
               key,
               this.isPageLoaded
             );
@@ -173,12 +197,11 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   get dashboardName(): string {
-    return this.dashboards.get(this.entityTypeKey).name.toLowerCase();
+    return this.data.entityTypes.get(this.entityTypeKey).name.toLowerCase();
   }
 
   doDashboardChange(event: any) {
-    //console.log(event);
-    
+
     //this.dashboardKey = +event;
     this.entityTypeKey = +event;
   }

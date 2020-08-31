@@ -3,7 +3,7 @@
   Primary details: user
 </div> -->
 <app-label-h [title]="'Primary details: user'"></app-label-h>
-<app-input-duo
+<!-- <app-input-duo
   [filterText]="filterText"
   [doHideByFilter]="true"
   
@@ -50,7 +50,7 @@
   (onTask)="doTask($event)"
   [showCheckLeft]="false"
   [showCheckRight]="false"
-></app-input-duo>
+></app-input-duo> -->
 
 <!-- <div style="padding-bottom: 5px;"> </div>
 <hr>
@@ -148,7 +148,7 @@
       [valueLeft]="false"
       [typeRight]="'select-checkbox'"
       [titleRight]="'Select specific companies'"
-      [valuesRight]="data.getCompanies()"
+      [valuesRight]="data.companies"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
@@ -167,7 +167,7 @@
       [valueLeft]="false"
       [typeRight]="'select-checkbox'"
       [titleRight]="'Select specific companies'"
-      [valuesRight]="data.getCompanies()"
+      [valuesRight]="data.companies"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"

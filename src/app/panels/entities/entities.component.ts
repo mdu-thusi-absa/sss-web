@@ -6,7 +6,13 @@ import {
   EventEmitter,
   HostListener,
 } from '@angular/core';
-import { EntityFunctional, Entities, Entity, EveryEntity, EnumEntityType } from '../../data/models';
+import {
+  EntityFunctional,
+  Entities,
+  Entity,
+  AnyEntity,
+  EnumEntityType,
+} from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
 import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 import { ExecException } from 'child_process';
@@ -23,18 +29,17 @@ export class EntitiesComponent implements OnInit {
   @Input() panelRows = 1;
   @Input() isNarrow = false;
   @Input() entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
-  entities: Entities<EveryEntity>; // = new FunctionalEntities();
+  entities: Entities<AnyEntity>; // = new FunctionalEntities();
   //entitiesAll: FunctionalEntities;
-  entityType: EnumEntityType = EnumEntityType.Dashboard;
+  //entityType: EnumEntityType = EnumEntityType.Dashboard;
   entityTypeName = '';
   entityTypeNamePlural = '';
-  entityTypeNames = new Entities<Entity>(Entity);
   showActiveOnly = true;
   isHiddenMap = new Map();
   mapEntityTypes = new Map();
   @Output() onDashboardChange = new EventEmitter();
   @Output() onEntityChange = new EventEmitter();
-  selectedEntityKey: number;
+  selectedEntityKey: number = 0;
   countFiltered = 0;
   countAll = 0;
   countTasks = 0;
@@ -82,9 +87,8 @@ export class EntitiesComponent implements OnInit {
   ngOnInit(): void {
     // this.entityTypeNames = this.data.entityTypes;
     // this.entityTypesPlural = this.data.getEntityTypesPlural();
-    this.entityTypeNames = this.data.dashboards;
     //this.loadEntities();
-    this.doEntityTypeChange(this.entityType);
+    this.doEntityTypeChange(this.entityTypeKey);
     this.setCounts();
     // if (this.data.lg) console.log(new Date().getTime(), 'loaded:entities');
     this.data.progress += 1;
@@ -95,19 +99,18 @@ export class EntitiesComponent implements OnInit {
   // }
 
   doEntityTypeChange(event: any) {
+    this.isLoadAll = this.isLoadAll || this.entityTypeKey != +event;
+    this.entityTypeKey = +event;
 
-    this.isLoadAll = this.isLoadAll || this.entityType != +event;
-    this.entityType = +event;
+    this.entityTypeNamePlural = this.data.entityTypes.get(+event).name;
+    this.entityTypeName = this.data.entityTypes
+      .get(this.entityTypeKey)
+      .name.toLowerCase();
 
-    this.entityTypeNamePlural = this.data.entityTypesPlural.get(event).name;
-    this.entityTypeName = this.entityTypeNames
-      .get(this.entityType)
-      .name.toLowerCase()
+    this.entities = this.data.getEntities(this.entityTypeKey);
+    // console.log(this.entities);
 
-    this.entities = this.data.getEntities(this.entityType);
-
-
-    this.onDashboardChange.emit(this.entityType);
+    this.onDashboardChange.emit(this.entityTypeKey);
     this.calcIsHidden();
     this.setCounts();
     //select first visible element
@@ -122,9 +125,10 @@ export class EntitiesComponent implements OnInit {
               this.entityTypeName == 'template' ||
               this.entityTypeName == 'setting'
             ) {
-              let t = this.entityTypeNames.size;
+              let t = this.data.entityTypes.size;
               //this.selectedEntityKey = entityKey % t + 1;
-              this.selectedEntityKey = k + this.entityType;
+              // this.selectedEntityKey = k + this.entityType;
+              this.selectedEntityKey = 0;
             } else {
               this.selectedEntityKey = k;
             }
@@ -187,7 +191,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Active() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e['isActive'] && e.type === this.entityTypeName
+        (e) => e['isActive'] && e.type === this.entityTypeKey
       ).length;
     } else {
       return 0;
@@ -197,7 +201,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Dormant() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => !e['isActive'] && e.type === this.entityTypeName
+        (e) => !e['isActive'] && e.type === this.entityTypeKey
       ).length;
     } else {
       return 0;
@@ -207,7 +211,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Tasks() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e['tasksCount'] > 0 && e.type === this.entityTypeName
+        (e) => e['tasksCount'] > 0 && e.type === this.entityTypeKey
       ).length;
     } else {
       return 0;
@@ -281,7 +285,7 @@ export class EntitiesComponent implements OnInit {
 
       this.entities.forEach((value: EntityFunctional, key: number) => {
         //if (value.type == typeName) {
-          this.isHiddenMap.set(key, this.shouldBeHidden(value));
+        this.isHiddenMap.set(key, this.shouldBeHidden(value));
         //}
       });
     }
@@ -295,20 +299,15 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityChoose(entityKey: number) {
-
-    if (this.entityTypeName == 'dashboard') {
-      this.doEntityTypeChange(entityKey);
-    } else if (
-      this.entityTypeName == 'search' ||
-      this.entityTypeName == 'template' ||
-      this.entityTypeName == 'setting'
+    if (
+      this.entityTypeKey == EnumEntityType.Dashboard ||
+      this.entityTypeKey == EnumEntityType.Search ||
+      this.entityTypeKey == EnumEntityType.Template ||
+      this.entityTypeKey == EnumEntityType.Setting
     ) {
-      let t = this.entityTypeNames.size;
-      //this.selectedEntityKey = entityKey % t + 1;
-      this.doEntityTypeChange(entityKey % t);
-    } else {
-      this.selectedEntityKey = entityKey;
-      this.onEntityChange.emit(this.selectedEntityKey);
+      this.doEntityTypeChange(entityKey);
     }
+    this.selectedEntityKey = entityKey;
+    this.onEntityChange.emit(this.selectedEntityKey);
   }
 }

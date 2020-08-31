@@ -8,11 +8,7 @@
   />
 </div> -->
 
-<!-- <app-input-table-entity
-  [entity]="{ a: 1, b: 2, c: 3 }"
-  [fields]="['a', 'b', 'c']"
-  [headings]="['a', 'b', 'c']"
-></app-input-table-entity> -->
+
 
 <!-- <app-input-filter-add
   [title]="entityTypeName"
@@ -29,7 +25,7 @@
 ></app-input-filter-add> -->
 <form autocomplete="off">
   <div
-    [hidden]="entityTypeName == 'individuals' || entityTypeName == 'users'"
+    [hidden]="entityTypeName == 'individual' || entityTypeName == 'user'"
     style="overflow-y: scroll;"
   >
     <app-input-text
@@ -47,7 +43,7 @@
       [showSmall] = "true"
     ></app-input-text>
   </div>
-  <div [hidden]="entityTypeName != 'individuals' && entityTypeName != 'users'">
+  <div [hidden]="entityTypeName != 'individual' && entityTypeName != 'user'">
     <app-input-duo
       [typeLeft]="'text'"
       [typeRight]="'text'"
@@ -97,7 +93,7 @@
 
     <div
       *ngIf="getIsLoaded('company', 'primary')"
-      [hidden]="entityTypeName != 'companies'"
+      [hidden]="entityTypeName != 'company'"
     >
       <div
         class="panel panel-body collapse"
@@ -172,7 +168,7 @@
 
     <div
       *ngIf="getIsLoaded('individual', 'primary')"
-      [hidden]="entityTypeName != 'individuals'"
+      [hidden]="entityTypeName != 'individual'"
     >
       <div
         class="panel panel-body collapse"
@@ -209,7 +205,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('user', 'primary')"
-      [hidden]="entityTypeName != 'users'"
+      [hidden]="entityTypeName != 'user'"
     >
       <div
         class="panel panel-body collapse"
@@ -228,7 +224,7 @@
     </div>
     <div
       *ngIf="getIsLoaded('group', 'primary')"
-      [hidden]="entityTypeName != 'portfolios'"
+      [hidden]="entityTypeName != 'portfolio'"
     >
       <div
         class="panel panel-body collapse"

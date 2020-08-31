@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { EntityNatural, Entities, EveryEntity, Entity } from '../../data/models';
+import { EntityNatural, Entities, AnyEntity, Entity } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class InputPersonComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() disabled = false;
-  @Input() values: Entities<EveryEntity>; //Person[];
+  @Input() values: Entities<AnyEntity>; //Person[];
   @Input() value = -1;
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -270,7 +270,7 @@ export class InputPersonComponent implements OnInit {
     return v.filter((e) => !this.hideItem(e)).length;
   }
 
-  hideItem(person: EveryEntity) {
+  hideItem(person: AnyEntity) {
     let r = false;
     if (this.listFilterText.length > 0) {
       r = (person as EntityNatural).fullName.toLowerCase().indexOf(this.listFilterText) === -1;

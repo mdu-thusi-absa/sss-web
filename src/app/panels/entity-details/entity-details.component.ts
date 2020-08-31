@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   Entity,
   EntityNatural,
-  EveryEntity,
+  AnyEntity,
   Entities,
   EntityFunctional,
   EnumEntityType,
@@ -35,12 +35,12 @@ export class EntityDetailsComponent implements OnInit {
   entityType_ = -1;
   entityType_T = -2;
   entityTypeName_ = '';
-  @Input() entityTypes = this.data.entityTypes
+  @Input() entityTypes = this.data.entityTypes;
   @Input() entityKey = -1;
   entityKeyT = -1;
-  private entity_: EveryEntity;
-  private entity_BackUp: EveryEntity;
-  entities: Entities<EveryEntity>;
+  private entity_: AnyEntity;
+  private entity_BackUp: AnyEntity;
+  entities: Entities<AnyEntity>;
   dirty = false;
   isPageLoaded: string[] = [];
   isPageLoaded_CalledToLoad: string[] = [];
@@ -56,9 +56,6 @@ export class EntityDetailsComponent implements OnInit {
   //   return this.entityTypes.get(entityTypeKey).name == typeName;
   // }
 
-  doTest(){
-    // console.log('test');
-  }
 
   // dashboardKey_ = 0;
   // @Input() set dashboardKey(v: number){
@@ -67,70 +64,73 @@ export class EntityDetailsComponent implements OnInit {
   // }
 
   entityTypeKey_: EnumEntityType = EnumEntityType.Company;
-  @Input() set entityTypeKey(v: EnumEntityType){
+  @Input() set entityTypeKey(v: EnumEntityType) {
     this.entityTypeKey_ = v;
-    this.entities = this.data.getEntities(this.entityTypeKey_)
-    // console.log(this.entities);
+    // console.log('entity-details','set entityTypeKey',this.entityTypeKey_);
     
-    this.entityTypeName_ = this.data.dashboards.get(this.entityTypeKey_).name.toLowerCase();
-    // console.log(this.entityTypeKey);
-    
+    this.entities = this.data.getEntities(this.entityTypeKey_);
+
+    this.entityTypeName_ = this.data.entityTypes
+      .get(this.entityTypeKey_)
+      .name.toLowerCase();
   }
 
-  entityKey_ = -1
+  entityKey_ = -1;
 
   // set @Input() entityKey (v: number) {
   //   this.entityKey_ = v;
   //   this.entity = this.entities.get(this.entityKey_)
   // };
 
-  get entityTypeKey(){
+  get entityTypeKey() {
     return this.entityTypeKey_;
   }
 
-  get entityTypeName(): string{
-    // console.log(this.entityType_);
-    
-    if (this.entityType_ != this.entityType_T){
-      this.entityTypeName_ = this.data.dashboards.get(this.entityTypeKey).name.toLowerCase();
+  get entityTypeName(): string {
+
+    if (this.entityType_ != this.entityType_T) {
+      this.entityTypeName_ = this.data.entityTypes
+        .get(this.entityTypeKey)
+        .name.toLowerCase();
       this.entityType_T = this.entityType_;
     }
     return this.entityTypeName_;
   }
 
-  get entityTypeNameCapitilised(): string{
+  get entityTypeNameCapitilised(): string {
     let t = this.entityTypeName;
-    return t.slice(0,1).toUpperCase() + t.slice(1);
+    return t.slice(0, 1).toUpperCase() + t.slice(1);
   }
 
-
-
   ngOnInit(): void {
-    this.persons = this.data.getIndividuals();
+    // this.persons = this.data.getIndividuals();
     //this.entities = this.data.getFunctionalEntitiesAll();
-    this.entities = this.data.getEntities(this.entityTypeKey)
+    // console.log('entity-details','ngOnInit',this.entityTypeKey);
+    this.entities = this.data.getEntities(this.entityTypeKey);
     this.entityTypes = this.data.entityTypes;
+
     if (this.entityKey < 0) {
-      this.entityKey = this.entities.currentKey;
+      this.entityKey = this.entities.firstKey;
     }
-    if (this.data.lg) console.log(new Date().getTime(),'loaded:entities-details');
+    if (this.data.lg)
+      console.log(new Date().getTime(), 'loaded:entities-details');
     this.data.progress += 1;
   }
 
   getIsLoaded(keyType: string, keyPage: string) {
     let setTo = true;
-    if (keyType=='entities') setTo = true;
+    if (keyType == 'entities') setTo = true;
     else setTo = this.entityTypeName == keyType;
-    
+
     let key = keyType + '-' + keyPage;
     let r: boolean;
-    if (setTo){
+    if (setTo) {
       r = setTo;
-      if (this.isPageLoaded.indexOf(key)<0) {
+      if (this.isPageLoaded.indexOf(key) < 0) {
         this.isPageLoaded.push(key);
-      } 
-    } else{
-      r = this.isPageLoaded.indexOf(key)>-1
+      }
+    } else {
+      r = this.isPageLoaded.indexOf(key) > -1;
       //if not loaded load later
       if (!r)
         if (this.isPageLoaded_CalledToLoad.indexOf(key) == -1) {
@@ -154,26 +154,21 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   entityTypeKeyT: number = -1;
-  get entity (): EveryEntity {
-    if (this.entityKeyT != this.entityKey || this.entityTypeKeyT != this.entityTypeKey) {
-      // console.log(this.entity_);
-      // console.log(this.entities.get(this.entityKey));
-      // let f = this.entities.get(this.entityKey);
-      // let d = f.copy()
-      // console.log(f,d);
-      // let e = this.entities.get(this.entityKey).clone();
-      // console.log(e);
-      
-      
-      this.entity_ = this.entities.get(this.entityKey).copy();
-      // console.log(this.entities);
-      
+  get entity(): AnyEntity {
+    if (
+      this.entityKeyT != this.entityKey ||
+      this.entityTypeKeyT != this.entityTypeKey
+    ) {
+
+      if (!this.entities.has(this.entityKey)) {
+        this.entityKey = this.entities.firstKey;
+      } else this.entity_ = this.entities.get(this.entityKey).copy();
+
       this.entity_BackUp = this.entity_.copy();
-      this.entityKeyT = this.entityKey
-      this.entityTypeKeyT = this.entityTypeKey
+      this.entityKeyT = this.entityKey;
+      this.entityTypeKeyT = this.entityTypeKey;
     }
-    // console.log(this.entity_);
-    
+
     return this.entity_;
   }
 

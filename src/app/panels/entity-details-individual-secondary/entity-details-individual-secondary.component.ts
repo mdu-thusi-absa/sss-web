@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { EntityNatural, Individual } from 'src/app/data/models';
+import { EntityNatural, EntityIndividual } from 'src/app/data/models';
 
 @Component({
   selector: 'app-entity-details-individual-secondary',
@@ -10,7 +10,7 @@ import { EntityNatural, Individual } from 'src/app/data/models';
 export class EntityDetailsIndividualSecondaryComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
-  @Input() entity: Individual;
+  @Input() entity: EntityIndividual;
   isAppointeeInput = false;
   isAppointeeNewInput =false;
   isDown_Appointments = false;

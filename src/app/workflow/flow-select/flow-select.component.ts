@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowSelect, Entities, EveryEntity, EnumEntityType } from 'src/app/data/models';
+import { TaskFlowSelect, Entities, AnyEntity, EnumEntityType } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

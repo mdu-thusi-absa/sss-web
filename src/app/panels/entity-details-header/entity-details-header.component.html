@@ -1,4 +1,3 @@
-
 <!-- <div class="text-primary-h 4" style="margin-top: 5px;">
   Headline Information
 </div> -->
@@ -29,31 +28,30 @@
   [showCheck]="false"
 ></app-input-textarea>
 
-<div>
-    <app-input-duo
-      [isNarrow]="isNarrow"
-      [filterText]="filterText"
-      [doHideByFilter]="true"
-      [typeLeft]="'select-entity'"
-      [titleLeft]="'Entity Type'"
-      [valuesLeft]="data.getEntityTypes()"
-      [valueLeft]="0"
-      [showAddLeft]="false"
-      [showEditLeft]="false"
-      [showDeleteLeft]="false"
-      [showCheckLeft]="false"
-      [disabledLeft] = "true"
+<!-- <div>
+  <app-input-duo
+    [isNarrow]="isNarrow"
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [typeLeft]="'select-entity'"
+    [titleLeft]="'Entity Type'"
+    [valuesLeft]="data.dashboardsPlural"
+    [valueLeft]="0"
+    [showAddLeft]="false"
+    [showEditLeft]="false"
+    [showDeleteLeft]="false"
+    [showCheckLeft]="false"
+    [disabledLeft]="true"
+    [typeRight]="'text'"
+    [titleRight]="'Internal Code'"
+    [showCheckRight]="false"
+    (onChangeLeft)="doChangeEntityType($event)"
+    (onFile)="doFile($event)"
+    (onRecord)="doRecord($event)"
+    (onTask)="doTask($event)"
+  >
+  </app-input-duo>
+</div> -->
 
-      [typeRight]="'text'"
-      [titleRight]="'Internal Code'"
-      [showCheckRight]="false"
-      (onChangeLeft)="doChangeEntityType($event)"
-      (onFile)="doFile($event)"
-      (onRecord)="doRecord($event)"
-      (onTask)="doTask($event)"
-    >
-    </app-input-duo>
-  </div>
-
-<div style="padding-bottom: 5px;"> </div>
-<hr>
+<div style="padding-bottom: 5px;"></div>
+<hr />

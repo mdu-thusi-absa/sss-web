@@ -1,32 +1,27 @@
 <app-input-filter-add
   [filterCount]="getCountFiltered()"
-  [showAdd] = "!isNew"
+  [showAdd]="!isNew"
   [isAdd]="isNew"
-  [showCancel] = "isNew"
+  [showCancel]="isNew"
   (onFilter)="doFilter($event)"
   (onAdd)="doAdd()"
   (onCancel)="doCancel()"
-  (onT) = "isFilterByTextToo = !isFilterByTextToo"
-  [showT] = "true"
-  [title] = "'Task'"
-  [titleT] = "'Task values'"
-  [titlePlural] = "'Tasks'"
-
-  [radioChoice] = "'all'"
-  [showPlay] = "true"
-  [titlePlay] = "'Active Tasks'"
-  [countPlay] = "getCount_Active()"
-
-  [showOk] = "true"
-  [titleOk] = "'Done'"
-  [countOk] = "getCount_Done()"
-
-  [showAll] = "true"
-  [titleAll] = "'All Tasks'"
-  [countAll] = "getCount_All()"
-
-  (onChoice) = "rdoChoice = $event"
-
+  (onT)="isFilterByTextToo = !isFilterByTextToo"
+  [showT]="true"
+  [title]="'Task'"
+  [titleT]="'Task values'"
+  [titlePlural]="'Tasks'"
+  [radioChoice]="'all'"
+  [showPlay]="true"
+  [titlePlay]="'Active Tasks'"
+  [countPlay]="getCount_Active()"
+  [showOk]="true"
+  [titleOk]="'Done'"
+  [countOk]="getCount_Done()"
+  [showAll]="true"
+  [titleAll]="'All Tasks'"
+  [countAll]="getCount_All()"
+  (onChoice)="rdoChoice = $event"
 ></app-input-filter-add>
 <div class="entities-tasks">
   <app-flow-task [workFlow]="workFlow" [hidden]="!isNew"></app-flow-task>
@@ -38,11 +33,14 @@
     (onClose)="isNew = false"
     [isNarrow] = "isNarrow"
   ></app-entity-task> -->
-
-  <div
-    *ngFor="let task of list; let i = index"
-    [hidden]="shouldHideTask(task)"
-  > 
-    <app-entity-task [task]="task" [index]="i + 1" [isNarrow]="isNarrow"></app-entity-task>
-  </div>
+    <div
+      *ngFor="let task of list; let i = index"
+      [hidden]="shouldHideTask(task) || isNew"
+    >
+      <app-entity-task
+        [task]="task"
+        [index]="i + 1"
+        [isNarrow]="isNarrow"
+      ></app-entity-task>
+    </div>
 </div>

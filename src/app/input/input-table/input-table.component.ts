@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, EveryEntity } from 'src/app/data/models';
+import { Entities, AnyEntity, EnumEntityType } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data/data.service';
 export class InputTableComponent implements OnInit {
   @Input() headings: string[] = []; //lists headings in th
   @Input() fields: string[] = []; //lists attribute names from the objects to show
-  @Input() entities: Entities<EveryEntity>;
+  @Input() entities: Entities<AnyEntity>;
   @Input() selectedEntityKey: number;
   @Input() withCheckbox = false;
   @Input() noPadding = false
@@ -34,9 +34,16 @@ export class InputTableComponent implements OnInit {
       this.isChecked.set(key,false);
     });
     this.countFiltered = this.entities.size;
+    
   }
 
   getType(v: any){
+    let t = typeof(v)
+    let r: string | EnumEntityType;
+    if (t=='object')
+      r = t['type']
+    else
+      r = t
     return typeof(v);
   }
 
@@ -74,11 +81,11 @@ export class InputTableComponent implements OnInit {
     this.hideEditRow.set(key, visible);
   }
 
-  getDoLoad(e: EveryEntity) {
+  getDoLoad(e: AnyEntity) {
     return true;
   }
 
-  hideItem(entity: EveryEntity) {
+  hideItem(entity: AnyEntity) {
     if (this.filterText.length == 0) return false;
     return (
       entity.name.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 &&
@@ -90,7 +97,7 @@ export class InputTableComponent implements OnInit {
     if (this.entities) {
       this.isHiddenMap = new Map();
 
-      this.entities.forEach((value: EveryEntity, key: number) => {
+      this.entities.forEach((value: AnyEntity, key: number) => {
         this.isHiddenMap.set(key, this.hideItem(value));
       });
     }

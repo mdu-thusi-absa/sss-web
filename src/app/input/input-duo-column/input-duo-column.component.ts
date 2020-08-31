@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
-import { EntityNatural, Entities, EveryEntity, Entity } from '../../data/models'
+import { EntityNatural, Entities, AnyEntity, Entity } from '../../data/models'
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class InputDuoColumnComponent implements OnInit {
 
 @Input() titleLeft = '';
 @Input() placeholderLeft = '';
-@Input() valuesLeft: Entities<EveryEntity>; //: string[] | Person[];
+@Input() valuesLeft: Entities<AnyEntity>; //: string[] | Person[];
 @Input() valueLeft: string | boolean | EntityNatural | number = '';
 @Input() disabledLeft = false;
 @Input() minValueLeft = -1000;
@@ -41,7 +41,7 @@ title_ = '';
 
 @Input() titleRight = '';
 @Input() placeholderRight = '';
-@Input() valuesRight: Entities<EveryEntity>; // string[] | Person[];
+@Input() valuesRight: Entities<AnyEntity>; // string[] | Person[];
 @Input() valueRight: string | boolean | EntityNatural | number = '' ;
 @Input() disabledRight = false;
 @Input() minValueRight = -1000;

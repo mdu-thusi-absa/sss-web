@@ -7,10 +7,10 @@
     [title]="entityTypeName"
     [titlePlural]="entityTypeNamePlural"
     [showList]="true"
-    [listValues]="this.data.dashboardsPlural"
-    [listValue]="entityType"
+    [listValues]="this.data.menus"
+    [listValue]="entityTypeKey"
     (onListChange)="doEntityTypeChange($event)"
-    [showFlash]="entityType != 0 && entityType < entityTypeNames.size - 1"
+    [showFlash]="false"
     [showPlay]="!this.showActiveOnly"
     [showPause]="!this.showActiveOnly"
     [showAll]="true"
@@ -43,12 +43,14 @@
       style="overflow-y: scroll; overflow-x: auto; scrollbar-width: thin;"
       (scroll)="onScrollTable($event)"
     >
-      <ng-container *ngFor="let t of entityTypeNames | keyvalue">
+
+      <ng-container *ngFor="let t of data.entityTypes | keyvalue">
+
         <table
           class="table table-condensed table-bordered less-bottom"
-          [class.table-show] = "entityType == t.key"
-          [class.table-hide] = "entityType != t.key"
-          [hidden]="entityType != t.key"
+          [class.table-show] = "entityTypeKey == t.key"
+          [class.table-hide] = "entityTypeKey != t.key"
+          [hidden]="entityTypeKey != t.key"
         >
           <thead class="info">
             <tr class="info">
@@ -57,9 +59,14 @@
               <th><small>Suffix</small></th>
             </tr>
           </thead>
+          <!-- <ul >
+            <li *ngFor="let e of entities.keys();let e = entities.get(k) ">
+              {{e.name}}
+            </li>
+          </ul> -->
 
           <tbody>
-                <tr  *ngFor="let e of entities | keyvalue;let i = index"
+                <tr  *ngFor="let e of entities| keyvalue "
                   [class.info]="e.value.isActive"
                   [class.tr-hide]="isHiddenMap.get(e.key)"
                   [class.tr-show]="!isHiddenMap.get(e.key)"

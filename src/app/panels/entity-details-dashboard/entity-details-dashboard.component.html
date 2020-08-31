@@ -73,7 +73,7 @@ g -->
     [inputType]="'reminder'"
   ></app-input-table>
 
-    <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="false"></app-label-h>
+  <app-label-h [title]="'Dashboard: awaiting authorisation'" [hr]="false"></app-label-h>
     <app-input-table
     [headings]="['Date/Time','Title', 'Description']"
     [fields]="['dateTime','name', 'description']"
@@ -81,6 +81,16 @@ g -->
     [entities]="data.meetings"
     [inputType]="'reminder'"
   ></app-input-table>
+
+  <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="false"></app-label-h>
+    <app-input-table
+    [headings]="['Date/Time','Title', 'Description']"
+    [fields]="['dateTime','name', 'description']"
+    [withCheckbox]="false"
+    [entities]="data.meetings"
+    [inputType]="'reminder'"
+  ></app-input-table>
+
     <!-- <app-input-duo
   [filterText]="filterText"
   [isNarrow]="isNarrow"

@@ -48,7 +48,8 @@ export class InputAddressComponent implements OnInit {
     this.countries = this.data.countries
     this.countryIndex = this.countries.currentKey
     //this.cities = this.countries.get(this.getCountryIndex())['cities'];
-    this.cities = this.data.cities; //.select('countryKey',this.getCountryIndex());
+    //this.cities = this.data.cities; //.select('countryKey',this.getCountryIndex());
+    this.cities = this.data.cities.select('countryKey',this.getCountryIndex());
     // console.log(this.countries)
     // console.log(this.cities)
     if (this.countryIndex < 0) {

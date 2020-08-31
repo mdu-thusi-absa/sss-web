@@ -198,8 +198,8 @@
           <div class="panel-heading mt3">
             <small
               [hidden]="
-                entityTypeKey == 0 ||
-                entityTypeKey == 1
+                isPage('dashboard') ||
+                isPage('search')
               "
             >
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
@@ -367,14 +367,14 @@
               </span>
             </small>
 
-            <small [hidden]="entityTypeKey != 0">
+            <small [hidden]="!isPage('dashboard')">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >public</mat-icon
               >
               <span>&nbsp;Dashboard</span>
             </small>
 
-            <small [hidden]="entityTypeKey != 1">
+            <small [hidden]="!isPage('search')">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >search</mat-icon
               >
@@ -396,8 +396,8 @@
             </small> -->
 
             <div class="btn-group pull-right">
-              <app-buttons-toolbar-button
-                [hidden]="entityTypeKey == dashboards.size - 1"
+              <!-- <app-buttons-toolbar-button
+                [hidden]="entityTypeKey == data.menus.size - 1"
                 [title]="''"
                 [placeholder]="'Expand/Contract all pages'"
                 [matIcon]="pagesAreExpanded?'unfold_less':'unfold_more'"
@@ -407,10 +407,9 @@
                 (onClick)="expandContractAllPages()"
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
-              ></app-buttons-toolbar-button>
+              ></app-buttons-toolbar-button> -->
 
               <app-buttons-toolbar-button
-                [hidden]="entityTypeKey == dashboards.size - 1"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
@@ -437,13 +436,13 @@
             <div
               *ngIf="
                 getIsLoaded(
-                  entityTypeKey != 0,
+                  isPage('detail'),
                   'entities'
                 )
               "
               [hidden]="
-              entityTypeKey == 0 ||
-                entityTypeKey == 1
+              isPage('dashboard') ||
+                isPage('search')
               "
             >
               <app-entity-details
@@ -496,8 +495,8 @@
               ></app-settings>
             </div> -->
             <div
-              *ngIf="getIsLoaded(entityTypeKey == 0, 'dashboard')"
-              [hidden]="entityTypeKey != 0"
+              *ngIf="getIsLoaded(isPage('dashboard'), 'dashboard')"
+              [hidden]="!isPage('dashboard')"
             >
               <app-entity-details-dashboard
                 [panelRows]="panelRows"
@@ -516,8 +515,8 @@
               ></app-entity-details-dashboard>
             </div>
             <div
-              *ngIf="getIsLoaded(entityTypeKey == 1, 'globalsearch')"
-              [hidden]="entityTypeKey != 1"
+              *ngIf="getIsLoaded(isPage('search'), 'globalsearch')"
+              [hidden]="!isPage('search')"
             >
               <app-panel-glogal-search
                 [panelRows]="panelRows"

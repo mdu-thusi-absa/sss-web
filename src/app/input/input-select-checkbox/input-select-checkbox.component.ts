@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Entity, Entities, EveryEntity } from 'src/app/data/models';
+import { Entity, Entities, AnyEntity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class InputSelectCheckboxComponent implements OnInit {
   get title(){
     return this.title_;
   }
-  @Input() values: Entities<EveryEntity>; //of entities
+  @Input() values: Entities<AnyEntity>; //of entities
   @Input() filterText = '';
   //@Input() value = [];
   @Input() doHideByFilter = false;

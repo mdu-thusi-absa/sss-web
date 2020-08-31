@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EntityNatural, EveryEntity, Entity } from 'src/app/data/models';
+import { EntityNatural, AnyEntity, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class EntityDetailsAttendeesComponent implements OnInit {
     return this.title_;
   }
   @Input() persons: EntityNatural[];
-  @Input() entity: EveryEntity;
+  @Input() entity: AnyEntity;
   @Input() showTitle = true;
 
   @Output() onRecord = new EventEmitter();

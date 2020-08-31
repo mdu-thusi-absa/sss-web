@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EntityNatural, Entities, EveryEntity } from 'src/app/data/models';
+import { EntityNatural, Entities, AnyEntity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class InputCustomComponent implements OnInit {
   @Input() doHideByFilter = true;
   @Input() filterText = '';
   @Input() customType = 'person';
-  @Input() values: Entities<EveryEntity>; //string[] 
+  @Input() values: Entities<AnyEntity>; //string[] 
   @Input() persons: EntityNatural[];
   @Input() showCheck = false;
   @Input() isNarrow = false;

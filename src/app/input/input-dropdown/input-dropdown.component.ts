@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { Entities, EveryEntity } from 'src/app/data/models';
+import { Entities, AnyEntity } from 'src/app/data/models';
 
 @Component({
   selector: 'app-input-dropdown',
@@ -22,12 +22,12 @@ export class InputDropdownComponent implements OnInit {
 
   viewAll = false;
   @Input() title = 'item';
-  sourceValues_: Entities<EveryEntity>;
-  @Input() set values(v: Entities<EveryEntity>) {
+  sourceValues_: Entities<AnyEntity>;
+  @Input() set values(v: Entities<AnyEntity>) {
     this.sourceValues_ = v;
     this.values_ = this.sourceValues_.clone();
   }
-  values_: Entities<EveryEntity>;
+  values_: Entities<AnyEntity>;
   @Input() key = -1;
   @Input() showNoSelection = false;
   @Input() onlyActive = false;

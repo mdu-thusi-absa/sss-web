@@ -9,10 +9,13 @@ import { DataService } from './data.service';
 
 export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
-  public type = 'entity';
+  public type = EnumEntityType.Entity;
   public description = '';
   public isActive = false;
   public suffix = '';
+  public jsonSource = '';
+  public sourceType = 'json'; //or function for on the fly or from DB
+  public storeName = ''; //name of a variable to store data in
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
 
@@ -122,7 +125,7 @@ export class Entity {
 //   }
 // }
 export class EntityCity extends Entity {
-  public type = 'city';
+  public type = EnumEntityType.City;
   public countryKey = -1;
   // public clone() {
   //   let t = new City(this.name);
@@ -130,29 +133,29 @@ export class EntityCity extends Entity {
   //   return t;
   // }
 }
-export class FileEntity extends Entity {
-  type = 'file';
+export class EntityFile extends Entity {
+  public type = EnumEntityType.File;
   fileName = '';
   dateTime: Date;
   public clone() {
-    let t = new FileEntity(this.name);
+    let t = new EntityFile(this.name);
     t = Object.assign(t, this);
     return t;
   }
 }
-export class MeetingEntity extends Entity {
-  type = 'meeting';
+export class EntityMeeting extends Entity {
+  public type = EnumEntityType.Meeting;
   dateTime: Date;
   attendees = new Entities<EntityNatural>(EntityNatural);
-  files = new Entities<FileEntity>(FileEntity);
+  files = new Entities<EntityFile>(EntityFile);
   public clone() {
-    let t = new FileEntity(this.name);
+    let t = new EntityFile(this.name);
     t = Object.assign(t, this);
     return t;
   }
 }
 export class EntityFunctional extends Entity {
-  public type = 'functional';
+  public type = EnumEntityType.Functional;
   public tasksCount = 0;
   public isActive = true;
   public countryKey = -1;
@@ -163,36 +166,37 @@ export class EntityFunctional extends Entity {
     return t;
   }
 
-  contactDetails: Entities<ContactEntity>;
-  customFields: Entities<CustomFieldEntity>;
-  entityFiles: Entities<FileEntity>;
+  // contactDetails: Entities<ContactEntity>;
+  customFields: Entities<EntityCustomField>;
+  entityFiles: Entities<EntityFile>;
 }
-export class CustomFieldEntity extends Entity {
+export class EntityCustomField extends Entity {
   //name = title
   //type = entity type name
+  public type = EnumEntityType.Custom;
   value: any; //literal or entityKey
   public clone() {
-    let t = new CustomFieldEntity(this.name);
+    let t = new EntityCustomField(this.name);
     t = Object.assign(t, this);
     return t;
   }
 }
-export class ContactEntity extends Entity {
-  contactPersonKey: number;
-  isOnLeave: boolean;
-  comingBackDate: Date;
-  contactPreferenceKey: number;
-  email: string;
-  cellPhone: string;
-  landLine: string;
-  public clone() {
-    let t = new ContactEntity(this.name);
-    t = Object.assign(t, this);
-    return t;
-  }
-}
+// export class ContactEntity extends Entity {
+//   contactPersonKey: number;
+//   isOnLeave: boolean;
+//   comingBackDate: Date;
+//   contactPreferenceKey: number;
+//   email: string;
+//   cellPhone: string;
+//   landLine: string;
+//   public clone() {
+//     let t = new ContactEntity(this.name);
+//     t = Object.assign(t, this);
+//     return t;
+//   }
+// }
 export class EntityLegal extends EntityFunctional {
-  public type = 'legal';
+  public type = EnumEntityType.Legal;
   //customFields: CustomFields;
   //entityFiles: FileEntities;
 
@@ -224,32 +228,23 @@ export class EntityLegal extends EntityFunctional {
     }
   }
 }
-export class Appointment {
-  person: EntityNatural;
-  legalEntity: EntityLegal;
-  appointmentDate: Date;
-  resignationDate: Date;
-}
-export class Shareholder extends EntityLegal {
-  sharesHolding: number; //only current, todo: historic record, types of shares
-  public clone() {
-    return new Shareholder(this.name);
-  }
-}
-export class Trust extends EntityLegal {
-  type = 'trust';
-}
+
+// export class Shareholder extends EntityLegal {
+//   sharesHolding: number; //only current, todo: historic record, types of shares
+//   public clone() {
+//     return new Shareholder(this.name);
+//   }
+// }
 //todo: Appointments, ShareCertificates, Shareholders collections
 export class EntityCompany extends EntityLegal {
-  type = 'company';
+  public type = EnumEntityType.Company;
   companyTypeKey: number = 0;
   internalCode: string = '';
   leCode: string = '';
   registrationCode: string = '';
-  portfolioKeys: number[] = [1,2];
   countryKey: number = -1;
-  isRepresentativeOffice: boolean = false;
-  isForeignBranch: boolean = false;
+  RepresentativeOfficeIs: boolean = false;
+  ForeignBranchIs: boolean = false;
   incorporationDate: Date = null;
   businessAreaKey: number = -1;
   legalClassKey: number = -1;
@@ -258,14 +253,14 @@ export class EntityCompany extends EntityLegal {
   incomeTax: string = '';
   vatCode: string = '';
   businessDivisionKey: number = -1;
-  consolidatedKey: number = -1;
+  consolidationKey: number = -1; //Math.floor(Math.random() * 2); ;
   consolidateUnder: string = '';
   accountingClassKey: number = -1;
   accountingClassTierKey: number = -1;
   parentCompanyKey: number = -1;
-  parentHolding: number = 0;
+  parentHoldingWeight: number = 0;
   holdingParentCompanyKey: number = -1;
-  holdingHolding: number = 0;
+  holdingHoldingWeight: number = 0;
   objectivePublishedDesc: string = '';
   objectiveRegisteredDesc: string = '';
   picScore: string = '';
@@ -273,7 +268,7 @@ export class EntityCompany extends EntityLegal {
   secretaryKey: number = -1;
   leeKey: number = -1;
   leeAppointedDate: Date = null;
-  foKey: number = -1;
+  financialOfficerKey: number = -1;
   foAppointedDate: Date = null;
   publicOfficerKey: number = -1;
   publicOfficerAppointedDate: Date = null;
@@ -285,11 +280,65 @@ export class EntityCompany extends EntityLegal {
   isinCode: string = '';
   leiCode: string = '';
   reutersCode: string = '';
-  regulatorKeys: number[] = [0,1];
+  industryKey: number;
+  anniversaryMonthKey: number;
+  businessStartDate: Date;
+  fyeMonthKey: number;
+  holdsCertificatesIs: boolean;
+  connectedEntityIs: boolean;
+  connectedEntityDesc: string;
+  currNameEffDate: Date;
+  prevName: string;
+  prevNameEffDate: Date;
+
+  regulatorKeys: number[] = [0, 1];
+  contactKeys: number[] = [];
+  portfolioKeys: number[] = [1, 2];
+  propertyKeys: number[];
+  shareCertificateKeys: number[];
+  appointmentKeys: number[];
+  shareholderKeys: number[];
+  addressKeys: number[];
 }
+
+export class EntityContact extends Entity {
+  public type = EnumEntityType.Contact;
+  contactTypeKey = -1; //entity, such as Company Primary Contact...
+  key: 0;
+  individualKey = -1;
+  onLeaveIs = false;
+  comingBackDate = null;
+  contactPreferenceKey = -1;
+  email = '';
+  cellphone = '';
+  landline = '';
+  note = '';
+}
+
+export class EntityAddress extends Entity {
+  public type = EnumEntityType.Address;
+  addressTypeKey: number = 0;
+  countryKey: number = -1;
+  cityKey: number = -1;
+  text = '';
+}
+
+export class EntityProperty extends EntityFunctional {
+  public type = EnumEntityType.Property;
+  addressKey = -1;
+}
+
+export class EntityAppointment extends Entity {
+  public type = EnumEntityType.Appointment;
+  companyKey = -1;
+  individualKey = -1;
+  startDate: Date = null;
+  endDate: Date = null;
+}
+
 //let company = new Company('a');
 export class EntityNatural extends EntityFunctional {
-  public type = 'natural';
+  public type = EnumEntityType.Natural;
   public email: string;
   public cellNumber: string;
   public birthOfDate: Date;
@@ -349,9 +398,12 @@ export class EntityNatural extends EntityFunctional {
     super.name = v;
   }
 }
-export class Individual extends EntityNatural {
+
+export class EntityIndividual extends EntityNatural {
+  type = EnumEntityType.Individual;
+
   public clone() {
-    let t = new Individual(this.surname, this.firstName, this.suffix);
+    let t = new EntityIndividual(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
     return t;
   }
@@ -361,7 +413,7 @@ export class Individual extends EntityNatural {
   prevNameEffectiveDate: Date;
   prevSurname: string;
   prevFirstName: string;
-  entityGroups: Entities<GroupEntity>;
+  entityGroups: Entities<EntityPortfolio>;
   entityCompanies: Entities<EntityCompany>;
   SAIDnumber: string;
   SAPassportNumber: string;
@@ -376,10 +428,19 @@ export class Individual extends EntityNatural {
   //customFields
   //files
 }
-export class GroupEntity extends EntityFunctional {
-  public type = 'portfolio';
+
+export class EntityShareholding extends Entity {
+  public type = EnumEntityType.Shareholding;
+  shareTypeKey = -1;
+  individualKey = -1;
+  companyKey = -1;
+  shareCount = 0;
+}
+
+export class EntityPortfolio extends EntityFunctional {
+  public type = EnumEntityType.Portfolio;
   public clone() {
-    let t = new GroupEntity(this.name);
+    let t = new EntityPortfolio(this.name);
     t = Object.assign(t, this);
     return t;
   }
@@ -387,29 +448,29 @@ export class GroupEntity extends EntityFunctional {
   usersManagers: Entities<EntityUser>;
   userAdmins: Entities<EntityUser>;
 }
-export class TrustEntity extends EntityLegal {
-  public type = 'trust';
+export class EntityTrust extends EntityLegal {
+  public type = EnumEntityType.Trust;
   public clone() {
-    let t = new TrustEntity(this.name);
+    let t = new EntityTrust(this.name);
     t = Object.assign(t, this);
     return t;
   }
   //todo: trusteesAppointments: Entities<User>;
 }
-export class RegulatorEntity extends EntityLegal {
-  public type = 'regulator';
+export class EntityRegulator extends EntityLegal {
+  public type = EnumEntityType.Regulator;
   public clone() {
-    let t = new RegulatorEntity(this.name);
+    let t = new EntityRegulator(this.name);
     t = Object.assign(t, this);
     return t;
   }
   countryKey = -1;
-  regulationEntities: Entities<RegulationEntity>;
+  regulationEntities: Entities<EntityRegulation>;
 }
-export class AuditorEntity extends EntityLegal {
-  public type = 'auditor';
+export class EntityAuditor extends EntityLegal {
+  public type = EnumEntityType.Auditor;
   public clone() {
-    let t = new AuditorEntity(this.name);
+    let t = new EntityAuditor(this.name);
     t = Object.assign(t, this);
     return t;
   }
@@ -417,10 +478,10 @@ export class AuditorEntity extends EntityLegal {
   partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
-export class SecretariatEntity extends EntityLegal {
-  public type = 'regulator';
+export class EntitySecretariat extends EntityLegal {
+  public type = EnumEntityType.Secretariat;
   public clone() {
-    let t = new SecretariatEntity(this.name);
+    let t = new EntitySecretariat(this.name);
     t = Object.assign(t, this);
     return t;
   }
@@ -428,15 +489,15 @@ export class SecretariatEntity extends EntityLegal {
   partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
-export class RegulationEntity extends EntityFunctional {
-  public type = 'regulation';
+export class EntityRegulation extends EntityFunctional {
+  public type = EnumEntityType.Regulation;
   public clone() {
-    let t = new RegulationEntity(this.name);
+    let t = new EntityRegulation(this.name);
     t = Object.assign(t, this);
     return t;
   }
   countryKey = -1;
-  regulatorEntities: Entities<RegulatorEntity>;
+  regulatorEntities: Entities<EntityRegulator>;
 }
 // export class Person extends NaturalEntity{
 //   constructor(
@@ -448,12 +509,13 @@ export class RegulationEntity extends EntityFunctional {
 //   }
 // }
 export class EntityUser extends EntityNatural {
+  public type = EnumEntityType.User;
   activationDate: Date;
   deactivationDate: Date;
   employeeNumber: string;
   position: string;
-  managerGroups: Entities<GroupEntity>;
-  adminGroups: Entities<GroupEntity>;
+  managerGroups: Entities<EntityPortfolio>;
+  adminGroups: Entities<EntityPortfolio>;
   managerCompanies: Entities<EntityCompany>;
   adminCompanies: Entities<EntityCompany>;
   constructor(
@@ -470,7 +532,7 @@ export class EntityUser extends EntityNatural {
   }
 }
 
-export class MeetingGuestEntity extends EntityNatural {
+export class EntityMeetingGuest extends EntityNatural {
   attended = false;
 }
 
@@ -621,18 +683,28 @@ export class CustomField {
   constructor(name: string, type: string, value: any) {}
 }
 
-export type EveryEntity =
+// export type EntityKey = number;
+
+export class EntityShareCertificate extends Entity {
+  public type = EnumEntityType.ShareCertificate;
+  issuedDate: Date = null;
+}
+
+export type AnyEntity =
   | Entity
   | EntityCity
   | EntityFunctional
   | EntityUser
   | EntityLegal
   | EntityNatural
-  | EntityCompany;
+  | EntityCompany
+  | EntityContact
+  | EntityAddress;
 
-export class Entities<T extends EveryEntity> extends Map<number, T> {
+export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;
   currentValue_: T = null;
+  staticIs = true; //should not allow changes, otherwise redirect to DB
   private inFilterMap = new Map();
   private filterText_ = '';
   private onlyActive_ = true;
@@ -649,7 +721,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   select(fieldName: string, equalTo: any): Entities<T> {
     let ets = new Entities<T>(this.EntityType);
-    console.log(fieldName, equalTo, this.size);
+    // console.log(fieldName, equalTo, this.size);
 
     this.forEach((value, key, map) => {
       // console.log(value[fieldName],equalTo);
@@ -689,9 +761,9 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
     this.version_ += 1;
   }
 
-  getClearCopy(){
+  getClearCopy() {
     let e = new Entities<T>(this.EntityType);
-    return e
+    return e;
   }
 
   clone() {
@@ -753,6 +825,7 @@ export class Entities<T extends EveryEntity> extends Map<number, T> {
 
   fromJSON(json: string, maxToLoad?: number, setType?: string) {
     let array = JSON.parse(json);
+
     if (setType) this.fromArray(array, maxToLoad, setType);
     else this.fromArray(array, maxToLoad);
   }
@@ -941,47 +1014,15 @@ export class TaskFlow {
   // }
 }
 
-export enum EnumEntityType {
-  Dashboard,
-  Search,
-  Company,
-  Individual,
-  User,
-  Portfolio,
-  Trust,
-  Regulator,
-  Regulation,
-  Auditor,
-  Secretariat,
-  Template,
-  Setting,
-  Country,
-  City,
-  Custom,
-  CountryWithTasks,
-  IndividualFromCountries,
-  CompanyFromCountries,
-  DashboardsPlural,
-
-  AccountingClass,
-  AccountingClassTier,
-  Consolidated,
-  BusinessArea,
-  LegalClass,
-  EntityStatus,
-  EntityStatusTier,
-  BusinessDivision,
-  CompanyType,
-}
-
 export class TaskFlowSelect extends TaskFlow {
   type = 'select';
   sourceType: EnumEntityType;
   value = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
-  values: Entities<EveryEntity>;
+  values: Entities<AnyEntity>;
   init() {
     // console.log('do init')
+    // console.log('models', 'TaskFlowSelect', 'init', this.sourceType);
     this.values = this.data.getEntities(this.sourceType, [this.parentValue]);
   }
 }
@@ -1242,3 +1283,59 @@ export class WorkFlow extends TaskFlow {
   //   return t;
   // }
 }
+
+export enum EnumEntityType{
+  AccountingClass,
+  AccountingClassTier,
+  Address,
+  Appointment,
+  Auditor,
+  BusinessArea,
+  BusinessDivision,
+  Capacity,
+  City,
+  Company,
+  CompaniesFromCountry,
+  CompanyType,
+  Consolidation,
+  Contact,
+  Country,
+  CountryWithTasks,
+  Custom,
+  Dashboard,
+  EntityStatus,
+  EntityStatusTier,
+  Individual,
+  IndividualFromCountries,
+  Industry,
+  LegalClass,
+  Month,
+  Portfolio,
+  Property,
+  Regulation,
+  Regulator,
+  Search,
+  Secretariat,
+  Setting,
+  ShareCertificate,
+  Shareholding,
+  Template,
+  Trust,
+  User,
+  Entity,
+  File,
+  Meeting,
+  Functional,
+  Legal,
+  Natural,
+  AnniversaryMonth,
+  ParentCompany,
+  EntityType,
+  HoldingParentCompany,
+  Secretary,
+  Lee,
+  FinancialOfficer,
+  PublicOfficer,
+  AuditPartner,
+  fyeMonth}
+  

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
-import { EveryEntity, Entities, Entity } from 'src/app/data/models';
+import { AnyEntity, Entities, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class InputSelectCheckboxDuoComponent implements OnInit {
   get title(){
     return this.title_;
   }
-  @Input() values: Entities<EveryEntity>;
+  @Input() values: Entities<AnyEntity>;
   @Input() selectedValues: number[] = [];
 
   @Input() showPaperclip = false;

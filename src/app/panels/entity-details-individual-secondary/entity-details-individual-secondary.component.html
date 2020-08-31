@@ -54,7 +54,7 @@
   [doHideByFilter]="true"
   [typeLeft]="'select-entity'"
   [titleLeft]="'Current Employer'"
-  [valuesLeft] = "data.getCompanies()"
+  [valuesLeft] = "data.companies"
   [valueLeft] = "entity.currentEmployerKey"
 
   (onFile)="doFile($event)"
@@ -251,7 +251,7 @@
             <div class="col-xs-6">
               <app-input-select
                 [title]="'Position'"
-                [values]="data.getPositions()"
+                [values]="data.capacities"
                 [filterText]="filterText"
                 [value]="0"
               ></app-input-select>
