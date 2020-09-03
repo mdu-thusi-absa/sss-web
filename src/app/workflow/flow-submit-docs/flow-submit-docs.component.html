@@ -1,5 +1,5 @@
 <app-input-panel
-  [title]="taskFlow.name"
+  [title]="stepNumber + '. ' + taskFlow.name"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"

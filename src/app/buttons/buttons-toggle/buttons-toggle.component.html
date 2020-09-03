@@ -9,7 +9,7 @@
 >
   <!-- svgPath: {{svgUrlPath}} -->
   <label
-    [attr.for]="'checkbox-toggle-' + data.getID(title)"
+    [attr.for]="'checkbox-toggle-' + eid"
     class="btn btn-info btn-xs"
     style="padding: 1px;"
     [class.active]="toggleValue"
@@ -39,7 +39,7 @@
   <input
     type="checkbox"
     style="display: none;"
-    [attr.id]="'checkbox-toggle-' + data.getID(title)"
+    [attr.id]="'checkbox-toggle-' + eid"
     [checked]="toggleValue"
     (change)="doToggle($event)"
   />

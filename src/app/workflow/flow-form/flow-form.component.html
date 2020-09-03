@@ -1,5 +1,5 @@
 <app-input-panel
-  [title]="'Form: ' + taskFlow.name"
+  [title]="stepNumber + '. ' + 'Form: ' + taskFlow.name"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
@@ -9,12 +9,13 @@
   (onSavePrev) = "doSavePrev()"
 >
   {{ taskFlow.description }}
-  
+
   <app-input-any *ngFor="let inp of taskFlow.inputs"
     [type] = "inp.type"
-    [value] = 'inp.value'
+    [value] = 'getInputValue(inp)'
     [title] = 'inp.title'
     [placeholder] = 'inp.title'
+    [values] = "getEntities(inp.type,inp.fieldName)"
   ></app-input-any>
 </app-input-panel>
 

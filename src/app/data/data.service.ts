@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as M from './models';
+import * as W from './workflow';
 //import { EntityDetailsFilesComponent } from '../panels/entity-details-files/entity-details-files.component';
 // import { JsonPipe } from '@angular/common';
 // import { HttpClient } from '@angular/common/http';
 //import {jsonAccountingClasses, jsonAddresses, mapCompanyHeadings}  from './data-json.module';
 import * as D from './data-json.module';
-import { visitValue } from '@angular/compiler/src/util';
+import * as E from './data-entityTypes';
 // import { data } from 'jquery';
 //import { mapCompanyHeadings } from './data-json.module';
 //import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
@@ -44,7 +45,6 @@ export class DataService {
   reports = new M.Entities<M.Entity>(M.Entity);
   secretariats = new M.Entities<M.EntityLegal>(M.EntityLegal);
   taskStatuses = new M.Entities<M.Entity>(M.Entity);
-  taskTypes = new M.Entities<M.Entity>(M.Entity);
   templates = new M.Entities<M.EntityFile>(M.EntityFile);
   users = new M.Entities<M.EntityUser>(M.EntityUser);
   yesNo = new M.Entities<M.Entity>(M.Entity);
@@ -67,8 +67,9 @@ export class DataService {
   trusts = new M.Entities<M.EntityTrust>(M.EntityTrust);
   parentCompanies = this.companies;
   holdingParentCompanies = this.companies;
-  countryWithTasks = new M.Entities<M.Entity>(M.Entity)
-
+  countryWithTasks = new M.Entities<M.Entity>(M.Entity);
+  taskTypes = new M.Entities<M.EntityTaskType>(M.EntityTaskType);
+  workFlow: M.WorkFlow;
   progress = 0;
 
   // private capitaliseText(text: string){
@@ -92,7 +93,7 @@ export class DataService {
         }
       } else if (fieldName.slice(-4) == 'Keys') {
         // console.log('getEntityFieldValue', fieldName, '[0,1]');
-        let d = this.getEntitiesByKeyField(fieldName, [], [0, 1]);
+        let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-2) == 'Is') {
@@ -106,12 +107,12 @@ export class DataService {
     return '';
   }
 
-  constructor() {
+  loadEntityTypes() {
     // static and DB entities
     try {
       // console.log('trying entityTypes.fromJSON');
-      
-      this.entityTypes.fromJSON(D.jsonEntityTypes);
+
+      this.entityTypes.fromJSON(E.jsonEntityTypes);
     } catch (e) {
       // console.log('Loading entityTypes from JSON', e);
     }
@@ -122,20 +123,20 @@ export class DataService {
         // console.log('trying fromJSON',value.storeName);
         let d = eval('this.' + value.storeName);
         try {
-          d.fromJSON(D.mapJSON.get(key));
+          d.fromJSON(E.mapJSON.get(key));
         } catch (e) {
-          console.log('Loading from JSON: key, store', key, value.storeName, e);
+          console.log(
+            'Error: Loading from JSON: key, store',
+            key,
+            value.storeName,
+            e
+          );
         }
       }
     });
+  }
 
-    // this.dataMap.forEach((value, key, map) => {
-    //   let d = eval('this.' + key);
-    //   d.fromJSON(value);
-    // });
-
-    // derivative entities
-    // menus
+  loadMenus(){
     let mTemp = new Map();
     this.entityTypes.forEach((value, key, map) => {
       if (value['dashboardIndex'] > -1) {
@@ -148,11 +149,19 @@ export class DataService {
       // console.log(menu);
       this.menus.set(menu['key'], menu);
     }
+  }
 
-    //
+  loadCanHoldSharesIs(){
     this.entityTypes.forEach((value, key, map) => {
       if (value['canHoldSharesIs']) this.shareHolderTypes.set(key, value);
     });
+  }
+
+  constructor() {
+    this.loadEntityTypes()
+    this.loadMenus()
+    this.loadCanHoldSharesIs()
+    this.workFlow = this.getWorkFlow();
   }
 
   getDashboards() {
@@ -171,8 +180,41 @@ export class DataService {
     return this.individuals;
   }
 
-  getLee(){
-    return this.individuals
+  getLee() {
+    return this.individuals;
+  }
+
+  getEntityTypesFromCountry(data: object) {
+    let d = this.entityTypes.getClearCopy();
+    let countryKey = -1;
+    if (typeof data == 'object') {
+      countryKey = data['countryKey'];
+    } else {
+      countryKey = data as number;
+    }
+    this.taskTypes.forEach((value, key, map) => {
+      // console.log(value.countryKey);
+
+      if (countryKey == value.countryKey) {
+        if (!d.has(value.countryKey)) {
+          d.add(this.entityTypes.get(value.entityTypeKey));
+        }
+      }
+    });
+
+    // console.log(d, countryKey);
+    return d;
+  }
+
+  getTasksFromEntityType(data: object) {
+    let d = this.taskTypes.select('entityTypeKey', data['entityTypeKey']);
+    console.log(d, data);
+
+    return d;
+  }
+
+  getTasksFromCountry(data: object) {
+    return this.taskTypes.select('countryKey', data['countryKey']);
   }
 
   // getAnniversaryMonths(){
@@ -184,12 +226,12 @@ export class DataService {
   // }
 
   public getEntityHeadingsMap(
-    enumEntityType: M.EnumEntityType
+    enumEntityType: E.EnumEntityType
   ): Map<string, string> {
     let m: Map<string, string>;
 
     switch (enumEntityType) {
-      case M.EnumEntityType.Company:
+      case E.EnumEntityType.Company:
         m = new Map(eval(D.mapCompanyHeadings));
         break;
       default:
@@ -201,11 +243,11 @@ export class DataService {
 
   public getEntitiesByKeyField(
     fieldNameKey: string,
-    optionsArray?: any[],
+    optionsObject?: object,
     keysArray?: any[]
   ) {
     let f = fieldNameKey;
-    let s: M.EnumEntityType;
+    let s: E.EnumEntityType;
 
     this.entityTypes.forEach((value, key, map) => {
       let keyName = value['keyName'];
@@ -214,31 +256,34 @@ export class DataService {
         s = key;
       }
     });
-    let d = this.getEntities(s, optionsArray, keysArray);
+    let d = this.getEntities(s, optionsObject, keysArray);
     if (d) return d;
     else console.log('Store not found, field:' + fieldNameKey);
     return;
   }
 
   public getEntities(
-    enumSource: M.EnumEntityType,
-    optionsArray?: any[],
+    enumSource: E.EnumEntityType,
+    optionsObject?: object,
     keysArray?: any[] // used to get a subset of the Model.Entities
   ): M.Entities<M.AnyEntity> {
     let v: M.Entities<M.AnyEntity>;
     let source = this.entityTypes.get(enumSource);
     if (source) {
       let sourceType = source.sourceType;
-      if (sourceType == 'json' || sourceType == 'redirect') v = eval('this.' + source.storeName);
-      else if (sourceType=='function'){
+      // let v = eval('this.' + source.storeName);
+      v = this[source.storeName];
+      if (sourceType == 'json' || sourceType == 'redirect') return v;
+      else if (sourceType == 'function') {
         // must be a function
-        let f = 'this.' + source.storeName + '()';
-        if (optionsArray)
-          f = 'this.' + source.storeName + '(' + optionsArray + ')';
-        v = eval(f);
+        if (optionsObject) {
+          return this[source.storeName](optionsObject);
+        } else {
+          return this[source.storeName]();
+        }
       }
     } else {
-      console.log('Source not found, type:' + enumSource);
+      console.log('Error: Source not found, type:' + enumSource);
     }
 
     if (v) {
@@ -255,107 +300,18 @@ export class DataService {
       }
     } else {
       // entities not found
-      console.log('Not found entities for:' + enumSource);
+      console.log('Not found entities for type:' + enumSource);
     }
-    //if (!v) console.log('Dataset not found, type:', M.EnumEntityType)
+    //if (!v) console.log('Dataset not found, type:', E.EnumEntityType)
     return v;
   }
 
-  public getWorkFlowSample(): M.WorkFlow {
-    let workFlow = new M.WorkFlow(this);
-    workFlow.name = 'Amend company registered address';
-    workFlow.description = 'Execute a company secretariat task';
-
-    let a = new M.TaskFlowSelect(this);
-    a.name = 'Country of the company';
-    a.sourceType = M.EnumEntityType.CountryWithTasks;
-    workFlow.rootTask = a;
-
-    let b1 = new M.TaskFlowMessage(this);
-    b1.name = 'System message';
-    b1.description = 'Tasks have not been setup for this country';
-    a.addNextFork(b1, 83, '==');
-
-    // let b2 = new M.TaskFlowMessage(this);
-    // b2.name = '2 1';
-    // b2.description = '0 1 Message';
-    // b1.addNext(b2);
-
-    let c1 = new M.TaskFlowMessage(this);
-    c1.name = 'System message';
-    c1.description = 'Tasks have not been setup for this country';
-    a.addNextFork(c1, 111, '==');
-
-    let c2 = new M.TaskFlowMessage(this);
-    c2.name = '1 1';
-    c1.description = '1 1 Message';
-    c1.addNext(c2);
-
-    let b = new M.TaskFlowSelect(this);
-    b.name = 'Company to be amended';
-    b.sourceType = M.EnumEntityType.CompaniesFromCountry;
-    a.addNextFork(b, 29, '==');
-
-    let c = new M.TaskFlowForm(this);
-    c.name = 'New address';
-    c.addInput('address', 'Amendment', 'New address for the company');
-    b.addNext(c);
-
-    let d = new M.TaskFlowUploadDocs(this);
-    d.name = 'Upload supporting files';
-    c.addNext(d);
-
-    let e = new M.TaskFlowForm(this);
-    e.name = 'CoR 21.1';
-    e.addInput('date', 'Date of change of the address', '');
-    e.addInput(
-      'date',
-      'Effective date',
-      'At least five business days after filling'
-    );
-    d.addNext(e);
-
-    let e1 = new M.TaskFlowConfirm(this);
-    e1.name = 'Request approval';
-    e.addNext(e1);
-
-    let e2 = new M.TaskFlowConfirm(this);
-    e2.name = 'Approval received';
-    e2.value = true;
-    e1.addNext(e2);
-
-    let f = new M.TaskFlowSubmitDocs(this);
-    f.name = 'Submit following files to CIPC';
-    e2.addNext(f);
-
-    let g = new M.TaskFlowForm(this);
-    g.name = 'Submission to CIPC';
-    g.addInput('text', 'Reference code', 'Reference code of the application');
-    g.addInput('checkbox', 'Confirm submission', '');
-    f.addNext(g);
-
-    let h = new M.TaskFlowReminder(this);
-    h.name = 'Set reminder to follow up CIPC';
-    h.offsetDays = 10;
-    g.addNext(h);
-
-    let i = new M.TaskFlowConfirm(this);
-    i.name = 'Confirm approval from CIPC';
-    h.addNext(i);
-
-    let j = new M.TaskFlowUploadDocs(this);
-    j.name = 'Upload approval files from CIPC';
-    i.addNext(j);
-
-    let k = new M.TaskFlowConfirm(this);
-    k.name = 'Confirm completion of task';
-    j.addNext(k);
-
-    let l = new M.TaskFlowMessage(this);
-    l.name = 'End of task';
-    l.description = 'Task has been completed';
-    k.addNext(l);
-
+  getWorkFlow(): M.WorkFlow {
+    let workFlow = new M.WorkFlow(this, 'workflow');
+    workFlow.name = 'Workflow';
+    workFlow.description = 'Execute a company secretarial task';
+    workFlow = W.getWorkFlow(workFlow, this);
+    workFlow.start();
     return workFlow;
   }
 
@@ -456,10 +412,6 @@ export class DataService {
   //   return this.taskStatus;
   // }
 
-  getTaskTypes() {
-    return this.taskTypes;
-  }
-
   getContactPreferences() {
     return this.contactPreferences;
   }
@@ -505,15 +457,9 @@ export class DataService {
     return e;
   }
 
-  getCompaniesFromCountry(countryKey: number) {
-    // let e = this.companies.getClearCopy()
-    // this.companies.forEach((value, map) => {
-    //   if (countrKey === value.countryKey) {
-    //     e.add(value);
-    //   }
-    // });
-    // return e;
-    return this.companies.select('countryKey',countryKey);
+  getCompaniesFromCountry(data: object) {
+    let d = this.companies.select('countryKey', data['countryKey']);
+    return d;
   }
 
   getIndividuals() {

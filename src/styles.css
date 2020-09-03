@@ -374,12 +374,13 @@ td.info > a {
   font-weight: var(--bold);
 }
 
+/*rgb(240, 90, 120);*/
 .info {
-  background-color: rgb(240, 90, 120);
+  background-color: var(--color-light); 
 }
-
+/*rgb(240, 90, 120);*/
 .panel {
-  border-color: rgb(240, 90, 120);
+  border-color: var(--color-light);
 }
 
 /* .a > strong {
@@ -892,19 +893,26 @@ background-color: rgba(0, 0, 0, 0);
 }
 
 .panel-primary > .panel-heading {
-  background-color: rgb(170, 5, 45);
+  background-color: var(--color-dark);
   color: white;
   border-color: var(--color-dark);
-  /* background-image: linear-gradient(var(--color-dark), var(--color-bright)); */
 }
+
+/* background-image: linear-gradient(var(--color-dark), var(--color-bright)); */
+/*rgb(170, 5, 45);*/
+/* .panel-success > .panel-heading {
+  background-color: rgb(114,163,9);
+  color: white;
+  border-color: var(--color-dark);
+} */
 .panel-primary > .panel-heading:hover {
-  background-color: rgb(170, 5, 45);
+  background-color: var(--color-dark);
   color: white;
   border-color: var(--color-dark);
   /* background-image: linear-gradient(var(--color-bright), var(--color-dark)); */
 }
 .panel-info > .panel-heading {
-  background-color: rgb(175, 20, 75);
+  background-color: var(--color-dark);
   color: white;
   border-color: var(--color-dark);
 }

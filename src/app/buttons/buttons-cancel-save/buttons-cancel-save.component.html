@@ -1,9 +1,9 @@
 <div class="btn-group pull-right">
-  <a href="#" class="btn btn-info btn-xs" (click)="doSave()">
+  <a [attr.id] = "eid + '-save'" href="#" class="btn btn-info btn-xs" (click)="doSave()">
     <mat-icon aria-hidden="true" aria-label="Entities">cloud_done</mat-icon>
     <span [hidden]="glyphOnly"> Save</span></a
   >
-  <a href="#" class="btn btn-info btn-xs" (click)="doCancel()">
+  <a [attr.id] = "eid + '-cancel'" href="#" class="btn btn-info btn-xs" (click)="doCancel()">
     <span [hidden]="glyphOnly">Cancel</span>
     <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
   </a>

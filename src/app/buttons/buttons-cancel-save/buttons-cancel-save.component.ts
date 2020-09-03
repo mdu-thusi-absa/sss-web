@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-buttons-cancel-save',
@@ -12,7 +13,10 @@ export class ButtonsCancelSaveComponent implements OnInit {
   @Output() onSave = new EventEmitter();
   
 
-  constructor() { }
+  eid = 'buttons-toolbar-button'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

@@ -5,9 +5,9 @@ import {
   AnyEntity,
   Entities,
   EntityFunctional,
-  EnumEntityType,
 } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
+import {EnumEntityType} from 'src/app/data/data-entityTypes'
 
 @Component({
   selector: 'app-entity-details',

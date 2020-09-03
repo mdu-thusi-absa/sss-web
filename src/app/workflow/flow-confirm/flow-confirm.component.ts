@@ -8,10 +8,11 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-confirm.component.css'],
 })
 export class FlowConfirmComponent implements OnInit {
-  @Input() taskFlow = new TaskFlowConfirm(this.data);
+  @Input() taskFlow: TaskFlowConfirm;
   value = false;
   @Output() onSaveNext = new EventEmitter();
   @Input() showSavePrev = false;
+  @Input() stepNumber = 1
 
   constructor(public data:DataService) {}
 

@@ -10,13 +10,12 @@ import { data } from 'jquery';
 })
 export class FlowTaskComponent implements OnInit {
   title = 'Sample';
-  @Input() workFlow = new WorkFlow(this.data);
+  workFlow: WorkFlow
 
   constructor(public data: DataService) {}
 
   ngOnInit(): void {
-    this.workFlow = this.data.getWorkFlowSample();
-    this.workFlow.start();
+    this.workFlow = this.data.workFlow;
   }
 
   doSaveNext(taskIndex: number) {

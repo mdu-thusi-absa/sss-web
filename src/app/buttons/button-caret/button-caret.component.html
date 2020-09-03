@@ -3,6 +3,7 @@
   data-toggle="collapse"
   [attr.data-target]="'#' + target"
   (click)="doClick()"
+  [attr.id] = "eid"
 >
   <label class="nobottom text-primary-bold" style="cursor: pointer;">{{ title }} </label
   ><span

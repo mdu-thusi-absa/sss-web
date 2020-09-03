@@ -8,9 +8,10 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-set-reminder.component.css']
 })
 export class FlowSetReminderComponent implements OnInit {
-  @Input() taskFlow = new TaskFlowReminder(this.data);
+  @Input() taskFlow: TaskFlowReminder;
   @Input() showSavePrev = false;
   @Output() onSaveNext = new EventEmitter();
+  @Input() stepNumber = 1
   
   constructor(public data:DataService) { }
 

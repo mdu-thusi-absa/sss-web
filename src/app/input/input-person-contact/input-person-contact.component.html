@@ -6,7 +6,7 @@
       <a
         href="#"
         data-toggle="collapse"
-      [attr.data-target]="'#contact-' + data.getID(title)"
+      [attr.data-target]="'#contact-' + eid"
         style="
           white-space: nowrap;
           display: inline-block;
@@ -23,7 +23,7 @@
     <div
       class="panel panel-body noborder nobottom less-padding collapse"
       [class.in]="!hideBody"
-      id="{{ 'contact-' + data.getID(title) }}"
+      id="{{ 'contact-' + eid }}"
       style="margin-top: 0px;"
     >
 

@@ -8,9 +8,10 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-upload-docs.component.css']
 })
 export class FlowUploadDocsComponent implements OnInit {
-  @Input() taskFlow = new TaskFlowUploadDocs(this.data);
+  @Input() taskFlow: TaskFlowUploadDocs;
   @Input() showSavePrev = false;
   @Output() onSaveNext = new EventEmitter();
+  @Input() stepNumber = 1
 
   constructor(public data: DataService) { }
 

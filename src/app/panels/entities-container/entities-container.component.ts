@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { Entities, AnyEntity, EnumEntityType } from 'src/app/data/models';
+// import { Entities, AnyEntity} from 'src/app/data/models';
+import {EnumEntityType} from 'src/app/data/data-entityTypes'
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 // import { MatCardModule } from '@angular/material/card';
 // import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';

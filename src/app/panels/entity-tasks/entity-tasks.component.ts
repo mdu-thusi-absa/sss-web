@@ -340,9 +340,8 @@ export class EntityTasksComponent implements OnInit {
 
   ];
 
-  workFlow: WorkFlow;
+
   constructor(public data: DataService) { 
-    this.workFlow = data.getWorkFlowSample();
   }
 
   ngOnInit(): void {

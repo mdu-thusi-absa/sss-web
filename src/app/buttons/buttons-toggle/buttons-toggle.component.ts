@@ -18,7 +18,10 @@ export class ButtonsToggleComponent implements OnInit {
 
   @Output() onToggle = new EventEmitter();
 
-  constructor(public data: DataService) { }
+  eid = 'buttons-toggle'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

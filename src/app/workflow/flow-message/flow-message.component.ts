@@ -9,12 +9,13 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-message.component.css']
 })
 export class FlowMessageComponent implements OnInit {
-  @Input() taskFlow = new TaskFlowMessage(this.data);
+  @Input() taskFlow: TaskFlowMessage;
   value = false;
   @Output() onSaveNext = new EventEmitter();
   @Input() showClose = false;
   @Input() showSaveNext = false;
   @Input() showSavePrev = false;
+  @Input() stepNumber = 1
 
   constructor(public data:DataService) {}
 

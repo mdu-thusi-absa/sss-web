@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { Entity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-button-caret',
@@ -19,7 +20,10 @@ export class ButtonCaretComponent implements OnInit {
 
   @Output() onClick = new EventEmitter();
 
-  constructor() { }
+  eid = 'buttons-caret'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

@@ -11,11 +11,11 @@ import {
   Entities,
   Entity,
   AnyEntity,
-  EnumEntityType,
 } from '../../data/models';
 import { DataService } from 'src/app/data/data.service';
-import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
-import { ExecException } from 'child_process';
+// import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
+// import { ExecException } from 'child_process';
+import {EnumEntityType} from 'src/app/data/data-entityTypes'
 
 @Component({
   selector: 'app-entities',

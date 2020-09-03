@@ -8,6 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { Entity } from 'src/app/data/models';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-buttons-input-select',
@@ -63,7 +64,10 @@ export class ButtonsInputSelectComponent implements OnInit {
 
   @ViewChild('inputFilter') inputFilter: ElementRef;
 
-  constructor() {}
+  eid = 'buttons-input-select'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {}
 

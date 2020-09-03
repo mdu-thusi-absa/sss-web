@@ -16,7 +16,10 @@ export class ButtonsToolbarButtonComponent implements OnInit {
 
   @Output() onClick = new EventEmitter();
 
-  constructor(public data: DataService) { }
+  eid = 'buttons-toolbar-button'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

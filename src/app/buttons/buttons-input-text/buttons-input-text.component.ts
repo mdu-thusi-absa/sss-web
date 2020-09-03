@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { DataService } from 'src/app/data/data.service';
 
 @Component({
   selector: 'app-buttons-input-text',
@@ -16,7 +17,10 @@ export class ButtonsInputTextComponent implements OnInit {
   @Input() showCD = false;
   @Input() showCheck = false;
 
-  constructor() { }
+  eid = 'buttons-input-text'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }
