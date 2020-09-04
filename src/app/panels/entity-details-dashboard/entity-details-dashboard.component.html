@@ -15,30 +15,30 @@
 
     <app-label-h [title]="'Dashboard: reminders'" [hr]="false"></app-label-h>
     <app-input-table
-    [headings]="['Date/Time','Title', 'Description']"
-    [fields]="['dateTime','name', 'description']"
+    [headings]="['Start','End','Title']"
+    [fields]="['start','end','name']"
     [withCheckbox]="true"
-    [entities]="data.meetings"
+    [entities]="data.meetings.slice(0,1)"
     [inputType]="'reminder'"
   ></app-input-table>
 
   <app-label-h [title]="'Dashboard: awaiting authorisation'" [hr]="false"></app-label-h>
-    <app-input-table
-    [headings]="['Date/Time','Title', 'Description']"
-    [fields]="['dateTime','name', 'description']"
-    [withCheckbox]="true"
-    [entities]="data.meetings"
-    [inputType]="'reminder'"
-  ></app-input-table>
+  <app-input-table
+  [headings]="['Start','End','Title']"
+  [fields]="['start','end','name']"
+  [withCheckbox]="true"
+  [entities]="data.meetings.slice(2,4)"
+  [inputType]="'reminder'"
+></app-input-table>
 
   <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="false"></app-label-h>
-    <app-input-table
-    [headings]="['Date/Time','Title', 'Description']"
-    [fields]="['dateTime','name', 'description']"
-    [withCheckbox]="false"
-    [entities]="data.meetings"
-    [inputType]="'reminder'"
-  ></app-input-table>
+  <app-input-table
+  [headings]="['Start','End','Title']"
+  [fields]="['start','end','name']"
+  [withCheckbox]="true"
+  [entities]="data.meetings.slice(5,8)"
+  [inputType]="'reminder'"
+></app-input-table>
   </div>
   
 </form>

@@ -15,7 +15,7 @@ import {
 import { DataService } from 'src/app/data/data.service';
 // import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 // import { ExecException } from 'child_process';
-import {EnumEntityType} from 'src/app/data/data-entityTypes'
+import { EnumEntityType } from 'src/app/data/data-entityTypes';
 
 @Component({
   selector: 'app-entities',
@@ -102,13 +102,11 @@ export class EntitiesComponent implements OnInit {
     this.isLoadAll = this.isLoadAll || this.entityTypeKey != +event;
     this.entityTypeKey = +event;
 
-    this.entityTypeNamePlural = this.data.entityTypes.get(+event).name;
+    this.entityTypeNamePlural = this.data.entityTypes.get(+event)['pluralName'];
     this.entityTypeName = this.data.entityTypes
       .get(this.entityTypeKey)
       .name.toLowerCase();
-
     this.entities = this.data.getEntities(this.entityTypeKey);
-    // console.log(this.entities);
 
     this.onDashboardChange.emit(this.entityTypeKey);
     this.calcIsHidden();
@@ -306,8 +304,9 @@ export class EntitiesComponent implements OnInit {
       this.entityTypeKey == EnumEntityType.Setting
     ) {
       this.doEntityTypeChange(entityKey);
+    } else {
+      this.selectedEntityKey = entityKey;
+      this.onEntityChange.emit(this.selectedEntityKey);
     }
-    this.selectedEntityKey = entityKey;
-    this.onEntityChange.emit(this.selectedEntityKey);
   }
 }

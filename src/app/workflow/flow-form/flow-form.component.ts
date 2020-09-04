@@ -19,12 +19,9 @@ export class FlowFormComponent implements OnInit {
 
   ngOnInit(): void {
     let fieldName = this.taskFlow.entityFieldKey
-    console.log(this.taskFlow.workflowValuesObject)
     if (fieldName){
-      console.log(this.taskFlow.workflowValuesObject)
       let k = this.taskFlow.workflowValuesObject[fieldName]
       this.entity = this.data.getEntitiesByKeyField(fieldName).get(k)
-      console.log(k,this.entity);
     }
   }
 
@@ -38,8 +35,6 @@ export class FlowFormComponent implements OnInit {
 
   getEntities(type: string, fieldName: string): Entities<Entity>{
     if (type=='select-entity'){
-      // console.log(fieldName,this.entity[fieldName]);
-      
       return this.data.getEntitiesByKeyField(fieldName)
     }
   }

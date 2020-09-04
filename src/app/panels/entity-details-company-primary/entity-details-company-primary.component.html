@@ -58,7 +58,7 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [title]="'Entity portolios'"
-  [values]="data.getPortfolios()"
+  [values]="data.portfolios"
   [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
@@ -71,12 +71,12 @@
   [doHideByFilter]="true"
   [titleLeft]="'Country'"
   [placeholderLeft]="'Country of Incorporation'"
-  [valuesLeft]="data.getCountries()"
+  [valuesLeft]="data.countries"
   [valueLeft]="entity.countryKey"
   (onChangeLeft)="entity.countryKey = $event; onDirty.emit()"
 
   [titleRight]="'Industry'"
-  [valuesRight]="data.getIndustries()"
+  [valuesRight]="data.industries"
   [valueRight]="entity.industryKey"
   (onChangeRight)="entity.industryKey = $event; onDirty.emit()"
 
@@ -124,7 +124,7 @@
   [placeholderRight]="
     'Anniversary Date (month) of the incorporation of the entity'
   "
-  [valuesRight]="data.getMonths()"
+  [valuesRight]="data.months"
   [valueRight]="entity.anniversaryMonthKey"
   (onChangeRight) = "entity.anniversaryMonthKey = $event; onDirty.emit()"
 
@@ -149,7 +149,7 @@
 
   [typeRight]="'select-entity'"
   [titleRight]="'Financial Year End (month)'"
-  [valuesRight]="data.getMonths()"
+  [valuesRight]="data.months"
   [valueRight]="entity.financialYearEndMonthKey"
   [showAddRight]="false"
   [showDeleteRight]="false"

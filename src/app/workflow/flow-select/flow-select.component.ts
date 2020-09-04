@@ -45,7 +45,6 @@ export class FlowSelectComponent implements OnInit {
   }
 
   doChange(event: any) {
-    console.log(event);
     
     this.taskFlow.errorMessage = ''
     this.value = +event;
@@ -56,7 +55,6 @@ export class FlowSelectComponent implements OnInit {
   doSaveNext(){
     this.taskFlow.errorMessage = ''
     this.taskFlow.value = +this.value;
-    console.log(this.taskFlow.value);
     
     this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name
     this.onSaveNext.emit();

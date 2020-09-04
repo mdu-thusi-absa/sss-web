@@ -81,7 +81,7 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [title]="'Access Companies as Secretary'"
-  [values]="data.companies"
+  [values]="data.getCompanies()"
   [showCheck]="false"
 >
 </app-input-select-checkbox-duo>
@@ -91,7 +91,7 @@
   [filterText]="filterText"
   [doHideByFilter]="true"
   [title]="'Access Companies as View-Only'"
-  [values]="data.companies"
+  [values]="data.getCompanies()"
   [showCheck]="false"
 >
 </app-input-select-checkbox-duo> -->
@@ -148,7 +148,7 @@
       [valueLeft]="false"
       [typeRight]="'select-checkbox'"
       [titleRight]="'Select specific companies'"
-      [valuesRight]="data.companies"
+      [valuesRight]="data.getCompanies()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"
@@ -167,7 +167,7 @@
       [valueLeft]="false"
       [typeRight]="'select-checkbox'"
       [titleRight]="'Select specific companies'"
-      [valuesRight]="data.companies"
+      [valuesRight]="data.getCompanies()"
       [valueRight]="0"
       (onFile)="doFile($event)"
       (onRecord)="doRecord($event)"

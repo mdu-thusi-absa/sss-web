@@ -7,6 +7,9 @@ import { etLocale } from 'ngx-bootstrap/chronos';
 import { data } from 'jquery';
 import { DataService } from './data.service';
 import { EnumEntityType } from './data-entityTypes';
+import * as H from './data-headings';
+import * as J from './data-json.module';
+import { throwError } from 'rxjs';
 
 export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
@@ -14,9 +17,6 @@ export class Entity {
   public description = '';
   public isActive = false;
   public suffix = '';
-  public jsonSource = '';
-  public sourceType = 'json'; //or function for on the fly or from DB
-  public storeName = ''; //name of a variable to store data in
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
 
@@ -100,39 +100,143 @@ export class Entity {
     }
   }
 }
-// export class Country extends Entity {
-//   public type = 'country';
-//   public cities = new Entities<City>(City);
 
-//   constructor(public name: string) {
-//     super(name);
-//     this.cities.add(new City('-NA-'));
-//   }
+export class EntityType extends Entity {
+  public jsonSource = '';
+  public sourceType = 'json'; //or function for on the fly or from DB
+  public storeName = ''; //name of a variable to store data in
+  public headingsSource = '';
+  public headingsMap: Map<string, string>; // map of fieldName, heading/label
+  public entities: Entities<AnyEntity>;
+  init() {
+    switch (this.key) {
+      case EnumEntityType.Address:
+        this.entities = new Entities<EntityAddress>(EntityAddress);
+        break;
+      case EnumEntityType.Address:
+        this.entities = new Entities<EntityAppointment>(EntityAppointment);
+        break;
+      case EnumEntityType.Auditor:
+        this.entities = new Entities<EntityAuditor>(EntityAuditor);
+        break;
+      case EnumEntityType.Company:
+        this.entities = new Entities<EntityCompany>(EntityCompany);
+        break;
+      case EnumEntityType.CompaniesForCountry:
+        this.entities = new Entities<EntityCompany>(EntityCompany);
+        break;
+      case EnumEntityType.Contact:
+        this.entities = new Entities<EntityContact>(EntityContact);
+        break;
+      case EnumEntityType.Custom:
+        this.entities = new Entities<EntityCustomField>(EntityCustomField);
+        break;
+      case EnumEntityType.Individual:
+      case EnumEntityType.IndividualForCountries:
+        this.entities = new Entities<EntityIndividual>(EntityIndividual);
+        break;
+      case EnumEntityType.Portfolio:
+        this.entities = new Entities<EntityPortfolio>(EntityPortfolio);
+        break;
+      case EnumEntityType.Portfolio:
+        this.entities = new Entities<EntityPortfolio>(EntityPortfolio);
+        break;
+      case EnumEntityType.Property:
+        this.entities = new Entities<EntityProperty>(EntityProperty);
+        break;
+      case EnumEntityType.Regulation:
+        this.entities = new Entities<EntityRegulation>(EntityRegulation);
+        break;
+      case EnumEntityType.Regulator:
+        this.entities = new Entities<EntityRegulator>(EntityRegulator);
+        break;
+      case EnumEntityType.Secretariat:
+        this.entities = new Entities<EntitySecretariat>(EntitySecretariat);
+        break;
+      case EnumEntityType.ShareCertificate:
+        this.entities = new Entities<EntityShareCertificate>(
+          EntityShareCertificate
+        );
+        break;
+      case EnumEntityType.Shareholding:
+        this.entities = new Entities<EntityShareholding>(EntityShareholding);
+        break;
+      case EnumEntityType.Template:
+        this.entities = new Entities<EntityTemplate>(EntityTemplate);
+        break;
+      case EnumEntityType.Trust:
+        this.entities = new Entities<EntityTrust>(EntityTrust);
+        break;
+      case EnumEntityType.User:
+        this.entities = new Entities<EntityUser>(EntityUser);
+        break;
+      case EnumEntityType.File:
+        this.entities = new Entities<EntityFile>(EntityFile);
+        break;
+      case EnumEntityType.Meeting:
+        this.entities = new Entities<EntityMeeting>(EntityMeeting);
+        break;
+      case EnumEntityType.Functional:
+        this.entities = new Entities<EntityFunctional>(EntityFunctional);
+        break;
+      case EnumEntityType.Legal:
+        this.entities = new Entities<EntityLegal>(EntityLegal);
+        break;
+      case EnumEntityType.Natural:
+        this.entities = new Entities<EntityNatural>(EntityNatural);
+        break;
+        case EnumEntityType.Attendance:
+          this.entities = new Entities<EntityAttendance>(EntityAttendance);
+        break;
+      case EnumEntityType.ParentCompany:
+      case EnumEntityType.HoldingParentCompany:
+        this.entities = new Entities<EntityCompany>(EntityCompany);
+        break;
+      case EnumEntityType.EntityType:
+        this.entities = new Entities<EntityType>(EntityType);
+        break;
+      case EnumEntityType.TaskType:
+        this.entities = new Entities<EntityTaskType>(EntityTaskType);
+      case EnumEntityType.Secretary:
+      case EnumEntityType.Lee:
+      case EnumEntityType.FinancialOfficer:
+      case EnumEntityType.PublicOfficer:
+      case EnumEntityType.AuditPartner:
+        this.entities = new Entities<EntityIndividual>(EntityIndividual);
+        break;
+      case EnumEntityType.Report:
+      case EnumEntityType.Month:
+      case EnumEntityType.FyeMonth:
+      case EnumEntityType.AnniversaryMonth:
+      default:
+        this.entities = new Entities<Entity>(Entity);
+        break;
+    }
+    if (this.sourceType == 'json') {
+      try {
+        this.entities.fromJSON(J[this.jsonSource]);
+      } catch (e) {
+        console.log(
+          'EntityType.init',
+          'failed to load JSON, type:',
+          this.key,
+          this.jsonSource
+        );
+        throw e;
+      }
+    }
+    if (this.headingsSource) {
+      this.headingsMap = new Map(eval(H[this.headingsSource]));
+      if (this.headingsMap.size==0){
+        this.headingsMap = new Map([['name','Name'],['suffix','Suffix']]);
+      }
+    }
+  }
+}
 
-//   public clone() {
-//     let t = new Country(this.name);
-//     t = Object.assign(t, this);
-//     return t;
-//   }
-
-//   addCity(city: City): Country {
-//     if (this.cities.size > 0) {
-//       if ((this.cities.get(0).name = '-NA-')) {
-//         this.cities.del(0);
-//       }
-//     }
-//     this.cities.add(city);
-//     return this;
-//   }
-// }
 export class EntityCity extends Entity {
   public type = EnumEntityType.City;
   public countryKey = -1;
-  // public clone() {
-  //   let t = new City(this.name);
-  //   t = Object.assign(t, this);
-  //   return t;
-  // }
 }
 export class EntityFile extends Entity {
   public type = EnumEntityType.File;
@@ -144,10 +248,18 @@ export class EntityFile extends Entity {
     return t;
   }
 }
+
+export class EntityTemplate extends EntityFile {
+  headingsMap: Map<string, string>;
+}
+
 export class EntityMeeting extends Entity {
   public type = EnumEntityType.Meeting;
-  dateTime: Date;
-  attendees = new Entities<EntityNatural>(EntityNatural);
+  start: Date;
+  end: Date
+  where = ''
+  notes = ''
+  attendances = new Entities<EntityAttendance>(EntityAttendance);
   files = new Entities<EntityFile>(EntityFile);
   public clone() {
     let t = new EntityFile(this.name);
@@ -182,20 +294,7 @@ export class EntityCustomField extends Entity {
     return t;
   }
 }
-// export class ContactEntity extends Entity {
-//   contactPersonKey: number;
-//   isOnLeave: boolean;
-//   comingBackDate: Date;
-//   contactPreferenceKey: number;
-//   email: string;
-//   cellPhone: string;
-//   landLine: string;
-//   public clone() {
-//     let t = new ContactEntity(this.name);
-//     t = Object.assign(t, this);
-//     return t;
-//   }
-// }
+
 export class EntityLegal extends EntityFunctional {
   public type = EnumEntityType.Legal;
   //customFields: CustomFields;
@@ -207,12 +306,6 @@ export class EntityLegal extends EntityFunctional {
     return t;
   }
   private name_: string;
-
-  // constructor(protected name: string){
-  //   super(name);
-  //   this.name_ = super.capitalise(name);
-  //   super.name = this.name;
-  // }
 
   get name() {
     return this.name_;
@@ -230,12 +323,6 @@ export class EntityLegal extends EntityFunctional {
   }
 }
 
-// export class Shareholder extends EntityLegal {
-//   sharesHolding: number; //only current, todo: historic record, types of shares
-//   public clone() {
-//     return new Shareholder(this.name);
-//   }
-// }
 //todo: Appointments, ShareCertificates, Shareholders collections
 export class EntityCompany extends EntityLegal {
   public type = EnumEntityType.Company;
@@ -400,9 +487,16 @@ export class EntityNatural extends EntityFunctional {
   }
 }
 
+export class EntityAttendance extends Entity{
+  individualKey: number
+  meetingKey: number
+  attendedIs: boolean
+}
+
 export class EntityIndividual extends EntityNatural {
   type = EnumEntityType.Individual;
-
+  secretaryIs = false
+  audutorIs = false
   public clone() {
     let t = new EntityIndividual(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
@@ -506,15 +600,7 @@ export class EntityRegulation extends EntityFunctional {
   countryKey = -1;
   regulatorEntities: Entities<EntityRegulator>;
 }
-// export class Person extends NaturalEntity{
-//   constructor(
-//     public surname: string,
-//     public firstName: string,
-//     public suffix: string,
-//   ) {
-//     super(surname,firstName,suffix);
-//   }
-// }
+
 export class EntityUser extends EntityNatural {
   public type = EnumEntityType.User;
   activationDate: Date;
@@ -706,7 +792,9 @@ export type AnyEntity =
   | EntityNatural
   | EntityCompany
   | EntityContact
-  | EntityAddress;
+  | EntityAddress
+  | EntityType
+  | EntityMeeting;
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;
@@ -827,10 +915,14 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   fromJSON(json: string, maxToLoad?: number, setType?: string) {
-    let array = JSON.parse(json);
-
-    if (setType) this.fromArray(array, maxToLoad, setType);
-    else this.fromArray(array, maxToLoad);
+    try {
+      let array = JSON.parse(json);
+      if (setType) this.fromArray(array, maxToLoad, setType);
+      else this.fromArray(array, maxToLoad);
+    } catch (e) {
+      console.log('fromJSON', this.EntityType, 'did not load');
+      throw e;
+    }
   }
 
   fromArray(data: any[], maxToLoad: number = -1, setType?: string) {
@@ -850,15 +942,6 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
       // }
     }
   }
-
-  // fromArray(type: string, entitiesArray: T[]) {
-  //   for (let i = 0; i < entitiesArray.length; i++) {
-  //     let a = entitiesArray[i];
-  //     // a = Object.assign(a,entitiesArray[i]);
-  //     a.type = type;
-  //     this.add(a);
-  //   }
-  // }
 
   get(key: number) {
     return super.get(key);
@@ -937,15 +1020,17 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     }
     return this;
   }
-}
 
-// export class Countries extends Entities<Country> {
-//   add(value: Country): Countries {
-//     if (!value.cities == null) value.cities = new Entities<City>(Country);
-//     super.set(super.size, value);
-//     return this;
-//   }
-// }
+  slice(fromKey: number, toKey: number):Entities<AnyEntity>{
+    let ks = this.all_keys
+    let d = this.getClearCopy()
+    for (let i = fromKey; i <= toKey; i++){
+      let v = this.get(i)
+      d.add(v)
+    }
+    return d
+  }
+}
 
 export class TaskFlowSubTaskCondition {
   constructor(
@@ -962,7 +1047,7 @@ export class TaskFlowSubTaskCondition {
       let mO = ['>', '<', '==', '!='];
       let mS = ['in', 'notin'];
       if (mO.indexOf(this.operator)) {
-        let f = v + this.operator + this.value
+        let f = v + this.operator + this.value;
         return eval(f);
       } else if (mS.indexOf(this.operator)) {
         if (this.operator == 'in') {
@@ -983,14 +1068,14 @@ export class TaskFlowSubTask {
     public conditions: TaskFlowSubTaskCondition[] = []
   ) {}
 
-  assert(data: object):boolean{
-    let r = true
+  assert(data: object): boolean {
+    let r = true;
     for (let i = 0; i < this.conditions.length; i++) {
       const e = this.conditions[i];
-      r = r && e.assert(data)
+      r = r && e.assert(data);
       if (!r) break;
-    }    
-    return r
+    }
+    return r;
   }
 }
 
@@ -1010,8 +1095,8 @@ export class TaskFlow {
   workflowValuesObject: any = '';
   subTasks: TaskFlowSubTask[] = [];
   hasFork = false;
-  errorMessage = ''
-  entityFieldKey = '' //to set the fieldNameKey to get entity to be worked on in the step
+  errorMessage = '';
+  entityFieldKey = ''; //to set the fieldNameKey to get entity to be worked on in the step
 
   constructor(protected data: DataService, public fieldName) {}
   init() {} // to be implemented by child classes, if they need to initialise data
@@ -1030,25 +1115,6 @@ export class TaskFlow {
     this.hasFork = true;
     this.subTasks.push(subTask);
   }
-
-  // getNext(): TaskFlow {
-  //   let t: TaskFlow = null;
-  //   if (this.subTasks.length > 0) {
-  //     t = this.subTasks[0].taskFlow;
-  //   } else {
-  //     for (let i = 0; i < this.subTasks.length; i++) {
-  //       let s = this.subTasks[i];
-  //       if (eval(this.value + s.conditionalOperator + s.conditionalValue)) {
-  //         t = this.subTasks[0].taskFlow;
-  //       }
-  //     }
-  //   }
-  //   return t;
-  // }
-
-  // getPrev(): TaskFlow {
-  //   return this.parent;
-  // }
 }
 
 export class TaskFlowSelect extends TaskFlow {
@@ -1132,6 +1198,7 @@ export class TaskFlowFormInput {
 export class TaskFlowForm extends TaskFlow {
   type = 'form';
   inputs: TaskFlowFormInput[] = [];
+  inputSourceType: EnumEntityType;
 
   addInput(
     fieldName: string,
@@ -1146,6 +1213,20 @@ export class TaskFlowForm extends TaskFlow {
     inp.description = description;
     this.inputs.push(inp);
     return this;
+  }
+
+  init() {
+    if (this.inputSourceType) {
+      let fields = this.data.getEntityHeadingsMap(this.inputSourceType);
+      fields.forEach((value, key, map) => {
+        this.addInput(
+          key as string,
+          this.data.getFieldTypeForName(key as string),
+          value as string,
+          ''
+        );
+      });
+    }
   }
 }
 
@@ -1162,7 +1243,7 @@ export class TaskFlowError extends TaskFlow {
 // getNext, getPrev: Follows the path with
 // rootTask: first TaskFlow. Build tree by using TaskFlow object add..., then assign to rootTask;
 export class WorkFlow extends TaskFlow {
-  type = 'workflow'
+  type = 'workflow';
   name = 'Workflow';
   private rootTask: TaskFlow = null;
   private currentTask: TaskFlow = null;
@@ -1171,8 +1252,8 @@ export class WorkFlow extends TaskFlow {
   public tasks: TaskFlow[] = [];
   public que: TaskFlow[] = []; // que of tasks to come back to when isEnd taskFlow is true
 
-  addNext(taskFlow: TaskFlow){
-    this.rootTask = taskFlow
+  addNext(taskFlow: TaskFlow) {
+    this.rootTask = taskFlow;
   }
 
   // loads the rootTask, and builds the obvious branch, until the first fork
@@ -1208,33 +1289,30 @@ export class WorkFlow extends TaskFlow {
         //   t.init();
         //   this.tasks.push(t);
         // }
-        if (t.isDone && !t.hasFork && t.subTasks.length==1) {
+        if (t.isDone && !t.hasFork && t.subTasks.length == 1) {
           t = t.subTasks[0].taskFlow;
           t.workflowValuesObject = this.collectValues();
-          console.log(t.workflowValuesObject);
-          
           t.init();
           this.tasks.push(t);
-        }
-        else if (t.isDone && t.hasFork) {
-          let notAdded = true
-          console.log('in fork', t.subTasks.length);
+        } else if (t.isDone && t.hasFork) {
+          let notAdded = true;
           for (let i = 0; i < t.subTasks.length; i++) {
             if (t.subTasks[i].assert(t.workflowValuesObject)) {
-              // console.log(fromTask.value + sOp + sV + ' is true');
               t = t.subTasks[i].taskFlow;
               t.workflowValuesObject = this.collectValues();
               t.init();
               this.tasks.push(t);
               this.build(t);
-              notAdded = false
+              notAdded = false;
               break;
             }
           }
           // check if a new task has been added
           // if not: show message
-          if (notAdded) t.errorMessage = 'No further steps are available for this option, please select another one'
-          else t.errorMessage = ''
+          if (notAdded)
+            t.errorMessage =
+              'No further steps are available for this option, please select another one';
+          else t.errorMessage = '';
         }
         return true;
       }
@@ -1283,17 +1361,14 @@ export class WorkFlow extends TaskFlow {
       // this.tasks = this.tasks.slice(0,this.currentTaskIndex_); //delete
       this.currentTask = this.tasks[this.currentTaskIndex_];
       this.currentTask.isCurrent = true;
-      if (this.currentTask.hasFork ) {
+      if (this.currentTask.hasFork) {
         let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
         this.tasks = v;
       }
 
       // if (this.currentTask.subTasks.length > 1) {
-      //   console.log(1,this.tasks);
-      //   console.log(2,this.currentTaskIndex_);
       //   let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
       //   this.tasks = v;
-      //   console.log(3,this.tasks);
       //   this.build(this.currentTask);
       // }
       return this.currentTask;
@@ -1309,4 +1384,3 @@ export class WorkFlow extends TaskFlow {
     return this.tasks.length;
   }
 }
-

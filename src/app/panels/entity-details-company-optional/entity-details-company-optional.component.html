@@ -7,13 +7,13 @@
   [isNarrow]="isNarrow"
   [typeLeft]="'select-entity'"
   [titleLeft]="'Appointed Company Secretary'"
-  [valuesLeft]="data.getCompanySercetaries()"
+  [valuesLeft]="data.secreataries"
   [valueLeft]="entity.secretariatKey"
   (onChangeLeft)="entity.appointedCompanySecretariatKey = $event; onDirty.emit()"
 
   [typeRight]="'person'"
   [titleRight]="'Absa group secretariat representative'"
-  [valuesRight]="data.getUsers()"
+  [valuesRight]="data.users"
   [valueRight]="entity.secretaryKey"
   (onChangeRight)="entity.clientSecretarialRepresentativeKey = $event; onDirty.emit()"
   (onFile)="doFile($event)"
@@ -30,13 +30,13 @@
 
   [typeLeft]="'person'"
   [titleLeft]="'Legal Entity Executive (LEE)'"
-  [valuesLeft]="data.getIndividuals()"
+  [valuesLeft]="data.individuals"
   [valueLeft]="entity.leeKey"
       (onChangeLeft)="entity.legalEntityExecutiveKey = $event; onDirty.emit()"
 
   [typeRight]="'person'"
   [titleRight]="'Entity Financial Officer'"
-  [valuesRight]="data.getIndividuals()"
+  [valuesRight]="data.individuals"
   [valueRight]="entity.financialOfficerKey"
       (onChangeRight)="entity.entityFinancialOfficerKey = $event; onDirty.emit()"
 
@@ -54,7 +54,7 @@
 
   [typeLeft]="'person'"
   [titleLeft]="'Public Officer (income tax)'"
-  [valuesLeft]="data.getIndividuals()"
+  [valuesLeft]="data.individuals"
   [valueLeft]="entity.publicOfficerKey"
       (onChangeLeft)="entity.publicOfficerKey = $event; onDirty.emit()"
 
@@ -224,7 +224,7 @@
             <div class="col-xs-6">
               <app-input-select
                 [title]="'Position'"
-                [values]="data.getPositions()"
+                [values]="data.positions"
                 [filterText]="filterText"
                 [value]="0"
               ></app-input-select>

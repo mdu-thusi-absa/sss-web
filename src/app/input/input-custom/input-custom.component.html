@@ -27,7 +27,7 @@
     
     [type]="customType"
     [title]="title + ' (' + customType + ') details'"
-    [values]="customType == 'person' ? data.getIndividuals() : values"
+    [values]="customType == 'person' ? data.individuals : values"
     [value]=""
     [showTitleInput]="false"
     (onFile)="doFile()"

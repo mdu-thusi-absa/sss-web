@@ -1,80 +1,22 @@
 import { Injectable } from '@angular/core';
 import * as M from './models';
 import * as W from './workflow';
-//import { EntityDetailsFilesComponent } from '../panels/entity-details-files/entity-details-files.component';
-// import { JsonPipe } from '@angular/common';
-// import { HttpClient } from '@angular/common/http';
-//import {jsonAccountingClasses, jsonAddresses, mapCompanyHeadings}  from './data-json.module';
-import * as D from './data-json.module';
+import * as H from './data-headings';
 import * as E from './data-entityTypes';
-// import { data } from 'jquery';
-//import { mapCompanyHeadings } from './data-json.module';
-//import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
+import { MatOptgroup } from '@angular/material/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   public lg = false;
-  entityTypes = new M.Entities<M.Entity>(M.Entity);
-  accountingClasses = new M.Entities<M.Entity>(M.Entity);
-  accountingClassTiers = new M.Entities<M.Entity>(M.Entity);
-  addresses = new M.Entities<M.EntityAddress>(M.EntityAddress);
-  attendees = new M.Entities<M.EntityMeetingGuest>(M.EntityMeetingGuest);
-  auditors = new M.Entities<M.EntityLegal>(M.EntityLegal);
-  businessAreas = new M.Entities<M.Entity>(M.Entity);
-  businessDivisions = new M.Entities<M.Entity>(M.Entity);
-  cities = new M.Entities<M.EntityCity>(M.EntityCity);
-  companies = new M.Entities<M.EntityCompany>(M.EntityCompany);
-  companyTypes = new M.Entities<M.Entity>(M.Entity);
-  consolidation = new M.Entities<M.Entity>(M.Entity);
-  contactPreferences = new M.Entities<M.Entity>(M.Entity);
-  countries = new M.Entities<M.Entity>(M.Entity);
-  countriesWithTasks = new M.Entities<M.Entity>(M.Entity);
-  entityStatuses = new M.Entities<M.Entity>(M.Entity);
-  entityStatusTiers = new M.Entities<M.Entity>(M.Entity);
-  files = new M.Entities<M.EntityFile>(M.EntityFile);
-  individuals = new M.Entities<M.EntityNatural>(M.EntityNatural);
-  industries = new M.Entities<M.Entity>(M.Entity);
-  legalClasses = new M.Entities<M.Entity>(M.Entity);
-  meetings = new M.Entities<M.EntityMeeting>(M.EntityMeeting);
-  months = new M.Entities<M.Entity>(M.Entity);
-  periods = new M.Entities<M.Entity>(M.Entity);
-  portfolios = new M.Entities<M.EntityPortfolio>(M.EntityPortfolio);
-  regulations = new M.Entities<M.EntityRegulation>(M.EntityRegulation);
-  reports = new M.Entities<M.Entity>(M.Entity);
-  secretariats = new M.Entities<M.EntityLegal>(M.EntityLegal);
-  taskStatuses = new M.Entities<M.Entity>(M.Entity);
-  templates = new M.Entities<M.EntityFile>(M.EntityFile);
-  users = new M.Entities<M.EntityUser>(M.EntityUser);
-  yesNo = new M.Entities<M.Entity>(M.Entity);
-  regulators = new M.Entities<M.EntityLegal>(M.EntityLegal);
-  shareholdings = new M.Entities<M.EntityShareholding>(M.EntityShareholding);
-  capacities = new M.Entities<M.Entity>(M.Entity);
-  properties = new M.Entities<M.EntityProperty>(M.EntityProperty);
-  appointments = new M.Entities<M.EntityAppointment>(M.EntityAppointment);
-  contactTypes = new M.Entities<M.Entity>(M.Entity);
-  contacts = new M.Entities<M.EntityContact>(M.EntityContact);
-  custom = new M.Entities<M.Entity>(M.Entity);
-
-  shareCertificates = new M.Entities<M.EntityShareCertificate>(
-    M.EntityShareCertificate
-  );
-  anniversaryMonths = new M.Entities<M.Entity>(M.Entity);
+  entityTypes = new M.Entities<M.EntityType>(M.EntityType);
 
   shareHolderTypes = new M.Entities<M.Entity>(M.Entity);
   menus = new M.Entities<M.Entity>(M.Entity);
-  trusts = new M.Entities<M.EntityTrust>(M.EntityTrust);
-  parentCompanies = this.companies;
-  holdingParentCompanies = this.companies;
-  countryWithTasks = new M.Entities<M.Entity>(M.Entity);
-  taskTypes = new M.Entities<M.EntityTaskType>(M.EntityTaskType);
   workFlow: M.WorkFlow;
   progress = 0;
 
-  // private capitaliseText(text: string){
-  //   return text.slice(0,1).toUpperCase() + text.slice(1)
-  // }
   getEntityFieldValue(
     entity: M.AnyEntity,
     fieldName: string
@@ -94,6 +36,7 @@ export class DataService {
       } else if (fieldName.slice(-4) == 'Keys') {
         // console.log('getEntityFieldValue', fieldName, '[0,1]');
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
+        
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-2) == 'Is') {
@@ -110,33 +53,18 @@ export class DataService {
   loadEntityTypes() {
     // static and DB entities
     try {
-      // console.log('trying entityTypes.fromJSON');
-
       this.entityTypes.fromJSON(E.jsonEntityTypes);
     } catch (e) {
-      // console.log('Loading entityTypes from JSON', e);
+      console.log('dataService', 'Loading entityTypes from JSON', e);
+      throw e;
     }
     this.entityTypes.forEach((value, key, map) => {
-      let sourceType = value.sourceType;
-
-      if (sourceType == 'json') {
-        // console.log('trying fromJSON',value.storeName);
-        let d = eval('this.' + value.storeName);
-        try {
-          d.fromJSON(E.mapJSON.get(key));
-        } catch (e) {
-          console.log(
-            'Error: Loading from JSON: key, store',
-            key,
-            value.storeName,
-            e
-          );
-        }
-      }
+      //let sourceType = value.sourceType;
+      value.init();
     });
   }
 
-  loadMenus(){
+  loadMenus() {
     let mTemp = new Map();
     this.entityTypes.forEach((value, key, map) => {
       if (value['dashboardIndex'] > -1) {
@@ -151,94 +79,40 @@ export class DataService {
     }
   }
 
-  loadCanHoldSharesIs(){
+  loadCanHoldSharesIs() {
     this.entityTypes.forEach((value, key, map) => {
       if (value['canHoldSharesIs']) this.shareHolderTypes.set(key, value);
     });
   }
 
   constructor() {
-    this.loadEntityTypes()
-    this.loadMenus()
-    this.loadCanHoldSharesIs()
+    // console.log (D['jsonAccountingClasses'])
+    this.loadEntityTypes();
+    this.loadMenus();
+    this.loadCanHoldSharesIs();
     this.workFlow = this.getWorkFlow();
   }
-
-  getDashboards() {
-    return this.menus;
-  }
-
-  getParentCompanies() {
-    return this.companies;
-  }
-
-  getHoldingParentCompanies() {
-    return this.companies;
-  }
-
-  getSecretaries() {
-    return this.individuals;
-  }
-
-  getLee() {
-    return this.individuals;
-  }
-
-  getEntityTypesFromCountry(data: object) {
-    let d = this.entityTypes.getClearCopy();
-    let countryKey = -1;
-    if (typeof data == 'object') {
-      countryKey = data['countryKey'];
-    } else {
-      countryKey = data as number;
-    }
-    this.taskTypes.forEach((value, key, map) => {
-      // console.log(value.countryKey);
-
-      if (countryKey == value.countryKey) {
-        if (!d.has(value.countryKey)) {
-          d.add(this.entityTypes.get(value.entityTypeKey));
-        }
-      }
-    });
-
-    // console.log(d, countryKey);
-    return d;
-  }
-
-  getTasksFromEntityType(data: object) {
-    let d = this.taskTypes.select('entityTypeKey', data['entityTypeKey']);
-    console.log(d, data);
-
-    return d;
-  }
-
-  getTasksFromCountry(data: object) {
-    return this.taskTypes.select('countryKey', data['countryKey']);
-  }
-
-  // getAnniversaryMonths(){
-  //   return this.months
-  // }
-
-  // variableName(varObj) {
-  //   return Object.keys({ varObj: 0 })[0];
-  // }
 
   public getEntityHeadingsMap(
     enumEntityType: E.EnumEntityType
   ): Map<string, string> {
     let m: Map<string, string>;
 
-    switch (enumEntityType) {
-      case E.EnumEntityType.Company:
-        m = new Map(eval(D.mapCompanyHeadings));
-        break;
-      default:
-        m = new Map(eval(`[['name','Name'],['suffix','Suffix']]`));
-        break;
+    m = this.entityTypes.get(enumEntityType).headingsMap;
+
+    if (!m) {
+      m = new Map(eval(`[['name','Name'],['suffix','Suffix']]`));
     }
     return m;
+  }
+
+  getEntityTypeForName(entityTypeName: string): E.EnumEntityType {
+    this.entityTypes.forEach((value, key, map) => {
+      if (value.name == entityTypeName) {
+        return key;
+      }
+    });
+    return null;
   }
 
   public getEntitiesByKeyField(
@@ -272,14 +146,29 @@ export class DataService {
     if (source) {
       let sourceType = source.sourceType;
       // let v = eval('this.' + source.storeName);
-      v = this[source.storeName];
-      if (sourceType == 'json' || sourceType == 'redirect') return v;
+      // v = this[source.storeName];
+      v = this.entityTypes.get(enumSource).entities;
+      if (sourceType == 'redirect') v = this[source.storeName];
+      else if (sourceType == 'json')
+        v = this.entityTypes.get(enumSource).entities;
       else if (sourceType == 'function') {
-        // must be a function
-        if (optionsObject) {
-          return this[source.storeName](optionsObject);
-        } else {
-          return this[source.storeName]();
+        try {
+          // must be a function
+          if (optionsObject) {
+            return this[source.storeName](optionsObject);
+          } else {
+            return this[source.storeName]();
+          }
+        } catch (e) {
+          console.log(
+            'getEntities',
+            enumSource,
+            optionsObject,
+            keysArray,
+            source,
+            e
+          );
+          throw e;
         }
       }
     } else {
@@ -288,6 +177,8 @@ export class DataService {
 
     if (v) {
       let r = v.getClearCopy(); // just the structure
+      
+      
       if (keysArray) {
         for (let i = 0; i < keysArray.length; i++) {
           const key = keysArray[i];
@@ -316,7 +207,7 @@ export class DataService {
   }
 
   getCountriesWithTasks() {
-    return this.countriesWithTasks;
+    return this.getEntities(E.EnumEntityType.CountryWithTasks);
   }
 
   getDefault(key: string): any {
@@ -352,11 +243,58 @@ export class DataService {
     }
   }
 
-  getCountries() {
-    return this.countries;
+  getFieldTypeForName(fieldName: string): string {
+    let v = 'text'; //Class,Code,Name,...
+    let lastWord = this.getLastWord(fieldName);
+    switch (lastWord) {
+      case 'Amount':
+      case 'Weight':
+      case 'Count':
+        v = 'number';
+        break;
+      case 'Index':
+      case 'Key':
+        v = 'select-entity';
+        break;
+      case 'Keys':
+        v = '';
+        break;
+      case 'Address':
+        v = 'address';
+        break;
+      case 'Date':
+        v = 'date';
+        break;
+      case 'Desc':
+        v = 'textarea';
+        break;
+      case 'Is':
+        v = 'checkbox';
+        break;
+    }
+    return v;
   }
-  getMonths() {
-    return this.months;
+
+  getLastWord(text: string): string {
+    let L = text.length;
+    let k = L - 1;
+    for (let i = L - 1; i > -1; i--) {
+      const a = text[i];
+      if (a == a.toUpperCase()) {
+        k = i;
+        break;
+      }
+    }
+    return text.slice(k);
+  }
+
+  // data getters:
+
+  get countries() {
+    return this.getEntities(E.EnumEntityType.Country);
+  }
+  get months() {
+    return this.getEntities(E.EnumEntityType.Month);
   }
 
   // getEntityTypes() {
@@ -364,72 +302,60 @@ export class DataService {
   // }
 
   //Business Area
-  getBusinessAreas() {
-    return this.businessAreas;
+  get businessAreas() {
+    return this.getEntities(E.EnumEntityType.BusinessArea);
   }
 
-  getBusinessDivisions() {
-    return this.businessDivisions;
+  get businessDivisions() {
+    return this.getEntities(E.EnumEntityType.BusinessDivision);
   }
 
-  getLegalClasses() {
-    return this.legalClasses;
+  get legalClasses() {
+    return this.getEntities(E.EnumEntityType.LegalClass);
   }
 
-  getEntityStatuses() {
-    return this.entityStatuses;
+  get entityStatuses() {
+    return this.getEntities(E.EnumEntityType.EntityStatus);
   }
 
-  getEntityStatusTiers() {
-    return this.entityStatusTiers;
+  get entityStatusTiers() {
+    return this.getEntities(E.EnumEntityType.EntityStatusTier);
   }
 
-  // getAccountingTier() {
-  //   return this.accountingTiers;
-  // }
-
-  // getRegulators() {
-  //   return this.regulators;
-  // }
-
-  // getRegulations() {
-  //   return this.regulations;
-  // }
-
-  // getTrusts(): Model.Entities<Model.EntityLegal> {
-  //   return this.trusts;
-  // }
-
-  getYesNo() {
-    return this.yesNo;
+  get cities(): M.Entities<M.EntityCity> {
+    return this.getEntities(E.EnumEntityType.City) as M.Entities<M.EntityCity>;
   }
 
-  getPeriods() {
-    return this.periods;
+  getCitiesForCountry(countryKey: number) {
+    return this.cities.select('countryKey', countryKey);
   }
 
-  // getTaskStatus() {
-  //   return this.taskStatus;
-  // }
-
-  getContactPreferences() {
-    return this.contactPreferences;
+  yesNo() {
+    return this.getEntities(E.EnumEntityType.YesNo);
   }
 
-  getPortfolios(): M.Entities<M.Entity> {
-    return this.portfolios;
+  get periods() {
+    return this.getEntities(E.EnumEntityType.Period);
   }
 
-  getAccountingClasses(): M.Entities<M.Entity> {
-    return this.accountingClasses;
+  get contactPreferences() {
+    return this.getEntities(E.EnumEntityType.ContactPreference);
   }
 
-  getIndustries() {
-    return this.industries;
+  get portfolios(): M.Entities<M.Entity> {
+    return this.getEntities(E.EnumEntityType.Portfolio);
   }
 
-  getCompanySercetaries() {
-    return this.secretariats;
+  get accountingClasses(): M.Entities<M.Entity> {
+    return this.getEntities(E.EnumEntityType.AccountingClass);
+  }
+
+  get industries() {
+    return this.getEntities(E.EnumEntityType.Industry);
+  }
+
+  get sercetaries() {
+    return this.individuals.select('secreatryIs', true);
   }
   customTypes = new M.Entities<M.Entity>(M.Entity)
     .add(new M.Entity('text'))
@@ -442,43 +368,114 @@ export class DataService {
     .add(new M.Entity('number'))
     .add(new M.Entity('contact'));
 
-  // .add(new NaturalEntity('Froning', 'Richard', 'Mayham'))
-  // .add(new NaturalEntity('Singundsdottir', 'Sara', 'Iceland'))
-  // .add(new NaturalEntity('Fraser', 'Mat', 'ABSA'));
-
-  getIndividualsFromCountries(countriesArray: number[]) {
-    let ps = this.getIndividuals();
-    let e = new M.Entities<M.EntityNatural>(M.EntityNatural);
+  getIndividualsForCountries(countriesArray: number[]) {
+    let ps = this.individuals;
+    let e = new M.Entities<M.EntityIndividual>(M.EntityIndividual);
     ps.forEach((value, key, map) => {
-      if (countriesArray.indexOf(value.countryKey) > -1) {
-        e.add(value);
+      if (countriesArray.indexOf(value['countryKey']) > -1) {
+        e.add(value as M.EntityIndividual);
       }
     });
     return e;
   }
 
-  getCompaniesFromCountry(data: object) {
-    let d = this.companies.select('countryKey', data['countryKey']);
+  getCompaniesForCountry(data: object) {
+    let d = this.getEntities(E.EnumEntityType.Company).select(
+      'countryKey',
+      data['countryKey']
+    );
     return d;
   }
 
-  getIndividuals() {
-    return this.individuals;
+  get individuals() {
+    return this.getEntities(E.EnumEntityType.Individual);
   }
 
-  getUsers() {
-    return this.users;
+  get users() {
+    return this.getEntities(E.EnumEntityType.User);
   }
 
-  // positions = new M.Entities<M.Entity>(M.Entity)
-  //   .add(new M.Entity('Director'))
-  //   .add(new M.Entity('Auditor'))
-  //   .add(new M.Entity('Secretary'))
-  //   .add(new M.Entity('Public Officer'));
-  // getPositions() {
-  //   return this.positions;
-  // }
-  //Regulatory Types
-  //Accounty Classifications
-  //...
+  get meetings() {
+    return this.getEntities(E.EnumEntityType.Meeting);
+  }
+
+  get reports() {
+    return this.getEntities(E.EnumEntityType.Report);
+  }
+
+  get files() {
+    return this.getEntities(E.EnumEntityType.File);
+  }
+
+  get attendances() {
+    return this.getEntities(E.EnumEntityType.Attendance);
+  }
+
+  get accountingClassTiers() {
+    return this.getEntities(E.EnumEntityType.AccountingClassTier);
+  }
+
+  get companies() {
+    return this.getEntities(E.EnumEntityType.Company);
+  }
+
+  get capacities() {
+    return this.getEntities(E.EnumEntityType.Capacity);
+  }
+
+  get templates() {
+    return this.getEntities(E.EnumEntityType.Template);
+  }
+
+  get taskStatuses() {
+    return this.getEntities(E.EnumEntityType.TaskStatus);
+  }
+  get taskTypes() {
+    return this.getEntities(E.EnumEntityType.TaskType);
+  }
+  get customFields() {
+    return this.getEntities(E.EnumEntityType.Custom);
+  }
+
+  get secretaries() {
+    //possibly filter for secretaryIs in individuals
+    return this.individuals.select('secretaryIs', true);
+  }
+
+  getEntityTypesForCountry(data: object) {
+    let d = this.entityTypes.getClearCopy();
+    let countryKey = -1;
+    if (typeof data == 'object') {
+      countryKey = data['countryKey'];
+    } else {
+      countryKey = data as number;
+    }
+    this.getEntities(E.EnumEntityType.TaskType).forEach((value, key, map) => {
+      // console.log(value.countryKey);
+
+      if (countryKey == value['countryKey']) {
+        if (!d.has(value['countryKey'])) {
+          d.add(this.entityTypes.get(value['entityTypeKey']));
+        }
+      }
+    });
+    return d;
+  }
+
+  getTasksForEntityType(data: object) {
+    let d = this.getEntities(E.EnumEntityType.TaskType).select(
+      'entityTypeKey',
+      data['entityTypeKey']
+    );
+    console.log(d, data);
+
+    return d;
+  }
+
+  getTasksForCountry(data: object) {
+    return this.getEntities(E.EnumEntityType.TaskType).select(
+      'countryKey',
+      data['countryKey']
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entities, EntityCity, Entity } from 'src/app/data/models';
 import { DataService } from 'src/app/data/data.service';
+import { EnumEntityType } from 'src/app/data/data-entityTypes';
 
 @Component({
   selector: 'app-input-address',
@@ -47,11 +48,7 @@ export class InputAddressComponent implements OnInit {
   ngOnInit(): void {
     this.countries = this.data.countries
     this.countryIndex = this.countries.currentKey
-    //this.cities = this.countries.get(this.getCountryIndex())['cities'];
-    //this.cities = this.data.cities; //.select('countryKey',this.getCountryIndex());
-    this.cities = this.data.cities.select('countryKey',this.getCountryIndex());
-    // console.log(this.countries)
-    // console.log(this.cities)
+    this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
     if (this.countryIndex < 0) {
       this.countryIndex = this.data.getDefault('countryKey');
     }
@@ -86,9 +83,7 @@ export class InputAddressComponent implements OnInit {
   }
 
   doAddCountry(event: any) {
-    //let c = this.countries.get(+event);
-    this.cities = this.data.cities.select('countryKey',this.getCountryIndex());
-    //this.cities = c['cities'];
+    this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
   }
 
   doChangeInputTextCountry(event: any) {
@@ -111,7 +106,7 @@ export class InputAddressComponent implements OnInit {
     this.countryIndex = +event;
     //this.cities = this.countries.get(this.countryIndex)['cities'];
     //console.log(event);
-    this.cities = this.data.cities.select('countryKey',this.getCountryIndex());
+    this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
     this.cityIndex = this.cities.currentKey    
   }
 

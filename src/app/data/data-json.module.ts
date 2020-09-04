@@ -17,68 +17,6 @@ export const mapEntityHeadings = `[
     ["suffix","Suffix"],
   ]`;
 
-export const mapCompanyHeadings = `[
-  ["suffix","Suffix"],
-  ["companyTypeKey","Entity type"],
-  ["internalCode","Internal code"],
-  ["leCode","LE number"],
-  ["registrationCode","Entity registration number"],
-  ["countryKey","Country of Incorporation"],
-  ["representativeOfficeIs","Representative Office "],
-  ["foreignBranchIs","Foreign Branch "],
-  ["incorporationDate","Incorporation date"],
-  ["businessAreaKey","Business area"],
-  ["legalClassKey","Legal classification"],
-  ["entityStatusKey","Entity status"],
-  ["entityStatusTierKey","Entity status tiering"],
-  ["incomeTax","Income tax number of the entity"],
-  ["vatCode","Value added tax (VAT) number"],
-  ["businessDivisionKey","Business division"],
-  ["consolidationKey","Consolidated/non-consolidated"],
-  ["consolidateUnder","Consolidate under (Bank/Group)"],
-  ["accountingClassKey","Accounting classification"],
-  ["accountingClassTierKey","Accounting classification tiering"],
-  ["parentCompanyKey","Direct Parent/Ownership (Major Shareholder)"],
-  ["parentHolding","Direct Parent - % ownership - "],
-  ["holdingParentCompanyKey","Absa shareholding in entity - Shareholder"],
-  ["holdingHolding","Absa shareholding in the entity – % "],
-  ["objectivePublishedDesc","Business objective/Nature of business activities per Annual Financial Statements"],
-  ["objectiveRegisteredDesc","Business objective/Nature of business activities per Memorandum of Incorporation"],
-  ["picScore","PI Score"],
-  ["secretariatKey","Appointed company secretary"],
-  ["secretaryKey","Absa group secretariat representative"],
-  ["leeKey","Legal entity executive (LEE)"],
-  ["leeAppointedDate","LEE appointed date"],
-  ["financialOfficerKey","Entity financial officer"],
-  ["foAppointedDate","Entity financial officer appointed date"],
-  ["publicOfficerKey","Public officer (income tax)"],
-  ["publicOfficerAppointedDate","Public office appointment date"],
-  ["auditorKey","Auditors"],
-  ["auditorAppointedDate","Auditor appointment date"],
-  ["auditPartnerKey","Audit Parner"],
-  ["auditAppointedDate","Audit partner appointment date"],
-  ["listedCode","Share code"],
-  ["isinCode","ISIN code"],
-  ["leiCode","LEI Number (Bloomberg code)"],
-  ["reutersCode","Reuters code"],
-  ["industryKey","Industry"],
-  ["anniversaryMonthKey","Anniversary  month"],
-  ["businessStartDate","Business start date"],
-  ["fyeMonthKey","FYE month"],
-  ["keepingCertificatesIs","Certificates are kept"],
-  ["connectedEntityIs","Interconnected within group"],
-  ["connectedEntityName","Interconnected entity name"],
-  ["currNameEffDate","Current name effective date"],
-  ["prevName","Previous name"],
-  ["prevNameEffDate","Previous name effective date"],
-  ["regulatorKeys","Regulators"],
-  ["portfolioKeys","Portfolios"],
-  ["shareCertificateKeys","Share Issues"],
-  ["propertyKeys","Properties"],
-  ["appointmentKeys","Appointments"],
-  ["addressKeys","Addresses"],
-  ["shareholdingKeys","Shareholding"]
-]`;
 
 export const jsonShareholdings = `[
   {"key":0,"name":"100","shareTypeKey":"0","individualKey":"1","companyKey":"0","shareCount":"100"},
@@ -427,23 +365,53 @@ export const jsonTemplates = `[
   {"key":6,"fileName":"moi.pdf","name":"CoR20","description":"Move Address"}
 ]`;
 
-export const jsonAttendees = `[
-  {"key":0,"surname":"AEGIDIUS","firstName":"FREDERICK","suffix":"Europe North","tasksCount":3,"isActive":true,"attended":false},
-  {"key":1,"surname":"ANDERSEN","firstName":"RASMUS","suffix":"Africa Middle East","tasksCount":1,"isActive":true,"attended":true},
-  {"key":2,"surname":"ANDERSON","firstName":"CODY","suffix":"West Coast","tasksCount":1,"isActive":false,"attended":true},
-  {"key":3,"surname":"ANDERSON","firstName":"ALEX","suffix":"Central East","tasksCount":3,"isActive":true,"attended":false},
-  {"key":4,"surname":"BRIDGES","firstName":"JOSH","suffix":"West Coast","tasksCount":1,"isActive":true,"attended":true}
-]`;
+export const jsonAttendances = `[
+  {"key":0,"meetingKey":0,"individualKey":0},
+  {"key":1,"meetingKey":0,"individualKey":1},
+  {"key":2,"meetingKey":1,"individualKey":2},
+  {"key":3,"meetingKey":1,"individualKey":3},
+  {"key":4,"meetingKey":2,"individualKey":4},
+  {"key":5,"meetingKey":2,"individualKey":5},
+  {"key":6,"meetingKey":3,"individualKey":6},
+  {"key":7,"meetingKey":3,"individualKey":7},
+  {"key":8,"meetingKey":4,"individualKey":8},
+  {"key":9,"meetingKey":4,"individualKey":9},
+  {"key":10,"meetingKey":5,"individualKey":10},
+  {"key":11,"meetingKey":5,"individualKey":11},
+  {"key":12,"meetingKey":6,"individualKey":12},
+  {"key":13,"meetingKey":6,"individualKey":13},
+  {"key":14,"meetingKey":7,"individualKey":14},
+  {"key":15,"meetingKey":7,"individualKey":15},
+  {"key":16,"meetingKey":8,"individualKey":16},
+  {"key":17,"meetingKey":8,"individualKey":17},
+  {"key":18,"meetingKey":9,"individualKey":18},
+  {"key":19,"meetingKey":9,"individualKey":19},
+  {"key":20,"meetingKey":10,"individualKey":20}]`
+  
 
-export const jsonMeetings = `[
-  {"key":0,"dateTime":"2020-05-12 12:30","name":"Introduction","description":"Roles and Responsibilities"},
-  {"key":1,"dateTime":"2020-06-12","name":"BRD","description":"Business Requirement Document"},
-  {"key":2,"dateTime":"2020-07-12","name":"Approvals","description":"Committee approvals"},
-  {"key":3,"dateTime":"2020-08-12","name":"POC","description":"Proof of Concept"},
-  {"key":4,"dateTime":"2020-09-12","name":"POC Approvals","description":"POC approvals and comments"},
-  {"key":5,"dateTime":"2020-10-12","name":"Version 1 Deployment","description":"First deployment and experience"},
-  {"key":6,"dateTime":"2020-11-12","name":"Testing","description":"User testing"}
-]`;
+  export const jsonMeetings = `[
+    {"key":0,"name":"Subject 1","where":"Here","start":"2020-12-01  15:06","end":"2020-12-01  16:06","fileKeys":[],"notes":""},
+    {"key":1,"name":"Subject 2","where":"There","start":"2021-03-14  16:24","end":"2021-03-14  17:24","fileKeys":[],"notes":""},
+    {"key":2,"name":"Subject 3","where":"Over there","start":"2021-02-25  06:15","end":"2021-02-25  07:15","fileKeys":[],"notes":""},
+    {"key":3,"name":"Subject 4","where":"Over here","start":"2021-03-19  00:56","end":"2021-03-19  01:56","fileKeys":[],"notes":""},
+    {"key":4,"name":"Subject 5","where":"Somewhere","start":"2020-10-02  03:22","end":"2020-10-02  04:22","fileKeys":[],"notes":""},
+    {"key":5,"name":"Subject 6","where":"Here","start":"2020-11-01  22:14","end":"2020-11-01  23:14","fileKeys":[],"notes":""},
+    {"key":6,"name":"Subject 7","where":"There","start":"2020-12-12  16:52","end":"2020-12-12  17:52","fileKeys":[],"notes":""},
+    {"key":7,"name":"Subject 8","where":"Over there","start":"2020-11-24  08:31","end":"2020-11-24  09:31","fileKeys":[],"notes":""},
+    {"key":8,"name":"Subject 9","where":"Over here","start":"2021-08-25  05:48","end":"2021-08-25  06:48","fileKeys":[],"notes":""},
+    {"key":9,"name":"Subject 10","where":"Somewhere","start":"2020-12-31  16:00","end":"2020-12-31  17:00","fileKeys":[],"notes":""},
+    {"key":10,"name":"Subject 11","where":"Here","start":"2021-06-12  15:38","end":"2021-06-12  16:38","fileKeys":[],"notes":""},
+    {"key":11,"name":"Subject 12","where":"There","start":"2021-06-18  16:52","end":"2021-06-18  17:52","fileKeys":[],"notes":""},
+    {"key":12,"name":"Subject 13","where":"Over there","start":"2020-11-06  06:59","end":"2020-11-06  07:59","fileKeys":[],"notes":""},
+    {"key":13,"name":"Subject 14","where":"Over here","start":"2021-04-09  20:07","end":"2021-04-09  21:07","fileKeys":[],"notes":""},
+    {"key":14,"name":"Subject 15","where":"Somewhere","start":"2021-03-12  02:22","end":"2021-03-12  03:22","fileKeys":[],"notes":""},
+    {"key":15,"name":"Subject 16","where":"Here","start":"2021-03-17  22:30","end":"2021-03-17  23:30","fileKeys":[],"notes":""},
+    {"key":16,"name":"Subject 17","where":"There","start":"2021-08-03  05:23","end":"2021-08-03  06:23","fileKeys":[],"notes":""},
+    {"key":17,"name":"Subject 18","where":"Over there","start":"2021-08-28  06:07","end":"2021-08-28  07:07","fileKeys":[],"notes":""},
+    {"key":18,"name":"Subject 19","where":"Over here","start":"2021-03-23  17:28","end":"2021-03-23  18:28","fileKeys":[],"notes":""},
+    {"key":19,"name":"Subject 20","where":"Somewhere","start":"2020-11-28  00:11","end":"2020-11-28  01:11","fileKeys":[],"notes":""},
+    {"key":20,"name":"Subject 21","where":"Over there","start":"2020-12-09  15:09","end":"2020-12-09  16:09","fileKeys":[],"notes":""}]`
+    
 
 export const jsonReports = `[
   {"key":0,"dateTime":"2020-05-12 12:30","name":"Organogram","description":"Structure of holdings"},

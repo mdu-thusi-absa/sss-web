@@ -32,7 +32,7 @@ export class PanelGlogalSearchComponent implements OnInit {
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    this.persons = this.data.getIndividuals();
+    // this.persons = this.data.getIndividuals();
     if (this.data.lg) console.log(new Date().getTime(),'loaded:dashboard');
     this.data.progress += 1;
   }
