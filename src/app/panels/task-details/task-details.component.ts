@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Entity, Task } from '../../data/models';
+import { Entity, Task } from '../../data/data-models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

@@ -28,7 +28,7 @@ export class EntitiesContainerComponent implements OnInit {
   name: string = 'Max';
   public appVersion: string = version;
 
-  showPanelRight = false;
+  showPanelRight = true;
   hidePosts = true;
   isHalf = false;
 

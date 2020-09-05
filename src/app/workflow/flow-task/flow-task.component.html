@@ -2,67 +2,53 @@
   [title]="workFlow.name"
   [collapsed]="false"
   [panelPrimary]="true"
+  [noPadding] = "true"
+  [showSaveNext] = "true"
+  [showSavePrev] = "workFlow.currentTaskIndex>0"
+  (onSaveNext) = "doSaveNext()"
+  (onSavePrev) = "doSavePrev()"
 >
     <!-- {{workFlow.currentTaskIndex+1}}:{{workFlow.countTasks}} -->
   {{ workFlow.description }}
-
   <ng-container *ngFor="let t of workFlow.tasks; let i = index">
     <app-flow-confirm
       *ngIf="t.type == 'confirm'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "i>0"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
+      [showSavePrev] = "workFlow.currentTaskIndex>0"
+      [showSaveNext] = "true"
     ></app-flow-confirm>
     <app-flow-select
       *ngIf="t.type == 'select'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "true"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
+      [showSavePrev] = "workFlow.currentTaskIndex>0"
+      [showSaveNext] = "true"
     ></app-flow-select>
     <app-flow-set-reminder
       *ngIf="t.type == 'set-reminder'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "i>0"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
     ></app-flow-set-reminder>
     <app-flow-submit-docs
       *ngIf="t.type == 'submit-docs'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "i>0"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
     ></app-flow-submit-docs>
     <app-flow-upload-docs
       *ngIf="t.type == 'upload-docs'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "i>0"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
     ></app-flow-upload-docs>
     <app-flow-form
       *ngIf="t.type == 'form'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "i>0"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
     ></app-flow-form>
     <app-flow-message
       *ngIf="t.type == 'message'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
-      [showSavePrev] = "i>0"
-      [showSaveNext] = "i < workFlow.tasks.length"
-      (onSaveNext) = "doSaveNext(i)"
-      (onSavePrev) = "doSavePrev(i)"
     ></app-flow-message>
   </ng-container>
 </app-input-panel>

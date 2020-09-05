@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as M from './models';
-import * as W from './workflow';
+import * as M from './data-models';
+import * as W from './data-workflow';
+import * as MW from './data-models-workflow';
 import * as H from './data-headings';
 import * as E from './data-entityTypes';
 import { MatOptgroup } from '@angular/material/core';
@@ -14,7 +15,7 @@ export class DataService {
 
   shareHolderTypes = new M.Entities<M.Entity>(M.Entity);
   menus = new M.Entities<M.Entity>(M.Entity);
-  workFlow: M.WorkFlow;
+  workFlow: MW.WorkFlow;
   progress = 0;
 
   getEntityFieldValue(
@@ -197,9 +198,10 @@ export class DataService {
     return v;
   }
 
-  getWorkFlow(): M.WorkFlow {
-    let workFlow = new M.WorkFlow(this, 'workflow');
-    workFlow.name = 'Workflow';
+  getWorkFlow(): MW.WorkFlow {
+    let workFlow = new MW.WorkFlow(this, 'workflow');
+    //workFlow.name = 'Workflow';
+    
     workFlow.description = 'Execute a company secretarial task';
     workFlow = W.getWorkFlow(workFlow, this);
     workFlow.start();

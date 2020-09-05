@@ -19,6 +19,7 @@ export class InputPanelComponent implements OnInit {
   @Input() showSaveNext = false;
   @Input() showSavePrev = false;
   @Input() showClose = false;
+  @Input() noPadding = false
 
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();

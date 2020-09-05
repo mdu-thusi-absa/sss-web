@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowForm, Entities, Entity, TaskFlowFormInput } from 'src/app/data/models';
+import { Entities, Entity} from 'src/app/data/data-models';
 import { DataService } from 'src/app/data/data.service';
+import { TaskFlowForm, TaskFlowFormInput } from 'src/app/data/data-models-workflow';
 
 @Component({
   selector: 'app-flow-form',
@@ -10,6 +11,7 @@ import { DataService } from 'src/app/data/data.service';
 export class FlowFormComponent implements OnInit {
   @Input() taskFlow: TaskFlowForm;
   @Input() showSavePrev = false;
+  @Input() showSaveNext = false;
   @Output() onChange = new EventEmitter();
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();

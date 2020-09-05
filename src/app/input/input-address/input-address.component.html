@@ -1,6 +1,6 @@
 <div
   class="panel panel-default"
-  style="margin-bottom: 5px; margin-top: 5px;"
+  style="margin-bottom: 0px; margin-top: 5px;"
   [hidden]="hideByFilter()"
 >
   <div
@@ -19,7 +19,7 @@
       "
     >
       <label class="nobottom text-primary-bold"
-        ><small>{{ title }}</small></label
+        >{{ title }}</label
       >
     </a>
 
@@ -42,7 +42,7 @@
     class="panel panel-body noborder nobottom less-padding collapse"
     [class.in]="hideBody"
     id="{{ 'address-' + getID() }}"
-    style="margin-top: 0px;"
+    style="margin-top: 0px;padding-bottom: 5px;margin-bottom:0px"
   >
     <div class="container-flex">
       <div class="row">

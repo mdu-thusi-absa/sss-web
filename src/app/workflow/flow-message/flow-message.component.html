@@ -3,10 +3,6 @@
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
-  [showSaveNext]="taskFlow.subTasks.length>0"
-  [showSavePrev]="taskFlow.parent"
-  (onSaveNext) = "doSaveNext()"
-  (onSavePrev) = "doSavePrev()"
 >
   {{ taskFlow.description }}
 </app-input-panel>

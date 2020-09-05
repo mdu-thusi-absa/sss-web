@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowSelect, Entities, AnyEntity } from 'src/app/data/models';
+import { Entities, AnyEntity } from 'src/app/data/data-models';
 import { DataService } from 'src/app/data/data.service';
+import { TaskFlowSelect } from 'src/app/data/data-models-workflow';
 
 @Component({
   selector: 'app-flow-select',
@@ -27,10 +28,11 @@ export class FlowSelectComponent implements OnInit {
     //this.values = this.data.getEntities(this.taskFlow.sourceType);
     this.value = this.taskFlow.values.firstKey
     this.taskFlow.value = this.value
-    this.showSelect = true
-    this.showSaveNext = true
-    this.showSavePrev = true
-    if (this.taskFlow.parent) this.showSavePrev = true
+    // this.showSelect = true
+    // this.showSaveNext = true
+    // this.showSavePrev = true
+    // if (this.taskFlow.parent) this.showSavePrev = true
+    this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name
     if (this.taskFlow.values.size==1){
       //this.message = 'Only one choice is available. Automaticaly going forward' 
       setTimeout(() => {
@@ -38,24 +40,22 @@ export class FlowSelectComponent implements OnInit {
       }, 0);
     } else if (this.taskFlow.values.size == 0){
       // this.message = 'The list of options is not available. Please go back.' 
-      this.showSaveNext = false
-      this.showSavePrev = true
-      this.showSaveNext = false
+      // this.showSaveNext = false
+      // this.showSavePrev = true
+      // this.showSaveNext = false
     }
   }
 
-  doChange(event: any) {
-    
+  doChange(event: any) {    
     this.taskFlow.errorMessage = ''
     this.value = +event;
     this.taskFlow.value = this.value
+    this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name
     this.onChange.emit(this.value);
   }
 
   doSaveNext(){
-    this.taskFlow.errorMessage = ''
     this.taskFlow.value = +this.value;
-    
     this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name
     this.onSaveNext.emit();
   }

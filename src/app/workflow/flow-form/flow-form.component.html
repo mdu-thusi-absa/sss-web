@@ -1,12 +1,8 @@
 <app-input-panel
-  [title]="stepNumber + '. ' + 'Form: ' + taskFlow.name"
+  [title]="stepNumber + '. ' + taskFlow.name"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
-  [showSaveNext] = "true"
-  (onSaveNext) = "doSaveNext()"
-  [showSavePrev] = "showSavePrev"
-  (onSavePrev) = "doSavePrev()"
 >
   {{ taskFlow.description }}
 

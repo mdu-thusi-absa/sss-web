@@ -5,7 +5,7 @@ import {
   AnyEntity,
   Entities,
   EntityFunctional,
-} from '../../data/models';
+} from '../../data/data-models';
 import { DataService } from 'src/app/data/data.service';
 import {EnumEntityType} from 'src/app/data/data-entityTypes'
 

@@ -1,10 +1,12 @@
 <div
+  style="margin-top:5px"
   class="panel no-gutter nobottom app-input"
+  [class.app-input] = "!noPadding"
   [class.panel-default]="panelDefault"
   [class.panel-primary]="panelPrimary"
   [class.panel-info]="panelInfo"
   [class.panel-success]="panelSuccess"
-  [class.panel-danger]="panelDanger"
+  [class.panel-danger]="panelDanger"  
 >
   <div
     class="panel-heading mt3"
@@ -56,7 +58,7 @@
     [class.collapse]="collapsed"
     style="margin-bottom: 0px; position: relative; z-index: 9;"
     [attr.id]="'input-panel-' + eid"
-    style="overflow-y: scroll; overflow-x: hidden;"
+    style="overflow-y: scroll; overflow-x: hidden;padding-bottom: 0px;"
     [style.maxHeight]="maxHeight"
   >
     <ng-content></ng-content>

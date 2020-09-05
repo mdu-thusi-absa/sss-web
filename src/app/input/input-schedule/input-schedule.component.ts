@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { Entity } from 'src/app/data/models';
+import { Entity } from 'src/app/data/data-models';
 
 @Component({
   selector: 'app-input-schedule',

@@ -17,7 +17,6 @@ export const mapEntityHeadings = `[
     ["suffix","Suffix"],
   ]`;
 
-
 export const jsonShareholdings = `[
   {"key":0,"name":"100","shareTypeKey":"0","individualKey":"1","companyKey":"0","shareCount":"100"},
   {"key":1,"name":"1000","shareTypeKey":"0","individualKey":"2","companyKey":"1","shareCount":"1000"},
@@ -184,13 +183,13 @@ export const jsonContactPreferences = `[
   ]`;
 
 export const jsonTaskTypes = `[
-    {"key":0,"name":"Aquire Entity - New","countryKey":202,"entityTypeKey":9},
-    {"key":1,"name":"Aquire Entity - Existing","countryKey":202,"entityTypeKey":9},
-    {"key":2,"name":"New Entity","countryKey":202,"entityTypeKey":9},
+    {"key":0,"name":"Aquire new entity","countryKey":202,"entityTypeKey":9},
+    {"key":1,"name":"Aquire existing entity","countryKey":202,"entityTypeKey":9},
+    {"key":2,"name":"Register new entity","countryKey":202,"entityTypeKey":9},
     {"key":3,"name":"Change location of company records","countryKey":202,"entityTypeKey":9},
     {"key":4,"name":"Change of registered address","countryKey":202,"entityTypeKey":9},
-    {"key":5,"name":"Change of main business of Company","countryKey":202,"entityTypeKey":9},
-    {"key":6,"name":"Change the type of company","countryKey":202,"entityTypeKey":9},
+    {"key":5,"name":"Change of main business","countryKey":202,"entityTypeKey":9},
+    {"key":6,"name":"Change type of company","countryKey":202,"entityTypeKey":9},
     {"key":7,"name":"Change an article of the MOI","countryKey":202,"entityTypeKey":9},
     {"key":8,"name":"Adopt new MOI","countryKey":202,"entityTypeKey":9},
     {"key":9,"name":"Changing the main and/or auxilliary powers of the company and its office bearers","countryKey":202,"entityTypeKey":9},
@@ -204,25 +203,24 @@ export const jsonTaskTypes = `[
     {"key":17,"name":"Changes to company share capital Capture","countryKey":202,"entityTypeKey":9},
     {"key":18,"name":"Changes to company share capital Amend","countryKey":202,"entityTypeKey":9},
     {"key":19,"name":"Amalgamation or Merger of Companies","countryKey":202,"entityTypeKey":9},
-    {"key":20,"name":"Deregistering/Closing your Company","countryKey":202,"entityTypeKey":9},
-    {"key":21,"name":"Re-instating a company","countryKey":202,"entityTypeKey":9},
+    {"key":20,"name":"Deregistering/Closing","countryKey":202,"entityTypeKey":9},
+    {"key":21,"name":"Re-instating","countryKey":202,"entityTypeKey":9},
     {"key":22,"name":"Amend entity details","countryKey":202,"entityTypeKey":9},
     {"key":23,"name":"Sale or transfer of entity","countryKey":202,"entityTypeKey":9},
     {"key":24,"name":"Dereg wind down entity - solvent","countryKey":202,"entityTypeKey":9},
     {"key":25,"name":"Dereg wind down entity - insolvent","countryKey":202,"entityTypeKey":9},
     {"key":26,"name":"Dereg wind down entity - court order/liquidtion","countryKey":202,"entityTypeKey":9},
-    {"key":27,"name":"Change type of company","countryKey":202,"entityTypeKey":9},
-    {"key":28,"name":"Share conversion","countryKey":202,"entityTypeKey":9},
-    {"key":29,"name":"Amend trust deed","countryKey":202,"entityTypeKey":9},
-    {"key":30,"name":"Amend JV agreement","countryKey":202,"entityTypeKey":9},
-    {"key":31,"name":"Transfer of shares","countryKey":202,"entityTypeKey":9},
-    {"key":32,"name":"Appointment of auditors","countryKey":202,"entityTypeKey":9},
-    {"key":33,"name":"Appointment of audit committee members","countryKey":202,"entityTypeKey":9},
-    {"key":34,"name":"Appointment of company secretaries","countryKey":202,"entityTypeKey":9},
-    {"key":35,"name":"Resignation and removal of auditors","countryKey":202,"entityTypeKey":9},
-    {"key":36,"name":"Resignation and removal of auditors, audit committee members","countryKey":202,"entityTypeKey":9},
-    {"key":37,"name":"Resignation and removal of company secretaries","countryKey":202,"entityTypeKey":9},
-    {"key":38,"name":"Resignation and removal of company secretaries","countryKey":29,"entityTypeKey":9}]`;
+    {"key":27,"name":"Share conversion","countryKey":202,"entityTypeKey":9},
+    {"key":28,"name":"Amend trust deed","countryKey":202,"entityTypeKey":9},
+    {"key":29,"name":"Amend JV agreement","countryKey":202,"entityTypeKey":9},
+    {"key":30,"name":"Transfer of shares","countryKey":202,"entityTypeKey":9},
+    {"key":31,"name":"Appointment of auditors","countryKey":202,"entityTypeKey":9},
+    {"key":32,"name":"Appointment of audit committee members","countryKey":202,"entityTypeKey":9},
+    {"key":33,"name":"Appointment of company secretaries","countryKey":202,"entityTypeKey":9},
+    {"key":34,"name":"Resignation and removal of auditors","countryKey":202,"entityTypeKey":9},
+    {"key":35,"name":"Resignation and removal of auditors, audit committee members","countryKey":202,"entityTypeKey":9},
+    {"key":36,"name":"Resignation and removal of company secretaries","countryKey":202,"entityTypeKey":9},
+    {"key":37,"name":"Resignation and removal of company secretaries","countryKey":29,"entityTypeKey":9}]`;
 
 export const jsonTaskStatuses = `[
   {"key":0,"name":"Doing"},
@@ -356,14 +354,16 @@ export const jsonFiles = `[
 ]`;
 
 export const jsonTemplates = `[
-  {"key":0,"fileName":"moi.pdf","name":"CoR14","description":"Register"},
-  {"key":1,"fileName":"res.pdf","name":"CoR15","description":"Appoint"},
-  {"key":2,"fileName":"res.pdf","name":"CoR16","description":"Share Issue"},
-  {"key":3,"fileName":"moi.pdf","name":"CoR17","description":"Resign"},
-  {"key":4,"fileName":"res.pdf","name":"CoR18","description":"Rename"},
-  {"key":5,"fileName":"res.pdf","name":"CoR19","description":"Deregister"},
-  {"key":6,"fileName":"moi.pdf","name":"CoR20","description":"Move Address"}
-]`;
+  {"key":0,"name":"CoR 9.1","inputsKeys":[0,3]},
+  {"key":1,"name":"CoR 15.2","inputsKeys":[1,3]},
+  {"key":2,"name":"CoR 21.1","inputsKeys":[1,3]},
+  {"key":3,"name":"CoR 22","inputsKeys":[1,3]}]`;
+
+export const jsonTemplateInputs = `[
+    {"key":0,"name":"effectiveDate","heading":"Effective Date"},
+    {"key":1,"name":"businessPurposeDescription","heading":"Business purpose"},
+    {"key":2,"name":"newAddress","heading":"New Address"},
+    {"key":3,"name":"individualKey","heading":"Signatory"}]`;
 
 export const jsonAttendances = `[
   {"key":0,"meetingKey":0,"individualKey":0},
@@ -386,10 +386,9 @@ export const jsonAttendances = `[
   {"key":17,"meetingKey":8,"individualKey":17},
   {"key":18,"meetingKey":9,"individualKey":18},
   {"key":19,"meetingKey":9,"individualKey":19},
-  {"key":20,"meetingKey":10,"individualKey":20}]`
-  
+  {"key":20,"meetingKey":10,"individualKey":20}]`;
 
-  export const jsonMeetings = `[
+export const jsonMeetings = `[
     {"key":0,"name":"Subject 1","where":"Here","start":"2020-12-01  15:06","end":"2020-12-01  16:06","fileKeys":[],"notes":""},
     {"key":1,"name":"Subject 2","where":"There","start":"2021-03-14  16:24","end":"2021-03-14  17:24","fileKeys":[],"notes":""},
     {"key":2,"name":"Subject 3","where":"Over there","start":"2021-02-25  06:15","end":"2021-02-25  07:15","fileKeys":[],"notes":""},
@@ -410,8 +409,7 @@ export const jsonAttendances = `[
     {"key":17,"name":"Subject 18","where":"Over there","start":"2021-08-28  06:07","end":"2021-08-28  07:07","fileKeys":[],"notes":""},
     {"key":18,"name":"Subject 19","where":"Over here","start":"2021-03-23  17:28","end":"2021-03-23  18:28","fileKeys":[],"notes":""},
     {"key":19,"name":"Subject 20","where":"Somewhere","start":"2020-11-28  00:11","end":"2020-11-28  01:11","fileKeys":[],"notes":""},
-    {"key":20,"name":"Subject 21","where":"Over there","start":"2020-12-09  15:09","end":"2020-12-09  16:09","fileKeys":[],"notes":""}]`
-    
+    {"key":20,"name":"Subject 21","where":"Over there","start":"2020-12-09  15:09","end":"2020-12-09  16:09","fileKeys":[],"notes":""}]`;
 
 export const jsonReports = `[
   {"key":0,"dateTime":"2020-05-12 12:30","name":"Organogram","description":"Structure of holdings"},

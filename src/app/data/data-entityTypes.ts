@@ -63,7 +63,8 @@ export const jsonEntityTypes = `[
 {"key":61,"name":"ContactPreference","pluralName":"ContactPreferences","dashboardIndex":-1,"isActive":true,"keyName":"contactPreferenceKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonContactPreferences","storeName":"","headingsSource":"headingsContactPreference"},
 {"key":62,"name":"Report","pluralName":"Reports","dashboardIndex":-1,"isActive":true,"keyName":"reportKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonReports","storeName":"","headingsSource":"headingsReport"},
 {"key":63,"name":"Attendance","pluralName":"Attendances","dashboardIndex":-1,"isActive":true,"keyName":"attendanceKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonAttendances","storeName":"","headingsSource":"headingsAttendance"},
-{"key":64,"name":"TaskStatus","pluralName":"TaskStatuses","dashboardIndex":-1,"isActive":true,"keyName":"taskStatusKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTaskStatuses","storeName":"","headingsSource":"headingsTaskStatus"}]`
+{"key":64,"name":"TaskStatus","pluralName":"TaskStatuses","dashboardIndex":-1,"isActive":true,"keyName":"taskStatusKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTaskStatuses","storeName":"","headingsSource":"headingsTaskStatus"},
+{"key":65,"name":"TemplateInput","pluralName":"TemplateInputs","dashboardIndex":-1,"isActive":true,"keyName":"templateInputKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTemplateInputs","storeName":"","headingsSource":""}]`
 export enum EnumEntityType{
 AccountingClass,
 AccountingClassTier,
@@ -129,4 +130,5 @@ Period,
 ContactPreference,
 Report,
 Attendance,
-TaskStatus}
+TaskStatus,
+TemplateInput}

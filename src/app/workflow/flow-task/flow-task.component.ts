@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TaskFlow, WorkFlow } from 'src/app/data/models';
+import { WorkFlow } from 'src/app/data/data-models-workflow';
 import { DataService } from 'src/app/data/data.service';
 import { data } from 'jquery';
 
@@ -18,12 +18,12 @@ export class FlowTaskComponent implements OnInit {
     this.workFlow = this.data.workFlow;
   }
 
-  doSaveNext(taskIndex: number) {
+  doSaveNext() {
     //verify here or in each flow, report individually, before moving on
     this.workFlow.moveToNext();
   }
 
-  doSavePrev(taskIndex: number) {
+  doSavePrev() {
     //verify here or in each flow, report individually, before moving on
     this.workFlow.moveToPrev();
   }

@@ -3,10 +3,6 @@
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
-  [showSaveNext]="true"
-  (onSaveNext) = "doSaveNext()"
-  [showSavePrev] = "showSavePrev"
-  (onSavePrev) = "doSavePrev()"
 >
   {{ taskFlow.description }}
   <app-input-table
@@ -15,5 +11,6 @@
     [withCheckbox]="true"
     [entities]="data.files"
     [inputType]="'file'"
+    [noPadding] = "true"
   ></app-input-table>
 </app-input-panel>

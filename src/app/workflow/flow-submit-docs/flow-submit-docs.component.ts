@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { TaskFlowSubmitDocs } from 'src/app/data/models';
+import { TaskFlowSubmitDocs } from 'src/app/data/data-models-workflow';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { DataService } from 'src/app/data/data.service';
 export class FlowSubmitDocsComponent implements OnInit {
   @Input() taskFlow: TaskFlowSubmitDocs;
   @Input() showSavePrev = false;
+  @Input() showSaveNext = false;
   @Output() onSaveNext = new EventEmitter();
   @Input() stepNumber = 1
   

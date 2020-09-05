@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Message } from '../../data/models';
+import { Message } from '../../data/data-models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

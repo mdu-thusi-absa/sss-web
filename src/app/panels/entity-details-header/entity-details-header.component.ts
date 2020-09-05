@@ -1,7 +1,7 @@
 import { Component, OnInit, Output,Input,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 import { InputCustomComponent } from 'src/app/input/input-custom/input-custom.component';
-import { AnyEntity} from 'src/app/data/models';
+import { AnyEntity} from 'src/app/data/data-models';
 import { EnumEntityType } from 'src/app/data/data-entityTypes';
 
 @Component({

@@ -3,14 +3,10 @@
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
-  [showSaveNext]="true"
-  (onSaveNext)="doSaveNext()"
-  [showSavePrev]="true"
-  (onSavePrev)="doSavePrev()"
 >
   <app-input-select-entity
     [hidden]="!showSelect"
-    [title]="'Please select one'"
+    [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
     [value]="value"
     [values]="taskFlow.values"
     [showSmall]="true"

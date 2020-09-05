@@ -8,7 +8,7 @@ import {
   ElementRef,
   HostListener,
 } from '@angular/core';
-import { AnyEntity, Entities, Entity } from '../../data/models';
+import { AnyEntity, Entities, Entity } from '../../data/data-models';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
