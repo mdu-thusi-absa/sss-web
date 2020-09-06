@@ -64,7 +64,10 @@ export const jsonEntityTypes = `[
 {"key":62,"name":"Report","pluralName":"Reports","dashboardIndex":-1,"isActive":true,"keyName":"reportKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonReports","storeName":"","headingsSource":"headingsReport"},
 {"key":63,"name":"Attendance","pluralName":"Attendances","dashboardIndex":-1,"isActive":true,"keyName":"attendanceKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonAttendances","storeName":"","headingsSource":"headingsAttendance"},
 {"key":64,"name":"TaskStatus","pluralName":"TaskStatuses","dashboardIndex":-1,"isActive":true,"keyName":"taskStatusKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTaskStatuses","storeName":"","headingsSource":"headingsTaskStatus"},
-{"key":65,"name":"TemplateInput","pluralName":"TemplateInputs","dashboardIndex":-1,"isActive":true,"keyName":"templateInputKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTemplateInputs","storeName":"","headingsSource":""}]`
+{"key":65,"name":"TemplateInput","pluralName":"TemplateInputs","dashboardIndex":-1,"isActive":true,"keyName":"templateInputKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTemplateInputs","storeName":"","headingsSource":""},
+{"key":66,"name":"TaskTypesForCountry","pluralName":"TaskTypesForCountry","dashboardIndex":-1,"isActive":true,"keyName":"taskTypesForCountryKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getTaskTypesForCountry","headingsSource":""},
+{"key":67,"name":"Task","pluralName":"Tasks","dashboardIndex":-1,"isActive":true,"keyName":"taskKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTasks","storeName":"","headingsSource":""},
+{"key":68,"name":"DestinationType","pluralName":"DestinationTypes","dashboardIndex":-1,"isActive":true,"keyName":"destinationTypeKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonDestinationTypes","storeName":"","headingsSource":""}]`
 export enum EnumEntityType{
 AccountingClass,
 AccountingClassTier,
@@ -131,4 +134,7 @@ ContactPreference,
 Report,
 Attendance,
 TaskStatus,
-TemplateInput}
+TemplateInput,
+TaskTypesForCountry,
+Task,
+DestinationType}

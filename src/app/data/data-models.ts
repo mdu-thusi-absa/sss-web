@@ -22,7 +22,7 @@ export class Entity {
   constructor(public name: string) {}
 
   get allName() {
-    if (this.suffix){
+    if (this.suffix) {
       return this.name + ' - ' + this.suffix;
     } else return this.name;
   }
@@ -164,6 +164,12 @@ class More<T extends AnyEntity> {
 // console.log(createInstance(Lion).keeper.nametag);
 // console.log(createInstance(Bee).keeper.hasMask);
 
+export class EntityTask extends Entity {
+  who = '';
+  when: Date;
+  workFlowObject = {};
+}
+
 export class EntityType extends Entity {
   public jsonSource = '';
   public sourceType = 'json'; //or function for on the fly or from DB
@@ -183,6 +189,8 @@ export class EntityType extends Entity {
         this.entities = new Entities<EntityAuditor>(EntityAuditor);
         break;
       case EnumEntityType.Company:
+      case EnumEntityType.ParentCompany:
+      case EnumEntityType.HoldingParentCompany:
         this.entities = new Entities<EntityCompany>(EntityCompany);
         break;
       case EnumEntityType.CompaniesForCountry:
@@ -251,15 +259,15 @@ export class EntityType extends Entity {
       case EnumEntityType.Attendance:
         this.entities = new Entities<EntityAttendance>(EntityAttendance);
         break;
-      case EnumEntityType.ParentCompany:
-      case EnumEntityType.HoldingParentCompany:
-        this.entities = new Entities<EntityCompany>(EntityCompany);
-        break;
       case EnumEntityType.EntityType:
         this.entities = new Entities<EntityType>(EntityType);
         break;
+      case EnumEntityType.Task:
+        this.entities = new Entities<EntityTask>(EntityTask);
       case EnumEntityType.TaskType:
+      case EnumEntityType.TaskTypesForCountry:
         this.entities = new Entities<EntityTaskType>(EntityTaskType);
+        break;
       case EnumEntityType.Secretary:
       case EnumEntityType.Lee:
       case EnumEntityType.FinancialOfficer:
@@ -269,12 +277,15 @@ export class EntityType extends Entity {
         break;
       case EnumEntityType.Template:
         this.entities = new Entities<EntityTemplate>(EntityTemplate);
+        break;
       case EnumEntityType.TemplateInput:
         this.entities = new Entities<EntityTemplateInput>(EntityTemplateInput);
+        break;
       case EnumEntityType.Report:
       case EnumEntityType.Month:
       case EnumEntityType.FyeMonth:
       case EnumEntityType.AnniversaryMonth:
+      case EnumEntityType.DestinationType:
       default:
         this.entities = new Entities<Entity>(Entity);
         break;
@@ -630,9 +641,10 @@ export class EntityTrust extends EntityLegal {
 
 export class EntityTaskType extends Entity {
   type = EnumEntityType.TaskType;
-  suffix = ''
+  suffix = '';
   entityTypeKey = -1;
   countryKey = -1;
+  requireAuthIs = true;
 }
 export class EntityRegulator extends EntityLegal {
   public type = EnumEntityType.Regulator;
@@ -1107,4 +1119,3 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     return d;
   }
 }
-

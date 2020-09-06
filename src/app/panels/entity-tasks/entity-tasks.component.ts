@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data/data.service';
 export class EntityTasksComponent implements OnInit {
   @Input() isNarrow = false;
   filterText = '';
-  isNew = false;
+  isNew = true;
   isFilterByTextToo = false;
   rdoChoice = 'active'; 
   newTask = new Task(new Step('New Task',new Date(),new Date(),new Date(),new Date(),'vlad','dean','Appointment','',false),[]);

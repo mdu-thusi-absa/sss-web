@@ -14,10 +14,10 @@ export class TaskFlowSubTaskCondition {
   assert(data: object): boolean {
     let r = false;
     let v = data[this.fieldName];
-    if (v) {
+    if (v === 0 || v) {
       let mO = ['>', '<', '==', '!='];
       let mS = ['in', 'notin'];
-      if (mO.indexOf(this.operator)) {
+      if (mO.indexOf(this.operator) > -1) {
         let f = v + this.operator + this.value;
         return eval(f);
       } else if (mS.indexOf(this.operator)) {
@@ -88,8 +88,13 @@ export class TaskFlow {
   set actionName(v: string) {
     this.actionName_ = v;
   }
+  get skip(): boolean {
+    return false;
+  }
   constructor(protected data: DataService, public fieldName) {}
-  init() {} // to be implemented by child classes, if they need to initialise data
+  init(): boolean {
+    return true;
+  } // to be implemented by child classes, if they need to initialise data
   /*
       subTasks are there to provide the next task
     */
@@ -143,22 +148,45 @@ export class TaskFlowSelect extends TaskFlow {
       }
     }
   }
-  init() {
+  init(): boolean {
     this.values = this.data.getEntities(
       this.sourceType,
       this.workflowValuesObject
     );
+    
+    if (this.values) {
+      if (this.values.size > 0) return true;
+      else {
+        this.errorMessage =
+          'List is empty, please go back to choose another path';
+
+        return false;
+      }
+    }
+  }
+  verify(): boolean {
+    if (this.value > -1)
+      if (this.values)
+        if (this.values.size > 0) if (this.values.has(this.value)) return true;
+    return false;
   }
 }
 
 export class TaskFlowConfirm extends TaskFlow {
   type = 'confirm';
   value = false;
+  ensure = true; //value must be true to move on
   verify(): boolean {
-    if (this.value) {
+    if ((this.ensure && this.value) || this.skip) {
       this.errorMessage = '';
       return true;
-    } else this.errorMessage = this.name + ' is required';
+    } else {
+      this.errorMessage = this.name + ' is required';
+      return false;
+    }
+  }
+  get skip(): boolean {
+    return false;
   }
 }
 
@@ -241,7 +269,7 @@ export class TaskFlowForm extends TaskFlow {
     return this;
   }
 
-  init() {
+  init(): boolean {
     if (this.inputSourceType) {
       if (this.inputs.length == 0) {
         let fields = this.data.getEntityHeadingsMap(this.inputSourceType);
@@ -255,6 +283,7 @@ export class TaskFlowForm extends TaskFlow {
         });
       }
     }
+    return true;
   }
 }
 
@@ -302,6 +331,9 @@ export class WorkFlow extends TaskFlow {
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
+    this.currentTask.isDone = false;
+    this.actionEntityName = ''
+    this.actionName = ''
     if (this.currentTask) this.currentTaskIndex_ = 0;
     return this.build(this.rootTask);
   }
@@ -315,9 +347,15 @@ export class WorkFlow extends TaskFlow {
     return this.build(this.currentTask);
   }
 
-  private build(fromTask: TaskFlow): boolean {
-    let t: TaskFlow = null;
+  private build_addSubtask(fromTask, subTaskIndex: number): TaskFlow {
+    let t = fromTask.subTasks[subTaskIndex].taskFlow;
+    t.workflowValuesObject = this.collectValues();
+    t.init();
+    this.tasks.push(t);
+    return t;
+  }
 
+  private build(fromTask: TaskFlow): boolean {
     if (this.currentTaskIndex_ == this.tasks.length - 1) {
       if (fromTask) {
         if (fromTask.isDone) {
@@ -326,41 +364,61 @@ export class WorkFlow extends TaskFlow {
             this.actionEntityName = fromTask.actionEntityName;
         }
         fromTask.workflowValuesObject = this.collectValues();
-        fromTask.init();
-        let t = fromTask;
-        // while (!t.hasFork && t.subTasks.length>0 && t.entityFieldKey=='') {
-        //   t = t.subTasks[0].taskFlow;
-        //   t.workflowValuesObject = this.collectValues();
-        //   t.init();
-        //   this.tasks.push(t);
-        // }
+        if (fromTask.init()) {
+          //let t = fromTask;
+          // while (!t.hasFork && t.subTasks.length>0 && t.entityFieldKey=='') {
+          //   t = t.subTasks[0].taskFlow;
+          //   t.workflowValuesObject = this.collectValues();
+          //   t.init();
+          //   this.tasks.push(t);
+          // }
+          //   console.log(
+          //     fromTask.isDone,
+          //     fromTask.hasFork,
+          //     fromTask.subTasks.length
+          //   );
+          if (fromTask.isDone && fromTask.subTasks.length > 0) {
+            // console.log(0);
+            if (!fromTask.hasFork) {
+              // next task without conditions
+              //   console.log(1);
+              //   let t = fromTask.subTasks[0].taskFlow;
+              //   t.workflowValuesObject = this.collectValues();
+              //   t.init();
+              //   this.tasks.push(t);
+              this.build_addSubtask(fromTask, 0);
+            } else {
+              // next task with conditions
+              let notAdded = true;
+              for (let i = 0; i < fromTask.subTasks.length; i++) {
+                if (
+                  fromTask.subTasks[i].assert(fromTask.workflowValuesObject)
+                ) {
+                  //   let t = fromTask.subTasks[i].taskFlow;
+                  //   t.workflowValuesObject = this.collectValues();
+                  //   t.init();
+                  //   this.tasks.push(t);
+                  let t = this.build_addSubtask(fromTask, i);
+                  this.build(t);
 
-        if (t.isDone && !t.hasFork && t.subTasks.length == 1) {
-          console.log(1);
-          t = t.subTasks[0].taskFlow;
-          t.workflowValuesObject = this.collectValues();
-          t.init();
-          this.tasks.push(t);
-        } else if (t.isDone && t.hasFork) {
-          let notAdded = true;
-          for (let i = 0; i < t.subTasks.length; i++) {
-            if (t.subTasks[i].assert(t.workflowValuesObject)) {
-              t = t.subTasks[i].taskFlow;
-              t.workflowValuesObject = this.collectValues();
-              t.init();
-              this.tasks.push(t);
-              this.build(t);
-              notAdded = false;
-              break;
+                  notAdded = false;
+                  break;
+                }
+              }
+              // check if a new task has been added
+              // if not: show message
+              if (notAdded)
+                fromTask.errorMessage =
+                  'No further steps are available for this option, please select another one';
+              else fromTask.errorMessage = '';
             }
+          } else if (fromTask.isDone) {
+            this.start();
+            // this.currentTaskIndex_ = 0
+            // this.tasks.slice(0,1)
           }
-          // check if a new task has been added
-          // if not: show message
-          if (notAdded)
-            t.errorMessage =
-              'No further steps are available for this option, please select another one';
-          else t.errorMessage = '';
         }
+
         return true;
       }
       return false;
@@ -380,25 +438,34 @@ export class WorkFlow extends TaskFlow {
   public moveToNext(): TaskFlow {
     this.currentTask.errorMessage = '';
     if (this.currentTask.verify()) this.currentTask.isDone = true;
-    if (this.currentTask.isEnd) {
-      if (this.que.length == 0) this.isEnd = true;
-      else {
-        // todo: test. set currentTask from que
-        this.loopFromQue();
-        return this.currentTask;
+
+    // if (this.currentTask.isEnd) {
+    //   if (this.que.length == 0) this.isEnd = true;
+    //   else {
+    //     // todo: test. set currentTask from que
+    //     this.loopFromQue();
+    //     return this.currentTask;
+    //   }
+    // } else {
+    if (this.build(this.currentTask)) {
+      if (this.currentTaskIndex_ < this.tasks.length - 1) {
+        this.currentTaskIndex_++;
+        this.currentTask.isCurrent = false;
+        this.currentTask = this.tasks[this.currentTaskIndex_];
+        this.currentTask.isCurrent = true;
+        //console.log('trying to build on', this.currentTask);
+        //   if (this.currentTask.skip) {
+        //     this.currentTask.isDone = true;
+        //     //this.build(this.currentTask);
+        //     this.moveToNext();
+        //   }
       }
-    } else {
-      if (this.build(this.currentTask)) {
-        if (this.currentTaskIndex_ < this.tasks.length - 1) {
-          this.currentTaskIndex_++;
-          this.currentTask.isCurrent = false;
-          this.currentTask = this.tasks[this.currentTaskIndex_];
-          this.currentTask.isCurrent = true;
-          this.build(this.currentTask);
-        }
-        return this.currentTask;
+      if (this.currentTask.skip) {
+        // console.log(this.tasks);
       }
+      return this.currentTask;
     }
+    //}
     return null;
   }
 

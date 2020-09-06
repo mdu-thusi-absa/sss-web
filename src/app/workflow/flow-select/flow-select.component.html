@@ -5,7 +5,7 @@
   [panelSuccess]="taskFlow.isDone"
 >
   <app-input-select-entity
-    [hidden]="!showSelect"
+    [hidden]="taskFlow.errorMessage != ''"
     [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
     [value]="value"
     [values]="taskFlow.values"

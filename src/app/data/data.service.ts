@@ -25,7 +25,6 @@ export class DataService {
     if (entity) {
       let v = entity[fieldName];
       if (fieldName.slice(-3) == 'Key') {
-        // console.log('getEntityFieldValue', fieldName);
         let d = this.getEntitiesByKeyField(fieldName);
         if (d) {
           if (d.has(+v)) {
@@ -35,7 +34,6 @@ export class DataService {
           return 'Empty list';
         }
       } else if (fieldName.slice(-4) == 'Keys') {
-        // console.log('getEntityFieldValue', fieldName, '[0,1]');
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
         
         if (d) return d;
@@ -75,7 +73,6 @@ export class DataService {
     });
     for (let i = 0; i < mTemp.size; i++) {
       let menu = mTemp.get(i);
-      // console.log(menu);
       this.menus.set(menu['key'], menu);
     }
   }
@@ -87,7 +84,6 @@ export class DataService {
   }
 
   constructor() {
-    // console.log (D['jsonAccountingClasses'])
     this.loadEntityTypes();
     this.loadMenus();
     this.loadCanHoldSharesIs();
@@ -121,7 +117,6 @@ export class DataService {
     optionsObject?: object,
     keysArray?: any[]
   ) {
-    let f = fieldNameKey;
     let s: E.EnumEntityType;
 
     this.entityTypes.forEach((value, key, map) => {
@@ -132,6 +127,7 @@ export class DataService {
       }
     });
     let d = this.getEntities(s, optionsObject, keysArray);
+    
     if (d) return d;
     else console.log('Store not found, field:' + fieldNameKey);
     return;
@@ -172,8 +168,6 @@ export class DataService {
           throw e;
         }
       }
-    } else {
-      console.log('Error: Source not found, type:' + enumSource);
     }
 
     if (v) {
@@ -192,15 +186,13 @@ export class DataService {
       }
     } else {
       // entities not found
-      console.log('Not found entities for type:' + enumSource);
+      console.log('Error: Source not found, type:' + enumSource);
     }
-    //if (!v) console.log('Dataset not found, type:', E.EnumEntityType)
     return v;
   }
 
   getWorkFlow(): MW.WorkFlow {
     let workFlow = new MW.WorkFlow(this, 'workflow');
-    //workFlow.name = 'Workflow';
     
     workFlow.description = 'Execute a company secretarial task';
     workFlow = W.getWorkFlow(workFlow, this);
@@ -453,8 +445,6 @@ export class DataService {
       countryKey = data as number;
     }
     this.getEntities(E.EnumEntityType.TaskType).forEach((value, key, map) => {
-      // console.log(value.countryKey);
-
       if (countryKey == value['countryKey']) {
         if (!d.has(value['countryKey'])) {
           d.add(this.entityTypes.get(value['entityTypeKey']));
@@ -469,15 +459,28 @@ export class DataService {
       'entityTypeKey',
       data['entityTypeKey']
     );
-    console.log(d, data);
-
     return d;
   }
 
   getTasksForCountry(data: object) {
+    return this.getEntities(E.EnumEntityType.Task).select(
+      'countryKey',
+      data['countryKey']
+    );
+  }
+
+  getTaskTypesForCountry(data: object) {
     return this.getEntities(E.EnumEntityType.TaskType).select(
       'countryKey',
       data['countryKey']
     );
   }
+
+  getTaskTypesActive(data: object) {
+    return this.getEntities(E.EnumEntityType.TaskType).select(
+      'activeIs',
+      true
+    );
+  }
+
 }
