@@ -11,11 +11,11 @@ import {
   Entities,
   Entity,
   AnyEntity,
-} from '../../data/data-models';
+} from '../../data/data-entity-classes';
 import { DataService } from 'src/app/data/data.service';
 // import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 // import { ExecException } from 'child_process';
-import { EnumEntityType } from 'src/app/data/data-entityTypes';
+import { EnumEntityType } from 'src/app/data/data-entity-types';
 
 @Component({
   selector: 'app-entities',
@@ -189,7 +189,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Active() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e['isActive'] && e.type === this.entityTypeKey
+        (e) => e['isActive'] && e.entityTypeKey === this.entityTypeKey
       ).length;
     } else {
       return 0;
@@ -199,7 +199,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Dormant() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => !e['isActive'] && e.type === this.entityTypeKey
+        (e) => !e['isActive'] && e.entityTypeKey === this.entityTypeKey
       ).length;
     } else {
       return 0;
@@ -209,7 +209,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Tasks() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e['tasksCount'] > 0 && e.type === this.entityTypeKey
+        (e) => e['tasksCount'] > 0 && e.entityTypeKey === this.entityTypeKey
       ).length;
     } else {
       return 0;

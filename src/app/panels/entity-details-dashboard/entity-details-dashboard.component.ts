@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Entities, AnyEntity, EntityNatural } from '../../data/data-models'
+import { Entity, Entities, AnyEntity, EntityNatural } from '../../data/data-entity-classes'
 import { DataService } from 'src/app/data/data.service';
-import { WorkFlow } from 'src/app/data/data-models-workflow';
+import { WorkFlow } from 'src/app/data/data-workflow-classes';
 
 
 @Component({

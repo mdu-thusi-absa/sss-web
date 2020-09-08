@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { EntityLegal, EntityFunctional, AnyEntity,EntityCompany } from 'src/app/data/data-models';
-import {EnumEntityType} from 'src/app/data/data-entityTypes'
+import { EntityLegal, EntityFunctional, AnyEntity,EntityCompany } from 'src/app/data/data-entity-classes';
+import {EnumEntityType} from 'src/app/data/data-entity-types'
 
 @Component({
   selector: 'app-entity-details-company-primary',

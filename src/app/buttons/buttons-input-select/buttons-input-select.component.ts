@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Entity } from 'src/app/data/data-models';
+import { Entity } from 'src/app/data/data-entity-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

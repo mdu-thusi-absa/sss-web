@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowReminder } from 'src/app/data/data-models-workflow';
+import { TaskFlowReminder } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

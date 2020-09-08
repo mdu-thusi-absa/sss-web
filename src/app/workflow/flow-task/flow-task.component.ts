@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WorkFlow } from 'src/app/data/data-models-workflow';
+import { WorkFlow } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 import { data } from 'jquery';
 

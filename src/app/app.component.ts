@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   constructor(){
   //constructor(private oauthService: OAuthService) {
     // this.configureSingleSignOn();
+    this.title = 'sss'
   }
 
   ngOnInit(): void {

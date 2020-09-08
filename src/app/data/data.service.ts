@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import * as M from './data-models';
+import * as M from './data-entity-classes';
 import * as W from './data-workflow';
-import * as MW from './data-models-workflow';
-import * as H from './data-headings';
-import * as E from './data-entityTypes';
+import * as MW from './data-workflow-classes';
+import * as E from './data-entity-types';
 import { MatOptgroup } from '@angular/material/core';
 
 @Injectable({
@@ -34,6 +33,11 @@ export class DataService {
           return 'Empty list';
         }
       } else if (fieldName.slice(-4) == 'Keys') {
+        let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
+        
+        if (d) return d;
+        console.log('Entities for key not found:', fieldName);
+      } else if (fieldName.slice(-4) == 'Set') {
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
         
         if (d) return d;
@@ -90,18 +94,18 @@ export class DataService {
     this.workFlow = this.getWorkFlow();
   }
 
-  public getEntityHeadingsMap(
-    enumEntityType: E.EnumEntityType
-  ): Map<string, string> {
-    let m: Map<string, string>;
+  // public getEntityHeadingsMap(
+  //   enumEntityType: E.EnumEntityType
+  // ): Map<string, string> {
+  //   let m: Map<string, string>;
 
-    m = this.entityTypes.get(enumEntityType).headingsMap;
+  //   m = this.entityTypes.get(enumEntityType).headingsMap;
 
-    if (!m) {
-      m = new Map(eval(`[['name','Name'],['suffix','Suffix']]`));
-    }
-    return m;
-  }
+  //   if (!m) {
+  //     m = new Map(eval(`[['name','Name'],['suffix','Suffix']]`));
+  //   }
+  //   return m;
+  // }
 
   getEntityTypeForName(entityTypeName: string): E.EnumEntityType {
     this.entityTypes.forEach((value, key, map) => {
@@ -122,6 +126,11 @@ export class DataService {
     this.entityTypes.forEach((value, key, map) => {
       let keyName = value['keyName'];
       let keysName = keyName + 's';
+      let L = fieldNameKey.length
+      if (fieldNameKey.slice(L-3)=='Set'){
+        // todo: test, set
+        keysName = fieldNameKey.slice(0,L-3)
+      }
       if (keyName == fieldNameKey || keysName == fieldNameKey) {
         s = key;
       }
@@ -247,6 +256,9 @@ export class DataService {
         v = 'number';
         break;
       case 'Index':
+      case  'Set':
+        v = 'select-checkbox'
+        break;
       case 'Key':
         v = 'select-entity';
         break;
@@ -436,31 +448,31 @@ export class DataService {
     return this.individuals.select('secretaryIs', true);
   }
 
-  getEntityTypesForCountry(data: object) {
-    let d = this.entityTypes.getClearCopy();
-    let countryKey = -1;
-    if (typeof data == 'object') {
-      countryKey = data['countryKey'];
-    } else {
-      countryKey = data as number;
-    }
-    this.getEntities(E.EnumEntityType.TaskType).forEach((value, key, map) => {
-      if (countryKey == value['countryKey']) {
-        if (!d.has(value['countryKey'])) {
-          d.add(this.entityTypes.get(value['entityTypeKey']));
-        }
-      }
-    });
-    return d;
-  }
+  // getEntityTypesForCountry(data: object) {
+  //   let d = this.entityTypes.getClearCopy();
+  //   let countryKey = -1;
+  //   if (typeof data == 'object') {
+  //     countryKey = data['countryKey'];
+  //   } else {
+  //     countryKey = data as number;
+  //   }
+  //   this.getEntities(E.EnumEntityType.TaskType).forEach((value, key, map) => {
+  //     if (countryKey == value['countryKey']) {
+  //       if (!d.has(value['countryKey'])) {
+  //         d.add(this.entityTypes.get(value['entityTypeKey']));
+  //       }
+  //     }
+  //   });
+  //   return d;
+  // }
 
-  getTasksForEntityType(data: object) {
-    let d = this.getEntities(E.EnumEntityType.TaskType).select(
-      'entityTypeKey',
-      data['entityTypeKey']
-    );
-    return d;
-  }
+  // getTasksForEntityType(data: object) {
+  //   let d = this.getEntities(E.EnumEntityType.TaskType).select(
+  //     'entityTypeKey',
+  //     data['entityTypeKey']
+  //   );
+  //   return d;
+  // }
 
   getTasksForCountry(data: object) {
     return this.getEntities(E.EnumEntityType.Task).select(

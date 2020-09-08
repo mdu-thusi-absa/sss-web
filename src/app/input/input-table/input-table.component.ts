@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, AnyEntity } from 'src/app/data/data-models';
-import {EnumEntityType} from 'src/app/data/data-entityTypes'
+import { Entities, AnyEntity } from 'src/app/data/data-entity-classes';
+import {EnumEntityType} from 'src/app/data/data-entity-types'
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

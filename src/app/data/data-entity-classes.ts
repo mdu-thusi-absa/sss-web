@@ -1,20 +1,19 @@
-import { Capability, ExpectedConditions } from 'protractor';
-import { MapType } from '@angular/compiler';
-import { EntityMessageComponent } from '../panels/entity-message/entity-message.component';
-import { maxHeaderSize } from 'http';
+// import { Capability, ExpectedConditions } from 'protractor';
+// import { MapType } from '@angular/compiler';
+// import { EntityMessageComponent } from '../panels/entity-message/entity-message.component';
+// import { maxHeaderSize } from 'http';
 // import { LoginOptions } from 'angular-oauth2-oidc';
 // import { etLocale } from 'ngx-bootstrap/chronos';
 // import { data } from 'jquery';
-import { DataService } from './data.service';
-import { EnumEntityType } from './data-entityTypes';
-import * as H from './data-headings';
+// import { DataService } from './data.service';
+import { EnumEntityType } from './data-entity-types';
 import * as J from './data-json';
 // import { throwError } from 'rxjs';
 // import { join } from 'path';
 
 export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
-  public type = EnumEntityType.Entity;
+  public entityTypeKey = EnumEntityType.Entity;
   public description = '';
   public isActive = false;
   public suffix = '';
@@ -25,6 +24,14 @@ export class Entity {
     if (this.suffix) {
       return this.name + ' - ' + this.suffix;
     } else return this.name;
+  }
+
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['suffix', 'Suffix'],
+    ]);
+    return h;
   }
 
   inFilter(filterText: string, onlyActive: boolean): boolean {
@@ -101,69 +108,6 @@ export class Entity {
   }
 }
 
-class Test {
-  name = 'test Class';
-}
-
-class More<T extends AnyEntity> {
-  t: T;
-  constructor(private EntityType) {
-    let t = new EntityType();
-  }
-}
-
-// let t = new Test()
-// let s = Object.create(t)
-// Object.prototype.constructor()
-// console.log(s);
-
-// class Extra{
-//   t = window['Test']
-//   constructor(){
-//     //console.log(t);
-//   }
-// }
-
-// let e = new Extra()
-// console.log(e);
-
-// let t = new Test()
-// let s = eval('new Test()')
-// console.log(t,s);
-
-// let c = new Entity('entity name')
-// let a = new More<Entity>(Entity);
-// let b = eval('new More<Entity>(Entity)')
-// console.log(a,b);
-
-// class BeeKeeper {
-//   hasMask = true;
-// }
-
-// class ZooKeeper {
-//   nametag = 'Joe';
-// }
-
-// class Animal {
-//   numLegs: number;
-// }
-
-// class Bee extends Animal {
-//   keeper = new BeeKeeper();
-// }
-
-// class Lion extends Animal {
-//   keeper = new ZooKeeper();
-// }
-
-// function createInstance<A extends Animal>(c: new () => A): A {
-//   return new c();
-// }
-
-// let c = eval('Lion')
-// console.log(createInstance(Lion).keeper.nametag);
-// console.log(createInstance(Bee).keeper.hasMask);
-
 export class EntityTask extends Entity {
   who = '';
   when: Date;
@@ -174,16 +118,18 @@ export class EntityType extends Entity {
   public jsonSource = '';
   public sourceType = 'json'; //or function for on the fly or from DB
   public storeName = ''; //name of a variable to store data in
-  public headingsSource = '';
-  public headingsMap: Map<string, string>; // map of fieldName, heading/label
+  // public headingsSource = '';
+  // public headingsMap: Map<string, string>; // map of fieldName, heading/label
   public entities: Entities<AnyEntity>;
   init() {
     switch (this.key) {
-      case EnumEntityType.Address:
-        this.entities = new Entities<EntityAddress>(EntityAddress);
+      case EnumEntityType.PhysicalAddress:
+        this.entities = new Entities<EntityPhysicalAddress>(
+          EntityPhysicalAddress
+        );
         break;
-      case EnumEntityType.Address:
-        this.entities = new Entities<EntityAppointment>(EntityAppointment);
+      case EnumEntityType.PostalAddress:
+        this.entities = new Entities<EntityPostalAddress>(EntityPostalAddress);
         break;
       case EnumEntityType.Auditor:
         this.entities = new Entities<EntityAuditor>(EntityAuditor);
@@ -286,6 +232,7 @@ export class EntityType extends Entity {
       case EnumEntityType.FyeMonth:
       case EnumEntityType.AnniversaryMonth:
       case EnumEntityType.DestinationType:
+      case EnumEntityType.RegulatorType:
       default:
         this.entities = new Entities<Entity>(Entity);
         break;
@@ -303,30 +250,46 @@ export class EntityType extends Entity {
         throw e;
       }
     }
-    if (this.headingsSource) {
-      this.headingsMap = new Map(eval(H[this.headingsSource]));
-      if (this.headingsMap.size == 0) {
-        this.headingsMap = new Map([
-          ['name', 'Name'],
-          ['suffix', 'Suffix'],
-        ]);
-      }
-    }
+    // if (this.headingsSource) {
+    //   this.headingsMap = this.getHeadingsMap()
+    //   // this.headingsMap = new Map(eval(H[this.headingsSource]));
+    //   // if (this.headingsMap.size == 0) {
+    //   //   this.headingsMap = new Map([
+    //   //     ['name', 'Name'],
+    //   //     ['suffix', 'Suffix'],
+    //   //   ]);
+    //   // }
+    // }
   }
 }
 
 export class EntityCity extends Entity {
-  public type = EnumEntityType.City;
+  public entityTypeKey = EnumEntityType.City;
   public countryKey = -1;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['countryKey', 'Country'],
+    ]);
+    return h;
+  }
 }
 export class EntityFile extends Entity {
-  public type = EnumEntityType.File;
+  public entityTypeKey = EnumEntityType.File;
   fileName = '';
   dateTime: Date;
   public clone() {
     let t = new EntityFile(this.name);
     t = Object.assign(t, this);
     return t;
+  }
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['fileName', 'File name'],
+      ['description', 'Description'],
+    ]);
+    return h;
   }
 }
 
@@ -340,11 +303,11 @@ export class EntityTemplate extends EntityFile {
 }
 
 export class EntityMeeting extends Entity {
-  public type = EnumEntityType.Meeting;
+  public entityTypeKey = EnumEntityType.Meeting;
   start: Date;
   end: Date;
   where = '';
-  notes = '';
+  notesDesc = '';
   attendances = new Entities<EntityAttendance>(EntityAttendance);
   files = new Entities<EntityFile>(EntityFile);
   public clone() {
@@ -352,9 +315,21 @@ export class EntityMeeting extends Entity {
     t = Object.assign(t, this);
     return t;
   }
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Subject'],
+      ['where', 'Share certificate number'],
+      ['start', 'Start'],
+      ['end', 'End'],
+      ['notesDesc', 'Notes'],
+      ['filesKeys', 'Files'],
+    ]);
+    return h;
+  }
 }
+
 export class EntityFunctional extends Entity {
-  public type = EnumEntityType.Functional;
+  public entityTypeKey = EnumEntityType.Functional;
   public tasksCount = 0;
   public isActive = true;
   public countryKey = -1;
@@ -372,7 +347,7 @@ export class EntityFunctional extends Entity {
 export class EntityCustomField extends Entity {
   //name = title
   //type = entity type name
-  public type = EnumEntityType.Custom;
+  public entityTypeKey = EnumEntityType.Custom;
   value: any; //literal or entityKey
   public clone() {
     let t = new EntityCustomField(this.name);
@@ -382,7 +357,7 @@ export class EntityCustomField extends Entity {
 }
 
 export class EntityLegal extends EntityFunctional {
-  public type = EnumEntityType.Legal;
+  public entityTypeKey = EnumEntityType.Legal;
   //customFields: CustomFields;
   //entityFiles: FileEntities;
 
@@ -411,7 +386,7 @@ export class EntityLegal extends EntityFunctional {
 
 //todo: Appointments, ShareCertificates, Shareholders collections
 export class EntityCompany extends EntityLegal {
-  public type = EnumEntityType.Company;
+  public entityTypeKey = EnumEntityType.Company;
   companyTypeKey: number = 0;
   internalCode: string = '';
   leCode: string = '';
@@ -464,6 +439,7 @@ export class EntityCompany extends EntityLegal {
   currNameEffDate: Date;
   prevName: string;
   prevNameEffDate: Date;
+  regulatoryClientCode = '';
 
   regulatorKeys: number[] = [0, 1];
   contactKeys: number[] = [];
@@ -472,11 +448,86 @@ export class EntityCompany extends EntityLegal {
   shareCertificateKeys: number[];
   appointmentKeys: number[];
   shareholderKeys: number[];
-  addressKeys: number[];
+  postalAddressKey: number = 0;
+  physicalAddressKey: number = 0;
+
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['suffix', 'Suffix'],
+      ['companyTypeKey', 'Entity type'],
+      ['internalCode', 'Internal code'],
+      ['leCode', 'LE number'],
+      ['registrationCode', 'Entity registration number'],
+      ['countryKey', 'Country of Incorporation'],
+      ['representativeOfficeIs', 'Representative Office'],
+      ['foreignBranchIs', 'Foreign Branch'],
+      ['businessAreaKey', 'Business area'],
+      ['legalClassKey', 'Legal classification'],
+      ['entityStatusKey', 'Entity status'],
+      ['entityStatusTierKey', 'Entity status tiering'],
+      ['incomeTax', 'Income tax number'],
+      ['vatCode', 'Value added tax (VAT) number'],
+      ['businessDivisionKey', 'Business division'],
+      ['consolidationKey', 'Consolidated/non-consolidated'],
+      ['consolidateUnder', 'Consolidate under (Bank/Group)'],
+      ['accountingClassKey', 'Accounting classification'],
+      ['accountingClassTierKey', 'Accounting classification tiering'],
+      ['parentCompanyKey', 'Direct Parent/Ownership (Major Shareholder)'],
+      ['parentHolding', 'Direct Parent - % ownership -'],
+      ['holdingParentCompanyKey', 'Absa shareholding in entity - Shareholder'],
+      ['holdingHolding', 'Absa shareholding in the entity – %'],
+      [
+        'objectivePublishedDesc',
+        'Business objective/Nature of business activities per Annual Financial Statements',
+      ],
+      [
+        'objectiveRegisteredDesc',
+        'Business objective/Nature of business activities per Memorandum of Incorporation',
+      ],
+      ['picScore', 'PI Score'],
+      ['secretariatKey', 'Appointed company secretary'],
+      ['secretaryKey', 'Absa group secretariat representative'],
+      ['leeKey', 'Legal entity executive (LEE)'],
+      ['leeAppointedDate', 'LEE appointed date'],
+      ['financialOfficerKey', 'Entity financial officer'],
+      ['foAppointedDate', 'Entity financial officer appointed date'],
+      ['publicOfficerKey', 'Public officer (income tax)'],
+      ['publicOfficerAppointedDate', 'Public officer appointment date'],
+      ['auditorKey', 'Auditors'],
+      ['auditorAppointedDate', 'Auditor appointment date'],
+      ['auditPartnerKey', 'Audit Parner'],
+      ['auditAppointedDate', 'Audit partner appointment date'],
+      ['listedCode', 'Share code'],
+      ['isinCode', 'ISIN code'],
+      ['leiCode', 'LEI Number (Bloomberg)'],
+      ['reutersCode', 'Reuters code'],
+      ['industryKey', 'Industry'],
+      ['keepingCertificatesIs', 'Certificates are kept'],
+      ['connectedEntityIs', 'Interconnected within group'],
+      ['connectedEntityName', 'Interconnected entity name'],
+      ['currNameEffDate', 'Current name effective date'],
+      ['prevName', 'Previous name'],
+      ['prevNameEffDate', 'Previous name effective date'],
+      ['regulatoryClientCode', 'Regulator client code'],
+      ['incorporationDate', 'Incorporation date'],
+      ['anniversaryMonthKey', 'Anniversary  month'],
+      ['businessStartDate', 'Business start date'],
+      ['fyeMonthKey', 'Financial year end month'],
+      ['postalAddressKey', 'Postal address'],
+      ['physicalAddressKey', 'Physical address'],
+      ['regulatorKeys', 'Regulators'],
+      ['portfolioKeys', 'Portfolios'],
+      ['propertyKeys', 'Properties'],
+      ['appointmentKeys', 'Appointments'],
+      ['shareholdingKeys', 'Shareholding'],
+      ['shareCertificateKeys', 'Share Issues'],
+    ]);
+    return h;
+  }
 }
 
 export class EntityContact extends Entity {
-  public type = EnumEntityType.Contact;
+  public entityTypeKey = EnumEntityType.Contact;
   contactTypeKey = -1; //entity, such as Company Primary Contact...
   key: 0;
   individualKey = -1;
@@ -486,33 +537,77 @@ export class EntityContact extends Entity {
   email = '';
   cellphone = '';
   landline = '';
-  note = '';
+  noteDesc = '';
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['individualKey', 'Individual'],
+      ['onLeaveIs', 'On leave?'],
+      ['comingBackDate', 'Coming back date'],
+      ['contactPreferenceKey', 'Contact preference'],
+      ['email', 'Email'],
+      ['landline', 'Landline'],
+      ['notesDesc', 'Notes'],
+    ]);
+    return h;
+  }
 }
 
-export class EntityAddress extends Entity {
-  public type = EnumEntityType.Address;
+export class EntityPostalAddress extends Entity {
+  public entityTypeKey = EnumEntityType.PostalAddress;
   addressTypeKey: number = 0;
   countryKey: number = -1;
   cityKey: number = -1;
-  text = '';
+  textDesc = '';
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['addressTypeKey', 'Type'],
+      ['countryKey', 'Country'],
+      ['cityKey', 'cityKey'],
+      ['textDesc', 'Text'],
+    ]);
+    return h;
+  }
+}
+
+export class EntityPhysicalAddress extends Entity {
+  public entityTypeKey = EnumEntityType.PhysicalAddress;
 }
 
 export class EntityProperty extends EntityFunctional {
-  public type = EnumEntityType.Property;
+  public entityTypeKey = EnumEntityType.Property;
   addressKey = -1;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['addressKey', 'Address'],
+    ]);
+    return h;
+  }
 }
 
 export class EntityAppointment extends Entity {
-  public type = EnumEntityType.Appointment;
+  public entityTypeKey = EnumEntityType.Appointment;
   companyKey = -1;
   individualKey = -1;
   startDate: Date = null;
   endDate: Date = null;
+  capacityKey = -1;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['individualKey', 'Individual'],
+      ['capacityKey', 'Designation'],
+      ['startDate', 'Appointment Start'],
+      ['endDate', 'Appointment End'],
+    ]);
+    return h;
+  }
 }
 
 //let company = new Company('a');
 export class EntityNatural extends EntityFunctional {
-  public type = EnumEntityType.Natural;
+  public entityTypeKey = EnumEntityType.Natural;
   public email: string;
   public cellNumber: string;
   public birthOfDate: Date;
@@ -577,10 +672,18 @@ export class EntityAttendance extends Entity {
   individualKey: number;
   meetingKey: number;
   attendedIs: boolean;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['attendedIs', 'Attended?'],
+      ['meetingKey', 'Meeting details'],
+    ]);
+    return h;
+  }
 }
 
 export class EntityIndividual extends EntityNatural {
-  type = EnumEntityType.Individual;
+  entityTypeKey = EnumEntityType.Individual;
   secretaryIs = false;
   audutorIs = false;
   public clone() {
@@ -596,30 +699,59 @@ export class EntityIndividual extends EntityNatural {
   prevFirstName: string;
   entityGroups: Entities<EntityPortfolio>;
   entityCompanies: Entities<EntityCompany>;
-  SAIDnumber: string;
-  SAPassportNumber: string;
-  incomeTaxNumber: string;
-  vatNumber: string;
+  IDCode: string;
+  SAPassportCode: string;
+  incomeTaxCode: string;
+  vatCode: string;
   countryKey = -1;
-  passportNumber: string;
-  employeeNumber: string;
+  passportCode: string;
+  employeeCode: string;
   position: string;
   currentEmployerKey = -1; //company
-  //contact details
-  //customFields
-  //files
+  title = '';
+  addressKey = -1;
+  filesKeys: number[] = [];
+
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['fullName', 'Full name'],
+      ['title', 'Title'],
+      ['countryKey', 'Nationality'],
+      ['IDCode', 'ID code'],
+      ['passportCode', 'Passport code'],
+      ['employeeCode', 'Employee code'],
+      ['position', 'Position'],
+      ['occupation', 'Occupation'],
+      ['addressKey', 'Address'],
+      ['companyKey', 'Employer'],
+      ['filesKeys', 'Files'],
+      ['capacityKey', 'Designation'],
+      ['startDate', 'Appointment Start'],
+      ['endDate', 'Appointment End'],
+    ]);
+    return h;
+  }
 }
 
 export class EntityShareholding extends Entity {
-  public type = EnumEntityType.Shareholding;
+  public entityTypeKey = EnumEntityType.Shareholding;
   shareTypeKey = -1;
   individualKey = -1;
   companyKey = -1;
   shareCount = 0;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['companyKey', 'Company'],
+      ['individualKey', 'Individual'],
+      ['shareCount', 'Number of shares'],
+    ]);
+    return h;
+  }
 }
 
 export class EntityPortfolio extends EntityFunctional {
-  public type = EnumEntityType.Portfolio;
+  public entityTypeKey = EnumEntityType.Portfolio;
   public clone() {
     let t = new EntityPortfolio(this.name);
     t = Object.assign(t, this);
@@ -630,7 +762,7 @@ export class EntityPortfolio extends EntityFunctional {
   userAdmins: Entities<EntityUser>;
 }
 export class EntityTrust extends EntityLegal {
-  public type = EnumEntityType.Trust;
+  public entityTypeKey = EnumEntityType.Trust;
   public clone() {
     let t = new EntityTrust(this.name);
     t = Object.assign(t, this);
@@ -640,65 +772,95 @@ export class EntityTrust extends EntityLegal {
 }
 
 export class EntityTaskType extends Entity {
-  type = EnumEntityType.TaskType;
+  entityTypeKey = EnumEntityType.TaskType;
   suffix = '';
-  entityTypeKey = -1;
   countryKey = -1;
   requireAuthIs = true;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['countryKey', 'Country'],
+      ['requireAuthIs', 'Is authorisation required'],
+    ]);
+    return h;
+  }
 }
 export class EntityRegulator extends EntityLegal {
-  public type = EnumEntityType.Regulator;
+  public entityTypeKey = EnumEntityType.Regulator;
   public clone() {
     let t = new EntityRegulator(this.name);
     t = Object.assign(t, this);
     return t;
   }
   countryKey = -1;
-  regulationEntities: Entities<EntityRegulation>;
+  regulatorTypeKeys: number[] = [];
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['countryKey', 'Country'],
+      ['regulatorTypeKeys', 'Regulator type'],
+    ]);
+    return h;
+  }
 }
 export class EntityAuditor extends EntityLegal {
-  public type = EnumEntityType.Auditor;
+  public entityTypeKey = EnumEntityType.Auditor;
   public clone() {
     let t = new EntityAuditor(this.name);
     t = Object.assign(t, this);
     return t;
   }
-  professionalNumber: string;
-  partnerKey = -1;
+  professionalCode: string;
+  individualKeys = -1;
   //todo: partners: Entities<NaturalEntity>
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['prefessionalCode', 'Professional number'],
+      ['individualKeys', 'Partners'],
+    ]);
+    return h;
+  }
 }
 export class EntitySecretariat extends EntityLegal {
-  public type = EnumEntityType.Secretariat;
+  public entityTypeKey = EnumEntityType.Secretariat;
   public clone() {
     let t = new EntitySecretariat(this.name);
     t = Object.assign(t, this);
     return t;
   }
-  professionalNumber: string;
-  partnerKey = -1;
+  // professionalNumber: string;
+  // partnerKey = -1;
   //todo: partners: Entities<NaturalEntity>
 }
 export class EntityRegulation extends EntityFunctional {
-  public type = EnumEntityType.Regulation;
+  public entityTypeKey = EnumEntityType.Regulation;
   public clone() {
     let t = new EntityRegulation(this.name);
     t = Object.assign(t, this);
     return t;
   }
   countryKey = -1;
-  regulatorEntities: Entities<EntityRegulator>;
+  regulatorKey = -1;
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['name', 'Name'],
+      ['countryKey', 'Country'],
+      ['regulatorKey', 'Regulator'],
+    ]);
+    return h;
+  }
+  // regulatorEntities: Entities<EntityRegulator>;
 }
 
 export class EntityUser extends EntityNatural {
-  public type = EnumEntityType.User;
-  activationDate: Date;
-  deactivationDate: Date;
+  public entityTypeKey = EnumEntityType.User;
+  startDate: Date;
+  endDate: Date;
   employeeNumber: string;
   position: string;
-  managerGroups: Entities<EntityPortfolio>;
-  adminGroups: Entities<EntityPortfolio>;
-  managerCompanies: Entities<EntityCompany>;
-  adminCompanies: Entities<EntityCompany>;
+  accessKey = -1;
+  enabledIs = true;
   constructor(
     public surname: string,
     public firstName: string,
@@ -711,11 +873,20 @@ export class EntityUser extends EntityNatural {
     t = Object.assign(t, this);
     return t;
   }
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['fullName', 'Full name'],
+      ['countryKey', 'Country'],
+      ['accessKey', 'User access'],
+      ['enabledIs', 'Active'],
+    ]);
+    return h;
+  }
 }
 
-export class EntityMeetingGuest extends EntityNatural {
-  attended = false;
-}
+// export class EntityMeetingGuest extends EntityNatural {
+//   attended = false;
+// }
 
 export class Message {
   constructor(
@@ -867,8 +1038,22 @@ export class CustomField {
 // export type EntityKey = number;
 
 export class EntityShareCertificate extends Entity {
-  public type = EnumEntityType.ShareCertificate;
+  public entityTypeKey = EnumEntityType.ShareCertificate;
+  keptIs = true;
+  certificateCode = '';
   issuedDate: Date = null;
+  shareholderKey = 0;
+  shareholderType = 9; // company or individual
+  holdingCount = 0; //number of shares
+  getHeadingsMap(): Map<string, string> {
+    let h = new Map([
+      ['keptIs', 'Original share certificates kept'],
+      ['certificateCode', 'Share certificate number'],
+      ['shareholderKey', 'Shareholder name'],
+      ['holdingCount', 'Number of shares'],
+    ]);
+    return h;
+  }
 }
 
 export type AnyEntity =
@@ -880,9 +1065,11 @@ export type AnyEntity =
   | EntityNatural
   | EntityCompany
   | EntityContact
-  | EntityAddress
+  | EntityPostalAddress
+  | EntityPhysicalAddress
   | EntityType
-  | EntityMeeting;
+  | EntityMeeting
+  | EntityShareCertificate;
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;

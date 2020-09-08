@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, AnyEntity } from 'src/app/data/data-models';
+import { Entities, AnyEntity } from 'src/app/data/data-entity-classes';
 import { DataService } from 'src/app/data/data.service';
-import { TaskFlowSelect } from 'src/app/data/data-models-workflow';
+import { TaskFlowSelect } from 'src/app/data/data-workflow-classes';
 
 @Component({
   selector: 'app-flow-select',

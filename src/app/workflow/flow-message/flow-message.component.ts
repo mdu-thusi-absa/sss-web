@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowMessage } from 'src/app/data/data-models-workflow';
+import { TaskFlowMessage } from 'src/app/data/data-workflow-classes';
 //import { data } from 'jquery';
 import { DataService } from 'src/app/data/data.service';
 

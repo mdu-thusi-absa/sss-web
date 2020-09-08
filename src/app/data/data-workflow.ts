@@ -1,6 +1,6 @@
-import * as M from './data-models';
-import * as W from './data-models-workflow';
-import * as E from './data-entityTypes';
+import * as M from './data-entity-classes';
+import * as W from './data-workflow-classes';
+import * as E from './data-entity-types';
 import { DataService } from './data.service';
 
 export function getWorkFlow(
@@ -11,8 +11,8 @@ export function getWorkFlow(
   // workFlow.rootTask = t1;
   // console.log(workFlow.type);
 
-  let t2 = useEntityTypeForCountry(data, t1, 202,true); //select types only ZAF
-  let t3 = useCompanyForEntityTypeForCountry(data, t2, 9, 202); //select entities for type=company
+  // let t2 = useEntityTypeForCountry(data, t1, 202,true); //select types only ZAF
+  let t3 = useCompanyForEntityTypeForCountry(data, t1,  202); //select entities for type=company
   //let t4 = getCompany_Amend_RegisteredAddress(data, t3);
   let t4 = useCompanyAmendmentTypesForCountry(data, t3, 202);
   let t40 = useApprovalIfNotReport(data, t4,39);
@@ -90,26 +90,19 @@ function useCompanyForCountry(
 function useCompanyForEntityTypeForCountry(
   data: DataService,
   parent: W.TaskFlow,
-  entityTypeKey: number,
   countryKey: number
 ) {
   let t4 = new W.TaskFlowSelect(data, 'companyKey');
   t4.name = 'Company';
   t4.sourceType = E.EnumEntityType.CompaniesForCountry;
   t4.actionEntityNameIsEntityName = true;
-  let c1 = new W.TaskFlowSubTaskCondition(
-    'entityTypeKey',
-    entityTypeKey,
-    '==',
-    'number'
-  );
   let c2 = new W.TaskFlowSubTaskCondition(
     'countryKey',
     countryKey,
     '==',
     'number'
   );
-  let s = new W.TaskFlowSubTask(t4, [c1, c2]);
+  let s = new W.TaskFlowSubTask(t4, [c2]);
 
   parent.addNextFork(s);
   return t4;
@@ -135,25 +128,25 @@ function useCompanyAmendmentTypesForCountry(
   return t;
 }
 
-function useEntityTypeForCountry(
-  data: DataService,
-  parent: W.TaskFlow,
-  countryKey: number,
-  matchCountryIs: boolean
-): W.TaskFlow {
-  let t2 = new W.TaskFlowSelect(data, 'entityTypeKey');
-  t2.name = 'Entity type';
-  t2.sourceType = E.EnumEntityType.EntityTypesForCountry;
-  let c = new W.TaskFlowSubTaskCondition(
-    'countryKey',
-    countryKey,
-    (matchCountryIs?'==':'!='),
-    'number'
-  );
-  let s = new W.TaskFlowSubTask(t2, [c]);
-  parent.addNextFork(s);
-  return t2;
-}
+// function useEntityTypeForCountry(
+//   data: DataService,
+//   parent: W.TaskFlow,
+//   countryKey: number,
+//   matchCountryIs: boolean
+// ): W.TaskFlow {
+//   let t2 = new W.TaskFlowSelect(data, 'entityTypeKey');
+//   t2.name = 'Entity type';
+//   t2.sourceType = E.EnumEntityType.EntityTypesForCountry;
+//   let c = new W.TaskFlowSubTaskCondition(
+//     'countryKey',
+//     countryKey,
+//     (matchCountryIs?'==':'!='),
+//     'number'
+//   );
+//   let s = new W.TaskFlowSubTask(t2, [c]);
+//   parent.addNextFork(s);
+//   return t2;
+// }
 
 function useCompany_Amend_Any(
   data: DataService,
@@ -162,7 +155,7 @@ function useCompany_Amend_Any(
   let t7 = new W.TaskFlowForm(data, 'companyDetails');
   t7.name = 'The amendment';
   t7.entityFieldKey = 'companyKey';
-  t7.inputSourceType = E.EnumEntityType.Company;
+  t7.inputObject = new M.EntityCompany('New Company')
   parent.addNext(t7);
   return t7;
 }

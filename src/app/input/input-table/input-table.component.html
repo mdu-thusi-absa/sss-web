@@ -80,7 +80,6 @@
           <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'entity'">
             <td style="padding:0px" [attr.colspan]="headings.length + (withCheckbox?1:0)">
               <app-input-table-entity
-                [entityTypeKey] = "e.value.type"
                 [entity] = "e.value"
                 [noPadding] = "true"
               ></app-input-table-entity>

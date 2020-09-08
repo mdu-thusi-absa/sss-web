@@ -1,6 +1,6 @@
-import * as E from './data-entityTypes';
+import * as E from './data-entity-types';
 import { DataService } from './data.service';
-import { Entities, AnyEntity, Entity } from './data-models';
+import { Entities, AnyEntity, Entity } from './data-entity-classes';
 // import * as D from './data.service'
 
 export class TaskFlowSubTaskCondition {
@@ -252,7 +252,7 @@ export class TaskFlowFormInput {
 export class TaskFlowForm extends TaskFlow {
   type = 'form';
   inputs: TaskFlowFormInput[] = [];
-  inputSourceType: E.EnumEntityType;
+  inputObject: AnyEntity
 
   addInput(
     fieldName: string,
@@ -270,9 +270,9 @@ export class TaskFlowForm extends TaskFlow {
   }
 
   init(): boolean {
-    if (this.inputSourceType) {
+    if (this.inputObject) {
       if (this.inputs.length == 0) {
-        let fields = this.data.getEntityHeadingsMap(this.inputSourceType);
+        let fields = this.inputObject.getHeadingsMap()
         fields.forEach((value, key, map) => {
           this.addInput(
             key as string,

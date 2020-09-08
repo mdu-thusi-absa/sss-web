@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import * as $ from 'jquery';
 import { DataService } from 'src/app/data/data.service';
-import { Entity } from 'src/app/data/data-models';
+import { Entity } from 'src/app/data/data-entity-classes';
 
 @Component({
   selector: 'app-input-select',

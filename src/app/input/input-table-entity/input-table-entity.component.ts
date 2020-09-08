@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AnyEntity, Entities } from 'src/app/data/data-models';
+import { AnyEntity, Entities } from 'src/app/data/data-entity-classes';
 import { DataService } from 'src/app/data/data.service';
-import {EnumEntityType} from 'src/app/data/data-entityTypes'
+import {EnumEntityType} from 'src/app/data/data-entity-types'
 
 @Component({
   selector: 'app-input-table-entity',
@@ -10,22 +10,29 @@ import {EnumEntityType} from 'src/app/data/data-entityTypes'
 })
 export class InputTableEntityComponent implements OnInit {
   entity_: AnyEntity;
-  @Input() entityTypeKey: EnumEntityType;
+  // @Input() entityTypeKey: EnumEntityType;
+  entityTypeKey: EnumEntityType
+  @Input() noPadding = false;
   headingsMap = new Map(); //lists headings in th
   headings: string[] = [];
   fields: string[] = [];
   values: any[] = [];
   filterText_ = '';
-  @Input() noPadding = false;
+  
 
   isHiddenMap = new Map();
   countFiltered = 0;
   //countSelected = 0;
   //@Input() inputType = 'file';
 
-  eid = 'input-table';
+  eid = 'input-table-entity';
   constructor(public data: DataService) {
     this.eid = this.data.getID('', this.eid);
+  }
+
+  @Input() set entity(entity_: AnyEntity) {
+    this.entity_ = entity_;
+    this.loadValues();
   }
 
   ngOnInit(): void {
@@ -35,7 +42,7 @@ export class InputTableEntityComponent implements OnInit {
     // });
     // console.log(this.entity_,this.entity_.type);
     // this.entityTypeKey = this.entity_.type
-    this.headingsMap = this.data.getEntityHeadingsMap(this.entityTypeKey);
+    this.headingsMap = this.entity_.getHeadingsMap();
     // console.log(this.entityTypeKey);
     this.headings = Array.from(this.headingsMap.values());
     this.fields = Array.from(this.headingsMap.keys());
@@ -53,10 +60,6 @@ export class InputTableEntityComponent implements OnInit {
     }
   }
 
-  @Input() set entity(entity_: AnyEntity) {
-    this.entity_ = entity_;
-    this.loadValues();
-  }
 
   getFieldValue(fieldName: string):string|Entities<AnyEntity> {
     let d = this.data.getEntityFieldValue(this.entity_,fieldName) 

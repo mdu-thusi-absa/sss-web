@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Entity } from 'src/app/data/data-models';
+import { Entity } from 'src/app/data/data-entity-classes';
 
 @Component({
   selector: 'app-label-h',

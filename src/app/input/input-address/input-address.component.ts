@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, EntityCity, Entity } from 'src/app/data/data-models';
+import { Entities, EntityCity, Entity } from 'src/app/data/data-entity-classes';
 import { DataService } from 'src/app/data/data.service';
-import { EnumEntityType } from 'src/app/data/data-entityTypes';
+import { EnumEntityType } from 'src/app/data/data-entity-types';
 
 @Component({
   selector: 'app-input-address',

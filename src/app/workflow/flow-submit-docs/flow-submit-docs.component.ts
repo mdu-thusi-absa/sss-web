@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { TaskFlowSubmitDocs } from 'src/app/data/data-models-workflow';
+import { TaskFlowSubmitDocs } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
