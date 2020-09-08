@@ -28,8 +28,7 @@ export class Entity {
 
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
-      ['name', 'Name'],
-      ['suffix', 'Suffix'],
+      ['name', 'Name']
     ]);
     return h;
   }
@@ -576,11 +575,11 @@ export class EntityPhysicalAddress extends Entity {
 
 export class EntityProperty extends EntityFunctional {
   public entityTypeKey = EnumEntityType.Property;
-  addressKey = -1;
+  physicalAddressKey = -1;
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
       ['name', 'Name'],
-      ['addressKey', 'Address'],
+      ['physicalAddressKey', 'Address'],
     ]);
     return h;
   }

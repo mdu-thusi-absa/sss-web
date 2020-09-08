@@ -14,7 +14,6 @@
 <div style="padding-bottom: 5px;"></div>
 </ng-container>
 
-<small>
   <table class="table table-condensed table-bordered less-bottom"
     [style.padding-bottom] = "noPadding?'0px':'10px'"
     [style.margin-bottom] = "noPadding?'0px':'10px'"
@@ -29,7 +28,7 @@
           ></app-input-checkbox>
         </th>
         <th *ngFor="let h of headings" class="info">
-          <small>{{ h }}</small>
+          {{ h }}
         </th>
       </tr>
     </thead>
@@ -133,4 +132,4 @@
       </ng-container>
     </tbody>
   </table>
-</small>
+
