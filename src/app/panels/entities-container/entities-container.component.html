@@ -331,7 +331,7 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
-                <app-buttons-toggle
+                <!-- <app-buttons-toggle
                   [title]="'Reports'"
                   [placeholder]="'Reports page'"
                   [dataTarget]="'#page-reports'"
@@ -341,7 +341,7 @@
                   (onToggle)="hideReports = !hideReports"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle>
+                ></app-buttons-toggle> -->
               </div>
               <span
                 [style.display]="
@@ -352,8 +352,7 @@
                   hideCustom &&
                   hideDetailFiles &&
                   hideMeetings &&
-                  hideReminders &&
-                  hideReports
+                  hideReminders
                     ? 'inherit'
                     : 'none'
                 "
