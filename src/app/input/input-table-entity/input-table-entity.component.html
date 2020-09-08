@@ -6,7 +6,7 @@
   (onFilter)="filterText = $event"
   [showInputFilter]="true"
 ></app-input-filter-add>
-<div style="padding-bottom: 5px"></div>
+<div [hidden]="fields.length < 10" style="padding-bottom: 5px"></div>
 
 
   <table

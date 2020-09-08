@@ -28,7 +28,8 @@ export class Entity {
 
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
-      ['name', 'Name']
+      ['name', 'Name'],
+      ['description', 'Description']
     ]);
     return h;
   }
@@ -452,7 +453,7 @@ export class EntityCompany extends EntityLegal {
 
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
-      ['suffix', 'Suffix'],
+      ['name', 'Name'],
       ['companyTypeKey', 'Entity type'],
       ['internalCode', 'Internal code'],
       ['leCode', 'LE number'],
@@ -514,12 +515,13 @@ export class EntityCompany extends EntityLegal {
       ['fyeMonthKey', 'Financial year end month'],
       ['postalAddressKey', 'Postal address'],
       ['physicalAddressKey', 'Physical address'],
+      ['suffix', 'Suffix'],
       ['regulatorKeys', 'Regulators'],
       ['portfolioKeys', 'Portfolios'],
       ['propertyKeys', 'Properties'],
       ['appointmentKeys', 'Appointments'],
       ['shareholdingKeys', 'Shareholding'],
-      ['shareCertificateKeys', 'Share Issues'],
+      ['shareCertificateKeys', 'Allotments'],
     ]);
     return h;
   }
