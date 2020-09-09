@@ -773,24 +773,24 @@ textarea {
 }
 
 .label-buttons-1 {
-  width: calc(100% - 25px);
-  max-width: calc(100% - 25px);
+  width: calc(100% - 26px);
+  max-width: calc(100% - 26px);
 }
 .label-buttons-2 {
-  width: calc(100% - 48px);
-  max-width: calc(100% - 48px);
+  width: calc(100% - 52px);
+  max-width: calc(100% - 52px);
 }
 .label-buttons-3 {
-  width: calc(100% - 72px);
-  max-width: calc(100% - 72px);
+  width: calc(100% - 78px);
+  max-width: calc(100% - 78px);
 }
 .label-buttons-4 {
-  width: calc(100% - 96px);
-  max-width: calc(100% - 96px);
+  width: calc(100% - 104px);
+  max-width: calc(100% - 104px);
 }
 .label-buttons-5 {
-  width: calc(100% - 116px);
-  width: calc(100% - 116px);
+  width: calc(100% - 130px);
+  width: calc(100% - 130px);
 }
 
 .label-buttons-6 {
@@ -799,7 +799,7 @@ textarea {
   /* text-overflow: ellipsis; */
   overflow: hidden;
   display: inline-block;
-  width: calc(100% - 130px);
+  width: calc(100% - 156px);
 }
 
 .label-buttons-7 {
@@ -808,7 +808,7 @@ textarea {
   /* text-overflow: ellipsis; */
   overflow: hidden;
   display: inline-block;
-  width: calc(100% - 153px);
+  width: calc(100% - 182px);
 }
 
 /*checkbox sizes*/
