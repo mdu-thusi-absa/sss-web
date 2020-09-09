@@ -201,7 +201,7 @@ export class EntityMeeting extends Entity {
       ['start', 'Start'],
       ['end', 'End'],
       ['notesDesc', 'Notes'],
-      ['filesKeys', 'Files'],
+      ['fileKeys', 'Files'],
     ]);
     return h;
   }
@@ -615,7 +615,7 @@ export class EntityIndividual extends EntityNatural {
       ['occupation', 'Occupation'],
       ['addressKey', 'Address'],
       ['companyKey', 'Employer'],
-      ['filesKeys', 'Files'],
+      ['fileKeys', 'Files'],
       ['capacityKey', 'Designation'],
       ['startDate', 'Appointment Start'],
       ['endDate', 'Appointment End'],

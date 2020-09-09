@@ -104,10 +104,7 @@ export class EntitiesComponent implements OnInit {
   }
   private selectFirstVisibleRow() {
     try {
-      let k = this.selectFirstVisibleRow_GetKey();
-      this.selectedEntityKey = this.selectFirstVisibleRow_DashboardIsShown()
-        ? 0
-        : 1;
+      this.selectedEntityKey = this.selectFirstVisibleRow_GetKey()
       this.onEntityChange.emit(this.selectedEntityKey);
     } catch (e) {
       console.log('EntitiesComponent -> selectFirstVisibleRow -> e', e);
@@ -140,9 +137,11 @@ export class EntitiesComponent implements OnInit {
     this.setCounts();
     if (this.verifyHiddenMap_HasSomething()) this.selectFirstVisibleRow();
   }
+
   private filterInText(text: string, filterText: string): boolean {
     return text.toLowerCase().indexOf(filterText.toLowerCase()) > -1;
   }
+
   shouldBeHidden_VsFilterText(e: EntityFunctional): boolean {
     return (
       this.filterInText(e.name, this.filterText) ||

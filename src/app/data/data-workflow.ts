@@ -138,6 +138,10 @@ function queGeneralCompanyAmendment(
   let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', 3, '==', 'number');
   let b = new W.TaskFlowSubTask(a, [c]);
   parent.addNextFork(b);
+  let d = new W.TaskFlowConfirm(data,'areYouSureIs')
+  d.name = "Commit"
+  d.ensure = true
+  a.addNext(d)
   return a;
 }
 

@@ -43,7 +43,6 @@
       style="overflow-y: scroll; overflow-x: auto; scrollbar-width: thin;"
       (scroll)="onScrollTable($event)"
     >
-
       <ng-container *ngFor="let t of data.entityTypes | keyvalue">
 
         <table
@@ -59,12 +58,6 @@
               <th>Suffix</th>
             </tr>
           </thead>
-          <!-- <ul >
-            <li *ngFor="let e of entities.keys();let e = entities.get(k) ">
-              {{e.name}}
-            </li>
-          </ul> -->
-
           <tbody>
                 <tr  *ngFor="let e of entities| keyvalue "
                   [class.info]="e.value.activeIs"
@@ -110,59 +103,6 @@
                   </td>
                 </tr>
           </tbody>
-          <!-- <tbody hidden>
-            <ng-container *ngFor="let e of entities | keyvalue;let i = index">
-              <ng-container
-                *ngIf="
-                  e.value.type == entityTypeNames.get(t.key).name.toLowerCase() && getDoLoad(e.key, e.value.type,e.value.isActive)
-                "
-              >
-                <tr
-                  [class.info]="e.value.isActive"
-                  [class.tr-hide]="isHiddenMap.get(e.key)"
-                  [class.tr-show]="!isHiddenMap.get(e.key)"
-                >
-                  <td
-                    [style.border-bottom]="
-                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
-                    "
-                  >
-                    <a
-                      href="#"
-                      (click)="doEntityChoose(e.key)"
-                      [attr.id]="eid + '-a-' + e.key"
-                      [attr.name]="e.key"
-                      routerLink="."
-                      fragment="e.key"
-                      ><span [class.text-bright]="e.key == selectedEntityKey">
-                        {{ e.value.name }}</span
-                      >
-                    </a>
-                  </td>
-                  <td
-                    [style.border-bottom]="
-                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
-                    "
-                  >
-                    <span
-                      [class.text-bright]="e.key == selectedEntityKey"
-                      >{{ e.value.tasksCount }}</span
-                    >
-                  </td>
-                  <td
-                    [style.border-bottom]="
-                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
-                    "
-                  >
-                    <span
-                      [class.text-bright]="e.key == selectedEntityKey"
-                      >{{ e.value.suffix }}</span
-                    >
-                  </td>
-                </tr>
-              </ng-container>
-            </ng-container>
-          </tbody> -->
         </table>
       </ng-container>
 
@@ -210,45 +150,6 @@
     </a>
     
   </div>
-  <!-- <div class="progress" style="margin-bottom:0px;height:5px;border-radius: 1px;">
-    <div
-      class="progress-bar primary-color-active"
-      role="progressbar"
-      aria-valuenow="40"
-      aria-valuemin="0"
-      aria-valuemax="40"
-      [style.width] = "data.progress*10/4 + '%'"
-      style="border-radius: 1px;"
-    >
-      <span class="sr-only">70% Loaded</span>
-    </div>
-  </div> -->
 </div>
 
-<!-- Modal content-->
-<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-<!-- <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    
-    <div class="modal-content">
-      <div class="modal-header">
-        
-        <h4 class="modal-title">Settings</h4>
-      </div>
-      <div class="modal-body">
-        <p>Custom settings...</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="btn primary-color" data-dismiss="modal">
-          <small>
-            <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
-            <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Close</span
-            >&nbsp;</small
-          >
-        </a>
-        
-      </div>
-    </div>
-  </div>
-</div> -->
 
