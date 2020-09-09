@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
-import { Task } from 'src/app/data/data-entity-classes';
+import { Task } from 'src/app/data/data-other-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

@@ -1,6 +1,7 @@
 import * as E from './data-entity-types';
 import { DataService } from './data.service';
 import { Entities, AnyEntity, Entity } from './data-entity-classes';
+import { ɵINTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from '@angular/platform-browser-dynamic';
 // import * as D from './data.service'
 
 export class TaskFlowSubTaskCondition {
@@ -11,7 +12,7 @@ export class TaskFlowSubTaskCondition {
     public type: string //'number', or string, or Date, or...
   ) {}
 
-  assert(data: object): boolean {
+  matchCondition(data: object): boolean {
     let r = false;
     let v = data[this.fieldName];
     if (v === 0 || v) {
@@ -39,11 +40,11 @@ export class TaskFlowSubTask {
     public conditions: TaskFlowSubTaskCondition[] = []
   ) {}
 
-  assert(data: object): boolean {
+  matchCondition(data: object): boolean {
     let r = true;
     for (let i = 0; i < this.conditions.length; i++) {
       const e = this.conditions[i];
-      r = r && e.assert(data);
+      r = r && e.matchCondition(data);
       if (!r) break;
     }
     return r;
@@ -69,13 +70,21 @@ export class TaskFlow {
   isEnd = false;
   notes = '';
   parent: TaskFlow = null;
-  workflowValuesObject: any = '';
+
   subTasks: TaskFlowSubTask[] = [];
   hasFork = false;
   errorMessage = '';
   entityFieldKey = ''; //to set the fieldNameKey to get entity to be worked on in the step
   actionName_ = '';
   private actionEntityName_ = '';
+  private workflowValuesObject_ = {};
+  get workflowValuesObject(): object {
+    return this.workflowValuesObject_;
+  }
+  set workflowValuesObject(o: object) {
+    this.workflowValuesObject_ = o;
+  }
+
   get actionEntityName(): string {
     return this.actionEntityName_;
   }
@@ -148,25 +157,30 @@ export class TaskFlowSelect extends TaskFlow {
       }
     }
   }
+  private init_needs_update(): boolean {
+    return !this.values || this.sourceType != null;
+  }
+  private init_verify_if_empty() {
+    if (this.values) {
+      if (this.values.size > 0) return true;
+      else {
+        this.errorMessage =
+          'List is empty, please go back to choose another path';
+        return false;
+      }
+    }
+  }
   init(): boolean {
-    if (!this.values) {
+    if (this.init_needs_update()) {
       this.values = this.data.getEntities(
         this.sourceType,
         this.workflowValuesObject
       );
-
-      if (this.values) {
-        if (this.values.size > 0) return true;
-        else {
-          this.errorMessage =
-            'List is empty, please go back to choose another path';
-
-          return false;
-        }
-      }
+      this.init_verify_if_empty();
     }
     return true;
   }
+
   verify(): boolean {
     if (this.value > -1)
       if (this.values)
@@ -272,18 +286,22 @@ export class TaskFlowForm extends TaskFlow {
     return this;
   }
 
+  private init_formInputs() {
+    let fields = this.inputObject.headingsMap;
+    fields.forEach((value, key, map) => {
+      this.addInput(
+        key as string,
+        this.data.getFieldTypeForFieldName(key as string),
+        value as string,
+        ''
+      );
+    });
+  }
+
   init(): boolean {
     if (this.inputObject) {
       if (this.inputs.length == 0) {
-        let fields = this.inputObject.headingsMap;
-        fields.forEach((value, key, map) => {
-          this.addInput(
-            key as string,
-            this.data.getFieldTypeForName(key as string),
-            value as string,
-            ''
-          );
-        });
+        this.init_formInputs();
       }
     }
     return true;
@@ -358,6 +376,19 @@ export class WorkFlow extends TaskFlow {
     return t;
   }
 
+  private build_canBeBuiltOn(task: TaskFlow): boolean {
+    return task.isDone && task.subTasks.length > 0;
+  }
+  private build_checkIfConditionalBuildHasAdded(
+    parent: TaskFlow,
+    notAdded: boolean
+  ) {
+    if (notAdded)
+      parent.errorMessage =
+        'No further steps are available for this option, please select another one';
+    else parent.errorMessage = '';
+  }
+
   private build(fromTask: TaskFlow): boolean {
     if (this.currentTaskIndex_ == this.tasks.length - 1) {
       if (fromTask) {
@@ -380,40 +411,26 @@ export class WorkFlow extends TaskFlow {
           //     fromTask.hasFork,
           //     fromTask.subTasks.length
           //   );
-          if (fromTask.isDone && fromTask.subTasks.length > 0) {
+          if (this.build_canBeBuiltOn(fromTask)) {
             // console.log(0);
             if (!fromTask.hasFork) {
-              // next task without conditions
-              //   console.log(1);
-              //   let t = fromTask.subTasks[0].taskFlow;
-              //   t.workflowValuesObject = this.collectValues();
-              //   t.init();
-              //   this.tasks.push(t);
               this.build_addSubtask(fromTask, 0);
             } else {
               // next task with conditions
               let notAdded = true;
               for (let i = 0; i < fromTask.subTasks.length; i++) {
                 if (
-                  fromTask.subTasks[i].assert(fromTask.workflowValuesObject)
+                  fromTask.subTasks[i].matchCondition(
+                    fromTask.workflowValuesObject
+                  )
                 ) {
-                  //   let t = fromTask.subTasks[i].taskFlow;
-                  //   t.workflowValuesObject = this.collectValues();
-                  //   t.init();
-                  //   this.tasks.push(t);
                   let t = this.build_addSubtask(fromTask, i);
                   this.build(t);
-
                   notAdded = false;
                   break;
                 }
               }
-              // check if a new task has been added
-              // if not: show message
-              if (notAdded)
-                fromTask.errorMessage =
-                  'No further steps are available for this option, please select another one';
-              else fromTask.errorMessage = '';
+              this.build_checkIfConditionalBuildHasAdded(fromTask,notAdded);
             }
           } else if (fromTask.isDone) {
             this.start();

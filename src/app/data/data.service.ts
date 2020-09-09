@@ -245,7 +245,7 @@ export class DataService {
     }
   }
 
-  getFieldTypeForName(fieldName: string): string {
+  getFieldTypeForFieldName(fieldName: string): string {
     let v = 'text'; //Class,Code,Name,...
     let lastWord = this.getLastWord(fieldName);
     switch (lastWord) {

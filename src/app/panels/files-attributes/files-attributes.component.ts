@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-//import { Task, Step } from '../models/models';
 
 @Component({
   selector: 'app-files-attributes',

@@ -514,7 +514,7 @@ function useCompany_Amend_Specific(
   let t5 = new W.TaskFlowForm(data, fieldName);
   t5.entityFieldKey = 'companyKey';
   t5.name = 'The amendment';
-  t5.addInput(fieldName, data.getFieldTypeForName(fieldName), heading, '');
+  t5.addInput(fieldName, data.getFieldTypeForFieldName(fieldName), heading, '');
   parent.addNext(t5);
 
   let t6 = new W.TaskFlowUploadDocs(data, 'uploadFileKeys');
