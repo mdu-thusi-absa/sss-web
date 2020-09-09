@@ -6,7 +6,7 @@
 // import { etLocale } from 'ngx-bootstrap/chronos';
 // import { data } from 'jquery';
 // import { DataService } from './data.service';
-import { EnumEntityType } from './data-entity-types';
+import { EnumEntityType,getInitEntities } from './data-entity-types';
 import * as J from './data-json';
 // import { throwError } from 'rxjs';
 // import { join } from 'path';
@@ -17,8 +17,15 @@ export class Entity {
   public description = '';
   public activeIs = false;
   public suffix = '';
+  protected headingsMap_: Map<string,string>
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
-  constructor(public name: string) {}
+  constructor(public name: string) {
+    if (!this.headingsMap_) this.headingsMap_ = this.getHeadingsMap()
+  }
+
+  get headingsMap(){
+    return this.headingsMap_
+  }
 
   get allName() {
     if (this.suffix) {
@@ -26,7 +33,7 @@ export class Entity {
     } else return this.name;
   }
 
-  getHeadingsMap(): Map<string, string> {
+  getHeadingsMap():Map<string,string> {
     let h = new Map([
       ['name', 'Name'],
       ['description', 'Description'],
@@ -122,148 +129,25 @@ export class EntityType extends Entity {
   // public headingsMap: Map<string, string>; // map of fieldName, heading/label
   public entities: Entities<AnyEntity>;
   init() {
-    switch (this.key) {
-      case EnumEntityType.PhysicalAddress:
-        this.entities = new Entities<EntityPhysicalAddress>(
-          EntityPhysicalAddress
-        );
-        break;
-      case EnumEntityType.PostalAddress:
-        this.entities = new Entities<EntityPostalAddress>(EntityPostalAddress);
-        break;
-      case EnumEntityType.Auditor:
-        this.entities = new Entities<EntityAuditor>(EntityAuditor);
-        break;
-      case EnumEntityType.Company:
-      case EnumEntityType.ParentCompany:
-      case EnumEntityType.HoldingParentCompany:
-        this.entities = new Entities<EntityCompany>(EntityCompany);
-        break;
-      case EnumEntityType.CompaniesForCountry:
-        this.entities = new Entities<EntityCompany>(EntityCompany);
-        break;
-      case EnumEntityType.Contact:
-        this.entities = new Entities<EntityContact>(EntityContact);
-        break;
-      case EnumEntityType.Custom:
-        this.entities = new Entities<EntityCustomField>(EntityCustomField);
-        break;
-      case EnumEntityType.Individual:
-      case EnumEntityType.IndividualForCountries:
-        this.entities = new Entities<EntityIndividual>(EntityIndividual);
-        break;
-      case EnumEntityType.Portfolio:
-        this.entities = new Entities<EntityPortfolio>(EntityPortfolio);
-        break;
-      case EnumEntityType.Portfolio:
-        this.entities = new Entities<EntityPortfolio>(EntityPortfolio);
-        break;
-      case EnumEntityType.Property:
-        this.entities = new Entities<EntityProperty>(EntityProperty);
-        break;
-      case EnumEntityType.Regulation:
-        this.entities = new Entities<EntityRegulation>(EntityRegulation);
-        break;
-      case EnumEntityType.Regulator:
-        this.entities = new Entities<EntityRegulator>(EntityRegulator);
-        break;
-      case EnumEntityType.Secretariat:
-        this.entities = new Entities<EntitySecretariat>(EntitySecretariat);
-        break;
-      case EnumEntityType.ShareCertificate:
-        this.entities = new Entities<EntityShareCertificate>(
-          EntityShareCertificate
-        );
-        break;
-      case EnumEntityType.Shareholding:
-        this.entities = new Entities<EntityShareholding>(EntityShareholding);
-        break;
-      case EnumEntityType.Template:
-        this.entities = new Entities<EntityTemplate>(EntityTemplate);
-        break;
-      case EnumEntityType.Trust:
-        this.entities = new Entities<EntityTrust>(EntityTrust);
-        break;
-      case EnumEntityType.User:
-        this.entities = new Entities<EntityUser>(EntityUser);
-        break;
-      case EnumEntityType.File:
-        this.entities = new Entities<EntityFile>(EntityFile);
-        break;
-      case EnumEntityType.Meeting:
-        this.entities = new Entities<EntityMeeting>(EntityMeeting);
-        break;
-      case EnumEntityType.Functional:
-        this.entities = new Entities<EntityFunctional>(EntityFunctional);
-        break;
-      case EnumEntityType.Legal:
-        this.entities = new Entities<EntityLegal>(EntityLegal);
-        break;
-      case EnumEntityType.Natural:
-        this.entities = new Entities<EntityNatural>(EntityNatural);
-        break;
-      case EnumEntityType.Attendance:
-        this.entities = new Entities<EntityAttendance>(EntityAttendance);
-        break;
-      case EnumEntityType.EntityType:
-        this.entities = new Entities<EntityType>(EntityType);
-        break;
-      case EnumEntityType.Task:
-        this.entities = new Entities<EntityTask>(EntityTask);
-      case EnumEntityType.TaskType:
-      case EnumEntityType.TaskTypesForCountry:
-        this.entities = new Entities<EntityTaskType>(EntityTaskType);
-        break;
-      case EnumEntityType.Secretary:
-      case EnumEntityType.Lee:
-      case EnumEntityType.FinancialOfficer:
-      case EnumEntityType.PublicOfficer:
-      case EnumEntityType.AuditPartner:
-        this.entities = new Entities<EntityIndividual>(EntityIndividual);
-        break;
-      case EnumEntityType.Template:
-        this.entities = new Entities<EntityTemplate>(EntityTemplate);
-        break;
-      case EnumEntityType.Workflow:
-      case EnumEntityType.WorkflowForParent:
-        this.entities = new Entities<EntityWorkflow>(EntityWorkflow);
-        break;
-      case EnumEntityType.TemplateInput:
-        this.entities = new Entities<EntityTemplateInput>(EntityTemplateInput);
-        break;
-      case EnumEntityType.Report:
-      case EnumEntityType.Month:
-      case EnumEntityType.FyeMonth:
-      case EnumEntityType.AnniversaryMonth:
-      case EnumEntityType.DestinationType:
-      case EnumEntityType.RegulatorType:
-      default:
-        this.entities = new Entities<Entity>(Entity);
-        break;
-    }
+    if (!this.entities) this.entities = getInitEntities(this.key)
+    
     if (this.sourceType == 'json') {
-      try {
-        this.entities.fromJSON(J[this.jsonSource]);
-      } catch (e) {
-        console.log(
-          'EntityType.init',
-          'failed to load JSON, type:',
-          this.key,
-          this.jsonSource
-        );
-        throw e;
-      }
+      this.init_loadJSON()    
     }
-    // if (this.headingsSource) {
-    //   this.headingsMap = this.getHeadingsMap()
-    //   // this.headingsMap = new Map(eval(H[this.headingsSource]));
-    //   // if (this.headingsMap.size == 0) {
-    //   //   this.headingsMap = new Map([
-    //   //     ['name', 'Name'],
-    //   //     ['suffix', 'Suffix'],
-    //   //   ]);
-    //   // }
-    // }
+  }
+
+  init_loadJSON(){
+    try {
+      this.entities.fromJSON(J[this.jsonSource]);
+    } catch (e) {
+      console.log(
+        'EntityType.init',
+        'failed to load JSON, type:',
+        this.key,
+        this.jsonSource
+      );
+      throw e;
+    }
   }
 }
 
@@ -271,6 +155,7 @@ export class EntityCity extends Entity {
   public entityTypeKey = EnumEntityType.City;
   public countryKey = -1;
   getHeadingsMap(): Map<string, string> {
+    
     let h = new Map([
       ['name', 'Name'],
       ['countryKey', 'Country'],

@@ -275,7 +275,7 @@ export class TaskFlowForm extends TaskFlow {
   init(): boolean {
     if (this.inputObject) {
       if (this.inputs.length == 0) {
-        let fields = this.inputObject.getHeadingsMap();
+        let fields = this.inputObject.headingsMap;
         fields.forEach((value, key, map) => {
           this.addInput(
             key as string,

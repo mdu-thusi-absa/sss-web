@@ -42,7 +42,7 @@ export class InputTableEntityComponent implements OnInit {
     // });
     // console.log(this.entity_,this.entity_.type);
     // this.entityTypeKey = this.entity_.type
-    this.headingsMap = this.entity_.getHeadingsMap();
+    this.headingsMap = this.entity_.headingsMap;
     // console.log(this.entityTypeKey);
     this.headings = Array.from(this.headingsMap.values());
     this.fields = Array.from(this.headingsMap.keys());
