@@ -4,6 +4,7 @@
     href="#"
     class="btn primary-color-reverse btn-xs"
     (click)="doTask()"
+    [attr.id] = "eid + '-flash'" 
   >
     <mat-icon
       aria-hidden="true"
@@ -17,6 +18,7 @@
     href="#"
     class="btn primary-color-reverse btn-xs"
     (click)="doFile()"
+    [attr.id] = "eid + '-file'" 
   >
     <mat-icon
       aria-hidden="true"
@@ -30,6 +32,7 @@
     href="#"
     class="btn primary-color-reverse btn-xs"
     (click)="doRecord()"
+    [attr.id] = "eid + '-cd'" 
   >
     <mat-icon
       aria-hidden="true"
@@ -43,6 +46,7 @@
     href="#"
     class="btn primary-color-reverse btn-xs"
     (click)="doRecord()"
+    [attr.id] = "eid + '-done-all'" 
   >
     <mat-icon
       aria-hidden="true"

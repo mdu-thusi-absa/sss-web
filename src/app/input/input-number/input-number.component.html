@@ -28,6 +28,7 @@
       class="input-group-addon btn primary-color-reverse"
       (click)="doMinus()"
       [title]="'Decrease'"
+      [attr.id] = "eid + '-remove'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">remove</mat-icon>
     </span>
@@ -38,6 +39,7 @@
       (click)="doPlus()"
       [title]="'Increase'"
       style="border-left: solid var(--bg-color-active) 1px;"
+      [attr.id] = "eid + '-add'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
     </span>
@@ -47,6 +49,7 @@
     class="input-group-addon btn primary-color-reverse"
     (click)="doDownload()"
     [title]="'Download ' + title"
+    [attr.id] = "eid + '-download'"
   >
     <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
   </span>
@@ -56,6 +59,7 @@
     class="input-group-addon btn primary-color-reverse"
     (click)="doShare()"
     [title]="'Share ' + title"
+    [attr.id] = "eid + '-share'"
   >
     <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
   </span>

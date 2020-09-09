@@ -7,6 +7,7 @@
       [class.primary-color-active]="radioChoice == 'flash'"
       [class.primary-color]="radioChoice != 'flash'"
       [title]="titleFlash"
+      [attr.id] = "eid + '-flash'"
     >
       <input
         type="radio"
@@ -35,6 +36,7 @@
       [class.primary-color]="radioChoice != 'play'"
       (click)="doRadio('play')"
       [title]="titlePlay"
+      [attr.id] = "eid + '-play'"
     >
       <input
         type="radio"
@@ -61,6 +63,7 @@
       [class.primary-color-active]="radioChoice == 'pause'"
       [class.primary-color]="radioChoice != 'pause'"
       [title]="titlePause"
+      [attr.id] = "eid + '-pause'"
     >
       <input
         type="radio"
@@ -87,6 +90,7 @@
       [class.primary-color-active]="radioChoice == 'ok'"
       [class.primary-color]="radioChoice != 'ok'"
       [title]="titleOk"
+      [attr.id] = "eid + '-ok'"
     >
       <input
         type="radio"
@@ -113,6 +117,7 @@
       [class.primary-color-active]="radioChoice == 'eye-close'"
       [class.primary-color]="radioChoice != 'eye-close'"
       [title]="titleEyeClose"
+      [attr.id] = "eid + '-eye-close'"
     >
       <input
         type="radio"
@@ -139,6 +144,7 @@
       [class.primary-color-active]="radioChoice == 'eye-open'"
       [class.primary-color]="radioChoice != 'eye-open'"
       [title]="titleEyeOpen"
+      [attr.id] = "eid + '-eye-open'"
     >
       <input
         type="radio"
@@ -165,6 +171,7 @@
       [class.primary-color]="radioChoice != 'all'"
       (click)="doRadio('all')"
       [title]="titleAll"
+      [attr.id] = "eid + '-all'"
     >
       <input
         type="radio"
@@ -221,6 +228,7 @@
       (click)="doA()"
       [title]="(isA ? 'off: ' : 'on: ') + titleA"
       [class.btn-blocked]="disabledA"
+      [attr.id] = "eid + '-format-color-text'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >format_color_text</mat-icon
@@ -232,6 +240,7 @@
       class="input-group-addon btn primary-color btn-hover"
       (click)="doTick()"
       [class.btn-blocked]="disabledTick"
+      [attr.id] = "eid + '-done-outline'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >done_outline</mat-icon
@@ -256,6 +265,7 @@
       style="border-left: none;"
       (click)="doFilterClear()"
       [class.btn-blocked]="disabledFilterCount"
+      [attr.id] = "eid + '-filter-clear'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >clear</mat-icon
@@ -267,6 +277,7 @@
       style="border-left: none;"
       (click)="doSearch()"
       [class.btn-blocked]="filterText.length == -1"
+      [attr.id] = "eid + '-search'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >search</mat-icon
@@ -290,6 +301,7 @@
       (click)="doShare()"
       [title]="'Share ' + title"
       [class.btn-blocked]="disabledShare"
+      [attr.id] = "eid + '-share'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >share</mat-icon
@@ -305,6 +317,7 @@
       [class.btn-blocked]="disabledT"
       [class.primary-color-active]="isT"
       [class.primary-color]="!isT"
+      [attr.id] = "eid + '-clear-all'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >clear_all</mat-icon
@@ -318,6 +331,7 @@
       (click)="doDuplicate()"
       [title]="'Copy ' + title"
       [class.btn-blocked]="disabledDuplicate"
+      [attr.id] = "eid + '-file-copy'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >file_copy</mat-icon
@@ -331,6 +345,7 @@
       (click)="doDownload()"
       [title]="'Download ' + title"
       [class.btn-blocked]="disabledDownload"
+      [attr.id] = "eid + '-download'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >cloud_download</mat-icon
@@ -344,6 +359,7 @@
       (click)="doSave()"
       [title]="'Save ' + title"
       [class.btn-blocked]="disabledSave"
+      [attr.id] = "eid + '-done'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >done</mat-icon
@@ -357,6 +373,7 @@
       (click)="doDelete()"
       [title]="'Delete ' + title"
       [class.btn-blocked]="disabledDelete"
+      [attr.id] = "eid + '-clear-'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >clear</mat-icon
@@ -370,6 +387,7 @@
       (click)="doAdd()"
       [title]="'Add ' + title"
       [class.btn-blocked]="disabledAdd"
+      [attr.id] = "eid + '-add-'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >add</mat-icon
@@ -383,6 +401,7 @@
       (click)="doCancel()"
       [title]="'Discard changes'"
       [class.btn-blocked]="disabledCancel"
+      [attr.id] = "eid + '-clear--'"
     >
       <mat-icon class="mat-icon-big" aria-hidden="true" aria-label="Entities"
         >clear</mat-icon

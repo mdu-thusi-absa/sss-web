@@ -149,20 +149,23 @@ export class TaskFlowSelect extends TaskFlow {
     }
   }
   init(): boolean {
-    this.values = this.data.getEntities(
-      this.sourceType,
-      this.workflowValuesObject
-    );
-    
-    if (this.values) {
-      if (this.values.size > 0) return true;
-      else {
-        this.errorMessage =
-          'List is empty, please go back to choose another path';
+    if (!this.values) {
+      this.values = this.data.getEntities(
+        this.sourceType,
+        this.workflowValuesObject
+      );
 
-        return false;
+      if (this.values) {
+        if (this.values.size > 0) return true;
+        else {
+          this.errorMessage =
+            'List is empty, please go back to choose another path';
+
+          return false;
+        }
       }
     }
+    return true;
   }
   verify(): boolean {
     if (this.value > -1)
@@ -252,7 +255,7 @@ export class TaskFlowFormInput {
 export class TaskFlowForm extends TaskFlow {
   type = 'form';
   inputs: TaskFlowFormInput[] = [];
-  inputObject: AnyEntity
+  inputObject: AnyEntity;
 
   addInput(
     fieldName: string,
@@ -272,7 +275,7 @@ export class TaskFlowForm extends TaskFlow {
   init(): boolean {
     if (this.inputObject) {
       if (this.inputs.length == 0) {
-        let fields = this.inputObject.getHeadingsMap()
+        let fields = this.inputObject.getHeadingsMap();
         fields.forEach((value, key, map) => {
           this.addInput(
             key as string,
@@ -332,8 +335,8 @@ export class WorkFlow extends TaskFlow {
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
     this.currentTask.isDone = false;
-    this.actionEntityName = ''
-    this.actionName = ''
+    this.actionEntityName = '';
+    this.actionName = '';
     if (this.currentTask) this.currentTaskIndex_ = 0;
     return this.build(this.rootTask);
   }

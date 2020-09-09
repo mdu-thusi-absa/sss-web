@@ -50,7 +50,7 @@
         (onClick)="onSaveNext.emit()"
       ></app-buttons-toolbar-button>
     </div>
-    <div (click)="collapsed = !collapsed">{{ title }}</div>
+    <div [attr.id] = "eid + '-title'" (click)="collapsed = !collapsed">{{ title }}</div>
   </div>
   <!-- data-toggle="collapse" -->
 

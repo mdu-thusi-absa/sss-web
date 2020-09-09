@@ -26,6 +26,7 @@
         *ngIf="inline && showTitle"
         class="hidden-xs input-group-addon"
         (click)="dpDate.toggle()"
+        [attr.id] = "eid + '-title'"
       >
         {{ title }}
       </span>
@@ -57,6 +58,7 @@
         class="input-group-addon primary-color-reverse"
         (click)="gotoToday()"
         [title]="'Today'"
+        [attr.id] = "eid + '-today'"
       >
         <mat-icon aria-hidden="true" aria-label="Entities">today</mat-icon>
       </span>
@@ -65,6 +67,7 @@
         (click)="disabled ? '' : dpDate.toggle()"
         [title]="(disabled ? '' : 'Choose ') + title"
         [class.primary-color-reverse]="!disabled"
+        [attr.id] = "eid + '-calendar'"
       >
         <mat-icon aria-hidden="true" aria-label="Entities"
           >calendar_today</mat-icon

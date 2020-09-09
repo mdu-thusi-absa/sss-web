@@ -16,6 +16,7 @@
       class="input-group-addon btn primary-color-reverse"
       (click)="doSave()"
       [title]="'Save'"
+      [attr.id] = "eid + '-save'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">cloud_upload</mat-icon>
     </span>
@@ -24,6 +25,7 @@
       class="input-group-addon btn primary-color-reverse"
       (click)="doCancel()"
       [title]="'Save'"
+      [attr.id] = "eid + '-clear'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
     </span>

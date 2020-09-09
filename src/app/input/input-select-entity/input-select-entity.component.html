@@ -108,6 +108,7 @@
           style="border-right: none;"
           (click)="doDelete()"
           [title]="'Delete the ' + title"
+          [attr.id] = "eid + '-clear'"
         >
           <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
         </span>
@@ -117,6 +118,7 @@
           class="input-group-addon btn primary-color-reverse"
           (click)="doEdit()"
           [title]="'Edit the ' + title"
+          [attr.id] = "eid + '-edit'"
         >
           <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
         </span>
@@ -125,6 +127,7 @@
           class="input-group-addon btn primary-color-reverse"
           (click)="doAdd()"
           [title]="'Add an ' + title"
+          [attr.id] = "eid + '-add'"
         >
           <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
         </span>

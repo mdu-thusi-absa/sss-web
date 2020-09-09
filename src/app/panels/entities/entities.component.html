@@ -67,7 +67,7 @@
 
           <tbody>
                 <tr  *ngFor="let e of entities| keyvalue "
-                  [class.info]="e.value.isActive"
+                  [class.info]="e.value.activeIs"
                   [class.tr-hide]="isHiddenMap.get(e.key)"
                   [class.tr-show]="!isHiddenMap.get(e.key)"
                 >
@@ -194,14 +194,14 @@
   </app-input-date>
 
   <div class="wide btn-group input-group-sm" style="vertical-align: middle;">
-    <a href="#" class="btn primary-color-active btn-xs">
+    <a [attr.id] = "eid + '-log-out'" href="#" class="btn primary-color-active btn-xs">
       <small>
         <mat-icon aria-hidden="true" aria-label="Entities">flight_takeoff</mat-icon>
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Log out</span
         >&nbsp;</small
       >
     </a>
-    <a href="#" class="btn primary-color-active btn-xs">
+    <a [attr.id] = "eid + '-feedback'" href="#" class="btn primary-color-active btn-xs">
       <small>
         <mat-icon aria-hidden="true" aria-label="Entities">reply</mat-icon>
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Feedback</span

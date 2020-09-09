@@ -147,13 +147,13 @@ export class EntitiesComponent implements OnInit {
 
     //isType = e.type === this.entityTypeName;
     if (this.showActiveOnly) {
-      inActive = e.isActive;
+      inActive = e.activeIs;
     }
 
     if (isType) {
       if (this.rdoActiveDormantAll === 'all') inStatus = true;
-      else if (this.rdoActiveDormantAll === 'play') inStatus = e['isActive'];
-      else if (this.rdoActiveDormantAll === 'pause') inStatus = !e['isActive'];
+      else if (this.rdoActiveDormantAll === 'play') inStatus = e['activeIs'];
+      else if (this.rdoActiveDormantAll === 'pause') inStatus = !e['activeIs'];
       else if (this.rdoActiveDormantAll === 'flash')
         inStatus = e['tasksCount'] > 0;
 
@@ -189,7 +189,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Active() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => e['isActive'] && e.entityTypeKey === this.entityTypeKey
+        (e) => e['activeIs'] && e.entityTypeKey === this.entityTypeKey
       ).length;
     } else {
       return 0;
@@ -199,7 +199,7 @@ export class EntitiesComponent implements OnInit {
   getCount_Dormant() {
     if (this.entities) {
       return [...this.entities.values()].filter(
-        (e) => !e['isActive'] && e.entityTypeKey === this.entityTypeKey
+        (e) => !e['activeIs'] && e.entityTypeKey === this.entityTypeKey
       ).length;
     } else {
       return 0;

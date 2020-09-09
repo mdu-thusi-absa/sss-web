@@ -14,6 +14,7 @@
     
     (click)="doChange()"
     [class.disabled] = "disabled"
+    [attr.id] = "eid + '-change'" 
   >
     <mat-icon
       [class.mat-icon-small]="showSmall"
@@ -45,6 +46,7 @@
     [class.text-primary-bold] = "!showSmall"
     [class.disabled] = "disabled"
     (click)="doChange()"
+    [attr.id] = "eid + '-title'"
   >{{ title }}
   </label>
 </div>

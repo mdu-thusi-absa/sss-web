@@ -34,12 +34,12 @@ export class DataService {
         }
       } else if (fieldName.slice(-4) == 'Keys') {
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
-        
+
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-4) == 'Set') {
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
-        
+
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-2) == 'Is') {
@@ -126,17 +126,17 @@ export class DataService {
     this.entityTypes.forEach((value, key, map) => {
       let keyName = value['keyName'];
       let keysName = keyName + 's';
-      let L = fieldNameKey.length
-      if (fieldNameKey.slice(L-3)=='Set'){
+      let L = fieldNameKey.length;
+      if (fieldNameKey.slice(L - 3) == 'Set') {
         // todo: test, set
-        keysName = fieldNameKey.slice(0,L-3)
+        keysName = fieldNameKey.slice(0, L - 3);
       }
       if (keyName == fieldNameKey || keysName == fieldNameKey) {
         s = key;
       }
     });
     let d = this.getEntities(s, optionsObject, keysArray);
-    
+
     if (d) return d;
     else console.log('Store not found, field:' + fieldNameKey);
     return;
@@ -181,8 +181,7 @@ export class DataService {
 
     if (v) {
       let r = v.getClearCopy(); // just the structure
-      
-      
+
       if (keysArray) {
         for (let i = 0; i < keysArray.length; i++) {
           const key = keysArray[i];
@@ -202,7 +201,7 @@ export class DataService {
 
   getWorkFlow(): MW.WorkFlow {
     let workFlow = new MW.WorkFlow(this, 'workflow');
-    
+
     workFlow.description = 'Execute a company secretarial task';
     workFlow = W.getWorkFlow(workFlow, this);
     workFlow.start();
@@ -256,8 +255,8 @@ export class DataService {
         v = 'number';
         break;
       case 'Index':
-      case  'Set':
-        v = 'select-checkbox'
+      case 'Set':
+        v = 'select-checkbox';
         break;
       case 'Key':
         v = 'select-entity';
@@ -489,10 +488,11 @@ export class DataService {
   }
 
   getTaskTypesActive(data: object) {
-    return this.getEntities(E.EnumEntityType.TaskType).select(
-      'activeIs',
-      true
-    );
+    return this.getEntities(E.EnumEntityType.TaskType).select('activeIs', true);
+  }
+
+  getWorkflowForParent(data: object){
+    return this.getEntities(E.EnumEntityType.Workflow).select('parentKey', data['parentKey']);
   }
 
 }

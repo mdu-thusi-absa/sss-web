@@ -13,6 +13,7 @@
       data-toggle="collapse"
       [attr.data-target]="'#meeting-' + getID()"
       style="white-space: nowrap; display: inline-block; overflow: hidden;"
+      [attr.id] = "eid + '-title'" 
     >
       <label class="nobottom text-primary-bold">{{ title }}</label>
     </a>

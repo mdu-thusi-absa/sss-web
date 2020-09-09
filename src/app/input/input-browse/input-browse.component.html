@@ -23,6 +23,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doMinus()"
         [title]="'Discard'"
+        [attr.id] = "eid + '-clear'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
       </span>
@@ -32,6 +33,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doDownload()"
         [title]="'Download'"
+        [attr.id] = "eid + '-download'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
       </span>
@@ -41,6 +43,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doShare()"
         [title]="'Share'"
+        [attr.id] = "eid + '-share'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
       </span>
@@ -50,6 +53,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doLink()"
         [title]="'Add link'"
+        [attr.id] = "eid + '-link'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">link</mat-icon>
       </span>
@@ -59,6 +63,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="fileBrowse($event)"
         [title]="'Browse for file to upload'"
+        [attr.id] = "eid + '-link'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">cloud_upload</mat-icon>
       </span>
@@ -82,6 +87,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doDownload()"
         [title]="'Download'"
+        [attr.id] = "eid + '-download-'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
       </span>
@@ -91,6 +97,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doShare()"
         [title]="'Share'"
+        [attr.id] = "eid + '-share-'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
       </span>
@@ -100,6 +107,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doMinus()"
         [title]="'Discard'"
+        [attr.id] = "eid + '-clear-'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
       </span>
@@ -109,6 +117,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="doLink()"
         [title]="'Add link'"
+        [attr.id] = "eid + '-link-'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">link</mat-icon>
       </span>
@@ -118,6 +127,7 @@
         class="input-group-addon btn primary-color-reverse"
         (click)="fileBrowse($event)"
         [title]="'Browse for file to upload'"
+        [attr.id] = "eid + '-browse-'" 
       >
         <mat-icon aria-hidden="true" aria-label="Entities">cloud_upload</mat-icon>
       </span>
@@ -126,7 +136,7 @@
 </div>
 
 <div class="form-group" hidden>
-  <a href="#" class="btn">hidden File Browse</a>
+  <a [attr.id] = "eid + '-browse'" href="#" class="btn">hidden File Browse</a>
   <input
     type="file"
     [attr.id]="'file-browser-' + this.getID()"

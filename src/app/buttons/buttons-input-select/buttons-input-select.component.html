@@ -29,6 +29,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doContract()"
+      [attr.id] = "eid + '-contract'" 
       >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show less'">keyboard_arrow_up</mat-icon>
   </a>
@@ -37,6 +38,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doExpand()"
+      [attr.id] = "eid + '-expand'" 
       >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show more'">keyboard_arrow_down</mat-icon>
   </a>
@@ -45,6 +47,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showHideFilterInput()"
+      [attr.id] = "eid + '-filter-list'" 
       >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Filter the items'">filter_list</mat-icon>
   </a>
@@ -54,6 +57,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doEdit()"
+      [attr.id] = "eid + '-close'" 
       >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Cancel the changes'">close</mat-icon>
   </a>
@@ -63,6 +67,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doEdit()"
+      [attr.id] = "eid + '-edit'" 
       >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Edit selected item'">edit</mat-icon>
   </a>
@@ -71,6 +76,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showNew()"
+      [attr.id] = "eid + '-save'" 
     >
     <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Save'">cloud_done</mat-icon>
     </a>
@@ -80,6 +86,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="showNew()"
+      [attr.id] = "eid + '-new'" 
     >
       <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Save'">add</mat-icon>
     </a>
@@ -88,6 +95,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="deleteItem()"
+      [attr.id] = "eid + '-delete'" 
     >
       <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Delete the selected item'">clear</mat-icon>
     </a>
@@ -97,6 +105,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doTask()"
+      [attr.id] = "eid + '-flash'" 
     >
       <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show tasks'">flash_on</mat-icon>
     </a>
@@ -106,6 +115,7 @@
       href="#"
       class="btn primary-color-reverse btn-xs"
       (click)="doFile()"
+      [attr.id] = "eid + '-file'" 
     >
       <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Attachments'">attachment</mat-icon>
     </a>
@@ -114,6 +124,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doRecord()"
+      [attr.id] = "eid + '-cd'" 
     >
       <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Records'">cd</mat-icon>
     </a>
@@ -122,6 +133,7 @@
       href="#"
       class="btn  primary-color-reverse btn-xs"
       (click)="doRecord()"
+      [attr.id] = "eid + '-done-all'" 
     >
       <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show audit'">done_all</mat-icon>
     </a>

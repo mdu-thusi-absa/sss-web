@@ -32,6 +32,7 @@
       style="border-left: 1px solid;"
       (click)="onDelete.emit()"
       [title]="'Delete the ' + title"
+      [attr.id] = "eid + '-clear'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
     </span>
@@ -41,6 +42,7 @@
       class="input-group-addon btn primary-color-reverse hidden-xs"
       (click)="onEdit.emit()"
       [title]="'Edit the ' + title"
+      [attr.id] = "eid + '-edit'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
     </span>
@@ -50,6 +52,7 @@
       style="border-left: none;"
       (click)="onAdd.emit()"
       [title]="'Add an ' + title"
+      [attr.id] = "eid + '-add'"
     >
       <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
     </span>
@@ -165,6 +168,7 @@
               style="border-left: none;"
               (click)="filterText = ''"
               [class.btn-blocked]="false"
+              [attr.id] = "eid + '-clear-'"
             >
               <mat-icon
                 class="mat-icon-big"
@@ -199,6 +203,7 @@
               margin-left: 5px;
               margin-bottom: 2px;
             "
+            [attr.id] = "eid + '-select-1'"
           >
             <a
               data-dismiss="modal"
@@ -206,6 +211,7 @@
               class="btn btn-sm primary-color"
               style="width: 100%; text-align: left; border: none;"
               (click)="selectMe(-1)"
+              [attr.id] = "eid + '-please-select'" 
               ><span class="text-plain" [class.text-bright]="key == -1">
                 Please select</span
               >
@@ -217,6 +223,7 @@
               (click)="selectMe(e.key)"
               class="a-container"
               (keydown)="a_doKeyDown(e.key, $event)"
+              [attr.id] = "eid + '-select-' + e.key"
             >
               <a
                 [attr.id]="'dropdown-item-' + eid + '-' + e.key"
@@ -272,6 +279,7 @@
               style="border-left: none;"
               (click)="filterText = ''"
               [class.btn-blocked]="false"
+              [attr.id] = "eid + '-clear--'"
             >
               <mat-icon
                 class="mat-icon-big"

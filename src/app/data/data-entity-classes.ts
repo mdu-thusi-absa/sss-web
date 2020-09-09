@@ -15,7 +15,7 @@ export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
   public entityTypeKey = EnumEntityType.Entity;
   public description = '';
-  public isActive = false;
+  public activeIs = false;
   public suffix = '';
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(public name: string) {}
@@ -29,13 +29,13 @@ export class Entity {
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
       ['name', 'Name'],
-      ['description', 'Description']
+      ['description', 'Description'],
     ]);
     return h;
   }
 
   inFilter(filterText: string, onlyActive: boolean): boolean {
-    if (onlyActive && !this.isActive) return false;
+    if (onlyActive && !this.activeIs) return false;
     else if (filterText.length == 0) return true;
     else {
       let f = filterText.toLowerCase();
@@ -224,6 +224,10 @@ export class EntityType extends Entity {
       case EnumEntityType.Template:
         this.entities = new Entities<EntityTemplate>(EntityTemplate);
         break;
+      case EnumEntityType.Workflow:
+      case EnumEntityType.WorkflowForParent:
+        this.entities = new Entities<EntityWorkflow>(EntityWorkflow);
+        break;
       case EnumEntityType.TemplateInput:
         this.entities = new Entities<EntityTemplateInput>(EntityTemplateInput);
         break;
@@ -331,7 +335,7 @@ export class EntityMeeting extends Entity {
 export class EntityFunctional extends Entity {
   public entityTypeKey = EnumEntityType.Functional;
   public tasksCount = 0;
-  public isActive = true;
+  public activeIs = true;
   public countryKey = -1;
 
   public clone() {
@@ -382,6 +386,17 @@ export class EntityLegal extends EntityFunctional {
         }
     }
   }
+}
+
+export class EntityWorkflow extends Entity {
+  public entityTypeKey = EnumEntityType.Workflow;
+  functionName = '';
+  parentKey = -1;
+  conditionKey = '';
+  conditionValue = -1;
+  conditionOperator = '==';
+  requireAuthIs = false;
+  activeIs = false;
 }
 
 //todo: Appointments, ShareCertificates, Shareholders collections
@@ -1070,7 +1085,8 @@ export type AnyEntity =
   | EntityPhysicalAddress
   | EntityType
   | EntityMeeting
-  | EntityShareCertificate;
+  | EntityShareCertificate
+  | EntityWorkflow;
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;
