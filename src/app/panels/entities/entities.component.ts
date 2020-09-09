@@ -85,67 +85,77 @@ export class EntitiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.entityTypeNames = this.data.entityTypes;
-    // this.entityTypesPlural = this.data.getEntityTypesPlural();
-    //this.loadEntities();
     this.doEntityTypeChange(this.entityTypeKey);
     this.setCounts();
-    // if (this.data.lg) console.log(new Date().getTime(), 'loaded:entities');
     this.data.progress += 1;
   }
 
-  // loadEntities() {
-  //   this.entities = this.data.getFunctionalEntitiesAll();
-  // }
+  private selectFirstVisibleRow_GetKey() {
+    let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
+    return k;
+  }
+  private selectFirstVisibleRow_DashboardIsShown(): boolean {
+    return (
+      this.entityTypeKey == EnumEntityType.Dashboard ||
+      this.entityTypeKey == EnumEntityType.Search ||
+      this.entityTypeKey == EnumEntityType.Template ||
+      this.entityTypeKey == EnumEntityType.Setting
+    );
+  }
+  private selectFirstVisibleRow() {
+    try {
+      let k = this.selectFirstVisibleRow_GetKey();
+      this.selectedEntityKey = this.selectFirstVisibleRow_DashboardIsShown()
+        ? 0
+        : 1;
+      this.onEntityChange.emit(this.selectedEntityKey);
+    } catch (e) {
+      console.log('EntitiesComponent -> selectFirstVisibleRow -> e', e);
+    }
+  }
 
-  doEntityTypeChange(event: any) {
-    this.isLoadAll = this.isLoadAll || this.entityTypeKey != +event;
-    this.entityTypeKey = +event;
+  private verifyHiddenMap_HasSomething() {
+    if (this.isHiddenMap)
+      if (this.isHiddenMap.size > 0)
+        if (this.isHiddenMap.entries()) return true;
+    return false;
+  }
 
-    this.entityTypeNamePlural = this.data.entityTypes.get(+event)['pluralName'];
+  private setEntityNames() {
+    this.entityTypeNamePlural = this.data.entityTypes.get(this.entityTypeKey)[
+      'pluralName'
+    ];
     this.entityTypeName = this.data.entityTypes
       .get(this.entityTypeKey)
       .name.toLowerCase();
-    this.entities = this.data.getEntities(this.entityTypeKey);
+  }
 
+  doEntityTypeChange(event: any) {
+    this.entityTypeKey = +event;
+    this.isLoadAll = this.isLoadAll || this.entityTypeKey != +event;
+    this.setEntityNames();
+    this.entities = this.data.getEntities(this.entityTypeKey);
     this.onDashboardChange.emit(this.entityTypeKey);
     this.calcIsHidden();
     this.setCounts();
-    //select first visible element
-
-    if (this.isHiddenMap) {
-      if (this.isHiddenMap.size > 0) {
-        if (this.isHiddenMap.entries()) {
-          try {
-            let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
-            if (
-              this.entityTypeName == 'search' ||
-              this.entityTypeName == 'template' ||
-              this.entityTypeName == 'setting'
-            ) {
-              let t = this.data.entityTypes.size;
-              //this.selectedEntityKey = entityKey % t + 1;
-              // this.selectedEntityKey = k + this.entityType;
-              this.selectedEntityKey = 0;
-            } else {
-              this.selectedEntityKey = k;
-            }
-            this.onEntityChange.emit(this.selectedEntityKey);
-          } catch (e) {}
-        }
-      }
-    }
+    if (this.verifyHiddenMap_HasSomething()) this.selectFirstVisibleRow();
+  }
+  private filterInText(text: string, filterText: string): boolean {
+    return text.toLowerCase().indexOf(filterText.toLowerCase()) > -1;
+  }
+  shouldBeHidden_VsFilterText(e: EntityFunctional): boolean {
+    return (
+      this.filterInText(e.name, this.filterText) ||
+      this.filterInText(e.suffix, this.filterText)
+    );
   }
 
   shouldBeHidden(e: EntityFunctional): boolean {
     let inFilter = true;
-    let inName = true;
-    let inSuffix = true;
     let isType = true;
     let inStatus = true;
     let inActive = true;
 
-    //isType = e.type === this.entityTypeName;
     if (this.showActiveOnly) {
       inActive = e.activeIs;
     }
@@ -159,18 +169,11 @@ export class EntitiesComponent implements OnInit {
 
       if (inStatus) {
         if (this.filterText.length > 0) {
-          inName =
-            e.name.toLowerCase().indexOf(this.filterText.toLowerCase()) > -1;
-          inSuffix =
-            e['suffix'].toLowerCase().indexOf(this.filterText.toLowerCase()) >
-            -1;
-          inFilter = inName || inSuffix;
+          inFilter = this.shouldBeHidden_VsFilterText(e);
         }
       }
     }
-
     let doShow = inFilter && inStatus && isType && inActive;
-
     return !doShow;
   }
 
@@ -218,9 +221,6 @@ export class EntitiesComponent implements OnInit {
 
   getCount_All() {
     if (this.entities) {
-      // return [...this.entities.values()].filter(
-      //   (e) => e.type === this.entityTypeName
-      // ).length;
       return this.isHiddenMap.size;
     } else {
       return 0;
@@ -236,15 +236,12 @@ export class EntitiesComponent implements OnInit {
   doChangeShowActive(event: any) {
     this.showActiveOnly = event;
 
-    //this.entities = this.data.getFunctionalEntitiesAll();
-    //this.loadEntities();
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
       this.rdoActiveDormantAll = 'all';
     }
     if (this.showActiveOnly && this.rdoActiveDormantAll === 'play') {
       this.rdoActiveDormantAll = 'all';
     }
-    //this.calcIsHidden();
     this.setCounts();
   }
 
@@ -272,19 +269,9 @@ export class EntitiesComponent implements OnInit {
 
   calcIsHidden() {
     if (this.entities) {
-      // let a = [...this.entities.entries()];
-      // this.isHiddenMap = new Map();
-      // for (let i = 0; i < a.length; i++) {
-      //   let [k, v] = a[i];
-      //   this.isHiddenMap.set(k, this.shouldBeHidden(v));
-      // }
       this.isHiddenMap = new Map();
-      let typeName = this.entityTypeName.toLowerCase();
-
       this.entities.forEach((value: EntityFunctional, key: number) => {
-        //if (value.type == typeName) {
         this.isHiddenMap.set(key, this.shouldBeHidden(value));
-        //}
       });
     }
   }
@@ -297,12 +284,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityChoose(entityKey: number) {
-    if (
-      this.entityTypeKey == EnumEntityType.Dashboard ||
-      this.entityTypeKey == EnumEntityType.Search ||
-      this.entityTypeKey == EnumEntityType.Template ||
-      this.entityTypeKey == EnumEntityType.Setting
-    ) {
+    if (this.selectFirstVisibleRow_DashboardIsShown()) {
       this.doEntityTypeChange(entityKey);
     } else {
       this.selectedEntityKey = entityKey;

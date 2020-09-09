@@ -1,15 +1,5 @@
-// import { Capability, ExpectedConditions } from 'protractor';
-// import { MapType } from '@angular/compiler';
-// import { EntityMessageComponent } from '../panels/entity-message/entity-message.component';
-// import { maxHeaderSize } from 'http';
-// import { LoginOptions } from 'angular-oauth2-oidc';
-// import { etLocale } from 'ngx-bootstrap/chronos';
-// import { data } from 'jquery';
-// import { DataService } from './data.service';
 import { EnumEntityType } from './data-entity-types';
 import * as J from './data-json';
-// import { throwError } from 'rxjs';
-// import { join } from 'path';
 
 export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
@@ -958,12 +948,8 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
       a = Object.assign(a, array[i]);
-      // if (a.key) {
       if (setType) a.type = setType;
       this.add(a);
-      // }else{
-      //   this.add(a);
-      // }
     }
   }
 
@@ -1000,8 +986,6 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   add(value: T): Entities<T> {
-    // let key = existingKey;
-    // if (existingKey == -1) key = super.size;
     let key = value.key;
     if (this.firstKey_ == -1) this.firstKey_ = value.key;
     this.lastKey_ = key;

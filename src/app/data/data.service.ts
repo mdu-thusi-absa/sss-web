@@ -34,12 +34,10 @@ export class DataService {
         }
       } else if (fieldName.slice(-4) == 'Keys') {
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
-
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-4) == 'Set') {
         let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
-
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-2) == 'Is') {
@@ -53,26 +51,21 @@ export class DataService {
     return '';
   }
 
-  loadEntityTypes() {
+  private loadEntityTypes() {
     // static and DB entities
     try {
-      this.entityTypes.fromJSON(E.jsonEntityTypes);
+      this.entityTypes.fromJSON(E.jsonEntityTypes); //load entityTypes constituents will be later to bootstrap other entities
     } catch (e) {
       console.log('dataService', 'Loading entityTypes from JSON', e);
       throw e;
     }
-    this.entityTypes.forEach((value, key, map) => {
-      //let sourceType = value.sourceType;
-      value.init();
-    });
   }
 
-  loadMenus() {
+  private loadMenus() {
     let mTemp = new Map();
     this.entityTypes.forEach((value, key, map) => {
       if (value['dashboardIndex'] > -1) {
         mTemp.set(value['dashboardIndex'], value);
-        //this.menus.set(key,value)
       }
     });
     for (let i = 0; i < mTemp.size; i++) {
@@ -81,31 +74,24 @@ export class DataService {
     }
   }
 
-  loadCanHoldSharesIs() {
+  private loadCanHoldSharesIs() {
     this.entityTypes.forEach((value, key, map) => {
       if (value['canHoldSharesIs']) this.shareHolderTypes.set(key, value);
+    });
+  }
+  private loadEntityTypes_Init() {
+    this.entityTypes.forEach((value, key, map) => {
+      value.init();
     });
   }
 
   constructor() {
     this.loadEntityTypes();
+    this.loadEntityTypes_Init()
     this.loadMenus();
     this.loadCanHoldSharesIs();
     this.workFlow = this.getWorkFlow();
   }
-
-  // public getEntityHeadingsMap(
-  //   enumEntityType: E.EnumEntityType
-  // ): Map<string, string> {
-  //   let m: Map<string, string>;
-
-  //   m = this.entityTypes.get(enumEntityType).headingsMap;
-
-  //   if (!m) {
-  //     m = new Map(eval(`[['name','Name'],['suffix','Suffix']]`));
-  //   }
-  //   return m;
-  // }
 
   getEntityTypeForName(entityTypeName: string): E.EnumEntityType {
     this.entityTypes.forEach((value, key, map) => {
@@ -128,8 +114,8 @@ export class DataService {
       let keysName = keyName + 's';
       let L = fieldNameKey.length;
       if (fieldNameKey.slice(L - 3) == 'Set') {
-        // todo: test, set
-        keysName = fieldNameKey.slice(0, L - 3);
+        //TODO: test, set
+        keysName = fieldNameKey.slice(0, L - 3) + 'Key';
       }
       if (keyName == fieldNameKey || keysName == fieldNameKey) {
         s = key;
@@ -142,6 +128,57 @@ export class DataService {
     return;
   }
 
+  private getEntities_SelectSubKeys(
+    entities: M.Entities<M.AnyEntity>,
+    keysArray: number[]
+  ): M.Entities<M.AnyEntity> {
+    let r = entities.getClearCopy();
+    for (let i = 0; i < keysArray.length; i++) {
+      const key = keysArray[i];
+      let o = entities.get(key);
+      r.set(key, o);
+    }
+    return r;
+  }
+
+  private getEntities_PopulateEntitiesFromType_ForFunctionName(
+    storeName: string,
+    optionsObject: object
+  ): M.Entities<M.AnyEntity> {
+    try {
+      // must be a function
+      if (optionsObject) {
+        return this[storeName](optionsObject);
+      } else {
+        return this[storeName]();
+      }
+    } catch (e) {
+      console.log('getEntities', storeName, e);
+      throw e;
+    }
+  }
+
+  private getEntities_PopulateEntitiesFromType(
+    source: M.EntityType,
+    enumSource: E.EnumEntityType,
+    optionsObject: object
+  ): M.Entities<M.AnyEntity> {
+    let v: M.Entities<M.AnyEntity>;
+    let sourceType = source.sourceType;
+    v = this.entityTypes.get(enumSource).entities;
+    if (sourceType == 'redirect') v = this[source.storeName];
+    else if (sourceType == 'json')
+      v = this.entityTypes.get(enumSource).entities;
+    //has been preloaded from JSON stream in dataService constructor
+    else if (sourceType == 'function') {
+      return this.getEntities_PopulateEntitiesFromType_ForFunctionName(
+        source.storeName,
+        optionsObject
+      );
+    }
+    return v;
+  }
+
   public getEntities(
     enumSource: E.EnumEntityType,
     optionsObject?: object,
@@ -149,51 +186,20 @@ export class DataService {
   ): M.Entities<M.AnyEntity> {
     let v: M.Entities<M.AnyEntity>;
     let source = this.entityTypes.get(enumSource);
-    if (source) {
-      let sourceType = source.sourceType;
-      // let v = eval('this.' + source.storeName);
-      // v = this[source.storeName];
-      v = this.entityTypes.get(enumSource).entities;
-      if (sourceType == 'redirect') v = this[source.storeName];
-      else if (sourceType == 'json')
-        v = this.entityTypes.get(enumSource).entities;
-      else if (sourceType == 'function') {
-        try {
-          // must be a function
-          if (optionsObject) {
-            return this[source.storeName](optionsObject);
-          } else {
-            return this[source.storeName]();
-          }
-        } catch (e) {
-          console.log(
-            'getEntities',
-            enumSource,
-            optionsObject,
-            keysArray,
-            source,
-            e
-          );
-          throw e;
-        }
-      }
-    }
+    if (source)
+      v = this.getEntities_PopulateEntitiesFromType(
+        source,
+        enumSource,
+        optionsObject
+      );
 
     if (v) {
-      let r = v.getClearCopy(); // just the structure
-
       if (keysArray) {
-        for (let i = 0; i < keysArray.length; i++) {
-          const key = keysArray[i];
-          let o = v.get(key);
-          r.set(key, o);
-        }
-        return r;
+        return this.getEntities_SelectSubKeys(v, keysArray);
       } else {
         return v;
       }
     } else {
-      // entities not found
       console.log('Error: Source not found, type:' + enumSource);
     }
     return v;
@@ -447,32 +453,6 @@ export class DataService {
     return this.individuals.select('secretaryIs', true);
   }
 
-  // getEntityTypesForCountry(data: object) {
-  //   let d = this.entityTypes.getClearCopy();
-  //   let countryKey = -1;
-  //   if (typeof data == 'object') {
-  //     countryKey = data['countryKey'];
-  //   } else {
-  //     countryKey = data as number;
-  //   }
-  //   this.getEntities(E.EnumEntityType.TaskType).forEach((value, key, map) => {
-  //     if (countryKey == value['countryKey']) {
-  //       if (!d.has(value['countryKey'])) {
-  //         d.add(this.entityTypes.get(value['entityTypeKey']));
-  //       }
-  //     }
-  //   });
-  //   return d;
-  // }
-
-  // getTasksForEntityType(data: object) {
-  //   let d = this.getEntities(E.EnumEntityType.TaskType).select(
-  //     'entityTypeKey',
-  //     data['entityTypeKey']
-  //   );
-  //   return d;
-  // }
-
   getTasksForCountry(data: object) {
     return this.getEntities(E.EnumEntityType.Task).select(
       'countryKey',
@@ -491,8 +471,10 @@ export class DataService {
     return this.getEntities(E.EnumEntityType.TaskType).select('activeIs', true);
   }
 
-  getWorkflowForParent(data: object){
-    return this.getEntities(E.EnumEntityType.Workflow).select('parentKey', data['parentKey']);
+  getWorkflowForParent(data: object) {
+    return this.getEntities(E.EnumEntityType.Workflow).select(
+      'parentKey',
+      data['parentKey']
+    );
   }
-
 }
