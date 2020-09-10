@@ -1,13 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  Entity,
-  EntityNatural,
-  AnyEntity,
-  Entities,
-  EntityFunctional,
-} from '../../data/data-entity-paren';
 import { DataService } from 'src/app/data/data.service';
 import {EnumEntityType} from 'src/app/data/data-entity-types'
+import { EntityNatural } from 'src/app/data/data-entity-kids';
+import { Entities, AnyEntity } from 'src/app/data/data-entities';
 
 @Component({
   selector: 'app-entity-details',

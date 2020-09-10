@@ -7,8 +7,10 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { EntityNatural, Entities, AnyEntity, Entity } from '../../data/data-entity-paren';
+import { Entity } from '../../data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
+import { AnyEntity, Entities } from 'src/app/data/data-entities';
+import { EntityNatural } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-input-person',

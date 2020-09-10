@@ -1,6 +1,7 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { EntityNatural, AnyEntity } from 'src/app/data/data-entity-paren';
 import { DataService } from 'src/app/data/data.service';
+import { EntityNatural } from 'src/app/data/data-entity-kids';
+import { AnyEntity } from 'src/app/data/data-entities';
 
 
 @Component({

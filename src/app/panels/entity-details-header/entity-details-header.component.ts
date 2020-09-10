@@ -1,8 +1,8 @@
 import { Component, OnInit, Output,Input,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 import { InputCustomComponent } from 'src/app/input/input-custom/input-custom.component';
-import { AnyEntity} from 'src/app/data/data-entity-paren';
 import { EnumEntityType } from 'src/app/data/data-entity-types';
+import { AnyEntity } from 'src/app/data/data-entities';
 
 @Component({
   selector: 'app-entity-details-header',

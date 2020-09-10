@@ -6,11 +6,9 @@ import {
   ElementRef,
   EventEmitter,
   Output,
-  HostListener,
 } from '@angular/core';
-import * as $ from 'jquery';
 import { DataService } from 'src/app/data/data.service';
-import { Entity } from 'src/app/data/data-entity-paren';
+import { Entity } from 'src/app/data/data-entity-parent';
 
 @Component({
   selector: 'app-input-select',

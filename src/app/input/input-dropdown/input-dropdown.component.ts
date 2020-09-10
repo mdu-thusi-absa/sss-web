@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { Entities, AnyEntity } from 'src/app/data/data-entity-paren';
+import { Entities, AnyEntity } from 'src/app/data/data-entities';
 
 @Component({
   selector: 'app-input-dropdown',

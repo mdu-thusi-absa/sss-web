@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entity, Entities, AnyEntity, EntityNatural } from '../../data/data-entity-paren'
+import { Entity} from '../../data/data-entity-parent'
 import { DataService } from 'src/app/data/data.service';
+import { Entities } from 'src/app/data/data-entities';
+import { EntityNatural } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-settings',

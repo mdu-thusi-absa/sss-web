@@ -1,7 +1,6 @@
 import * as E from './data-entity-types';
 import { DataService } from './data.service';
 import {  Entity } from './data-entity-parent';
-import { ɵINTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from '@angular/platform-browser-dynamic';
 import { Entities, AnyEntity } from './data-entities';
 // import * as D from './data.service'
 

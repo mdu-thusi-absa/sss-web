@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, Entity} from 'src/app/data/data-entity-paren';
+import { Entity} from 'src/app/data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
 import { TaskFlowForm, TaskFlowFormInput } from 'src/app/data/data-workflow-classes';
+import { Entities } from 'src/app/data/data-entities';
 
 @Component({
   selector: 'app-flow-form',

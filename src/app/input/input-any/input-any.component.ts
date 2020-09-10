@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EntityNatural,  Entities, AnyEntity, Entity } from 'src/app/data/data-entity-paren';
+import { Entity } from 'src/app/data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
+import { Entities, AnyEntity } from 'src/app/data/data-entities';
+import { EntityNatural } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-input-any',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 //import { InputTextComponent } from '../input-text/input-text.component';
-import { EntityNatural, Entities, AnyEntity } from '../../data/data-entity-paren'
+import { EntityNatural, Entities, AnyEntity } from '../../data/data-entity-parent'
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
