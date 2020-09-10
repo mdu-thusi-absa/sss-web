@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
-import * as M from './data-entity-classes';
+import * as K from './data-entity-kids';
 import * as W from './data-workflow';
-import * as MW from './data-workflow-classes';
+import * as WC from './data-workflow-classes';
 import * as E from './data-entity-types';
-import { MatOptgroup } from '@angular/material/core';
+import { Entities, AnyEntity } from './data-entities';
+import { Entity } from './data-entity-parent';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   public lg = false;
-  entityTypes = new M.Entities<M.EntityType>(M.EntityType);
+  entityTypes = new Entities<K.EntityType>(K.EntityType);
 
-  shareHolderTypes = new M.Entities<M.Entity>(M.Entity);
-  menus = new M.Entities<M.Entity>(M.Entity);
-  workFlow: MW.WorkFlow;
+  shareHolderTypes = new Entities<Entity>(Entity);
+  menus = new Entities<Entity>(Entity);
+  workFlow: WC.WorkFlow;
   progress = 0;
 
   getEntityFieldValue(
-    entity: M.AnyEntity,
+    entity: AnyEntity,
     fieldName: string
-  ): string | M.Entities<M.AnyEntity> {
+  ): string | Entities<AnyEntity> {
     if (entity) {
       let v = entity[fieldName];
       if (fieldName.slice(-3) == 'Key') {
@@ -129,9 +130,9 @@ export class DataService {
   }
 
   private getEntities_SelectSubKeys(
-    entities: M.Entities<M.AnyEntity>,
+    entities: Entities<AnyEntity>,
     keysArray: number[]
-  ): M.Entities<M.AnyEntity> {
+  ): Entities<AnyEntity> {
     let r = entities.getClearCopy();
     for (let i = 0; i < keysArray.length; i++) {
       const key = keysArray[i];
@@ -144,7 +145,7 @@ export class DataService {
   private getEntities_PopulateEntitiesFromType_ForFunctionName(
     storeName: string,
     optionsObject: object
-  ): M.Entities<M.AnyEntity> {
+  ): Entities<AnyEntity> {
     try {
       // must be a function
       if (optionsObject) {
@@ -159,11 +160,11 @@ export class DataService {
   }
 
   private getEntities_PopulateEntitiesFromType(
-    source: M.EntityType,
+    source: K.EntityType,
     enumSource: E.EnumEntityType,
     optionsObject: object
-  ): M.Entities<M.AnyEntity> {
-    let v: M.Entities<M.AnyEntity>;
+  ): Entities<AnyEntity> {
+    let v: Entities<AnyEntity>;
     let sourceType = source.sourceType;
     v = this.entityTypes.get(enumSource).entities;
     if (sourceType == 'redirect') v = this[source.storeName];
@@ -183,8 +184,8 @@ export class DataService {
     enumSource: E.EnumEntityType,
     optionsObject?: object,
     keysArray?: any[] // used to get a subset of the Model.Entities
-  ): M.Entities<M.AnyEntity> {
-    let v: M.Entities<M.AnyEntity>;
+  ): Entities<AnyEntity> {
+    let v: Entities<AnyEntity>;
     let source = this.entityTypes.get(enumSource);
     if (source)
       v = this.getEntities_PopulateEntitiesFromType(
@@ -205,8 +206,8 @@ export class DataService {
     return v;
   }
 
-  getWorkFlow(): MW.WorkFlow {
-    let workFlow = new MW.WorkFlow(this, 'workflow');
+  getWorkFlow(): WC.WorkFlow {
+    let workFlow = new WC.WorkFlow(this, 'workflow');
 
     workFlow.description = 'Execute a company secretarial task';
     workFlow = W.getWorkFlow(workFlow, this);
@@ -333,8 +334,8 @@ export class DataService {
     return this.getEntities(E.EnumEntityType.EntityStatusTier);
   }
 
-  get cities(): M.Entities<M.EntityCity> {
-    return this.getEntities(E.EnumEntityType.City) as M.Entities<M.EntityCity>;
+  get cities(): Entities<K.EntityCity> {
+    return this.getEntities(E.EnumEntityType.City) as Entities<K.EntityCity>;
   }
 
   getCitiesForCountry(countryKey: number) {
@@ -353,11 +354,11 @@ export class DataService {
     return this.getEntities(E.EnumEntityType.ContactPreference);
   }
 
-  get portfolios(): M.Entities<M.Entity> {
+  get portfolios(): Entities<Entity> {
     return this.getEntities(E.EnumEntityType.Portfolio);
   }
 
-  get accountingClasses(): M.Entities<M.Entity> {
+  get accountingClasses(): Entities<Entity> {
     return this.getEntities(E.EnumEntityType.AccountingClass);
   }
 
@@ -368,23 +369,23 @@ export class DataService {
   get sercetaries() {
     return this.individuals.select('secreatryIs', true);
   }
-  customTypes = new M.Entities<M.Entity>(M.Entity)
-    .add(new M.Entity('text'))
-    .add(new M.Entity('date'))
-    .add(new M.Entity('checkbox'))
-    .add(new M.Entity('textarea'))
-    .add(new M.Entity('person'))
-    .add(new M.Entity('address'))
-    .add(new M.Entity('file'))
-    .add(new M.Entity('number'))
-    .add(new M.Entity('contact'));
+  customTypes = new Entities<Entity>(Entity)
+    .add(new Entity('text'))
+    .add(new Entity('date'))
+    .add(new Entity('checkbox'))
+    .add(new Entity('textarea'))
+    .add(new Entity('person'))
+    .add(new Entity('address'))
+    .add(new Entity('file'))
+    .add(new Entity('number'))
+    .add(new Entity('contact'));
 
   getIndividualsForCountries(countriesArray: number[]) {
     let ps = this.individuals;
-    let e = new M.Entities<M.EntityIndividual>(M.EntityIndividual);
+    let e = new Entities<K.EntityIndividual>(K.EntityIndividual);
     ps.forEach((value, key, map) => {
       if (countriesArray.indexOf(value['countryKey']) > -1) {
-        e.add(value as M.EntityIndividual);
+        e.add(value as K.EntityIndividual);
       }
     });
     return e;

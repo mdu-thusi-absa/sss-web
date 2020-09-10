@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entities, AnyEntity } from 'src/app/data/data-entity-classes';
+import { Entities, AnyEntity } from 'src/app/data/data-entity-paren';
 import { DataService } from 'src/app/data/data.service';
 import { TaskFlowSelect } from 'src/app/data/data-workflow-classes';
 

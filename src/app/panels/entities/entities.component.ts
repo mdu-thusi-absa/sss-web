@@ -7,15 +7,14 @@ import {
   HostListener,
 } from '@angular/core';
 import {
-  EntityFunctional,
   Entities,
-  Entity,
   AnyEntity,
-} from '../../data/data-entity-classes';
+} from '../../data/data-entities';
 import { DataService } from 'src/app/data/data.service';
 // import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 // import { ExecException } from 'child_process';
 import { EnumEntityType } from 'src/app/data/data-entity-types';
+import { EntityFunctional } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-entities',

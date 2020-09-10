@@ -6,7 +6,7 @@ import {
   Input,
   ElementRef,
 } from '@angular/core';
-import { Entities, AnyEntity, Entity } from 'src/app/data/data-entity-classes';
+import { Entities, AnyEntity, Entity } from 'src/app/data/data-entity-paren';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({

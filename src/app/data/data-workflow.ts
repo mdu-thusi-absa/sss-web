@@ -1,4 +1,5 @@
-import * as M from './data-entity-classes';
+import * as M from './data-entity-parent';
+import * as K from './data-entity-kids';
 import * as W from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { DataService } from './data.service';
@@ -14,7 +15,7 @@ export function queWorkFlow(
   let parent: W.TaskFlow;
   //initialise the tasks
   let kids = db.select('parentKey', -1);
-  let child: M.EntityWorkflow = kids.get(kids.firstKey) as M.EntityWorkflow;
+  let child: K.EntityWorkflow = kids.get(kids.firstKey) as K.EntityWorkflow;
   let t = queKids(child, workFlow, data);
   workFlow.addNext(t);
 
@@ -39,7 +40,7 @@ export function queWorkFlow(
 }
 
 function queKids(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parentTaskFlow: W.TaskFlow,
   data: DataService
 ): W.TaskFlow {
@@ -51,20 +52,20 @@ function queKids(
   let kids = db.select('parentKey', parentWorkflow.key);
   if (kids.size > 0)
     kids.forEach((value, key, map) => {
-      if (value.activeIs) queKids(value as M.EntityWorkflow, t, data);
+      if (value.activeIs) queKids(value as K.EntityWorkflow, t, data);
     });
   return t;
 }
 
 interface que
 {
-    (parentWorkflow: M.EntityWorkflow,
+    (parentWorkflow: K.EntityWorkflow,
       parent: W.TaskFlow,
       data: DataService): W.TaskFlow;
 };
 
 function queCountry (
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ): W.TaskFlowSelect {
@@ -75,7 +76,7 @@ function queCountry (
   return t1;
 }
 function queCompany(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -90,7 +91,7 @@ function queCompany(
 }
 
 function queWorkflow(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -109,7 +110,7 @@ function queWorkflow(
 }
 
 function queReport(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -127,14 +128,14 @@ function queReport(
   return a;
 }
 function queGeneralCompanyAmendment(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
   let a = new W.TaskFlowForm(data, 'companyDetails');
   a.name = 'The amendment';
   a.entityFieldKey = 'companyKey';
-  a.inputObject = new M.EntityCompany('New Company');
+  a.inputObject = new K.EntityCompany('New Company');
   let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', 3, '==', 'number');
   let b = new W.TaskFlowSubTask(a, [c]);
   parent.addNextFork(b);
@@ -146,7 +147,7 @@ function queGeneralCompanyAmendment(
 }
 
 function queSpecificCompanyAmendment(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -165,28 +166,28 @@ function queSpecificCompanyAmendment(
   return a;
 }
 function queAquireNewEntity(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
   return new W.TaskFlowMessage(data, 'aquireNewEntity');
 }
 function queAquireExistingEntity(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
   return new W.TaskFlowMessage(data, 'aquireExistingEntity');
 }
 function queRegisterNewEntity(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
   return new W.TaskFlowMessage(data, 'aquireNewEntity');
 }
 function queChangeCompanyName(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -194,7 +195,7 @@ function queChangeCompanyName(
 }
  
 function queChangeLocationOfCompanyRecords(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -202,7 +203,7 @@ function queChangeLocationOfCompanyRecords(
 }
 
 function queChangeOfMainBusiness(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -210,7 +211,7 @@ function queChangeOfMainBusiness(
 } 
 
 function queChangeTypeOfCompany(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -218,7 +219,7 @@ function queChangeTypeOfCompany(
 }
 
 function queChangeAnArticleOfTheMOI(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -226,7 +227,7 @@ function queChangeAnArticleOfTheMOI(
 }
 
 function queAdoptNewMOI(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -234,14 +235,14 @@ function queAdoptNewMOI(
 }
 
 function queChangingTheMainAndorAuxilliaryPowersOfTheCompanyAndItsOfficeBearers(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
   return new W.TaskFlowMessage(data, 'changeArticleOfMOI');
 }
 function queRemovingAmendingOrInsertingRingFencingConditionsIntoMOI(
-  parentWorkflow: M.EntityWorkflow,
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
@@ -418,7 +419,7 @@ function useCompany_Amend_Any(
   let t7 = new W.TaskFlowForm(data, 'companyDetails');
   t7.name = 'The amendment';
   t7.entityFieldKey = 'companyKey';
-  t7.inputObject = new M.EntityCompany('New Company');
+  t7.inputObject = new K.EntityCompany('New Company');
   parent.addNext(t7);
   return t7;
 }
@@ -501,7 +502,7 @@ function useApprovalIfNotReport(
 //   return a
 // }
 
-function queChangeOfRegisteredAddress(parentWorkflow: M.EntityWorkflow,
+function queChangeOfRegisteredAddress(parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ): W.TaskFlow {

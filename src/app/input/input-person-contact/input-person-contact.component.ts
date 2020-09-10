@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { Entity } from 'src/app/data/data-entity-classes';
+import { Entity } from 'src/app/data/data-entity-paren';
 
 @Component({
   selector: 'app-input-person-contact',
