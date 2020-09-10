@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as K from './data-entity-kids';
-import * as W from './data-workflow';
+import * as W from './data-workflow-loader';
 import * as WC from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { Entities, AnyEntity } from './data-entities';

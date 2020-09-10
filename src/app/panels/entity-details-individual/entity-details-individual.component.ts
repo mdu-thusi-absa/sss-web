@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { EntityNatural } from 'src/app/data/data-entity-parent';
+import { EntityNatural } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-entity-details-individual',

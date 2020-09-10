@@ -3,38 +3,23 @@ import * as K from './data-entity-kids';
 import * as W from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { DataService } from './data.service';
+import { fileURLToPath } from 'url';
+import { data } from 'jquery';
 
 export function queWorkFlow(
   data: DataService,
   workFlow: W.WorkFlow
 ): W.WorkFlow {
-  let map = new Map<number, W.WorkFlow>();
+  // let map = new Map<number, W.WorkFlow>();
   let db = data.getEntities(E.EnumEntityType.Workflow);
   //let root = db.select('parentKey', -1);
-  let flows: Map<number, W.TaskFlow> = new Map();
-  let parent: W.TaskFlow;
+  // let flows: Map<number, W.TaskFlow> = new Map();
+  // let parent: W.TaskFlow;
   //initialise the tasks
   let kids = db.select('parentKey', -1);
   let child: K.EntityWorkflow = kids.get(kids.firstKey) as K.EntityWorkflow;
   let t = queKids(child, workFlow, data);
   workFlow.addNext(t);
-
-  // db.forEach((value, key, map) => {
-  //   if (value['activeIs']) {
-  //     console.log(value);
-  //     let f:string = value['functionName'];
-  //     // let f = 'queCountry';
-  //     // console.log(fs.trim()===f,value['functionName'].length,f.length)
-  //     let fun = eval(f);
-  //     if (value['parentKey']==-1) //root task flow
-  //       parent = workFlow
-  //     else
-  //       parent = flows.get(value['parentKey'])
-  //     let t = fun(parent, data);
-  //     flows.set(key,t);
-  //   }
-  // });
-  //connect the tasks parent and child
 
   return workFlow;
 }
@@ -57,14 +42,15 @@ function queKids(
   return t;
 }
 
-interface que
-{
-    (parentWorkflow: K.EntityWorkflow,
-      parent: W.TaskFlow,
-      data: DataService): W.TaskFlow;
-};
+interface que {
+  (
+    parentWorkflow: K.EntityWorkflow,
+    parent: W.TaskFlow,
+    data: DataService
+  ): W.TaskFlow;
+}
 
-function queCountry (
+function queCountry(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
@@ -117,14 +103,14 @@ function queReport(
   let a = new W.TaskFlowSelect(data, 'reportKey');
   a.name = 'Report';
   a.sourceType = E.EnumEntityType.Report;
-  let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', 5, '==', 'number');
+  let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', parentWorkflow.key, '==', 'number');
   let b = new W.TaskFlowSubTask(a, [c]);
   parent.addNextFork(b);
 
-  let d = new W.TaskFlowSelect(data,'destinationTypeKey')
-  d.name = 'Destination'
+  let d = new W.TaskFlowSelect(data, 'destinationTypeKey');
+  d.name = 'Destination';
   d.sourceType = E.EnumEntityType.DestinationType;
-  a.addNext(d)
+  a.addNext(d);
   return a;
 }
 function queGeneralCompanyAmendment(
@@ -136,13 +122,13 @@ function queGeneralCompanyAmendment(
   a.name = 'The amendment';
   a.entityFieldKey = 'companyKey';
   a.inputObject = new K.EntityCompany('New Company');
-  let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', 3, '==', 'number');
+  let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', parentWorkflow.key, '==', 'number');
   let b = new W.TaskFlowSubTask(a, [c]);
   parent.addNextFork(b);
-  let d = new W.TaskFlowConfirm(data,'areYouSureIs')
-  d.name = "Commit"
-  d.ensure = true
-  a.addNext(d)
+  let d = new W.TaskFlowConfirm(data, 'areYouSureIs');
+  d.name = 'Commit';
+  d.ensure = true;
+  a.addNext(d);
   return a;
 }
 
@@ -160,7 +146,7 @@ function queSpecificCompanyAmendment(
   a.values = d.select('activeIs', true);
   a.actionNameIsEntityName = true;
   let c = new W.TaskFlowSubTaskCondition('mainTaskTypeKey', 4, '==', 'number');
-  let b = new W.TaskFlowSubTask(a,[c]);
+  let b = new W.TaskFlowSubTask(a, [c]);
 
   parent.addNextFork(b);
   return a;
@@ -193,29 +179,41 @@ function queChangeCompanyName(
 ) {
   return new W.TaskFlowMessage(data, 'name');
 }
- 
+
 function queChangeLocationOfCompanyRecords(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
-  return new W.TaskFlowMessage(data, 'locationOfCompanyRecords');
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      parentWorkflow.key,
+      'Change location of records',
+      'changeRecordsAddress',
+      'CoR 22'
+    )
+  );
 }
-
-function queChangeOfMainBusiness(
-  parentWorkflow: K.EntityWorkflow,
-  parent: W.TaskFlow,
-  data: DataService
-) {
-  return new W.TaskFlowMessage(data, 'mainBusinessDesc');
-} 
 
 function queChangeTypeOfCompany(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ) {
-  return new W.TaskFlowMessage(data, 'changeTypeOfCompanyKey');
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      parentWorkflow.key,
+      'Change company type',
+      'companyTypeKey',
+      'CoR 15.2'
+    )
+  );
 }
 
 function queChangeAnArticleOfTheMOI(
@@ -223,7 +221,17 @@ function queChangeAnArticleOfTheMOI(
   parent: W.TaskFlow,
   data: DataService
 ) {
-  return new W.TaskFlowMessage(data, 'changeArticleOfMOI');
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      parentWorkflow.key,
+      'Change an article of the MOI',
+      'articleOfMOIDesc',
+      'CoR 15.2'
+    )
+  );
 }
 
 function queAdoptNewMOI(
@@ -231,7 +239,35 @@ function queAdoptNewMOI(
   parent: W.TaskFlow,
   data: DataService
 ) {
-  return new W.TaskFlowMessage(data, 'changeArticleOfMOI');
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      parentWorkflow.key,
+      'Adopt new MOI',
+      'newMOIDesc',
+      'CoR 15.2'
+    )
+  );
+}
+
+function queChangeFinancialYearEnd(
+  parentWorkflow: K.EntityWorkflow,
+  parent: W.TaskFlow,
+  data: DataService
+) {
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      parentWorkflow.key,
+      'change of Financial Year End',
+      'fyeDate',
+      'CoR 25'
+    )
+  );
 }
 
 function queChangingTheMainAndorAuxilliaryPowersOfTheCompanyAndItsOfficeBearers(
@@ -241,6 +277,7 @@ function queChangingTheMainAndorAuxilliaryPowersOfTheCompanyAndItsOfficeBearers(
 ) {
   return new W.TaskFlowMessage(data, 'changeArticleOfMOI');
 }
+
 function queRemovingAmendingOrInsertingRingFencingConditionsIntoMOI(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
@@ -256,46 +293,7 @@ export function getWorkFlow(
   queWorkFlow(data, workFlow);
 
   return workFlow;
-  let t1 = getCountry(data, workFlow);
-  // workFlow.rootTask = t1;
-  // console.log(workFlow.type);
-
-  // let t2 = useEntityTypeForCountry(data, t1, 202,true); //select types only ZAF
-  let t3 = useCompanyForEntityTypeForCountry(data, t1, 202); //select entities for type=company
-  //let t4 = getCompany_Amend_RegisteredAddress(data, t3);
-  let t4 = useCompanyAmendmentTypesForCountry(data, t3, 202);
-  let t40 = useApprovalIfNotReport(data, t4, 39);
-  {
-    let t401 = useReportIfReport(data, t4);
-    let t4011 = useReportDestination(data, t401);
-    let t41 = useCompany_Amend_Specific(
-      data,
-      t40,
-      'New registered address',
-      'newAddress',
-      'Additional Information'
-    );
-  }
-
-  //let t5 = useEntityTypeForCountry(data, t1, 29,true); //select types only Botswana
-  let t6 = useCompanyForCountry(data, t1, 242, true); //select Companies only for Botswana
-  //let t6 = getCompany(data,t1)
-
-  let t61 = useCompanyAmendmentTypesForCountry(data, t6, 242);
-  let t611 = useCompany_Amend_Any(data, t61); //amend any detail for the company
-  // let t612 = useReportIfReport(data, t61);
-  // let t6121 = useReportDestination(data,t612)
-
-  return workFlow;
 }
-
-// function getReport(data: DataService, parent: W.TaskFlow) {
-//   let t1 = new W.TaskFlowSelect(data, 'reportKey');
-//   t1.name = 'Report';
-//   t1.sourceType = E.EnumEntityType.Report;
-//   parent.addNext(t1);
-//   return t1;
-// }
 
 function getCountry(data: DataService, parent: W.TaskFlow) {
   let t1 = new W.TaskFlowSelect(data, 'countryKey');
@@ -392,26 +390,6 @@ function useCompanyAmendmentTypesForCountry(
   return t;
 }
 
-// function useEntityTypeForCountry(
-//   data: DataService,
-//   parent: W.TaskFlow,
-//   countryKey: number,
-//   matchCountryIs: boolean
-// ): W.TaskFlow {
-//   let t2 = new W.TaskFlowSelect(data, 'entityTypeKey');
-//   t2.name = 'Entity type';
-//   t2.sourceType = E.EnumEntityType.EntityTypesForCountry;
-//   let c = new W.TaskFlowSubTaskCondition(
-//     'countryKey',
-//     countryKey,
-//     (matchCountryIs?'==':'!='),
-//     'number'
-//   );
-//   let s = new W.TaskFlowSubTask(t2, [c]);
-//   parent.addNextFork(s);
-//   return t2;
-// }
-
 function useCompany_Amend_Any(
   data: DataService,
   parent: W.TaskFlow
@@ -424,13 +402,14 @@ function useCompany_Amend_Any(
   return t7;
 }
 
+//TODO: branch to various forms: 15.2, 25, 21.1...
 function getFormForName(data: DataService, formName: string): W.TaskFlowForm {
   let t7 = new W.TaskFlowForm(data, 'formCoR211');
   t7.name = formName;
   t7.addInput(
     'effectiveDate',
     'date',
-    'Effective date of change of address',
+    'Effective date of the amendment',
     ''
   );
   // todo: add source type for each form and mapHeading
@@ -502,70 +481,184 @@ function useApprovalIfNotReport(
 //   return a
 // }
 
-function queChangeOfRegisteredAddress(parentWorkflow: K.EntityWorkflow,
+function queChangeOfRegisteredAddress(
+  parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
   data: DataService
 ): W.TaskFlow {
-  return useCompany_Amend_Specific(data,parent,'Change registered address','changeOfAddress','')
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      10,
+      'Change registered address',
+      'changeRegisteredAddress',
+      'CoR 21.1'
+    )
+  );
+}
+
+function queChangeOfMainBusiness(
+  parentWorkflow: K.EntityWorkflow,
+  parent: W.TaskFlow,
+  data: DataService
+): W.TaskFlow {
+  return useCompany_Amend_Specific(
+    new ConfigCompanyAmendSpecific(
+      data,
+      parent,
+      'specificCompanyAmendment',
+      11,
+      'Change main business',
+      'changeMainBusinessDesc',
+      'CoR 15.2'
+    )
+  );
+}
+
+
+class ConfigCompanyAmendSpecific {
+  constructor(
+    public data: DataService,
+    public parent: W.TaskFlow,
+    public parentTaskFieldName: string,
+    public parentConditionKey: number,
+    public heading: string,
+    public fieldName: string,
+    public formName: string
+  ) {}
 }
 
 function useCompany_Amend_Specific(
+  config: ConfigCompanyAmendSpecific
+): W.TaskFlow {
+  let t5 = new W.TaskFlowForm(config.data, config.fieldName);
+  t5.entityFieldKey = 'companyKey'; //the form will retrieve the relevant object, if it needs to show any of it's fields
+  t5.name = 'The amendment';
+  t5.addInput(
+    config.fieldName,
+    config.data.getFieldTypeForFieldName(config.fieldName),
+    config.heading,
+    ''
+  );
+
+  let cond = new W.TaskFlowSubTaskCondition(
+    config.parentTaskFieldName,
+    config.parentConditionKey,
+    '==',
+    'number'
+  );
+  let subTask = new W.TaskFlowSubTask(t5, [cond]);
+  config.parent.addNextFork(subTask);
+
+  let t6 = getUploadDocs(config.data,t5,'uploadFileKeys','Upload supporting files')
+  
+  //'CoR 21.1' or any other
+  let t7 = getFormForName(config.data, config.formName);
+  t6.addNext(t7);
+
+  let t11 = getSubmitFiles(
+    config.data,
+    t7,
+    'submitFileKeys',
+    'Submit following files to the regulator'
+  );
+
+  let t11_1 = getConfirm(
+    config.data,
+    t11,
+    'confirmSubmissionIs',
+    'Confirmation of submission'
+  );
+
+  let t12 = getReminder(
+    config.data,
+    t11_1,
+    'reminderDate',
+    'Set reminder to follow up with the regulator'
+  );
+
+  let t13 = getConfirm(
+    config.data,
+    t12,
+    'regulatorApprovalIs',
+    'Confirm approval from the regulator'
+  );
+  let t14 = getUploadDocs(
+    config.data,
+    t13,
+    'uploadApprovalFileKeys',
+    'Upload approval files from the regulator'
+  );
+  let t15 = getConfirm(
+    config.data,
+    t14,
+    'taskCompleteIs',
+    'Confirm completion of task'
+  );
+  return t5;
+}
+
+function getConfirm(
   data: DataService,
   parent: W.TaskFlow,
-  heading: string,
   fieldName: string,
-  formName: string
-): W.TaskFlow {
-  let t5 = new W.TaskFlowForm(data, fieldName);
-  t5.entityFieldKey = 'companyKey';
-  t5.name = 'The amendment';
-  t5.addInput(fieldName, data.getFieldTypeForFieldName(fieldName), heading, '');
-  parent.addNext(t5);
+  heading: string
+): W.TaskFlowConfirm {
+  let a = new W.TaskFlowConfirm(data, fieldName);
+  a.name = heading;
+  parent.addNext(a);
+  return a;
+}
 
-  let t6 = new W.TaskFlowUploadDocs(data, 'uploadFileKeys');
-  t6.name = 'Upload supporting files';
-  t5.addNext(t6);
+function getUploadDocs(
+  data: DataService,
+  parent: W.TaskFlow,
+  fieldName: string,
+  heading: string
+): W.TaskFlowUploadDocs {
+  let a = new W.TaskFlowUploadDocs(data, fieldName);
+  a.name = heading;
+  parent.addNext(a);
+  return a;
+}
 
-  //'CoR 21.1' or any other
-  let t7 = getFormForName(data, formName);
-  t6.addNext(t7);
-  //let t8 = getApproval(data, t7);
-  // let t8 = new W.TaskFlowConfirm(data, 'approvalRequestIs');
-  // t8.name = 'Request approval';
-  // t7.addNext(t8);
-  // let t9 = new W.TaskFlowConfirm(data, 'approvedIs');
-  // t9.name = 'Approval received';
-  // t8.addNext(t9);
-  // t9.value = true;
-  let t10 = new W.TaskFlowSubmitDocs(data, 'submitFileKeys');
-  t10.name = 'Submit following files to the regulator';
-  t7.addNext(t10);
-  let t11 = new W.TaskFlowForm(data, 'formSubmission');
-  t11.name = 'Submission to regulator';
-  t11.addInput(
-    'submissionCode',
-    'text',
-    'Reference code',
-    'Reference code of the submission'
-  );
+function getReminder(
+  data: DataService,
+  parent: W.TaskFlow,
+  fieldName: string,
+  heading: string
+): W.TaskFlowReminder {
+  let a = new W.TaskFlowReminder(data, fieldName);
+  a.name = heading;
+  parent.addNext(a);
+  a.offsetDays = 20;
+  return a;
+}
+
+function getInputText(
+  data: DataService,
+  parent: W.TaskFlow,
+  fieldName: string,
+  heading: string
+): W.TaskFlowForm {
+  let a = new W.TaskFlowForm(data, 'form_' + fieldName);
+  a.name = heading;
+  a.addInput(fieldName, 'text', heading, '');
   //t11.addInput('submissionConfirmedIs', 'checkbox', 'Confirm submission', '');
-  t10.addNext(t11);
-  let t11_1 = new W.TaskFlowConfirm(data, 'confirmSubmissionIs');
-  t11_1.name = 'Confirmation of submission';
-  t11.addNext(t11_1);
+  parent.addNext(a);
+  return a;
+}
 
-  let t12 = new W.TaskFlowReminder(data, 'reminderDate');
-  t12.name = 'Set reminder to follow up with the regulator';
-  t11_1.addNext(t12);
-  t12.offsetDays = 20;
-  let t13 = new W.TaskFlowConfirm(data, 'regulatorApprovalIs');
-  t13.name = 'Confirm approval from the regulator';
-  t12.addNext(t13);
-  let t14 = new W.TaskFlowUploadDocs(data, 'uploadApprovalFileKeys');
-  t14.name = 'Upload approval files from the regulator';
-  t13.addNext(t14);
-  let t15 = new W.TaskFlowConfirm(data, 'taskCompleteIs');
-  t15.name = 'Confirm completion of task';
-  t14.addNext(t15);
-  return t5;
+function getSubmitFiles(
+  data: DataService,
+  parent: W.TaskFlow,
+  fieldName: string,
+  heading: string
+) {
+  let a = new W.TaskFlowSubmitDocs(data, fieldName);
+  a.name = heading;
+  parent.addNext(a);
+  return a
 }
