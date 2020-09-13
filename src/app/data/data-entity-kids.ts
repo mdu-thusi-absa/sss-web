@@ -142,7 +142,6 @@ export class EntityLegal extends EntityFunctional {
     t = Object.assign(t, this);
     return t;
   }
-  private name_: string;
 
   get name() {
     return this.name_;
@@ -655,9 +654,9 @@ export class EntityUser extends EntityNatural {
   accessKey = -1;
   enabledIs = true;
   constructor(
-    public surname: string,
-    public firstName: string,
-    public suffix: string
+    surname: string,
+    firstName: string,
+    suffix: string
   ) {
     super(surname, firstName, suffix);
   }

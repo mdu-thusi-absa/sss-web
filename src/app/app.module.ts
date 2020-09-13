@@ -101,6 +101,7 @@ import { FlowTaskComponent } from './workflow/flow-task/flow-task.component';
 import { FlowFormComponent } from './workflow/flow-form/flow-form.component';
 import { FlowMessageComponent } from './workflow/flow-message/flow-message.component';
 import { InputTableEntityComponent } from './input/input-table-entity/input-table-entity.component';
+import { FlowDateComponent } from './workflow/flow-date/flow-date.component';
 
 
 
@@ -196,6 +197,7 @@ import { InputTableEntityComponent } from './input/input-table-entity/input-tabl
     FlowFormComponent,
     FlowMessageComponent,
     InputTableEntityComponent,
+    FlowDateComponent,
     
   ],
   imports: [

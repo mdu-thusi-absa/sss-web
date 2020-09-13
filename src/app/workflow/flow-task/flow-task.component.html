@@ -18,6 +18,13 @@
       [showSavePrev] = "workFlow.currentTaskIndex>0"
       [showSaveNext] = "true"
     ></app-flow-confirm>
+    <app-flow-date
+      *ngIf="t.type == 'date'"
+      [stepNumber] = "i+1"
+      [taskFlow]="t"
+      [showSavePrev] = "workFlow.currentTaskIndex>0"
+      [showSaveNext] = "true"
+    ></app-flow-date>
     <app-flow-select
       *ngIf="t.type == 'select'"
       [stepNumber] = "i+1"

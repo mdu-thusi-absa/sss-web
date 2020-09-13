@@ -1,6 +1,6 @@
 import * as E from './data-entity-types';
 import { DataService } from './data.service';
-import {  Entity } from './data-entity-parent';
+import { Entity, RecordUpdate } from './data-entity-parent';
 import { Entities, AnyEntity } from './data-entities';
 // import * as D from './data.service'
 
@@ -75,6 +75,7 @@ export class TaskFlow {
   hasFork = false;
   errorMessage = '';
   entityFieldKey = ''; //to set the fieldNameKey to get entity to be worked on in the step
+  entity: AnyEntity;
   actionName_ = '';
   private actionEntityName_ = '';
   private workflowValuesObject_ = {};
@@ -151,10 +152,10 @@ export class TaskFlowSelect extends TaskFlow {
   }
 
   get entityName() {
-    if (this.values) {
-      if (this.values.has(this.value)) {
-        return this.values.get(this.value).name;
-      }
+    if (this.entity) {
+      // if (this.values.has(this.value)) {
+      return this.entity.name;
+      // }
     }
   }
   private init_needs_update(): boolean {
@@ -184,7 +185,11 @@ export class TaskFlowSelect extends TaskFlow {
   verify(): boolean {
     if (this.value > -1)
       if (this.values)
-        if (this.values.size > 0) if (this.values.has(this.value)) return true;
+        if (this.values.size > 0)
+          if (this.values.has(this.value)) {
+            this.entity = this.values.get(this.value);
+            return true;
+          }
     return false;
   }
 }
@@ -192,6 +197,24 @@ export class TaskFlowSelect extends TaskFlow {
 export class TaskFlowConfirm extends TaskFlow {
   type = 'confirm';
   value = false;
+  ensure = true; //value must be true to move on
+  verify(): boolean {
+    if ((this.ensure && this.value) || this.skip) {
+      this.errorMessage = '';
+      return true;
+    } else {
+      this.errorMessage = this.name + ' is required';
+      return false;
+    }
+  }
+  get skip(): boolean {
+    return false;
+  }
+}
+
+export class TaskFlowDate extends TaskFlow {
+  type = 'date';
+  value: Date = new Date()
   ensure = true; //value must be true to move on
   verify(): boolean {
     if ((this.ensure && this.value) || this.skip) {
@@ -354,6 +377,7 @@ export class WorkFlow extends TaskFlow {
     this.currentTask.isCurrent = true;
     this.currentTask.isDone = false;
     this.actionEntityName = '';
+    this.entity = null;
     this.actionName = '';
     if (this.currentTask) this.currentTaskIndex_ = 0;
     return this.build(this.rootTask);
@@ -396,6 +420,7 @@ export class WorkFlow extends TaskFlow {
           if (fromTask.actionName) this.actionName = fromTask.actionName;
           if (fromTask.actionEntityName)
             this.actionEntityName = fromTask.actionEntityName;
+          this.entity = fromTask.entity;
         }
         fromTask.workflowValuesObject = this.collectValues();
         if (fromTask.init()) {
@@ -430,7 +455,7 @@ export class WorkFlow extends TaskFlow {
                   break;
                 }
               }
-              this.build_checkIfConditionalBuildHasAdded(fromTask,notAdded);
+              this.build_checkIfConditionalBuildHasAdded(fromTask, notAdded);
             }
           } else if (fromTask.isDone) {
             this.start();
@@ -455,37 +480,61 @@ export class WorkFlow extends TaskFlow {
     return o;
   }
 
+  // get entity(): AnyEntity{
+  //   let r = this.tasks.find((e)=>{
+  //     return e.entity
+  //   })
+  //   return r
+  // }
+
+  private moreTasksToDo_() {
+    return this.currentTaskIndex_ < this.tasks.length - 1;
+  }
+  private moveToNextTask_() {
+    this.currentTaskIndex_++;
+    this.currentTask.isCurrent = false;
+    this.currentTask = this.tasks[this.currentTaskIndex_];
+    this.currentTask.isCurrent = true;
+  }
+
+  private moveToNext_DoSaveUpdatesToEntity_(){
+//TODO: implement the amendment
+      //create RecordUpdate and entity.update(recordUpdate)
+      if (this.entity) {
+        // console.log(this.entity);
+
+        //let recordUpdate = new RecordUpdate();
+        //this.entity.updateFieldValue(recordUpdate);
+      }
+  }
+
+  private moveToNext_DoCurrentTaskAfterBuild_() {
+    this.entity = this.currentTask.entity;
+    if (this.moreTasksToDo_()) {
+      //TODO: save workflow state to DB
+      this.moveToNextTask_();
+    } else {
+      this.moveToNext_DoSaveUpdatesToEntity_()
+    }
+    //TODO: implement skip a task. Not needed at the moment
+    // if (this.currentTask.skip) {
+    //   // console.log(this.tasks);
+    // }
+  }
+
+  private moveToNext_DoVerified_(): TaskFlow {
+    this.currentTask.isDone = true;
+    if (this.build(this.currentTask)) {
+      this.moveToNext_DoCurrentTaskAfterBuild_();
+    }
+    return this.currentTask;
+  }
+
   public moveToNext(): TaskFlow {
     this.currentTask.errorMessage = '';
-    if (this.currentTask.verify()) this.currentTask.isDone = true;
-
-    // if (this.currentTask.isEnd) {
-    //   if (this.que.length == 0) this.isEnd = true;
-    //   else {
-    //     // todo: test. set currentTask from que
-    //     this.loopFromQue();
-    //     return this.currentTask;
-    //   }
-    // } else {
-    if (this.build(this.currentTask)) {
-      if (this.currentTaskIndex_ < this.tasks.length - 1) {
-        this.currentTaskIndex_++;
-        this.currentTask.isCurrent = false;
-        this.currentTask = this.tasks[this.currentTaskIndex_];
-        this.currentTask.isCurrent = true;
-        //console.log('trying to build on', this.currentTask);
-        //   if (this.currentTask.skip) {
-        //     this.currentTask.isDone = true;
-        //     //this.build(this.currentTask);
-        //     this.moveToNext();
-        //   }
-      }
-      if (this.currentTask.skip) {
-        // console.log(this.tasks);
-      }
-      return this.currentTask;
+    if (this.currentTask.verify()) {
+      return this.moveToNext_DoVerified_();
     }
-    //}
     return null;
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as K from './data-entity-kids';
-import * as W from './data-workflow-loader';
+import * as W from './data-workflow-builder';
 import * as WC from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { Entities, AnyEntity } from './data-entities';
@@ -91,7 +91,7 @@ export class DataService {
     this.loadEntityTypes_Init()
     this.loadMenus();
     this.loadCanHoldSharesIs();
-    this.workFlow = this.getWorkFlow();
+    this.workFlow = this.initWorkFlow();
   }
 
   getEntityTypeForName(entityTypeName: string): E.EnumEntityType {
@@ -206,11 +206,8 @@ export class DataService {
     return v;
   }
 
-  getWorkFlow(): WC.WorkFlow {
-    let workFlow = new WC.WorkFlow(this, 'workflow');
-
-    workFlow.description = 'Execute a company secretarial task';
-    workFlow = W.getWorkFlow(workFlow, this);
+  initWorkFlow(): WC.WorkFlow {
+    let workFlow = W.buildWorkFlow(this);
     workFlow.start();
     return workFlow;
   }

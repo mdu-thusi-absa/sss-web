@@ -1,5 +1,37 @@
 import { EnumEntityType } from './data-entity-types';
 
+export class RecordUpdate {
+  key: number;
+  entityTypeKey: EnumEntityType;
+  entityKey: number;
+  recordDate: Date;
+  fieldName: string;
+  value: any;
+}
+
+export class HistoryArray extends Array {
+  private getMostRecentDate() {
+    if (super.length == 0) return null;
+    else return this[super.length - 1].recordDate;
+  }
+
+  push(record: RecordUpdate) {
+    let d = this.getMostRecentDate();
+    let L = super.push(record);
+    if (d > record.recordDate)
+      super.sort((a, b) => {
+        return b.recordDate - a.recordDate; //most recent first
+      });
+    return L;
+  }
+
+  getMostRecent(fieldName: string): RecordUpdate{
+    let r: RecordUpdate
+    if (super.length>0)
+      r = super[super.length-1]
+    return r
+  }
+}
 
 export class Entity {
   public key: number = 0; //corresponds to the database key, retrieved with JSON from the API
@@ -7,14 +39,31 @@ export class Entity {
   public description = '';
   public activeIs = false;
   public suffix = '';
-  protected headingsMap_: Map<string,string>
+  protected headingsMap_: Map<string, string>;
+  protected name_: string;
+  historyArray = new HistoryArray();
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
-  constructor(public name: string) {
-    if (!this.headingsMap_) this.headingsMap_ = this.getHeadingsMap()
+  constructor(name: string) {
+    if (!this.headingsMap_) this.headingsMap_ = this.getHeadingsMap();
+    this.name_ = name;
   }
 
-  get headingsMap(){
-    return this.headingsMap_
+  updateFieldValue(record: RecordUpdate) {
+    this.historyArray.push(record)
+    let recent = this.historyArray.getMostRecent(record.fieldName)
+    this[recent.fieldName] = recent.value
+  }
+
+  get name() {
+    return this.name_;
+  }
+
+  set name(v: string) {
+    this.name_ = v;
+  }
+
+  get headingsMap() {
+    return this.headingsMap_;
   }
 
   get allName() {
@@ -23,7 +72,7 @@ export class Entity {
     } else return this.name;
   }
 
-  getHeadingsMap():Map<string,string> {
+  getHeadingsMap(): Map<string, string> {
     let h = new Map([
       ['name', 'Name'],
       ['description', 'Description'],
@@ -104,6 +153,3 @@ export class Entity {
     }
   }
 }
-
-
-
