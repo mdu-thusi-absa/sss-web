@@ -767,4 +767,6 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.RegulatorType: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.PhysicalAddress: return new Entities<EntityPhysicalAddress>(EntityPhysicalAddress); break;
 	case EnumEntityType.Workflow: return new Entities<EntityWorkflow>(EntityWorkflow); break;
-	case EnumEntityType.WorkflowForParent: return new Entities<EntityWorkflow>(EntityWorkflow); break;}}
+	case EnumEntityType.WorkflowForParent: return new Entities<EntityWorkflow>(EntityWorkflow); break;
+	case EnumEntityType.DirectorType: return new Entities<Entity>(Entity); break;
+	case EnumEntityType.AppointmentAction: return new Entities<Entity>(Entity); break;}}

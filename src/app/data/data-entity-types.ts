@@ -69,7 +69,9 @@ export const jsonEntityTypes = `[
 	{"key":67,"name":"RegulatorType","pluralName":"RegulatorTypes","dashboardIndex":-1,"activeIs":true,"keyName":"regulatorTypeKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonRegulatorTypes","storeName":"","headingsSource":""},
 	{"key":68,"name":"PhysicalAddress","pluralName":"PhysicalAddresses","dashboardIndex":-1,"activeIs":true,"keyName":"physicalAddressKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonPhysicalAddresses","storeName":"physicalAddresses","headingsSource":""},
 	{"key":69,"name":"Workflow","pluralName":"Workflows","dashboardIndex":-1,"activeIs":true,"keyName":"workflowKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonWorkflows","storeName":"workflows","headingsSource":""},
-	{"key":70,"name":"WorkflowForParent","pluralName":"WorkflowsForParent","dashboardIndex":-1,"activeIs":true,"keyName":"workflowForParentKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getWorkflowForParent","headingsSource":""}]`
+	{"key":70,"name":"WorkflowForParent","pluralName":"WorkflowsForParent","dashboardIndex":-1,"activeIs":true,"keyName":"workflowForParentKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getWorkflowForParent","headingsSource":""},
+	{"key":71,"name":"DirectorType","pluralName":"DirectorTypes","dashboardIndex":-1,"activeIs":true,"keyName":"directorTypeKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonDirectorTypes","storeName":"directorTypes","headingsSource":""},
+	{"key":72,"name":"AppointmentAction","pluralName":"AppointmentActions","dashboardIndex":-1,"activeIs":true,"keyName":"appointmentActionKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonAppointmentActions","storeName":"appointmentActions","headingsSource":""}]`
 export enum EnumEntityType{
 	AccountingClass,
 	AccountingClassTier,
@@ -141,4 +143,6 @@ export enum EnumEntityType{
 	RegulatorType,
 	PhysicalAddress,
 	Workflow,
-	WorkflowForParent}
+	WorkflowForParent,
+	DirectorType,
+	AppointmentAction}

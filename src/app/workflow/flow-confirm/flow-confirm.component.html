@@ -10,6 +10,7 @@
     [value]="taskFlow.value"
     [showSmall]="true"
     (onChange) = "doChange($event)"
+    [autoFocus] = "taskFlow.isCurrent"
   ></app-input-checkbox>
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>
     <div

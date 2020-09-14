@@ -38,6 +38,7 @@ export class InputSelectEntityComponent implements OnInit {
   @Input() showEdit = false;
   @Input() showDelete = false;
   @Input() showCheck = false;
+  @Input() autoFocus = false
 
   entity: AnyEntity;
   @Output() onFile = new EventEmitter();

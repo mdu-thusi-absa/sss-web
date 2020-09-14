@@ -7,9 +7,12 @@
   [showSavePrev] = "workFlow.currentTaskIndex>0"
   (onSaveNext) = "doSaveNext()"
   (onSavePrev) = "doSavePrev()"
+  (document:keydown.control.arrowup)="doSavePrev()"
+  (document:keydown.control.arrowdown)="doSaveNext()"
+  (onMakeEID) = "doMakePanelIED($event)"
 >
     <!-- {{workFlow.currentTaskIndex+1}}:{{workFlow.countTasks}} -->
-  {{ workFlow.description }}
+  <!-- {{ workFlow.description }} -->
   <ng-container *ngFor="let t of workFlow.tasks; let i = index">
     <app-flow-confirm
       *ngIf="t.type == 'confirm'"
@@ -58,4 +61,5 @@
       [taskFlow]="t"
     ></app-flow-message>
   </ng-container>
+  <br>
 </app-input-panel>

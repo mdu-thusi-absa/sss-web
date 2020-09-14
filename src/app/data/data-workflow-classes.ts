@@ -78,6 +78,7 @@ export class TaskFlow {
   entity: AnyEntity;
   actionName_ = '';
   private actionEntityName_ = '';
+  private actionObjectName_ = '';
   private workflowValuesObject_ = {};
   get workflowValuesObject(): object {
     return this.workflowValuesObject_;
@@ -91,6 +92,12 @@ export class TaskFlow {
   }
   set actionEntityName(v: string) {
     this.actionEntityName_ = v;
+  }
+  get actionObjectName(): string {
+    return this.actionObjectName_;
+  }
+  set actionObjectName(v: string) {
+    this.actionObjectName_ = v;
   }
   get actionName(): string {
     return this.actionName_;
@@ -132,19 +139,28 @@ export class TaskFlowSelect extends TaskFlow {
   value = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
   values: Entities<AnyEntity>;
-  actionEntityNameIsEntityName = false;
-  actionNameIsEntityName = false;
+  thisEntityNameIsSubjectName = false;
+  thisEntityNameIsAction = false;
+  thisEntityNameIsObjectName = false;
 
   get actionEntityName(): string {
-    if (this.actionEntityNameIsEntityName) return this.entityName;
+    if (this.thisEntityNameIsSubjectName) return this.entityName;
     return '';
   }
   set actionEntityName(v: string) {
     super.actionEntityName = v;
   }
 
+  get actionObjectName(): string {
+    if (this.thisEntityNameIsObjectName) return this.entityName;
+    return '';
+  }
+  set actionObjectName(v: string) {
+    super.actionObjectName = v;
+  }
+
   get actionName(): string {
-    if (this.actionNameIsEntityName) return this.entityName;
+    if (this.thisEntityNameIsAction) return this.entityName;
     return '';
   }
   set actionName(v: string) {
@@ -214,7 +230,7 @@ export class TaskFlowConfirm extends TaskFlow {
 
 export class TaskFlowDate extends TaskFlow {
   type = 'date';
-  value: Date = new Date()
+  value: Date = new Date();
   ensure = true; //value must be true to move on
   verify(): boolean {
     if ((this.ensure && this.value) || this.skip) {
@@ -230,34 +246,21 @@ export class TaskFlowDate extends TaskFlow {
   }
 }
 
-export class TaskFlowDoc extends TaskFlow {
-  type = 'doc';
-  doc: string; // file name
-}
+// export class TaskFlowDoc extends TaskFlow {
+//   type = 'doc';
+//   doc: string; // file name
+//   constructor(public fieldName: string,public heading: string){}
+// }
 
 export class TaskFlowUploadDocs extends TaskFlow {
   type = 'upload-docs';
-  docs: TaskFlowDoc[] = []; // file name
-  addInput(fieldName: string, type: string, name: string, description: string) {
-    let d = new TaskFlowDoc(this.data, fieldName);
-    d.type = type;
-    d.name = name;
-    d.description = description;
-    this.docs.push;
-  }
+  fileList = new TaskFileList('inFileList', 'File list'); // file name
 }
 
 export class TaskFlowSubmitDocs extends TaskFlow {
   type = 'submit-docs';
-  whoTo: string; //submit to whom
-  docs: TaskFlowDoc[] = []; // file name
-  addInput(fieldName: string, type: string, name: string, description: string) {
-    let d = new TaskFlowDoc(this.data, fieldName);
-    d.type = type;
-    d.name = name;
-    d.description = description;
-    this.docs.push;
-  }
+  //whoTo: string; //submit to whom
+  fileList = new TaskFileList('outFileList', 'File list'); // file name
 }
 
 export class TaskFlowReminder extends TaskFlow {
@@ -358,6 +361,7 @@ export class WorkFlow extends TaskFlow {
     if (this.actionName) s = s + ': ' + this.actionName;
     else s = s + ': New task';
     if (this.actionEntityName) s = s + " for '" + this.actionEntityName + "'";
+    if (this.actionObjectName) s = s + " of '" + this.actionObjectName + "'";
     return s;
   }
 
@@ -377,6 +381,7 @@ export class WorkFlow extends TaskFlow {
     this.currentTask.isCurrent = true;
     this.currentTask.isDone = false;
     this.actionEntityName = '';
+    this.actionObjectName = '';
     this.entity = null;
     this.actionName = '';
     if (this.currentTask) this.currentTaskIndex_ = 0;
@@ -418,6 +423,8 @@ export class WorkFlow extends TaskFlow {
       if (fromTask) {
         if (fromTask.isDone) {
           if (fromTask.actionName) this.actionName = fromTask.actionName;
+          if (fromTask.actionObjectName)
+            this.actionObjectName = fromTask.actionObjectName;
           if (fromTask.actionEntityName)
             this.actionEntityName = fromTask.actionEntityName;
           this.entity = fromTask.entity;
@@ -497,15 +504,14 @@ export class WorkFlow extends TaskFlow {
     this.currentTask.isCurrent = true;
   }
 
-  private moveToNext_DoSaveUpdatesToEntity_(){
-//TODO: implement the amendment
-      //create RecordUpdate and entity.update(recordUpdate)
-      if (this.entity) {
-        // console.log(this.entity);
-
-        //let recordUpdate = new RecordUpdate();
-        //this.entity.updateFieldValue(recordUpdate);
-      }
+  private moveToNext_DoSaveUpdatesToEntity_() {
+    //TODO: implement the amendment
+    //create RecordUpdate and entity.update(recordUpdate)
+    if (this.entity) {
+      // console.log(this.entity);
+      //let recordUpdate = new RecordUpdate();
+      //this.entity.updateFieldValue(recordUpdate);
+    }
   }
 
   private moveToNext_DoCurrentTaskAfterBuild_() {
@@ -514,7 +520,7 @@ export class WorkFlow extends TaskFlow {
       //TODO: save workflow state to DB
       this.moveToNextTask_();
     } else {
-      this.moveToNext_DoSaveUpdatesToEntity_()
+      this.moveToNext_DoSaveUpdatesToEntity_();
     }
     //TODO: implement skip a task. Not needed at the moment
     // if (this.currentTask.skip) {
@@ -544,6 +550,7 @@ export class WorkFlow extends TaskFlow {
       this.currentTask.isCurrent = false;
       if (this.currentTask.actionEntityName) this.actionEntityName = '';
       if (this.currentTask.actionName) this.actionName = '';
+      if (this.currentTask.actionObjectName) this.actionObjectName = '';
       this.currentTaskIndex_--;
       // this.tasks = this.tasks.slice(0,this.currentTaskIndex_); //delete
       this.currentTask = this.tasks[this.currentTaskIndex_];
@@ -583,5 +590,18 @@ export class WorkFlow extends TaskFlow {
 
   public get countTasks(): number {
     return this.tasks.length;
+  }
+}
+
+export class TaskFile {
+  constructor(public fieldName: string, public heading) {}
+}
+
+export class TaskFileList {
+  list: TaskFile[] = [];
+  constructor(public fieldName: string, public heading: string) {}
+  add(f: TaskFile) {
+    this.list.push(f);
+    return this;
   }
 }

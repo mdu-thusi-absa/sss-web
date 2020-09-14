@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 import { TaskFlowSelect } from 'src/app/data/data-workflow-classes';
 
@@ -16,6 +16,7 @@ export class FlowSelectComponent implements OnInit {
   @Input() stepNumber = 1;
   @Output() onChange = new EventEmitter();
   @Output() onSaveNext = new EventEmitter();
+  @ViewChild('inputFilter') inputFilter: ElementRef;
   // message = ''
   showSelect = true;
   choiceValue = '';
@@ -26,6 +27,7 @@ export class FlowSelectComponent implements OnInit {
     //this.values = this.data.getEntities(this.taskFlow.sourceType);
     this.value = this.taskFlow.values.firstKey;
     this.taskFlow.value = this.value;
+
     // this.showSelect = true
     // this.showSaveNext = true
     // this.showSavePrev = true
@@ -44,7 +46,14 @@ export class FlowSelectComponent implements OnInit {
       // this.showSavePrev = true
       // this.showSaveNext = false
     }
+    // this.setFocus()
   }
+
+  // setFocus() {
+  //   setTimeout(() => {
+  //     this.inputFilter.nativeElement.focus();
+  //   }, 0);
+  // }
 
   doChange(event: any) {
     this.taskFlow.errorMessage = '';
@@ -66,5 +75,23 @@ export class FlowSelectComponent implements OnInit {
     //   this.taskFlow.errorMessage = 'This is the first step'
     // else
     this.onSavePrev.emit();
+  }
+
+  doNextValue(){
+    // if last move to first
+    let keys = this.taskFlow.values.all_keys
+    let i = keys.indexOf(this.value)
+    if (this.value == this.taskFlow.values.lastKey)
+      this.value = this.taskFlow.values.firstKey
+    else
+      this.value = keys[i+1]
+  }
+  doPrevValue(){
+    let keys = this.taskFlow.values.all_keys
+    let i = keys.indexOf(this.value)
+    if (this.value == this.taskFlow.values.firstKey)
+      this.value = this.taskFlow.values.lastKey
+    else
+      this.value = keys[i-1]
   }
 }

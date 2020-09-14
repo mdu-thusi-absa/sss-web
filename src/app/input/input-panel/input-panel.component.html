@@ -53,14 +53,14 @@
     <div [attr.id] = "eid + '-title'" (click)="collapsed = !collapsed">{{ title }}</div>
   </div>
   <!-- data-toggle="collapse" -->
-
+  <!-- [style.maxHeight]="maxHeight" -->
   <div
     class="panel-body mt3"
     [class.collapse]="collapsed"
     style="margin-bottom: 0px; position: relative; z-index: 9;"
     [attr.id]="'input-panel-' + eid"
     style="overflow-y: scroll; overflow-x: hidden;padding-bottom: 0px;"
-    [style.maxHeight]="maxHeight"
+    
   >
     <ng-content></ng-content>
   </div>

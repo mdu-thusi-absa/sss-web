@@ -23,6 +23,7 @@ export class InputPanelComponent implements OnInit {
 
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();
+  @Output() onMakeEID = new EventEmitter();
   
 
   eid = 'input-panel'
@@ -32,6 +33,7 @@ export class InputPanelComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.panelPrimary && !this.panelInfo) this.panelDefault = true;
+    this.onMakeEID.emit(this.eid)
   }
 
 

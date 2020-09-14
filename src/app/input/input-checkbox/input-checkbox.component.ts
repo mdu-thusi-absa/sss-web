@@ -35,7 +35,7 @@ export class InputCheckboxComponent implements OnInit {
   @Input() inline = false;
   @Input() showTitle = true;
   @Input() showEdit = false;
-  @Input() showDelete = false;
+  @Input() showDelete = false
   checked = true;
 
   doChange(){
@@ -60,7 +60,30 @@ export class InputCheckboxComponent implements OnInit {
     this.eid = this.data.getID('',this.eid);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    if (this._autoFocus){
+      this.setAutoFocus()
+    }
+  }
+
+  _autoFocus = false
+  @Input() set autoFocus(v: boolean){
+    console.log('checkbox: set focus',v);
+    
+    this._autoFocus = v
+    if (v){
+      this.setAutoFocus()
+    }
+  }
+
+  setAutoFocus(){
+    console.log('setAutoFocus');
+    let id = this.eid + '-change'
+    console.log(id);
+    
+      setTimeout(() => {
+        document.getElementById(id).focus();
+      }, 50);
   }
 
   hideByFilter() {

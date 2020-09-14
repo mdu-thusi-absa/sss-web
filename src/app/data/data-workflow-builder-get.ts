@@ -48,10 +48,12 @@ export function getConfirm(
   data: DataService,
   parent: W.TaskFlow,
   fieldName: string,
-  heading: string
+  heading: string,
+  startValue: boolean
 ): W.TaskFlowConfirm {
   let a = new W.TaskFlowConfirm(data, fieldName);
   a.name = heading;
+  a.value = startValue
   parent.addNext(a);
   return a;
 }
@@ -68,17 +70,17 @@ export function getRecordDate(
   return a;
 }
 
-export function getUploadDocs(
-  data: DataService,
-  parent: W.TaskFlow,
-  fieldName: string,
-  heading: string
-): W.TaskFlowUploadDocs {
-  let a = new W.TaskFlowUploadDocs(data, fieldName);
-  a.name = heading;
-  parent.addNext(a);
-  return a;
-}
+// export function getUploadDocs(
+//   data: DataService,
+//   parent: W.TaskFlow,
+//   fieldName: string,
+//   heading: string
+// ): W.TaskFlowUploadDocs {
+//   let a = new W.TaskFlowUploadDocs(data, fieldName);
+//   a.name = heading;
+//   parent.addNext(a);
+//   return a;
+// }
 
 export function getReminder(
   data: DataService,
@@ -110,11 +112,35 @@ export function getInputText(
 export function getSubmitFiles(
   data: DataService,
   parent: W.TaskFlow,
-  fieldName: string,
-  heading: string
+  fileList: W.TaskFileList
 ) {
-  let a = new W.TaskFlowSubmitDocs(data, fieldName);
-  a.name = heading;
+  let a = new W.TaskFlowSubmitDocs(data, fileList.fieldName);
+  a.fileList = fileList
+  a.name = fileList.heading;
+  parent.addNext(a);
+  return a;
+}
+
+export function getUploadFiles(
+  data: DataService,
+  parent: W.TaskFlow,
+  fileList: W.TaskFileList
+) {
+  let a = new W.TaskFlowUploadDocs(data, fileList.fieldName);
+  a.fileList = fileList
+  a.name = fileList.heading;
+  parent.addNext(a);
+  return a;
+}
+
+export function getAppointmentAction(
+  data: DataService,
+  parent: W.TaskFlow
+) {
+  let a = new W.TaskFlowSelect(data, 'appointmentActionKey');
+  a.name = 'Appointment action';
+  a.sourceType = E.EnumEntityType.AppointmentAction;
+  a.thisEntityNameIsAction = true;
   parent.addNext(a);
   return a;
 }
@@ -123,10 +149,30 @@ export function getCompany(data: DataService, parent: W.TaskFlow) {
   let a = new W.TaskFlowSelect(data, 'companyKey');
   a.name = 'Company';
   a.sourceType = E.EnumEntityType.CompaniesForCountry;
-  a.actionEntityNameIsEntityName = true;
+  a.thisEntityNameIsSubjectName = true;
   let s = new W.TaskFlowSubTask(a);
 
   parent.addNextFork(s);
+  return a;
+}
+
+export function getDirectorType(data: DataService, parent: W.TaskFlow) {
+  let a = new W.TaskFlowSelect(data, 'directorTypeKey');
+  a.name = 'Director type';
+  a.sourceType = E.EnumEntityType.DirectorType;
+  // a.actionEntityNameIsEntityName = true;
+  let s = new W.TaskFlowSubTask(a);
+
+  parent.addNextFork(s);
+  return a;
+}
+
+export function getIndividual(data: DataService, parent: W.TaskFlow) {
+  let a = new W.TaskFlowSelect(data, 'individualKey');
+  a.name = 'Individual';
+  a.sourceType = E.EnumEntityType.Individual;
+  a.thisEntityNameIsObjectName = true;
+  parent.addNext(a);
   return a;
 }
 
@@ -189,3 +235,4 @@ export function getCountry_AttachedToParentMenuSelection(data: DataService, pare
 //   // parent.addNext(t);
 //   return t;
 // }
+

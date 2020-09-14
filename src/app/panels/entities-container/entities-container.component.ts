@@ -356,7 +356,4 @@ export class EntitiesContainerComponent implements OnInit {
     return this.panelRows == 0 ? false : this.panelRows == 2;
   }
 
-  // showForEntityType(label: number): boolean{
-  //   return this.entityType== label;
-  // }
 }

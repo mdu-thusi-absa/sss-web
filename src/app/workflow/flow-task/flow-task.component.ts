@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer2 } from '@angular/core';
 import { WorkFlow } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 import { data } from 'jquery';
@@ -9,8 +9,9 @@ import { data } from 'jquery';
   styleUrls: ['./flow-task.component.css'],
 })
 export class FlowTaskComponent implements OnInit {
-  title = 'Sample';
+  title = 'Workflow'
   workFlow: WorkFlow
+  panelBodyID: string
 
   constructor(public data: DataService) {}
 
@@ -19,12 +20,23 @@ export class FlowTaskComponent implements OnInit {
   }
 
   doSaveNext() {
-    //verify here or in each flow, report individually, before moving on
     this.workFlow.moveToNext();
+    setTimeout(this.updateScroll, 100,this.panelBodyID);
   }
 
   doSavePrev() {
-    //verify here or in each flow, report individually, before moving on
-    this.workFlow.moveToPrev();
+    if (this.workFlow.currentTaskIndex > 0) this.workFlow.moveToPrev();
+  }
+
+  updateScroll(panelBodyID: string) {
+    let elementPanelBody = document.getElementById(panelBodyID);
+    elementPanelBody.scrollTop = +elementPanelBody.scrollHeight;
+    console.log(elementPanelBody.offsetTop);
+    
+  }
+
+  doMakePanelIED(event: any){
+    this.panelBodyID = 'input-panel-' + event
+    //this.panelHeaderID = event + '-title'
   }
 }

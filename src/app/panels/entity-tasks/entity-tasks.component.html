@@ -23,7 +23,7 @@
   [countAll]="getCount_All()"
   (onChoice)="rdoChoice = $event"
 ></app-input-filter-add>
-<div class="entities-tasks">
+<div class="entities-tasks" [style.overflow-y]="isNew?'hidden':'scroll'">
   <app-flow-task  [hidden]="!isNew"></app-flow-task>
   <!-- <app-entity-task
     style="margin-top: 0px;"

@@ -3,6 +3,8 @@
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
+  (document:keydown.control.arrowright)="doNextValue()"
+  (document:keydown.control.arrowleft)="doPrevValue()"
 >
   <app-input-select-entity
     [hidden]="taskFlow.errorMessage != ''"
@@ -11,6 +13,7 @@
     [values]="taskFlow.values"
     [showSmall]="true"
     (onChange)="doChange($event)"
+    [autoFocus] = "taskFlow.isCurrent"
   ></app-input-select-entity>
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold">
     <div

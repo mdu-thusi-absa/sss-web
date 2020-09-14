@@ -52,6 +52,7 @@ export class InputDropdownComponent implements OnInit {
   }
 
   @ViewChild('inputFilter') inputFilter: ElementRef;
+
   //dynamic ViewChild?
   //let el = $('#dropdown-group-' + this.eid);
   //@ViewChild('dropdown-item-' + this.eid + '-' + this.values) firstItem: ElementRef;
@@ -62,6 +63,26 @@ export class InputDropdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterText = '';
+    console.log();
+    
+    if (this._autoFocus){
+      this.setAutoFocus()
+    }
+  }
+
+  _autoFocus = false
+  @Input() set autoFocus(v: boolean){
+    this._autoFocus = v
+    if (v){
+      this.setAutoFocus()
+    }
+  }
+
+  setAutoFocus(){
+    let id = 'dropdown-button-' + this.eid
+      setTimeout(() => {
+        document.getElementById(id).focus();
+      }, 50);
   }
 
   get filterText() {
@@ -140,7 +161,7 @@ export class InputDropdownComponent implements OnInit {
   filterHeight = 273; //175.5;
   searchInputHeight = 38;
   dropUp = false;
-  
+
   setPosition(isFilter: boolean) {
     const rowHeight = 27.3;
     const rowsToShow = 10;
@@ -158,7 +179,6 @@ export class InputDropdownComponent implements OnInit {
     var bottomPos =
       el[0].getBoundingClientRect().bottom + $(window)['scrollTop']();
 
-    
     this.searchInputHeight = 38 * (this.values_.size > rowsToShow ? 1 : 0);
     this.filterHeight =
       rowHeight * Math.min(this.values_.countInFilter, rowsToShow) +
