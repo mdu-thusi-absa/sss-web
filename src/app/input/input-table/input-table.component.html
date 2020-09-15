@@ -20,11 +20,12 @@
   >
     <thead class="info">
       <tr>
-        <th *ngIf="withCheckbox" width="20px">
+        <th *ngIf="withCheckbox" width="15px">
           <app-input-checkbox
             [noTitle]="true"
             [showSmall]="true"
             (onChange)="checkForAll($event)"
+            [value] = "checked"
           ></app-input-checkbox>
         </th>
         <th *ngFor="let h of headings" class="info">
@@ -88,11 +89,12 @@
             <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
               <app-input-file
                 [title]="e.value.name"
-                [showTitleInput]="true"
+                [showTitleInput]="false"
                 [showSelect]="true"
                 [showShare]="true"
                 [showDownload]="true"
                 [showPanelHeading]="false"
+                [showCheck] = "false"
               ></app-input-file>
             </td>
           </tr>

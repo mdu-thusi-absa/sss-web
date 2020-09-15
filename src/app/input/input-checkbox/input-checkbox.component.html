@@ -1,8 +1,9 @@
 <div
   [hidden]="hideByFilter()"
-  style="margin-bottom: 0px;  padding:1px; vertical-align: middle;display:inline-block;margin-right:5px"
+  style="margin-bottom: 0px;  padding:1px; vertical-align: middle;display:inline-block"
   class="app-input"
   [style.margin-top]="showSmall ? '0px' : 'var(--app-input-margin-top)'"
+  [style.margin-right]="showSmall ? '0px' : '5px'"
   [class.label-buttons-2]="showEdit || showDelete || showFlash || showPaperclip || showCheck || showCD"
   [class.disabled] = "disabled"
 >

@@ -3,6 +3,7 @@ import { DataService } from './data.service';
 import * as K from './data-entity-kids';
 import * as W from './data-workflow-classes';
 import * as E from './data-entity-types';
+import { Entities } from './data-entities';
 
 //TODO: branch to various forms: 15.2, 25, 21.1...
 export function getFormForName(data: DataService, formName: string): W.TaskFlowForm {
@@ -49,11 +50,13 @@ export function getConfirm(
   parent: W.TaskFlow,
   fieldName: string,
   heading: string,
-  startValue: boolean
+  startValue: boolean,
+  ensureValueIsTrue: boolean
 ): W.TaskFlowConfirm {
   let a = new W.TaskFlowConfirm(data, fieldName);
   a.name = heading;
   a.value = startValue
+  a.ensure = ensureValueIsTrue
   parent.addNext(a);
   return a;
 }
@@ -112,11 +115,13 @@ export function getInputText(
 export function getSubmitFiles(
   data: DataService,
   parent: W.TaskFlow,
-  fileList: W.TaskFileList
+  fileList: Entities<K.EntityFile>,
+  fieldName: string,
+  heading: string
 ) {
-  let a = new W.TaskFlowSubmitDocs(data, fileList.fieldName);
-  a.fileList = fileList
-  a.name = fileList.heading;
+  let a = new W.TaskFlowSubmitDocs(data, fieldName);
+  a.files = fileList
+  a.name = heading;
   parent.addNext(a);
   return a;
 }
@@ -124,11 +129,13 @@ export function getSubmitFiles(
 export function getUploadFiles(
   data: DataService,
   parent: W.TaskFlow,
-  fileList: W.TaskFileList
+  fileList: Entities<K.EntityFile>,
+  fieldName: string,
+  heading: string
 ) {
-  let a = new W.TaskFlowUploadDocs(data, fileList.fieldName);
-  a.fileList = fileList
-  a.name = fileList.heading;
+  let a = new W.TaskFlowUploadDocs(data, fieldName);
+  a.files = fileList
+  a.name = heading;
   parent.addNext(a);
   return a;
 }
@@ -176,6 +183,15 @@ export function getIndividual(data: DataService, parent: W.TaskFlow) {
   return a;
 }
 
+export function getIndividualEmployeeStatus(data: DataService, parent: W.TaskFlow) {
+  let a = new W.TaskFlowSelect(data, 'individualKey')
+  a.name = 'Individual'
+  a.sourceType = E.EnumEntityType.IndividualInternalEmployeeStatus;
+  a.thisEntityNameIsObjectName = true;
+  parent.addNext(a);
+  return a;
+}
+
 export function getMessage(data: DataService, parent: W.TaskFlow, messageText: string) {
   let a = new W.TaskFlowMessage(data, 'message');
   a.name = 'Message';
@@ -212,6 +228,17 @@ export function getCompany_EditAll(data: DataService, parent: W.TaskFlow){
 //   parent.addNext(a);
 //   return a;
 // }
+
+export function getCountryForTask_AttachedToParentMenuSelection(data: DataService, parent: W.TaskFlow,parentFieldName: string, parentConditionKey: number) {
+  let a = new W.TaskFlowSelect(data, 'countryKey');
+  a.name = 'Country';
+  a.sourceType = E.EnumEntityType.CountryForTask;
+
+  let condition = new W.TaskFlowSubTaskCondition(parentFieldName,parentConditionKey,'==','number')
+  let subTask = new W.TaskFlowSubTask(a,[condition])
+  parent.addNextFork(subTask);
+  return a;
+}
 
 export function getCountry_AttachedToParentMenuSelection(data: DataService, parent: W.TaskFlow,parentFieldName: string, parentConditionKey: number) {
   let a = new W.TaskFlowSelect(data, 'countryKey');

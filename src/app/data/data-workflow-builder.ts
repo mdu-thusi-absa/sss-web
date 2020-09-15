@@ -73,7 +73,7 @@ function _buildSubMenus(
   parent: W.TaskFlow,
   data: DataService
 ): W.TaskFlowSelect {
-  let a = new W.TaskFlowSelect(data, parentWorkflow.functionName + '_Key');
+  let a = new W.TaskFlowSelect(data, parentWorkflow.key + '_Key');
   a.name = parentWorkflow.name;
   a = G.attachToParentSelection(
     a,
@@ -108,8 +108,10 @@ function queAppointmentDirector(
 ) {
   let taskList = new TaskList(parent);
 
+  console.log(parentWorkflow);
+  
   taskList.add(
-    G.getCountry_AttachedToParentMenuSelection(
+    G.getCountryForTask_AttachedToParentMenuSelection(
       data,
       taskList.lastTask,
       parent.fieldName,
@@ -122,49 +124,68 @@ function queAppointmentDirector(
   taskList.add(G.getDirectorType(data, taskList.lastTask));
 
   taskList.add(
-    G.getConfirm(data, taskList.lastTask, 'internalIs', 'Internal?', true)
+    G.getConfirm(
+      data,
+      taskList.lastTask,
+      'internalEmployeeIs',
+      'Internal employee',
+      true,
+      false
+    )
   );
 
-  taskList.add(G.getAppointmentAction(data,taskList.lastTask))
+  taskList.add(G.getAppointmentAction(data, taskList.lastTask));
 
-  taskList.add(G.getIndividual(data, taskList.lastTask));
+  taskList.add(G.getIndividualEmployeeStatus(data, taskList.lastTask));
 
-  let individualDownFileList = new W.TaskFileList(
-    'individualFormFiles',
-    'Documents for the individual to fill'
+  let individualDownFileList = new Entities<K.EntityFile>(K.EntityFile);
+  individualDownFileList
+    .add(new K.EntityFile('Consent form for the director to sign'))
+    .add(new K.EntityFile('Director procedural guideline pack'));
+  taskList.add(
+    G.getSubmitFiles(
+      data,
+      taskList.lastTask,
+      individualDownFileList,
+      'individualDownFiles',
+      'Documents for the individual to fill'
+    )
   );
-  individualDownFileList.add(
-    new W.TaskFile('consentFormDoc', 'Consent form for the director to sign')
-  ).add(
-    new W.TaskFile('directorGuideDoc', 'Director procedural guideline pack')
-  );
-  taskList.add(G.getSubmitFiles(data, taskList.lastTask, individualDownFileList));
 
-  let individualUpFileList = new W.TaskFileList(
-    'individualFiles',
-    `Individual's files`
-  ).add(
-    new W.TaskFile('consentFormDoc', 'Consent form for the director to sign')
-  ).add(
-    new W.TaskFile('directorGuideDoc', 'Director procedural guideline pack')
+  let individualUpFileList = new Entities<K.EntityFile>(K.EntityFile)
+    .add(new K.EntityFile('Signed consent form from the director'))
+    .add(new K.EntityFile('Filled director procedural guidelines'));
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      taskList.lastTask,
+      individualUpFileList,
+      'individualFiles',
+      `Individual's files`
+    )
   );
-  taskList.add(G.getUploadFiles(data, taskList.lastTask, individualUpFileList));
 
-  let excoPackDownFileList = new W.TaskFileList(
-    'excoPackFiles',
-    'Exco pack files'
+  let excoPackDownFileList = new Entities<K.EntityFile>(K.EntityFile);
+  excoPackDownFileList
+    .add(new K.EntityFile('Exco endorsement cover sheet for Exco'))
+    .add(new K.EntityFile('Exco supporting doc'));
+  taskList.add(
+    G.getSubmitFiles(
+      data,
+      taskList.lastTask,
+      excoPackDownFileList,
+      'excoPackFiles',
+      'Exco endorsement files'
+    )
   );
-  excoPackDownFileList.add(
-    new W.TaskFile('nominationDoc', 'Nomination Document for Exco')
-  );
-  taskList.add(G.getSubmitFiles(data, taskList.lastTask, excoPackDownFileList));
 
   taskList.add(
     G.getConfirm(
       data,
       taskList.lastTask,
-      'excoNominationApproveIs',
-      'Exco nomination?',
+      'excoEndorsementApproveIs',
+      'Exco endorsed',
+      true,
       true
     )
   );
@@ -174,58 +195,104 @@ function queAppointmentDirector(
   //   'Consent form for the director'
   // );
   // consentUpFileList.add(
-  //   new W.TaskFile('consentFormDoc', 'Signed consent for the director')
+  //   new K.EntityFile('consentFormDoc', 'Signed consent for the director')
   // );
   // taskList.add(G.getUploadFiles(data, taskList.lastTask, consentUpFileList));
 
   getAuthorisation_(data, taskList);
 
-  getApproval_(data,taskList,'approvalHeadCoSecDepartmentIs','Head of CoSec approval')
-  getApproval_(data,taskList,'approvalLegalDepartmentIs','Legal department approval')
-
-  let boardDownFileList = new W.TaskFileList('boardDownFileList','Board pack files to approve')
-  boardDownFileList.add(
-    new W.TaskFile('boardResolutionDoc', 'Board resolution to approve')
+  // getApproval_(data,taskList,'approvalHeadCoSecDepartmentIs','Head of CoSec approval')
+  getApproval_(
+    data,
+    taskList,
+    'approvalLegalDepartmentIs',
+    'Legal department approval'
   );
-  taskList.add(G.getSubmitFiles(data, taskList.lastTask, boardDownFileList));
 
-  let boardUpFileList = new W.TaskFileList('boardUpFileList','Approved board pack files')
-  boardUpFileList.add(
-    new W.TaskFile('boardResolutionSignedDoc', 'Signed board resolution')
+  let boardDownFileList = new Entities<K.EntityFile>(K.EntityFile);
+  boardDownFileList.add(new K.EntityFile('Board resolution to approve'));
+  taskList.add(
+    G.getSubmitFiles(
+      data,
+      taskList.lastTask,
+      boardDownFileList,
+      'boardDownFileList',
+      'Board proposal files to approve'
+    )
   );
-  taskList.add(G.getUploadFiles(data, taskList.lastTask, boardUpFileList));
 
-  let regulatorDownFileList = new W.TaskFileList('regulatorDownFileList','Regulator submission files')
-  regulatorDownFileList.add(
-    new W.TaskFile('regulatorForm', 'CoR39')
-  ).add(
-    new W.TaskFile('boardResolutionSignedDoc', 'Signed board resolution')
-  ).add(
-    new W.TaskFile('concentForm', 'Director consent form')
-  ).add(
-    new W.TaskFile('directorIdDoc', 'Director ID')
-  )
-  taskList.add(G.getSubmitFiles(data, taskList.lastTask, regulatorDownFileList));
+  let boardUpFileList = new Entities<K.EntityFile>(K.EntityFile);
+  boardUpFileList.add(new K.EntityFile('Signed board resolution'));
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      taskList.lastTask,
+      boardUpFileList,
+      'boardUpFileList',
+      'Approved board proposal files'
+    )
+  );
 
-  taskList.add(G.getInputText(data, taskList.lastTask,'regulatorSubmissionCode','Regulator code for submission'));
+  let regulatorDownFileList = new Entities<K.EntityFile>(K.EntityFile);
+  regulatorDownFileList
+    .add(new K.EntityFile('CoR39'))
+    .add(new K.EntityFile('Signed board resolution'))
+    .add(new K.EntityFile('Signed director consent form'))
+    .add(new K.EntityFile('Uploaded copy of director ID'));
+  taskList.add(
+    G.getSubmitFiles(
+      data,
+      taskList.lastTask,
+      regulatorDownFileList,
+      'regulatorDownFileList',
+      'Regulator submission files'
+    )
+  );
+
+  taskList.add(
+    G.getInputText(
+      data,
+      taskList.lastTask,
+      'regulatorSubmissionCode',
+      'Regulator code for submission'
+    )
+  );
   //taskList.add(G.getConfirm(data, taskList.lastTask,'regulatorSubmissionConfirmIs','Regulator submited',false));
-  taskList.add(G.getReminder(data, taskList.lastTask,'regulatorSubmissionConfirmIs','Regulator follow up reminder'));
-  getApproval_(data,taskList,'approvalRegulatortIs','Regulator approval')
-
-  let regulatorUpFileList = new W.TaskFileList('regulatorApprovalFileList','Regulator approval files')
-  regulatorUpFileList.add(
-    new W.TaskFile('regulatorApprovalDoc', 'Registered CoR39')
+  taskList.add(
+    G.getReminder(
+      data,
+      taskList.lastTask,
+      'regulatorSubmissionConfirmIs',
+      'Regulator follow up reminder'
+    )
   );
-  taskList.add(G.getUploadFiles(data, taskList.lastTask, regulatorUpFileList));
+  getApproval_(data, taskList, 'approvalRegulatortIs', 'Regulator approval');
+
+  let regulatorUpFileList = new Entities<K.EntityFile>(K.EntityFile);
+  regulatorUpFileList.add(new K.EntityFile('Registered CoR39'));
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      taskList.lastTask,
+      regulatorUpFileList,
+      'regulatorApprovalFileList',
+      'Regulator approval files'
+    )
+  );
 
   getFinaliseTask_(data, taskList);
 
   return taskList.firstTask;
 }
 
-function getApproval_(data: DataService, taskList:TaskList,fieldName:string, heading: string){
+function getApproval_(
+  data: DataService,
+  taskList: TaskList,
+  fieldName: string,
+  heading: string
+) {
   taskList.add(
-    G.getConfirm(data, taskList.lastTask, fieldName, heading, false)
+    G.getConfirm(data, taskList.lastTask, fieldName, heading, false, true)
   );
 }
 
@@ -235,7 +302,7 @@ function getFinaliseTask_(data: DataService, taskList: TaskList) {
   );
 
   taskList.add(
-    G.getConfirm(data, taskList.lastTask, 'commitIs', 'Commit', false)
+    G.getConfirm(data, taskList.lastTask, 'commitIs', 'Commit', false, true)
   );
 }
 
@@ -246,6 +313,7 @@ function getAuthorisation_(data: DataService, taskList: TaskList) {
       taskList.lastTask,
       'requestAuthoIs',
       'Request authorisation',
+      true,
       true
     )
   );
@@ -256,7 +324,8 @@ function getAuthorisation_(data: DataService, taskList: TaskList) {
       taskList.lastTask,
       'receivedAuthoIs',
       'Received authorisation',
-      false
+      false,
+      true
     )
   );
 }
@@ -274,7 +343,6 @@ function queResignDirector(
   );
 }
 
- 
 function queAppointmentAuditFirmAndDesignatedPartner(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
@@ -300,7 +368,7 @@ function queAppointmentCompanySecretary_CoSec(
       `: test page for end of workflow. Press 'Save & Next' to reset`
   );
 }
- 
+
 function queAppointmentCompanySecretaryRepresentatve(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
@@ -314,7 +382,6 @@ function queAppointmentCompanySecretaryRepresentatve(
   );
 }
 
- 
 function queAppointmentEntityFinancialOfficer_EFO(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
@@ -327,7 +394,7 @@ function queAppointmentEntityFinancialOfficer_EFO(
       `: test page for end of workflow. Press 'Save & Next' to reset`
   );
 }
- 
+
 function queAppointmentLegalEntityExecutive_LEE(
   parentWorkflow: K.EntityWorkflow,
   parent: W.TaskFlow,
@@ -1146,7 +1213,14 @@ function queChangeAnyDetails(
     'Record date'
   );
 
-  let doneSet = G.getConfirm(data, recordDateSet, 'commitIs', 'Commit', false);
+  let doneSet = G.getConfirm(
+    data,
+    recordDateSet,
+    'commitIs',
+    'Commit',
+    false,
+    true
+  );
 
   return countrySet;
 }
@@ -1172,29 +1246,38 @@ function _useCompany_Amend_Specific(config: G.ConfigWorkflow): W.TaskFlow {
   companyTask.addNext(a);
   //t.addNext(a)
 
-  let upFiles = new W.TaskFileList(
+  let upFiles = new Entities<K.EntityFile>(K.EntityFile);
+  let b = G.getUploadFiles(
+    config.data,
+    a,
+    upFiles,
     'uploadFiles',
     'Please upload the following files'
   );
-  let b = G.getUploadFiles(config.data, a, upFiles);
 
   //'CoR 21.1' or any other
   let c = G.getFormForName(config.data, 'Required inputs');
   b.addNext(c);
 
-  let submitFileList = new W.TaskFileList(
+  let submitFileList = new Entities<K.EntityFile>(K.EntityFile).add(
+    new K.EntityFile('CoR form')
+  );
+
+  let d = G.getSubmitFiles(
+    config.data,
+    c,
+    submitFileList,
     'submitFileKeys',
     'Submit following files to the regulator'
-  ).add(new W.TaskFile('formCoR', 'CoR form'));
-
-  let d = G.getSubmitFiles(config.data, c, submitFileList);
+  );
 
   let e = G.getConfirm(
     config.data,
     d,
     'confirmSubmissionIs',
     'Confirmation of submission',
-    false
+    false,
+    true
   );
 
   let f = G.getReminder(
@@ -1209,21 +1292,26 @@ function _useCompany_Amend_Specific(config: G.ConfigWorkflow): W.TaskFlow {
     f,
     'regulatorApprovalIs',
     'Confirm approval from the regulator',
-    false
+    false,
+    true
   );
 
-  let uploadApprovalFiles = new W.TaskFileList(
+  let uploadApprovalFiles = new Entities<K.EntityFile>(K.EntityFile);
+  let h = G.getUploadFiles(
+    config.data,
+    g,
+    uploadApprovalFiles,
     'uploadApprovalFileKeys',
     'Upload approval files from the regulator'
   );
-  let h = G.getUploadFiles(config.data, g, uploadApprovalFiles);
   let i = G.getRecordDate(config.data, h, 'recordDate', 'Record date');
   let j = G.getConfirm(
     config.data,
     i,
     'taskCompleteIs',
     'Confirm completion of task',
-    false
+    false,
+    true
   );
   return countryTask;
 }

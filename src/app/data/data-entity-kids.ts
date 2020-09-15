@@ -2,6 +2,7 @@ import { EnumEntityType } from './data-entity-types';
 import { Entity } from './data-entity-parent';
 import * as J from './data-json';
 import { Entities, AnyEntity } from './data-entities';
+import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class EntityTask extends Entity {
   who = '';
@@ -168,6 +169,7 @@ export class EntityWorkflow extends Entity {
   conditionOperator = '==';
   requireAuthIs = false;
   activeIs = false;
+  countryKeys: number[] = []
 }
 
 //todo: Appointments, ShareCertificates, Shareholders collections
@@ -470,9 +472,10 @@ export class EntityAttendance extends Entity {
 }
 
 export class EntityIndividual extends EntityNatural {
-  entityTypeKey = EnumEntityType.Individual;
-  secretaryIs = false;
-  audutorIs = false;
+  entityTypeKey = EnumEntityType.Individual
+  secretaryIs = false
+  audutorIs = false
+  internalEmployeeIs = false
   public clone() {
     let t = new EntityIndividual(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
@@ -713,12 +716,14 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.Contact: return new Entities<EntityContact>(EntityContact); break;
 	case EnumEntityType.Country: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.CountryWithTasks: return new Entities<Entity>(Entity); break;
+	case EnumEntityType.CountryForTask: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.Custom: return new Entities<EntityCustomField>(EntityCustomField); break;
 	case EnumEntityType.Dashboard: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.EntityStatus: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.EntityStatusTier: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.Individual: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualForCountries: return new Entities<EntityIndividual>(EntityIndividual); break;
+	case EnumEntityType.IndividualInternalEmployeeStatus: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.Industry: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.LegalClass: return new Entities<EntityLegal>(EntityLegal); break;
 	case EnumEntityType.Month: return new Entities<Entity>(Entity); break;

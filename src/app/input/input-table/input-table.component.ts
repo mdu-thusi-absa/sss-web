@@ -15,6 +15,7 @@ export class InputTableComponent implements OnInit {
   @Input() selectedEntityKey: number;
   @Input() withCheckbox = false;
   @Input() noPadding = false
+  @Input() checked = false
   filterText_ = '';
 
   isHiddenMap = new Map();
@@ -32,7 +33,7 @@ export class InputTableComponent implements OnInit {
   ngOnInit(): void {
     this.entities.forEach((value, key, map) => {
       this.hideEditRow.set(key, true);
-      this.isChecked.set(key,false);
+      this.isChecked.set(key,this.checked);
     });
     this.countFiltered = this.entities.size;
     

@@ -1,18 +1,19 @@
 <div
   class="panel panel-default"
-  style="margin-bottom: 5px; margin-top: 5px;"
+  style="margin-bottom: 5px; margin-top: 5px"
   [hidden]="hideByFilter()"
 >
-  <div *ngIf="showPanelHeading"
+  <div
+    *ngIf="showPanelHeading"
     class="panel panel-heading panel-info nobottom less-padding text-primary-bold"
-    style="vertical-align: middle; padding-bottom: 0px;"
+    style="vertical-align: middle; padding-bottom: 0px"
   >
     <a
       href="#"
       data-toggle="collapse"
       [attr.data-target]="'#file-' + getID()"
-      style="white-space: nowrap; display: inline-block; overflow: hidden;"
-      [attr.id] = "eid + '-title'" 
+      style="white-space: nowrap; display: inline-block; overflow: hidden"
+      [attr.id]="eid + '-title'"
     >
       <label class="nobottom text-primary-bold">{{ title }}</label>
     </a>
@@ -27,9 +28,31 @@
     class="panel panel-body noborder nobottom less-padding collapse"
     [class.in]="hideBody"
     id="{{ 'file-' + getID() }}"
-    style="margin-top: 0px;"
+    style="margin-top: 0px"
   >
-    <div class="container-flex">
+    <div *ngIf="showTitleInput">
+      <app-input-text
+        [title]="'Title'"
+        [value]="title"
+        (onChange)="doChangeTitle($event)"
+        [showCheck]="showCheck"
+      ></app-input-text>
+    </div>
+    <app-input-browse
+      [title]="title + ' file name'"
+      [showDisk]="true"
+      [showLink]="true"
+      [showMinus]="true"
+      [showDownload]="true"
+      [showShare]="true"
+    ></app-input-browse>
+    <app-input-textarea
+      [title]="'Description'"
+      [placeholder]="'File or link contents description'"
+      [showCheck]="false"
+    ></app-input-textarea>
+
+    <!-- <div class="container-flex">
       <div class="row">
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
           <div *ngIf="showTitleInput">
@@ -42,23 +65,23 @@
           </div>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
-          <app-input-checkbox
+           <app-input-checkbox
             [title]="'Active'"
             [value]="true"
-          ></app-input-checkbox>
+          ></app-input-checkbox> 
         </div>
       </div>
       <div class="row">
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
-          <!-- <div *ngIf="showTitleInput">
+           <div *ngIf="showTitleInput">
             <app-input-text
               [title]="'Title'"
               [value] = "title"
               (onChange) = "doChangeTitle($event)"
               [showCheck] = [showCheck]
             ></app-input-text>
-          </div> -->
-          <!-- <div style="height:3px;"></div> -->
+          </div> 
+           <div style="height:3px;"></div> 
           <app-input-browse
             [title]="title + ' file name'"
             [showDisk]="true"
@@ -67,7 +90,7 @@
             [showDownload]="true"
             [showShare]="true"
           ></app-input-browse>
-          <app-input-date [title]="'Creation date'"></app-input-date>
+           <app-input-date [title]="'Creation date'"></app-input-date> 
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
           <app-input-textarea
@@ -77,6 +100,6 @@
           ></app-input-textarea>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

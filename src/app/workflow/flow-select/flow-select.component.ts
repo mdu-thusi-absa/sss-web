@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 import { TaskFlowSelect } from 'src/app/data/data-workflow-classes';
 
@@ -77,21 +85,22 @@ export class FlowSelectComponent implements OnInit {
     this.onSavePrev.emit();
   }
 
-  doNextValue(){
-    // if last move to first
-    let keys = this.taskFlow.values.all_keys
-    let i = keys.indexOf(this.value)
-    if (this.value == this.taskFlow.values.lastKey)
-      this.value = this.taskFlow.values.firstKey
-    else
-      this.value = keys[i+1]
+  doNextValue() {
+    if (this.taskFlow.isCurrent) {
+      let keys = this.taskFlow.values.all_keys;
+      let i = keys.indexOf(this.value);
+      if (this.value == this.taskFlow.values.lastKey)
+        this.doChange(this.taskFlow.values.firstKey);
+      else this.doChange(keys[i + 1]);
+    }
   }
-  doPrevValue(){
-    let keys = this.taskFlow.values.all_keys
-    let i = keys.indexOf(this.value)
+  doPrevValue() {
+    if (this.taskFlow.isCurrent){
+    let keys = this.taskFlow.values.all_keys;
+    let i = keys.indexOf(this.value);
     if (this.value == this.taskFlow.values.firstKey)
-      this.value = this.taskFlow.values.lastKey
-    else
-      this.value = keys[i-1]
+      this.doChange(this.taskFlow.values.lastKey);
+    else this.doChange(keys[i - 1]);
+    }
   }
 }

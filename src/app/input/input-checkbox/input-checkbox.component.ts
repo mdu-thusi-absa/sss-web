@@ -68,8 +68,6 @@ export class InputCheckboxComponent implements OnInit {
 
   _autoFocus = false
   @Input() set autoFocus(v: boolean){
-    console.log('checkbox: set focus',v);
-    
     this._autoFocus = v
     if (v){
       this.setAutoFocus()
@@ -77,10 +75,7 @@ export class InputCheckboxComponent implements OnInit {
   }
 
   setAutoFocus(){
-    console.log('setAutoFocus');
     let id = this.eid + '-change'
-    console.log(id);
-    
       setTimeout(() => {
         document.getElementById(id).focus();
       }, 50);

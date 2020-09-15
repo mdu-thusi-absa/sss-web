@@ -6,10 +6,11 @@
 >
   {{ taskFlow.description }}
   <app-input-table
-    [headings]="['Title', 'Description']"
-    [fields]="['name', 'description']"
+    [headings]="['Title']"
+    [fields]="['name']"
     [withCheckbox]="true"
-    [entities]="data.files"
+    [checked] = "true"
+    [entities]="taskFlow.files"
     [inputType]="'file'"
     [noPadding] = "true"
   ></app-input-table>

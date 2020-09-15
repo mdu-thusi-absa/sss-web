@@ -88,7 +88,7 @@ export class DataService {
 
   constructor() {
     this.loadEntityTypes();
-    this.loadEntityTypes_Init()
+    this.loadEntityTypes_Init();
     this.loadMenus();
     this.loadCanHoldSharesIs();
     this.workFlow = this.initWorkFlow();
@@ -377,15 +377,18 @@ export class DataService {
     .add(new Entity('number'))
     .add(new Entity('contact'));
 
-  getIndividualsForCountries(countriesArray: number[]) {
-    let ps = this.individuals;
-    let e = new Entities<K.EntityIndividual>(K.EntityIndividual);
-    ps.forEach((value, key, map) => {
-      if (countriesArray.indexOf(value['countryKey']) > -1) {
-        e.add(value as K.EntityIndividual);
-      }
-    });
-    return e;
+  getIndividualsForCountries(data: object) {
+    return this.getEntities(E.EnumEntityType.Individual).select(
+      'countryKey',
+      data['countryKey']
+    );
+  }
+
+  getIndividualsInternalEmployeeStatus(data: object) {
+    return this.getEntities(E.EnumEntityType.Individual).select(
+      'internalEmployeeIs',
+      data['internalEmployeeIs']
+    );
   }
 
   getCompaniesForCountry(data: object) {
@@ -475,4 +478,53 @@ export class DataService {
       data['parentKey']
     );
   }
+
+  getCountriesForTask(data: object) {
+    let d = this._getCountriesForTask_WorkflowsForWorkflowKey(data) as Entities<K.EntityWorkflow>;
+    let countryKeys = this._getCountriesForTask_ListOfCountriesForTasks(d);
+    return this._getCountryForTask_ForCountryKeys(countryKeys);
+  }
+
+  private _getCountriesForTask_WorkflowsForWorkflowKey(data: object) {
+    console.log('begin',data)
+    let lastMenuKey = this._getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(data)
+    let d = this.getEntities(E.EnumEntityType.Workflow).select(
+      'key',
+      data[lastMenuKey]
+    ) as Entities<K.EntityWorkflow>;
+    console.log(d);
+    return d
+  }
+
+  private _getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(data: object){
+    let lastMenuKey = ''
+    for(let i=0;i<10;i++){
+      if (data[i+'_Key'])
+        lastMenuKey = i+'_Key'
+    }
+    console.log(lastMenuKey);
+    
+    return lastMenuKey
+  }
+
+  private _getCountriesForTask_ListOfCountriesForTasks(
+    tasks: Entities<K.EntityWorkflow>
+  ) {
+    let countryKeys: number[] = [];
+    tasks.forEach((value, key, map) => {
+      countryKeys = value.countryKeys;
+    });
+    console.log(countryKeys);
+    return countryKeys;
+  }
+
+  private _getCountryForTask_ForCountryKeys(countryKeys: number[]){
+    let countries = this.getEntities(E.EnumEntityType.Country)
+    let countryForTasks = countries.getClearCopy()
+    countryKeys.forEach((value)=>{
+      countryForTasks.add(countries.get(value))
+    })
+    return countryForTasks
+  }
+
 }

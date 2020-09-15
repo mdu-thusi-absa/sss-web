@@ -1,7 +1,8 @@
 import * as E from './data-entity-types';
 import { DataService } from './data.service';
-import { Entity, RecordUpdate } from './data-entity-parent';
+import { Entity } from './data-entity-parent';
 import { Entities, AnyEntity } from './data-entities';
+import { EntityFile } from './data-entity-kids';
 // import * as D from './data.service'
 
 export class TaskFlowSubTaskCondition {
@@ -115,6 +116,10 @@ export class TaskFlow {
   /*
       subTasks are there to provide the next task
     */
+  canMoveOn(): boolean {
+    // to be implemented by child classes, if they need to initialise data
+    return false;
+  }
   verify(): boolean {
     // to be implemented by child classes, if they need to initialise data
     return true;
@@ -143,6 +148,10 @@ export class TaskFlowSelect extends TaskFlow {
   thisEntityNameIsAction = false;
   thisEntityNameIsObjectName = false;
 
+  canMoveOn(): boolean {
+    if (this.values.size == 1) return true;
+    return false;
+  }
   get actionEntityName(): string {
     if (this.thisEntityNameIsSubjectName) return this.entityName;
     return '';
@@ -195,6 +204,7 @@ export class TaskFlowSelect extends TaskFlow {
       );
       this.init_verify_if_empty();
     }
+    if (!this.values.has(this.value)) this.value = this.values.firstKey;
     return true;
   }
 
@@ -215,12 +225,12 @@ export class TaskFlowConfirm extends TaskFlow {
   value = false;
   ensure = true; //value must be true to move on
   verify(): boolean {
-    if ((this.ensure && this.value) || this.skip) {
-      this.errorMessage = '';
-      return true;
-    } else {
+    if (this.ensure && !this.value) {
       this.errorMessage = this.name + ' is required';
       return false;
+    } else {
+      this.errorMessage = '';
+      return true;
     }
   }
   get skip(): boolean {
@@ -254,13 +264,13 @@ export class TaskFlowDate extends TaskFlow {
 
 export class TaskFlowUploadDocs extends TaskFlow {
   type = 'upload-docs';
-  fileList = new TaskFileList('inFileList', 'File list'); // file name
+  files = new Entities<EntityFile>(EntityFile); // file name
 }
 
 export class TaskFlowSubmitDocs extends TaskFlow {
   type = 'submit-docs';
   //whoTo: string; //submit to whom
-  fileList = new TaskFileList('outFileList', 'File list'); // file name
+  files = new Entities<EntityFile>(EntityFile); // file name
 }
 
 export class TaskFlowReminder extends TaskFlow {
@@ -385,7 +395,9 @@ export class WorkFlow extends TaskFlow {
     this.entity = null;
     this.actionName = '';
     if (this.currentTask) this.currentTaskIndex_ = 0;
-    return this.build(this.rootTask);
+    this.build(this.rootTask);
+    if (this.currentTask.canMoveOn()) this.moveToNext()
+    return true
   }
   public loopFromQue() {
     //todo: test
@@ -494,17 +506,17 @@ export class WorkFlow extends TaskFlow {
   //   return r
   // }
 
-  private moreTasksToDo_() {
+  private _moreTasksToDo() {
     return this.currentTaskIndex_ < this.tasks.length - 1;
   }
-  private moveToNextTask_() {
+  private _moveToNextTask() {
     this.currentTaskIndex_++;
     this.currentTask.isCurrent = false;
     this.currentTask = this.tasks[this.currentTaskIndex_];
     this.currentTask.isCurrent = true;
   }
 
-  private moveToNext_DoSaveUpdatesToEntity_() {
+  private _moveToNext_DoSaveUpdatesToEntity() {
     //TODO: implement the amendment
     //create RecordUpdate and entity.update(recordUpdate)
     if (this.entity) {
@@ -514,13 +526,13 @@ export class WorkFlow extends TaskFlow {
     }
   }
 
-  private moveToNext_DoCurrentTaskAfterBuild_() {
+  private _moveToNext_DoCurrentTaskAfterBuild() {
     this.entity = this.currentTask.entity;
-    if (this.moreTasksToDo_()) {
+    if (this._moreTasksToDo()) {
       //TODO: save workflow state to DB
-      this.moveToNextTask_();
+      this._moveToNextTask();
     } else {
-      this.moveToNext_DoSaveUpdatesToEntity_();
+      this._moveToNext_DoSaveUpdatesToEntity();
     }
     //TODO: implement skip a task. Not needed at the moment
     // if (this.currentTask.skip) {
@@ -528,20 +540,35 @@ export class WorkFlow extends TaskFlow {
     // }
   }
 
-  private moveToNext_DoVerified_(): TaskFlow {
+  private _moveToNext_DoVerified(): TaskFlow {
     this.currentTask.isDone = true;
     if (this.build(this.currentTask)) {
-      this.moveToNext_DoCurrentTaskAfterBuild_();
+      this._moveToNext_DoCurrentTaskAfterBuild();
     }
     return this.currentTask;
   }
 
   public moveToNext(): TaskFlow {
+    let r = this._moveToNext();
+    while (this.currentTask.canMoveOn()) {
+      let numberOfTasks = this.tasks.length;
+      r = this._moveToNext();
+      if (numberOfTasks == this.tasks.length) break;
+    }
+    return r;
+  }
+
+  private _moveToNext(): TaskFlow {
     this.currentTask.errorMessage = '';
     if (this.currentTask.verify()) {
-      return this.moveToNext_DoVerified_();
+      return this._moveToNext_DoVerified();
     }
     return null;
+  }
+
+  private _deleteSubsequentTasks() {
+    let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
+    return v;
   }
 
   public moveToPrev(): TaskFlow {
@@ -565,14 +592,15 @@ export class WorkFlow extends TaskFlow {
       //     this.currentTask.actionName
       //   );
 
-      if (
-        this.currentTask.hasFork ||
-        this.currentTask.actionEntityName.length > 0 ||
-        this.currentTask.actionName.length > 0
-      ) {
-        let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
-        this.tasks = v;
-      }
+      // if (
+      //   this.currentTask.hasFork ||
+      //   this.currentTask.actionEntityName.length > 0 ||
+      //   this.currentTask.actionName.length > 0 ||
+      //   this.currentTask.actionObjectName.length > 0
+      // ) {
+      //delete all subsequent tasks
+      this.tasks = this._deleteSubsequentTasks();
+      // }
 
       // if (this.currentTask.subTasks.length > 1) {
       //   let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
@@ -593,15 +621,6 @@ export class WorkFlow extends TaskFlow {
   }
 }
 
-export class TaskFile {
-  constructor(public fieldName: string, public heading) {}
-}
-
-export class TaskFileList {
-  list: TaskFile[] = [];
-  constructor(public fieldName: string, public heading: string) {}
-  add(f: TaskFile) {
-    this.list.push(f);
-    return this;
-  }
-}
+// export class TaskFile {
+//   constructor(public fieldName: string, public heading) {}
+// }

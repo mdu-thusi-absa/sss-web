@@ -1,5 +1,20 @@
 import { Entity } from './data-entity-parent';
-import { EntityCity, EntityFunctional, EntityUser, EntityLegal, EntityNatural, EntityCompany, EntityContact, EntityPostalAddress, EntityPhysicalAddress, EntityType, EntityMeeting, EntityWorkflow, EntityShareCertificate } from './data-entity-kids';
+import {
+  EntityCity,
+  EntityFunctional,
+  EntityUser,
+  EntityLegal,
+  EntityNatural,
+  EntityCompany,
+  EntityContact,
+  EntityPostalAddress,
+  EntityPhysicalAddress,
+  EntityType,
+  EntityMeeting,
+  EntityWorkflow,
+  EntityShareCertificate,
+  EntityFile,
+} from './data-entity-kids';
 
 export type AnyEntity =
   | Entity
@@ -15,7 +30,8 @@ export type AnyEntity =
   | EntityType
   | EntityMeeting
   | EntityShareCertificate
-  | EntityWorkflow;
+  | EntityWorkflow
+  | EntityFile;
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;
@@ -193,7 +209,8 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   add(value: T): Entities<T> {
-    let key = value.key;
+    let key = this.lastKey + 1;
+    if (value.key) key = value.key;
     if (this.firstKey_ == -1) this.firstKey_ = value.key;
     this.lastKey_ = key;
     super.set(key, value);
@@ -246,3 +263,9 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     return d;
   }
 }
+
+// export class EntitiesFile extends Entities<EntityFile>{
+//   constructor(public fieldName: string, public heading: string) {
+//     super(EntityFile)
+//   }
+// }

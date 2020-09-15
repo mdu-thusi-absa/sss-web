@@ -36,6 +36,12 @@ export class InputPanelComponent implements OnInit {
     this.onMakeEID.emit(this.eid)
   }
 
+  // bodyTop(){
+  //   // let el = get
+  //   // var topPos = el[0].getBoundingClientRect().top + $(window)['scrollTop']();
 
+  //   let elementPanelBody = document.getElementById('input-panel-' + this.eid);
+  //   console.log(elementPanelBody.scrollTop)
+  // }
 
 }

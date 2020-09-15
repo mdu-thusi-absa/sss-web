@@ -31,8 +31,6 @@ export class FlowTaskComponent implements OnInit {
   updateScroll(panelBodyID: string) {
     let elementPanelBody = document.getElementById(panelBodyID);
     elementPanelBody.scrollTop = +elementPanelBody.scrollHeight;
-    console.log(elementPanelBody.offsetTop);
-    
   }
 
   doMakePanelIED(event: any){

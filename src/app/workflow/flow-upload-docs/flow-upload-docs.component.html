@@ -6,11 +6,12 @@
 >
   {{ taskFlow.description }}
   <app-input-table
-    [headings]="['Title', 'Description']"
-    [fields]="['name', 'description']"
+    [headings]="['Title']"
+    [fields]="['name']"
     [withCheckbox]="true"
-    [entities]="data.files"
+    [entities]="taskFlow.files"
     [inputType]="'file'"
     [noPadding] = "true"
+    [checked] = "true"
   ></app-input-table>
 </app-input-panel>
