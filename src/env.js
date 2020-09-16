@@ -4,7 +4,7 @@
     // API url:port
     window.__env.apiUrl = 'http://webapi.server.com';
     // app version
-    window.__env.version = '0.625';
+    window.__env.version = '0.627';
   
     // Whether or not to enable debug mode
     // Setting this to false will disable console output

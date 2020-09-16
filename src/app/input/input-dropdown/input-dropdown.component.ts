@@ -83,7 +83,7 @@ export class InputDropdownComponent implements OnInit {
     let id = 'dropdown-button-' + this.eid
       setTimeout(() => {
         document.getElementById(id).focus();
-      }, 50);
+      }, 10);
   }
 
   get filterText() {

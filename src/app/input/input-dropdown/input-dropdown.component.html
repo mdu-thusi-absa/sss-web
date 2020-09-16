@@ -14,8 +14,8 @@
     <a
       href="#"
       [attr.id]="'dropdown-button-' + eid"
-      class="btn btn-sm primary-color"
-      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;"
+      class="btn btn-sm"
+      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;color:gray"
       [class.a-width-buttons]="showDelete || showEdit || showAdd"
       [style.border]="showDelete || showEdit || showAdd ? '1px white' : 'none'"
       (click)="doModal($event)"
@@ -58,61 +58,6 @@
     </span>
   </div>
 </div>
-
-<!-- <div
-  class="input-group input-group-sm"
-  style="
-    width: 100%;
-    max-width: 100%;
-    vertical-align: middle;
-    height: 28px;
-    margin-top: 2px;
-    overflow-x: hidden;
-  "
-  [attr.id]="'dropdown-input-group-' + id"
->
-  <a
-    href="#"
-    [attr.id]="'dropdown-button-' + id"
-    class="btn btn-sm primary-color"
-    style="text-align: left; margin: 0px; display: inline-block;"
-    [style.width]="'100%'"
-    [style.border]="showDelete || showEdit || showAdd ? '1px solid' : 'none'"
-    (click)="doModal($event)"
-    data-toggle="modal"
-    [attr.data-target]="'#dropdown-' + id"
-    ><span class="caret" style="margin-right: 5px;"></span>{{ value }}
-  </a>
-  <span
-    *ngIf="showDelete && !disabled"
-    class="input-group-addon btn primary-color-reverse hidden-xs"
-    [class.disabled]="this.key < 0"
-    style="border-left: none;"
-    (click)="onDelete.emit()"
-    [title]="'Delete the ' + title"
-  >
-    <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
-  </span>
-  <span
-    *ngIf="showEdit && !disabled"
-    [class.disabled]="this.key < 0"
-    class="input-group-addon btn primary-color-reverse hidden-xs"
-    style="border-left: none;"
-    (click)="onEdit.emit()"
-    [title]="'Edit the ' + title"
-  >
-    <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
-  </span>
-  <span
-    *ngIf="showAdd && !disabled"
-    class="input-group-addon btn primary-color-reverse hidden-xs"
-    style="border-left: none;"
-    (click)="onAdd.emit()"
-    [title]="'Add an ' + title"
-  >
-    <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
-  </span>
-</div> -->
 
 <!-- Modal -->
 
@@ -178,7 +123,7 @@
               >
             </span>
             <span
-              class="input-group-addon primary-color hidden-xs"
+              class="input-group-addon hidden-xs"
               title="Number of items"
               style="border-left: none; pointer-events: none;"
               [title]="'Showing ' + 0 + ' items'"
