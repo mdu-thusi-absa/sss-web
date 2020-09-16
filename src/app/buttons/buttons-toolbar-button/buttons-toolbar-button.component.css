@@ -4,3 +4,30 @@
   width: 13px;
   height: 14px;
 }
+
+/* .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+} */
+
+a .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: white;
+  color: gray;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  border: 1px solid gray;
+
+  /* Position the tooltip */
+  position: absolute;
+  left: 0px;
+  top: 25px;
+  z-index: 1;
+}
+
+a:hover .tooltiptext {
+  visibility: visible;
+}
