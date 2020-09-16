@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowConfirm } from 'src/app/data/data-workflow-classes';
+import { TaskConfirm } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-confirm.component.css'],
 })
 export class FlowConfirmComponent implements OnInit {
-  @Input() taskFlow: TaskFlowConfirm;
+  @Input() taskFlow: TaskConfirm;
   // value = false;
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity} from '../../data/data-entity-parent'
 import { DataService } from 'src/app/data/data.service';
-import { WorkFlow } from 'src/app/data/data-workflow-classes';
+import { TaskWalker } from 'src/app/data/data-workflow-classes';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class EntityDetailsDashboardComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
 
-  workFlow: WorkFlow;
+  workFlow: TaskWalker;
 
   constructor(public data: DataService) { 
     

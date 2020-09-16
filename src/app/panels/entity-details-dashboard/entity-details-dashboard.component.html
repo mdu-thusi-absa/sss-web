@@ -1,9 +1,10 @@
 <app-input-filter-add
   [title]="'Dashboard'"
   [titlePlural]="'Dashboard'"
-  [showT]="true"
+  [showT]="false"
   (onFilter)="doFilter($event)"
   [titleT]="'field values'"
+  [showFilterCount] = "true"
 ></app-input-filter-add>
 <form autocomplete="off">
   <div

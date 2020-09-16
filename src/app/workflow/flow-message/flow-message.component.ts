@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowMessage } from 'src/app/data/data-workflow-classes';
+import { TaskMessage } from 'src/app/data/data-workflow-classes';
 //import { data } from 'jquery';
 import { DataService } from 'src/app/data/data.service';
 
@@ -9,7 +9,7 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-message.component.css']
 })
 export class FlowMessageComponent implements OnInit {
-  @Input() taskFlow: TaskFlowMessage;
+  @Input() taskFlow: TaskMessage;
   value = false;
   @Output() onSaveNext = new EventEmitter();
   @Input() showClose = false;

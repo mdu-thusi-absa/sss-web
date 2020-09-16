@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Renderer2 } from '@angular/core';
-import { WorkFlow } from 'src/app/data/data-workflow-classes';
+import { TaskWalker } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 import { data } from 'jquery';
 
@@ -10,13 +10,19 @@ import { data } from 'jquery';
 })
 export class FlowTaskComponent implements OnInit {
   title = 'Workflow'
-  workFlow: WorkFlow
+  workFlow: TaskWalker
   panelBodyID: string
 
   constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.workFlow = this.data.workFlow;
+  }
+
+  doDrill(){
+    console.log('flow-task','doDrill');
+    
+    setTimeout(this.updateScroll, 100,this.panelBodyID);
   }
 
   doSaveNext() {

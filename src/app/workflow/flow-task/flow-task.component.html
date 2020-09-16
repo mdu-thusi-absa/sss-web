@@ -44,11 +44,13 @@
       *ngIf="t.type == 'submit-docs'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
+      (onDrill) = "doDrill()"
     ></app-flow-submit-docs>
     <app-flow-upload-docs
       *ngIf="t.type == 'upload-docs'"
       [stepNumber] = "i+1"
       [taskFlow]="t"
+      (onDrill) = "doDrill()"
     ></app-flow-upload-docs>
     <app-flow-form
       *ngIf="t.type == 'form'"

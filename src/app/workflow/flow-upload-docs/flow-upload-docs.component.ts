@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { TaskFlowUploadDocs } from 'src/app/data/data-workflow-classes';
+import { TaskUpload } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -8,15 +8,21 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-upload-docs.component.css']
 })
 export class FlowUploadDocsComponent implements OnInit {
-  @Input() taskFlow: TaskFlowUploadDocs;
+  @Input() taskFlow: TaskUpload;
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
   @Output() onSaveNext = new EventEmitter();
+  @Output() onDrill = new EventEmitter()
   @Input() stepNumber = 1
 
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
+  }
+  
+
+  doDrill(){
+    this.onDrill.emit()
   }
 
   doSaveNext(){

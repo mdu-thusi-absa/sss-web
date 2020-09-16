@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TaskFlowDate } from 'src/app/data/data-workflow-classes';
+import { TaskDate } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { DataService } from 'src/app/data/data.service';
   styleUrls: ['./flow-date.component.css']
 })
 export class FlowDateComponent implements OnInit {
-  @Input() taskFlow: TaskFlowDate;
+  @Input() taskFlow: TaskDate;
   // value = false;
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();

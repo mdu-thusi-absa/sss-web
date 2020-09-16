@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import { TaskFlowSelect } from 'src/app/data/data-workflow-classes';
+import { TaskSelect } from 'src/app/data/data-workflow-classes';
 
 @Component({
   selector: 'app-flow-select',
@@ -16,7 +16,7 @@ import { TaskFlowSelect } from 'src/app/data/data-workflow-classes';
   styleUrls: ['./flow-select.component.css'],
 })
 export class FlowSelectComponent implements OnInit {
-  @Input() taskFlow: TaskFlowSelect;
+  @Input() taskFlow: TaskSelect;
   //@Input() values: Entities<EveryEntity>; // = new Entities<EveryEntity>();
   @Input() value = 0;
   @Input() showSavePrev = false;

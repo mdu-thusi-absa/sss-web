@@ -5,7 +5,7 @@ import { Entities, AnyEntity } from './data-entities';
 import { EntityFile } from './data-entity-kids';
 // import * as D from './data.service'
 
-export class TaskFlowSubTaskCondition {
+export class Task_SubTaskCondition {
   constructor(
     public fieldName: string,
     public value: any,
@@ -34,11 +34,11 @@ export class TaskFlowSubTaskCondition {
   }
 }
 
-export class TaskFlowSubTask {
+export class Task_SubTask {
   // '' means no operator; can be: ==, >, <, maybe(in, not in)
   constructor(
-    public taskFlow: TaskFlow,
-    public conditions: TaskFlowSubTaskCondition[] = []
+    public taskFlow: Task,
+    public conditions: Task_SubTaskCondition[] = []
   ) {}
 
   matchCondition(data: object): boolean {
@@ -52,7 +52,7 @@ export class TaskFlowSubTask {
   }
 }
 
-export class TaskFlow {
+export class Task {
   type = 'task-flow'; // to differenciate task types, and JSON names
   private name_ = 'task name';
   get name(): string {
@@ -70,9 +70,9 @@ export class TaskFlow {
   isCurrent = false;
   isEnd = false;
   notes = '';
-  parent: TaskFlow = null;
+  parent: Task = null;
 
-  subTasks: TaskFlowSubTask[] = [];
+  subTasks: Task_SubTask[] = [];
   hasFork = false;
   errorMessage = '';
   entityFieldKey = ''; //to set the fieldNameKey to get entity to be worked on in the step
@@ -124,21 +124,21 @@ export class TaskFlow {
     // to be implemented by child classes, if they need to initialise data
     return true;
   }
-  addNext(taskFlow: TaskFlow) {
+  addNext(taskFlow: Task) {
     taskFlow.parent = this;
-    let s = new TaskFlowSubTaskCondition('', 0, '', '');
-    let t = new TaskFlowSubTask(taskFlow, [s]);
+    let s = new Task_SubTaskCondition('', 0, '', '');
+    let t = new Task_SubTask(taskFlow, [s]);
     this.subTasks.push(t);
   }
 
-  addNextFork(subTask: TaskFlowSubTask) {
+  addNextFork(subTask: Task_SubTask) {
     subTask.taskFlow.parent = this;
     this.hasFork = true;
     this.subTasks.push(subTask);
   }
 }
 
-export class TaskFlowSelect extends TaskFlow {
+export class TaskSelect extends Task {
   type = 'select';
   sourceType: E.EnumEntityType;
   value = 0; //the key of the selected item
@@ -183,10 +183,10 @@ export class TaskFlowSelect extends TaskFlow {
       // }
     }
   }
-  private init_needs_update(): boolean {
+  private _init_needs_update(): boolean {
     return !this.values || this.sourceType != null;
   }
-  private init_verify_if_empty() {
+  private _init_verify_if_empty() {
     if (this.values) {
       if (this.values.size > 0) return true;
       else {
@@ -197,14 +197,13 @@ export class TaskFlowSelect extends TaskFlow {
     }
   }
   init(): boolean {
-    if (this.init_needs_update()) {
+    if (this._init_needs_update()) {
       this.values = this.data.getEntities(
         this.sourceType,
         this.workflowValuesObject
       );
-      this.init_verify_if_empty();
     }
-    if (!this.values.has(this.value)) this.value = this.values.firstKey;
+    if (this._init_verify_if_empty()) this.value = this.values.firstKey;
     return true;
   }
 
@@ -220,10 +219,16 @@ export class TaskFlowSelect extends TaskFlow {
   }
 }
 
-export class TaskFlowConfirm extends TaskFlow {
+export class TaskConfirm extends Task {
   type = 'confirm';
   value = false;
   ensure = true; //value must be true to move on
+  defaultValue = false
+
+  init():boolean{
+    this.value = this.defaultValue
+    return true
+  }
   verify(): boolean {
     if (this.ensure && !this.value) {
       this.errorMessage = this.name + ' is required';
@@ -238,7 +243,7 @@ export class TaskFlowConfirm extends TaskFlow {
   }
 }
 
-export class TaskFlowDate extends TaskFlow {
+export class TaskDate extends Task {
   type = 'date';
   value: Date = new Date();
   ensure = true; //value must be true to move on
@@ -256,24 +261,24 @@ export class TaskFlowDate extends TaskFlow {
   }
 }
 
-// export class TaskFlowDoc extends TaskFlow {
+// export class TaskDoc extends Task {
 //   type = 'doc';
 //   doc: string; // file name
 //   constructor(public fieldName: string,public heading: string){}
 // }
 
-export class TaskFlowUploadDocs extends TaskFlow {
+export class TaskUpload extends Task {
   type = 'upload-docs';
   files = new Entities<EntityFile>(EntityFile); // file name
 }
 
-export class TaskFlowSubmitDocs extends TaskFlow {
+export class TaskDownload extends Task {
   type = 'submit-docs';
   //whoTo: string; //submit to whom
   files = new Entities<EntityFile>(EntityFile); // file name
 }
 
-export class TaskFlowReminder extends TaskFlow {
+export class TaskReminder extends Task {
   type = 'set-reminder';
   reminderDate_ = new Date();
   offsetDays_ = 0;
@@ -294,42 +299,44 @@ export class TaskFlowReminder extends TaskFlow {
   }
 }
 
-export class TaskFlowFormInput {
+export class TaskForm_Input {
   type = 'text';
   title = 'Input';
   fieldName = 'fieldName';
   description = '';
-  value: any = '';
+  defaultValue: any
 }
 
-export class TaskFlowForm extends TaskFlow {
+export class TaskForm extends Task {
   type = 'form';
-  inputs: TaskFlowFormInput[] = [];
+  inputs: TaskForm_Input[] = [];
   inputObject: AnyEntity;
 
   addInput(
     fieldName: string,
     type: string,
     title: string,
-    description: string
-  ): TaskFlowForm {
-    let inp = new TaskFlowFormInput();
+    description: string,
+    defaultValue: any
+  ): TaskForm {
+    let inp = new TaskForm_Input();
     inp.fieldName = fieldName;
     inp.type = type;
     inp.title = title;
-    inp.description = description;
+    inp.description = description
+    inp.defaultValue = defaultValue
     this.inputs.push(inp);
     return this;
   }
 
-  private init_formInputs() {
+  private _init_formInputs() {
     let fields = this.inputObject.headingsMap;
     fields.forEach((value, key, map) => {
       this.addInput(
         key as string,
         this.data.getFieldTypeForFieldName(key as string),
         value as string,
-        ''
+        '',null
       );
     });
   }
@@ -337,33 +344,33 @@ export class TaskFlowForm extends TaskFlow {
   init(): boolean {
     if (this.inputObject) {
       if (this.inputs.length == 0) {
-        this.init_formInputs();
+        this._init_formInputs();
       }
     }
     return true;
   }
 }
 
-export class TaskFlowMessage extends TaskFlow {
+export class TaskMessage extends Task {
   type = 'message';
 }
 
-export class TaskFlowError extends TaskFlow {
+export class TaskError extends Task {
   type = 'error';
   text = '';
 }
 
-// tasks[]: maintains the current state of the workflow/path, with each node = TaskFlow.
+// tasks[]: maintains the current state of the workflow/path, with each node = Task.
 // getNext, getPrev: Follows the path with
-// rootTask: first TaskFlow. Build tree by using TaskFlow object add..., then assign to rootTask;
-export class WorkFlow extends TaskFlow {
+// rootTask: first Task. Build tree by using Task object add..., then assign to rootTask;
+export class TaskWalker extends Task {
   type = 'workflow';
-  private rootTask: TaskFlow = null;
-  private currentTask: TaskFlow = null;
-  //private lastAddedTask: TaskFlow = null;
+  private rootTask: Task = null;
+  private currentTask: Task = null;
+  //private lastAddedTask: Task = null;
   private currentTaskIndex_ = -1;
-  public tasks: TaskFlow[] = [];
-  public que: TaskFlow[] = []; // que of tasks to come back to when isEnd taskFlow is true
+  public tasks: Task[] = [];
+  public que: Task[] = []; // que of tasks to come back to when isEnd taskFlow is true
 
   get name(): string {
     let s = 'Workflow';
@@ -379,13 +386,12 @@ export class WorkFlow extends TaskFlow {
   //   super.name = v
   // }
 
-  addNext(taskFlow: TaskFlow) {
+  addNext(taskFlow: Task) {
     this.rootTask = taskFlow;
   }
 
   // loads the rootTask, and builds the obvious branch, until the first fork
   public start(): boolean {
-    //this.rootTask.init()
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
@@ -395,9 +401,10 @@ export class WorkFlow extends TaskFlow {
     this.entity = null;
     this.actionName = '';
     if (this.currentTask) this.currentTaskIndex_ = 0;
-    this.build(this.rootTask);
-    if (this.currentTask.canMoveOn()) this.moveToNext()
-    return true
+    this.rootTask.init()
+    this._buildNext(this.rootTask);
+    if (this.currentTask.canMoveOn()) this.moveToNext();
+    return true;
   }
   public loopFromQue() {
     //todo: test
@@ -406,22 +413,22 @@ export class WorkFlow extends TaskFlow {
     this.currentTask = q;
     this.currentTask.isCurrent = true;
     this.currentTaskIndex_++;
-    return this.build(this.currentTask);
+    return this._buildNext(this.currentTask);
   }
 
-  private build_addSubtask(fromTask, subTaskIndex: number): TaskFlow {
+  private _buildNext_addSubtask(fromTask, subTaskIndex: number): Task {
     let t = fromTask.subTasks[subTaskIndex].taskFlow;
-    t.workflowValuesObject = this.collectValues();
+    t.workflowValuesObject = this._collectValues();
     t.init();
     this.tasks.push(t);
     return t;
   }
 
-  private build_canBeBuiltOn(task: TaskFlow): boolean {
+  private _buildNext_canBeBuiltOn(task: Task): boolean {
     return task.isDone && task.subTasks.length > 0;
   }
-  private build_checkIfConditionalBuildHasAdded(
-    parent: TaskFlow,
+  private _buildNext_checkIfConditionalBuildHasAdded(
+    parent: Task,
     notAdded: boolean
   ) {
     if (notAdded)
@@ -430,7 +437,7 @@ export class WorkFlow extends TaskFlow {
     else parent.errorMessage = '';
   }
 
-  private build(fromTask: TaskFlow): boolean {
+  private _buildNext(fromTask: Task): boolean {
     if (this.currentTaskIndex_ == this.tasks.length - 1) {
       if (fromTask) {
         if (fromTask.isDone) {
@@ -441,8 +448,8 @@ export class WorkFlow extends TaskFlow {
             this.actionEntityName = fromTask.actionEntityName;
           this.entity = fromTask.entity;
         }
-        fromTask.workflowValuesObject = this.collectValues();
-        if (fromTask.init()) {
+        fromTask.workflowValuesObject = this._collectValues();
+        // if (fromTask.init()) {
           //let t = fromTask;
           // while (!t.hasFork && t.subTasks.length>0 && t.entityFieldKey=='') {
           //   t = t.subTasks[0].taskFlow;
@@ -455,10 +462,10 @@ export class WorkFlow extends TaskFlow {
           //     fromTask.hasFork,
           //     fromTask.subTasks.length
           //   );
-          if (this.build_canBeBuiltOn(fromTask)) {
+          if (this._buildNext_canBeBuiltOn(fromTask)) {
             // console.log(0);
             if (!fromTask.hasFork) {
-              this.build_addSubtask(fromTask, 0);
+              this._buildNext_addSubtask(fromTask, 0);
             } else {
               // next task with conditions
               let notAdded = true;
@@ -468,20 +475,20 @@ export class WorkFlow extends TaskFlow {
                     fromTask.workflowValuesObject
                   )
                 ) {
-                  let t = this.build_addSubtask(fromTask, i);
-                  this.build(t);
+                  let t = this._buildNext_addSubtask(fromTask, i);
+                  this._buildNext(t);
                   notAdded = false;
                   break;
                 }
               }
-              this.build_checkIfConditionalBuildHasAdded(fromTask, notAdded);
+              this._buildNext_checkIfConditionalBuildHasAdded(fromTask, notAdded);
             }
           } else if (fromTask.isDone) {
             this.start();
             // this.currentTaskIndex_ = 0
             // this.tasks.slice(0,1)
           }
-        }
+        // }
 
         return true;
       }
@@ -490,7 +497,7 @@ export class WorkFlow extends TaskFlow {
     return true;
   }
 
-  collectValues(): object {
+  private _collectValues(): object {
     //returns JSON
     let o = {};
     this.tasks.forEach((e) => {
@@ -540,15 +547,15 @@ export class WorkFlow extends TaskFlow {
     // }
   }
 
-  private _moveToNext_DoVerified(): TaskFlow {
+  private _moveToNext_DoVerified(): Task {
     this.currentTask.isDone = true;
-    if (this.build(this.currentTask)) {
+    if (this._buildNext(this.currentTask)) {
       this._moveToNext_DoCurrentTaskAfterBuild();
     }
     return this.currentTask;
   }
 
-  public moveToNext(): TaskFlow {
+  public moveToNext(): Task {
     let r = this._moveToNext();
     while (this.currentTask.canMoveOn()) {
       let numberOfTasks = this.tasks.length;
@@ -558,7 +565,7 @@ export class WorkFlow extends TaskFlow {
     return r;
   }
 
-  private _moveToNext(): TaskFlow {
+  private _moveToNext(): Task {
     this.currentTask.errorMessage = '';
     if (this.currentTask.verify()) {
       return this._moveToNext_DoVerified();
@@ -571,7 +578,7 @@ export class WorkFlow extends TaskFlow {
     return v;
   }
 
-  public moveToPrev(): TaskFlow {
+  public moveToPrev(): Task {
     if (this.currentTask.parent) {
       this.currentTask.isDone = false;
       this.currentTask.isCurrent = false;

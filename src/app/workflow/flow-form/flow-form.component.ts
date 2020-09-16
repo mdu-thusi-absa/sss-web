@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity} from 'src/app/data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
-import { TaskFlowForm, TaskFlowFormInput } from 'src/app/data/data-workflow-classes';
+import { TaskForm, TaskForm_Input } from 'src/app/data/data-workflow-classes';
 import { Entities } from 'src/app/data/data-entities';
 
 @Component({
@@ -10,7 +10,7 @@ import { Entities } from 'src/app/data/data-entities';
   styleUrls: ['./flow-form.component.css'],
 })
 export class FlowFormComponent implements OnInit {
-  @Input() taskFlow: TaskFlowForm;
+  @Input() taskFlow: TaskForm;
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
   @Output() onChange = new EventEmitter();
@@ -42,11 +42,11 @@ export class FlowFormComponent implements OnInit {
     }
   }
 
-  getInputValue(inputObject: TaskFlowFormInput){
+  getInputValue(inputObject: TaskForm_Input){
     if (this.entity){
       return this.entity[inputObject.fieldName]
     }else{
-      return null
+      return inputObject.defaultValue
     }
   }
 

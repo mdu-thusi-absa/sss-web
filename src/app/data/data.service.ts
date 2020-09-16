@@ -15,7 +15,7 @@ export class DataService {
 
   shareHolderTypes = new Entities<Entity>(Entity);
   menus = new Entities<Entity>(Entity);
-  workFlow: WC.WorkFlow;
+  workFlow: WC.TaskWalker;
   progress = 0;
 
   getEntityFieldValue(
@@ -206,7 +206,7 @@ export class DataService {
     return v;
   }
 
-  initWorkFlow(): WC.WorkFlow {
+  initWorkFlow(): WC.TaskWalker {
     let workFlow = W.buildWorkFlow(this);
     workFlow.start();
     return workFlow;
@@ -486,13 +486,13 @@ export class DataService {
   }
 
   private _getCountriesForTask_WorkflowsForWorkflowKey(data: object) {
-    console.log('begin',data)
+    // console.log('begin',data)
     let lastMenuKey = this._getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(data)
     let d = this.getEntities(E.EnumEntityType.Workflow).select(
       'key',
       data[lastMenuKey]
     ) as Entities<K.EntityWorkflow>;
-    console.log(d);
+    // console.log(d);
     return d
   }
 
@@ -502,7 +502,7 @@ export class DataService {
       if (data[i+'_Key'])
         lastMenuKey = i+'_Key'
     }
-    console.log(lastMenuKey);
+    // console.log(lastMenuKey);
     
     return lastMenuKey
   }
@@ -514,7 +514,6 @@ export class DataService {
     tasks.forEach((value, key, map) => {
       countryKeys = value.countryKeys;
     });
-    console.log(countryKeys);
     return countryKeys;
   }
 
@@ -525,6 +524,13 @@ export class DataService {
       countryForTasks.add(countries.get(value))
     })
     return countryForTasks
+  }
+
+  getCountryForName(data: object) {
+    return this.getEntities(E.EnumEntityType.Country).select(
+      'name',
+      data['1_Key']
+    );
   }
 
 }
