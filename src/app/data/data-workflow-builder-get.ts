@@ -233,10 +233,10 @@ export function getMessage(data: DataService, messageText: string) {
 export class ConfigWorkflow {
   constructor(
     public data: DataService,
-    public parent: W.Task,
+    public parentTask: W.Task,
     public heading: string,
     public fieldName: string,
-    public parentWorkflow: K.EntityWorkflow
+    public parentEntity: K.EntityWorkflow
   ) {}
 }
 

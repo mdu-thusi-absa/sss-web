@@ -19,11 +19,14 @@ export class InputPanelComponent implements OnInit {
   @Input() showSaveNext = false;
   @Input() showSavePrev = false;
   @Input() showClose = false;
+  @Input() showViewAll = false;
   @Input() noPadding = false
 
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();
   @Output() onMakeEID = new EventEmitter();
+  @Output() onShowAll = new EventEmitter();
+  @Output() onClose = new EventEmitter()
   
 
   eid = 'input-panel'

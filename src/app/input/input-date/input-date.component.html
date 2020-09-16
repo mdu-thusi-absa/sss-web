@@ -17,7 +17,7 @@
       ></app-buttons-input-text>
       <label
         *ngIf="!inline && showTitle"
-        class="nobottom text-primary-bold label-buttons-1"
+        class="nobottom label-bold label-buttons-1"
         >{{ title }}</label
       >
     </div>
@@ -35,7 +35,7 @@
         bsDatepicker
         class="form-control custom-today-class"
         #dpDate="bsDatepicker"
-        [(ngModel)]="value_"
+        [(ngModel)]="_value"
         [bsConfig]="{
           dateInputFormat: 'YYYY/MM/DD',
           containerClass: 'theme-red',

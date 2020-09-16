@@ -74,11 +74,11 @@ export class InputDateComponent implements OnInit {
     this.value = new Date();
   }
 
-  get value_() {
+  get _value() {
     return this.value;
   }
 
-  set value_(v) {
+  set _value(v) {
     this.value = v;
     this.onChange.emit(this.value);
   }

@@ -257,7 +257,7 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   showHideFiles(attribute: string, doShow: boolean = null) {
-    this.showHide_(2, doShow);
+    this._showHide(2, doShow);
     this.setPaneRowCount();
     if (attribute.length > 0) this.showFileFields = [attribute];
     else {
@@ -266,12 +266,12 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   showHideHistory(doShow: boolean = null) {
-    // this.showHide_(1, doShow);
+    // this._showHide(1, doShow);
     // this.setPaneRowCount();
     this.showHideAudits;
   }
 
-  private showHide_(hideIndex: number, doShow: boolean = null) {
+  private _showHide(hideIndex: number, doShow: boolean = null) {
     let b0 = false;
     let b1 = false;
     let b2 = false;

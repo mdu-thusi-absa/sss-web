@@ -1,67 +1,72 @@
+
 <app-input-panel
   [title]="workFlow.name"
   [collapsed]="false"
   [panelPrimary]="true"
-  [noPadding] = "true"
-  [showSaveNext] = "true"
-  [showSavePrev] = "workFlow.currentTaskIndex>0"
-  (onSaveNext) = "doSaveNext()"
-  (onSavePrev) = "doSavePrev()"
+  [noPadding]="true"
+  [showSaveNext]="true"
+  [showSavePrev]="workFlow.currentTaskIndex > 0"
+  [showViewAll] = "workFlow.tasks.length>10"
+  [showClose] = "true"
+  (onClose) = "onClose.emit('')"
+  (onShowAll) = "doShowAll($event)"
+  (onSaveNext)="doSaveNext()"
+  (onSavePrev)="doSavePrev()"
   (document:keydown.control.arrowup)="doSavePrev()"
   (document:keydown.control.arrowdown)="doSaveNext()"
-  (onMakeEID) = "doMakePanelIED($event)"
+  (onMakeEID)="doMakePanelIED($event)"
 >
-    <!-- {{workFlow.currentTaskIndex+1}}:{{workFlow.countTasks}} -->
-  <!-- {{ workFlow.description }} -->
   <ng-container *ngFor="let t of workFlow.tasks; let i = index">
-    <app-flow-confirm
-      *ngIf="t.type == 'confirm'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-      [showSavePrev] = "workFlow.currentTaskIndex>0"
-      [showSaveNext] = "true"
-    ></app-flow-confirm>
-    <app-flow-date
-      *ngIf="t.type == 'date'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-      [showSavePrev] = "workFlow.currentTaskIndex>0"
-      [showSaveNext] = "true"
-    ></app-flow-date>
-    <app-flow-select
-      *ngIf="t.type == 'select'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-      [showSavePrev] = "workFlow.currentTaskIndex>0"
-      [showSaveNext] = "true"
-    ></app-flow-select>
-    <app-flow-set-reminder
-      *ngIf="t.type == 'set-reminder'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-    ></app-flow-set-reminder>
-    <app-flow-submit-docs
-      *ngIf="t.type == 'submit-docs'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-      (onDrill) = "doDrill()"
-    ></app-flow-submit-docs>
-    <app-flow-upload-docs
-      *ngIf="t.type == 'upload-docs'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-      (onDrill) = "doDrill()"
-    ></app-flow-upload-docs>
-    <app-flow-form
-      *ngIf="t.type == 'form'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-    ></app-flow-form>
-    <app-flow-message
-      *ngIf="t.type == 'message'"
-      [stepNumber] = "i+1"
-      [taskFlow]="t"
-    ></app-flow-message>
+    <div [hidden]="!showStep(i)">
+      <app-flow-confirm
+        *ngIf="t.type == 'confirm'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+        [showSavePrev]="workFlow.currentTaskIndex > 0"
+        [showSaveNext]="true"
+      ></app-flow-confirm>
+      <app-flow-date
+        *ngIf="t.type == 'date'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+        [showSavePrev]="workFlow.currentTaskIndex > 0"
+        [showSaveNext]="true"
+      ></app-flow-date>
+      <app-flow-select
+        *ngIf="t.type == 'select'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+        [showSavePrev]="workFlow.currentTaskIndex > 0"
+        [showSaveNext]="true"
+      ></app-flow-select>
+      <app-flow-set-reminder
+        *ngIf="t.type == 'set-reminder'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-set-reminder>
+      <app-flow-submit-docs
+        *ngIf="t.type == 'submit-docs'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+        (onDrill)="doDrill()"
+      ></app-flow-submit-docs>
+      <app-flow-upload-docs
+        *ngIf="t.type == 'upload-docs'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+        (onDrill)="doDrill()"
+      ></app-flow-upload-docs>
+      <app-flow-form
+        *ngIf="t.type == 'form'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-form>
+      <app-flow-message
+        *ngIf="t.type == 'message'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-message>
+    </div>
   </ng-container>
-  <br>
+  <br />
 </app-input-panel>

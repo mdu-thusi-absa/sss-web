@@ -1,6 +1,6 @@
-import { AppPage } from './app.po';
-import * as fs from 'fs';
-import { browser, logging,promise } from 'protractor';
+// import { AppPage } from './app.po';
+// import * as fs from 'fs';
+// import { browser, logging,promise } from 'protractor';
 
 // async function writeScreenShot(data: promise.Promise<string>, filename: string) {
 //   fs.mkdirSync('screenshots', { recursive: true });
@@ -14,35 +14,35 @@ import { browser, logging,promise } from 'protractor';
 //   stream.end();
 // }
 
-describe('SSS Angular App: e2e testing', () => {
-  let page: AppPage;
+// describe('SSS Angular App: e2e testing', () => {
+//   let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+//   beforeEach(() => {
+//     page = new AppPage();
+//   });
 
-  it(`filter entities by 'v'`, () => {
-    page.navigateTo();
-    // browser.waitForAngular();
-    let lf = page.getLeft_Filter();
-    lf.sendKeys('reg');
-    let list = page.getLeft_FilterRowsVisible();
-    expect(list.count()).toBe(2); 
-    browser.sleep(2000);
-    //count the header
-    //writeScreenShot(browser.takeScreenshot(), '1 Start');
-  });
+//   it(`filter entities by 'v'`, () => {
+//     page.navigateTo();
+//     // browser.waitForAngular();
+//     let lf = page.getLeft_Filter();
+//     lf.sendKeys('reg');
+//     let list = page.getLeft_FilterRowsVisible();
+//     expect(list.count()).toBe(2); 
+//     browser.sleep(2000);
+//     //count the header
+//     //writeScreenShot(browser.takeScreenshot(), '1 Start');
+//   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(
-      jasmine.objectContaining({
-        level: logging.Level.SEVERE,
-      } as logging.Entry)
-    );
-  });
-});
+//   afterEach(async () => {
+//     // Assert that there are no errors emitted from the browser
+//     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+//     expect(logs).not.toContain(
+//       jasmine.objectContaining({
+//         level: logging.Level.SEVERE,
+//       } as logging.Entry)
+//     );
+//   });
+// });
 
 /*
 browser.wait(function() {

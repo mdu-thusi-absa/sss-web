@@ -1,3 +1,4 @@
+<div [hidden] = "isNew">
 <app-input-filter-add
   [filterCount]="getCountFiltered()"
   [showAdd]="!isNew"
@@ -23,8 +24,9 @@
   [countAll]="getCount_All()"
   (onChoice)="rdoChoice = $event"
 ></app-input-filter-add>
+</div>
 <div class="entities-tasks" [style.overflow-y]="isNew?'hidden':'scroll'">
-  <app-flow-task  [hidden]="!isNew"></app-flow-task>
+  <app-flow-task  [hidden]="!isNew" (onClose)="isNew=false"></app-flow-task>
   <!-- <app-entity-task
     style="margin-top: 0px;"
     [hidden]="!isNew"

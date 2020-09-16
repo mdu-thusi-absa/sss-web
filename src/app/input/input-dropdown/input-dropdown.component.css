@@ -35,13 +35,6 @@ a {
   }
 }
 
-
-/* outline-color: var(--color-bright); */
-
-/* a:focus,.btn:focus,.btn-sm:focus{
-    border:1px solid var(--color-bright);
-} */
-
 .a-container {
   cursor: pointer;
   font-size: small;
@@ -102,9 +95,6 @@ a {
   height: 28px;
 }
 
-/* a:focus {
-  outline: 1px solid var(--color-bright);
-} */
 a:focus{
-  outline: 1px solid var(--color-bright);
+  outline: 1px solid var(--color-gray);
 } 

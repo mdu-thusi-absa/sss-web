@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { TaskWalker } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
-import { data } from 'jquery';
+// import { data } from 'jquery';
 
 @Component({
   selector: 'app-flow-task',
@@ -12,11 +12,21 @@ export class FlowTaskComponent implements OnInit {
   title = 'Workflow'
   workFlow: TaskWalker
   panelBodyID: string
+  showAll: boolean = false;
+  @Output() onClose = new EventEmitter()
 
   constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.workFlow = this.data.workFlow;
+  }
+
+  doShowAll(event: boolean){
+    this.showAll = event
+  }
+
+  showStep(index: number): boolean{
+    return index > this.workFlow.tasks.length-10 || this.showAll
   }
 
   doDrill(){

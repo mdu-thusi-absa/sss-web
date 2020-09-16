@@ -1,18 +1,18 @@
 <div
-  style="margin-top:5px"
+  style="margin-top: 0px"
   class="panel no-gutter nobottom app-input"
-  [class.app-input] = "!noPadding"
+  [class.app-input]="!noPadding"
   [class.panel-default]="panelDefault"
   [class.panel-primary]="panelPrimary"
   [class.panel-info]="panelInfo"
   [class.panel-success]="panelSuccess"
-  [class.panel-danger]="panelDanger"  
+  [class.panel-danger]="panelDanger"
 >
   <div
     class="panel-heading mt3"
-    style="vertical-align: middle; cursor: pointer;"
+    style="vertical-align: middle; cursor: pointer"
     [attr.data-target]="'#input-panel-' + eid"
-    [style.box-shadow] = "(collapsed?'0px 4px 2px grey':'inherit')"
+    [style.box-shadow]="collapsed ? '0px 4px 2px grey' : 'inherit'"
   >
     <div class="btn-group pull-right">
       <!-- <app-buttons-toolbar-button
@@ -40,6 +40,16 @@
         [matIcon]="'skip_next'"
         (onClick)="onSaveNext.emit()"
       ></app-buttons-toolbar-button>
+      <app-buttons-toggle
+        *ngIf="showViewAll"
+        [hidden]="false"
+        [title]="'View all'"
+        [placeholder]="'View all'"
+        [showMe]="true"
+        [matIcon]="'remove_red_eye'"
+        (onToggle)="onShowAll.emit($event)"
+        [toggleValue] = "!showViewAll"
+      ></app-buttons-toggle>
       <app-buttons-toolbar-button
         *ngIf="showClose"
         [hidden]="false"
@@ -47,21 +57,23 @@
         [placeholder]="'Close'"
         [showMe]="true"
         [matIcon]="'close'"
-        (onClick)="onSaveNext.emit()"
+        (onClick)="onClose.emit()"
       ></app-buttons-toolbar-button>
+      
     </div>
-    <div [attr.id] = "eid + '-title'" (click)="collapsed = !collapsed">{{ title }}</div>
+    <div [attr.id]="eid + '-title'" (click)="collapsed = !collapsed">
+      {{ title }}
+    </div>
   </div>
   <!-- data-toggle="collapse" -->
   <!-- [style.maxHeight]="maxHeight" -->
- 
+
   <div
     class="panel-body mt3"
     [class.collapse]="collapsed"
-    style="margin-bottom: 0px; position: relative; z-index: 9;"
+    style="margin-bottom: 0px; position: relative; z-index: 9"
     [attr.id]="'input-panel-' + eid"
-    style="overflow-y: scroll; overflow-x: hidden;padding-bottom: 0px;"
-    
+    style="overflow-y: scroll; overflow-x: hidden; padding-bottom: 0px"
   >
     <ng-content></ng-content>
   </div>

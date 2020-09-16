@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-input-dropdown',

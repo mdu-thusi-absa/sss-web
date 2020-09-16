@@ -85,7 +85,7 @@ body {
 
 /*panel body for the tasks and messages*/
 .entities-tasks {
-  height: calc(100vh - 86px);
+  height: calc(100vh - 36px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -222,7 +222,7 @@ body {
 .primary-color {
   color: var(--color-bright); /*absa*/
   background-color: white;
-  border-color: var(--color-bright);
+  border-color: var(--color-dark);
   box-shadow: none;
   /* background-image: linear-gradient(var(--color-bright), var(--color-normal)); */
 }
@@ -361,8 +361,8 @@ td.info > a {
 }
 
 .text-primary-h4 {
-  color: var(--color-dark);
-  border-color: var(--color-dark);
+  color: var(--color-label);
+  border-color: var(--color-label);
   font-weight: var(--bold);
   font-size: large;
 }
@@ -372,6 +372,12 @@ td.info > a {
   color: var(--color-dark);
   border-color: var(--color-dark);
   font-weight: var(--bold);
+}
+
+.label-bold {
+  color: var(--color-label);
+  border-color: var(--color-label);
+  /* font-weight: var(--bold); */
 }
 
 /*rgb(240, 90, 120);*/
@@ -427,13 +433,15 @@ td.info > a {
   
 
   --color-dark: var(--absa-warmth);
+  --color-gray:gray;
   --color-favicon: var(--absa-warmth);
   /* --color-favicon: rgb(184, 32, 44); */
   --color-bright: var(--absa-prepared); /*prev: prepared*/
   --color-normal: var(--absa-smile); /*only for gradient*/
   --color-light: var(--absa-care);
-  --bold: 550;
+  --bold: 600;
   --app-input-margin-top: 15px;
+  --color-label: rgb(45, 35, 35)
 }
 
 .btn-info {
@@ -604,50 +612,18 @@ fieldset[disabled] .btn-info.focus {
 }
 
 .primary-color-input-reverse {
-  border-color: var(--color-bright); /*prev: light*/
+  border-color: var(--color-dark); /*prev: light*/
 }
 
 .primary-color-input-reverse:focus {
   box-shadow: 0px 0px 3px var(--absa-graphite) !important;
 }
 
-/* textarea:focus,
-select:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus,
-.uneditable-input:focus {   
-  border-color: var(--color-bright);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 2px var(--color-bright);
-  outline: 0 none;
-} */
-
-/* input[type="text"]{
-  padding-bottom: 4px;
-  padding-top: 4px;
-} */
-
-/* .form-control{
-  padding-bottom: 4px;
-  padding-top: 4px;
-} */
-
 
 .form-control:focus {
-  border-color: var(--color-bright);
+  border-color: var(--color-gray);
   /* box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 3px var(--color-bright); */
-  box-shadow: 0 0 2px var(--color-bright);
+  box-shadow: 0 0 2px var(--color-gray);
 }
 
 
@@ -988,7 +964,7 @@ hr {
   width: 100%;
   height: 5px;
   margin-top: 0;
-  border-bottom: 1px solid var(--color-dark);
+  border-bottom: 1px solid var(--color-label);
   /* box-shadow: 0 5px 5px -5px #333; */
   /* box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); */
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.4);
@@ -1041,8 +1017,15 @@ hr {
 .btn:focus{
   outline: none;
   /* outline: 1px solid var(--color-bright); */
-  box-shadow: 0px 0px 3px var(--color-bright) inset !important;
+  box-shadow: 0px 0px 3px var(--color-gray) inset !important;
 }
 
 
+.panel-danger>.panel-heading{
+  color: var(--color-label);
+  font-weight: var(--bold);
+}
 
+label{
+  font-weight: var(--bold);
+}
