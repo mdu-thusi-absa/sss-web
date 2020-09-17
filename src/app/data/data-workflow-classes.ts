@@ -2,7 +2,7 @@ import * as E from './data-entity-types';
 import { DataService } from './data.service';
 import { Entity } from './data-entity-parent';
 import { Entities, AnyEntity } from './data-entities';
-import { EntityFile } from './data-entity-kids';
+import { EntityFile, EntityFileDownload, EntityFileUpload } from './data-entity-kids';
 // import * as D from './data.service'
 
 export class Task_SubTaskCondition {
@@ -269,13 +269,25 @@ export class TaskDate extends Task {
 
 export class TaskUpload extends Task {
   type = 'upload-docs';
-  files = new Entities<EntityFile>(EntityFile); // file name
+  files = new Entities<EntityFileUpload>(EntityFileUpload); // file name
+  init(): boolean{
+    // this.files.forEach((value,key,map)=>{
+    //   value.dataObject = this.workflowValuesObject
+    // })
+    return true
+  }
 }
 
 export class TaskDownload extends Task {
   type = 'submit-docs';
   //whoTo: string; //submit to whom
-  files = new Entities<EntityFile>(EntityFile); // file name
+  files = new Entities<EntityFileDownload>(EntityFileDownload); // file name
+  init(): boolean{
+    this.files.forEach((value,key,map)=>{
+      value.dataObject = this.data.expandValues(this.workflowValuesObject)
+    })
+    return true
+  }
 }
 
 export class TaskReminder extends Task {

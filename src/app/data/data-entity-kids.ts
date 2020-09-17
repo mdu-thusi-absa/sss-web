@@ -2,7 +2,8 @@ import { EnumEntityType } from './data-entity-types';
 import { Entity } from './data-entity-parent';
 import * as J from './data-json';
 import { Entities, AnyEntity } from './data-entities';
-import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
+import { makeDocForName } from './doc-build';
+// import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class EntityTask extends Entity {
   who = '';
@@ -66,6 +67,24 @@ export class EntityFile extends Entity {
       ['description', 'Description'],
     ]);
     return h;
+  }
+}
+
+export class EntityFileDownload extends  EntityFile{
+  public entityTypeKey = EnumEntityType.FileDownload;
+  dataObject = {}
+  click(){
+    // console.log('Downloading...',this.name, this.dataObject); 
+    this.dataObject['currentDate'] = new Date().toISOString().slice(0,10)
+    makeDocForName(this.name,this.dataObject)
+  }
+}
+
+export class EntityFileUpload extends  EntityFile{
+  public entityTypeKey = EnumEntityType.FileUpload;
+  click(){
+    console.log('Upload...');
+    
   }
 }
 
@@ -180,8 +199,8 @@ export class EntityCompany extends EntityLegal {
   leCode: string = '';
   registrationCode: string = '';
   countryKey: number = -1;
-  RepresentativeOfficeIs: boolean = false;
-  ForeignBranchIs: boolean = false;
+  representativeOfficeIs: boolean = false;
+  foreignBranchIs: boolean = false;
   incorporationDate: Date = null;
   businessAreaKey: number = -1;
   legalClassKey: number = -1;
@@ -717,6 +736,7 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.Country: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.CountryWithTasks: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.CountryForTask: return new Entities<Entity>(Entity); break;
+	case EnumEntityType.CountryForName: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.Custom: return new Entities<EntityCustomField>(EntityCustomField); break;
 	case EnumEntityType.Dashboard: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.EntityStatus: return new Entities<Entity>(Entity); break;
@@ -774,4 +794,6 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.Workflow: return new Entities<EntityWorkflow>(EntityWorkflow); break;
 	case EnumEntityType.WorkflowForParent: return new Entities<EntityWorkflow>(EntityWorkflow); break;
 	case EnumEntityType.DirectorType: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.AppointmentAction: return new Entities<Entity>(Entity); break;}}
+	case EnumEntityType.AppointmentAction: return new Entities<Entity>(Entity); break;
+	case EnumEntityType.FileDownload: return new Entities<EntityFileDownload>(EntityFileDownload); break;
+	case EnumEntityType.FileUpload: return new Entities<EntityFileUpload>(EntityFileUpload); break;}}

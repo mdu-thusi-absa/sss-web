@@ -152,9 +152,9 @@ export function getInputText(
 
 
 
-export function getSubmitFiles(
+export function getDownloadFiles(
   data: DataService,
-  fileList: Entities<K.EntityFile>,
+  fileList: Entities<K.EntityFileDownload>,
   fieldName: string,
   heading: string
 ) {
@@ -166,7 +166,7 @@ export function getSubmitFiles(
 
 export function getUploadFiles(
   data: DataService,
-  fileList: Entities<K.EntityFile>,
+  fileList: Entities<K.EntityFileUpload>,
   fieldName: string,
   heading: string
 ) {

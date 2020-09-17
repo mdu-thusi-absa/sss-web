@@ -152,4 +152,11 @@ export class Entity {
       return text[0].toUpperCase() + text.substr(1).toLowerCase();
     }
   }
+
+  public click(){
+    //child may overwrite this method to execute an action
+    // e.g. generate a report, download a file...
+    console.log('Clicked',this);
+    
+  }
 }

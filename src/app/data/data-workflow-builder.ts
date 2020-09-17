@@ -126,12 +126,39 @@ function queAppointmentDirector(
 
   taskList.add(G.getIndividualEmployeeStatus(data));
 
-  let individualDownFileList = new Entities<K.EntityFile>(K.EntityFile);
-  individualDownFileList
-    .add(new K.EntityFile('Consent form for the director to sign'))
-    .add(new K.EntityFile('Director procedural guideline pack'));
+  let secreatryDownFileList = new Entities<K.EntityFileDownload>(K.EntityFileDownload);
+  secreatryDownFileList
+    .add(new K.EntityFileDownload('Sec 1'))
+    .add(new K.EntityFileDownload('Sec 2'));
   taskList.add(
-    G.getSubmitFiles(
+    G.getDownloadFiles(
+      data,
+      secreatryDownFileList,
+      'secreatryDownFileList',
+      'Documents for the Company Secretary to fill'
+    )
+  );
+
+  let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
+    .add(new K.EntityFileUpload('Signed consent form from the director'))
+    .add(new K.EntityFileUpload('Filled director procedural guidelines'))
+    .add(new K.EntityFileUpload(`Person's ID`))
+    .add(new K.EntityFileUpload(`Person's CV`));
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      secreatryUpFileList,
+      'secreatryUpFileList',
+      `Company secreatry filed files`
+    )
+  );
+
+  let individualDownFileList = new Entities<K.EntityFileDownload>(K.EntityFileDownload);
+  individualDownFileList
+    .add(new K.EntityFileDownload('Consent form for the director to sign'))
+    .add(new K.EntityFileDownload('Director procedural guideline pack'));
+  taskList.add(
+    G.getDownloadFiles(
       data,
       individualDownFileList,
       'individualDownFiles',
@@ -139,11 +166,11 @@ function queAppointmentDirector(
     )
   );
 
-  let individualUpFileList = new Entities<K.EntityFile>(K.EntityFile)
-    .add(new K.EntityFile('Signed consent form from the director'))
-    .add(new K.EntityFile('Filled director procedural guidelines'))
-    .add(new K.EntityFile(`Person's ID`))
-    .add(new K.EntityFile(`Person's CV`));
+  let individualUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
+    .add(new K.EntityFileUpload('Signed consent form from the director'))
+    .add(new K.EntityFileUpload('Filled director procedural guidelines'))
+    .add(new K.EntityFileUpload(`Person's ID`))
+    .add(new K.EntityFileUpload(`Person's CV`));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -161,12 +188,12 @@ function queAppointmentDirector(
     'Legal department approval'
   );
 
-  let excoPackDownFileList = new Entities<K.EntityFile>(K.EntityFile);
+  let excoPackDownFileList = new Entities<K.EntityFileDownload>(K.EntityFileDownload);
   excoPackDownFileList
-    .add(new K.EntityFile('Exco endorsement cover sheet for Exco'))
-    .add(new K.EntityFile('Exco supporting doc'));
+    .add(new K.EntityFileDownload('Exco endorsement cover sheet for Exco'))
+    .add(new K.EntityFileDownload('Exco supporting doc'));
   taskList.add(
-    G.getSubmitFiles(
+    G.getDownloadFiles(
       data,
       excoPackDownFileList,
       'excoPackFiles',
@@ -178,19 +205,21 @@ function queAppointmentDirector(
     G.getConfirm(data, 'excoEndorsementApproveIs', 'Exco endorsed', true, true)
   );
 
-  // let consentUpFileList = new W.TaskFileList(
-  //   'consentInFormFiles',
-  //   'Consent form for the director'
-  // );
-  // consentUpFileList.add(
-  //   new K.EntityFile('consentFormDoc', 'Signed consent for the director')
-  // );
-  // taskList.add(G.getUploadFiles(data, taskList.lastTask, consentUpFileList));
-
-  let boardDownFileList = new Entities<K.EntityFile>(K.EntityFile);
-  boardDownFileList.add(new K.EntityFile('Board approval'));
+  let excoEndorsementUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
+    .add(new K.EntityFileUpload('Confirmation email file'))
   taskList.add(
-    G.getSubmitFiles(
+    G.getUploadFiles(
+      data,
+      individualUpFileList,
+      'excoEndorsementUpFileList',
+      `Exco proof of endorsement`
+    )
+  );
+
+  let boardDownFileList = new Entities<K.EntityFileDownload>(K.EntityFileDownload);
+  boardDownFileList.add(new K.EntityFileDownload('Board approval'));
+  taskList.add(
+    G.getDownloadFiles(
       data,
       boardDownFileList,
       'boardDownFileList',
@@ -198,8 +227,8 @@ function queAppointmentDirector(
     )
   );
 
-  let boardUpFileList = new Entities<K.EntityFile>(K.EntityFile);
-  boardUpFileList.add(new K.EntityFile('Signed board resolution'));
+  let boardUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload);
+  boardUpFileList.add(new K.EntityFileUpload('Signed board resolution'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -209,14 +238,14 @@ function queAppointmentDirector(
     )
   );
 
-  let regulatorDownFileList = new Entities<K.EntityFile>(K.EntityFile);
+  let regulatorDownFileList = new Entities<K.EntityFileDownload>(K.EntityFileDownload);
   regulatorDownFileList
-    .add(new K.EntityFile('CoR39'))
-    .add(new K.EntityFile('Signed board resolution'))
-    .add(new K.EntityFile('Signed director consent form'))
-    .add(new K.EntityFile('Uploaded copy of director ID'));
+    .add(new K.EntityFileDownload('CoR39'))
+    .add(new K.EntityFileDownload('Signed board resolution'))
+    .add(new K.EntityFileDownload('Signed director consent form'))
+    .add(new K.EntityFileDownload('Uploaded copy of director ID'));
   taskList.add(
-    G.getSubmitFiles(
+    G.getDownloadFiles(
       data,
       regulatorDownFileList,
       'regulatorDownFileList',
@@ -248,8 +277,8 @@ function queAppointmentDirector(
   );
   getApproval(data, taskList, 'approvalRegulatortIs', 'Regulator approval');
 
-  let regulatorUpFileList = new Entities<K.EntityFile>(K.EntityFile);
-  regulatorUpFileList.add(new K.EntityFile('Registered CoR39'));
+  let regulatorUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload);
+  regulatorUpFileList.add(new K.EntityFileUpload('Approval CoR39 from the regulator'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -407,7 +436,7 @@ function _useCompany_Amend_Specific(
   taskList.add(a);
   //t.addNext(a)
 
-  let upFiles = new Entities<K.EntityFile>(K.EntityFile);
+  let upFiles = new Entities<K.EntityFileUpload>(K.EntityFileUpload);
   taskList.add(
     G.getUploadFiles(
       data,
@@ -420,12 +449,12 @@ function _useCompany_Amend_Specific(
   //'CoR 21.1' or any other
   taskList.add(G.getFormForName(data, 'Required inputs'));
 
-  let submitFileList = new Entities<K.EntityFile>(K.EntityFile).add(
-    new K.EntityFile('CoR form')
+  let submitFileList = new Entities<K.EntityFileDownload>(K.EntityFileDownload).add(
+    new K.EntityFileDownload('CoR39')
   );
 
   taskList.add(
-    G.getSubmitFiles(
+    G.getDownloadFiles(
       data,
       submitFileList,
       'submitFileKeys',
@@ -461,7 +490,7 @@ function _useCompany_Amend_Specific(
     )
   );
 
-  let uploadApprovalFiles = new Entities<K.EntityFile>(K.EntityFile);
+  let uploadApprovalFiles = new Entities<K.EntityFileUpload>(K.EntityFileUpload);
   taskList.add(
     G.getUploadFiles(
       data,

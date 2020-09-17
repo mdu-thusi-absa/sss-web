@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {EnumEntityType} from 'src/app/data/data-entity-types'
+import { EnumEntityType } from 'src/app/data/data-entity-types';
 import { DataService } from 'src/app/data/data.service';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
 
@@ -14,8 +14,8 @@ export class InputTableComponent implements OnInit {
   @Input() entities: Entities<AnyEntity>;
   @Input() selectedEntityKey: number;
   @Input() withCheckbox = false;
-  @Input() noPadding = false
-  @Input() checked = false
+  @Input() noPadding = false;
+  @Input() checked = false;
   filterText_ = '';
 
   isHiddenMap = new Map();
@@ -24,30 +24,27 @@ export class InputTableComponent implements OnInit {
   countFiltered = 0;
   countSelected = 0;
   @Input() inputType = '';
-  @Output() onDrill = new EventEmitter()
+  @Output() onDrill = new EventEmitter();
 
-  eid = 'input-table'
-  constructor(public data:DataService) {
-    this.eid = this.data.getID('',this.eid);
+  eid = 'input-table';
+  constructor(public data: DataService) {
+    this.eid = this.data.getID('', this.eid);
   }
 
   ngOnInit(): void {
     this.entities.forEach((value, key, map) => {
       this.hideEditRow.set(key, true);
-      this.isChecked.set(key,this.checked);
+      this.isChecked.set(key, this.checked);
     });
     this.countFiltered = this.entities.size;
-    
   }
 
-  getType(v: any){
-    let t = typeof(v)
+  getType(v: any) {
+    let t = typeof v;
     let r: string | EnumEntityType;
-    if (t=='object')
-      r = t['type']
-    else
-      r = t
-    return typeof(v);
+    if (t == 'object') r = t['type'];
+    else r = t;
+    return typeof v;
   }
 
   set filterText(v: string) {
@@ -60,31 +57,46 @@ export class InputTableComponent implements OnInit {
     return this.filterText_;
   }
 
-  checkForAll(checkValue: boolean){
+  checkForAll(checkValue: boolean) {
     this.isChecked.forEach((value: boolean, key: number) => {
       this.isChecked.set(key, checkValue);
     });
     this.countSelected = this.getCountSelected();
   }
 
-  checkItem(key: number, checkValue: boolean){
-    this.countSelected = this.countSelected + (checkValue ? 1:-1);
-    this.isChecked.set(key,checkValue)
+  checkItem(key: number, checkValue: boolean) {
+    this.countSelected = this.countSelected + (checkValue ? 1 : -1);
+    this.isChecked.set(key, checkValue);
   }
 
-  checkField(key: number, checkValue: boolean,fieldName: string){
-    this.entities.get(key).set(fieldName,checkValue);
+  checkField(key: number, checkValue: boolean, fieldName: string) {
+    this.entities.get(key).set(fieldName, checkValue);
+  }
+
+  _showComponentUnderneath(key: number) {
+    let e = this.entities.get(key);
+    //let t = this.getType(e);
+    if (e.entityTypeKey == EnumEntityType.FileDownload) return false;
+    if (e.entityTypeKey == EnumEntityType.FileUpload) return false;
+    return true;
+  }
+
+  _showHideRowDetails(key: number){
+    let visible = true;
+      if (this.hideEditRow.has(key)) visible = this.hideEditRow.get(key);
+      visible = !visible;
+      this.hideEditRow.set(key, visible);
+      console.log('doEntityChoose');
+      this.onDrill.emit(key);
   }
 
   doEntityChoose(key: number) {
     //do something when a row has been selected
-    let visible = true;
-    if (this.hideEditRow.has(key)) visible = this.hideEditRow.get(key);
-    visible = !visible;
-    this.hideEditRow.set(key, visible);
-    console.log('doEntityChoose');
-    
-    this.onDrill.emit()
+    if (this._showComponentUnderneath(key)) {
+      this._showHideRowDetails(key)
+    } else{
+      this.entities.get(key).click()
+    }
   }
 
   getDoLoad(e: AnyEntity) {
@@ -95,7 +107,9 @@ export class InputTableComponent implements OnInit {
     if (this.filterText.length == 0) return false;
     return (
       entity.name.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 &&
-      entity.description.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
+      entity.description
+        .toLowerCase()
+        .indexOf(this.filterText.toLowerCase()) === -1
     );
   }
 

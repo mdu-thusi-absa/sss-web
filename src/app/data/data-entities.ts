@@ -13,7 +13,7 @@ import {
   EntityMeeting,
   EntityWorkflow,
   EntityShareCertificate,
-  EntityFile,
+  EntityFile,EntityFileDownload, EntityFileUpload
 } from './data-entity-kids';
 
 export type AnyEntity =
@@ -31,7 +31,9 @@ export type AnyEntity =
   | EntityMeeting
   | EntityShareCertificate
   | EntityWorkflow
-  | EntityFile;
+  | EntityFile
+  | EntityFileDownload
+  | EntityFileUpload
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;
@@ -61,6 +63,11 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
       }
     });
     return ets;
+  }
+
+  selectFirst(fieldName: string, equalTo: any):AnyEntity{
+    let ets = this.select(fieldName, equalTo)
+    return ets.firstValue
   }
 
   get firstKey() {
@@ -206,6 +213,10 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
       this.currentKey = this.all_keys[0];
     }
     return this.currentValue_;
+  }
+
+  get firstValue(){
+    return this.get(this.firstKey)
   }
 
   add(value: T): Entities<T> {

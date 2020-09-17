@@ -6,15 +6,20 @@
   (onFilter)="filterText = $event"
   [showInputFilter]="true"
 ></app-input-filter-add>
-<div [hidden]="fields.length < 10" style="padding-bottom: 5px"></div>
+<div
+  [hidden]="fields.length < 10"
+  style="padding-bottom: 5px"
+  
+></div>
 
-
-  <table
-    class="table table-condensed table-bordered less-bottom"
-    [style.padding-bottom]="noPadding ? '0px' : '10px'"
-    [style.margin-bottom]="noPadding ? '0px' : '10px'"
-  >
-    <!-- <thead class="info">
+<div class="table-content">
+<table
+  class="table table-condensed table-bordered less-bottom"
+  [style.padding-bottom]="noPadding ? '0px' : '10px'"
+  [style.margin-bottom]="noPadding ? '0px' : '10px'"
+  
+>
+  <!-- <thead class="info">
       <tr>
         <th *ngFor="let h of headings" class="info">
           <small>{{ h }}</small>
@@ -23,26 +28,26 @@
     </thead> 
     [hidden]="isHiddenMap.get(e)"
 -->
-    <tbody>
-      <ng-container *ngFor="let e of fields | keyvalue; let i = index">
-        <tr class="info" *ngIf="!isHiddenMap.get(i)">
-          <td style="width: 25%">
-            {{ headings[i] }}
-          </td>
-          <td style="padding: 0px" *ngIf="fields[i].slice(-4) == 'Keys'">
-            <app-input-table
-              [headings]="['Name']"
-              [fields]="['name']"
-              [entities]="values[i]"
-              [noPadding]="true"
-              [inputType]="'entity'"
-            ></app-input-table>
-          </td>
-          <td *ngIf="fields[i].slice(-4) != 'Keys'">
-            {{ values[i] }}
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-
+  <tbody>
+    <ng-container *ngFor="let e of fields | keyvalue; let i = index">
+      <tr class="info" *ngIf="!isHiddenMap.get(i)">
+        <td style="width: 25%">
+          {{ headings[i] }}
+        </td>
+        <td style="padding: 0px" *ngIf="fields[i].slice(-4) == 'Keys'">
+          <app-input-table
+            [headings]="['Name']"
+            [fields]="['name']"
+            [entities]="values[i]"
+            [noPadding]="true"
+            [inputType]="'entity'"
+          ></app-input-table>
+        </td>
+        <td *ngIf="fields[i].slice(-4) != 'Keys'">
+          {{ values[i] }}
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+</div>

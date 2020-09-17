@@ -5,6 +5,7 @@ import * as WC from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { Entities, AnyEntity } from './data-entities';
 import { Entity } from './data-entity-parent';
+// import * as T from '../templates/doc-build';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,76 @@ export class DataService {
   menus = new Entities<Entity>(Entity);
   workFlow: WC.TaskWalker;
   progress = 0;
+
+  
+  expandValues(data: object): object {
+    let r = {};
+    for (let fieldName in data) {
+      _expandValues_forEachField(r, data, fieldName, '',this.entityTypes);
+    }
+    return r;
+
+    function _expandValues_forEachField(
+      targetObject: object,
+      sourceObject,
+      fieldName: string,
+      prefix: string,
+      entityTypes: Entities<K.EntityType>
+    ) {
+      if (fieldName.slice(-3) == 'Key' && fieldName.slice(-4) != '_Key') {
+        // get the relevant object
+        let entityType = entityTypes.selectFirst(
+          'keyName',
+          fieldName
+        ) as K.EntityType;
+        if (entityType) {
+          if (sourceObject[fieldName])
+            targetObject = _expandValues_forEachField_ifValue(
+              targetObject,
+              sourceObject,
+              fieldName,
+              entityType,
+              prefix
+            );
+        }
+      }
+      return targetObject;
+  
+      function _expandValues_forEachField_ifValue(
+        targetObject: object,
+        sourceObject: object,
+        fieldName: string,
+        entityType: K.EntityType,
+        prefix: string
+      ) {
+        let subSourceObject = entityType.entities.get(sourceObject[fieldName]);
+        // add its properties to
+        for (let subField in subSourceObject) {
+          if (subField.slice(-3) == 'Key') {
+            targetObject = _expandValues_forEachField(
+              targetObject,
+              subSourceObject,
+              subField,
+              fieldName.slice(0, fieldName.length - 3),entityTypes
+            );
+          } else
+            targetObject = _expandValues_forEachField_ifValue_popValue(targetObject,subSourceObject,fieldName,prefix,subField)
+        }
+        return targetObject;
+    
+    
+        function _expandValues_forEachField_ifValue_popValue(targetObject: object,sourceObject: object,fieldName:string,prefix:string,subField:string){
+          targetObject[
+            (prefix ? prefix + '.' : '') +
+              fieldName.slice(0, fieldName.length - 3) +
+              '.' +
+              subField
+          ] = sourceObject[subField]
+          return targetObject
+        }
+      }
+    }
+  }
 
   getEntityFieldValue(
     entity: AnyEntity,
@@ -87,6 +158,7 @@ export class DataService {
   }
 
   constructor() {
+    // T.genTemplate()
     this.loadEntityTypes();
     this.loadEntityTypes_Init();
     this.loadMenus();
@@ -480,31 +552,36 @@ export class DataService {
   }
 
   getCountriesForTask(data: object) {
-    let d = this._getCountriesForTask_WorkflowsForWorkflowKey(data) as Entities<K.EntityWorkflow>;
+    let d = this._getCountriesForTask_WorkflowsForWorkflowKey(data) as Entities<
+      K.EntityWorkflow
+    >;
     let countryKeys = this._getCountriesForTask_ListOfCountriesForTasks(d);
     return this._getCountryForTask_ForCountryKeys(countryKeys);
   }
 
   private _getCountriesForTask_WorkflowsForWorkflowKey(data: object) {
     // console.log('begin',data)
-    let lastMenuKey = this._getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(data)
+    let lastMenuKey = this._getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(
+      data
+    );
     let d = this.getEntities(E.EnumEntityType.Workflow).select(
       'key',
       data[lastMenuKey]
     ) as Entities<K.EntityWorkflow>;
     // console.log(d);
-    return d
+    return d;
   }
 
-  private _getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(data: object){
-    let lastMenuKey = ''
-    for(let i=0;i<10;i++){
-      if (data[i+'_Key'])
-        lastMenuKey = i+'_Key'
+  private _getCountriesForTask_WorkFlowsForWorkflowKey_LastMenuKey(
+    data: object
+  ) {
+    let lastMenuKey = '';
+    for (let i = 0; i < 10; i++) {
+      if (data[i + '_Key']) lastMenuKey = i + '_Key';
     }
     // console.log(lastMenuKey);
-    
-    return lastMenuKey
+
+    return lastMenuKey;
   }
 
   private _getCountriesForTask_ListOfCountriesForTasks(
@@ -517,13 +594,13 @@ export class DataService {
     return countryKeys;
   }
 
-  private _getCountryForTask_ForCountryKeys(countryKeys: number[]){
-    let countries = this.getEntities(E.EnumEntityType.Country)
-    let countryForTasks = countries.getClearCopy()
-    countryKeys.forEach((value)=>{
-      countryForTasks.add(countries.get(value))
-    })
-    return countryForTasks
+  private _getCountryForTask_ForCountryKeys(countryKeys: number[]) {
+    let countries = this.getEntities(E.EnumEntityType.Country);
+    let countryForTasks = countries.getClearCopy();
+    countryKeys.forEach((value) => {
+      countryForTasks.add(countries.get(value));
+    });
+    return countryForTasks;
   }
 
   getCountryForName(data: object) {
@@ -532,5 +609,4 @@ export class DataService {
       data['1_Key']
     );
   }
-
 }
