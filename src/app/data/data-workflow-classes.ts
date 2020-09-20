@@ -439,7 +439,6 @@ export class EntityValue {
     if (this.entityKeyFieldName && this.sourceValuesObject_FieldName) {
       let entity = this._getEntity(sourceValuesObject);
       let v = this.data.getEntityFieldValue(entity, this.entityFieldName);
-      console.log({v});
       
       return v;
     } else {

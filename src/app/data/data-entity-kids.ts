@@ -4,6 +4,7 @@ import * as J from './data-json';
 import { Entities, AnyEntity } from './data-entities';
 import { makeDocForName } from './doc-build';
 import { DataService } from './data.service';
+import { IfStmt } from '@angular/compiler';
 // import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class EntityTask extends Entity {
@@ -219,7 +220,7 @@ export class EntityCompany extends EntityLegal {
   // clientHoldingCompanyKey: number = -1;
   // clientInterconnectedEntityKey: number = -1
 
-  groupCompanyIs: boolean = true
+  groupCompanyIs: boolean = true;
   foreignBranchIs: boolean = false;
   representativeOfficeIs: boolean = false;
   holdsCertificatesIs: boolean;
@@ -238,10 +239,10 @@ export class EntityCompany extends EntityLegal {
   reutersCode: string = '';
   prevName: string;
   regulatoryClientCode = '';
-  
+
   parentHoldingWeight: number = 0;
   clientHoldingWeight: number = 0;
-  
+
   connectedEntityDesc: string;
   objectiveRegisteredDesc: string = '';
   objectivePublishedDesc: string = '';
@@ -264,9 +265,8 @@ export class EntityCompany extends EntityLegal {
   appointmentKeys: number[];
   shareholderKeys: number[];
 
-  postalAddress: EntityAddress
-  physicalAddress: EntityAddress
-
+  postalAddress: EntityAddress;
+  physicalAddress: EntityAddress;
 
   /*TODO: to add with source
   ['clientHoldingCompanyKey', 'Absa shareholding in entity - Shareholder'],
@@ -707,99 +707,306 @@ export class EntityShareCertificate extends Entity {
   }
 }
 
-export class EntityAddress extends Entity{
-  constructor(public data: DataService,public cityKey:number,public text: ''){
-    super('address')
+export class EntityAddress extends Entity {
+  _cities: Entities<EntityCity>;
+  _cityKey = -1;
+  _countryKey = -1
+  _text = '';
+  _city: EntityCity;
+  _country: Entity;
+  constructor(public data: DataService) {
+    super('address');
   }
-  toString(){
-    return this.country.name + ', ' + this.city.name + ', ' + this.text
-  } 
-  get countryKey(){
-    return this.city.countryKey
+  set cityKey(v: number){
+    this._cityKey = v
   }
-  get country():Entity{
-    return this.data.getEntities(EnumEntityType.Country).get(this.countryKey) as Entity
+
+  set countryKey(v:number){
+    this._countryKey = v
+    this._cities = this.data.getCitiesForCountry(v);
+    this._cityKey = this._cities.firstKey
   }
-  get city(): EntityCity{
-    return this.data.getEntities(EnumEntityType.City).get(this.cityKey) as EntityCity
+  get cities(){
+    return this._cities
+  }
+  get text(){
+    return this._text
+  }
+  set text(v: string){
+    this._text = v.trim()
+  }
+  toString() {
+    let r = ''
+    if (this._countryKey>-1 && this._cityKey>-1)
+      r = this._countryName + (this._cityName?', ' + this._cityName:'') + (this._text?', ' + this._text:'')
+    else 
+      r = this._text;
+    return r
+  }
+
+  private get _cityName() {
+    if (this.city) return this.city.name;
+    return '';
+  }
+  private get _countryName() {
+    if (this.country) return this.country.name;
+    return '';
+  }
+
+  get countryKey() {
+    if (this.city) return this.city.countryKey;
+    else return -1;
+    // return this.data.getDefault('countryKey')
+  }
+  get cityKey(){
+    return this._cityKey
+  }
+  
+
+  private get country(): Entity {
+    return this.data
+      .getEntities(EnumEntityType.Country)
+      .get(this.countryKey) as Entity;
+  }
+  private get city(): EntityCity {
+    if (this._cityKey<0) return null;
+    this._city = this.data
+      .getEntities(EnumEntityType.City)
+      .get(this._cityKey) as EntityCity;
+    return this._city;
   }
 }
 
 //#getInitEntities#//
-function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
-	case EnumEntityType.AccountingClass: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.AccountingClassTier: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Appointment: return new Entities<EntityAppointment>(EntityAppointment); break;
-	case EnumEntityType.Auditor: return new Entities<EntityAuditor>(EntityAuditor); break;
-	case EnumEntityType.BusinessArea: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.BusinessDivision: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Capacity: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.City: return new Entities<EntityCity>(EntityCity); break;
-	case EnumEntityType.Company: return new Entities<EntityCompany>(EntityCompany); break;
-	case EnumEntityType.CompaniesForCountry: return new Entities<EntityCompany>(EntityCompany); break;
-	case EnumEntityType.CompanyType: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Consolidation: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Contact: return new Entities<EntityContact>(EntityContact); break;
-	case EnumEntityType.Country: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.CountryWithTasks: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.CountryForTask: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.CountryForName: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Custom: return new Entities<EntityCustomField>(EntityCustomField); break;
-	case EnumEntityType.Dashboard: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.EntityStatus: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.EntityStatusTier: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Individual: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.IndividualForCountries: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.IndividualInternalEmployeeStatus: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.Industry: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.LegalClass: return new Entities<EntityLegal>(EntityLegal); break;
-	case EnumEntityType.Month: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Portfolio: return new Entities<EntityPortfolio>(EntityPortfolio); break;
-	case EnumEntityType.Property: return new Entities<EntityProperty>(EntityProperty); break;
-	case EnumEntityType.Regulation: return new Entities<EntityRegulation>(EntityRegulation); break;
-	case EnumEntityType.Regulator: return new Entities<EntityRegulator>(EntityRegulator); break;
-	case EnumEntityType.Search: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Secretariat: return new Entities<EntitySecretariat>(EntitySecretariat); break;
-	case EnumEntityType.Setting: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.ShareCertificate: return new Entities<EntityShareCertificate>(EntityShareCertificate); break;
-	case EnumEntityType.Shareholding: return new Entities<EntityShareholding>(EntityShareholding); break;
-	case EnumEntityType.Template: return new Entities<EntityTemplate>(EntityTemplate); break;
-	case EnumEntityType.Trust: return new Entities<EntityTrust>(EntityTrust); break;
-	case EnumEntityType.User: return new Entities<EntityUser>(EntityUser); break;
-	case EnumEntityType.Entity: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.File: return new Entities<EntityFile>(EntityFile); break;
-	case EnumEntityType.Meeting: return new Entities<EntityMeeting>(EntityMeeting); break;
-	case EnumEntityType.Functional: return new Entities<EntityFunctional>(EntityFunctional); break;
-	case EnumEntityType.Legal: return new Entities<EntityLegal>(EntityLegal); break;
-	case EnumEntityType.Natural: return new Entities<EntityNatural>(EntityNatural); break;
-	case EnumEntityType.AnniversaryMonth: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.ParentCompany: return new Entities<EntityCompany>(EntityCompany); break;
-	case EnumEntityType.EntityType: return new Entities<EntityType>(EntityType); break;
-	case EnumEntityType.HoldingParentCompany: return new Entities<EntityCompany>(EntityCompany); break;
-	case EnumEntityType.Secretary: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.Lee: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.FinancialOfficer: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.PublicOfficer: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.AuditPartner: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.FyeMonth: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.TasksForCountry: return new Entities<EntityTask>(EntityTask); break;
-	case EnumEntityType.TaskType: return new Entities<EntityTaskType>(EntityTaskType); break;
-	case EnumEntityType.TasksForEntityType: return new Entities<EntityTask>(EntityTask); break;
-	case EnumEntityType.TasksForEntityTypeForCountry: return new Entities<EntityTask>(EntityTask); break;
-	case EnumEntityType.YesNo: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Period: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.ContactPreference: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Report: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Attendance: return new Entities<EntityAttendance>(EntityAttendance); break;
-	case EnumEntityType.TaskStatus: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.TemplateInput: return new Entities<EntityTemplateInput>(EntityTemplateInput); break;
-	case EnumEntityType.TaskTypesForCountry: return new Entities<EntityTaskType>(EntityTaskType); break;
-	case EnumEntityType.Task: return new Entities<EntityTemplate>(EntityTemplate); break;
-	case EnumEntityType.DestinationType: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.RegulatorType: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.Workflow: return new Entities<EntityWorkflow>(EntityWorkflow); break;
-	case EnumEntityType.WorkflowForParent: return new Entities<EntityWorkflow>(EntityWorkflow); break;
-	case EnumEntityType.DirectorType: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.AppointmentAction: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.FileDownload: return new Entities<EntityFileDownload>(EntityFileDownload); break;
-	case EnumEntityType.FileUpload: return new Entities<EntityFileUpload>(EntityFileUpload); break;}}
+function initEntities(entityTypeKey: EnumEntityType) {
+  switch (entityTypeKey) {
+    case EnumEntityType.AccountingClass:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.AccountingClassTier:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Appointment:
+      return new Entities<EntityAppointment>(EntityAppointment);
+      break;
+    case EnumEntityType.Auditor:
+      return new Entities<EntityAuditor>(EntityAuditor);
+      break;
+    case EnumEntityType.BusinessArea:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.BusinessDivision:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Capacity:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.City:
+      return new Entities<EntityCity>(EntityCity);
+      break;
+    case EnumEntityType.Company:
+      return new Entities<EntityCompany>(EntityCompany);
+      break;
+    case EnumEntityType.CompaniesForCountry:
+      return new Entities<EntityCompany>(EntityCompany);
+      break;
+    case EnumEntityType.CompanyType:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Consolidation:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Contact:
+      return new Entities<EntityContact>(EntityContact);
+      break;
+    case EnumEntityType.Country:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.CountryWithTasks:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.CountryForTask:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.CountryForName:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Custom:
+      return new Entities<EntityCustomField>(EntityCustomField);
+      break;
+    case EnumEntityType.Dashboard:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.EntityStatus:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.EntityStatusTier:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Individual:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.IndividualForCountries:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.IndividualInternalEmployeeStatus:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.Industry:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.LegalClass:
+      return new Entities<EntityLegal>(EntityLegal);
+      break;
+    case EnumEntityType.Month:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Portfolio:
+      return new Entities<EntityPortfolio>(EntityPortfolio);
+      break;
+    case EnumEntityType.Property:
+      return new Entities<EntityProperty>(EntityProperty);
+      break;
+    case EnumEntityType.Regulation:
+      return new Entities<EntityRegulation>(EntityRegulation);
+      break;
+    case EnumEntityType.Regulator:
+      return new Entities<EntityRegulator>(EntityRegulator);
+      break;
+    case EnumEntityType.Search:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Secretariat:
+      return new Entities<EntitySecretariat>(EntitySecretariat);
+      break;
+    case EnumEntityType.Setting:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.ShareCertificate:
+      return new Entities<EntityShareCertificate>(EntityShareCertificate);
+      break;
+    case EnumEntityType.Shareholding:
+      return new Entities<EntityShareholding>(EntityShareholding);
+      break;
+    case EnumEntityType.Template:
+      return new Entities<EntityTemplate>(EntityTemplate);
+      break;
+    case EnumEntityType.Trust:
+      return new Entities<EntityTrust>(EntityTrust);
+      break;
+    case EnumEntityType.User:
+      return new Entities<EntityUser>(EntityUser);
+      break;
+    case EnumEntityType.Entity:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.File:
+      return new Entities<EntityFile>(EntityFile);
+      break;
+    case EnumEntityType.Meeting:
+      return new Entities<EntityMeeting>(EntityMeeting);
+      break;
+    case EnumEntityType.Functional:
+      return new Entities<EntityFunctional>(EntityFunctional);
+      break;
+    case EnumEntityType.Legal:
+      return new Entities<EntityLegal>(EntityLegal);
+      break;
+    case EnumEntityType.Natural:
+      return new Entities<EntityNatural>(EntityNatural);
+      break;
+    case EnumEntityType.AnniversaryMonth:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.ParentCompany:
+      return new Entities<EntityCompany>(EntityCompany);
+      break;
+    case EnumEntityType.EntityType:
+      return new Entities<EntityType>(EntityType);
+      break;
+    case EnumEntityType.HoldingParentCompany:
+      return new Entities<EntityCompany>(EntityCompany);
+      break;
+    case EnumEntityType.Secretary:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.Lee:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.FinancialOfficer:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.PublicOfficer:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.AuditPartner:
+      return new Entities<EntityIndividual>(EntityIndividual);
+      break;
+    case EnumEntityType.FyeMonth:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.TasksForCountry:
+      return new Entities<EntityTask>(EntityTask);
+      break;
+    case EnumEntityType.TaskType:
+      return new Entities<EntityTaskType>(EntityTaskType);
+      break;
+    case EnumEntityType.TasksForEntityType:
+      return new Entities<EntityTask>(EntityTask);
+      break;
+    case EnumEntityType.TasksForEntityTypeForCountry:
+      return new Entities<EntityTask>(EntityTask);
+      break;
+    case EnumEntityType.YesNo:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Period:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.ContactPreference:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Report:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Attendance:
+      return new Entities<EntityAttendance>(EntityAttendance);
+      break;
+    case EnumEntityType.TaskStatus:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.TemplateInput:
+      return new Entities<EntityTemplateInput>(EntityTemplateInput);
+      break;
+    case EnumEntityType.TaskTypesForCountry:
+      return new Entities<EntityTaskType>(EntityTaskType);
+      break;
+    case EnumEntityType.Task:
+      return new Entities<EntityTemplate>(EntityTemplate);
+      break;
+    case EnumEntityType.DestinationType:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.RegulatorType:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.Workflow:
+      return new Entities<EntityWorkflow>(EntityWorkflow);
+      break;
+    case EnumEntityType.WorkflowForParent:
+      return new Entities<EntityWorkflow>(EntityWorkflow);
+      break;
+    case EnumEntityType.DirectorType:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.AppointmentAction:
+      return new Entities<Entity>(Entity);
+      break;
+    case EnumEntityType.FileDownload:
+      return new Entities<EntityFileDownload>(EntityFileDownload);
+      break;
+    case EnumEntityType.FileUpload:
+      return new Entities<EntityFileUpload>(EntityFileUpload);
+      break;
+  }
+}

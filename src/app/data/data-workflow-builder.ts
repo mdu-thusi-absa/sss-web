@@ -117,7 +117,7 @@ function _getChangeCompanyAddress(
     'companyKey',
     fieldName,
     fieldName,
-    new K.EntityAddress(data,-1,'')
+    new K.EntityAddress(data)
   );
   taskList.add(G.getInputAddress(data, fieldName, heading, updateEntityValue));
 

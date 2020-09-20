@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity } from 'src/app/data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
 import { Entities } from 'src/app/data/data-entities';
-import { EntityCity } from 'src/app/data/data-entity-kids';
+import { EntityAddress, EntityCity } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-input-address',
@@ -26,7 +26,7 @@ export class InputAddressComponent implements OnInit {
   @Input() showCheck = false;
 
   //address text, country, city
-  @Input() value = {countryKey:-1,cityKey:-1,text:''}
+  @Input() value: EntityAddress;
   @Input() hideBody = true;
   @Input() isNarrow = false;
 
@@ -41,19 +41,23 @@ export class InputAddressComponent implements OnInit {
   countryText = '';
   cityText = '';
 
-  eid = 'input-address'
+  eid = 'input-address';
   constructor(private data: DataService) {
-    this.eid = this.data.getID('',this.eid);
+    this.eid = this.data.getID('', this.eid);
   }
 
   ngOnInit(): void {
-    this.countries = this.data.countries
+    this.countries = this.data.countries;
     // this.countryIndex = this.countries.currentKey
+    if (!this.value)
+      this.value = new EntityAddress(this.data)
+    // if (this.value.cityKey<0)
+    //   this.value.init()
     this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
-    if (this.value.countryKey < 0) {
-      this.value.countryKey = this.data.getDefault('countryKey');
-    }
     
+    // if (this.value.countryKey < 0) {
+    //   this.value.countryKey = this.data.getDefault('countryKey');
+    // }
   }
 
   getID() {
@@ -87,46 +91,34 @@ export class InputAddressComponent implements OnInit {
     this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
   }
 
-  doChangeInputTextCountry(event: any) {
-    this.countryText = event.name;
+  doChangeCountry(event: any) {
+    console.log(event);
+    this.value.countryKey = +event
   }
 
-  doChangeInputTextCity(event: any) {
-    this.cityText = event.name;
+  doChangeCity(event: any) {
+    console.log(event);
+    this.value.cityKey = +event;
   }
 
   getCountryIndex() {
-    if (this.countries.has(this.value.countryKey)) {
-    } else {
-      this.value.countryKey = this.countries.all_keys[0];
-    }
-    return this.value.countryKey;
+    if (this.countries.has(this.value.countryKey)) return this.value.countryKey;
+    return this.countries.all_keys[0];
   }
 
+  cityKey = -1
   doSelectCountry(event: any) {
-    this.value.countryKey = +event;
-    //this.cities = this.countries.get(this.countryIndex)['cities'];
-    //console.log(event);
-    this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
-    this.value.cityKey = this.cities.currentKey    
+    this.value.countryKey = +event
+    this.cities = this.value.cities
+    this.cityKey = this.value.cityKey
+    console.log(this.value);
   }
 
   doSelectCity(event: any) {
     this.value.cityKey = +event;
+    console.log(this.value);
+    
   }
 
-  @Input() autoFocus = false
-  // @Input() set autoFocus(v: boolean){
-  //   this._autoFocus = v
-  //   if (v){
-  //     this.setAutoFocus()
-  //   }
-  // }
-
-  // setAutoFocus(){
-  //   let id = this.eid
-  //     setTimeout(() => {
-  //       document.getElementById(id).focus();
-  //     }, 50);
-  // }
+  @Input() autoFocus = false;
 }

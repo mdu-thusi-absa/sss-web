@@ -109,10 +109,12 @@ export class DataService {
     }
   }
 
+
+
   getEntityFieldValue(
     entity: AnyEntity,
     fieldName: string
-  ): string | Entities<AnyEntity> {
+  ): string | Entities<AnyEntity> | K.EntityAddress{
     if (entity) {
       let v = entity[fieldName];
       if (fieldName.slice(-3) == 'Key') {
@@ -140,11 +142,11 @@ export class DataService {
           let d = v as Date;
           let s = d.toISOString().slice(0, 10);
           return s;
-        } else return 'Not set';
+        } else return '';
       } else if (fieldName.slice(-7) == 'Address') {
         if (v) {
-          return (v as K.EntityAddress).toString()
-        } else return 'Not set';
+          return v
+        } else return new K.EntityAddress(this);
       } else {
         if (v != null) return v + '';
         else return 'Not set';

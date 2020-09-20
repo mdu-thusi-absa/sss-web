@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AnyEntity, Entities } from 'src/app/data/data-entities';
 import { DataService } from 'src/app/data/data.service';
 import {EnumEntityType} from 'src/app/data/data-entity-types'
+import { EntityAddress } from 'src/app/data/data-entity-kids';
 
 @Component({
   selector: 'app-input-table-entity',
@@ -73,9 +74,8 @@ export class InputTableEntityComponent implements OnInit {
   }
 
 
-  getFieldValue(fieldName: string):string|Entities<AnyEntity> {
+  getFieldValue(fieldName: string):string|Entities<AnyEntity>|EntityAddress {
     let d = this.data.getEntityFieldValue(this.entity,fieldName) 
-    // console.log(fieldName,d)
     return d
   }
 

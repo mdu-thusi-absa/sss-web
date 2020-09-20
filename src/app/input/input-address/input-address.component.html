@@ -55,6 +55,9 @@
             (onFile)="doFile()"
             (onRecord)="doRecord()"
             [showCheck] = "showCheck"
+            [value] = "this.value.text"
+            (onChange) = "this.value.text = $event"
+            [autoFocus] = "autoFocus"
           ></app-input-textarea>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
@@ -69,24 +72,22 @@
             (onEdit)="doEditCountry($event)"
             (onAdd)="doAddCountry($event)"
             (onSelect)="doSelectCountry($event)"
-            (onChange) = "doChangeInputTextCountry($event)"
+            (onChange) = "doChangeCountry($event)"
             [showAdd] = "true"
             [showEdit] = "true"
             [showDelete] = "true"
             [showSmall]="true"
-            [autoFocus] = "autoFocus"
           ></app-input-select-entity>
 
           <!-- <div style="height: 3px;"></div> -->
           <app-input-select-entity
             [title]="'City'"
             [values]="this.cities"
-            [value]="value.cityKey"
+            [value]="this.cityKey"
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"
-            (onChange) = "doChangeInputTextCity($event)"
-            (onSelect)="doSelectCity($event)"
+            (onChange) = "doChangeCity($event)"
             [showAdd] = "true"
             [showEdit] = "true"
             [showDelete] = "true"

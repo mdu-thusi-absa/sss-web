@@ -22,7 +22,7 @@ export class FlowAddressComponent implements OnInit {
   }
 
   getValueString(){
-    return this.taskFlow.value
+    return this.taskFlow.value.toString()
   }
 
   doSaveNext(){

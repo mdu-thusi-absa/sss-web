@@ -33,8 +33,11 @@
             [inputType]="'entity'"
           ></app-input-table>
         </td>
-        <td *ngIf="fields[i].slice(-4) != 'Keys'">
+        <td *ngIf="fields[i].slice(-4) != 'Keys' && fields[i].slice(-7) != 'Address'">
           {{ values[i] }}
+        </td>
+        <td *ngIf="fields[i].slice(-7) == 'Address'">
+          {{ values[i].toString() }}
         </td>
       </tr>
     </ng-container>
