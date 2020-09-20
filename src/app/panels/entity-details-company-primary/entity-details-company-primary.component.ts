@@ -12,7 +12,7 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText = '';
   @Input() entityKey: number;
-  @Input() entity: EntityCompany;
+  
   entityType = EnumEntityType.Company
   //@Input() legalEntity: LegalEntity;
 
@@ -22,7 +22,13 @@ export class EntityDetailsCompanyPrimaryComponent implements OnInit {
   @Output() onDirty = new EventEmitter();
   constructor(public data: DataService) { }
 
-
+  _entity: EntityCompany
+  @Input() set entity(v: EntityCompany){
+    this._entity = v
+  }
+  get entity(){
+    return this._entity
+  }
   // get legalEntity(): EveryEntity{
   //   return this.data.getEntity(this.entityKey);
   // }

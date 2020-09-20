@@ -71,6 +71,9 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   get firstKey() {
+    if (this.firstKey_<0 && this.size>0){
+      this.firstKey_ = this.all_keys[0]
+    }
     return this.firstKey_;
   }
 

@@ -9,7 +9,7 @@ import { Entities } from './data-entities';
 export function getFormForName(data: DataService, formName: string): W.TaskForm {
   let t7 = new W.TaskForm(data, 'formCoR211');
   t7.name = formName;
-  t7.addInput('effectiveDate', 'date', 'Effective date of the amendment', '',new Date());
+  t7.addInput('effectiveDate', 'date', 'Effective date of the amendment', '',new W.EntityValue(data,'','','',new Date()));
   // todo: add source type for each form and mapHeading
   return t7;
 }
@@ -129,28 +129,92 @@ export function getReminder(
   return a;
 }
 
+export function getInputSelection(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue,
+  sourceEnumEntityType: E.EnumEntityType
+): W.TaskSelect {
+  let a = new W.TaskSelect(data, fieldName);
+  a.sourceType = sourceEnumEntityType
+  a.name = heading;
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
+
+export function getInputMonth(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskSelect {
+  let a = new W.TaskSelect(data, fieldName);
+  a.sourceType = E.EnumEntityType.Month
+  a.name = heading;
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
+
+export function getInputConfirm(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskConfirm {
+  let a = new W.TaskConfirm(data, fieldName);
+  a.name = heading;
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
+
 export function getInputDate(
   data: DataService,
   fieldName: string,
-  heading: string
+  heading: string,
+  valueEntity: W.EntityValue
 ): W.TaskDate {
-  let a = new W.TaskDate(data, 'form_' + fieldName);
+  let a = new W.TaskDate(data, fieldName);
   a.name = heading;
+  a.targetsOfChange.push(valueEntity)
   return a;
 }
 
 export function getInputText(
   data: DataService,
   fieldName: string,
-  heading: string
-): W.TaskForm {
-  let a = new W.TaskForm(data, 'form_' + fieldName);
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskText {
+  let a = new W.TaskText(data, fieldName);
   a.name = heading;
-  a.addInput(fieldName, 'text', heading, '','');
+  a.targetsOfChange.push(valueEntity)
   return a;
 }
 
+export function getInputNumber(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskNumber {
+  let a = new W.TaskNumber(data, fieldName);
+  a.name = heading;
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
 
+export function getInputDesc(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskDesc {
+  let a = new W.TaskDesc(data, fieldName);
+  a.name = heading;
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
 
 export function getDownloadFiles(
   data: DataService,
@@ -243,7 +307,7 @@ export class ConfigWorkflow {
 export function getCompany_EditAll(data: DataService){
   let a = new W.TaskForm(data, 'companyDetails');
   a.name = 'The amendment';
-  a.entityFieldKey = 'companyKey';
+  a.entityFieldKeyName = 'companyKey';
   a.inputObject = new K.EntityCompany('New Company');
   return a
 }

@@ -11,7 +11,6 @@
   style="padding-bottom: 5px"
   
 ></div>
-
 <div class="table-content">
 <table
   class="table table-condensed table-bordered less-bottom"
@@ -19,15 +18,6 @@
   [style.margin-bottom]="noPadding ? '0px' : '10px'"
   
 >
-  <!-- <thead class="info">
-      <tr>
-        <th *ngFor="let h of headings" class="info">
-          <small>{{ h }}</small>
-        </th>
-      </tr>
-    </thead> 
-    [hidden]="isHiddenMap.get(e)"
--->
   <tbody>
     <ng-container *ngFor="let e of fields | keyvalue; let i = index">
       <tr class="info" *ngIf="!isHiddenMap.get(i)">

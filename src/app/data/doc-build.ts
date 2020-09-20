@@ -5,6 +5,8 @@ import { saveAs } from '@progress/kendo-file-saver';
 export function makeDocForName(formName: string, dataObject: object) {
   let url = './assets/docs/' + formName + '.docx';
   let outFileName = formName + '.docx';
+  console.log(dataObject);
+  
   makeDocFromTemplate(url, dataObject, outFileName);
 }
 

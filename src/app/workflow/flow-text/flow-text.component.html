@@ -5,13 +5,12 @@
   [panelSuccess]="taskFlow.isDone"
 >
   {{ taskFlow.description }}
-  <app-input-checkbox
-    [title]="'Please confirm'"
+  <app-input-text
+    [title]="'Please amend'"
     [value]="taskFlow.value"
-    [showSmall]="true"
     (onChange) = "doChange($event)"
     [autoFocus] = "taskFlow.isCurrent"
-  ></app-input-checkbox>
+  ></app-input-text>
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>
     <div
       style="display: inline-block"

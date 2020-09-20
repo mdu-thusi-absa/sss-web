@@ -66,6 +66,21 @@
         [stepNumber]="i + 1"
         [taskFlow]="t"
       ></app-flow-message>
+      <app-flow-text
+        *ngIf="t.type == 'text'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-text>
+      <app-flow-text
+        *ngIf="t.type == 'number'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-text>
+      <app-flow-textarea
+        *ngIf="t.type == 'desc'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-textarea>
     </div>
   </ng-container>
 </app-input-panel>

@@ -59,8 +59,8 @@ export class EntitiesContainerComponent implements OnInit {
   hideReports = true;
 
   //dashboardKey = 0;
-  entityKey = EnumEntityType.Dashboard;
-  entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
+  entityKey = EnumEntityType.Company;
+  entityTypeKey: EnumEntityType = EnumEntityType.Company;
 
   isPageLoaded: string[] = [];
   isPageLoaded_index = 0;

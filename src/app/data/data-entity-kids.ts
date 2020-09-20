@@ -70,21 +70,20 @@ export class EntityFile extends Entity {
   }
 }
 
-export class EntityFileDownload extends  EntityFile{
+export class EntityFileDownload extends EntityFile {
   public entityTypeKey = EnumEntityType.FileDownload;
-  dataObject = {}
-  click(){
-    // console.log('Downloading...',this.name, this.dataObject); 
-    this.dataObject['currentDate'] = new Date().toISOString().slice(0,10)
-    makeDocForName(this.name,this.dataObject)
+  dataObject = {};
+  click() {
+    // console.log('Downloading...',this.name, this.dataObject);
+    this.dataObject['currentDate'] = new Date().toISOString().slice(0, 10);
+    makeDocForName(this.name, this.dataObject);
   }
 }
 
-export class EntityFileUpload extends  EntityFile{
+export class EntityFileUpload extends EntityFile {
   public entityTypeKey = EnumEntityType.FileUpload;
-  click(){
+  click() {
     console.log('Upload...');
-    
   }
 }
 
@@ -164,16 +163,17 @@ export class EntityLegal extends EntityFunctional {
   }
 
   get name() {
-    return this.name_;
+    return super.name;
   }
 
   set name(v: string) {
+    super.name = v;
     if (v) {
-      this.name_ = v;
+      let name = v;
       if (v.length > 4)
         if (v.toUpperCase() == v) {
-          this.name_ = Entity.capitalise(v);
-          super.name = this.name_;
+          name = Entity.capitalise(v);
+          super.name = name;
         }
     }
   }
@@ -188,65 +188,72 @@ export class EntityWorkflow extends Entity {
   conditionOperator = '==';
   requireAuthIs = false;
   activeIs = false;
-  countryKeys: number[] = []
+  countryKeys: number[] = [];
 }
 
 //todo: Appointments, ShareCertificates, Shareholders collections
 export class EntityCompany extends EntityLegal {
   public entityTypeKey = EnumEntityType.Company;
+  leeKey: number = -1;
+  countryKey: number = -1;
+  auditorKey: number = -1;
+  industryKey: number;
+  fyeMonthKey: number;
   companyTypeKey: number = 0;
+  secretaryKey: number = -1;
+  legalClassKey: number = -1;
+  secretariatKey: number = -1;
+  businessAreaKey: number = -1;
+  entityStatusKey: number = -1;
+  auditPartnerKey: number = -1;
+  consolidationKey: number = -1; //Math.floor(Math.random() * 2); ;
+  publicOfficerKey: number = -1;
+  accountingClassKey: number = -1;
+  entityStatusTierKey: number = -1;
+  businessDivisionKey: number = -1;
+  financialOfficerKey: number = -1;
+  anniversaryMonthKey: number;
+  accountingClassTierKey: number = -1;
+  // parentHoldingCompanyKey: number = -1;
+  // clientHoldingCompanyKey: number = -1;
+  // clientInterconnectedEntityKey: number = -1
+
+  groupCompanyIs: boolean = true
+  foreignBranchIs: boolean = false;
+  representativeOfficeIs: boolean = false;
+  holdsCertificatesIs: boolean;
+  connectedEntityIs: boolean;
+
   internalCode: string = '';
   leCode: string = '';
   registrationCode: string = '';
-  countryKey: number = -1;
-  representativeOfficeIs: boolean = false;
-  foreignBranchIs: boolean = false;
-  incorporationDate: Date = null;
-  businessAreaKey: number = -1;
-  legalClassKey: number = -1;
-  entityStatusKey: number = -1;
-  entityStatusTierKey: number = -1;
   incomeTax: string = '';
   vatCode: string = '';
-  businessDivisionKey: number = -1;
-  consolidationKey: number = -1; //Math.floor(Math.random() * 2); ;
   consolidateUnder: string = '';
-  accountingClassKey: number = -1;
-  accountingClassTierKey: number = -1;
-  parentCompanyKey: number = -1;
-  parentHoldingWeight: number = 0;
-  holdingParentCompanyKey: number = -1;
-  holdingHoldingWeight: number = 0;
-  objectivePublishedDesc: string = '';
-  objectiveRegisteredDesc: string = '';
-  picScore: string = '';
-  secretariatKey: number = -1;
-  secretaryKey: number = -1;
-  leeKey: number = -1;
-  leeAppointedDate: Date = null;
-  financialOfficerKey: number = -1;
-  foAppointedDate: Date = null;
-  publicOfficerKey: number = -1;
-  publicOfficerAppointedDate: Date = null;
-  auditorKey: number = -1;
-  auditorAppointedDate: Date = null;
-  auditPartnerKey: number = -1;
-  auditAppointedDate: Date = null;
+  piScore: number = 0;
   listedCode: string = '';
   isinCode: string = '';
   leiCode: string = '';
   reutersCode: string = '';
-  industryKey: number;
-  anniversaryMonthKey: number;
-  businessStartDate: Date;
-  fyeMonthKey: number;
-  holdsCertificatesIs: boolean;
-  connectedEntityIs: boolean;
-  connectedEntityDesc: string;
-  currNameEffDate: Date;
   prevName: string;
-  prevNameEffDate: Date;
   regulatoryClientCode = '';
+  
+  parentHoldingWeight: number = 0;
+  clientHoldingWeight: number = 0;
+  
+  connectedEntityDesc: string;
+  objectiveRegisteredDesc: string = '';
+  objectivePublishedDesc: string = '';
+
+  publicOfficerAppointedDate: Date = null;
+  incorporationDate: Date = null;
+  leeAppointedDate: Date = null;
+  foAppointedDate: Date = null;
+  auditorAppointedDate: Date = null;
+  auditAppointedDate: Date = null;
+  businessStartDate: Date;
+  currNameEffDate: Date;
+  prevNameEffDate: Date;
 
   regulatorKeys: number[] = [0, 1];
   contactKeys: number[] = [];
@@ -255,9 +262,17 @@ export class EntityCompany extends EntityLegal {
   shareCertificateKeys: number[];
   appointmentKeys: number[];
   shareholderKeys: number[];
-  postalAddressKey: number = 0;
-  physicalAddressKey: number = 0;
 
+  postalAddress: {}
+  physicalAddress: {}
+
+
+  /*TODO: to add with source
+  ['clientHoldingCompanyKey', 'Absa shareholding in entity - Shareholder'],
+      ['clientInterconnectedEntityKey','Absa interconnected entity'],
+      ['parentCompanyKey', 'Direct Parent/Ownership (Major Shareholder)'],
+      ['parentHolding', 'Direct Parent - % ownership -'],
+  */
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
       ['name', 'Name'],
@@ -279,10 +294,9 @@ export class EntityCompany extends EntityLegal {
       ['consolidateUnder', 'Consolidate under (Bank/Group)'],
       ['accountingClassKey', 'Accounting classification'],
       ['accountingClassTierKey', 'Accounting classification tiering'],
-      ['parentCompanyKey', 'Direct Parent/Ownership (Major Shareholder)'],
-      ['parentHolding', 'Direct Parent - % ownership -'],
-      ['holdingParentCompanyKey', 'Absa shareholding in entity - Shareholder'],
-      ['holdingHolding', 'Absa shareholding in the entity – %'],
+      ['parentHoldingWeight', 'Parent shareholding in the entity – %'],
+      ['clientHoldingWeight', 'Absa shareholding in the entity – %'],
+      ['groupCompanyIs', 'Absa group company'],
       [
         'objectivePublishedDesc',
         'Business objective/Nature of business activities per Annual Financial Statements',
@@ -291,7 +305,7 @@ export class EntityCompany extends EntityLegal {
         'objectiveRegisteredDesc',
         'Business objective/Nature of business activities per Memorandum of Incorporation',
       ],
-      ['picScore', 'PI Score'],
+      ['piScore', 'PI Score'],
       ['secretariatKey', 'Appointed company secretary'],
       ['secretaryKey', 'Absa group secretariat representative'],
       ['leeKey', 'Legal entity executive (LEE)'],
@@ -491,10 +505,10 @@ export class EntityAttendance extends Entity {
 }
 
 export class EntityIndividual extends EntityNatural {
-  entityTypeKey = EnumEntityType.Individual
-  secretaryIs = false
-  audutorIs = false
-  internalEmployeeIs = false
+  entityTypeKey = EnumEntityType.Individual;
+  secretaryIs = false;
+  audutorIs = false;
+  internalEmployeeIs = false;
   public clone() {
     let t = new EntityIndividual(this.surname, this.firstName, this.suffix);
     t = Object.assign(t, this);
@@ -675,11 +689,7 @@ export class EntityUser extends EntityNatural {
   position: string;
   accessKey = -1;
   enabledIs = true;
-  constructor(
-    surname: string,
-    firstName: string,
-    suffix: string
-  ) {
+  constructor(surname: string, firstName: string, suffix: string) {
     super(surname, firstName, suffix);
   }
   public clone() {

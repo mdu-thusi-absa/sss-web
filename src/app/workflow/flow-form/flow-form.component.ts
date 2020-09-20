@@ -21,7 +21,7 @@ export class FlowFormComponent implements OnInit {
   constructor(public data:DataService) {}
 
   ngOnInit(): void {
-    let fieldName = this.taskFlow.entityFieldKey
+    let fieldName = this.taskFlow.entityFieldKeyName
     if (fieldName){
       let k = this.taskFlow.workflowValuesObject[fieldName]
       this.entity = this.data.getEntitiesByKeyField(fieldName).get(k)
@@ -43,11 +43,12 @@ export class FlowFormComponent implements OnInit {
   }
 
   getInputValue(inputObject: TaskForm_Input){
-    if (this.entity){
-      return this.entity[inputObject.fieldName]
-    }else{
-      return inputObject.defaultValue
-    }
+    return inputObject.value.getValue(this.taskFlow.workflowValuesObject)
+    // if (this.entity){
+    //   return this.entity[inputObject.fieldName]
+    // }else{
+    //   return inputObject.value
+    // }
   }
 
 }

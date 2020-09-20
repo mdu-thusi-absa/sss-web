@@ -104,6 +104,8 @@ import { InputTableEntityComponent } from './input/input-table-entity/input-tabl
 import { FlowDateComponent } from './workflow/flow-date/flow-date.component';
 import { DocXTemplatorComponent } from './templates/doc-xtemplator/doc-xtemplator.component';
 import { InputGenDocComponent } from './input/input-gen-doc/input-gen-doc.component';
+import { FlowTextComponent } from './workflow/flow-text/flow-text.component';
+import { FlowTextareaComponent } from './workflow/flow-textarea/flow-textarea.component';
 
 
 
@@ -202,6 +204,8 @@ import { InputGenDocComponent } from './input/input-gen-doc/input-gen-doc.compon
     FlowDateComponent,
     DocXTemplatorComponent,
     InputGenDocComponent,
+    FlowTextComponent,
+    FlowTextareaComponent,
     
   ],
   imports: [

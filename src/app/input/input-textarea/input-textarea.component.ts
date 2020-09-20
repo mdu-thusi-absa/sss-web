@@ -16,7 +16,7 @@ export class InputTextareaComponent implements OnInit {
     return this.title_;
   }
   @Input() placeholder = '';
-  @Input() text = '';
+  @Input() value = '';
   @Input() rows = 4;
   @Input() noTitle = false;
   @Input() noButtons = false;
@@ -30,6 +30,7 @@ export class InputTextareaComponent implements OnInit {
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onFile = new EventEmitter();
+  @Output() onChange = new EventEmitter()
 
   eid = 'input-textarea'
   constructor(private data:DataService) {
@@ -53,6 +54,26 @@ export class InputTextareaComponent implements OnInit {
 
   hideByFilter() {
     return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 : false);
+  }
+
+  doChange(event: any){
+    //this.value = event;
+    this.onChange.emit(event);
+  }
+
+  _autoFocus = false
+  @Input() set autoFocus(v: boolean){
+    this._autoFocus = v
+    if (v){
+      this.setAutoFocus()
+    }
+  }
+
+  setAutoFocus(){
+    let id = this.eid
+      setTimeout(() => {
+        document.getElementById(id).focus();
+      }, 50);
   }
 
 }

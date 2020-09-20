@@ -31,6 +31,7 @@ export class InputTextComponent implements OnInit {
   @Input() showPaperclip = false;
   @Input() showCD = false;
   @Input() showCheck = false;
+ 
 
   doFile(){
     this.onFile.emit(this.title.replace('*',''));
@@ -59,6 +60,21 @@ export class InputTextComponent implements OnInit {
   doChange(event: any){
     //this.value = event;
     this.onChange.emit(event);
+  }
+
+  _autoFocus = false
+  @Input() set autoFocus(v: boolean){
+    this._autoFocus = v
+    if (v){
+      this.setAutoFocus()
+    }
+  }
+
+  setAutoFocus(){
+    let id = this.eid
+      setTimeout(() => {
+        document.getElementById(id).focus();
+      }, 50);
   }
 
   

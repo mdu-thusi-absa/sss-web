@@ -180,7 +180,12 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   getEntityName() {
+    
     return this.entity ? this.entity.name : '';
+  }
+
+  entityNameChange(e:any){
+    console.log(e)
   }
 
   setEntityName(v: string) {

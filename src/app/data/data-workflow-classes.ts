@@ -2,7 +2,11 @@ import * as E from './data-entity-types';
 import { DataService } from './data.service';
 import { Entity } from './data-entity-parent';
 import { Entities, AnyEntity } from './data-entities';
-import { EntityFile, EntityFileDownload, EntityFileUpload } from './data-entity-kids';
+import {
+  EntityFile,
+  EntityFileDownload,
+  EntityFileUpload,
+} from './data-entity-kids';
 // import * as D from './data.service'
 
 export class Task_SubTaskCondition {
@@ -61,6 +65,7 @@ export class Task {
   set name(v: string) {
     this.name_ = v;
   }
+  targetsOfChange: EntityValue[] = [];
   description = '';
   value: any = '';
   whenStarted = new Date();
@@ -75,9 +80,10 @@ export class Task {
   subTasks: Task_SubTask[] = [];
   hasFork = false;
   errorMessage = '';
-  entityFieldKey = ''; //to set the fieldNameKey to get entity to be worked on in the step
+  entityFieldKeyName = ''; //to set the fieldNameKey to get entity to be worked on in the step
   entity: AnyEntity;
   actionName_ = '';
+  //amendmentSourceFieldName = '';
   private actionEntityName_ = '';
   private actionObjectName_ = '';
   private workflowValuesObject_ = {};
@@ -126,6 +132,7 @@ export class Task {
   }
   addNext(taskFlow: Task) {
     taskFlow.parent = this;
+    // this.targetOfChange = taskFlow.targetOfChange
     let s = new Task_SubTaskCondition('', 0, '', '');
     let t = new Task_SubTask(taskFlow, [s]);
     this.subTasks.push(t);
@@ -133,6 +140,7 @@ export class Task {
 
   addNextFork(subTask: Task_SubTask) {
     subTask.taskFlow.parent = this;
+    // this.targetOfChange = subTask.taskFlow.targetOfChange
     this.hasFork = true;
     this.subTasks.push(subTask);
   }
@@ -223,11 +231,11 @@ export class TaskConfirm extends Task {
   type = 'confirm';
   value = false;
   ensure = true; //value must be true to move on
-  defaultValue = false
+  defaultValue = false;
 
-  init():boolean{
-    this.value = this.defaultValue
-    return true
+  init(): boolean {
+    this.value = this.defaultValue;
+    return true;
   }
   verify(): boolean {
     if (this.ensure && !this.value) {
@@ -241,6 +249,121 @@ export class TaskConfirm extends Task {
   get skip(): boolean {
     return false;
   }
+}
+
+export class TaskText extends Task {
+  type = 'text';
+  value: '';
+  ensure = false;
+  minLen = 3; //value must be true to move on
+  maxLen = 100;
+  defaultValue = false;
+
+  init(): boolean {
+    // this.value = this.defaultValue;
+    this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
+    return true;
+  }
+  verify(): boolean {
+    if (this.ensure && !this.value) {
+      this.errorMessage = this.name + ' is required';
+      return false;
+    } else if (this.value.length < this.minLen) {
+      this.errorMessage = this.name + ' is too short';
+      return false;
+    } else if (this.value.length > this.maxLen) {
+      this.errorMessage = this.name + ' is too long';
+      return false;
+    } else {
+      this.errorMessage = '';
+      return true;
+    }
+  }
+  get skip(): boolean {
+    return false;
+  }
+}
+
+export class TaskAddress extends Task {
+  type = 'address';
+  value: {countryKey:-1,cityKey:-1,text:''};
+  ensure = false;
+  minLen = 3; //value must be true to move on
+  maxLen = 100;
+  defaultValue = false;
+
+  init(): boolean {
+    // this.value = this.defaultValue;
+    this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
+    return true;
+  }
+  verify(): boolean {
+    // if (this.ensure && !this.value) {
+    //   this.errorMessage = this.name + ' is required';
+    //   return false;
+    // } else if (this.value.length < this.minLen) {
+    //   this.errorMessage = this.name + ' is too short';
+    //   return false;
+    // } else if (this.value.length > this.maxLen) {
+    //   this.errorMessage = this.name + ' is too long';
+    //   return false;
+    // } else {
+    //   this.errorMessage = '';
+    //   return true;
+    // }
+    return true
+  }
+  get skip(): boolean {
+    return false;
+  }
+}
+
+export class TaskNumber extends Task {
+  type = 'number';
+  value: string = '';
+  ensure = true;
+  minValue = 0;
+  maxValue = 1000000000;
+  defaultValue = false;
+
+  init(): boolean {
+    this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
+    return true;
+  }
+  verify(): boolean {
+    if (this.ensure && this.value.length == 0) {
+      this.errorMessage = this.name + ' is required';
+      return false;
+    } else if (!Number(this.value)) {
+      if (this.value == '0') {
+        if (+this.value == 0) this.value = '0'
+        return true
+      } else {
+        console.log(this.value);
+        this.errorMessage = this.name + ' is not a number';
+        return false;
+      }
+    } else if (+this.value < this.minValue) {
+      this.errorMessage = this.name + ' is too low';
+      return false;
+    } else if (+this.value > this.maxValue) {
+      this.errorMessage = this.name + ' is too high';
+      return false;
+    } else {
+      this.errorMessage = '';
+      this.value = +this.value + ''
+      return true;
+    }
+  }
+  get skip(): boolean {
+    return false;
+  }
+}
+
+export class TaskDesc extends TaskText {
+  type = 'desc';
+  minLen = 3;
+  maxLen = 1000;
 }
 
 export class TaskDate extends Task {
@@ -270,11 +393,11 @@ export class TaskDate extends Task {
 export class TaskUpload extends Task {
   type = 'upload-docs';
   files = new Entities<EntityFileUpload>(EntityFileUpload); // file name
-  init(): boolean{
+  init(): boolean {
     // this.files.forEach((value,key,map)=>{
     //   value.dataObject = this.workflowValuesObject
     // })
-    return true
+    return true;
   }
 }
 
@@ -282,11 +405,11 @@ export class TaskDownload extends Task {
   type = 'submit-docs';
   //whoTo: string; //submit to whom
   files = new Entities<EntityFileDownload>(EntityFileDownload); // file name
-  init(): boolean{
-    this.files.forEach((value,key,map)=>{
-      value.dataObject = this.data.expandValues(this.workflowValuesObject)
-    })
-    return true
+  init(): boolean {
+    this.files.forEach((value, key, map) => {
+      value.dataObject = this.data.expandValues(this.workflowValuesObject);
+    });
+    return true;
   }
 }
 
@@ -316,7 +439,56 @@ export class TaskForm_Input {
   title = 'Input';
   fieldName = 'fieldName';
   description = '';
-  defaultValue: any
+  value: EntityValue;
+}
+
+export class EntityValue {
+  constructor(
+    public data: DataService,
+    public entityKeyFieldName: string,
+    public entityFieldName: string,
+    public sourceValuesObject_FieldName: string,
+    public defaultValue: any
+  ) {}
+  getValue(sourceValuesObject: object) {
+    if (this.entityKeyFieldName && this.sourceValuesObject_FieldName) {
+      let entity = this._getEntity(sourceValuesObject);
+      let v = this.data.getEntityFieldValue(entity, this.entityFieldName);
+      return v;
+    } else {
+      return this.defaultValue;
+    }
+  }
+
+  _log(...args: any[]) {
+    console.log('Error: EntityValue.save');
+    console.log(...args);
+  }
+
+  save(sourceValuesObject: object) {
+    if (this.entityKeyFieldName && this.sourceValuesObject_FieldName) {
+      let entity = this._getEntity(sourceValuesObject);
+      if (this.sourceValuesObject_FieldName)
+        entity.setValue(
+          this.entityFieldName,
+          sourceValuesObject[this.sourceValuesObject_FieldName]
+        );
+      else this._log('sourceFieldName is not provided');
+    } else {
+      this._log('either targetKeyName or targetFieldName was not provided');
+    }
+  }
+
+  private _getEntity(workflowValuesObject: object) {
+    let entityKey = workflowValuesObject[this.entityKeyFieldName];
+    //console.log(this.entityFieldName, entityKey);
+    let elements = this.data.getEntitiesByKeyField(this.entityKeyFieldName);
+    let entity = elements.get(entityKey);
+    if (entity) return entity;
+    //this._log('entity not found', this.entityFieldName);
+    //TODO: create entity with all fields from the workflowValuesObject, less menu_Keys
+    return null;
+  }
 }
 
 export class TaskForm extends Task {
@@ -329,37 +501,38 @@ export class TaskForm extends Task {
     type: string,
     title: string,
     description: string,
-    defaultValue: any
+    value: EntityValue
   ): TaskForm {
     let inp = new TaskForm_Input();
     inp.fieldName = fieldName;
     inp.type = type;
     inp.title = title;
-    inp.description = description
-    inp.defaultValue = defaultValue
+    inp.description = description;
+    inp.value = value;
     this.inputs.push(inp);
     return this;
-  }
-
-  private _init_formInputs() {
-    let fields = this.inputObject.headingsMap;
-    fields.forEach((value, key, map) => {
-      this.addInput(
-        key as string,
-        this.data.getFieldTypeForFieldName(key as string),
-        value as string,
-        '',null
-      );
-    });
   }
 
   init(): boolean {
     if (this.inputObject) {
       if (this.inputs.length == 0) {
-        this._init_formInputs();
+        _init_formInputs();
       }
     }
     return true;
+
+    function _init_formInputs() {
+      let fields = this.inputObject.headingsMap;
+      fields.forEach((value, key, map) => {
+        this.addInput(
+          key as string,
+          this.data.getFieldTypeForFieldName(key as string),
+          value as string,
+          '',
+          null
+        );
+      });
+    }
   }
 }
 
@@ -399,6 +572,7 @@ export class TaskWalker extends Task {
   // }
 
   addNext(taskFlow: Task) {
+    // this.targetOfChange = taskFlow.targetOfChange
     this.rootTask = taskFlow;
   }
 
@@ -413,7 +587,7 @@ export class TaskWalker extends Task {
     this.entity = null;
     this.actionName = '';
     if (this.currentTask) this.currentTaskIndex_ = 0;
-    this.rootTask.init()
+    this.rootTask.init();
     this._buildNext(this.rootTask);
     if (this.currentTask.canMoveOn()) this.moveToNext();
     return true;
@@ -462,44 +636,45 @@ export class TaskWalker extends Task {
         }
         fromTask.workflowValuesObject = this._collectValues();
         // if (fromTask.init()) {
-          //let t = fromTask;
-          // while (!t.hasFork && t.subTasks.length>0 && t.entityFieldKey=='') {
-          //   t = t.subTasks[0].taskFlow;
-          //   t.workflowValuesObject = this.collectValues();
-          //   t.init();
-          //   this.tasks.push(t);
-          // }
-          //   console.log(
-          //     fromTask.isDone,
-          //     fromTask.hasFork,
-          //     fromTask.subTasks.length
-          //   );
-          if (this._buildNext_canBeBuiltOn(fromTask)) {
-            // console.log(0);
-            if (!fromTask.hasFork) {
-              this._buildNext_addSubtask(fromTask, 0);
-            } else {
-              // next task with conditions
-              let notAdded = true;
-              for (let i = 0; i < fromTask.subTasks.length; i++) {
-                if (
-                  fromTask.subTasks[i].matchCondition(
-                    fromTask.workflowValuesObject
-                  )
-                ) {
-                  let t = this._buildNext_addSubtask(fromTask, i);
-                  this._buildNext(t);
-                  notAdded = false;
-                  break;
-                }
+        //let t = fromTask;
+        // while (!t.hasFork && t.subTasks.length>0 && t.entityFieldKey=='') {
+        //   t = t.subTasks[0].taskFlow;
+        //   t.workflowValuesObject = this.collectValues();
+        //   t.init();
+        //   this.tasks.push(t);
+        // }
+        //   console.log(
+        //     fromTask.isDone,
+        //     fromTask.hasFork,
+        //     fromTask.subTasks.length
+        //   );
+        if (this._buildNext_canBeBuiltOn(fromTask)) {
+          // console.log(0);
+          if (!fromTask.hasFork) {
+            this._buildNext_addSubtask(fromTask, 0);
+          } else {
+            // next task with conditions
+            let notAdded = true;
+            for (let i = 0; i < fromTask.subTasks.length; i++) {
+              if (
+                fromTask.subTasks[i].matchCondition(
+                  fromTask.workflowValuesObject
+                )
+              ) {
+                let t = this._buildNext_addSubtask(fromTask, i);
+                this._buildNext(t);
+                notAdded = false;
+                break;
               }
-              this._buildNext_checkIfConditionalBuildHasAdded(fromTask, notAdded);
             }
-          } else if (fromTask.isDone) {
-            this.start();
-            // this.currentTaskIndex_ = 0
-            // this.tasks.slice(0,1)
+            this._buildNext_checkIfConditionalBuildHasAdded(fromTask, notAdded);
           }
+        } else if (fromTask.isDone) {
+          this._saveToTargetObject();
+          this.start();
+          // this.currentTaskIndex_ = 0
+          // this.tasks.slice(0,1)
+        }
         // }
 
         return true;
@@ -535,14 +710,30 @@ export class TaskWalker extends Task {
     this.currentTask.isCurrent = true;
   }
 
-  private _moveToNext_DoSaveUpdatesToEntity() {
+  private _collectTargetOfChange(): EntityValue[] {
+    let r: EntityValue[] = [];
+    this.tasks.forEach((e) => {
+      e.targetsOfChange.forEach((target) => {
+        r.push(target);
+      });
+    });
+    return r;
+  }
+
+  private _saveToTargetObject() {
     //TODO: implement the amendment
     //create RecordUpdate and entity.update(recordUpdate)
-    if (this.entity) {
-      // console.log(this.entity);
-      //let recordUpdate = new RecordUpdate();
-      //this.entity.updateFieldValue(recordUpdate);
-    }
+    this.workflowValuesObject = this._collectValues();
+    this.targetsOfChange = this._collectTargetOfChange();
+
+    this.targetsOfChange.forEach((target) => {
+      target.save(this.workflowValuesObject);
+    });
+
+    // console.log(this.entity);
+    //let recordUpdate = new RecordUpdate();
+    //this.entity.updateFieldValue(recordUpdate);
+    // }
   }
 
   private _moveToNext_DoCurrentTaskAfterBuild() {
@@ -551,7 +742,7 @@ export class TaskWalker extends Task {
       //TODO: save workflow state to DB
       this._moveToNextTask();
     } else {
-      this._moveToNext_DoSaveUpdatesToEntity();
+      //console.log(this.workflowValuesObject);
     }
     //TODO: implement skip a task. Not needed at the moment
     // if (this.currentTask.skip) {

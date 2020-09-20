@@ -9,7 +9,7 @@ import {EnumEntityType} from 'src/app/data/data-entity-types'
   styleUrls: ['./input-table-entity.component.css'],
 })
 export class InputTableEntityComponent implements OnInit {
-  entity_: AnyEntity;
+  _entity: AnyEntity;
   // @Input() entityTypeKey: EnumEntityType;
   entityTypeKey: EnumEntityType
   @Input() noPadding = false;
@@ -30,9 +30,21 @@ export class InputTableEntityComponent implements OnInit {
     this.eid = this.data.getID('', this.eid);
   }
 
-  @Input() set entity(entity_: AnyEntity) {
-    this.entity_ = entity_;
+  @Input() set entity(v: AnyEntity) {
+    this._entity = v;
+    // if (this._entity)
+    //   this._entity.event.addListener('change',(e)=>{this.onUpdateEntity(e,'')})
+    this._entity.addListener(this)
     this.loadValues();
+  }
+
+  get entity(){
+    return this._entity
+  }
+
+  notify(){
+    //console.log('need to update');
+    this.loadValues()
   }
 
   ngOnInit(): void {
@@ -42,7 +54,7 @@ export class InputTableEntityComponent implements OnInit {
     // });
     // console.log(this.entity_,this.entity_.type);
     // this.entityTypeKey = this.entity_.type
-    this.headingsMap = this.entity_.headingsMap;
+    this.headingsMap = this.entity.headingsMap;
     // console.log(this.entityTypeKey);
     this.headings = Array.from(this.headingsMap.values());
     this.fields = Array.from(this.headingsMap.keys());
@@ -51,8 +63,8 @@ export class InputTableEntityComponent implements OnInit {
   }
 
   loadValues() {
-    if (this.entity_) {
-      this.entity_;
+    if (this.entity) {
+      // this.entity_.event.addListener('change',(e)=>{console.log(e)})
       this.values = [];
       for (let i = 0; i < this.fields.length; i++) {
         this.values.push(this.getFieldValue(this.fields[i]));
@@ -62,7 +74,7 @@ export class InputTableEntityComponent implements OnInit {
 
 
   getFieldValue(fieldName: string):string|Entities<AnyEntity> {
-    let d = this.data.getEntityFieldValue(this.entity_,fieldName) 
+    let d = this.data.getEntityFieldValue(this.entity,fieldName) 
     // console.log(fieldName,d)
     return d
   }
@@ -120,7 +132,7 @@ export class InputTableEntityComponent implements OnInit {
   }
 
   calcIsHidden() {
-    if (this.entity_) {
+    if (this.entity) {
       this.isHiddenMap = new Map();
 
       for (let i in this.fields) {
@@ -146,7 +158,7 @@ export class InputTableEntityComponent implements OnInit {
 
   getCountFiltered() {
     if (this.filterText_) {
-      if (this.entity_) {
+      if (this.entity) {
         return [...this.isHiddenMap.values()].filter((e) => !e).length;
       }
     } else {

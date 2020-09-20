@@ -29,9 +29,12 @@
   <textarea
     class="form-control"
     [rows]="rows"
-    [value]="text"
+    [value]="value"
     [placeholder]="placeholder"
     autocomplete="nope"
     style="padding:2px 4px 2px 4px;font-size: 10pt"
+    [ngModel]="value"
+    (ngModelChange)="doChange($event)"
+    [attr.id] = "eid"
   ></textarea>
 </div>

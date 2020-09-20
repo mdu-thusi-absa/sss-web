@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { EnumEntityType } from './data-entity-types';
 
 export class RecordUpdate {
@@ -39,13 +40,14 @@ export class Entity {
   public description = '';
   public activeIs = false;
   public suffix = '';
+  listeners: any[] = []
   protected headingsMap_: Map<string, string>;
-  protected name_: string;
+  private _name: string;
   historyArray = new HistoryArray();
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
   constructor(name: string) {
     if (!this.headingsMap_) this.headingsMap_ = this.getHeadingsMap();
-    this.name_ = name;
+    this._name = name;
   }
 
   updateFieldValue(record: RecordUpdate) {
@@ -55,11 +57,27 @@ export class Entity {
   }
 
   get name() {
-    return this.name_;
+    return this._name;
   }
 
   set name(v: string) {
-    this.name_ = v;
+    this._name = v;
+  }
+
+  setValue(fieldName:string,value: any){
+    this[fieldName] = value
+    this.notify()
+  }
+
+  addListener(e:any){
+    if (this.listeners.indexOf(e)<0)
+      this.listeners.push(e)
+  }
+
+  notify(){
+    this.listeners.forEach(e=>{
+      e.notify()
+    })
   }
 
   get headingsMap() {
