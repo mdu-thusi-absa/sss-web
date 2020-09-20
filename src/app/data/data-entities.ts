@@ -7,13 +7,11 @@ import {
   EntityNatural,
   EntityCompany,
   EntityContact,
-  EntityPostalAddress,
-  EntityPhysicalAddress,
   EntityType,
   EntityMeeting,
   EntityWorkflow,
   EntityShareCertificate,
-  EntityFile,EntityFileDownload, EntityFileUpload
+  EntityFile,EntityFileDownload, EntityFileUpload, EntityAddress
 } from './data-entity-kids';
 
 export type AnyEntity =
@@ -25,8 +23,6 @@ export type AnyEntity =
   | EntityNatural
   | EntityCompany
   | EntityContact
-  | EntityPostalAddress
-  | EntityPhysicalAddress
   | EntityType
   | EntityMeeting
   | EntityShareCertificate
@@ -34,6 +30,7 @@ export type AnyEntity =
   | EntityFile
   | EntityFileDownload
   | EntityFileUpload
+  | EntityAddress
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
   currentKey_ = -1;

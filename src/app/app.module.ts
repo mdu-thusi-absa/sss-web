@@ -106,6 +106,7 @@ import { DocXTemplatorComponent } from './templates/doc-xtemplator/doc-xtemplato
 import { InputGenDocComponent } from './input/input-gen-doc/input-gen-doc.component';
 import { FlowTextComponent } from './workflow/flow-text/flow-text.component';
 import { FlowTextareaComponent } from './workflow/flow-textarea/flow-textarea.component';
+import { FlowAddressComponent } from './workflow/flow-address/flow-address.component';
 
 
 
@@ -206,6 +207,7 @@ import { FlowTextareaComponent } from './workflow/flow-textarea/flow-textarea.co
     InputGenDocComponent,
     FlowTextComponent,
     FlowTextareaComponent,
+    FlowAddressComponent,
     
   ],
   imports: [

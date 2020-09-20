@@ -192,6 +192,18 @@ export function getInputText(
   return a;
 }
 
+export function getInputAddress(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskAddress {
+  let a = new W.TaskAddress(data, fieldName);
+  a.name = heading;
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
+
 export function getInputNumber(
   data: DataService,
   fieldName: string,

@@ -3,6 +3,7 @@ import { DataService } from './data.service';
 import { Entity } from './data-entity-parent';
 import { Entities, AnyEntity } from './data-entities';
 import {
+  EntityAddress,
   EntityFile,
   EntityFileDownload,
   EntityFileUpload,
@@ -246,9 +247,6 @@ export class TaskConfirm extends Task {
       return true;
     }
   }
-  get skip(): boolean {
-    return false;
-  }
 }
 
 export class TaskText extends Task {
@@ -279,17 +277,12 @@ export class TaskText extends Task {
       return true;
     }
   }
-  get skip(): boolean {
-    return false;
-  }
 }
 
 export class TaskAddress extends Task {
   type = 'address';
-  value: {countryKey:-1,cityKey:-1,text:''};
+  value: EntityAddress;
   ensure = false;
-  minLen = 3; //value must be true to move on
-  maxLen = 100;
   defaultValue = false;
 
   init(): boolean {
@@ -298,23 +291,21 @@ export class TaskAddress extends Task {
     return true;
   }
   verify(): boolean {
-    // if (this.ensure && !this.value) {
-    //   this.errorMessage = this.name + ' is required';
-    //   return false;
-    // } else if (this.value.length < this.minLen) {
-    //   this.errorMessage = this.name + ' is too short';
-    //   return false;
-    // } else if (this.value.length > this.maxLen) {
-    //   this.errorMessage = this.name + ' is too long';
-    //   return false;
-    // } else {
-    //   this.errorMessage = '';
-    //   return true;
-    // }
-    return true
-  }
-  get skip(): boolean {
-    return false;
+    if (this.ensure) {
+      if (this.value.countryKey < 0) {
+        this.errorMessage = 'Country is required';
+        return false;
+      }
+      if (this.value.cityKey < 0) {
+        this.errorMessage = 'City is required';
+        return false;
+      }
+      if (this.value.text.trim().length == 0) {
+        this.errorMessage = 'Text is required';
+        return false;
+      }
+    }
+    return true;
   }
 }
 
@@ -336,8 +327,8 @@ export class TaskNumber extends Task {
       return false;
     } else if (!Number(this.value)) {
       if (this.value == '0') {
-        if (+this.value == 0) this.value = '0'
-        return true
+        if (+this.value == 0) this.value = '0';
+        return true;
       } else {
         console.log(this.value);
         this.errorMessage = this.name + ' is not a number';
@@ -351,12 +342,9 @@ export class TaskNumber extends Task {
       return false;
     } else {
       this.errorMessage = '';
-      this.value = +this.value + ''
+      this.value = +this.value + '';
       return true;
     }
-  }
-  get skip(): boolean {
-    return false;
   }
 }
 
@@ -378,9 +366,6 @@ export class TaskDate extends Task {
       this.errorMessage = this.name + ' is required';
       return false;
     }
-  }
-  get skip(): boolean {
-    return false;
   }
 }
 
@@ -454,6 +439,8 @@ export class EntityValue {
     if (this.entityKeyFieldName && this.sourceValuesObject_FieldName) {
       let entity = this._getEntity(sourceValuesObject);
       let v = this.data.getEntityFieldValue(entity, this.entityFieldName);
+      console.log({v});
+      
       return v;
     } else {
       return this.defaultValue;
@@ -553,7 +540,7 @@ export class TaskWalker extends Task {
   private rootTask: Task = null;
   private currentTask: Task = null;
   //private lastAddedTask: Task = null;
-  private currentTaskIndex_ = -1;
+  private _currentTaskIndex = -1;
   public tasks: Task[] = [];
   public que: Task[] = []; // que of tasks to come back to when isEnd taskFlow is true
 
@@ -578,15 +565,18 @@ export class TaskWalker extends Task {
 
   // loads the rootTask, and builds the obvious branch, until the first fork
   public start(): boolean {
+    this.tasks.forEach((t) => {
+      t.isDone = false;
+    });
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
-    this.currentTask.isDone = false;
     this.actionEntityName = '';
     this.actionObjectName = '';
     this.entity = null;
     this.actionName = '';
-    if (this.currentTask) this.currentTaskIndex_ = 0;
+    this.workflowValuesObject = {};
+    if (this.currentTask) this._currentTaskIndex = 0;
     this.rootTask.init();
     this._buildNext(this.rootTask);
     if (this.currentTask.canMoveOn()) this.moveToNext();
@@ -598,7 +588,7 @@ export class TaskWalker extends Task {
     this.tasks.push(q);
     this.currentTask = q;
     this.currentTask.isCurrent = true;
-    this.currentTaskIndex_++;
+    this._currentTaskIndex++;
     return this._buildNext(this.currentTask);
   }
 
@@ -624,7 +614,7 @@ export class TaskWalker extends Task {
   }
 
   private _buildNext(fromTask: Task): boolean {
-    if (this.currentTaskIndex_ == this.tasks.length - 1) {
+    if (this._currentTaskIndex == this.tasks.length - 1) {
       if (fromTask) {
         if (fromTask.isDone) {
           if (fromTask.actionName) this.actionName = fromTask.actionName;
@@ -701,12 +691,12 @@ export class TaskWalker extends Task {
   // }
 
   private _moreTasksToDo() {
-    return this.currentTaskIndex_ < this.tasks.length - 1;
+    return this._currentTaskIndex < this.tasks.length - 1;
   }
   private _moveToNextTask() {
-    this.currentTaskIndex_++;
+    this._currentTaskIndex++;
     this.currentTask.isCurrent = false;
-    this.currentTask = this.tasks[this.currentTaskIndex_];
+    this.currentTask = this.tasks[this._currentTaskIndex];
     this.currentTask.isCurrent = true;
   }
 
@@ -777,7 +767,7 @@ export class TaskWalker extends Task {
   }
 
   private _deleteSubsequentTasks() {
-    let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
+    let v = this.tasks.slice(0, this._currentTaskIndex + 1);
     return v;
   }
 
@@ -788,9 +778,9 @@ export class TaskWalker extends Task {
       if (this.currentTask.actionEntityName) this.actionEntityName = '';
       if (this.currentTask.actionName) this.actionName = '';
       if (this.currentTask.actionObjectName) this.actionObjectName = '';
-      this.currentTaskIndex_--;
+      this._currentTaskIndex--;
       // this.tasks = this.tasks.slice(0,this.currentTaskIndex_); //delete
-      this.currentTask = this.tasks[this.currentTaskIndex_];
+      this.currentTask = this.tasks[this._currentTaskIndex];
       this.currentTask.isCurrent = true;
       this.currentTask.isDone = false;
 
@@ -823,7 +813,7 @@ export class TaskWalker extends Task {
   }
 
   public get currentTaskIndex(): number {
-    return this.currentTaskIndex_;
+    return this._currentTaskIndex;
   }
 
   public get countTasks(): number {

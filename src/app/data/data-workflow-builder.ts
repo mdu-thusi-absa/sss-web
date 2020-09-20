@@ -100,6 +100,34 @@ interface queFunction {
   ): W.Task;
 }
 
+function queChangePhysicalAddress(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'physicalAddress','Physical address')}
+function queChangePostalAddress(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'postalAddress','Postal address')}
+function _getChangeCompanyAddress(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService,
+  fieldName: string,
+  heading: string
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  _getCompany(data, taskList);
+  //show show inputText to edit
+  let updateEntityValue = new W.EntityValue(
+    data,
+    'companyKey',
+    fieldName,
+    fieldName,
+    new K.EntityAddress(data,-1,'')
+  );
+  taskList.add(G.getInputAddress(data, fieldName, heading, updateEntityValue));
+
+  _getFinaliseTask(data, taskList);
+  // create and save record, update object
+  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  return taskList.firstTask;
+}
+
+
 function queChangeDirectParentPercentOwnership(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'parentHoldingWeight','Direct parent holding weight')}
 function queChangeAbsaShareholdingInTheEntityPercent(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'clientHoldingWeight','Absa holding weight')}
 function queChangePIScore(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'piScore','PI score')}

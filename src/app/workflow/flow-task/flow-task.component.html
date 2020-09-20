@@ -81,6 +81,11 @@
         [stepNumber]="i + 1"
         [taskFlow]="t"
       ></app-flow-textarea>
+      <app-flow-address
+        *ngIf="t.type == 'address'"
+        [stepNumber]="i + 1"
+        [taskFlow]="t"
+      ></app-flow-address>
     </div>
   </ng-container>
 </app-input-panel>

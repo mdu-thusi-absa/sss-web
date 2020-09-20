@@ -138,11 +138,14 @@ export class DataService {
       } else if (fieldName.slice(-4) == 'Date') {
         if (v) {
           let d = v as Date;
-          let s = d.toISOString().slice(0,10)          
-          return s
-        }
-        else return 'Not set';
-      }else {
+          let s = d.toISOString().slice(0, 10);
+          return s;
+        } else return 'Not set';
+      } else if (fieldName.slice(-7) == 'Address') {
+        if (v) {
+          return (v as K.EntityAddress).toString()
+        } else return 'Not set';
+      } else {
         if (v != null) return v + '';
         else return 'Not set';
       }

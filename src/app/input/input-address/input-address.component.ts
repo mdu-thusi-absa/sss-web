@@ -26,7 +26,7 @@ export class InputAddressComponent implements OnInit {
   @Input() showCheck = false;
 
   //address text, country, city
-  @Input() value: [string, string, string];
+  @Input() value = {countryKey:-1,cityKey:-1,text:''}
   @Input() hideBody = true;
   @Input() isNarrow = false;
 
@@ -36,8 +36,8 @@ export class InputAddressComponent implements OnInit {
 
   countries: Entities<Entity>;
   cities: Entities<EntityCity>;
-  countryIndex = -1;
-  cityIndex = 0;
+  // countryIndex = -1;
+  // cityIndex = 0;
   countryText = '';
   cityText = '';
 
@@ -48,10 +48,10 @@ export class InputAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.data.countries
-    this.countryIndex = this.countries.currentKey
+    // this.countryIndex = this.countries.currentKey
     this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
-    if (this.countryIndex < 0) {
-      this.countryIndex = this.data.getDefault('countryKey');
+    if (this.value.countryKey < 0) {
+      this.value.countryKey = this.data.getDefault('countryKey');
     }
     
   }
@@ -96,22 +96,37 @@ export class InputAddressComponent implements OnInit {
   }
 
   getCountryIndex() {
-    if (this.countries.has(this.countryIndex)) {
+    if (this.countries.has(this.value.countryKey)) {
     } else {
-      this.countryIndex = this.countries.all_keys[0];
+      this.value.countryKey = this.countries.all_keys[0];
     }
-    return this.countryIndex;
+    return this.value.countryKey;
   }
 
   doSelectCountry(event: any) {
-    this.countryIndex = +event;
+    this.value.countryKey = +event;
     //this.cities = this.countries.get(this.countryIndex)['cities'];
     //console.log(event);
     this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
-    this.cityIndex = this.cities.currentKey    
+    this.value.cityKey = this.cities.currentKey    
   }
 
   doSelectCity(event: any) {
-    this.cityIndex = +event;
+    this.value.cityKey = +event;
   }
+
+  @Input() autoFocus = false
+  // @Input() set autoFocus(v: boolean){
+  //   this._autoFocus = v
+  //   if (v){
+  //     this.setAutoFocus()
+  //   }
+  // }
+
+  // setAutoFocus(){
+  //   let id = this.eid
+  //     setTimeout(() => {
+  //       document.getElementById(id).focus();
+  //     }, 50);
+  // }
 }

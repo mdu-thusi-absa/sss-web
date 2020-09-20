@@ -62,7 +62,7 @@
           <app-input-select-entity
             [title]="'Country'"
             [values]="countries"
-            [value]="countryIndex"
+            [value]="value.countryKey"
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"
@@ -74,13 +74,14 @@
             [showEdit] = "true"
             [showDelete] = "true"
             [showSmall]="true"
+            [autoFocus] = "autoFocus"
           ></app-input-select-entity>
 
           <!-- <div style="height: 3px;"></div> -->
           <app-input-select-entity
             [title]="'City'"
             [values]="this.cities"
-            [value]="cityIndex"
+            [value]="value.cityKey"
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"

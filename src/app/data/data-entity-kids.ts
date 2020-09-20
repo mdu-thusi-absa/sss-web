@@ -3,6 +3,7 @@ import { Entity } from './data-entity-parent';
 import * as J from './data-json';
 import { Entities, AnyEntity } from './data-entities';
 import { makeDocForName } from './doc-build';
+import { DataService } from './data.service';
 // import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class EntityTask extends Entity {
@@ -263,8 +264,8 @@ export class EntityCompany extends EntityLegal {
   appointmentKeys: number[];
   shareholderKeys: number[];
 
-  postalAddress: {}
-  physicalAddress: {}
+  postalAddress: EntityAddress
+  physicalAddress: EntityAddress
 
 
   /*TODO: to add with source
@@ -334,8 +335,8 @@ export class EntityCompany extends EntityLegal {
       ['anniversaryMonthKey', 'Anniversary  month'],
       ['businessStartDate', 'Business start date'],
       ['fyeMonthKey', 'Financial year end month'],
-      ['postalAddressKey', 'Postal address'],
-      ['physicalAddressKey', 'Physical address'],
+      ['postalAddress', 'Postal address'],
+      ['physicalAddress', 'Physical address'],
       ['suffix', 'Suffix'],
       ['regulatorKeys', 'Regulators'],
       ['portfolioKeys', 'Portfolios'],
@@ -373,27 +374,6 @@ export class EntityContact extends Entity {
     ]);
     return h;
   }
-}
-
-export class EntityPostalAddress extends Entity {
-  public entityTypeKey = EnumEntityType.PostalAddress;
-  addressTypeKey: number = 0;
-  countryKey: number = -1;
-  cityKey: number = -1;
-  textDesc = '';
-  getHeadingsMap(): Map<string, string> {
-    let h = new Map([
-      ['addressTypeKey', 'Type'],
-      ['countryKey', 'Country'],
-      ['cityKey', 'cityKey'],
-      ['textDesc', 'Text'],
-    ]);
-    return h;
-  }
-}
-
-export class EntityPhysicalAddress extends Entity {
-  public entityTypeKey = EnumEntityType.PhysicalAddress;
 }
 
 export class EntityProperty extends EntityFunctional {
@@ -727,11 +707,28 @@ export class EntityShareCertificate extends Entity {
   }
 }
 
+export class EntityAddress extends Entity{
+  constructor(public data: DataService,public cityKey:number,public text: ''){
+    super('address')
+  }
+  toString(){
+    return this.country.name + ', ' + this.city.name + ', ' + this.text
+  } 
+  get countryKey(){
+    return this.city.countryKey
+  }
+  get country():Entity{
+    return this.data.getEntities(EnumEntityType.Country).get(this.countryKey) as Entity
+  }
+  get city(): EntityCity{
+    return this.data.getEntities(EnumEntityType.City).get(this.cityKey) as EntityCity
+  }
+}
+
 //#getInitEntities#//
 function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.AccountingClass: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.AccountingClassTier: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.PostalAddress: return new Entities<EntityPostalAddress>(EntityPostalAddress); break;
 	case EnumEntityType.Appointment: return new Entities<EntityAppointment>(EntityAppointment); break;
 	case EnumEntityType.Auditor: return new Entities<EntityAuditor>(EntityAuditor); break;
 	case EnumEntityType.BusinessArea: return new Entities<Entity>(Entity); break;
@@ -800,7 +797,6 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.Task: return new Entities<EntityTemplate>(EntityTemplate); break;
 	case EnumEntityType.DestinationType: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.RegulatorType: return new Entities<Entity>(Entity); break;
-	case EnumEntityType.PhysicalAddress: return new Entities<EntityPhysicalAddress>(EntityPhysicalAddress); break;
 	case EnumEntityType.Workflow: return new Entities<EntityWorkflow>(EntityWorkflow); break;
 	case EnumEntityType.WorkflowForParent: return new Entities<EntityWorkflow>(EntityWorkflow); break;
 	case EnumEntityType.DirectorType: return new Entities<Entity>(Entity); break;
