@@ -185,10 +185,12 @@ export function getInputText(
   data: DataService,
   fieldName: string,
   heading: string,
-  valueEntity: W.EntityValue
+  valueEntity: W.EntityValue,
+  mustChange: boolean
 ): W.TaskText {
   let a = new W.TaskText(data, fieldName);
   a.name = heading;
+  a.mustChange = mustChange
   a.targetsOfChange.push(valueEntity)
   return a;
 }

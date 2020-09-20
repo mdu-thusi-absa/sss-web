@@ -47,7 +47,7 @@
   >
     <div class="container-flex">
       <div class="row">
-        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="col-xl-12 col-sm-12 col-md-12 col-lg-6">
           <app-input-textarea
             [title]="'Address'"
             [placeholder]="'Apartment, Building, Street, suburb'"
@@ -60,8 +60,7 @@
             [autoFocus] = "autoFocus"
           ></app-input-textarea>
         </div>
-        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
-          
+        <div class="col-xl-12 col-sm-12 col-md-12 col-lg-6">
           <app-input-select-entity
             [title]="'Country'"
             [values]="countries"
@@ -78,8 +77,6 @@
             [showDelete] = "true"
             [showSmall]="true"
           ></app-input-select-entity>
-
-          <!-- <div style="height: 3px;"></div> -->
           <app-input-select-entity
             [title]="'City'"
             [values]="this.cities"

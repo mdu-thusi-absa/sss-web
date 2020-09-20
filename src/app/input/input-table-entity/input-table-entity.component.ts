@@ -44,19 +44,11 @@ export class InputTableEntityComponent implements OnInit {
   }
 
   notify(){
-    //console.log('need to update');
     this.loadValues()
   }
 
   ngOnInit(): void {
-    // this.entities.forEach((value, key, map) => {
-    //   this.hideEditRow.set(key, true);
-    //   this.isChecked.set(key,false);
-    // });
-    // console.log(this.entity_,this.entity_.type);
-    // this.entityTypeKey = this.entity_.type
     this.headingsMap = this.entity.headingsMap;
-    // console.log(this.entityTypeKey);
     this.headings = Array.from(this.headingsMap.values());
     this.fields = Array.from(this.headingsMap.keys());
     this.countFiltered = this.headings.length;
@@ -65,7 +57,6 @@ export class InputTableEntityComponent implements OnInit {
 
   loadValues() {
     if (this.entity) {
-      // this.entity_.event.addListener('change',(e)=>{console.log(e)})
       this.values = [];
       for (let i = 0; i < this.fields.length; i++) {
         this.values.push(this.getFieldValue(this.fields[i]));

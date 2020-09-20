@@ -1,5 +1,5 @@
 <app-input-panel
-  [title]="stepNumber + '. ' + taskFlow.name + ': ' + getValueString()"
+  [title]="stepNumber + '.' + taskFlow.name + ': ' + getValueString()"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
@@ -19,6 +19,6 @@
         >error_outline</mat-icon
       >
     </div>
-    <div style="display: inline-block;vertical-align: top;"> {{ taskFlow.errorMessage }}</div>
+    <div style="display: inline-block;vertical-align: top;padding-left:2px;padding-top:2px"> {{ taskFlow.errorMessage }}</div>
   </div>
 </app-input-panel>

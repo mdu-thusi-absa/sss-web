@@ -71,6 +71,12 @@ export class FlowSelectComponent implements OnInit {
     }
   }
 
+  get choiceIndex(){
+    try{
+      return this.taskFlow.values.all_keys.indexOf(this.taskFlow.value) + 1
+    }catch(e){return 0}
+  }
+
   doChange(event: any) {
     this.taskFlow.errorMessage = '';
     this.taskFlow.value = +event;

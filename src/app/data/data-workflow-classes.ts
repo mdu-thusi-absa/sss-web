@@ -88,6 +88,7 @@ export class Task {
   private actionEntityName_ = '';
   private actionObjectName_ = '';
   private workflowValuesObject_ = {};
+  protected initialValue: any;
   get workflowValuesObject(): object {
     return this.workflowValuesObject_;
   }
@@ -119,8 +120,11 @@ export class Task {
   constructor(protected data: DataService, public fieldName) {}
   init(): boolean {
     this.isDone = false;
+    this.errorMessage = '';
+
     if (this.targetsOfChange.length > 0)
       this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
+    this.initialValue = this.value;
     return true;
   } // to be implemented by child classes, if they need to initialise data
   /*
@@ -260,7 +264,8 @@ export class TaskConfirm extends Task {
 export class TaskText extends Task {
   type = 'text';
   value: '';
-  ensure = false;
+  required = false;
+  mustChange = false;
   minLen = 3; //value must be true to move on
   maxLen = 100;
   //defaultValue = false;
@@ -269,7 +274,7 @@ export class TaskText extends Task {
     return super.init();
   }
   verify(): boolean {
-    if (this.ensure && !this.value) {
+    if (this.required && !this.value) {
       this.errorMessage = this.name + ' is required';
       return false;
     } else if (this.value.length < this.minLen) {
@@ -277,6 +282,9 @@ export class TaskText extends Task {
       return false;
     } else if (this.value.length > this.maxLen) {
       this.errorMessage = this.name + ' is too long';
+      return false;
+    } else if (this.mustChange && this.value === this.initialValue) {
+      this.errorMessage = this.name + ' did not change';
       return false;
     } else {
       this.errorMessage = '';
@@ -288,7 +296,7 @@ export class TaskText extends Task {
 export class TaskAddress extends Task {
   type = 'address';
   value: EntityAddress;
-  ensure = false;
+  ensure = true;
   defaultValue = false;
 
   init(): boolean {
@@ -455,23 +463,26 @@ export class EntityValue {
   }
 
   save(sourceValuesObject: object) {
-    if (this.entityKeyFieldName && this.sourceValuesObject_FieldName) {
-      let entity = this._getEntity(sourceValuesObject);
-      if (this.sourceValuesObject_FieldName)
-        entity.setValue(
-          this.entityFieldName,
-          sourceValuesObject[this.sourceValuesObject_FieldName]
+    if (_hasToBeSaved(this.entityKeyFieldName)) {
+      if (this.sourceValuesObject_FieldName) {
+        let entity = this._getEntity(sourceValuesObject);
+          entity.setValue(
+            this.entityFieldName,
+            sourceValuesObject[this.sourceValuesObject_FieldName]
+          );
+      } else {
+        this._log(
+          'sourceValuesObject_FieldName was not provided',
+          {
+            sourceValuesObject_FieldName: this.sourceValuesObject_FieldName,
+            sourceValuesObject,
+          }
         );
-      else this._log('sourceFieldName is not provided');
-    } else {
-      this._log(
-        'either entityKeyFieldName or sourceValuesObject_FieldName was not provided',
-        {
-          entityKeyFieldName: this.entityKeyFieldName,
-          sourceValuesObject_FieldName: this.sourceValuesObject_FieldName,
-          sourceValuesObject,
-        }
-      );
+      }
+    }
+
+    function _hasToBeSaved(prividedSetting:string){
+      return (prividedSetting.length>0)
     }
   }
 
@@ -602,36 +613,15 @@ export class TaskWalker extends Task {
     this.moveToNext();
     return true;
   }
-  public loopFromQue() {
-    //todo: test
-    let q = this.que.pop();
-    this.tasks.push(q);
-    this.currentTask = q;
-    this.currentTask.isCurrent = true;
-    this._currentTaskIndex++;
-    return this._buildNext(this.currentTask);
-  }
-
-  private _buildNext_addSubtask(fromTask, subTaskIndex: number): Task {
-    let t = fromTask.subTasks[subTaskIndex].taskFlow;
-    t.workflowValuesObject = this._collectValues();
-    t.init();
-    this.tasks.push(t);
-    return t;
-  }
-
-  private _buildNext_canBeBuiltOn(task: Task): boolean {
-    return task.isDone && task.subTasks.length > 0;
-  }
-  private _buildNext_checkIfConditionalBuildHasAdded(
-    parent: Task,
-    notAdded: boolean
-  ) {
-    if (notAdded)
-      parent.errorMessage =
-        'No further steps are available for this option, please select another one';
-    else parent.errorMessage = '';
-  }
+  // public loopFromQue() {
+  //   //todo: test
+  //   let q = this.que.pop();
+  //   this.tasks.push(q);
+  //   this.currentTask = q;
+  //   this.currentTask.isCurrent = true;
+  //   this._currentTaskIndex++;
+  //   return this._buildNext(this.currentTask);
+  // }
 
   private _buildNext(fromTask: Task): boolean {
     if (this._currentTaskIndex == this.tasks.length - 1) {
@@ -642,26 +632,11 @@ export class TaskWalker extends Task {
             this.actionObjectName = fromTask.actionObjectName;
           if (fromTask.actionEntityName)
             this.actionEntityName = fromTask.actionEntityName;
-          this.entity = fromTask.entity;
         }
         fromTask.workflowValuesObject = this._collectValues();
-        // if (fromTask.init()) {
-        //let t = fromTask;
-        // while (!t.hasFork && t.subTasks.length>0 && t.entityFieldKey=='') {
-        //   t = t.subTasks[0].taskFlow;
-        //   t.workflowValuesObject = this.collectValues();
-        //   t.init();
-        //   this.tasks.push(t);
-        // }
-        //   console.log(
-        //     fromTask.isDone,
-        //     fromTask.hasFork,
-        //     fromTask.subTasks.length
-        //   );
-        if (this._buildNext_canBeBuiltOn(fromTask)) {
-          // console.log(0);
+        if (_canBeBuiltOn(fromTask)) {
           if (!fromTask.hasFork) {
-            this._buildNext_addSubtask(fromTask, 0);
+            _addSubtask(this, fromTask, 0);
           } else {
             // next task with conditions
             let notAdded = true;
@@ -671,27 +646,46 @@ export class TaskWalker extends Task {
                   fromTask.workflowValuesObject
                 )
               ) {
-                let t = this._buildNext_addSubtask(fromTask, i);
+                let t = _addSubtask(this, fromTask, i);
                 this._buildNext(t);
                 notAdded = false;
                 break;
               }
             }
-            this._buildNext_checkIfConditionalBuildHasAdded(fromTask, notAdded);
+            _checkIfConditionalBuildHasAdded(fromTask, notAdded);
           }
         } else if (fromTask.isDone) {
           this._saveToTargetObject();
           this.start();
-          // this.currentTaskIndex_ = 0
-          // this.tasks.slice(0,1)
         }
-        // }
-
         return true;
       }
       return false;
     }
     return true;
+
+    function _addSubtask(
+      that: TaskWalker,
+      fromTask,
+      subTaskIndex: number
+    ): Task {
+      let t = fromTask.subTasks[subTaskIndex].taskFlow;
+      t.workflowValuesObject = that._collectValues();
+      t.init();
+      that.tasks.push(t);
+      return t;
+    }
+
+    function _canBeBuiltOn(task: Task): boolean {
+      return task.isDone && task.subTasks.length > 0;
+    }
+
+    function _checkIfConditionalBuildHasAdded(parent: Task, notAdded: boolean) {
+      if (notAdded)
+        parent.errorMessage =
+          'No further steps are available for this option, please select another one';
+      else parent.errorMessage = '';
+    }
   }
 
   private _collectValues(): object {
@@ -731,33 +725,19 @@ export class TaskWalker extends Task {
   }
 
   private _saveToTargetObject() {
-    //TODO: implement the amendment
-    //create RecordUpdate and entity.update(recordUpdate)
     this.workflowValuesObject = this._collectValues();
     this.targetsOfChange = this._collectTargetOfChange();
 
     this.targetsOfChange.forEach((target) => {
       target.save(this.workflowValuesObject);
     });
-
-    // console.log(this.entity);
-    //let recordUpdate = new RecordUpdate();
-    //this.entity.updateFieldValue(recordUpdate);
-    // }
   }
 
   private _moveToNext_DoCurrentTaskAfterBuild() {
     this.entity = this.currentTask.entity;
     if (this._moreTasksToDo()) {
-      //TODO: save workflow state to DB
       this._moveToNextTask();
-    } else {
-      //console.log(this.workflowValuesObject);
     }
-    //TODO: implement skip a task. Not needed at the moment
-    // if (this.currentTask.skip) {
-    //   // console.log(this.tasks);
-    // }
   }
 
   private _moveToNext_DoVerified(): Task {
@@ -792,7 +772,7 @@ export class TaskWalker extends Task {
     if (this.currentTask.parent) {
       this.currentTask.isDone = false;
       this.currentTask.isCurrent = false;
-      let parentValue = this.currentTask.parent.value
+      let parentValue = this.currentTask.parent.value;
       if (this.currentTask.actionEntityName) this.actionEntityName = '';
       if (this.currentTask.actionName) this.actionName = '';
       if (this.currentTask.actionObjectName) this.actionObjectName = '';
@@ -800,7 +780,7 @@ export class TaskWalker extends Task {
       this.currentTask = this.tasks[this._currentTaskIndex];
       this.currentTask.init();
       this.currentTask.isCurrent = true;
-      this.currentTask.value = parentValue
+      this.currentTask.value = parentValue;
       this.tasks = this._deleteSubsequentTasks();
       return this.currentTask;
     }

@@ -145,7 +145,11 @@ export class DataService {
         } else return '';
       } else if (fieldName.slice(-7) == 'Address') {
         if (v) {
-          return v
+          let a = new K.EntityAddress(this);
+          a.cityKey = v.cityKey
+          a.countryKey = v.countryKey
+          a.text = v.text
+          return a
         } else return new K.EntityAddress(this);
       } else {
         if (v != null) return v + '';

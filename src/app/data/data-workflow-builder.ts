@@ -200,7 +200,7 @@ function queChangeSelectionCountryOfIncorporation(parentEntity: K.EntityWorkflow
   let updateEntityValue_Country = new W.EntityValue(data,'companyKey','countryKey','countryKey','');
   let updateEntityValue_Suffix = new W.EntityValue(data,'companyKey','suffix','suffix','');
   taskList.add(G.getInputSelection(data, 'countryKey', 'Country of incorporation', updateEntityValue_Country,E.EnumEntityType.Country));
-  taskList.add(G.getInputText(data, 'suffix', 'Suffix', updateEntityValue_Suffix));
+  taskList.add(G.getInputText(data, 'suffix', 'Suffix', updateEntityValue_Suffix,false));
 
 
   _getFinaliseTask(data, taskList);
@@ -373,7 +373,7 @@ function _getChangeCompanyText(
     fieldName,
     ''
   );
-  taskList.add(G.getInputText(data, fieldName, heading, updateEntityValue));
+  taskList.add(G.getInputText(data, fieldName, heading, updateEntityValue,true));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
@@ -541,7 +541,8 @@ function queAppointmentDirector(
       data,
       'regulatorSubmissionCode',
       'Regulator code for submission',
-      new W.EntityValue(data, '', '', '', '')
+      new W.EntityValue(data, '', '', '', ''),
+      true
     )
   );
   taskList.add(
@@ -612,71 +613,71 @@ function _getAuthorisation(data: DataService, taskList: G.TaskList) {
   );
 }
 
-function queAdoptNewMOI(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
-function queAmendJVAgreement(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
-function queAmendTrustDeed(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
-function queChangeArticleOfTheMOI(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
-function queChangeLocationOfRecords(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
-function queChangeMainBusiness(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
-function queChangeRegisteredAddress(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
+// function queAdoptNewMOI(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
+// function queAmendJVAgreement(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
+// function queAmendTrustDeed(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
+// function queChangeArticleOfTheMOI(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
+// function queChangeLocationOfRecords(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
+// function queChangeMainBusiness(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
+// function queChangeRegisteredAddress(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
 
-function queChangeFinancialYearEnd(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
+// function queChangeFinancialYearEnd(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
 
-function queChangeRingFencingConditionsInMOI(
-  parentEntity: K.EntityWorkflow,
-  parentTask: W.Task,
-  data: DataService
-) {
-  return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-}
+// function queChangeRingFencingConditionsInMOI(
+//   parentEntity: K.EntityWorkflow,
+//   parentTask: W.Task,
+//   data: DataService
+// ) {
+//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
+// }
 
 function queChangeAnyDetails(
   parentEntity: K.EntityWorkflow,

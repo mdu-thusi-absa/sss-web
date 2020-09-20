@@ -15,14 +15,14 @@
       href="#"
       [attr.id]="'dropdown-button-' + eid"
       class="btn btn-sm"
-      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;color:gray"
+      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;color:gray;padding-left:4px;padding-right:5px"
       [class.a-width-buttons]="showDelete || showEdit || showAdd"
       [style.border]="showDelete || showEdit || showAdd ? '1px white' : 'none'"
       (click)="doModal($event)"
       data-toggle="modal"
       [attr.data-target]="'#dropdown-' + eid"
       title = 'Hit to select another item'
-      ><span class="caret" style="margin-right: 5px;"></span>{{ value }}
+      ><span class="caret" style="margin-right: 2px;"></span>{{ value }}
       <!-- 1px solid <div class="pull-right"><span class="caret"></span></div> -->
     </a>
   <div class="input-group-sm pull-right">
