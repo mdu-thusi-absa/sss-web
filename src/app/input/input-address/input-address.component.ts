@@ -92,12 +92,10 @@ export class InputAddressComponent implements OnInit {
   }
 
   doChangeCountry(event: any) {
-    console.log(event);
     this.value.countryKey = +event
   }
 
   doChangeCity(event: any) {
-    console.log(event);
     this.value.cityKey = +event;
   }
 

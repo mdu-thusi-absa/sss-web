@@ -118,6 +118,9 @@ export class Task {
   }
   constructor(protected data: DataService, public fieldName) {}
   init(): boolean {
+    this.isDone = false;
+    if (this.targetsOfChange.length > 0)
+      this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
     return true;
   } // to be implemented by child classes, if they need to initialise data
   /*
@@ -158,7 +161,11 @@ export class TaskSelect extends Task {
   thisEntityNameIsObjectName = false;
 
   canMoveOn(): boolean {
-    if (this.values.size == 1) return true;
+    if (this.values.size == 1) {
+      // this.value = this.values.firstKey
+      // this.isDone = true
+      return true;
+    }
     return false;
   }
   get actionEntityName(): string {
@@ -206,6 +213,7 @@ export class TaskSelect extends Task {
     }
   }
   init(): boolean {
+    super.init();
     if (this._init_needs_update()) {
       this.values = this.data.getEntities(
         this.sourceType,
@@ -232,11 +240,11 @@ export class TaskConfirm extends Task {
   type = 'confirm';
   value = false;
   ensure = true; //value must be true to move on
-  defaultValue = false;
+  //TODO: replace with EntityValue
+  //defaultValue = false;
 
   init(): boolean {
-    this.value = this.defaultValue;
-    return true;
+    return super.init();
   }
   verify(): boolean {
     if (this.ensure && !this.value) {
@@ -255,12 +263,10 @@ export class TaskText extends Task {
   ensure = false;
   minLen = 3; //value must be true to move on
   maxLen = 100;
-  defaultValue = false;
+  //defaultValue = false;
 
   init(): boolean {
-    // this.value = this.defaultValue;
-    this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
-    return true;
+    return super.init();
   }
   verify(): boolean {
     if (this.ensure && !this.value) {
@@ -286,9 +292,7 @@ export class TaskAddress extends Task {
   defaultValue = false;
 
   init(): boolean {
-    // this.value = this.defaultValue;
-    this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
-    return true;
+    return super.init();
   }
   verify(): boolean {
     if (this.ensure) {
@@ -318,8 +322,7 @@ export class TaskNumber extends Task {
   defaultValue = false;
 
   init(): boolean {
-    this.value = this.targetsOfChange[0].getValue(this.workflowValuesObject);
-    return true;
+    return super.init();
   }
   verify(): boolean {
     if (this.ensure && this.value.length == 0) {
@@ -439,7 +442,7 @@ export class EntityValue {
     if (this.entityKeyFieldName && this.sourceValuesObject_FieldName) {
       let entity = this._getEntity(sourceValuesObject);
       let v = this.data.getEntityFieldValue(entity, this.entityFieldName);
-      
+
       return v;
     } else {
       return this.defaultValue;
@@ -461,7 +464,14 @@ export class EntityValue {
         );
       else this._log('sourceFieldName is not provided');
     } else {
-      this._log('either targetKeyName or targetFieldName was not provided');
+      this._log(
+        'either entityKeyFieldName or sourceValuesObject_FieldName was not provided',
+        {
+          entityKeyFieldName: this.entityKeyFieldName,
+          sourceValuesObject_FieldName: this.sourceValuesObject_FieldName,
+          sourceValuesObject,
+        }
+      );
     }
   }
 
@@ -500,6 +510,7 @@ export class TaskForm extends Task {
   }
 
   init(): boolean {
+    super.init();
     if (this.inputObject) {
       if (this.inputs.length == 0) {
         _init_formInputs();
@@ -562,23 +573,33 @@ export class TaskWalker extends Task {
     this.rootTask = taskFlow;
   }
 
+  init(): boolean {
+    this.actionEntityName = '';
+    this.actionName = '';
+    this.actionObjectName = '';
+    this.entity = null;
+    this.workflowValuesObject = {};
+    return true;
+  }
   // loads the rootTask, and builds the obvious branch, until the first fork
   public start(): boolean {
-    this.tasks.forEach((t) => {
-      t.isDone = false;
-    });
+    this.init();
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
-    this.actionEntityName = '';
-    this.actionObjectName = '';
-    this.entity = null;
-    this.actionName = '';
-    this.workflowValuesObject = {};
+    // this.actionEntityName = '';
+    // this.actionObjectName = '';
+    // this.entity = null;
+    // this.actionName = '';
+    // this.workflowValuesObject = {};
     if (this.currentTask) this._currentTaskIndex = 0;
-    this.rootTask.init();
+    //this.rootTask.init();
+    this.tasks.forEach((t) => {
+      //t.isDone = false;
+      t.init();
+    });
     this._buildNext(this.rootTask);
-    if (this.currentTask.canMoveOn()) this.moveToNext();
+    this.moveToNext();
     return true;
   }
   public loopFromQue() {
@@ -748,13 +769,10 @@ export class TaskWalker extends Task {
   }
 
   public moveToNext(): Task {
-    let r = this._moveToNext();
-    while (this.currentTask.canMoveOn()) {
-      let numberOfTasks = this.tasks.length;
-      r = this._moveToNext();
-      if (numberOfTasks == this.tasks.length) break;
-    }
-    return r;
+    do {
+      this._moveToNext();
+    } while (this.currentTask.canMoveOn());
+    return this.currentTask;
   }
 
   private _moveToNext(): Task {
@@ -774,38 +792,16 @@ export class TaskWalker extends Task {
     if (this.currentTask.parent) {
       this.currentTask.isDone = false;
       this.currentTask.isCurrent = false;
+      let parentValue = this.currentTask.parent.value
       if (this.currentTask.actionEntityName) this.actionEntityName = '';
       if (this.currentTask.actionName) this.actionName = '';
       if (this.currentTask.actionObjectName) this.actionObjectName = '';
       this._currentTaskIndex--;
-      // this.tasks = this.tasks.slice(0,this.currentTaskIndex_); //delete
       this.currentTask = this.tasks[this._currentTaskIndex];
+      this.currentTask.init();
       this.currentTask.isCurrent = true;
-      this.currentTask.isDone = false;
-
-      //this.currentTask.init()
-      //   console.log(
-      //     this.currentTask.name,
-      //     this.currentTask.hasFork,
-      //     this.currentTask.actionEntityName,
-      //     this.currentTask.actionName
-      //   );
-
-      // if (
-      //   this.currentTask.hasFork ||
-      //   this.currentTask.actionEntityName.length > 0 ||
-      //   this.currentTask.actionName.length > 0 ||
-      //   this.currentTask.actionObjectName.length > 0
-      // ) {
-      //delete all subsequent tasks
+      this.currentTask.value = parentValue
       this.tasks = this._deleteSubsequentTasks();
-      // }
-
-      // if (this.currentTask.subTasks.length > 1) {
-      //   let v = this.tasks.slice(0, this.currentTaskIndex_ + 1);
-      //   this.tasks = v;
-      //   this.build(this.currentTask);
-      // }
       return this.currentTask;
     }
     return null;
@@ -819,7 +815,3 @@ export class TaskWalker extends Task {
     return this.tasks.length;
   }
 }
-
-// export class TaskFile {
-//   constructor(public fieldName: string, public heading) {}
-// }

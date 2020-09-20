@@ -238,7 +238,7 @@ export class EntityCompany extends EntityLegal {
   leiCode: string = '';
   reutersCode: string = '';
   prevName: string;
-  regulatoryClientCode = '';
+  regulatorClientCode = '';
 
   parentHoldingWeight: number = 0;
   clientHoldingWeight: number = 0;
@@ -330,7 +330,7 @@ export class EntityCompany extends EntityLegal {
       ['currNameEffDate', 'Current name effective date'],
       ['prevName', 'Previous name'],
       ['prevNameEffDate', 'Previous name effective date'],
-      ['regulatoryClientCode', 'Regulator client code'],
+      ['regulatorClientCode', 'Regulator client code'],
       ['incorporationDate', 'Incorporation date'],
       ['anniversaryMonthKey', 'Anniversary  month'],
       ['businessStartDate', 'Business start date'],

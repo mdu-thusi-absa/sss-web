@@ -354,6 +354,7 @@ function queChangeISINCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,dat
 function queChangeLEINumber_Bloomberg(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leiCode','LEI number (Bloomberg)')}
 function queChangeReutersCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'reutersCode','Reuters code')}
 function queChangeSuffix(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'suffix','Suffix')}
+function queChangeRegulatorClientCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'regulatorClientCode','Regulator client code')}
 
 function _getChangeCompanyText(
   parentEntity: K.EntityWorkflow,
@@ -391,12 +392,8 @@ function queAppointmentDirector(
 
   taskList.add(G.getDirectorType(data));
 
-  taskList.add(
-    G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false)
-  );
-
+  taskList.add(G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false));
   taskList.add(G.getAppointmentAction(data));
-
   taskList.add(G.getIndividualEmployeeStatus(data));
 
   let secreatryDownFileList = new Entities<K.EntityFileDownload>(

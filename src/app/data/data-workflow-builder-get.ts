@@ -49,12 +49,13 @@ export function getConfirm(
   data: DataService,
   fieldName: string,
   heading: string,
-  startValue: boolean,
+  defaultValue: boolean,
   ensureValueIsTrue: boolean
 ): W.TaskConfirm {
   let a = new W.TaskConfirm(data, fieldName);
   a.name = heading;
-  a.defaultValue = startValue
+  let entityValue = new W.EntityValue(data,'','','',defaultValue)
+  a.targetsOfChange.push(entityValue)
   a.ensure = ensureValueIsTrue
   return a;
 }

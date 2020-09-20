@@ -18,7 +18,7 @@ import { TaskSelect } from 'src/app/data/data-workflow-classes';
 export class FlowSelectComponent implements OnInit {
   @Input() taskFlow: TaskSelect;
   //@Input() values: Entities<EveryEntity>; // = new Entities<EveryEntity>();
-  @Input() value = 0;
+  //@Input() value = 0;
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
   @Input() stepNumber = 1;
@@ -27,14 +27,14 @@ export class FlowSelectComponent implements OnInit {
   @ViewChild('inputFilter') inputFilter: ElementRef;
   // message = ''
   showSelect = true;
-  choiceValue = '';
+  //choiceValue = '';
 
   constructor(public data: DataService) {}
 
   ngOnInit(): void {
     //this.values = this.data.getEntities(this.taskFlow.sourceType);
-    this.value = this.taskFlow.values.firstKey;
-    this.taskFlow.value = this.value;
+    //this.value = this.taskFlow.values.firstKey;
+    //this.taskFlow.value = this.value;
 
     // this.showSelect = true
     // this.showSaveNext = true
@@ -43,7 +43,7 @@ export class FlowSelectComponent implements OnInit {
 
     if (this.taskFlow.values.size > 0) {
       //this.message = 'Only one choice is available. Automaticaly going forward'
-      this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name;
+      //this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name;
       if (this.taskFlow.values.size == 1)
         setTimeout(() => {
           this.doSaveNext();
@@ -63,17 +63,24 @@ export class FlowSelectComponent implements OnInit {
   //   }, 0);
   // }
 
+  get choiceValue() {
+    try {
+      return this.taskFlow.values.get(this.taskFlow.value).name;
+    } catch (e) {
+      return '';
+    }
+  }
+
   doChange(event: any) {
     this.taskFlow.errorMessage = '';
-    this.value = +event;
-    this.taskFlow.value = this.value;
-    this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name;
-    this.onChange.emit(this.value);
+    this.taskFlow.value = +event;
+    //this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name;
+    this.onChange.emit(this.taskFlow.value);
   }
 
   doSaveNext() {
-    this.taskFlow.value = +this.value;
-    this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name;
+    // this.taskFlow.value = +this.value;
+    // this.choiceValue = this.taskFlow.values.get(this.taskFlow.value).name;
     this.onSaveNext.emit();
   }
 
@@ -88,19 +95,19 @@ export class FlowSelectComponent implements OnInit {
   doNextValue() {
     if (this.taskFlow.isCurrent) {
       let keys = this.taskFlow.values.all_keys;
-      let i = keys.indexOf(this.value);
-      if (this.value == this.taskFlow.values.lastKey)
+      let i = keys.indexOf(this.taskFlow.value);
+      if (this.taskFlow.value == this.taskFlow.values.lastKey)
         this.doChange(this.taskFlow.values.firstKey);
       else this.doChange(keys[i + 1]);
     }
   }
   doPrevValue() {
-    if (this.taskFlow.isCurrent){
-    let keys = this.taskFlow.values.all_keys;
-    let i = keys.indexOf(this.value);
-    if (this.value == this.taskFlow.values.firstKey)
-      this.doChange(this.taskFlow.values.lastKey);
-    else this.doChange(keys[i - 1]);
+    if (this.taskFlow.isCurrent) {
+      let keys = this.taskFlow.values.all_keys;
+      let i = keys.indexOf(this.taskFlow.value);
+      if (this.taskFlow.value == this.taskFlow.values.firstKey)
+        this.doChange(this.taskFlow.values.lastKey);
+      else this.doChange(keys[i - 1]);
     }
   }
 }

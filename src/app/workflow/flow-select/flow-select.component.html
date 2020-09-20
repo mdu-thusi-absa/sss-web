@@ -9,7 +9,7 @@
   <app-input-select-entity
     [hidden]="taskFlow.errorMessage != ''"
     [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
-    [value]="value"
+    [value]="taskFlow.value"
     [values]="taskFlow.values"
     [showSmall]="true"
     (onChange)="doChange($event)"
