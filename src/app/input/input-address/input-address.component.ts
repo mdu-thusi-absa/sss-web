@@ -94,10 +94,15 @@ export class InputAddressComponent implements OnInit {
 
   doChangeCountry(event: any) {
     this.value.countryKey = +event
+    this.cities = this.value.cities
+    this.onChange.emit(this.value)
   }
 
   doChangeCity(event: any) {
+    console.log(event);
     this.value.cityKey = +event;
+    console.log(this.value);
+    this.onChange.emit(this.value)
   }
 
   getCountryIndex() {
@@ -105,19 +110,19 @@ export class InputAddressComponent implements OnInit {
     return this.countries.all_keys[0];
   }
 
-  cityKey = -1
-  doSelectCountry(event: any) {
-    this.value.countryKey = +event
-    this.cities = this.value.cities
-    this.cityKey = this.value.cityKey
-    this.onChange.emit(this.value)
-  }
+  
+  // doSelectCountry(event: any) {
+  //   this.value.countryKey = +event
+  //   this.cities = this.value.cities
+  //   this.cityKey = this.value.cityKey
+  //   this.onChange.emit(this.value)
+  // }
 
-  doSelectCity(event: any) {
-    this.value.cityKey = +event;
-    console.log(this.value);
-    this.onChange.emit(this.value)
-  }
+  // doSelectCity(event: any) {
+  //   this.value.cityKey = +event;
+  //   console.log(this.value);
+  //   this.onChange.emit(this.value)
+  // }
 
   doChangeText(event:string){
     this.value.text = event

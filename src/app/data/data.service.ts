@@ -146,9 +146,8 @@ export class DataService {
       } else if (fieldName.slice(-7) == 'Address') {
         if (v) {
           let a = new K.EntityAddress(this);
-          a.cityKey = v.cityKey
-          a.countryKey = v.countryKey
           a.text = v.text
+          a.cityKey = v.cityKey
           return a
         } else return new K.EntityAddress(this);
       } else {

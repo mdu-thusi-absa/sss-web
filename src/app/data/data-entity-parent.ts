@@ -65,6 +65,7 @@ export class Entity {
   }
 
   setValue(fieldName:string,value: any){
+    console.log(value);
     this[fieldName] = value
     this.notify()
   }

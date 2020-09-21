@@ -70,7 +70,7 @@
             [showCD]="false"
             (onEdit)="doEditCountry($event)"
             (onAdd)="doAddCountry($event)"
-            (onSelect)="doSelectCountry($event)"
+            (onSelect)="doChangeCountry($event)"
             (onChange) = "doChangeCountry($event)"
             [showAdd] = "true"
             [showEdit] = "true"
@@ -80,7 +80,7 @@
           <app-input-select-entity
             [title]="'City'"
             [values]="this.cities"
-            [value]="this.cityKey"
+            [value]="value.cityKey"
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"

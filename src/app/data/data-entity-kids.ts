@@ -719,6 +719,7 @@ export class EntityAddress extends Entity {
   }
   set cityKey(v: number){
     this._cityKey = v
+    this._countryKey = this.city.countryKey
   }
 
   set countryKey(v:number){
