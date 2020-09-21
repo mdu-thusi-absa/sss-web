@@ -19,6 +19,12 @@ export class FlowTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.workFlow = this.data.workFlow;
+    this.workFlow.notifyIs = true
+  }
+
+
+  doSync(event: boolean){
+    this.workFlow.notifyIs = event
   }
 
   doShowAll(event: boolean){

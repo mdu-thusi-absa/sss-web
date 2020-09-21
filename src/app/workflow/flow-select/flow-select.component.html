@@ -1,10 +1,11 @@
 <app-input-panel
-  [title]="stepNumber + '.' + taskFlow.name + (choiceIndex>0?(' - ' + choiceIndex + (choiceValue ? '.' + choiceValue : '')):'')"
+  [title]="stepNumber + '.' + taskFlow.name +  (choiceValue ? ' - ' + choiceValue : '')"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
   (document:keydown.control.arrowright)="doNextValue()"
   (document:keydown.control.arrowleft)="doPrevValue()"
+  [maxHeight] = "0"
 >
   <app-input-select-list
     [hidden]="taskFlow.errorMessage != ''"

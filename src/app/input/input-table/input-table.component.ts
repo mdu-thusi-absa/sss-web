@@ -86,7 +86,6 @@ export class InputTableComponent implements OnInit {
       if (this.hideEditRow.has(key)) visible = this.hideEditRow.get(key);
       visible = !visible;
       this.hideEditRow.set(key, visible);
-      console.log('doEntityChoose');
       this.onDrill.emit(key);
   }
 

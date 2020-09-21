@@ -24,8 +24,6 @@ export class FlowMessageComponent implements OnInit {
   }
 
   doSaveNext(){
-    console.log(1);
-    
     this.onSaveNext.emit();
   }
 

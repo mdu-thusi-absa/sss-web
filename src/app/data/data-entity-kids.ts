@@ -295,7 +295,7 @@ export class EntityCompany extends EntityLegal {
       ['consolidateUnder', 'Consolidate under (Bank/Group)'],
       ['accountingClassKey', 'Accounting classification'],
       ['accountingClassTierKey', 'Accounting classification tiering'],
-      ['parentHoldingWeight', 'Parent shareholding in the entity – %'],
+      ['parentHoldingWeight', 'Direct parent shareholding in the entity – %'],
       ['clientHoldingWeight', 'Absa shareholding in the entity – %'],
       ['groupCompanyIs', 'Absa group company'],
       [

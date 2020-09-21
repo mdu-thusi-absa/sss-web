@@ -100,8 +100,8 @@ interface queFunction {
   ): W.Task;
 }
 
-function queChangePhysicalAddress(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'physicalAddress','Physical address')}
-function queChangePostalAddress(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'postalAddress','Postal address')}
+function queChangeAddressPhysical(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'physicalAddress','Physical address')}
+function queChangeAddressPostal(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'postalAddress','Postal address')}
 function _getChangeCompanyAddress(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -128,9 +128,9 @@ function _getChangeCompanyAddress(
 }
 
 
-function queChangeDirectParentPercentOwnership(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'parentHoldingWeight','Direct parent holding weight')}
-function queChangeAbsaShareholdingInTheEntityPercent(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'clientHoldingWeight','Absa holding weight')}
-function queChangePIScore(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'piScore','PI score')}
+function queChangeWeightDirectParentPercentOwnership(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'parentHoldingWeight','Direct parent holding weight')}
+function queChangeWeightAbsaShareholdingInTheEntityPercent(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'clientHoldingWeight','Absa holding weight')}
+function queChangeWeightPIScore(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'piScore','PI score')}
 function _getChangeCompanyNumber(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -237,8 +237,8 @@ function _getChangeCompanySelection(
   return taskList.firstTask;
 }
 
-function queChangeAnniversaryMonth(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyMonth(parentEntity,parentTask,data,'anniversaryMonthKey','Anniversary month')}
-function queChangeFinancialYearMonth(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyMonth(parentEntity,parentTask,data,'fyeMonthKey','Financial year end')}
+function queChangeMonthAnniversary(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyMonth(parentEntity,parentTask,data,'anniversaryMonthKey','Anniversary month')}
+function queChangeMonthFinancialYearEnd(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyMonth(parentEntity,parentTask,data,'fyeMonthKey','Financial year end')}
 
 function _getChangeCompanyMonth(
   parentEntity: K.EntityWorkflow,
@@ -265,11 +265,11 @@ function _getChangeCompanyMonth(
   return taskList.firstTask;
 }
 
-function queChangeStatusRepresentativeOffice(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyConfirm(parentEntity,parentTask,data,'representativeOfficeIs','Is a representative office')}
-function queChangeStatusForeignBranch(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyConfirm(parentEntity,parentTask,data,'foreignBranchIs','Is foreign branch')}
-function queChangeStatusCertificatesAreKept(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyConfirm(parentEntity,parentTask,data,'holdsCertificatesIs','Are certificates kept')}
-function queChangeStatusInterconnectedWithinGroup(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyConfirm(parentEntity,parentTask,data,'connectedEntityIs','is internconnected in group')}
-function queChangeStatusGroupCompany(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyConfirm(parentEntity,parentTask,data,'groupCompanyIs','Absa group')}
+function queChangeStatusRepresentativeOffice(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'representativeOfficeIs','Is a representative office')}
+function queChangeStatusForeignBranch(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'foreignBranchIs','Is foreign branch')}
+function queChangeStatusCertificatesAreKept(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'holdsCertificatesIs','Are certificates kept')}
+function queChangeStatusInterconnectedWithinGroup(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'connectedEntityIs','is internconnected in group')}
+function queChangeStatusGroupCompany(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'groupCompanyIs','Absa group')}
 
 function _getChangeCompanyConfirm(
   parentEntity: K.EntityWorkflow,
@@ -296,8 +296,32 @@ function _getChangeCompanyConfirm(
   return taskList.firstTask;
 }
 
-function queChangeIncorporationDate(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDate(parentEntity,parentTask,data,'incorporationDate','Incorporation date')}
-function queChangeBusinessStartDate(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDate(parentEntity,parentTask,data,'businessStartDate','Business start date')}
+function _getChangeCompanyDecide(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService,
+  fieldName: string,
+  heading: string
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  _getCompany(data, taskList);
+  //show show inputText to edit
+  let updateEntityValue = new W.EntityValue(
+    data,
+    'companyKey',
+    fieldName,
+    fieldName,true
+  );
+  taskList.add(G.getInputDecide(data, fieldName, heading, updateEntityValue));
+
+  _getFinaliseTask(data, taskList);
+  // create and save record, update object
+  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  return taskList.firstTask;
+}
+
+function queChangeDateIncorporationDate(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDate(parentEntity,parentTask,data,'incorporationDate','Incorporation date')}
+function queChangeDateBusinessStart(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDate(parentEntity,parentTask,data,'businessStartDate','Business start date')}
 
 function _getChangeCompanyDate(
   parentEntity: K.EntityWorkflow,
@@ -324,8 +348,8 @@ function _getChangeCompanyDate(
   return taskList.firstTask;
 }
 
-function queChangeNatureOfBusinessForAnnualFinancialStatements(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDesc(parentEntity,parentTask,data,'objectivePublishedDesc','Nature of business for annual financial statements')}
-function queChangeNatureOfBusinessActivitiesForMOI(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDesc(parentEntity,parentTask,data,'objectiveRegisteredDesc','Nature of business for MOI')}
+function queChangeTextNatureOfBusinessForAnnualFinancialStatements(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDesc(parentEntity,parentTask,data,'objectivePublishedDesc','Nature of business for annual financial statements')}
+function queChangeTextNatureOfBusinessActivitiesForMOI(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDesc(parentEntity,parentTask,data,'objectiveRegisteredDesc','Nature of business for MOI')}
 function _getChangeCompanyDesc(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -343,18 +367,18 @@ function _getChangeCompanyDesc(
   return taskList.firstTask;
 }
 
-function queChangeCompanyName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'name','Entity name')}
-function queChangeInternalCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'internalCode','Internal code')}
-function queChangeLECode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leCode','LE code')}
-function queChangeRegistrationNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'registrationCode','Registration number')}
-function queChangeIncomeTaxNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'incomeTax','Income tax number')}
-function queChangeValueAddedTaxNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'vatCode','Value Added Tax number')}
-function queChangeShareCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'listedCode','Listed share code')}
-function queChangeISINCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'isinCode','ISIN code')}
-function queChangeLEINumber_Bloomberg(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leiCode','LEI number (Bloomberg)')}
-function queChangeReutersCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'reutersCode','Reuters code')}
-function queChangeSuffix(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'suffix','Suffix')}
-function queChangeRegulatorClientCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'regulatorClientCode','Regulator client code')}
+function queChangeTextCompanyName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'name','Entity name')}
+function queChangeCodeInternalCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'internalCode','Internal code')}
+function queChangeCodeLE(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leCode','LE code')}
+function queChangeCodeRegistrationNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'registrationCode','Registration number')}
+function queChangeCodeIncomeTaxNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'incomeTax','Income tax number')}
+function queChangeCodeValueAddedTaxNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'vatCode','Value Added Tax number')}
+function queChangeCodeListedShareCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'listedCode','Listed share code')}
+function queChangeCodeISIN(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'isinCode','ISIN code')}
+function queChangeCodeLEINumber_Bloomberg(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leiCode','LEI number (Bloomberg)')}
+function queChangeCodeReuters(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'reutersCode','Reuters code')}
+function queChangeTextSuffix(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'suffix','Suffix')}
+function queChangeCodeRegulatorClientCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'regulatorClientCode','Regulator client code')}
 
 function _getChangeCompanyText(
   parentEntity: K.EntityWorkflow,

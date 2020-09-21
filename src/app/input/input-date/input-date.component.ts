@@ -36,7 +36,6 @@ export class InputDateComponent implements OnInit {
 
   doKeyDown(event: any) {
     let c = event.key;
-    console.log(c);
     if (c == 'Tab' ) {
     }else if( c == 'Enter'){
       // document.getElementById('dpDate').toggle();

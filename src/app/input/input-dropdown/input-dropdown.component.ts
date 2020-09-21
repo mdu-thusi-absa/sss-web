@@ -64,8 +64,6 @@ export class InputDropdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterText = '';
-    console.log();
-    
     if (this._autoFocus){
       this.setAutoFocus()
     }
@@ -110,9 +108,6 @@ export class InputDropdownComponent implements OnInit {
     } else {
       return null;
     }
-
-    //console.log(this.key);
-
     if (this.key == -1) return 'Please select';
     else {
       let v = this.values_.get(this.key);

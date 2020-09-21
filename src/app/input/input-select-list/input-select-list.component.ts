@@ -17,6 +17,7 @@ export class InputSelectListComponent implements OnInit {
   isHiddenMap: Map<number, boolean> = new Map();
   lastVisibleKey: number;
   firstVisibleKey: number;
+  keys: number[] = [];
 
   eid = 'input-select-list';
   constructor(private data: DataService) {
@@ -27,22 +28,36 @@ export class InputSelectListComponent implements OnInit {
     this.firstVisibleKey = this.values.firstKey;
     this.lastVisibleKey = this.values.lastKey;
     if (this.autoFocus) this.setFocus_FirstElement();
+    this.countFiltered = this.values.size;
+    this.keys = this.values.all_keys;
+    this.keys.sort();
+    if (this.keys.length>0)
+      this.selectedEntityKey = this.keys[0]
   }
 
+  doEnter() {
+    this.doSelect(this.firstVisibleKey);
+    // if (this.firstVisibleKey == this.lastVisibleKey)
+    //   this.doSelect(this.firstVisibleKey);
+  }
+
+  version = 0
   doSelect(key: number) {
     this.value = key;
     this.onSelect.emit(key);
+    this.version ++;
+    this.filterText = ''
   }
 
-  filterText_ = '';
+  _filterText = '';
   set filterText(v: string) {
-    if (v != this.filterText_) {
-      this.filterText_ = v;
+    if (v != this._filterText) {
+      this._filterText = v;
       this.setCounts();
     }
   }
   get filterText() {
-    return this.filterText_;
+    return this._filterText;
   }
 
   countFiltered = 0;
@@ -52,7 +67,7 @@ export class InputSelectListComponent implements OnInit {
   }
 
   getCountFiltered() {
-    if (this.filterText_) {
+    if (this._filterText) {
       if (this.values) {
         return [...this.isHiddenMap.values()].filter((e) => !e).length;
       }
@@ -65,13 +80,26 @@ export class InputSelectListComponent implements OnInit {
     if (this.values) {
       this.isHiddenMap = new Map();
       this.firstVisibleKey = -1;
-      this.values.forEach((value, key, map) => {
+      for (let i = 0; i < this.keys.length; i++) {
+        const key = this.keys[i];
+        const value = this.values.get(key);
         let hide = this.hideItem(value.name);
+        if (this.isFilterTextInStepNumber(i)) hide = false;
         this.isHiddenMap.set(key, hide);
-        if (!hide) this.lastVisibleKey = key;
-        if (!hide && this.firstVisibleKey == -1) this.firstVisibleKey = key;
-      });
+        this.setKeysOfVisibleItems(hide,key)
+      }
     }
+  }
+
+  setKeysOfVisibleItems(hide: boolean, key: number){
+    if (!hide) this.lastVisibleKey = key;
+    if (!hide && this.firstVisibleKey == -1) this.firstVisibleKey = key;
+    this.selectedEntityKey = this.firstVisibleKey
+  }
+
+  isFilterTextInStepNumber(step: number): boolean {
+    if (Number(this.filterText))
+      if ((step + 1 + '').indexOf(this.filterText) > -1) return true;
   }
 
   hideItem(value: string) {
@@ -114,7 +142,7 @@ export class InputSelectListComponent implements OnInit {
   }
 
   get showFilter() {
-    return this.values.size >= 10;
+    return true; //this.values.size >= 10;
   }
 
   autoFocus_filter = false;

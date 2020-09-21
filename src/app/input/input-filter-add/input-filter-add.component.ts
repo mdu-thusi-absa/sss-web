@@ -9,6 +9,7 @@ import {
 import { Entity } from 'src/app/data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
+import { InvokeFunctionExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-input-filter-add',
@@ -118,6 +119,7 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onDownload = new EventEmitter();
   @Output() onA = new EventEmitter();
   @Output() onSearch = new EventEmitter();
+  @Output() onEnter = new EventEmitter()
 
   isT = false;
   isB = "false";
@@ -148,6 +150,16 @@ export class InputFilterAddComponent implements OnInit {
       this.showEyeOpen ||
       this.showSave;
       
+  }
+
+  _version = 0
+  @Input() set version(v:number){
+    if (v!=this._version)
+      this.init()
+  }
+
+  init(){
+    this.filterText = ''
   }
 
   doDuplicate() {
@@ -220,8 +232,13 @@ export class InputFilterAddComponent implements OnInit {
 
   doKey(event: any) {
     // without type info
-    if (event.key === 'Escape') this.filterText = '';
-    if (event.key === 'Enter') this.doSearch();
+    if (event.key === 'Escape') {
+      this.doFilterClear()
+    }
+    if (event.key === 'Enter') {
+      this.doSearch();
+      this.onEnter.emit()
+    }
     this.doFilter();
   }
 

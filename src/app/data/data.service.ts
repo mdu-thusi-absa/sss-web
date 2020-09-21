@@ -593,7 +593,6 @@ export class DataService {
     return _CountriesForCountryKeys(countryKeys);
 
     function _WorkflowForLastMenuChoice(data: object): K.EntityWorkflow {
-      // console.log('begin',data)
       let lastMenuKey = _LastMenuKey(data);
       let lastWorkFlowKey = data[lastMenuKey];
       let d = that

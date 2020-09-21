@@ -8,6 +8,7 @@ import {
   EntityFileDownload,
   EntityFileUpload,
 } from './data-entity-kids';
+import { ThrowStmt } from '@angular/compiler';
 // import * as D from './data.service'
 
 export class Task_SubTaskCondition {
@@ -341,7 +342,6 @@ export class TaskNumber extends Task {
         if (+this.value == 0) this.value = '0';
         return true;
       } else {
-        console.log(this.value);
         this.errorMessage = this.name + ' is not a number';
         return false;
       }
@@ -466,29 +466,25 @@ export class EntityValue {
     if (_hasToBeSaved(this.entityKeyFieldName)) {
       if (this.sourceValuesObject_FieldName) {
         let entity = this._getEntity(sourceValuesObject);
-          entity.setValue(
-            this.entityFieldName,
-            sourceValuesObject[this.sourceValuesObject_FieldName]
-          );
-      } else {
-        this._log(
-          'sourceValuesObject_FieldName was not provided',
-          {
-            sourceValuesObject_FieldName: this.sourceValuesObject_FieldName,
-            sourceValuesObject,
-          }
+        entity.setValue(
+          this.entityFieldName,
+          sourceValuesObject[this.sourceValuesObject_FieldName]
         );
+      } else {
+        this._log('sourceValuesObject_FieldName was not provided', {
+          sourceValuesObject_FieldName: this.sourceValuesObject_FieldName,
+          sourceValuesObject,
+        });
       }
     }
 
-    function _hasToBeSaved(prividedSetting:string){
-      return (prividedSetting.length>0)
+    function _hasToBeSaved(prividedSetting: string) {
+      return prividedSetting.length > 0;
     }
   }
 
   private _getEntity(workflowValuesObject: object) {
     let entityKey = workflowValuesObject[this.entityKeyFieldName];
-    //console.log(this.entityFieldName, entityKey);
     let elements = this.data.getEntitiesByKeyField(this.entityKeyFieldName);
     let entity = elements.get(entityKey);
     if (entity) return entity;
@@ -731,6 +727,21 @@ export class TaskWalker extends Task {
     this.targetsOfChange.forEach((target) => {
       target.save(this.workflowValuesObject);
     });
+    this.notify('saved');
+  }
+
+  listeners: any[] = [];
+  addListener(e: any) {
+    if (this.listeners.indexOf(e) < 0) this.listeners.push(e);
+  }
+
+  notifyIs = false
+  notify(notificationName: string) {
+    if (this.notifyIs) {
+      this.listeners.forEach((e) => {
+        e.notify(notificationName, this);
+      });
+    }
   }
 
   private _moveToNext_DoCurrentTaskAfterBuild() {

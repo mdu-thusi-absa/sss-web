@@ -113,9 +113,7 @@ export class InputTableEntityComponent implements OnInit {
   }
 
   hideItem(value: string) {
-    // console.log(this.filterText);
     if (this.filterText.length == 0) return false;
-    // console.log(fieldName, this.entity[fieldName]);
     if (typeof value === 'object')
       return true
     else
@@ -132,19 +130,12 @@ export class InputTableEntityComponent implements OnInit {
           this.hideItem(this.values[i]) && this.hideItem(this.headings[i])
         );
       }
-      // console.log(this.isHiddenMap);
-      // this.entity.forEach((value: EveryEntity, key: number) => {
-      //   this.isHiddenMap.set(key, this.hideItem(value));
-      // });
     }
   }
 
   setCounts() {
-    // console.log('setCounts');
-
     this.calcIsHidden();
     this.countFiltered = this.getCountFiltered();
-    //this.countSelected = this.getCountSelected();
   }
 
   getCountFiltered() {

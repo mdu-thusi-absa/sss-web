@@ -8,6 +8,8 @@
   [showSavePrev]="workFlow.currentTaskIndex > 0"
   [showViewAll] = "workFlow.tasks.length>10"
   [showClose] = "true"
+  [showSync] = "true"
+  [syncValue] = "this.workFlow.notifyIs"
   (onClose) = "onClose.emit('')"
   (onShowAll) = "doShowAll($event)"
   (onSaveNext)="doSaveNext()"
@@ -15,6 +17,7 @@
   (document:keydown.control.arrowup)="doSavePrev()"
   (document:keydown.control.arrowdown)="doSaveNext()"
   (onMakeEID)="doMakePanelIED($event)"
+  (onSync) = "doSync($event)"
 >
   <ng-container *ngFor="let t of workFlow.tasks; let i = index">
     <div [hidden]="!showStep(i)">

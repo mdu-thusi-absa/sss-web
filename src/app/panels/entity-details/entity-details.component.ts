@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
-import {EnumEntityType} from 'src/app/data/data-entity-types'
+import { EnumEntityType } from 'src/app/data/data-entity-types';
 import { EntityNatural } from 'src/app/data/data-entity-kids';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
+import { TaskWalker } from 'src/app/data/data-workflow-classes';
 
 @Component({
   selector: 'app-entity-details',
@@ -51,7 +52,6 @@ export class EntityDetailsComponent implements OnInit {
   //   return this.entityTypes.get(entityTypeKey).name == typeName;
   // }
 
-
   // dashboardKey_ = 0;
   // @Input() set dashboardKey(v: number){
   //   this.dashboardKey_ = v;
@@ -61,8 +61,6 @@ export class EntityDetailsComponent implements OnInit {
   entityTypeKey_: EnumEntityType = EnumEntityType.Company;
   @Input() set entityTypeKey(v: EnumEntityType) {
     this.entityTypeKey_ = v;
-    // console.log('entity-details','set entityTypeKey',this.entityTypeKey_);
-    
     this.entities = this.data.getEntities(this.entityTypeKey_);
 
     this.entityTypeName_ = this.data.entityTypes
@@ -72,17 +70,11 @@ export class EntityDetailsComponent implements OnInit {
 
   entityKey_ = -1;
 
-  // set @Input() entityKey (v: number) {
-  //   this.entityKey_ = v;
-  //   this.entity = this.entities.get(this.entityKey_)
-  // };
-
   get entityTypeKey() {
     return this.entityTypeKey_;
   }
 
   get entityTypeName(): string {
-
     if (this.entityType_ != this.entityType_T) {
       this.entityTypeName_ = this.data.entityTypes
         .get(this.entityTypeKey)
@@ -110,6 +102,16 @@ export class EntityDetailsComponent implements OnInit {
     if (this.data.lg)
       console.log(new Date().getTime(), 'loaded:entities-details');
     this.data.progress += 1;
+    this.data.workFlow.addListener(this);
+  }
+
+  notify(eventName: string, sourceObject: object) {
+    if (sourceObject['type'])
+      if (sourceObject['type'] == 'workflow') {
+        let w = sourceObject as TaskWalker;
+        let k = w.workflowValuesObject['companyKey'];
+        if (k) this.entityKey = k;
+      }
   }
 
   getIsLoaded(keyType: string, keyPage: string) {
@@ -154,7 +156,6 @@ export class EntityDetailsComponent implements OnInit {
       this.entityKeyT != this.entityKey ||
       this.entityTypeKeyT != this.entityTypeKey
     ) {
-
       if (!this.entities.has(this.entityKey)) {
         this.entityKey = this.entities.firstKey;
       } else this.entity_ = this.entities.get(this.entityKey).copy();
@@ -180,12 +181,11 @@ export class EntityDetailsComponent implements OnInit {
   }
 
   getEntityName() {
-    
     return this.entity ? this.entity.name : '';
   }
 
-  entityNameChange(e:any){
-    console.log(e)
+  entityNameChange(e: any) {
+    console.log(e);
   }
 
   setEntityName(v: string) {

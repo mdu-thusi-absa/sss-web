@@ -31,7 +31,6 @@ export class DocXTemplatorComponent implements OnInit {
         .then(r=> callback(r))
         .catch(r=>{
           console.log(r);
-          
         })
     }
 
@@ -39,7 +38,7 @@ export class DocXTemplatorComponent implements OnInit {
     //let content = fetch(this.URL).then(r => r.blob()).then(this.doDid)
 
     loadFile(this.URL, function (content: Blob) {
-      console.log(content);
+      // console.log(content);
       
       // if (error) {
       //   throw error;

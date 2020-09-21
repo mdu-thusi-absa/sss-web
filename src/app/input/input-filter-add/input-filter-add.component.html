@@ -255,7 +255,7 @@
       [(ngModel)]="filterText"
       (keyup)="doKey($event)"
       style="font-weight: normal; width: 100%;z-index: 999;"
-      autocomplete="nope"
+      [attr.autocomplete]="'net'"
       [title]="'Type text to filter items'"
     />
 
@@ -286,7 +286,7 @@
 
     <span
       *ngIf="showFilterCount"
-      class="input-group-addon hidden-xs"
+      class="input-group-addon"
       title="Number of items"
       style="border-left: none; pointer-events: none;"
       [title]="'Showing ' + filterCount + ' items'"

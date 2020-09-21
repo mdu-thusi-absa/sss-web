@@ -169,6 +169,19 @@ export function getInputConfirm(
   return a;
 }
 
+export function getInputDecide(
+  data: DataService,
+  fieldName: string,
+  heading: string,
+  valueEntity: W.EntityValue
+): W.TaskConfirm {
+  let a = new W.TaskConfirm(data, fieldName);
+  a.name = heading;
+  a.ensure = false
+  a.targetsOfChange.push(valueEntity)
+  return a;
+}
+
 export function getInputDate(
   data: DataService,
   fieldName: string,

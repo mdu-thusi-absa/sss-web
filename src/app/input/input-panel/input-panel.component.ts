@@ -14,19 +14,22 @@ export class InputPanelComponent implements OnInit {
   @Input() panelInfo = false;
   @Input() panelSuccess = false;
   @Input() panelDanger = false;
-  @Input() maxHeight = "50%"
+  @Input() maxHeight = 0
   @Input() collapsed = true;
   @Input() showSaveNext = false;
   @Input() showSavePrev = false;
   @Input() showClose = false;
   @Input() showViewAll = false;
   @Input() noPadding = false
+  @Input() showSync = false
+  @Input() syncValue = true
 
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();
   @Output() onMakeEID = new EventEmitter();
   @Output() onShowAll = new EventEmitter();
   @Output() onClose = new EventEmitter()
+  @Output() onSync = new EventEmitter()
   
 
   eid = 'input-panel'

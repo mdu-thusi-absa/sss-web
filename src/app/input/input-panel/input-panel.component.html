@@ -22,6 +22,16 @@
       [matIcon] = "'unfold_more'"
       (onClick) = "collapsed=!collapsed"
     ></app-buttons-toolbar-button> -->
+    <app-buttons-toggle
+        *ngIf="showSavePrev"
+        [hidden]="false"
+        [title]="'Sync'"
+        [placeholder]="'Keep panels syncronised'"
+        [showMe]="true"
+        [matIcon]="'sync'"
+        [toggleValue] = "syncValue"
+        (onToggle)="onSync.emit($event)"
+      ></app-buttons-toggle>
       <app-buttons-toolbar-button
         *ngIf="showSavePrev"
         [hidden]="false"
@@ -67,13 +77,14 @@
   </div>
   <!-- data-toggle="collapse" -->
   <!-- [style.maxHeight]="maxHeight" -->
-
   <div
     class="panel-body mt3"
     [class.collapse]="collapsed"
+    [class.panel-body-height] = "maxHeight==0"
     style="margin-bottom: 0px; position: relative; z-index: 9"
     [attr.id]="'input-panel-' + eid"
-    style="overflow-y: scroll; overflow-x: hidden; padding-bottom: 0px"
+    style="overflow-y: none; overflow-x: hidden; padding-bottom: 0px"
+    [style.max-height]="(maxHeight==0?'':maxHeight + 'vh')"
   >
     <ng-content></ng-content>
   </div>

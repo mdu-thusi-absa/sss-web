@@ -19,34 +19,6 @@
 
             <div class="btn-group pull-right">
               <span class="hidden-xs"> V:{{ env.version }} </span>
-              <!-- <a
-                href="#"
-                class="btn btn-info btn-xs"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Refresh"
-              >
-              </a> -->
-
-              <!-- <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showFilesAll()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideFiles ? 'Show' : 'Hide') + ' Docs panel'"
-              >
-              </a> -->
-
-              <!-- <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideHistory()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideHistory ? 'Show' : 'Hide') + ' Records panel'"
-              >
-              </a> -->
             </div>
           </div>
           <div
@@ -62,123 +34,9 @@
               (onEntityChange)="doEntityChange($event)"
             ></app-entities>
           </div>
-          <!-- <div class="panel-footer mt3">
-            <small>Last refresh: 14:31</small>
-          </div> -->
         </div>
 
-        <!-- Tasks hidden-->
-        <!-- <div class="panel panel-primary no-gutter nobottom" [hidden]="true">
-          <div class="panel-heading mt3">
-            <div class="btn-group pull-right">
-              <a href="#" class="btn btn-info btn-xs">
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showFilesAll()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideFiles ? 'Show' : 'Hide') + ' Files panel'"
-              >
-              </a>
-
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideHistory()"
-              >
-              </a>
-            </div>
-          </div>
-          <div
-            class="panel-body mt3 "
-            [class.container-panel-left-full]="panelRows == 1"
-            [class.container-panel-left-half]="panelRows == 2"
-          >
-            <app-tasks [panelRows]="panelRows"></app-tasks>
-          </div>
-          <div class="panel-footer mt3">
-            <small>Last refresh: 14:32</small>
-          </div>
-        </div> -->
-
-        <!-- Records -->
-        <!-- <div
-          class="panel panel-primary no-gutter nobottom"
-          [hidden]="hideHistory"
-        >
-          <div class="panel-heading mt3">
-            ><small
-              ><span class="hidden-xs hidden-sm">&nbsp;Records</span></small
-            >
-            <div class="btn-group pull-right">
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showFilesAll()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideFiles ? 'Show' : 'Hide') + ' Docs panel'"
-              >
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideHistory()"
-              >
-              </a>
-            </div>
-          </div>
-          <div
-            class="panel-body mt3"
-            [class.container-panel-left-full]="panelRows == 1"
-            [class.files-details-half]="panelRows == 2"
-          >
-            <app-records [panelRows]="panelRows"></app-records>
-          </div>
-        </div> -->
-
-        <!-- Files -->
-        <!-- <div
-          class="panel panel-primary no-gutter nobottom"
-          [hidden]="hideFiles"
-        >
-          <div class="panel-heading mt3">
-              <span class="hidden-xs hidden-sm">&nbsp;Doc Types</span></small
-            >
-            <div class="btn-group pull-right">
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showFilesAll()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(hideFiles ? 'Show' : 'Hide') + ' Docs panel'"
-              >
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideHistory()"
-              >
-              </a>
-            </div>
-          </div>
-          <div
-            class="panel-body mt3"
-            [class.container-panel-left-full]="panelRows == 1"
-            [class.files-details-half]="panelRows == 2"
-            style="overflow-y: hidden;"
-          >
-            <app-files-attributes
-              [panelRows]="panelRows"
-              [isShowAll]="isShowAllFiles"
-              (onSelectFields)="doSelectFields($event)"
-              [showFileFields]="showFileFields"
-            ></app-files-attributes>
-          </div>
-        </div> -->
+        
       </div>
       <!--column 2: Details of Entities, Records, Docs-->
       <div

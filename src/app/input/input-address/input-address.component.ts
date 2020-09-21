@@ -99,9 +99,7 @@ export class InputAddressComponent implements OnInit {
   }
 
   doChangeCity(event: any) {
-    console.log(event);
     this.value.cityKey = +event;
-    console.log(this.value);
     this.onChange.emit(this.value)
   }
 
@@ -109,20 +107,6 @@ export class InputAddressComponent implements OnInit {
     if (this.countries.has(this.value.countryKey)) return this.value.countryKey;
     return this.countries.all_keys[0];
   }
-
-  
-  // doSelectCountry(event: any) {
-  //   this.value.countryKey = +event
-  //   this.cities = this.value.cities
-  //   this.cityKey = this.value.cityKey
-  //   this.onChange.emit(this.value)
-  // }
-
-  // doSelectCity(event: any) {
-  //   this.value.cityKey = +event;
-  //   console.log(this.value);
-  //   this.onChange.emit(this.value)
-  // }
 
   doChangeText(event:string){
     this.value.text = event
