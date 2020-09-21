@@ -66,7 +66,7 @@ export class Entity {
 
   setValue(fieldName:string,value: any){
     this[fieldName] = value
-    this.notify()
+    this.notify(this,fieldName)
   }
 
   addListener(e:any){
@@ -74,9 +74,9 @@ export class Entity {
       this.listeners.push(e)
   }
 
-  notify(){
+  notify(...args:any){
     this.listeners.forEach(e=>{
-      e.notify()
+      e.notify(args)
     })
   }
 

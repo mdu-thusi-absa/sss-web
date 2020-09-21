@@ -43,7 +43,8 @@ export class InputTableEntityComponent implements OnInit {
     return this._entity
   }
 
-  notify(){
+  notify(...args){
+    console.log(...args);
     this.loadValues()
   }
 

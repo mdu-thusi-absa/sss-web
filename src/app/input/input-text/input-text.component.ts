@@ -70,11 +70,24 @@ export class InputTextComponent implements OnInit {
     }
   }
 
-  setAutoFocus(){
+  // setAutoFocus(){
+  //   let id = this.eid
+  //     setTimeout(() => {
+  //       document.getElementById(id).focus();
+  //     }, 50);
+  // }
+
+  setAutoFocus() {
     let id = this.eid
+    setFocusForID(id, 50);
+
+    function setFocusForID(id: string, mills: number) {
       setTimeout(() => {
-        document.getElementById(id).focus();
-      }, 50);
+        let e = document.getElementById(id);
+        if (e) e.focus();
+        else setFocusForID(id, mills + 100);
+      }, mills);
+    }
   }
 
   

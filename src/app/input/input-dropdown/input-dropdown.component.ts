@@ -77,11 +77,24 @@ export class InputDropdownComponent implements OnInit {
     }
   }
 
-  setAutoFocus(){
+  // setAutoFocus(){
+  //   let id = 'dropdown-button-' + this.eid
+  //     setTimeout(() => {
+  //       document.getElementById(id).focus();
+  //     }, 10);
+  // }
+
+  setAutoFocus() {
     let id = 'dropdown-button-' + this.eid
+    setFocusForID(id, 50);
+
+    function setFocusForID(id: string, mills: number) {
       setTimeout(() => {
-        document.getElementById(id).focus();
-      }, 10);
+        let e = document.getElementById(id);
+        if (e) e.focus();
+        else setFocusForID(id, mills + 100);
+      }, mills);
+    }
   }
 
   get filterText() {

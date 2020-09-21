@@ -6,44 +6,40 @@
   (onFilter)="filterText = $event"
   [showInputFilter]="true"
   [autoFocus]="autoFocus_filter"
-  (onEnter) = "doEnter()"
-  [version] = "version"
+  (onEnter)="doEnter()"
+  [version]="version"
 ></app-input-filter-add>
 <div class="table-content">
-<table
-  class="table table-condensed table-bordered less-bottom"
-  style="margin: 0px;max-height:40vh"
->
-  <thead class="info" [hidden]="!showHeading">
-    <tr class="info">
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="let key of keys; let i = index"
-      [class.tr-hide]="isHiddenMap.get(key)"
-      [class.tr-show]="!isHiddenMap.get(key)"
-    >
-      <td
-        [style.border-bottom]="
-          key == selectedEntityKey ? '1px solid black' : 'inherit'
-        "
+  <table
+    class="table table-condensed table-bordered less-bottom"
+    style="margin: 0px; max-height: 40vh"
+  >
+    <thead class="info" [hidden]="!showHeading">
+      <tr class="info">
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let key of keys; let i = index"
+        [class.tr-hide]="isHiddenMap.get(key)"
+        [class.tr-show]="!isHiddenMap.get(key)"
       >
-        <a
-          href="#"
-          (click)="doSelect(key)"
-          [attr.id]="eid + '-a-' + key"
-          (keydown)="a_doKeyDown(key, $event)"
-          [attr.name]="key"
-          routerLink="."
-          fragment="e.key"
-          ><span [class.text-bright]="key == selectedEntityKey">
-            {{ i + 1 }}. {{ (values?values.get(key).name:'') }}</span
-          >
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <td>
+          <a
+            href="#"
+            (click)="doSelect(key)"
+            [attr.id]="eid + '-a-' + key"
+            (keydown)="a_doKeyDown(key, $event)"
+            [attr.name]="key"
+            routerLink="."
+            fragment="e.key"
+            ><span [class.text-bright]="key == selectedEntityKey">
+              {{ i + 1 }}. {{ values ? values.get(key).name : "" }}</span
+            >
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -606,7 +606,7 @@ export class TaskWalker extends Task {
       t.init();
     });
     this._buildNext(this.rootTask);
-    this.moveToNext();
+    if (this.currentTask.canMoveOn()) this.moveToNext();
     return true;
   }
   // public loopFromQue() {
@@ -623,65 +623,81 @@ export class TaskWalker extends Task {
     if (this._currentTaskIndex == this.tasks.length - 1) {
       if (fromTask) {
         if (fromTask.isDone) {
-          if (fromTask.actionName) this.actionName = fromTask.actionName;
-          if (fromTask.actionObjectName)
-            this.actionObjectName = fromTask.actionObjectName;
-          if (fromTask.actionEntityName)
-            this.actionEntityName = fromTask.actionEntityName;
-          fromTask.workflowValuesObject = this._collectValues();
-          if (_canBeBuiltOn(fromTask)) {
-            if (!fromTask.hasFork) {
-              _addSubtask(this, fromTask, 0);
-            } else {
-              // next task with conditions
-              let notAdded = true;
-              for (let i = 0; i < fromTask.subTasks.length; i++) {
-                if (
-                  fromTask.subTasks[i].matchCondition(
-                    fromTask.workflowValuesObject
-                  )
-                ) {
-                  let t = _addSubtask(this, fromTask, i);
-                  this._buildNext(t);
-                  notAdded = false;
-                  break;
-                }
-              }
-              _checkIfConditionalBuildHasAdded(fromTask, notAdded);
-            }
-          } else {
-            this._saveToTargetObject();
-            this.start();
-          }
+          this._ifTaskIsDone(fromTask,this)
         }
         return true;
       }
       return false;
     }
     return true;
+  }
 
-    function _addSubtask(
-      that: TaskWalker,
-      fromTask,
-      subTaskIndex: number
-    ): Task {
-      let t = fromTask.subTasks[subTaskIndex].taskFlow;
-      t.workflowValuesObject = that._collectValues();
-      t.init();
-      that.tasks.push(t);
-      return t;
-    }
+  _canBeBuiltOn(task: Task): boolean {
+    return task.isDone && task.subTasks.length > 0;
+  }
 
-    function _canBeBuiltOn(task: Task): boolean {
-      return task.isDone && task.subTasks.length > 0;
+  _ifTaskIsDone(fromTask: Task, that: TaskWalker) {
+    if (fromTask.actionName) that.actionName = fromTask.actionName;
+    if (fromTask.actionObjectName)
+      that.actionObjectName = fromTask.actionObjectName;
+    if (fromTask.actionEntityName)
+      that.actionEntityName = fromTask.actionEntityName;
+    fromTask.workflowValuesObject = that._collectValues();
+    if (that._canBeBuiltOn(fromTask)) {
+      that._addChildTask(fromTask,that)
+    } else {
+      that._saveToTargetObject();
+      that.start();
     }
+  }
 
-    function _checkIfConditionalBuildHasAdded(parent: Task, notAdded: boolean) {
-      if (notAdded)
-        parent.errorMessage =
-          'No further steps are available for this option, please select another one';
-      else parent.errorMessage = '';
+  _addChildTask(fromTask:Task,that:TaskWalker){
+    if (!fromTask.hasFork) {
+      that._addSubtask(that, fromTask, 0);
+    } else {
+      let notAdded = true;
+      for (let i = 0; i < fromTask.subTasks.length; i++) {
+        notAdded = that._findAndBuildNextChildTask(fromTask, that, i);
+        if (!notAdded) break;
+      }
+      that._checkIfConditionalBuildHasAdded(fromTask, notAdded);
     }
+  }
+  _findAndBuildNextChildTask(
+    fromTask: Task,
+    that: TaskWalker,
+    subTaskIndex: number
+  ): boolean {
+    if (
+      fromTask.subTasks[subTaskIndex].matchCondition(
+        fromTask.workflowValuesObject
+      )
+    ) {
+      let t = that._addSubtask(that, fromTask, subTaskIndex);
+      that._buildNext(t);
+      return false;
+    }
+    return true
+  }
+  _checkIfConditionalBuildHasAdded(
+    parent: Task,
+    notAdded: boolean
+  ) {
+    if (notAdded)
+      parent.errorMessage =
+        'No further steps are available for this option, please select another one';
+    else parent.errorMessage = '';
+  }
+  _addSubtask(
+    that: TaskWalker,
+    fromTask:Task,
+    subTaskIndex: number
+  ): Task {
+    let t = fromTask.subTasks[subTaskIndex].taskFlow;
+    t.workflowValuesObject = that._collectValues();
+    t.init();
+    that.tasks.push(t);
+    return t;
   }
 
   private _collectValues(): object {
@@ -735,11 +751,11 @@ export class TaskWalker extends Task {
     if (this.listeners.indexOf(e) < 0) this.listeners.push(e);
   }
 
-  notifyIs = false
-  notify(notificationName: string) {
+  notifyIs = false;
+  notify(...args) {
     if (this.notifyIs) {
       this.listeners.forEach((e) => {
-        e.notify(notificationName, this);
+        e.notify(args[0], this);
       });
     }
   }

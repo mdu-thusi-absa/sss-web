@@ -30,10 +30,10 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onTick = new EventEmitter();
   @Output() onT = new EventEmitter();
   title_ = 'input-filter-add';
-  @Input () set title(v: string){
+  @Input() set title(v: string) {
     this.title_ = Entity.sentanceCase(v);
   }
-  get title(){
+  get title() {
     return this.title_;
   }
   @Input() titlePlural = '';
@@ -119,10 +119,10 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onDownload = new EventEmitter();
   @Output() onA = new EventEmitter();
   @Output() onSearch = new EventEmitter();
-  @Output() onEnter = new EventEmitter()
+  @Output() onEnter = new EventEmitter();
 
   isT = false;
-  isB = "false";
+  isB = 'false';
 
   filterText = '';
   dropDown = false;
@@ -136,7 +136,7 @@ export class InputFilterAddComponent implements OnInit {
 
   eid = 'input-filter-add';
   constructor(public data: DataService) {
-    this.eid = this.data.getID('',this.eid);
+    this.eid = this.data.getID('', this.eid);
   }
 
   ngOnInit(): void {
@@ -149,17 +149,15 @@ export class InputFilterAddComponent implements OnInit {
       this.showEyeClose ||
       this.showEyeOpen ||
       this.showSave;
-      
   }
 
-  _version = 0
-  @Input() set version(v:number){
-    if (v!=this._version)
-      this.init()
+  _version = 0;
+  @Input() set version(v: number) {
+    if (v != this._version) this.init();
   }
 
-  init(){
-    this.filterText = ''
+  init() {
+    this.filterText = '';
   }
 
   doDuplicate() {
@@ -233,27 +231,33 @@ export class InputFilterAddComponent implements OnInit {
   doKey(event: any) {
     // without type info
     if (event.key === 'Escape') {
-      this.doFilterClear()
+      this.doFilterClear();
     }
     if (event.key === 'Enter') {
       this.doSearch();
-      this.onEnter.emit()
+      this.onEnter.emit();
     }
     this.doFilter();
   }
 
-  _autoFocus = false
-  @Input() set autoFocus(v: boolean){
-    this._autoFocus = v
-    if (v){
-      this.setAutoFocus()
+  _autoFocus = false;
+  @Input() set autoFocus(v: boolean) {
+    this._autoFocus = v;
+    if (v) {
+      this.setAutoFocus();
     }
   }
 
-  setAutoFocus(){
-    let id = this.eid
+  setAutoFocus() {
+    let id = this.eid;
+    setFocusForID(id, 50);
+
+    function setFocusForID(id: string, mills: number) {
       setTimeout(() => {
-        document.getElementById(id).focus();
-      }, 50);
+        let e = document.getElementById(id);
+        if (e) e.focus();
+        else setFocusForID(id, mills + 100);
+      }, mills);
+    }
   }
 }

@@ -74,11 +74,17 @@ export class InputCheckboxComponent implements OnInit {
     }
   }
 
-  setAutoFocus(){
-    let id = this.eid + '-change'
+  setAutoFocus() {
+    let id = this.eid + '-change';
+    setFocusForID(id, 50);
+
+    function setFocusForID(id: string, mills: number) {
       setTimeout(() => {
-        document.getElementById(id).focus();
-      }, 50);
+        let e = document.getElementById(id);
+        if (e) e.focus();
+        else setFocusForID(id, mills + 100);
+      }, mills);
+    }
   }
 
   hideByFilter() {
