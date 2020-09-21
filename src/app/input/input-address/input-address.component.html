@@ -56,7 +56,7 @@
             (onRecord)="doRecord()"
             [showCheck] = "showCheck"
             [value] = "this.value.text"
-            (onChange) = "this.value.text = $event"
+            (onChange) = "doChangeText($event)"
             [autoFocus] = "autoFocus"
           ></app-input-textarea>
         </div>

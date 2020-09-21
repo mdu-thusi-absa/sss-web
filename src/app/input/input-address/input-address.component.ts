@@ -33,6 +33,7 @@ export class InputAddressComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();
+  @Output() onChange = new EventEmitter()
 
   countries: Entities<Entity>;
   cities: Entities<EntityCity>;
@@ -109,12 +110,18 @@ export class InputAddressComponent implements OnInit {
     this.value.countryKey = +event
     this.cities = this.value.cities
     this.cityKey = this.value.cityKey
+    this.onChange.emit(this.value)
   }
 
   doSelectCity(event: any) {
     this.value.cityKey = +event;
     console.log(this.value);
-    
+    this.onChange.emit(this.value)
+  }
+
+  doChangeText(event:string){
+    this.value.text = event
+    this.onChange.emit(this.value)
   }
 
   @Input() autoFocus = false;

@@ -632,31 +632,31 @@ export class TaskWalker extends Task {
             this.actionObjectName = fromTask.actionObjectName;
           if (fromTask.actionEntityName)
             this.actionEntityName = fromTask.actionEntityName;
-        }
-        fromTask.workflowValuesObject = this._collectValues();
-        if (_canBeBuiltOn(fromTask)) {
-          if (!fromTask.hasFork) {
-            _addSubtask(this, fromTask, 0);
-          } else {
-            // next task with conditions
-            let notAdded = true;
-            for (let i = 0; i < fromTask.subTasks.length; i++) {
-              if (
-                fromTask.subTasks[i].matchCondition(
-                  fromTask.workflowValuesObject
-                )
-              ) {
-                let t = _addSubtask(this, fromTask, i);
-                this._buildNext(t);
-                notAdded = false;
-                break;
+          fromTask.workflowValuesObject = this._collectValues();
+          if (_canBeBuiltOn(fromTask)) {
+            if (!fromTask.hasFork) {
+              _addSubtask(this, fromTask, 0);
+            } else {
+              // next task with conditions
+              let notAdded = true;
+              for (let i = 0; i < fromTask.subTasks.length; i++) {
+                if (
+                  fromTask.subTasks[i].matchCondition(
+                    fromTask.workflowValuesObject
+                  )
+                ) {
+                  let t = _addSubtask(this, fromTask, i);
+                  this._buildNext(t);
+                  notAdded = false;
+                  break;
+                }
               }
+              _checkIfConditionalBuildHasAdded(fromTask, notAdded);
             }
-            _checkIfConditionalBuildHasAdded(fromTask, notAdded);
+          } else {
+            this._saveToTargetObject();
+            this.start();
           }
-        } else if (fromTask.isDone) {
-          this._saveToTargetObject();
-          this.start();
         }
         return true;
       }
