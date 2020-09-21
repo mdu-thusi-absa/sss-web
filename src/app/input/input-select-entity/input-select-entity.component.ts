@@ -6,7 +6,6 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
-  HostListener,
 } from '@angular/core';
 import { Entity } from '../../data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';

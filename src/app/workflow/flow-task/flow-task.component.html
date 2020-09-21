@@ -38,6 +38,7 @@
         [taskFlow]="t"
         [showSavePrev]="workFlow.currentTaskIndex > 0"
         [showSaveNext]="true"
+        (onChange) = "doSaveNext()"
       ></app-flow-select>
       <app-flow-set-reminder
         *ngIf="t.type == 'set-reminder'"

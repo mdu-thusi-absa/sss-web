@@ -107,6 +107,7 @@ import { InputGenDocComponent } from './input/input-gen-doc/input-gen-doc.compon
 import { FlowTextComponent } from './workflow/flow-text/flow-text.component';
 import { FlowTextareaComponent } from './workflow/flow-textarea/flow-textarea.component';
 import { FlowAddressComponent } from './workflow/flow-address/flow-address.component';
+import { InputSelectListComponent } from './input/input-select-list/input-select-list.component';
 
 
 
@@ -208,6 +209,7 @@ import { FlowAddressComponent } from './workflow/flow-address/flow-address.compo
     FlowTextComponent,
     FlowTextareaComponent,
     FlowAddressComponent,
+    InputSelectListComponent,
     
   ],
   imports: [

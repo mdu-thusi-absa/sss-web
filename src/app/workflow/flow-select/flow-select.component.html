@@ -1,20 +1,20 @@
 <app-input-panel
-  [title]="stepNumber + '.' + taskFlow.name + (choiceIndex>0?(': ' + choiceIndex + (choiceValue ? '.' + choiceValue : '')):'')"
+  [title]="stepNumber + '.' + taskFlow.name + (choiceIndex>0?(' - ' + choiceIndex + (choiceValue ? '.' + choiceValue : '')):'')"
   [collapsed]="!taskFlow.isCurrent"
   [panelDanger]="taskFlow.isCurrent"
   [panelSuccess]="taskFlow.isDone"
   (document:keydown.control.arrowright)="doNextValue()"
   (document:keydown.control.arrowleft)="doPrevValue()"
 >
-  <app-input-select-entity
+  <app-input-select-list
     [hidden]="taskFlow.errorMessage != ''"
     [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
     [value]="taskFlow.value"
     [values]="taskFlow.values"
-    [showSmall]="true"
-    (onChange)="doChange($event)"
+    (onSelect)="doChange($event)"
     [autoFocus] = "taskFlow.isCurrent"
-  ></app-input-select-entity>
+    [showHeading] = "false"
+  ></app-input-select-list>
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold">
     <div
       style="display: inline-block"

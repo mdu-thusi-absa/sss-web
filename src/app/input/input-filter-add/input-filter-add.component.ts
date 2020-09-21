@@ -224,4 +224,19 @@ export class InputFilterAddComponent implements OnInit {
     if (event.key === 'Enter') this.doSearch();
     this.doFilter();
   }
+
+  _autoFocus = false
+  @Input() set autoFocus(v: boolean){
+    this._autoFocus = v
+    if (v){
+      this.setAutoFocus()
+    }
+  }
+
+  setAutoFocus(){
+    let id = this.eid
+      setTimeout(() => {
+        document.getElementById(id).focus();
+      }, 50);
+  }
 }

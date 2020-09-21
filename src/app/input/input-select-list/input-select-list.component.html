@@ -1,0 +1,45 @@
+<app-input-filter-add
+  [hidden]="values.size < 10"
+  [filterCount]="countFiltered"
+  [showAdd]="false"
+  [showFilterCount]="true"
+  (onFilter)="filterText = $event"
+  [showInputFilter]="true"
+  [autoFocus]="autoFocus_filter"
+></app-input-filter-add>
+<table
+  class="table table-condensed table-bordered less-bottom"
+  style="margin: 0px"
+>
+  <thead class="info" [hidden]="!showHeading">
+    <tr class="info">
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let e of values | keyvalue; let i = index"
+      [class.tr-hide]="isHiddenMap.get(e.key)"
+      [class.tr-show]="!isHiddenMap.get(e.key)"
+    >
+      <td
+        [style.border-bottom]="
+          e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+        "
+      >
+        <a
+          href="#"
+          (click)="doSelect(e.key)"
+          [attr.id]="eid + '-a-' + e.key"
+          (keydown)="a_doKeyDown(e.key, $event)"
+          [attr.name]="e.key"
+          routerLink="."
+          fragment="e.key"
+          ><span [class.text-bright]="e.key == selectedEntityKey">
+            {{ i + 1 }}. {{ e.value.name }}</span
+          >
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
