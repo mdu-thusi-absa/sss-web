@@ -8,6 +8,8 @@
   [autoFocus]="autoFocus_filter"
   (onEnter)="doEnter()"
   [version]="version"
+  (onArrowDown) = "doArrowDown()"
+  (onArrowUp) = "doArrowUp()"
 ></app-input-filter-add>
 <div class="table-content">
   <table

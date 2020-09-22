@@ -29,14 +29,12 @@
             <app-entities
               [panelRows]="panelRows"
               [isNarrow]="showPanelRight"
-              [entityTypeKey] = "entityTypeKey"
+              [entityTypeKey]="entityTypeKey"
               (onDashboardChange)="doDashboardChange($event)"
               (onEntityChange)="doEntityChange($event)"
             ></app-entities>
           </div>
         </div>
-
-        
       </div>
       <!--column 2: Details of Entities, Records, Docs-->
       <div
@@ -54,12 +52,7 @@
           "
         >
           <div class="panel-heading mt3">
-            <small
-              [hidden]="
-                isPage('dashboard') ||
-                isPage('search')
-              "
-            >
+            <small [hidden]="isPage('dashboard') || isPage('search')">
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
 
               <!-- <svg
@@ -82,7 +75,7 @@
               <!-- <div class="btn-group"> -->
               <div
                 class="btn-group"
-                style="vertical-align: middle; height: 20px;"
+                style="vertical-align: middle; height: 20px"
               >
                 <!-- <app-buttons-toggle
                   [title]="'Info'"
@@ -215,7 +208,7 @@
                     : 'none'
                 "
                 class="hidden-xs"
-                style="vertical-align: middle;"
+                style="vertical-align: middle"
               >
                 <mat-icon aria-hidden="true" aria-label="Entities"
                   >arrow_back</mat-icon
@@ -228,16 +221,14 @@
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >public</mat-icon
               >
-              <span>
-                &nbsp;Dashboard</span>
+              <span> &nbsp;Dashboard</span>
             </small>
 
             <small [hidden]="!isPage('search')">
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >search</mat-icon
               >
-              <span>
-                &nbsp;Search</span>
+              <span> &nbsp;Search</span>
             </small>
 
             <!-- <small [hidden]="entityTypeKey != dashboards.size - 2">
@@ -292,16 +283,8 @@
             [class.container-panel-center-half]="panelRows == 2"
           >
             <div
-              *ngIf="
-                getIsLoaded(
-                  isPage('detail'),
-                  'entities'
-                )
-              "
-              [hidden]="
-              isPage('dashboard') ||
-                isPage('search')
-              "
+              *ngIf="getIsLoaded(isPage('detail'), 'entities')"
+              [hidden]="isPage('dashboard') || isPage('search')"
             >
               <app-entity-details
                 [panelRows]="panelRows"
@@ -318,7 +301,7 @@
                 [hideContacts]="hideContacts"
                 [hideMeetings]="hideMeetings"
                 [hideReminders]="hideReminders"
-                [hideReports] = "hideReports"
+                [hideReports]="hideReports"
                 [isNarrow]="showPanelRight"
                 [entityKey]="entityKey"
                 [entityTypeKey]="entityTypeKey"
@@ -521,7 +504,7 @@
         *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
       >
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3" style="vertical-align: middle;">
+          <div class="panel-heading mt3" style="vertical-align: middle">
             <small
               ><mat-icon
                 aria-hidden="true"
@@ -541,8 +524,8 @@
                 [style.display]="hideAudits ? 'none' : 'inherit'"
                 >done_all</mat-icon
               >
-              <span>
-                {{
+              <span
+                >{{
                   hidePosts && hideAudits && hideTasks
                     ? "&nbsp;"
                     : hidePosts && hideAudits
@@ -602,14 +585,14 @@
                 [showMe]="true"
               ></app-buttons-toolbar-button>
             </div>
-            <div class="pull-right" style="vertical-align: middle;">
+            <div class="pull-right" style="vertical-align: middle">
               <small>
                 <span
                   [style.display]="
                     hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
                   "
                   class="hidden-xs"
-                  style="vertical-align: middle;"
+                  style="vertical-align: middle"
                   >Select page
                   <mat-icon aria-hidden="true" aria-label="Entities"
                     >arrow_forwards</mat-icon
@@ -620,7 +603,7 @@
           </div>
           <div
             class="panel-body mt3"
-            style="margin-bottom: 0px;"
+            style="margin-bottom: 0px"
             *ngIf="getIsLoaded(!hideTasks, 'tasks')"
             [hidden]="hideTasks"
           >
@@ -628,7 +611,7 @@
           </div>
           <div
             class="panel-body mt3"
-            style="margin-bottom: 0px;"
+            style="margin-bottom: 0px"
             *ngIf="getIsLoaded(!hideAudits, 'audits')"
             [hidden]="hideAudits"
           >
@@ -638,7 +621,7 @@
         <div
           [hidden]="!(hideTasks && hideAudits)"
           class="h4 text-primary"
-          style="margin: 5px;"
+          style="margin: 5px"
         >
           Please select a page to display
         </div>

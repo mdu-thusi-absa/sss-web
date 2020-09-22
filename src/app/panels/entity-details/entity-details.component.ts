@@ -102,16 +102,6 @@ export class EntityDetailsComponent implements OnInit {
     if (this.data.lg)
       console.log(new Date().getTime(), 'loaded:entities-details');
     this.data.progress += 1;
-    this.data.workFlow.addListener(this);
-  }
-
-  notify(eventName: string, sourceObject: object) {
-    if (sourceObject['type'])
-      if (sourceObject['type'] == 'workflow') {
-        let w = sourceObject as TaskWalker;
-        let k = w.workflowValuesObject['companyKey'];
-        if (k) this.entityKey = k;
-      }
   }
 
   getIsLoaded(keyType: string, keyPage: string) {

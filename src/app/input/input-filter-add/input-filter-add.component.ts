@@ -20,15 +20,9 @@ export class InputFilterAddComponent implements OnInit {
   @Input() isAdd = false;
   @Input() isSaved = false;
 
-  @Output() onFilter = new EventEmitter();
-  @Output() onAdd = new EventEmitter();
-  @Output() onSave = new EventEmitter();
-  @Output() onCancel = new EventEmitter();
-
+  
   @Input() filterCount = 0;
-
-  @Output() onTick = new EventEmitter();
-  @Output() onT = new EventEmitter();
+  
   title_ = 'input-filter-add';
   @Input() set title(v: string) {
     this.title_ = Entity.sentanceCase(v);
@@ -36,18 +30,16 @@ export class InputFilterAddComponent implements OnInit {
   get title() {
     return this.title_;
   }
+  
   @Input() titlePlural = '';
   @Input() titleT = '';
-
+  
   @Input() listValues: Entities<AnyEntity>;
   @Input() listValue = 0;
-  @Output() onListChange = new EventEmitter();
-
-  @Output() onDelete = new EventEmitter();
-
+  
   showRadio = false;
   @Input() radioChoice = 'all';
-
+  
   //badges
   @Input() showFlash = false;
   @Input() showPlay = false;
@@ -70,7 +62,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showFilterCount = false;
   @Input() showInputFilter = true;
   @Input() showSearch = false;
-
+  
   @Input() disabledFlash = false;
   @Input() disabledPlay = false;
   @Input() disabledPause = false;
@@ -91,10 +83,10 @@ export class InputFilterAddComponent implements OnInit {
   @Input() disabledCancel = false;
   @Input() disabledFilterCount = false;
   @Input() disabledInputFilter = true;
-
+  
   @Input() isNarrow = false;
   @Input() isA = false;
-
+  
   //for radio values
   @Input() countFlash = 0;
   @Input() countPlay = 0;
@@ -103,7 +95,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() countAll = 0;
   @Input() countEyeClose = 0;
   @Input() countEyeOpen = 0;
-
+  
   @Input() titleFlash = '';
   @Input() titlePlay = '';
   @Input() titleOk = '';
@@ -113,19 +105,29 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleEyeOpen = '';
   @Input() titleA = '';
   @Input() titleList = '';
-
+  
+  @Output() onListChange = new EventEmitter();
+  @Output() onTick = new EventEmitter();
+  @Output() onT = new EventEmitter();
+  @Output() onFilter = new EventEmitter();
+  @Output() onAdd = new EventEmitter();
+  @Output() onSave = new EventEmitter();
+  @Output() onCancel = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
   @Output() onChoice = new EventEmitter();
   @Output() onDuplicate = new EventEmitter();
   @Output() onDownload = new EventEmitter();
   @Output() onA = new EventEmitter();
   @Output() onSearch = new EventEmitter();
   @Output() onEnter = new EventEmitter();
+  @Output() onArrowDown = new EventEmitter()
+  @Output() onArrowUp = new EventEmitter()
 
   isT = false;
   isB = 'false';
-
-  filterText = '';
   dropDown = false;
+
+  @Input() filterText = '';
   @Input() captionFlash = '';
   @Input() captionPlay = '';
   @Input() captionPause = '';
@@ -236,6 +238,12 @@ export class InputFilterAddComponent implements OnInit {
     if (event.key === 'Enter') {
       this.doSearch();
       this.onEnter.emit();
+    }
+    if (event.key === 'ArrowDown') {
+      this.onArrowDown.emit();
+    }
+    if (event.key === 'ArrowUp') {
+      this.onArrowUp.emit();
     }
     this.doFilter();
   }

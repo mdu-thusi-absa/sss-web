@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
 // import { Entities, AnyEntity} from 'src/app/data/models';
-import {EnumEntityType} from 'src/app/data/data-entity-types'
+import { EnumEntityType } from 'src/app/data/data-entity-types';
 //import { CompileShallowModuleMetadata } from '@angular/compiler';
 // import { MatCardModule } from '@angular/material/card';
 // import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 import { EnvService } from 'src/app/env.service';
 import { version } from 'package.json';
+import { TaskWalker } from 'src/app/data/data-workflow-classes';
 
 @Component({
   selector: 'app-entities-container',
@@ -202,7 +203,6 @@ export class EntitiesContainerComponent implements OnInit {
   }
 
   doDashboardChange(event: any) {
-
     //this.dashboardKey = +event;
     this.entityTypeKey = +event;
   }
@@ -355,5 +355,4 @@ export class EntitiesContainerComponent implements OnInit {
   isHalfPanel(): boolean {
     return this.panelRows == 0 ? false : this.panelRows == 2;
   }
-
 }

@@ -18,6 +18,7 @@ export class InputSelectListComponent implements OnInit {
   lastVisibleKey: number;
   firstVisibleKey: number;
   keys: number[] = [];
+  keysVisisble: number[] = [];
 
   eid = 'input-select-list';
   constructor(private data: DataService) {
@@ -31,22 +32,34 @@ export class InputSelectListComponent implements OnInit {
     this.countFiltered = this.values.size;
     this.keys = this.values.all_keys;
     this.keys.sort();
-    if (this.keys.length>0)
-      this.selectedEntityKey = this.keys[0]
+    if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
+    this.calcIsHidden()
   }
 
   doEnter() {
-    this.doSelect(this.firstVisibleKey);
-    // if (this.firstVisibleKey == this.lastVisibleKey)
-    //   this.doSelect(this.firstVisibleKey);
+    this.doSelect(this.selectedEntityKey);
+  }
+  doArrowDown() {
+    let i = this.keysVisisble.indexOf(this.selectedEntityKey);
+    if (i < this.keys.length - 1) {
+      i++;
+      this.selectedEntityKey = this.keysVisisble[i];
+    }
+  }
+  doArrowUp() {
+    let i = this.keysVisisble.indexOf(this.selectedEntityKey);
+    if (i > 0) {
+      i--;
+      this.selectedEntityKey = this.keysVisisble[i--];
+    }
   }
 
-  version = 0
+  version = 0;
   doSelect(key: number) {
     this.value = key;
     this.onSelect.emit(key);
-    this.version ++;
-    this.filterText = ''
+    this.version++;
+    this.filterText = '';
   }
 
   _filterText = '';
@@ -76,25 +89,32 @@ export class InputSelectListComponent implements OnInit {
     }
   }
 
+  initVisibles() {
+    this.keysVisisble = [];
+    this.firstVisibleKey = -1;
+    this.lastVisibleKey = -1;
+  }
+
   calcIsHidden() {
     if (this.values) {
       this.isHiddenMap = new Map();
-      this.firstVisibleKey = -1;
+      this.initVisibles();
       for (let i = 0; i < this.keys.length; i++) {
         const key = this.keys[i];
         const value = this.values.get(key);
         let hide = this.hideItem(value.name);
         if (this.isFilterTextInStepNumber(i)) hide = false;
         this.isHiddenMap.set(key, hide);
-        this.setKeysOfVisibleItems(hide,key)
+        if (!hide) this.setKeysOfVisibleItems(key);
       }
     }
   }
 
-  setKeysOfVisibleItems(hide: boolean, key: number){
-    if (!hide) this.lastVisibleKey = key;
-    if (!hide && this.firstVisibleKey == -1) this.firstVisibleKey = key;
-    this.selectedEntityKey = this.firstVisibleKey
+  setKeysOfVisibleItems(key: number) {
+    this.keysVisisble.push(key);
+    this.lastVisibleKey = key;
+    if (this.firstVisibleKey == -1) this.firstVisibleKey = key;
+    this.selectedEntityKey = this.firstVisibleKey;
   }
 
   isFilterTextInStepNumber(step: number): boolean {

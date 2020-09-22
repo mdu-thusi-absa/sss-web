@@ -4,17 +4,15 @@ import {
   Input,
   Output,
   EventEmitter,
-  HostListener,
 } from '@angular/core';
-import {
-  Entities,
-  AnyEntity,
-} from '../../data/data-entities';
+import { Entities, AnyEntity } from '../../data/data-entities';
 import { DataService } from 'src/app/data/data.service';
 // import { EntityDetailsFilesComponent } from '../entity-details-files/entity-details-files.component';
 // import { ExecException } from 'child_process';
 import { EnumEntityType } from 'src/app/data/data-entity-types';
 import { EntityFunctional } from 'src/app/data/data-entity-kids';
+import { TaskWalker } from 'src/app/data/data-workflow-classes';
+// import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-entities',
@@ -33,7 +31,7 @@ export class EntitiesComponent implements OnInit {
   //entityType: EnumEntityType = EnumEntityType.Dashboard;
   entityTypeName = '';
   entityTypeNamePlural = '';
-  showActiveOnly = true;
+  showActiveOnly = false;
   isHiddenMap = new Map();
   mapEntityTypes = new Map();
   @Output() onDashboardChange = new EventEmitter();
@@ -47,8 +45,10 @@ export class EntitiesComponent implements OnInit {
   isLoadAll = false;
   loadedMap = new Map();
   limitVisibleRows = 50;
+  private fragment: string;
 
   eid = 'panel-entities';
+  //,private route: ActivatedRoute
   constructor(public data: DataService) {
     this.eid = data.getID('', this.eid);
   }
@@ -87,6 +87,33 @@ export class EntitiesComponent implements OnInit {
     this.doEntityTypeChange(this.entityTypeKey);
     this.setCounts();
     this.data.progress += 1;
+    this.data.workFlow.addListener(this);
+    //this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
+  }
+
+  // ngAfterViewInit(): void {
+  //   // + this.fragment
+  //   // try {
+  //   //   document.querySelector('#' + this.fragment).scrollIntoView();
+  //   // } catch (e) {
+  //   //   console.log(e);
+  //   // }
+  //   //this.navigate( ['/somepath', id ], {fragment: 'test'});
+  // }
+
+  notify(eventName: string, sourceObject: object) {
+    if (sourceObject['type'])
+      if (sourceObject['type'] == 'workflow') {
+        let w = sourceObject as TaskWalker;
+        let k = w.workflowValuesObject['companyKey'];
+        this.entityTypeKey = EnumEntityType.Company;
+        if (k || k == 0) {
+          this.selectedEntityKey = k;
+          this.doEntityChoose(this.selectedEntityKey);
+          this.filterText = this.entities.get(this.selectedEntityKey).name;
+          this.doFilter(this.filterText)
+        }
+      }
   }
 
   private selectFirstVisibleRow_GetKey() {
@@ -103,7 +130,7 @@ export class EntitiesComponent implements OnInit {
   }
   private selectFirstVisibleRow() {
     try {
-      this.selectedEntityKey = this.selectFirstVisibleRow_GetKey()
+      this.selectedEntityKey = this.selectFirstVisibleRow_GetKey();
       this.onEntityChange.emit(this.selectedEntityKey);
     } catch (e) {
       console.log('EntitiesComponent -> selectFirstVisibleRow -> e', e);
@@ -172,6 +199,7 @@ export class EntitiesComponent implements OnInit {
       }
     }
     let doShow = inFilter && inStatus && isType && inActive;
+
     return !doShow;
   }
 
@@ -225,7 +253,7 @@ export class EntitiesComponent implements OnInit {
     }
   }
 
-  doFilter(event: any) {
+  doFilter(event: string) {
     this.filterText = event;
     this.isLoadAll = this.isLoadAll || this.filterText.length > 0;
     this.setCounts();

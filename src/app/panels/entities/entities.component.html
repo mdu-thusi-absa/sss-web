@@ -3,6 +3,7 @@
     [filterCount]="countFiltered"
     [showAdd]="false"
     [showFilterCount]="true"
+    [filterText] = "this.filterText"
     (onFilter)="doFilter($event)"
     [title]="entityTypeName"
     [titlePlural]="entityTypeNamePlural"
@@ -30,7 +31,7 @@
     [captionPause]="'Inactive'"
     [isNarrow]="isNarrow"
     [showInputFilter]="true"
-    [showA]="true"
+    [showA]="false"
     [isA]="showActiveOnly"
     (onA)="doChangeShowActive($event)"
     [titleA]="'Active only ' + entityTypeNamePlural.toLowerCase()"
@@ -60,7 +61,6 @@
           </thead>
           <tbody>
                 <tr  *ngFor="let e of entities| keyvalue "
-                  [class.info]="e.value.activeIs"
                   [class.tr-hide]="isHiddenMap.get(e.key)"
                   [class.tr-show]="!isHiddenMap.get(e.key)"
                 >
@@ -120,8 +120,7 @@
         {{ rdoActiveDormantAll == "flash" ? " with outstanding tasks" : "" }}
       </small>
     </div>
-  </div>
-  
+  </div> 
   <app-input-date
     [title]="'System Date'"
     [showFlash]="false"
