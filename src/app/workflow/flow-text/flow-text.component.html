@@ -10,6 +10,7 @@
     [value]="taskFlow.value"
     (onChange) = "doChange($event)"
     [autoFocus] = "taskFlow.isCurrent"
+    [showSmall] = "true"
   ></app-input-text>
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>
     <div

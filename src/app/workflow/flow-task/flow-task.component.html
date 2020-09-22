@@ -8,7 +8,7 @@
   [showSavePrev]="workFlow.currentTaskIndex > 0"
   [showViewAll] = "workFlow.tasks.length>10"
   [showClose] = "true"
-  [showSync] = "true"
+  [showSync] = "false"
   [syncValue] = "this.workFlow.notifyIs"
   (onClose) = "onClose.emit('')"
   (onShowAll) = "doShowAll($event)"

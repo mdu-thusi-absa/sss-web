@@ -241,6 +241,7 @@ export class InputFilterAddComponent implements OnInit {
     }
     if (event.key === 'ArrowDown') {
       this.onArrowDown.emit();
+      event.preventDefault()
     }
     if (event.key === 'ArrowUp') {
       this.onArrowUp.emit();
