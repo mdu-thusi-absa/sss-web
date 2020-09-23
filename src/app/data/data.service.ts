@@ -586,44 +586,42 @@ export class DataService {
     );
   }
 
-  getCommitteesForCountry(data: object){
-    return this.getEntities(E.EnumEntityType.Committee).select(
+  getCommitteeTypesForCountry(data: object){
+    return this.getEntities(E.EnumEntityType.CommitteeType).select(
       'countryKey',
       data['countryKey']
     );
   }
 
-  getIndividualsForCommittee(data: object){
-    let individualsArray = this._getCommitteeMemberKeys(data)
-    let inds = this.getEntities(E.EnumEntityType.Individual)
+  getIndividualsForCompanyForCommitteType(data: object){
+    console.log(data)
+    console.log(this.getEntities(E.EnumEntityType.CommitteeIndividuals))
+    let commInds = this.getEntities(E.EnumEntityType.CommitteeIndividuals)
+      .select('companyKey',data['companyKey'])
+      .select('committeeTypeKey',data['committeeTypeKey'])
+    console.log(commInds)
     let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
-    _addMembers()
+    let inds = this.getEntities(E.EnumEntityType.Individual)
+    commInds.forEach((value,key,map)=>{
+      let v = inds.get(value['individualKey']) as K.EntityIndividual
+      r.add(v)  
+    })
     return r
+  }  
 
-    function _addMembers(){
-      individualsArray.forEach((individualKey) => {
-        let ind = inds.get(individualKey) as K.EntityIndividual
-        r.add(ind)
-      });
-    }
-  }
-
-  private _getCommitteeMemberKeys(data: object): number[]{
-    let committeeKey = data['committeeKey']
-    let committee = this.getEntities(E.EnumEntityType.Committee).get(committeeKey)
-    return committee['individualKeys'] as Array<number>
-  }
-
-  getIndividualsNotOnCommittee(data: object){
-    let individualsArray = this._getCommitteeMemberKeys(data)
+  getIndividualsNotForCompanyForCommitteType(data: object){
+    console.log('in');
+    
+    let indsOnCommittee = this.getIndividualsForCompanyForCommitteType(data)
     let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
     let inds = this.getEntities(E.EnumEntityType.Individual)
     _addMissingIndividuals()
     return r
 
     function _addMissingIndividuals(){
+      console.log(indsOnCommittee);
       inds.forEach((value,key,map)=>{
-        if (individualsArray.indexOf(key)==-1){
+        if (!indsOnCommittee.has(key)){
           let v = value as K.EntityIndividual
           r.add(v)
         }

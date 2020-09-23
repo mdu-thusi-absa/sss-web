@@ -23,8 +23,8 @@ export const jsonEntityTypes = `[
 	{"key":21,"name":"Individual","pluralName":"Individuals","dashboardIndex":2,"activeIs":true,"keyName":"individualKey","canHoldSharesIs":"true","sourceType":"json","jsonSource":"jsonIndividuals","storeName":"individuals","headingsSource":""},
 	{"key":22,"name":"IndividualForCountries","pluralName":"IndividualsForCountries","dashboardIndex":-1,"activeIs":true,"keyName":"individualForCountriesKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getIndividualsForCountries","headingsSource":""},
 	{"key":23,"name":"IndividualInternalEmployeeStatus","pluralName":"IndividualsInternalEmployeeStatus","dashboardIndex":-1,"activeIs":true,"keyName":"individualInternalEmployeeStatusKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getIndividualsInternalEmployeeStatus","headingsSource":""},
-	{"key":24,"name":"IndividualForCommittee","pluralName":"IndividualsForCommittee","dashboardIndex":-1,"activeIs":true,"keyName":"individualForCommitteeKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getIndividualsForCommittee","headingsSource":""},
-	{"key":25,"name":"IndividualNotOnCommittee","pluralName":"IndividualsNotOnCommittee","dashboardIndex":-1,"activeIs":true,"keyName":"individualNotOnCommitteeKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getIndividualsNotOnCommittee","headingsSource":""},
+	{"key":24,"name":"IndividualForCompanyForCommitteType","pluralName":"IndividualsForCompanyForCommitteType","dashboardIndex":-1,"activeIs":true,"keyName":"individualForCompanyForCommitteTypeKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getIndividualsForCompanyForCommitteType","headingsSource":""},
+	{"key":25,"name":"IndividualNotForCompanyForCommitteType","pluralName":"IndividualsNotForCompanyForCommitteType","dashboardIndex":-1,"activeIs":true,"keyName":"individualNotForCompanyForCommitteTypeKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getIndividualsNotForCompanyForCommitteType","headingsSource":""},
 	{"key":26,"name":"Industry","pluralName":"Industries","dashboardIndex":-1,"activeIs":true,"keyName":"industryKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonIndustries","storeName":"industries","headingsSource":""},
 	{"key":27,"name":"LegalClass","pluralName":"LegalClasses","dashboardIndex":-1,"activeIs":true,"keyName":"legalClassKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonLegalClasses","storeName":"legalClasses","headingsSource":""},
 	{"key":28,"name":"Month","pluralName":"Months","dashboardIndex":-1,"activeIs":true,"keyName":"monthKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonMonths","storeName":"months","headingsSource":""},
@@ -77,8 +77,9 @@ export const jsonEntityTypes = `[
 	{"key":75,"name":"AppointmentAction","pluralName":"AppointmentActions","dashboardIndex":-1,"activeIs":true,"keyName":"appointmentActionKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonAppointmentActions","storeName":"appointmentActions","headingsSource":""},
 	{"key":76,"name":"FileDownload","pluralName":"FilesDownload","dashboardIndex":-1,"activeIs":true,"keyName":"fileDownloadKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getFileDownload","headingsSource":""},
 	{"key":77,"name":"FileUpload","pluralName":"FilesUpload","dashboardIndex":-1,"activeIs":true,"keyName":"fileUploadKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getFileUpload","headingsSource":""},
-	{"key":78,"name":"Committee","pluralName":"Committees","dashboardIndex":-1,"activeIs":true,"keyName":"committeeKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonCommittees","storeName":"committees","headingsSource":""},
-	{"key":79,"name":"CommitteeForCountry","pluralName":"CommitteesForCountry","dashboardIndex":-1,"activeIs":true,"keyName":"committeeForCountryKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getCommitteesForCountry","headingsSource":""}]`
+	{"key":78,"name":"CommitteeType","pluralName":"CommitteeTypes","dashboardIndex":-1,"activeIs":true,"keyName":"committeeTypeKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonCommitteeTypes","storeName":"","headingsSource":""},
+	{"key":79,"name":"CommitteeTypeForCountry","pluralName":"CommitteeTypesForCountry","dashboardIndex":-1,"activeIs":true,"keyName":"committeeTypeForCountryKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getCommitteeTypesForCountry","headingsSource":""},
+	{"key":80,"name":"CommitteeIndividuals","pluralName":"CommitteeIndividuals","dashboardIndex":-1,"activeIs":true,"keyName":"committeeIndividualsKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonCommitteeIndividuals","storeName":"","headingsSource":""}]`
 export enum EnumEntityType{
 	AccountingClass,
 	AccountingClassTier,
@@ -104,8 +105,8 @@ export enum EnumEntityType{
 	Individual,
 	IndividualForCountries,
 	IndividualInternalEmployeeStatus,
-	IndividualForCommittee,
-	IndividualNotOnCommittee,
+	IndividualForCompanyForCommitteType,
+	IndividualNotForCompanyForCommitteType,
 	Industry,
 	LegalClass,
 	Month,
@@ -158,5 +159,6 @@ export enum EnumEntityType{
 	AppointmentAction,
 	FileDownload,
 	FileUpload,
-	Committee,
-	CommitteeForCountry}
+	CommitteeType,
+	CommitteeTypeForCountry,
+	CommitteeIndividuals}

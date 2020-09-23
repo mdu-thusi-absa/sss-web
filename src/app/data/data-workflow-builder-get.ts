@@ -304,19 +304,18 @@ export function getIndividual(data: DataService) {
   return a;
 }
 
-getIndividualNotOnCommittee
-export function getIndividualForCommittee(data: DataService) {
+export function getIndividualNotForCountryForCommitteeType(data: DataService) {
   let a = new W.TaskSelect(data, 'individualKey');
   a.name = 'Individual';
-  a.sourceType = E.EnumEntityType.IndividualForCommittee;
+  a.sourceType = E.EnumEntityType.IndividualNotForCompanyForCommitteType;
   a.thisEntityNameIsObjectName = true;
   return a;
 }
 
-export function getIndividualNotOnCommittee(data: DataService) {
+export function getIndividualsForCountryForCommitteeType(data: DataService) {
   let a = new W.TaskSelect(data, 'individualKey');
   a.name = 'Individual';
-  a.sourceType = E.EnumEntityType.IndividualNotOnCommittee;
+  a.sourceType = E.EnumEntityType.IndividualForCompanyForCommitteType;
   a.thisEntityNameIsObjectName = true;
   return a;
 }
@@ -329,10 +328,10 @@ export function getIndividualNotOnCommittee(data: DataService) {
 //   return a;
 // }
 
-export function getCommitteeForCountry(data: DataService){
-  let a = new W.TaskSelect(data, 'committeeKey');
-  a.name = 'Committee';
-  a.sourceType = E.EnumEntityType.CommitteeForCountry; //todo
+export function getCommitteeTypesForCountry(data: DataService){
+  let a = new W.TaskSelect(data, 'committeeTypeKey');
+  a.name = 'Committee name';
+  a.sourceType = E.EnumEntityType.CommitteeTypeForCountry
   return a;
 }
 

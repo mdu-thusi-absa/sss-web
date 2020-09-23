@@ -103,9 +103,9 @@ interface queFunction {
 function queCommitteeMembershipAdd(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
   let taskList = new G.TaskList(parentTask, parentEntity);
   taskList.add(G.getCountryForTask(data))
-  taskList.add(G.getCommitteeForCountry(data))
-  //taskList.add(G.getCommitteeMembership(data))
-  taskList.add(G.getIndividualNotOnCommittee(data)) //that is not on committee
+  taskList.add(G.getCommitteeTypesForCountry(data))
+  taskList.add(G.getCompany(data))
+  taskList.add(G.getIndividualNotForCountryForCommitteeType(data)) //that is not on committee
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
@@ -116,8 +116,9 @@ function queCommitteeMembershipAdd(parentEntity: K.EntityWorkflow,parentTask: W.
 function queCommitteeMembershipRemove(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
   let taskList = new G.TaskList(parentTask, parentEntity);
   taskList.add(G.getCountryForTask(data))
-  taskList.add(G.getCommitteeForCountry(data))
-  taskList.add(G.getIndividualForCommittee(data)) //that is not on committee
+  taskList.add(G.getCommitteeTypesForCountry(data))
+  taskList.add(G.getCompany(data))
+  taskList.add(G.getIndividualsForCountryForCommitteeType(data)) //that is not on committee
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object

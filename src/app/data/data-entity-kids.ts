@@ -182,9 +182,13 @@ export class EntityLegal extends EntityFunctional {
   }
 }
 
-export class EntityCommittee extends EntityLegal{
-  individualKeys: number[] = []
+export class EntityCommitteeIndividuals extends EntityLegal{
+  entityTypeKey = EnumEntityType.CommitteeIndividuals;
+  companyKey = -1
+  committeeTypeKey = -1
+  individualKey = -1
 }
+
 
 export class EntityWorkflow extends Entity {
   public entityTypeKey = EnumEntityType.Workflow;
@@ -810,8 +814,8 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.Individual: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualForCountries: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualInternalEmployeeStatus: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.IndividualForCommittee: return new Entities<EntityIndividual>(EntityIndividual); break;
-	case EnumEntityType.IndividualNotOnCommittee: return new Entities<EntityIndividual>(EntityIndividual); break;
+	case EnumEntityType.IndividualForCompanyForCommitteType: return new Entities<EntityIndividual>(EntityIndividual); break;
+	case EnumEntityType.IndividualNotForCompanyForCommitteType: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.Industry: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.LegalClass: return new Entities<EntityLegal>(EntityLegal); break;
 	case EnumEntityType.Month: return new Entities<Entity>(Entity); break;
@@ -864,5 +868,6 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.AppointmentAction: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.FileDownload: return new Entities<EntityFileDownload>(EntityFileDownload); break;
 	case EnumEntityType.FileUpload: return new Entities<EntityFileUpload>(EntityFileUpload); break;
-	case EnumEntityType.Committee: return new Entities<EntityCommittee>(EntityCommittee); break;
-	case EnumEntityType.CommitteeForCountry: return new Entities<EntityCommittee>(EntityCommittee); break;}}
+	case EnumEntityType.CommitteeType: return new Entities<EntityLegal>(EntityLegal); break;
+	case EnumEntityType.CommitteeTypeForCountry: return new Entities<EntityLegal>(EntityLegal); break;
+	case EnumEntityType.CommitteeIndividuals: return new Entities<EntityCommitteeIndividuals>(EntityCommitteeIndividuals); break;}}
