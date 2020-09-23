@@ -1,0 +1,146 @@
+<div
+  class="form-group input-group-sm nobottom"
+  [hidden]="hideByFilter()"
+  style="margin-top: 5px; margin-right: 1px;"
+>
+  <div>
+    <label class="nobottom label-bold label-buttons">{{ title }}</label>
+  </div>
+  <div class="hidden-xs">
+    <div class="input-group input-group-sm">
+      <input
+        type="text"
+        class="form-control input-sm"
+        [placeholder]="'File name'"
+        [value]="fileName"
+        (keyup)="doKey($event)"
+        style="font-weight: normal;"
+        autocomplete="nope"
+      />
+
+      <span
+        *ngIf="showMinus"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doMinus()"
+        [title]="'Discard'"
+        [attr.id] = "eid + '-clear'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+      </span>
+
+      <span
+        *ngIf="showDownload"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDownload()"
+        [title]="'Download'"
+        [attr.id] = "eid + '-download'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
+      </span>
+
+      <span
+        *ngIf="doShare"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doShare()"
+        [title]="'Share'"
+        [attr.id] = "eid + '-share'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
+      </span>
+
+      <span
+        *ngIf="showLink"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doLink()"
+        [title]="'Add link'"
+        [attr.id] = "eid + '-link'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">link</mat-icon>
+      </span>
+
+      <span
+        *ngIf="showDisk"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="fileBrowse($event)"
+        [title]="'Browse for file to upload'"
+        [attr.id] = "eid + '-link'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">cloud_upload</mat-icon>
+      </span>
+    </div>
+  </div>
+  <!-- for larger -->
+  <div class="hidden-sm hidden-md hidden-lg">
+    <div class="input-group-sm">
+      <input
+        type="text"
+        class="form-control input-sm"
+        [placeholder]="'File name'"
+        [value]="fileName"
+        (keyup)="doKey($event)"
+        style="font-weight: normal;"
+        autocomplete="nope"
+      />
+
+      <span
+        *ngIf="showDownload"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doDownload()"
+        [title]="'Download'"
+        [attr.id] = "eid + '-download-'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
+      </span>
+
+      <span
+        *ngIf="doShare"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doShare()"
+        [title]="'Share'"
+        [attr.id] = "eid + '-share-'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
+      </span>
+
+      <span
+        *ngIf="false"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doMinus()"
+        [title]="'Discard'"
+        [attr.id] = "eid + '-clear-'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+      </span>
+
+      <span
+        *ngIf="showLink"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="doLink()"
+        [title]="'Add link'"
+        [attr.id] = "eid + '-link-'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">link</mat-icon>
+      </span>
+
+      <span
+        *ngIf="showDisk"
+        class="input-group-addon btn primary-color-reverse"
+        (click)="fileBrowse($event)"
+        [title]="'Browse for file to upload'"
+        [attr.id] = "eid + '-browse-'" 
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">cloud_upload</mat-icon>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group" hidden>
+  <a [attr.id] = "eid + '-browse'" href="#" class="btn">hidden File Browse</a>
+  <input
+    type="file"
+    [attr.id]="'file-browser-' + this.getID()"
+    [attr.name]="'file-browser-' + this.getID()"
+    (change)="handleFileInput($event.target.files)"
+  />
+</div>

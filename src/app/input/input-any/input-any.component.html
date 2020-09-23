@@ -1,0 +1,212 @@
+<app-input-number
+  *ngIf="type == 'number'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [value]="value"
+  [increment]="increment"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onChange)="doChange($event)"
+  [minValue]="minValue"
+  [maxValue]="maxValue"
+  [showDownload]="showDownload"
+  [showShare]="showShare"
+  [showCheck]="showCheck"
+></app-input-number>
+<app-input-file
+  *ngIf="type == 'file'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [showTitleInput]="showTitleInput"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onCheck) = "doCheck($event)"
+  [showDownload]="showDownload"
+  [showShare]="showShare"
+  [showSelect]="showSelect"
+  [showCheck]="showCheck"
+  [isNarrow]="isNarrow"
+  [showPanelHeading] = "showPanelHeading"
+></app-input-file>
+
+<app-input-meeting
+  *ngIf="type == 'meeting'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [showTitleInput]="showTitleInput"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onCheck) = "doCheck($event)"
+  [showDownload]="showDownload"
+  [showShare]="showShare"
+  [showSelect]="showSelect"
+  [showCheck]="showCheck"
+  [isNarrow]="isNarrow"
+  [showPanelHeading] = "showPanelHeading"
+></app-input-meeting>
+
+<app-input-address
+  *ngIf="type == 'address'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [disabled]="disabled"
+  [value]="value"
+  [showCheck]="showCheck"
+  [isNarrow]="isNarrow"
+>
+</app-input-address>
+
+<app-input-person-contact
+  *ngIf="type == 'contact'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [isNarrow]="isNarrow"
+>
+</app-input-person-contact>
+
+<app-input-text
+  *ngIf="type == 'text'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [placeholder]="placeholder"
+  [disabled]="disabled"
+  [value]="value"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onChange)="doChange($event)"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showCheck]="showCheck"
+></app-input-text>
+
+<app-input-textarea
+  *ngIf="type == 'textarea'"
+  [title]="title"
+  [showCheck]="showCheck"
+>
+</app-input-textarea>
+
+<app-input-checkbox
+  *ngIf="type == 'checkbox'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [disabled]="disabled"
+  [value]="value"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onCheck) = "doCheck($event)"
+  (onChange) = "doChange($event)"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showCheck]="showCheck"
+></app-input-checkbox>
+
+<app-input-date
+  *ngIf="type == 'date'"
+  [title]="title"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [placeholder]="placeholder"
+  [disabled]="disabled"
+  [value]="value"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onChange) = "doChange($event)"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showCheck]="showCheck"
+></app-input-date>
+
+<!-- <app-input-select
+  *ngIf="type == 'select'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [value]="value"
+  [values]="values"
+  (onChange)="doChange($event)"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onAdd)="doAdd($event)"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showAdd]="showAdd"
+  [showEdit]="showEdit"
+  [showDelete]="showDelete"
+  [showCheck]="showCheck"
+></app-input-select> -->
+
+<app-input-select-entity
+  *ngIf="type == 'select-entity'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [value]="value"
+  [values]="values"
+  [disabled] = "disabled"
+  (onChange)="doChange($event)"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onAdd)="doAdd($event)"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showAdd]="showAdd"
+  [showEdit]="showEdit"
+  [showDelete]="showDelete"
+  [showCheck]="showCheck"
+></app-input-select-entity>
+
+<app-input-select-checkbox
+  *ngIf="type == 'select-checkbox'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  
+  [values]="values"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  (onTask)="doTask()"
+  (onChange) = "doChange($event)"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showCheck]="showCheck"
+></app-input-select-checkbox>
+
+<app-input-person
+  *ngIf="type == 'person'"
+  [filterText]="filterText"
+  [doHideByFilter]="doHideByFilter"
+  [title]="title"
+  [value]="value"
+  [values]="values"
+  (onFile)="doFile()"
+  (onRecord)="doRecord()"
+  [showFlash]="showFlash"
+  [showPaperclip]="showPaperclip"
+  [showCD]="showCD"
+  [showAdd]="showAdd"
+  [showEdit]="showEdit"
+  [showDelete]="showDelete"
+  [showCheck]="showCheck"
+></app-input-person>

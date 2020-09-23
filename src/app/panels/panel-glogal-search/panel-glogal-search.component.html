@@ -1,0 +1,28 @@
+<app-input-filter-add
+  [title]="'Search all entities'"
+  [titlePlural] = "'All Entities'"
+  [showA] = "true"
+  [isA] = "true"
+  [showSearch] = "true"
+  (onFilter)="doFilter($event)"
+></app-input-filter-add>
+
+<!-- <app-test-material></app-test-material> -->
+
+<form autocomplete="off">
+  <div
+    [class.settings-detail-form-full]="isFullScreen()"
+    [class.settings-detail-form-half]="isHalfScreen()"
+  >
+  <app-label-h [title]="'Search results: Companies'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Individuals'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Users'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Portfolios'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Trusts'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Regulators'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Regulations'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Auditors'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Secreteriats'" [hr] = "true"></app-label-h>
+  <app-label-h [title]="'Search results: Templates'" [hr] = "true"></app-label-h>
+  </div>
+</form>

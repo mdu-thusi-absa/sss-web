@@ -1,0 +1,45 @@
+<!-- not used any more -->
+
+
+<div class="h4 text-primary" style="margin-top: 5px;">
+  Users Details
+</div>
+
+<div class="container-flex">
+  <div class="row">
+    <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+      <div *ngFor="let e of users | keyvalue; let i = index">
+        <div *ngIf="(i+1) % 2">
+          <app-input-person
+            [filterText]="filterText"
+            [doHideByFilter]="true"
+            [values]="users"
+            [title]=" e.value.name + ': details'"
+            [value]="e.key"
+            (onFile)="doFile(e.key)"
+            (onRecord)="doRecord(e.key)"
+            (onTask)="doTask(e.key)"
+          ></app-input-person>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+        <div *ngFor="let e of users | keyvalue; let i = index">
+          <div *ngIf="(i)% 2">
+            <app-input-person
+              [filterText]="filterText"
+              [doHideByFilter]="true"
+              [values]="users"
+              [title]="'User ' + e.key + ' details'"
+              [value]="e.key"
+              (onFile)="doFile(e.key)"
+              (onRecord)="doRecord(e.key)"
+              (onTask)="doTask(e.key)"
+            ></app-input-person>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<hr>

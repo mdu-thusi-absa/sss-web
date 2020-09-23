@@ -1,0 +1,43 @@
+<div
+  class="form-group input-group-sm nobottom app-input"
+  [style.margin-top]="showSmall ? '0px' : 'var(--app-input-margin-top)'"
+  [hidden]="hideByFilter()"
+  style="margin-right: 1px;"
+>
+  <div class="input-group-sm" style="margin-bottom: 5px;">
+    <label class="nobottom label-bold label-buttons-3" >{{
+      title
+    }}</label>
+
+    <app-buttons-input-text
+      [title]="title"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showCheck]="showCheck"
+      [title]="title"
+    ></app-buttons-input-text>
+  </div>
+
+  <input
+    type="text"
+    style="padding:5px"
+    class="form-control nobottom"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    autocomplete="nope"
+    #inputText
+    [ngModel]="value"
+    (ngModelChange)="doChange($event)"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    [title]="placeholder"
+    [attr.id] = "this.eid"
+    [attr.autocomplete]="'net'"
+    autocomplete="new-password"
+    (keyup) = "doKey($event)"
+  />
+</div>

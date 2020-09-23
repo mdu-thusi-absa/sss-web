@@ -1,0 +1,18 @@
+<app-input-panel
+  [title]="stepNumber + '. Upload: ' + taskFlow.name"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+>
+  {{ taskFlow.description }}
+  <app-input-table
+    [headings]="['Title']"
+    [fields]="['name']"
+    [withCheckbox]="true"
+    [entities]="taskFlow.files"
+    [inputType]="'file'"
+    [noPadding] = "true"
+    [checked] = "true"
+    (onDrill) = "doDrill()"
+  ></app-input-table>
+</app-input-panel>

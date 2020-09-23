@@ -1,0 +1,53 @@
+<div
+  [hidden]="hideByFilter()"
+  style="margin-bottom: 0px;  padding:1px; vertical-align: middle;display:inline-block"
+  class="app-input"
+  [style.margin-top]="showSmall ? '0px' : 'var(--app-input-margin-top)'"
+  [style.margin-right]="showSmall ? '0px' : '5px'"
+  [class.label-buttons-2]="showEdit || showDelete || showFlash || showPaperclip || showCheck || showCD"
+  [class.disabled] = "disabled"
+>
+  <a
+    href="#"
+    class="btn primary-color btn-hover"
+    [class.btn-xs] = "showSmall"
+    [class.a-small] = "showSmall"
+    
+    (click)="doChange()"
+    [class.disabled] = "disabled"
+    [attr.id] = "eid + '-change'" 
+  >
+    <mat-icon
+      [class.mat-icon-small]="showSmall"
+      aria-hidden="true"
+      aria-label="Entities"
+      >{{value?'done':''}}</mat-icon
+    >
+  </a>
+  <!-- <a
+    href="#"
+    class="btn primary-color btn-hover"
+    [class.btn-xs] = "showSmall"
+    [class.a-small] = "showSmall"
+    [style.display]="value ? 'none' : 'inline-block'"
+    (click)="doChange()"
+    [class.disabled] = "disabled"
+  >
+    <mat-icon
+      [class.mat-icon-small]="showSmall"
+      aria-hidden="true"
+      aria-label="Entities"
+    ></mat-icon>
+  </a> -->
+  <label
+    [hidden]="noTitle"
+    style="vertical-align: middle;overflow-x: hidden;display:inline-block;white-space: nowrap;"
+    [style.padding-left] = "noTitle?'0px':'5px'"
+    class="nobottom label-checkbox text-primary"
+    [class.text-primary-bold] = "!showSmall"
+    [class.disabled] = "disabled"
+    (click)="doChange()"
+    [attr.id] = "eid + '-title'"
+  >{{ title }}
+  </label>
+</div>

@@ -1,0 +1,71 @@
+<div class="form-group">
+  <div class="form=control btn-group wide input-group-sm" data-toggle="buttons">
+    <label
+      class="btn btn-primary primary-color btn-hover btn-xs"
+      (click)="rdoActiveInActiveAll = 'Active'"
+      [class.active] = "rdoActiveInActiveAll == 'Active'"
+      [class.focus]="rdoActiveInActiveAll == 'Active'"
+    >
+      <input type="radio" 
+      name="rdoChoice" 
+      value = 'Active'
+      [checked]="rdoActiveInActiveAll == 'Active'"
+       />
+      <mat-icon aria-hidden="true" aria-label="Entities">play_arrow</mat-icon>
+      <small>&nbsp;</small>
+      <span class="badge badge-xs"><small>{{getTaskCountActive()}}</small></span>
+    </label>
+    <label
+      class="btn btn-primary primary-color btn-hover btn-xs" [class.active] = "rdoActiveInActiveAll == 'Done'"
+      (click)="rdoActiveInActiveAll = 'Done'"
+    >
+      <input type="radio" 
+      name="rdoChoice"
+      value = 'Done'
+      [checked]="rdoActiveInActiveAll == 'Done'"
+       />
+      <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+      <small>&nbsp;</small>
+      <span class="badge badge-xs"><small>{{getTaskCountDone()}}</small></span>
+    </label>
+    <label
+      class="btn btn-primary primary-color btn-hover btn-xs" [class.active] = "rdoActiveInActiveAll == 'All'"
+      (click)="rdoActiveInActiveAll = 'All'"
+    >
+      <input
+        type="radio"
+        name="rdoChoice"
+        value="All"
+        [checked]="rdoActiveInActiveAll == 'All'"
+      />
+      <small>All </small>
+      <span class="badge badge-xs"><small>{{getTaskCountAll()}}</small></span>
+    </label>
+  </div>
+
+  <select class="form-control input-sm" style="font-size: small;" [(ngModel)] = 'listTaskType'>
+    <option value='all' selected>All</option>
+    <option value='resignation'>Resignations</option>
+    <option value='appointment'>Appointments</option>
+    <option value='rename'>Rename</option>
+    <option value='change address'>Change address</option>
+    <option value='update details'>Update details</option>
+    <option value='other'>Other</option>
+  </select>
+
+  <app-input-filter-add
+    [filterCount]="getCountFiltered()"
+    (onFilter)="doFilter($event)"
+    [showAdd] = "true"
+  ></app-input-filter-add>
+
+
+  <div
+    [class.tasks-full]="isFullScreen()"
+    [class.tasks-half]="isHalfScreen()"
+  >
+    <div *ngFor="let e of entities" [hidden]="shoudHideTask(e)">
+      <app-task-heading [task]="e"></app-task-heading>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div [hidden]="hideByFilter()">
+  <div
+    style="margin-right: 0px;"
+    [style.margin-top]="inline ? '0px' : 'var(--app-input-margin-top)'"
+    class="app-input"
+  >
+    <div style="margin-bottom: 5px;">
+      <app-buttons-input-text
+        (onFile)="doFile()"
+        (onRecord)="doRecord()"
+        (onTask)="doTask()"
+        [showFlash]="showFlash"
+        [showPaperclip]="showPaperclip"
+        [showCD]="showCD"
+        [showCheck]="showCheck"
+        [title]="title"
+      ></app-buttons-input-text>
+      <label
+        *ngIf="!inline && showTitle"
+        class="nobottom label-bold label-buttons-1"
+        >{{ title }}</label
+      >
+    </div>
+    <div class="input-group date input-group-sm">
+      <span
+        *ngIf="inline && showTitle"
+        class="hidden-xs input-group-addon"
+        (click)="dpDate.toggle()"
+        [attr.id] = "eid + '-title'"
+      >
+        {{ title }}
+      </span>
+      <input
+        type="text"
+        bsDatepicker
+        class="form-control custom-today-class"
+        #dpDate="bsDatepicker"
+        [(ngModel)]="_value"
+        [bsConfig]="{
+          dateInputFormat: 'YYYY/MM/DD',
+          containerClass: 'theme-red',
+          showWeekNumbers: false,
+          adaptivePosition: true
+        }"
+        [placeholder]="placeholder"
+        [disabled]="false"
+        autocomplete="nope"
+        [title]="title"
+        (changeDate)="doChange()"
+        (change)="doChange()"
+        (onchange)="doChange()"
+        (onchangeDate)="doChange()"
+        readonly
+        (keydown) = "$event.key == 'Enter'? dpDate.toggle():''"
+      />
+      <span
+        *ngIf="!disabled"
+        class="input-group-addon primary-color-reverse"
+        (click)="gotoToday()"
+        [title]="'Today'"
+        [attr.id] = "eid + '-today'"
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities">today</mat-icon>
+      </span>
+      <span
+        class="input-group-addon"
+        (click)="disabled ? '' : dpDate.toggle()"
+        [title]="(disabled ? '' : 'Choose ') + title"
+        [class.primary-color-reverse]="!disabled"
+        [attr.id] = "eid + '-calendar'"
+      >
+        <mat-icon aria-hidden="true" aria-label="Entities"
+          >calendar_today</mat-icon
+        >
+      </span>
+    </div>
+  </div>
+</div>

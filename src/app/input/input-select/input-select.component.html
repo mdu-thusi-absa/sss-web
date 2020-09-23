@@ -1,0 +1,142 @@
+
+<div
+  class="form-group input-group-sm nobottom"
+  [hidden]="hideByFilter()"
+  style="margin-top: 5px; margin-right: 1px;"
+>
+  <div class="input-group-sm">
+    <label class="nobottom label-bold label-buttons-6">{{ title }} </label>
+
+    <app-buttons-input-select
+      [title]="title"
+      [isDoInput]="isDoInput"
+      [showAdd]="false"
+      [showEdit]="false"
+      [showDelete]="false"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showCheck] = "showCheck"
+      [showFilter]="true"
+      [showCancel]="false"
+      [showSave]="false"
+      [countItems]="countItems()"
+      (onAdd)="showNew()"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      (onFilter)="doFilter($event)"
+      (onShowingFilter)="showingFilter($event)"
+    ></app-buttons-input-select>
+  </div>
+  <div [hidden]="isDoInput">
+    <br [hidden]="!isShowingFilter" />
+    <div class="hidden-xs">
+      <div class = "input-group" style="width: 100%;">
+        <select
+          class="form-control input-sm selectpicker"
+          data-live-search="true"
+          style="font-size: small;"
+          name="option"
+          [(ngModel)]="value"
+          style="padding-left: 6px; padding-right: 6px;"
+          (change)="doChange($event)"
+        >
+          <option
+            *ngFor="let v of values | keyvalue"
+            [value]="v.key"
+            [selected]="v.key == value"
+            [hidden]="hideItem(v.value)"
+            ><small>{{ v.value }}</small>
+          </option>
+        </select>
+
+        <span
+          *ngIf="showDelete"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doDelete()"
+          [title]="'Delete the ' + title"
+          [attr.id] = "eid + '-clear'"
+        >
+          <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+        </span>
+        <span
+          *ngIf="showEdit"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doEdit()"
+          [title]="'Edit the ' + title"
+          [attr.id] = "eid + '-edit'"
+        >
+            <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
+        </span>
+        <span
+          *ngIf="showAdd"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doAdd()"
+          [title]="'Add an ' + title"
+          [attr.id] = "eid + '-add'"
+        >
+          <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+        </span>
+      </div>
+    </div>
+    <div class="hidden-sm hidden-md hidden-lg">
+      <div style="width: 100%;">
+        <select
+          class="form-control input-sm selectpicker"
+          data-live-search="true"
+          style="font-size: small;"
+          name="option"
+          [(ngModel)]="value"
+          style="padding-left: 6px; padding-right: 6px;"
+          (change)="doChange($event)"
+        >
+          <option
+            *ngFor="let v of values | keyvalue"
+            [value]="v.key"
+            [selected]="v.key == value"
+            [hidden]="hideItem(v.value)"
+            ><small>{{ v.value }}</small>
+          </option>
+        </select>
+
+        <span
+          *ngIf="showDelete"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doDelete()"
+          [title]="'Delete the ' + title"
+          [attr.id] = "eid + '-clear-'"
+        >
+          <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+        </span>
+        <span
+          *ngIf="showEdit"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doEdit()"
+          [title]="'Edit the ' + title"
+          [attr.id] = "eid + '-edit-'"
+        >
+          <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
+        </span>
+        <span
+          *ngIf="showAdd"
+          class="input-group-addon btn primary-color-reverse"
+          (click)="doAdd()"
+          [title]="'Add an ' + title"
+          [attr.id] = "eid + '-add-'"
+        >
+          <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <app-input-select-text
+    [isDoInput]="isDoInput"
+    [showSave]="showSave"
+    [showCancel]="showCancel"
+    [text]="text"
+    (onSave)="doSave($event)"
+    (onCancel)="doCancel()"
+  ></app-input-select-text>
+</div>

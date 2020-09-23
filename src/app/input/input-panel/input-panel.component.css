@@ -1,0 +1,3 @@
+.panel-body-height{
+    max-height: calc(100vh - 70px);
+}

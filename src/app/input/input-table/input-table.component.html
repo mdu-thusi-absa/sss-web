@@ -1,0 +1,137 @@
+<ng-container *ngIf = "isHiddenMap.size > 20">
+<app-input-filter-add
+  [filterCount]="countSelected + ':' + countFiltered"
+  [showAdd]="true"
+  [showFilterCount]="true"
+  (onFilter)="filterText = $event"
+  [showInputFilter]="true"
+  [showShare]="true"
+  [disabledShare]="countSelected == 0"
+  [showA]="true"
+  [isA]="true"
+  [titleA]="'Active only files'"
+></app-input-filter-add>
+<div style="padding-bottom: 5px;"></div>
+</ng-container>
+
+  <table class="table table-condensed table-bordered less-bottom"
+    [style.padding-bottom] = "noPadding?'0px':'10px'"
+    [style.margin-bottom] = "noPadding?'0px':'10px'"
+  >
+    <thead class="info">
+      <tr>
+        <th *ngIf="withCheckbox" width="15px">
+          <app-input-checkbox
+            [noTitle]="true"
+            [showSmall]="true"
+            (onChange)="checkForAll($event)"
+            [value] = "checked"
+          ></app-input-checkbox>
+        </th>
+        <th *ngFor="let h of headings" class="info">
+          {{ h }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let e of entities | keyvalue; let i = index">
+        <ng-container *ngIf="getDoLoad(e)">
+          <tr [hidden]="isHiddenMap.get(e.key)">
+            <td *ngIf="withCheckbox">
+              <app-input-checkbox
+                [noTitle]="true"
+                [showSmall]="true"
+                [value]="isChecked.get(e.key)"
+                (onChange)="checkItem(e.key, $event)"
+              ></app-input-checkbox>
+            </td>
+            <td
+              *ngFor="let f of fields"
+              [style.border-bottom]="
+                e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+              "
+            >
+              <a
+                href="#"
+                (click)="doEntityChoose(e.key)"
+                [attr.id]="e.key"
+                [attr.name]="e.key"
+                routerLink="."
+                fragment="e.key"
+                ><span [class.text-bright]="e.key == selectedEntityKey">
+                  <ng-container [ngSwitch]="getType(e.value[f])">
+                    <ng-container *ngSwitchCase="'boolean'">
+                      <app-input-checkbox
+                        [noTitle]="true"
+                        [showSmall]="true"
+                        [value]="e.value[f]"
+                        (onChange)="checkField(e.key, $event,f)"
+                      ></app-input-checkbox>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      {{ e.value[f] }}
+                    </ng-container>
+                  </ng-container>
+                </span>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'entity'">
+            <td style="padding:0px" [attr.colspan]="headings.length + (withCheckbox?1:0)">
+              <app-input-table-entity
+                [entity] = "e.value"
+                [noPadding] = "true"
+              ></app-input-table-entity>
+            </td>
+          </tr>
+          <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'file'">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
+              <app-input-file
+                [title]="e.value.name"
+                [showTitleInput]="false"
+                [showSelect]="true"
+                [showShare]="true"
+                [showDownload]="true"
+                [showPanelHeading]="false"
+                [showCheck] = "false"
+              ></app-input-file>
+            </td>
+          </tr>
+          <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'person'">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
+              <app-input-person
+                [title]="e.value.name"
+                [values]="data.individuals"
+                [value]="0"
+              ></app-input-person>
+            </td>
+          </tr>
+          <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'meeting'">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
+              <app-input-meeting
+                [title]="e.value.name"
+                [showTitleInput]="true"
+                [showSelect]="true"
+                [showShare]="true"
+                [showDownload]="true"
+                [showPanelHeading]="false"
+              ></app-input-meeting>
+            </td>
+          </tr>
+          <tr *ngIf="!hideEditRow.get(e.key) && inputType == 'reminder'">
+            <td [attr.colspan]="headings.length + (withCheckbox?1:0)">
+              <app-input-reminder
+                [title]="e.value.name"
+                [showTitleInput]="true"
+                [showSelect]="true"
+                [showShare]="true"
+                [showPanelHeading]="false"
+              ></app-input-reminder>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+

@@ -1,0 +1,75 @@
+<div class="panel panel-default" style="margin-bottom: 0px; margin-top: 5px;">
+  <div
+    class="panel panel-heading nobottom less-padding text-primary-bold"
+    [hidden]="false"
+  >
+    <a
+      href="#"
+      data-toggle="collapse"
+      [attr.data-target]="'#schedule-' + getID()"
+      (click)="hideBody = !hideBody"
+      class="text-primary-bold"
+      [attr.id] = "eid + '-title'" 
+    >
+      <label class="nobottom label-bold"><small
+        >Repeating schedule {{ title.length > 0 ? "for: " + title : "" }}</small
+      ></label>
+    </a>
+  </div>
+
+  <div
+    class="panel panel-body noborder nobottom less-padding collapse"
+    [class.in]="!hideBody"
+    id="{{ 'step-' + getID() }}"
+  >
+    <app-input-duo
+    [isNarrow] = "isNarrow"
+      [typeLeft]="'select-entity'"
+      [titleLeft]="'Period'"
+      [placeholderLeft]="'Repead every ... period'"
+      [valuesLeft]="data.periods"
+      [valueLeft]="0"
+      [typeRight]="'select-entity'"
+      [titleRight]="'How often'"
+      [valuesRight]="data.months"
+      [valueRight]="0"
+      [showAddRight] = "false"
+      [showDeleteRight] = "false"
+      [showEditRight] = "false"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+    >
+    </app-input-duo>
+
+    <app-input-duo
+    [isNarrow] = "isNarrow"
+      [typeLeft]="'date'"
+      [titleLeft]="'Starting Due Date'"
+      [placeholderLeft]="'First due date'"
+      [typeRight]="'date'"
+      [titleRight]="'Final due date'"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+    >
+    </app-input-duo>
+
+    <app-input-duo
+    [isNarrow] = "isNarrow"
+      [typeRight]="'select-entity'"
+      [titleRight]="'Remind ... period before'"
+      [placeholderRight]="'Remind ... period before'"
+      [valuesRight]="data.months"
+      [showAddRight] = "false"
+      [showDeleteRight] = "false"
+      [showEditRight] = "false"
+      [valueRight]="0"
+      [typeLeft]="'select-entity'"
+      [titleLeft]="'Remind period'"
+      [valuesLeft]="data.periods"
+      [valueLeft]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+    >
+    </app-input-duo>
+  </div>
+</div>

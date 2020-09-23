@@ -1,0 +1,58 @@
+<div class="btn-group pull-right" style="margin-right: 1px;">
+  <a
+    *ngIf="showFlash"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doTask()"
+    [attr.id] = "eid + '-flash'" 
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >flash_on</mat-icon
+    >
+  </a>
+  <a
+    *ngIf="showPaperclip"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doFile()"
+    [attr.id] = "eid + '-file'" 
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >attachment</mat-icon
+    >
+  </a>
+  <a
+    *ngIf="showCD"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doRecord()"
+    [attr.id] = "eid + '-cd'" 
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >theaters</mat-icon
+    >
+  </a>
+  <a
+    *ngIf="showCheck"
+    href="#"
+    class="btn primary-color-reverse btn-xs"
+    (click)="doRecord()"
+    [attr.id] = "eid + '-done-all'" 
+  >
+    <mat-icon
+      aria-hidden="true"
+      aria-label="Entities"
+      [title]="'Audit of changes for ' + title"
+      >done_all</mat-icon
+    >
+  </a>
+</div>

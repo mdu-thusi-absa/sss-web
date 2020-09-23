@@ -1,0 +1,37 @@
+
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
+  Custom Details: {{title}}
+</div> -->
+<app-label-h [title]="'Custom Details: ' + title"></app-label-h>
+
+<app-input-duo
+  [typeLeft]="'number'"
+  [titleLeft]="'Number of Custom fields'"
+  [valueLeft]="1"
+  [minValueLeft]="1"
+  [maxValueLeft]="1000"
+  [incrementLeft]="1"
+
+  (onChangeLeft)="doChangeCount($event)"
+  [showCDLeft]="false"
+  [showFlashLeft]="false"
+  [showPaperclipLeft]="false"
+  [showCheckLeft] = "true"
+></app-input-duo>
+
+<div *ngFor="let e of elements; let i = index">
+  <app-input-custom
+    [isNarrow]="isNarrow"
+    [id]="i + 1"
+    [title]="''"
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [persons]="persons"
+    (onChange)="doChangeCustomType(i, $event)"
+    [showCheck] = "true"
+  >
+  </app-input-custom>
+</div>
+
+<div style="padding-bottom: 5px;"> </div>
+<hr>

@@ -1,0 +1,89 @@
+<div
+  class="col-xl-12 col-md-6 col-lg-6"
+  [class.col-sm-12]="isNarrow"
+  [class.col-md-12]="isNarrow"
+  [class.col-md-6]="!isNarrow"
+  [class.col-sm-6]="!isNarrow"
+>
+  <div class="panel panel-default" style="margin-bottom: 5px; margin-top: 5px;">
+    <div
+      class="panel panel-heading panel-info nobottom less-padding text-primary-bold"
+      style="vertical-align: middle; padding-bottom: 0px;"
+    >
+      <a
+        href="#"
+        style="
+          white-space: nowrap;
+          display: inline-block;
+          overflow: hidden;
+        "
+        [attr.id] = "eid + '-title'" 
+      >
+        <label class="nobottom label-bold"
+          ><small>{{title}}</small></label
+        >
+      </a>
+    </div>
+
+    <div
+      class="panel panel-body noborder nobottom less-padding"
+      style="margin-top: 0px;"
+    >
+      <app-input-any
+        [type]="typeLeft"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleLeft"
+        [placeholder]="placeholderLeft"
+        [disabled]="disabledLeft"
+        [value]="valueLeft"
+        [values]="valuesLeft"
+        (onFile)="doFileLeft()"
+        (onRecord)="doRecordLeft()"
+        (onTask)="doTaskLeft()"
+        (onChange)="doChangeLeft($event)"
+        (onAdd)="doAddLeft($event)"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
+        [showAdd]="showAddLeft"
+        [showDelete]="showDeleteLeft"
+        [showEdit]="showEditLeft"
+        [showDownload]="showDownloadLeft"
+        [showShare]="showShareLeft"
+        [showCheck]="showCheckLeft"
+        [maxValue]="maxValueLeft"
+        [minValue]="minValueLeft"
+        [increment]="incrementLeft"
+      ></app-input-any>
+
+      <app-input-any
+        [type]="typeRight"
+        [filterText]="filterText"
+        [doHideByFilter]="doHideByFilter"
+        [title]="titleRight"
+        [placeholder]="placeholderRight"
+        [disabled]="disabledRight"
+        [value]="valueRight"
+        [values]="valuesRight"
+        (onFile)="doFileRight()"
+        (onRecord)="doRecordRight()"
+        (onTask)="doTaskRight()"
+        (onChange)="doChangeRight($event)"
+        (onAdd)="doAddRight($event)"
+        [showFlash]="showFlashLeft"
+        [showPaperclip]="showPaperclipLeft"
+        [showCD]="showCDLeft"
+        [showAdd]="showAddRight"
+        [showDelete]="showDeleteRight"
+        [showEdit]="showEditRight"
+        [showDownload]="showDownloadRight"
+        [showShare]="showShareRight"
+        [showCheck]="showCheckRight"
+        [maxValue]="maxValueRight"
+        [minValue]="minValueRight"
+        [increment]="incrementRight"
+      ></app-input-any>
+    </div>
+  </div>
+</div>

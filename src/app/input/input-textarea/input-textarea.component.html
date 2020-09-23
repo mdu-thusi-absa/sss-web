@@ -1,0 +1,40 @@
+{{filterText}}
+
+<div
+  class="form-group less-bottom"
+  style="margin-top: 5px; margin-bottom: 2px;"
+  [hidden]="hideByFilter()"
+>
+  <div>
+    <label
+      for="text"
+      class="label-bold"
+      style="margin-bottom: 4px;"
+      [hidden]="noTitle"
+      >{{ title }}
+    </label>
+
+    <app-buttons-input-text
+      [title]="title"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showCheck] = "showCheck"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      [title] = "title"
+    ></app-buttons-input-text>
+  </div>
+  <textarea
+    class="form-control"
+    [rows]="rows"
+    [value]="value"
+    [placeholder]="placeholder"
+    autocomplete="nope"
+    style="padding:2px 4px 2px 4px;font-size: 10pt"
+    [ngModel]="value"
+    (ngModelChange)="doChange($event)"
+    [attr.id] = "eid"
+  ></textarea>
+</div>

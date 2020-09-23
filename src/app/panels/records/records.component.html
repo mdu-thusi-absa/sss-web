@@ -1,0 +1,39 @@
+<div class="form-group">
+  <select
+    class="form-control input-sm"
+    style="font-size: small;"
+    [(ngModel)]="listTaskType"
+  >
+    <option value="all" selected>All</option>
+    <option value="dean">dean</option>
+    <option value="sasha">sasha</option>
+    <option value="vlad">vlad</option>
+    <option value="ulrich">ulrich</option>
+  </select>
+
+  <input
+    type="text"
+    class="form-control input-sm"
+    placeholder="Filter names"
+    [(ngModel)]="filterText"
+  />
+
+  <div
+    [class.records-full]="isFullScreen()"
+    [class.records-half]="isHalfScreen()"
+  >
+    <table
+      class="table table-condensed table-bordered table-hover less-bottom"
+      style="font-size: smaller;"
+    >
+      <tbody>
+        <tr *ngFor="let e of records" [hidden]="shoudHideRecord(e)">
+          <td>
+            <a [href]="e.whenString() + ':' + e.who">{{ e.whenString() }}</a>
+          </td>
+          <td>{{ e.who }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

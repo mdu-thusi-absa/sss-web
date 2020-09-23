@@ -1,0 +1,23 @@
+.mat-icon {
+    vertical-align: middle;
+    font-size: 16px;
+    width: 15px;
+    height: 16px; 
+  }
+
+  .input-group-addon{
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  /* select, option, .select, .option, select:hover, option:hover{
+    background-color:white
+  } */
+
+  /* input[type="text"]{
+    padding-bottom: 4px;
+    padding-top: 4px;
+  } */
+  

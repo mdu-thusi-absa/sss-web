@@ -1,0 +1,61 @@
+<div
+  *ngIf="showMe"
+  style="
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 1px;
+    padding-left: 1px;
+  "
+>
+  <!-- svgPath: {{svgUrlPath}} -->
+  <label
+    [attr.for]="'checkbox-toggle-' + eid"
+    class="btn btn-info btn-xs"
+    style="padding: 1px;"
+    [class.active]="toggleValue"
+    [title]="placeholder"
+    [attr.data-toggle]="dataTarget ? 'collapse' : ''"
+    [attr.data-target]="dataTarget"
+  >
+    <mat-icon aria-hidden="true" aria-label="Entities">{{matIcon}}</mat-icon><small>&nbsp;</small>
+    <!-- <svg
+      style="
+        background-position: center;
+        vertical-align:middle;
+        background-repeat: no-repeat;
+        height: 19px;
+        width: 19px;
+        color: white;
+      "
+      [style.background-image] = "'url(\'' + svgUrlPath + '\')'"
+    ></svg> -->
+
+    <!-- [style.background-image] = "'url(\'../assets/svg/Icon_Exclamation circle_SVG_Black.svg\')'" -->
+
+    <span class="hidden-xs" [hidden]="isNarrow">
+      <small>&nbsp;{{ title }}&nbsp;</small></span
+    >
+  </label>
+  <input
+    type="checkbox"
+    style="display: none;"
+    [attr.id]="'checkbox-toggle-' + eid"
+    [checked]="toggleValue"
+    (change)="doToggle($event)"
+  />
+
+</div>
+
+<!--
+    [class.active] = "toggleValue"
+    <label
+      style="
+        white-space: nowrap;
+
+        overflow: hidden;
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: normal;
+      "
+    >
+</label> -->

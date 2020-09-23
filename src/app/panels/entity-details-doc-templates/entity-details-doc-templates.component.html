@@ -1,0 +1,17 @@
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;" [hidden]="!showTitle">
+    Templates Details
+  </div> -->
+  <app-label-h [title]="'Templates Details'" [hidden]="!showTitle"></app-label-h>
+  
+  <app-input-table
+    [headings]="['Title', 'Description']"
+    [fields]="['name', 'description']"
+    [withCheckbox]="true"
+    [entities]="data.templates"
+    [inputType] = "'file'"
+  ></app-input-table>
+  
+  <ng-container *ngIf="showTitle">
+    
+    <hr />
+  </ng-container>

@@ -1,0 +1,25 @@
+<div class="form-group">
+
+  <app-input-filter-add
+    [filterCount]="getCountFiltered()"
+    [showAdd]="false"
+    [showTick] = "true"
+    (onTick) = "selectAll()"
+    (onFilter)="doFilter($event)"
+    [titlePlural] = "'Entity attributes'"
+  ></app-input-filter-add>
+  <div [class.files-attributes-half]="isHalfScreen()">
+    <div *ngFor="let e of entities" [hidden]="shoudHideAttribute(e)">
+      <div class="checkbox" style="margin: 0px;">
+        <label class="nobottom label-bold"
+          ><input
+            type="checkbox"
+            [value]="e"
+            [checked]="showFileFields.indexOf(e) > -1 || isShowAll"
+            (change)="doCheckField($event)"
+          /><small>{{ e }}</small></label
+        >
+      </div>
+    </div>
+  </div>
+</div>

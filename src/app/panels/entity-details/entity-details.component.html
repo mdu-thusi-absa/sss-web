@@ -1,0 +1,471 @@
+<!-- <div class="form-group nobottom">
+  <input
+    type="text"
+    class="form-control input-sm"
+    placeHolder="Filter attributes"
+    style="margin-bottom: 2px;"
+    [(ngModel)]="filterText"
+  />
+</div> -->
+
+
+
+<!-- <app-input-filter-add
+  [title]="entityTypeName"
+  [showSave]="true"
+  [showCancel]="true"
+  [showT]="true"
+  [showDuplicate]="true"
+  [disabledSave]="!dirty"
+  [disabledCancel]="!dirty"
+  (onFilter)="doFilter($event)"
+  (onSave)="doSave()"
+  (onCancel)="doCancel()"
+  [titleT]="'field values'"
+></app-input-filter-add> -->
+<form autocomplete="off">
+  <div
+    [hidden]="entityTypeName == 'individual' || entityTypeName == 'user'"
+    style="overflow-y: scroll;"
+  >
+    <app-input-text
+      [filterText]="filterText"
+      [doHideByFilter]="false"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [title]="'Entity Name'"
+      [placeholder]="'Legal name of the entity (required)'"
+      [showCheck]="false"
+      [value]="getEntityName()"
+      (onChange)="setEntityName($event)"
+      [disabled] = "true"
+      [showSmall] = "true"
+    ></app-input-text>
+  </div>
+  <div [hidden]="entityTypeName != 'individual' && entityTypeName != 'user'">
+    <app-input-duo
+      [typeLeft]="'text'"
+      [typeRight]="'text'"
+      [titleLeft]="'Surname'"
+      [titleRight]="'First Name'"
+      [doHideByFilter]="false"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [overflowY]="'scroll'"
+      [valueLeft]="getSurname()"
+      [valueRight]="getFirstName()"
+      (onChangeLeft)="setSurname($event)"
+      (onChangeRight)="setFirstName($event)"
+    >
+    </app-input-duo>
+  </div>
+  <div style="padding-bottom: 5px;"></div>
+  <hr />
+  <div style="padding-bottom: 5px;"></div>
+  <div
+    [class.entities-detail-form-full]="isFullScreen()"
+    [class.entities-detail-form-half]="isHalfScreen()"
+  >
+    <!-- <div *ngIf="getIsLoaded('entities', 'header')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideHeader"
+        id="{{ 'page-header' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-header
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [entityKey]="entityKey"
+          [entityTypeKey]="entityTypeKey"
+          [entity]="entity"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+          (onDirty)="dirty = true"
+        ></app-entity-details-header>
+      </div>
+    </div> -->
+
+    <div
+      *ngIf="getIsLoaded('company', 'primary')"
+      [hidden]="entityTypeName != 'company'"
+    >
+      <div
+        class="panel panel-body collapse content-height"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-company' }}"
+        style="padding: 0px; border: none;margin-bottom: 0px;"
+      >
+        <app-entity-details-company-primary
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [entityKey]="entityKey"
+          [entity]="entity"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+          (onDirty)="dirty = true"
+        ></app-entity-details-company-primary>
+      </div>
+      <!-- <div
+        *ngIf="getIsLoaded('company', 'secondary')"
+        [hidden]="entityTypeName != 'companies'"
+      >
+        <div
+          class="panel panel-body collapse"
+          [class.in]="!hideSecondary"
+          id="{{ 'page-secondary-company' }}"
+          style="padding: 0px; border: none;"
+        >
+          <app-entity-details-company-secondary
+            [isNarrow]="isNarrow"
+            [filterText]="filterText"
+            [persons]="persons"
+            [entity]="entity"
+            (onFile)="doFile($event)"
+            (onRecord)="doRecord($event)"
+            (onTask)="doTask($event)"
+          ></app-entity-details-company-secondary>
+        </div>
+      </div>
+      <div
+        *ngIf="getIsLoaded('company', 'optional')"
+        [hidden]="entityTypeName != 'companies'"
+      >
+        <div
+          class="panel panel-body collapse"
+          [class.in]="!hideOptional"
+          id="{{ 'page-optional-company' }}"
+          style="padding: 0px; border: none;"
+        >
+          <app-entity-details-company-optional
+            [isNarrow]="isNarrow"
+            [filterText]="filterText"
+            [persons]="persons"
+            [entity]="entity"
+            (onFile)="doFile($event)"
+            (onRecord)="doRecord($event)"
+            (onTask)="doTask($event)"
+          ></app-entity-details-company-optional>
+        </div>
+      </div> -->
+      <!-- <div [hidden]="hideUsers">
+        <app-entity-details-users
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [users]="data.users"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-users>
+      </div> -->
+    </div>
+
+    <div
+      *ngIf="getIsLoaded('individual', 'primary')"
+      [hidden]="entityTypeName != 'individual'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-individual' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-individual
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [entity]="entity"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-individual>
+      </div>
+      <!-- <div *ngIf="getIsLoaded('individual', 'secondary')">
+        <div
+          class="panel panel-body collapse"
+          [class.in]="!hideSecondary"
+          id="{{ 'page-secondary-individual' }}"
+          style="padding: 0px; border: none;"
+        >
+          <app-entity-details-individual-secondary
+            [isNarrow]="isNarrow"
+            [filterText]="filterText"
+            [entity]="entity"
+            (onFile)="doFile($event)"
+            (onRecord)="doRecord($event)"
+            (onTask)="doTask($event)"
+          ></app-entity-details-individual-secondary>
+        </div>
+      </div> -->
+    </div>
+    <div
+      *ngIf="getIsLoaded('user', 'primary')"
+      [hidden]="entityTypeName != 'user'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-user' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-user
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-user>
+      </div>
+    </div>
+    <div
+      *ngIf="getIsLoaded('group', 'primary')"
+      [hidden]="entityTypeName != 'portfolio'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-group' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-group
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-group>
+      </div>
+    </div>
+    <!-- <div
+      *ngIf="getIsLoaded('trust', 'primary')"
+      [hidden]="entityTypeName != 'trusts'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-trust' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-trust
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-trust>
+      </div>
+    </div> -->
+    <!-- <div
+      *ngIf="getIsLoaded('regulator', 'primary')"
+      [hidden]="entityTypeName != 'regulators'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-regulator' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-regulator
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-regulator>
+      </div>
+    </div> -->
+    <!-- <div
+      *ngIf="getIsLoaded('regulation', 'primary')"
+      [hidden]="entityTypeName != 'regulations'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-regulation' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-regulation
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-regulation>
+      </div>
+    </div> -->
+    <!-- <div
+      *ngIf="getIsLoaded('auditor', 'primary')"
+      [hidden]="entityTypeName != 'auditors'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-auditor' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-auditor
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-auditor>
+      </div>
+    </div> -->
+    <!-- <div
+      *ngIf="getIsLoaded('secreteriat', 'primary')"
+      [hidden]="entityTypeName != 'secretariats'"
+    >
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hidePrimary"
+        id="{{ 'page-primary-secretariat' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-secretary
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-secretary>
+      </div>
+    </div> -->
+
+    <div *ngIf="getIsLoaded('entities', 'contacts')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideContacts"
+        id="{{ 'page-contact' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-contact
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-contact>
+      </div>
+    </div>
+    <div *ngIf="getIsLoaded('entities', 'custom')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideCustom"
+        id="{{ 'page-custom' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-custom
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-custom>
+      </div>
+    </div>
+    <div *ngIf="getIsLoaded('entities', 'files')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideFiles"
+        id="{{ 'page-file' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-files
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-files>
+      </div>
+    </div>
+    <div *ngIf="getIsLoaded('entities', 'meetings')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideMeetings"
+        id="{{ 'page-meetings' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-meetings
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-meetings>
+      </div>
+    </div>
+    <div *ngIf="getIsLoaded('entities', 'reminders')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideReminders"
+        id="{{ 'page-reminders' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-details-reminders
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-details-reminders>
+      </div>
+    </div>
+    <!-- <div *ngIf="getIsLoaded('entities', 'reports')">
+      <div
+        class="panel panel-body collapse"
+        [class.in]="!hideReports"
+        id="{{ 'page-reports' }}"
+        style="padding: 0px; border: none;"
+      >
+        <app-entity-reports
+          [title]="entityTypeNameCapitilised"
+          [isNarrow]="isNarrow"
+          [filterText]="filterText"
+          [persons]="persons"
+          (onFile)="doFile($event)"
+          (onRecord)="doRecord($event)"
+          (onTask)="doTask($event)"
+        ></app-entity-reports>
+      </div>
+    </div> -->
+
+    <div
+      [hidden]="
+        !(
+          hidePrimary &&
+          hideContacts &&
+          hideCustom &&
+          hideFiles &&
+          hideHeader &&
+          hideMeetings &&
+          hideReminders &&
+          hideReports &&
+          (hideSecondary ||
+            (entityTypeName != 'companies' && entityTypeName != 'individuals')) &&
+          (hideOptional || entityTypeName != 'companies')
+        )
+      "
+    >
+      <app-label-h
+        [title]="'Please select detail pages to display'"
+      ></app-label-h>
+    </div>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  </div>
+</form>

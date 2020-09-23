@@ -1,0 +1,190 @@
+
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
+  Primary details: user
+</div> -->
+<app-label-h [title]="'Primary details: user'"></app-label-h>
+<!-- <app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  
+  [typeLeft]="'date'"
+  [titleLeft]="'Activation Date'"
+
+  [typeRight]="'date'"
+  [titleRight]="'Deactivation Date'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Employee Number'"
+
+  [typeRight]="'text'"
+  [titleRight]="'Office Location'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Position'"
+
+  [typeRight]="'text'"
+  [titleRight]="'Job Grade'"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo> -->
+
+<!-- <div style="padding-bottom: 5px;"> </div>
+<hr>
+<app-input-select-checkbox-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [title]="'Access portfolios as Secretary'"
+  [values]="data.getPortfolios()"
+  [showCheck]="false"
+>
+</app-input-select-checkbox-duo>
+
+<app-input-select-checkbox-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [title]="'Access portfolios as View-Only'"
+  [values]="data.getPortfolios()"
+  [showCheck]="false"
+>
+</app-input-select-checkbox-duo> -->
+
+<!-- <div style="padding-bottom: 5px;"> </div>
+<hr>
+<app-input-select-checkbox-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [title]="'Access Companies as Secretary'"
+  [values]="data.getCompanies()"
+  [showCheck]="false"
+>
+</app-input-select-checkbox-duo>
+
+<app-input-select-checkbox-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [title]="'Access Companies as View-Only'"
+  [values]="data.getCompanies()"
+  [showCheck]="false"
+>
+</app-input-select-checkbox-duo> -->
+
+<!-- <div class="container-flex">
+  <div class="row">
+    <app-input-duo-column
+      [title]="'Manager access: Portfolios'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all groups'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific groups'"
+      [valuesRight]="data.getPortfolios()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
+    ></app-input-duo-column>
+
+    <app-input-duo-column
+    [title]="'Admin access: Portfolios'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all groups'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific groups'"
+      [valuesRight]="data.getPortfolios()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
+    >
+    </app-input-duo-column>
+  </div>
+  <div class="row">
+    <app-input-duo-column
+    [title]="'Manager access: Companies'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all companies'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific companies'"
+      [valuesRight]="data.getCompanies()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
+    ></app-input-duo-column>
+    
+    <app-input-duo-column
+        [title] ="'Admin access: Companies'"
+      [isNarrow]="isNarrow"
+      [filterText]="filterText"
+      [doHideByFilter]="true"
+      [typeLeft]="'checkbox'"
+      [titleLeft]="'Select all companies'"
+      [valueLeft]="false"
+      [typeRight]="'select-checkbox'"
+      [titleRight]="'Select specific companies'"
+      [valuesRight]="data.getCompanies()"
+      [valueRight]="0"
+      (onFile)="doFile($event)"
+      (onRecord)="doRecord($event)"
+      (onTask)="doTask($event)"
+      [showCheckLeft]="false"
+      [showCheckRight]="false"
+    >
+    </app-input-duo-column>
+  </div>
+</div> -->
+
+<div style="padding-bottom: 5px;"> </div>
+<hr>
+
+<app-input-file [title]="'Signature'">
+
+</app-input-file>
+
+<div style="padding-bottom: 5px;"> </div>
+<hr>

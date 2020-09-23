@@ -1,0 +1,47 @@
+<app-input-filter-add
+  [filterCount]="getCountFiltered()"
+  [showAdd] = "!isNewMessage"
+  [showCancel] = "isNewMessage"
+  [isAdd]="isNewMessage"
+  (onFilter)="doFilter($event)"
+  (onAdd)="doAdd()"
+  (onCancel)="doCancel()"
+  (onT) = "isFilterByTextToo = !isFilterByTextToo"
+  [showT] = "false"
+  [title] = "'Article'"
+  [titleT] = "'Article text'"
+  [titlePlural] = "'Articles'"
+
+  [radioChoice] = "'all'"
+  [showEyeClose] = "true"
+  [titleEyeClose] = "'Unread Articles'"
+  [countEyeClose] = "getCount_Unread()"
+
+  [showEyeOpen] = "true"
+  [titleEyeOpen] = "'Read Articles'"
+  [countEyeOpen] = "getCount_Read()"
+
+  [showAll] = "true"
+  [titleAll] = "'All Articles'"
+  [countAll] = "getCount_All()"
+
+  (onChoice) = "rdoUnReadReadAll = $event"
+
+></app-input-filter-add>
+
+<div class="entities-messages">
+  <app-entity-message
+    style="margin-top: 0px;"
+    [hidden]="!isNewMessage"
+    [message]="newMessage"
+    [isEdit]="isNewMessage"
+    (onClose)="isNewMessage = false"
+  ></app-entity-message>
+
+  <div
+    *ngFor="let msg of messages; let i = index"
+    [hidden]="shouldHideMessage(msg)"
+  >
+    <app-entity-message [message]="msg" [index]="i + 1"></app-entity-message>
+  </div>
+</div>

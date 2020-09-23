@@ -1,0 +1,68 @@
+<div
+  class="form-group input-group-sm nobottom"
+  [hidden]="hideByFilter()"
+  style="margin-top: 5px; margin-right: 1px;"
+>
+  <div>
+    <label class="nobottom label-bold label-buttons-3">{{ title }}</label>
+  </div>
+  <div class="input-group input-group-sm" 
+    [class.primary-color-input-reverse] = "showDownload || showShare || showMinus || showPlus"
+  style="margin-bottom: 5px;">
+    <input
+      type="text"
+      class="form-control input-sm"
+      [placeholder]="'Quantity'"
+      (keyup)="doKeyUp($event)"
+      (keydown) = "doKeyDown($event)"
+      style="font-weight: normal;"
+      autocomplete="nope"
+      [ngModel]="value"
+      (ngModelChange)="doChange($event)"
+    />
+
+    
+
+    <span
+      *ngIf="showMinus"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doMinus()"
+      [title]="'Decrease'"
+      [attr.id] = "eid + '-remove'"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">remove</mat-icon>
+    </span>
+
+    <span
+      *ngIf="showPlus"
+      class="input-group-addon btn primary-color-reverse"
+      (click)="doPlus()"
+      [title]="'Increase'"
+      style="border-left: solid var(--bg-color-active) 1px;"
+      [attr.id] = "eid + '-add'"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+    </span>
+
+    <span
+    *ngIf="showDownload"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doDownload()"
+    [title]="'Download ' + title"
+    [attr.id] = "eid + '-download'"
+  >
+    <mat-icon aria-hidden="true" aria-label="Entities">cloud_download</mat-icon>
+  </span>
+
+  <span
+    *ngIf="showShare"
+    class="input-group-addon btn primary-color-reverse"
+    (click)="doShare()"
+    [title]="'Share ' + title"
+    [attr.id] = "eid + '-share'"
+  >
+    <mat-icon aria-hidden="true" aria-label="Entities">share</mat-icon>
+  </span>
+
+  </div>
+</div>

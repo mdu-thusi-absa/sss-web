@@ -1,0 +1,118 @@
+<div
+  class="form-group input-group-sm nobottom app-input"
+  [hidden]="hideByFilter()"
+  style="margin-right: 1px; margin-bottom: 5px;"
+>
+  <div class="input-group-sm" style="display: block;margin-bottom: 5px;">
+    <label class="nobottom label-bold"
+      [class.label-buttons-4] = "countItems>15"
+      [class.label-buttons-3] = "countItems<=15"
+      [hidden] = "!showHeading"
+      >{{ title }}
+    </label>
+
+    <app-buttons-input-select
+      [title]="title"
+      [isDoInput]="isDoInput"
+      [showAdd]="true"
+      [showEdit]="false"
+      [showDelete]="false"
+      [showFlash]="showFlash"
+      [showPaperclip]="showPaperclip"
+      [showCD]="showCD"
+      [showCheck]="showCheck"
+      [showFilter]="values.size>15"
+      [showCancel]="false"
+      [showSave]="false"
+      [showExpandContract]="true"
+      [showExpand]="showExpand"
+      [showContract]="!showExpand"
+      (onExpand)="doExpand()"
+      (onContract)="doContract()"
+      [countItemsVisible]="countItemsVisible()"
+      [countItems] = " showSelectedOnly?this.selectedValues.length:values.size"
+      [countItemsSelected]="countSelected()"
+      (onAdd)="showNew()"
+      (onFile)="doFile()"
+      (onRecord)="doRecord()"
+      (onTask)="doTask()"
+      (onFilter)="doFilter($event)"
+      (onShowingFilter)="showingFilter($event)"
+    ></app-buttons-input-select>
+  </div>
+
+  <app-input-select-text
+    [isDoInput]="isDoInput"
+    [showSave]="true"
+    [showCancel]="true"
+    [text]="text"
+    (onSave)="doSave($event)"
+    (onCancel)="doCancel()"
+  ></app-input-select-text>
+
+  <br [hidden]="!isShowingFilter" />
+  <!-- <div style="display:block;height:0px;max-height:0px"></div> -->
+
+  <div style="display: block; width: 100%;">
+    <div class="input-group-sm" style="border: 1px solid #ccc;border-radius: 3px;">
+      <ul
+        class="list-group"
+        style="margin-bottom: 0px; overflow-y: auto;"
+        [style.max-height]="showExpand ? '84px' : '280px'"
+        (scroll)="onScrollData($event)"
+      >
+        <div
+          *ngFor="let e of values | keyvalue"
+          [hidden]="hideItem(e.value.name)"
+        >
+          <li
+            *ngIf="showSelectedOnly?selectedValues.indexOf(e.key)>-1:(isLoadAll || getDoLoad(e.key))"
+            class="list-group-item input-sm"
+
+          >
+            <!-- <div class="input-checkbox-compute-width"> -->
+              <app-input-checkbox
+                [showSmall]="true"
+                [title]="e.value.name"
+                [value]="selectedValues.indexOf(e.key) > -1"
+                (onChange)="doCheckField(e.key, $event)"
+                [showDelete] = "true"
+                [showEdit] = "true"
+              ></app-input-checkbox>
+            <!-- </div> -->
+            <a
+              href="#"
+              class="btn primary-color-reverse btn-xs pull-right"
+              (click)="doEdit(e.key)"
+              style="border-left: none;"
+              [attr.id] = "eid + '-edit-' + e.key" 
+            >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [title]="'Edit ' + e.value.name"
+                >edit</mat-icon
+              >
+            </a>
+            <a
+              href="#"
+              class="btn primary-color-reverse btn-xs pull-right"
+              (click)="doDelete(e.key)"
+              [attr.id] = "eid + '-delete-' + e.key" 
+            >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [title]="'Delete ' + e.value.name"
+                >clear</mat-icon
+              >
+            </a>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <div [hidden] = "countItems!= 0">
+      No items
+    </div>
+  </div>
+</div>

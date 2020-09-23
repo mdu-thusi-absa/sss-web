@@ -1,0 +1,107 @@
+
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
+  Primary details: individual
+</div> -->
+<app-label-h [title]="'Primary details: individual'"></app-label-h>
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Preferred Formal Name'"
+  
+  [typeRight]="'text'"
+  [titleRight]="'Preferred Informal Name'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'date'"
+  [typeRight]="'date'"
+  [titleLeft]="'Curr. Name Effective Date'"
+  [titleRight]="'Prev. Name Effective Date'"
+  [doHideByFilter]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [typeRight]="'text'"
+  [titleLeft]="'Prev. Surname'"
+  [titleRight]="'Prev. Fistname'"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+>
+</app-input-duo>
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'select-checkbox'"
+  [titleLeft]="'Portfolios'"
+  [valuesLeft]="data.portfolios"
+  [valueLeft]="0"
+  [typeRight]="'select-checkbox'"
+  [titleRight]="'Companies'"
+  [valuesRight]="data.companies"
+  [valueRight]="0"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+>
+</app-input-duo>
+
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'SA ID Number'"
+  [typeRight]="'text'"
+  [titleRight]="'Passport Number'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+>
+</app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Income Tax Number'"
+  [valueLeft]=""
+  [typeRight]="'text'"
+  [titleRight]="'VAT Number'"
+  [valuesRight]="[]"
+  [valueRight]="''"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<div style="padding-bottom: 5px;"></div>
+<hr>

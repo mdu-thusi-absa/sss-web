@@ -1,0 +1,19 @@
+<app-input-filter-add
+  [filterCount]="20"
+  (onFilter)="doFilter($event)"
+  (onT)="isFilterByTextToo = !isFilterByTextToo"
+  [titleT] = "'audit values'"
+  [title]="'Changes'"
+  [titlePlural]="'Changes'"
+  [showFilterCount] = "true"
+  [showT] = "false"
+></app-input-filter-add>
+<div class="entities-audits">
+  <div *ngFor="let task of list; let i = index" [hidden]="shouldHideTask(task)">
+    <app-entity-audit
+      [task]="task"
+      [index]="i + 1"
+      [isNarrow]="isNarrow"
+    ></app-entity-audit>
+  </div>
+</div>

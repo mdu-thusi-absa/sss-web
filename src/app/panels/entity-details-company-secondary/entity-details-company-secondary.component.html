@@ -1,0 +1,205 @@
+<!-- 
+<app-label-h [title]="'Secondary details: Company'"></app-label-h>
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'text'"
+  [titleLeft]="'Income Tax Number of the entity'"
+  [valueLeft]="entity.incomeTax"
+  (onChangeLeft)="entity.incomeTaxNumber = $event; onDirty.emit()"
+  [typeRight]="'text'"
+  [titleRight]="'Value Added Tax (VAT) Number'"
+  [placeholderRight]="'VAT Number of the enity'"
+  [valuesRight]="[]"
+  [valueRight]="entity.vatCode"
+  (onChangeRight)="entity.vatNumber = $event; onDirty.emit()"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Business Area'"
+  [valuesLeft]="data.businessAreas"
+  [valueLeft]="entity.businessAreaKey"
+  (onChangeLeft)="entity.businessAreaKey = $event; onDirty.emit()"
+  [typeRight]="'select-entity'"
+  [titleRight]="'Business Division'"
+  [valuesRight]="data.businessDivisions"
+  [valueRight]="entity.businessDivisionKey"
+  (onChangeRight)="entity.businessDivisionKey = $event; onDirty.emit()"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Legal Classification'"
+  [valuesLeft]="data.legalClasses"
+  [valueLeft]="entity.legalClassKey"
+  (onChangeLeft)="entity.legalClassKey = $event; onDirty.emit()"
+  [typeRight]="'checkbox'"
+  [titleRight]="'Consolidated'"
+  [valuesRight]="[]"
+  [valueRight]="entity.consolidatedKey"
+  (onChangeRight)="entity.consolidated = $event; onDirty.emit()"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Entity Status'"
+  [valuesLeft]="data.entityStatuses"
+  [valueLeft]="entity.entityStatusKey"
+  (onChangeLeft)="entity.entityStatusKey = $event; onDirty.emit()"
+  [typeRight]="'select-entity'"
+  [titleRight]="'Entity Status Tiering'"
+  [valuesRight]="data.entityStatusTiers"
+  [valueLeft]="entity.entityStatusTieringKey"
+  (onChangeLeft)="entity.entityStatusTieringKey = $event; onDirty.emit()"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Accounting Classification'"
+  [valuesLeft]="data.accountingClasses"
+  [valueLeft]="entity.accountingClassKey"
+  (onChangeLeft)="entity.accountingClassKey = $event; onDirty.emit()"
+  [typeRight]="'select-entity'"
+  [titleRight]="'Accounting Classification Tiering'"
+  [valuesRight]="data.accountingTier"
+  [valueRight]="entity.accountingClassTierKey"
+  (onChangeRight)="
+    entity.accountingClassificationTieringKey = $event; onDirty.emit()
+  "
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [isNarrow]="isNarrow"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Direct Parent'"
+  [valuesLeft]="data.companies"
+  [valueLeft]="entity.parentCompanyKey"
+  (onChangeLeft)="entity.directParentKey = $event; onDirty.emit()"
+  [typeRight]="'text'"
+  [titleRight]="'Absa Shareholding in Entity (%)'"
+  [valueLeft]="entity.shareholdingInEntity"
+  (onChangeLeft)="entity.shareholdingInEntity = $event; onDirty.emit()"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+
+<app-input-panel [title]="'PI Score'" [panelPrimary]="true">
+  <app-input-duo
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [isNarrow]="isNarrow"
+    [typeLeft]="'checkbox'"
+    [titleLeft]="'Must have audit (calculated)'"
+    [valueLeft]="0"
+    [disabledLeft]="true"
+    [typeRight]="'text'"
+    [titleRight]="'Total Points (calculated)'"
+    [disabledRight] = "true"
+    [showCheckLeft]="false"
+    [showCheckRight]="false"
+  ></app-input-duo>
+
+  <app-input-duo
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [isNarrow]="isNarrow"
+    [typeLeft]="'text'"
+    [titleLeft]="'Number of employees'"
+    [valueLeft]="0"
+    (onChangeLeft)="onDirty.emit()"
+    [typeRight]="'text'"
+    [titleRight]="'Third Party Liability (Rm)'"
+    [valueRight]="0"
+    (onChangeRight)="entity.shareholdingInEntity = $event; onDirty.emit()"
+    [showCheckLeft]="false"
+    [showCheckRight]="false"
+  ></app-input-duo>
+  <app-input-duo
+    [filterText]="filterText"
+    [doHideByFilter]="true"
+    [isNarrow]="isNarrow"
+    [typeLeft]="'text'"
+    [titleLeft]="'Benefiaries of company'"
+    [valueLeft]="0"
+    (onChangeLeft)="onDirty.emit()"
+    [typeRight]="'text'"
+    [titleRight]="'Fiduciary Holdings (Rm)'"
+    [valueRight]="0"
+    [showCheckLeft]="false"
+    [showCheckRight]="false"
+  ></app-input-duo>
+
+  <ul class="list-group app-input" style="margin-bottom:0px">
+    <li class="list-group-item">Inputs and Calculations for Public Interest (PI) score of the company.</li>
+    <li class="list-group-item">
+      Turnover (Rm): millions of Rand of turnover during the financial year
+    </li>
+    <li class="list-group-item">
+      Benefiaries of company: number of individuals who, at the end of the year,
+      is known to have a direct or indirect beneficial interest in the company
+    </li>
+    <li class="list-group-item">
+      Scoring 350 points or more, or Holds funds of R5 million or more for a
+      client in a fiduciary capacity: <strong>required to have an audit</strong>
+    </li>
+
+    <li class="list-group-item">
+      Scoring between 100 - 350 points must have an independent review conducted
+      by a registered auditor or a chartered accountant
+    </li>
+
+    <li class="list-group-item">
+      Scoring less than 100 points are required to have an independent review
+      conducted by anyone who qualifies as an accounting officer, unless
+      circumstances indicate otherwise.
+    </li>
+  </ul>
+
+</app-input-panel>
+
+<div style="padding-bottom: 5px;"></div>
+<hr /> -->

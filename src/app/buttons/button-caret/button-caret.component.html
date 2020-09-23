@@ -1,0 +1,17 @@
+<a
+  href="#"
+  data-toggle="collapse"
+  [attr.data-target]="'#' + target"
+  (click)="doClick()"
+  [attr.id] = "eid"
+>
+  <label class="nobottom label-bold" style="cursor: pointer;">{{ title }} </label
+  ><span
+    class="caret"
+    [style.display]="isDown ? 'none' : 'inline-block'"
+    style="color: var(--color-dark);"
+  ></span>
+  <span class="dropup" [style.display]="isDown ? 'inline-block' : 'none'">
+    <span class="caret" style="color: var(--color-dark);"></span>
+  </span>
+</a>

@@ -1,0 +1,288 @@
+<div class="tableFixHead">
+  <table
+    class="table table-condensed table-fixed less-bottom"
+    style="
+      font-size: smaller;
+      table-layout: fixed;
+      border-collapse: separate;
+      width: auto !important;
+      height: auto !important;
+    "
+  >
+    <thead class="info">
+      <tr class="info">
+        <th
+          style="
+            text-align: center;
+            vertical-align: top;
+            width: 25px;
+            max-width: 25px;
+            z-index: 995;
+            border-bottom: none;
+          "
+          [style.left]="'0px'"
+        ></th>
+        <th
+          colspan="3"
+          style="
+            text-align: center;
+            vertical-align: top;
+            z-index: 995;
+            border-bottom: none;
+            width: 150px;
+            min-width: 150px;
+            position: sticky;
+            padding-top: 0px;
+            padding-bottom: 0px;
+          "
+          [style.left]="colLeft0"
+        >
+          <div
+            class="checkbox pull-right"
+            style="
+              height: 20px;
+              margin-bottom: 0px;
+              margin-top: 5px;
+              vertical-align: middle;
+              z-index: 995;
+            "
+          >
+            <label class="nobottom label-checkbox" style="padding-right: 10px;"
+              ><input
+                type="checkbox"
+                value=""
+                (change)="doCheckField('when')"
+              /><span
+                style="padding-top: 10px; margin-top: 10px; font-weight: bold;"
+                >&nbsp;<small>When</small></span
+              ></label
+            >
+            <label class="nobottom label-checkbox"
+              ><input
+                type="checkbox"
+                value=""
+                (change)="doCheckField('who')"
+              /><span
+                style="padding-top: 10px; margin-top: 10px; font-weight: bold;"
+                >&nbsp;<small>Who</small></span
+              ></label
+            >
+          </div>
+        </th>
+        <th
+          rowspan="3"
+          *ngFor="let f of showFileFields"
+          style="vertical-align: text-top; width: 70px;padding: 1px;"
+        >
+          <small>{{ f }}</small>
+        </th>
+      </tr>
+      <tr class="info">
+        <th
+          colspan="4"
+          style="
+            vertical-align: text-top;
+            width: 150px;
+            position: sticky;
+            z-index: 999;
+            
+            border-top: none;
+            left: 0px;
+            top: 25px;
+            padding: 2px;
+          "
+          #thRow1
+        >
+          <app-input-filter-add
+            [filterCount]="getCountFiltered()"
+            (onFilter)="doFilter($event)"
+            (onSave)="doSave()"
+            (onAdd)="doAdd()"
+            (onCancel)="doCancel()"
+            [isAdd]="isAdd"
+            [showAdd]="true"
+            [showSave]="isDirty"
+            [showTick]="true"
+            [title]="'Doc'"
+            [titlePlural]="'Docs'"
+          ></app-input-filter-add>
+        </th>
+      </tr>
+      <!--<tr class="info">
+         <th
+          style="
+            vertical-align: text-top;
+            width: 25px;
+            max-width: 25px;
+            position: sticky;
+            z-index: 999;
+            border-top: none;
+            text-align: right;
+            left:0px;
+            top: 55px
+          "
+          
+        ></th> 
+         <th
+          style="
+            vertical-align: text-top;
+            z-index: 999;
+            position: sticky;
+            border-top: none;
+            width: 50px;
+            top: 55px;
+          "
+          [attr.width] = "(100 * colspanFile + 1) + 'px'"
+          [attr.colspan]="colspanFile + 1"
+          [style.left]="'0px'"
+        >
+          <small>File Name</small>
+        </th>
+        <th
+          style="
+            vertical-align: text-top;
+            width: 100px;
+            z-index: 997;
+            position: sticky;
+            border-top: none;
+          "
+          [style.top]="'55px'"
+          
+          [hidden]="hideWhen"
+        >
+          <small>When</small>
+        </th>
+        <th
+          style="
+            vertical-align: text-top;
+            width: 100px;
+            z-index: 999;
+            position: sticky;
+            z-index: 997;
+            border-top: none;
+          "
+          [style.top]="'55px'"
+          [hidden]="hideWho"
+          
+        >
+          <small>Who</small>
+        </th> 
+      </tr>-->
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let d of dataFiles; let i = index">
+        <ng-container *ngIf="showDataRow(d[4]) && showIfInFilter(d)">
+          <tr style="border-bottom: 1px solid black;">
+            <td
+              class="default"
+              style="
+                text-align: left;
+                vertical-align: middle;
+                border-bottom: none;
+                border-left: none;
+                width: 32px;
+                position: sticky;
+                left: 0px;
+                z-index: 990;
+                background-color: rgb(236, 234, 234);
+              "
+            >
+              <input style="padding-bottom: 0px;" type="checkbox" value="" />
+            </td>
+            <!-- <td
+              class="info"
+              style="
+                vertical-align: middle;
+                border-bottom: none;
+                border-left: none;
+                position: sticky;
+                z-index: 990;
+                border-bottom: none
+              "
+              [style.left]="colLeft0"
+              [attr.colspan]="colspanFile"
+            >
+              <a href="#" style="vertical-align: middle;border-bottom: none"> {{ d[2] }}</a>
+            </td> -->
+
+            <td
+              class="default"
+              style="
+                vertical-align: middle;
+                border-bottom: none;
+                border-left: none;
+                position: sticky;
+                z-index: 990;
+                background-color: rgb(236, 234, 234);
+              "
+              [style.left]="colLeft0"
+              [attr.colspan]="colspanFile"
+            >
+              <a href="#"
+                ><small>{{ d[2] }}</small></a
+              >
+            </td>
+
+            <td
+              class="default"
+              [hidden]="hideWhen"
+              style="
+                vertical-align: middle;
+                border-bottom: none;
+                border-left: none;
+                position: sticky;
+                
+                background-color: rgb(236, 234, 234);
+              "
+              
+            >
+              <small>{{ d[0] }}</small>
+            </td>
+            <td
+              class="default"
+              [hidden]="hideWho"
+              style="
+                vertical-align: middle;
+                border-bottom: none;
+                position: sticky;
+                
+                background-color: rgb(236, 234, 234);
+              "
+              
+            >
+              <small>{{ d[1] }}</small>
+            </td>
+
+            <td
+              *ngFor="let f of showFileFields"
+              style="padding-bottom: 0px; border-bottom: none;"
+            >
+              <input
+                style="padding-bottom: 0px;"
+                type="checkbox"
+                value=""
+                [checked]="d[4].indexOf(f) > -1"
+                (change)="doChangeCheckbox($event)"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="default"
+              [attr.colspan]="showFileFields.length + 4"
+              style="
+                padding-top: 0px;
+                padding-bottom: 5px;
+                vertical-align: top;
+                border-top: none;
+                word-wrap: break-word;
+              "
+            >
+              <small>{{ d[3] }}</small>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

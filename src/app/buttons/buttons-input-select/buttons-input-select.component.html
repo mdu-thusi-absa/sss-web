@@ -1,0 +1,164 @@
+<div class="btn-group pull-right" [style.width]="filterInputTotalWidth()" >
+  <div class="pull-right">
+    <!--style="overflow: hidden;"
+       {{[this.showContract,this.showFlash,this.showPaperclip,this.showCD,this.showFilter,this.showEdit,this.showDelete,this.showCancel,this.showSave,this.showAdd,this.showCheck]}} -->
+    <!-- {{((this.showContract?1:0) + 
+      (this.showFlash ? 1 : 0) +
+      (this.showPaperclip ? 1 : 0) +
+      (this.showCD ? 1 : 0) +
+      (this.showFilter && (this.countItems>15 || this.filterText.length>0) ? 1 : 0) +
+      (this.showEdit ? 1 : 0) +
+      (this.showDelete ? 1 : 0) +
+      (this.showCancel ? 1 : 0) +
+      (this.showSave ? 1 : 0) +
+      (this.showAdd ? 1 : 0) +
+      (this.showCheck ? 1 : 0))}} -->
+      <!-- {{('' + (this.showContract?1:0) + 
+        (this.showFlash ? 1 : 0) +
+        (this.showPaperclip ? 1 : 0) +
+        (this.showCD ? 1 : 0) +
+        (this.showFilter && (this.countItems>15 || this.filterText.length>0) ? 1 : 0) +
+        (this.showEdit ? 1 : 0) +
+        (this.showDelete ? 1 : 0) +
+        (this.showCancel ? 1 : 0) +
+        (this.showSave ? 1 : 0) +
+        (this.showAdd ? 1 : 0) +
+        (this.showCheck ? 1 : 0))}} -->
+    <a
+      *ngIf = "showContract && showExpandContract"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doContract()"
+      [attr.id] = "eid + '-contract'" 
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show less'">keyboard_arrow_up</mat-icon>
+  </a>
+    <a
+      *ngIf = "showExpand && showExpandContract"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doExpand()"
+      [attr.id] = "eid + '-expand'" 
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show more'">keyboard_arrow_down</mat-icon>
+  </a>
+    <a
+      *ngIf = "showFilter && displayFilter"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="showHideFilterInput()"
+      [attr.id] = "eid + '-filter-list'" 
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Filter the items'">filter_list</mat-icon>
+  </a>
+
+    <a
+      *ngIf="showCancel"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doEdit()"
+      [attr.id] = "eid + '-close'" 
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Cancel the changes'">close</mat-icon>
+  </a>
+
+    <a
+      *ngIf="showEdit"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doEdit()"
+      [attr.id] = "eid + '-edit'" 
+      >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Edit selected item'">edit</mat-icon>
+  </a>
+    <a
+      *ngIf="showSave"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="showNew()"
+      [attr.id] = "eid + '-save'" 
+    >
+    <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Save'">cloud_done</mat-icon>
+    </a>
+
+    <a
+      *ngIf="showAdd"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="showNew()"
+      [attr.id] = "eid + '-new'" 
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Save'">add</mat-icon>
+    </a>
+    <a
+      *ngIf="showDelete"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="deleteItem()"
+      [attr.id] = "eid + '-delete'" 
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Delete the selected item'">clear</mat-icon>
+    </a>
+
+    <a
+      *ngIf="showFlash"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doTask()"
+      [attr.id] = "eid + '-flash'" 
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show tasks'">flash_on</mat-icon>
+    </a>
+
+    <a
+      *ngIf="showPaperclip"
+      href="#"
+      class="btn primary-color-reverse btn-xs"
+      (click)="doFile()"
+      [attr.id] = "eid + '-file'" 
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Attachments'">attachment</mat-icon>
+    </a>
+    <a
+      *ngIf="showCD"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doRecord()"
+      [attr.id] = "eid + '-cd'" 
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Records'">cd</mat-icon>
+    </a>
+    <a
+      *ngIf="showCheck"
+      href="#"
+      class="btn  primary-color-reverse btn-xs"
+      (click)="doRecord()"
+      [attr.id] = "eid + '-done-all'" 
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show audit'">done_all</mat-icon>
+    </a>
+  </div>
+  <div class="pull-right" [hidden]="!isFilter">
+    <div class="input-group">
+      <span
+        class="input-group-addon progress-bar-default"
+        style="padding: 2px; "
+        title="Number of items"
+        ><small>
+          {{ (countItemsSelected == -1 ? "" : countItemsSelected + ":") + countItemsVisible}}</small
+        >
+      </span>
+      <input
+        class="form-control"
+        style="height: 20px;padding-right:6px;padding-left:6px"
+        [style.width]="filterInputWidth()"
+        [(ngModel)]="filterText"
+        (keyup)="doKey($event)"
+        (focusout)="lostFocus()"
+        #inputFilter
+      />
+
+      
+    </div>
+  </div>
+</div>

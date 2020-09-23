@@ -1,0 +1,8 @@
+<app-input-panel
+  [title]="stepNumber + '.' + taskFlow.name"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+>
+  {{ taskFlow.description }}
+</app-input-panel>

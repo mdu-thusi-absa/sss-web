@@ -1,0 +1,290 @@
+
+
+<!-- <div class="text-primary-h 4" style="margin-top: 5px;">
+  Secondary details: Individual
+</div> -->
+<app-label-h [title]="'Secondary details: Individual'"></app-label-h>
+<app-input-duo
+  [isNarrow]="isNarrow"
+  [typeLeft]="'date'"
+  [titleLeft]="'Date of Birth'"
+  [typeRight]="'date'"
+  [titleRight]="'Date of Death'"
+  [doHideByFilter]="true"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+>
+</app-input-duo>
+
+<app-input-duo
+[isNarrow]="isNarrow"
+[typeLeft]="'select-entity'"
+[filterText]="filterText"
+[doHideByFilter]="true"
+[titleLeft]="'Country'"
+[valuesLeft]="data.countries"
+[valueLeft]="data.getDefault('countryKey')"
+[typeRight]="'text'"
+[titleRight]="'Passport Number'"
+(onFile)="doFile($event)"
+(onRecord)="doRecord($event)"
+(onTask)="doTask($event)"
+[showCheckLeft]="false"
+[showCheckRight]="false"
+></app-input-duo>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Employee Number'"
+  [typeRight]="'text'"
+  [titleRight]="'Position / Job Grade'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'select-entity'"
+  [titleLeft]="'Current Employer'"
+  [valuesLeft] = "data.companies"
+  [valueLeft] = "entity.currentEmployerKey"
+
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+
+></app-input-duo>
+
+<app-input-textarea
+  [title]="'Qualifications'"
+  [placeholder]="'Degree, year, institution'"
+  [showCheck]="false"
+></app-input-textarea>
+
+<app-input-textarea
+  [title]="'Work history'"
+  [placeholder]="'Organisation, period, position, responsibilities'"
+  [showCheck]="false"
+></app-input-textarea>
+
+<div
+  class="form-group input-group-sm less-bottom"
+  [hidden]="hideByFilter('Appointments')"
+  style="margin-top: 5px; margin-bottom: 5px;"
+>
+  <!-- <a href="#" data-toggle="collapse" data-target="#appointments-individual">
+    <label class="nobottom label-bold">Appointments </label
+    ><app-button-c1aret [isDown]="isDown_Appointments"></app-button-caret>
+  </a> -->
+  <app-button-caret
+  [title]="'Appointments'"
+  [target]="'appointments-individual'"
+  [isDown]="isDown_Appointments"
+></app-button-caret>
+
+  <div id="appointments-individual" class="collapse">
+    <table
+      class="table table-condensed table-bordered table-hover less-bottom"
+      style="font-size: smaller;"
+    >
+      <thead class="info">
+        <tr class="info">
+          <th>Full name</th>
+          <th>Position</th>
+          <th>Appointed</th>
+          <th>
+            Resigned
+            <div class="btn-group pull-right">
+              <!-- <a
+                href="#"
+                class="btn btn-primary primary-color btn-hover btn-xs"
+                (click)="showAppointeeNewNew()"
+              >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">add</mat-icon>
+            </a> -->
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google (Pty) Ltd</td>
+          <td>Director</td>
+          <td>2015/04/03</td>
+          <td>
+            <div class="btn-group pull-right">
+              <!-- <a
+                href="#"
+                class="btn btn-primary primary-color btn-hover btn-xs"
+                (click)="showAppointeeNewEdit()"
+              >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
+            </a> -->
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Amazon - SA</td>
+          <td>Director</td>
+          <td>2015/04/03</td>
+          <td>
+            2018/05/15
+            <div class="btn-group pull-right">
+              <!-- <a
+                href="#"
+                class="btn btn-primary primary-color btn-hover btn-xs"
+                (click)="showAppointeeNewEdit()"
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
+            </a> -->
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Amazon - USA</td>
+          <td>Director</td>
+          <td>2015/04/03</td>
+          <td>
+            2018/05/15
+            <div class="btn-group pull-right">
+              <!-- <a
+                href="#"
+                class="btn btn-primary primary-color btn-hover btn-xs"
+                (click)="showAppointeeNewEdit()"
+                >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeNewInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeNewInput">edit</mat-icon>
+            </a> -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div
+      class="panel panel-primary no-gutter nobottom"
+      [hidden]="!isAppointeeNewInput"
+    >
+      <div class="panel panel-heading mt3 nobottom">
+        <small>New Appointment</small>
+        <div class="btn-group pull-right">
+          <!-- <a
+            href="#"
+            class="btn btn-info btn-xs"
+            (click)="showAppointeeNewNew()"
+          >
+            <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+          </a>
+          <a
+            href="#"
+            class="btn btn-info btn-xs"
+            (click)="showAppointeeNewNew()"
+            >
+            <mat-icon aria-hidden="true" aria-label="Entities">done</mat-icon>
+          </a> -->
+        </div>
+      </div>
+      <div class="panel panel-body mt3 nobottom">
+        <div class="form-group input-group-sm nobottom">
+          <label class="nobottom label-bold">Appointee</label>
+          <div class="btn-group pull-right">
+            <!-- <a
+              href="#"
+              class="btn btn-primary primary-color btn-xs"
+              (click)="showAppointeeNew()"
+            >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeInput">clear</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeInput">edit</mat-icon>
+            </a>
+            <a
+              href="#"
+              class="btn btn-primary primary-color btn-hover btn-xs"
+              (click)="showAppointeeNew()"
+            >
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="!isAppointeeInput">done</mat-icon>
+              <mat-icon aria-hidden="true" aria-label="Entities" [hidden]="isAppointeeInput">add</mat-icon>
+            </a> -->
+          </div>
+          <div class="input-group-sm" [hidden]="isAppointeeInput">
+            <select class="form-control input-sm" style="font-size: small;">
+              <option>Smith, John</option>
+              <option>David, Bowe</option>
+              <option>Campbell, Arthur</option>
+            </select>
+          </div>
+
+          <div
+            class="panel panel-primary no-gutter nobottom"
+            [hidden]="!isAppointeeInput"
+          >
+            <div class="panel panel-body mt3 nobottom">
+              <div class="input-group-sm">
+                <label class="nobottom label-bold">Surname</label>
+                <input type="text" class="form-control" placeholder="" />
+                <label class="nobottom label-bold">First Name</label>
+                <input type="text" class="form-control" placeholder="" />
+                <label class="nobottom label-bold">Optional Suffix</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Optional suffix to differenciate same names"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-flex">
+          <div class="row">
+            <div class="col-xs-6">
+              <app-input-select
+                [title]="'Position'"
+                [values]="data.capacities"
+                [filterText]="filterText"
+                [value]="0"
+              ></app-input-select>
+            </div>
+          </div>
+        </div>
+
+        <app-input-duo
+          [typeLeft]="'date'"
+          [typeRight]="'date'"
+          [titleLeft]="'Appointment Date'"
+          [titleRight]="'Resignation Date'"
+          [filterText]="filterText"
+          [showCheckLeft]="false"
+          [showCheckRight]="false"
+        ></app-input-duo>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-input-duo
+  [filterText]="filterText"
+  [doHideByFilter]="true"
+  [typeLeft]="'text'"
+  [titleLeft]="'Gender'"
+  [typeRight]="'text'"
+  [titleRight]="'Race'"
+  (onFile)="doFile($event)"
+  (onRecord)="doRecord($event)"
+  (onTask)="doTask($event)"
+  [showCheckLeft]="false"
+  [showCheckRight]="false"
+></app-input-duo>
+<div style="padding-bottom: 5px;"> </div>
+<hr>

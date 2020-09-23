@@ -1,0 +1,253 @@
+<div
+  style="
+    width: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+    height: 28px;
+    overflow: hidden;
+  "
+  [style.margin-top] = "marginTop"
+  [attr.id]="'dropdown-group-' + eid"
+>
+  <!-- [style.border-bottom] = "(showDelete || showEdit || showAdd)?'1px solid':'none'" -->
+
+    <a
+      href="#"
+      [attr.id]="'dropdown-button-' + eid"
+      class="btn btn-sm"
+      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;color:gray;padding-left:4px;padding-right:5px"
+      [class.a-width-buttons]="showDelete || showEdit || showAdd"
+      [style.border]="showDelete || showEdit || showAdd ? '1px white' : 'none'"
+      (click)="doModal($event)"
+      data-toggle="modal"
+      [attr.data-target]="'#dropdown-' + eid"
+      title = 'Hit to select another item'
+      ><span class="caret" style="margin-right: 2px;"></span>{{ value }}
+      <!-- 1px solid <div class="pull-right"><span class="caret"></span></div> -->
+    </a>
+  <div class="input-group-sm pull-right">
+    <span
+      *ngIf="showDelete && !disabled"
+      class="input-group-addon btn primary-color-reverse hidden-xs"
+      [class.disabled]="this.key < 0"
+      style="border-left: 1px solid;"
+      (click)="onDelete.emit()"
+      [title]="'Delete the ' + title"
+      [attr.id] = "eid + '-clear'"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
+    </span>
+    <span
+      *ngIf="showEdit && !disabled"
+      [class.disabled]="this.key < 0"
+      class="input-group-addon btn primary-color-reverse hidden-xs"
+      (click)="onEdit.emit()"
+      [title]="'Edit the ' + title"
+      [attr.id] = "eid + '-edit'"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
+    </span>
+    <span
+      *ngIf="showAdd && !disabled"
+      class="input-group-addon btn primary-color-reverse hidden-xs"
+      style="border-left: none;"
+      (click)="onAdd.emit()"
+      [title]="'Add an ' + title"
+      [attr.id] = "eid + '-add'"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
+    </span>
+  </div>
+</div>
+
+<!-- Modal -->
+
+<div [attr.id]="'dropdown-' + eid" class="modal" role="dialog">
+  <div
+    [attr.id]="'dropdown-dialog-' + eid"
+    class="modal-dialog modal-sm"
+    style="position: fixed; margin: 0px; width: 100%;"
+    [style.left]="thisX + 'px'"
+    [style.top]="thisY + 'px'"
+  >
+    <!-- Modal content-->
+    <div class="modal-content" style="display: inline-block; width: 100%;">
+      <!-- <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+                </div> -->
+      <div class="modal-body">
+        <div [hidden]="values_.size < 6" style="width: 100%;">
+          <div
+            *ngIf="!dropUp"
+            class="input-group input-group-sm"
+            style="margin-bottom: 2px; margin-top: 2px; width: 100%;"
+          >
+            <span
+              class="input-group-addon btn primary-color btn-hover"
+              data-dismiss="modal"
+              [class.btn-blocked]="false"
+            >
+              <mat-icon
+                class="mat-icon-big"
+                aria-hidden="true"
+                aria-label="Entities"
+                >eject</mat-icon
+              >
+            </span>
+            <input
+              type="text"
+              class="form-control input-sm primary-color"
+              [placeholder]="'Search '"
+              style="font-weight: normal; width: 100%; z-index: 999;"
+              autocomplete="nope"
+              [title]="'Type text to filter items'"
+              [(ngModel)]="filterText"
+              tabindex="0"
+              #inputFilter
+              (onkeyup)="doSearchKeyUp($event)"
+              (onkeydown) = "doSearchKeyDown($event)"
+            />
+            <span
+              *ngIf="filterText != ''"
+              class="input-group-addon btn primary-color btn-hover"
+              style="border-left: none;"
+              (click)="filterText = ''"
+              [class.btn-blocked]="false"
+              [attr.id] = "eid + '-clear-'"
+            >
+              <mat-icon
+                class="mat-icon-big"
+                aria-hidden="true"
+                aria-label="Entities"
+                >clear</mat-icon
+              >
+            </span>
+            <span
+              class="input-group-addon hidden-xs"
+              title="Number of items"
+              style="border-left: none; pointer-events: none;"
+              [title]="'Showing ' + 0 + ' items'"
+            >
+              {{ values_.countInFilter }}
+            </span>
+          </div>
+        </div>
+        <div
+          style="overflow-x: hidden;"
+          [style.max-height]="filterHeight - searchInputHeight + 'px'"
+          [style.overflow-y]="
+            this.values_.countInFilter > 5 ? 'scroll' : 'none'
+          "
+        >
+          <div
+            *ngIf="showNoSelection"
+            (click)="selectMe(-1)"
+            style="
+              cursor: pointer;
+              font-size: small;
+              margin-left: 5px;
+              margin-bottom: 2px;
+            "
+            [attr.id] = "eid + '-select-1'"
+          >
+            <a
+              data-dismiss="modal"
+              href="#"
+              class="btn btn-sm primary-color"
+              style="width: 100%; text-align: left; border: none;"
+              (click)="selectMe(-1)"
+              [attr.id] = "eid + '-please-select'" 
+              ><span class="text-plain" [class.text-bright]="key == -1">
+                Please select</span
+              >
+            </a>
+          </div>
+          <ng-container *ngFor="let e of values_ | keyvalue">
+            <div
+              [hidden]="!values_.inFilter(e.key, viewAll)"
+              (click)="selectMe(e.key)"
+              class="a-container"
+              (keydown)="a_doKeyDown(e.key, $event)"
+              [attr.id] = "eid + '-select-' + e.key"
+            >
+              <a
+                [attr.id]="'dropdown-item-' + eid + '-' + e.key"
+                data-dismiss="modal"
+                href="#"
+                class="btn btn-sm primary-color"
+                style="text-align: left; border: none;"
+                (click)="selectMe(e.key)"
+                ><span
+                  [class.text-plain]="e.key != key"
+                  [class.text-bright]="e.key == key"
+                >
+                  {{ e.value.allName }}</span
+                >
+              </a>
+            </div>
+          </ng-container>
+        </div>
+        <div [hidden]="values_.size < 6" style="width: 100%;">
+          <div
+            *ngIf="dropUp"
+            class="input-group input-group-sm"
+            style="margin-bottom: 2px; margin-top: 2px; width: 100%;"
+          >
+            <span
+              class="input-group-addon btn primary-color btn-hover"
+              data-dismiss="modal"
+              [class.btn-blocked]="false"
+            >
+              <mat-icon
+                class="mat-icon-big"
+                aria-hidden="true"
+                aria-label="Entities"
+                >eject</mat-icon
+              >
+            </span>
+            <input
+              type="text"
+              class="form-control input-sm primary-color"
+              [placeholder]="'Search '"
+              style="font-weight: normal; width: 100%; z-index: 999;"
+              autocomplete="nope"
+              [title]="'Type text to filter items'"
+              [(ngModel)]="filterText"
+              tabindex="0"
+              #inputFilter
+              (keyup)="doSearchKeyUp($event)"
+              (keydown)="doSearchKeyDown($event)"
+            />
+            <span
+              *ngIf="filterText != ''"
+              class="input-group-addon btn primary-color btn-hover"
+              style="border-left: none;"
+              (click)="filterText = ''"
+              [class.btn-blocked]="false"
+              [attr.id] = "eid + '-clear--'"
+            >
+              <mat-icon
+                class="mat-icon-big"
+                aria-hidden="true"
+                aria-label="Entities"
+                >clear</mat-icon
+              >
+            </span>
+            <span
+              class="input-group-addon primary-color hidden-xs"
+              title="Number of items"
+              style="border-left: none; pointer-events: none;"
+              [title]="'Showing ' + 0 + ' items'"
+            >
+              {{ values_ ? values_.countInFilter : 0 }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div> -->
+    </div>
+  </div>
+</div>

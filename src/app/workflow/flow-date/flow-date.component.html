@@ -1,0 +1,25 @@
+<app-input-panel
+  [title]="stepNumber + '.' + taskFlow.name + ': ' + getValueString()"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+>
+  {{ taskFlow.description }}
+  
+  <app-input-date
+    [title]="'Please select'"
+    [value]="taskFlow.value"
+    (onChange) = "doChange($event)"
+  ></app-input-date>
+
+  <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>
+    <div
+      style="display: inline-block"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show more'"
+        >error_outline</mat-icon
+      >
+    </div>
+    <div style="display: inline-block;vertical-align: top;padding-left:2px;padding-top:2px"> {{ taskFlow.errorMessage }}</div>
+  </div>
+</app-input-panel>

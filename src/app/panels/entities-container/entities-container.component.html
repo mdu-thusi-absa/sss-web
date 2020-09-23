@@ -1,0 +1,631 @@
+<div>
+  <div class="container-fluid">
+    <div class="row no-gutter">
+      <!--column 1: Entities, Tasks, Records, Files-->
+      <div
+        class="col-xs-4"
+        [class.col-sm-2]="showPanelRight"
+        [class.col-sm-4]="!showPanelRight"
+      >
+        <!-- Entities -->
+        <div class="panel panel-primary no-gutter nobottom">
+          <div class="panel-heading mt3">
+            <small>
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >verified_user</mat-icon
+              >
+              &nbsp;Entities
+            </small>
+
+            <div class="btn-group pull-right">
+              <span class="hidden-xs"> V:{{ env.version }} </span>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3"
+            [class.container-panel-left-full]="panelRows == 1"
+            [class.container-panel-left-half]="panelRows == 2"
+          >
+            <app-entities
+              [panelRows]="panelRows"
+              [isNarrow]="showPanelRight"
+              [entityTypeKey]="entityTypeKey"
+              (onDashboardChange)="doDashboardChange($event)"
+              (onEntityChange)="doEntityChange($event)"
+            ></app-entities>
+          </div>
+        </div>
+      </div>
+      <!--column 2: Details of Entities, Records, Docs-->
+      <div
+        [class.hidden-xs]="showPanelRight"
+        [class.col-xs-8]="!showPanelRight"
+        [class.col-sm-5]="showPanelRight"
+        [class.col-sm-8]="!showPanelRight"
+      >
+        <!-- col 2: Entity Detail -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="
+            (expandHistoryDetail || expandFilesDetail) &&
+            (!hideHistory || !hideFiles)
+          "
+        >
+          <div class="panel-heading mt3">
+            <small [hidden]="isPage('dashboard') || isPage('search')">
+              <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
+
+              <!-- <svg
+              style="
+                background-position: center;
+                vertical-align:middle;
+                background-repeat: no-repeat;
+                height: 19px;
+                width: 19px;
+                color: white;
+              "
+              [style.background-image] = "'url(\'../assets/svg/Icon_List_SVG_Black.svg\')'"
+            ></svg> -->
+
+              <span
+                class="hidden-xs hidden-sm hidden-md"
+                [hidden]="showPanelRight"
+                >&nbsp;Entity details</span
+              >&nbsp;
+              <!-- <div class="btn-group"> -->
+              <div
+                class="btn-group"
+                style="vertical-align: middle; height: 20px"
+              >
+                <!-- <app-buttons-toggle
+                  [title]="'Info'"
+                  [placeholder]="'Headline Informaion'"
+                  [dataTarget]="'#page-header'"
+                  [matIcon]="'priority_high'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideHeader"
+                  (onToggle)="hideHeader = !hideHeader"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle> -->
+                <app-buttons-toggle
+                  [title]="'Primary'"
+                  [placeholder]="'Primary page'"
+                  [dataTarget]="'#page-primary-' + dashboardName"
+                  [matIcon]="'star'"
+                  [svgUrlPath]="
+                    '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                  "
+                  [toggleValue]="!hidePrimary"
+                  (onToggle)="hidePrimary = !hidePrimary"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <!-- <app-buttons-toggle
+                  [title]="'Secondary'"
+                  [placeholder]="'Secondary page'"
+                  [matIcon]="'star_half'"
+                  [dataTarget]="'#page-secondary-' + dashboardName"
+                  [svgUrlPath]="
+                    '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
+                  "
+                  [toggleValue]="!hideSecondary"
+                  (onToggle)="hideSecondary = !hideSecondary"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="entityTypeKey == 2 || entityTypeKey == 3"
+                >
+                </app-buttons-toggle> -->
+
+                <!-- <app-buttons-toggle
+                  [title]="'Optional'"
+                  [placeholder]="'Optional page'"
+                  [matIcon]="'more'"
+                  [dataTarget]="'#page-optional-' + dashboardName"
+                  [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
+                  [toggleValue]="!hideOptional"
+                  (onToggle)="hideOptional = !hideOptional"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="entityTypeKey == 2"
+                ></app-buttons-toggle> -->
+                <app-buttons-toggle
+                  [title]="'Contacts'"
+                  [placeholder]="'Contact page'"
+                  [matIcon]="'contacts'"
+                  [dataTarget]="'#page-contact'"
+                  [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
+                  [toggleValue]="!hideContacts"
+                  (onToggle)="hideContacts = !hideContacts"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <app-buttons-toggle
+                  [title]="'Custom'"
+                  [placeholder]="'Custom page'"
+                  [matIcon]="'build'"
+                  [dataTarget]="'#page-custom'"
+                  [svgUrlPath]="'../assets/svg/Icon_Envelope_SVG_Black.svg'"
+                  [toggleValue]="!hideCustom"
+                  (onToggle)="hideCustom = !hideCustom"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <app-buttons-toggle
+                  [title]="'Files'"
+                  [placeholder]="'Files page'"
+                  [dataTarget]="'#page-file'"
+                  [matIcon]="'attachment'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideDetailFiles"
+                  (onToggle)="hideDetailFiles = !hideDetailFiles"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <app-buttons-toggle
+                  [title]="'Meetings'"
+                  [placeholder]="'Meetings page'"
+                  [dataTarget]="'#page-meetings'"
+                  [matIcon]="'group'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideMeetings"
+                  (onToggle)="hideMeetings = !hideMeetings"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <app-buttons-toggle
+                  [title]="'Reminders'"
+                  [placeholder]="'Reminders page'"
+                  [dataTarget]="'#page-reminders'"
+                  [matIcon]="'alarm'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideReminders"
+                  (onToggle)="hideReminders = !hideReminders"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle>
+                <!-- <app-buttons-toggle
+                  [title]="'Reports'"
+                  [placeholder]="'Reports page'"
+                  [dataTarget]="'#page-reports'"
+                  [matIcon]="'print'"
+                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
+                  [toggleValue]="!hideReports"
+                  (onToggle)="hideReports = !hideReports"
+                  [isNarrow]="showPanelRight"
+                  [showMe]="true"
+                ></app-buttons-toggle> -->
+              </div>
+              <span
+                [style.display]="
+                  hideHeader &&
+                  hidePrimary &&
+                  hideSecondary &&
+                  hideOptional &&
+                  hideCustom &&
+                  hideDetailFiles &&
+                  hideMeetings &&
+                  hideReminders
+                    ? 'inherit'
+                    : 'none'
+                "
+                class="hidden-xs"
+                style="vertical-align: middle"
+              >
+                <mat-icon aria-hidden="true" aria-label="Entities"
+                  >arrow_back</mat-icon
+                >
+                Select pages
+              </span>
+            </small>
+
+            <small [hidden]="!isPage('dashboard')">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >public</mat-icon
+              >
+              <span> &nbsp;Dashboard</span>
+            </small>
+
+            <small [hidden]="!isPage('search')">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >search</mat-icon
+              >
+              <span> &nbsp;Search</span>
+            </small>
+
+            <!-- <small [hidden]="entityTypeKey != dashboards.size - 2">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >assignment</mat-icon
+              >
+              <span>&nbsp;Templates</span>
+            </small>
+
+            <small [hidden]="entityTypeKey < dashboards.size - 1">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >settings</mat-icon
+              >
+              <span>&nbsp;Settings</span>
+            </small> -->
+
+            <div class="btn-group pull-right">
+              <!-- <app-buttons-toolbar-button
+                [hidden]="entityTypeKey == data.menus.size - 1"
+                [title]="''"
+                [placeholder]="'Expand/Contract all pages'"
+                [matIcon]="pagesAreExpanded?'unfold_less':'unfold_more'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="expandContractAllPages()"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button> -->
+              <app-buttons-toolbar-button
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [placeholder]="
+                  (showPanelRight ? 'Hide' : 'Show') + ' right panel'
+                "
+                [matIcon]="
+                  showPanelRight
+                    ? 'keyboard_arrow_right'
+                    : 'keyboard_arrow_left'
+                "
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="showPanelRight = !showPanelRight"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3"
+            [class.container-panel-center-full]="panelRows == 1"
+            [class.container-panel-center-half]="panelRows == 2"
+          >
+            <div
+              *ngIf="getIsLoaded(isPage('detail'), 'entities')"
+              [hidden]="isPage('dashboard') || isPage('search')"
+            >
+              <app-entity-details
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideHeader]="hideHeader"
+                [hideContacts]="hideContacts"
+                [hideMeetings]="hideMeetings"
+                [hideReminders]="hideReminders"
+                [hideReports]="hideReports"
+                [isNarrow]="showPanelRight"
+                [entityKey]="entityKey"
+                [entityTypeKey]="entityTypeKey"
+              ></app-entity-details>
+            </div>
+            <!-- <div
+              *ngIf="
+                getIsLoaded(entityTypeKey == dashboards.size - 2, 'templates')
+              "
+              [hidden]="entityTypeKey != dashboards.size - 2"
+            >
+              <app-entity-details-doc-templates
+                [isNarrow]="showPanelRight"
+              ></app-entity-details-doc-templates>
+            </div> -->
+
+            <!-- <div [hidden]="entityTypeKey != dashboards.size - 1">
+              <app-settings
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityTypeKey"
+              ></app-settings>
+            </div> -->
+            <div
+              *ngIf="getIsLoaded(isPage('dashboard'), 'dashboard')"
+              [hidden]="!isPage('dashboard')"
+            >
+              <app-entity-details-dashboard
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityTypeKey"
+              ></app-entity-details-dashboard>
+            </div>
+            <div
+              *ngIf="getIsLoaded(isPage('search'), 'globalsearch')"
+              [hidden]="!isPage('search')"
+            >
+              <app-panel-glogal-search
+                [panelRows]="panelRows"
+                (onFile)="doFile($event)"
+                (onRecord)="doRecord($event)"
+                (onTask)="doTask($event)"
+                [hidePrimary]="hidePrimary"
+                [hideSecondary]="hideSecondary"
+                [hideOptional]="hideOptional"
+                [hideCustom]="hideCustom"
+                [hideFiles]="hideDetailFiles"
+                [hideUsers]="false"
+                [hideContacts]="hideContacts"
+                [isNarrow]="showPanelRight"
+                [entityType]="entityTypeKey"
+              ></app-panel-glogal-search>
+            </div>
+          </div>
+
+          <!-- col 2: Record Detail -->
+          <!-- <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideHistory && hideFiles"
+        >
+          <div class="panel-heading mt3">
+            <small> {{ hideHistory ? "Docs" : "Record Details" }}</small>
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showHideHistory()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="'Minimise Detail panel'"
+              >
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="expandHistoryDetail = !expandHistoryDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandHistoryDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+                
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPanelRight = !showPanelRight"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+              >
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3"
+            [class.files-details-half]="panelRows == 2 && !expandHistoryDetail"
+            [class.container-panel-center-full]="
+              panelRows == 2 && expandHistoryDetail
+            "
+          >
+            <div [hidden]="hideHistory">
+              <app-record-details [panelRows]="panelRows"></app-record-details>
+            </div>
+            <div [hidden]="hideFiles">
+              <app-files-details
+                [panelRows]="panelRows"
+                [showFileFields]="showFileFields"
+              ></app-files-details>
+            </div>
+          </div>
+        </div> -->
+
+          <!-- col 2: Files Detail -->
+          <!-- <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="hideFiles"
+        >
+          <div class="panel-heading mt3">
+            <small
+              >
+            <div class="btn-group pull-right">
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showFilesAll()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="'Minimise Detail panel'"
+              >
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="expandFilesDetail = !expandFilesDetail"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="
+                  (expandFilesDetail ? 'Shrink' : 'Expand') + ' Detail panel'
+                "
+              >
+              </a>
+              <a
+                href="#"
+                class="btn btn-info btn-xs"
+                (click)="showPanelRight = !showPanelRight"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+              >
+                
+              </a>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3"
+            [class.container-panel-center-half]="
+              panelRows == 2 && !expandFilesDetail
+            "
+            [class.container-panel-center-full]="
+              panelRows == 2 && expandFilesDetail
+            "
+            style="overflow-y: hidden; overflow-x: auto;"
+          >
+            <app-files-details
+              [panelRows]="panelRows"
+              [showFileFields]="showFileFields"
+            ></app-files-details>
+          </div>
+        </div> -->
+        </div>
+      </div>
+      <!-- column 3: Articles -->
+      <div
+        class="col-xs-8"
+        [class.hidden-xs]="!showPanelRight"
+        [class.col-sm-5]="showPanelRight"
+        [style.visibility]="showPanelRight ? 'visible' : 'hidden'"
+        *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
+      >
+        <div class="panel panel-primary no-gutter nobottom">
+          <div class="panel-heading mt3" style="vertical-align: middle">
+            <small
+              ><mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [style.display]="hidePosts ? 'none' : 'inherit'"
+                >comment</mat-icon
+              >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [style.display]="hideTasks ? 'none' : 'inherit'"
+                >flash_on</mat-icon
+              >
+              <mat-icon
+                aria-hidden="true"
+                aria-label="Entities"
+                [style.display]="hideAudits ? 'none' : 'inherit'"
+                >done_all</mat-icon
+              >
+              <span
+                >{{
+                  hidePosts && hideAudits && hideTasks
+                    ? "&nbsp;"
+                    : hidePosts && hideAudits
+                    ? "Tasks"
+                    : hideAudits
+                    ? "Articles"
+                    : "Audit"
+                }}
+              </span>
+            </small>
+
+            <div class="btn-group pull-right">
+              <app-buttons-toggle
+                [title]="'Tasks'"
+                [placeholder]="'Tasks Page'"
+                [matIcon]="'flash_on'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="
+                  hideTasks = !hideTasks; hidePosts = true; hideAudits = true
+                "
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue]="!hideTasks"
+              ></app-buttons-toggle>
+              <app-buttons-toggle
+                [title]="'Audit'"
+                [placeholder]="'Audit Page'"
+                [matIcon]="'done_all'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onToggle)="
+                  hideAudits = !hideAudits; hideTasks = true; hidePosts = true
+                "
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+                [toggleValue]="!hideAudits"
+              ></app-buttons-toggle>
+
+              <app-buttons-toolbar-button
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
+                [placeholder]="
+                  (showPanelRight ? 'Hide' : 'Show') + ' right panel'
+                "
+                [matIcon]="
+                  showPanelRight
+                    ? 'keyboard_arrow_right'
+                    : 'keyboard_arrow_left'
+                "
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="showPanelRight = !showPanelRight"
+                [isNarrow]="showPanelRight"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+            </div>
+            <div class="pull-right" style="vertical-align: middle">
+              <small>
+                <span
+                  [style.display]="
+                    hidePosts && hideAudits && hideTasks ? 'inherit' : 'none'
+                  "
+                  class="hidden-xs"
+                  style="vertical-align: middle"
+                  >Select page
+                  <mat-icon aria-hidden="true" aria-label="Entities"
+                    >arrow_forwards</mat-icon
+                  >&nbsp;
+                </span>
+              </small>
+            </div>
+          </div>
+          <div
+            class="panel-body mt3"
+            style="margin-bottom: 0px"
+            *ngIf="getIsLoaded(!hideTasks, 'tasks')"
+            [hidden]="hideTasks"
+          >
+            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
+          </div>
+          <div
+            class="panel-body mt3"
+            style="margin-bottom: 0px"
+            *ngIf="getIsLoaded(!hideAudits, 'audits')"
+            [hidden]="hideAudits"
+          >
+            <app-entity-audits [isNarrow]="true"></app-entity-audits>
+          </div>
+        </div>
+        <div
+          [hidden]="!(hideTasks && hideAudits)"
+          class="h4 text-primary"
+          style="margin: 5px"
+        >
+          Please select a page to display
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

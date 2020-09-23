@@ -1,0 +1,35 @@
+.mat-icon-big {
+    vertical-align: middle;
+    font-size: 15.8px;
+    width: 15.4px;
+    height: 15.4px; 
+  }
+
+  .mat-icon-small {
+    vertical-align: middle;
+    font-size: 13px;
+    width: 11.9px;
+    height: 15px;
+  }
+
+  select.decorated option:checked {
+    box-shadow: 0 0 10px 100px #1882A8 inset;
+    background-color: white;  
+}
+
+select option:checked {
+  box-shadow: 0 0 10px 100px red inset;
+}
+
+select option{
+  pointer-events: none;
+}
+
+option:checked{
+  background-color: white;
+}
+
+select option:checked{
+  background-color: white;
+}
+

@@ -1,0 +1,107 @@
+<div
+  class="panel panel-success narrow"
+  [class.panel-danger]="!task.mainGoal.isDone"
+  style="margin-top:1px"
+>
+  <div class="panel-heading mt3">
+    <mat-icon aria-hidden="true" aria-label="Entities">flash_on</mat-icon>
+    <a href="#" (click)="isEdit = !isEdit">
+      <small
+        >{{ task.mainGoal.whenStringCreated() }} :
+        {{ task.mainGoal.whoCreated }} : {{ task.mainGoal.title }}</small
+      >
+    </a>
+
+    <app-buttons-cancel-save
+      [hidden]="!isEdit"
+      [glyphOnly]="true"
+      (onCancel)="doClose()"
+      (onSave)="doClose()"
+    ></app-buttons-cancel-save>
+  </div>
+  <div class="panel-body message" [hidden]="!isEdit">
+    <!-- <app-input-textarea
+        [title]="'Post Text'"
+        [text]="task.mainGoal.text"
+        [rows]="rows"
+        [placeholder]="'Body of the task here'"
+        [noTitle]="true"
+        [noButtons]="true"
+      ></app-input-textarea> -->
+
+    <form class="form">
+      <div style="margin-top: 5px;"></div>
+
+      <app-step
+        [stepNumber]="0"
+        [noHeader]="true"
+        [hideBody]="false"
+        [title]="task.mainGoal.title"
+        [isNarrow]="isNarrow"
+      ></app-step>
+
+      <!-- <app-step [stepNumber]="2"></app-step>
+      
+        <app-step [stepNumber]="3"></app-step>
+      
+        <app-step [stepNumber]="4"></app-step> -->
+
+      <!-- <div class="btn-group pull-right">
+        <a href="#" class="btn btn-primary primary-color btn-xs"
+          ></a>
+      </div> -->
+    </form>
+
+    <div
+      class="form-group input-group-sm"
+      [hidden]="!isEdit"
+      style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
+    >
+      <!-- <a
+        href="#"
+        data-toggle="collapse"
+        [attr.data-target]="'#files-' + getID()"
+      >
+        <label class="nobottom label-bold">Files </label
+        ><app-button-c1aret [isDown]="isDown_Files"></app-button-caret>
+      </a> -->
+      <app-button-caret
+      [title]="'Files'"
+      [target]="'files-' + getID()"
+      [isDown]="isDown_Files"
+    ></app-button-caret>
+
+      <div id="{{ 'files-' + getID() }}" class="collapse">
+        <app-entity-details-files
+          [title]="task.mainGoal.title"
+          [showTitle] = "false"
+          [isNarrow]="isNarrow"
+          [persons]="data.individuals"
+        ></app-entity-details-files>
+      </div>
+    </div>
+
+    <div
+      class="form-group input-group-sm"
+      [hidden]="!isEdit"
+      style="margin-bottom: 5px; padding-left: 3px; padding-right: 3px;"
+    >
+      <!-- <a
+        href="#"
+        data-toggle="collapse"
+        [attr.data-target]="'#steps-' + getID()"
+      >
+        <label class="nobottom label-bold">Sub tasks </label
+        ><app-button-caret [isDown]="isDown_SubTasks"></app-button-caret>
+      </a> -->
+      <app-button-caret
+      [title]="'Sub tasks'"
+      [target]="'steps-' + getID()"
+      [isDown]="isDown_SubTasks"
+    ></app-button-caret>
+      <div id="{{ 'steps-' + getID() }}" class="collapse">
+        <app-step [stepNumber]="1" [isNarrow]="isNarrow"></app-step>
+      </div>
+    </div>
+  </div>
+</div>

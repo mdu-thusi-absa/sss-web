@@ -1,0 +1,56 @@
+<app-input-filter-add
+  [title]="'Dashboard'"
+  [titlePlural]="'Dashboard'"
+  [showT]="false"
+  (onFilter)="doFilter($event)"
+  [titleT]="'field values'"
+  [showFilterCount] = "true"
+></app-input-filter-add>
+<form autocomplete="off">
+  <div
+    [class.settings-detail-form-full]="isFullScreen()"
+    [class.settings-detail-form-half]="isHalfScreen()"
+  >
+
+    <!-- <app-flow-task ></app-flow-task>     -->
+
+    <app-label-h [title]="'Dashboard: reminders'" [hr]="false"></app-label-h>
+    <app-input-table
+    [headings]="['Start','End','Title']"
+    [fields]="['start','end','name']"
+    [withCheckbox]="true"
+    [entities]="data.meetings.slice(0,1)"
+    [inputType]="'reminder'"
+  ></app-input-table>
+
+  <app-label-h [title]="'Dashboard: authorised'" [hr]="false"></app-label-h>
+  <app-input-table
+  [headings]="['Start','End','Title']"
+  [fields]="['start','end','name']"
+  [withCheckbox]="true"
+  [entities]="data.meetings.slice(2,3)"
+  [inputType]="'reminder'"
+></app-input-table>
+
+  <app-label-h [title]="'Dashboard: awaiting authorisation'" [hr]="false"></app-label-h>
+  <app-input-table
+  [headings]="['Start','End','Title']"
+  [fields]="['start','end','name']"
+  [withCheckbox]="true"
+  [entities]="data.meetings.slice(5,7)"
+  [inputType]="'reminder'"
+></app-input-table>
+
+  <app-label-h [title]="'Dashboard: tasks in progress'" [hr]="false"></app-label-h>
+  <app-input-table
+  [headings]="['Start','End','Title']"
+  [fields]="['start','end','name']"
+  [withCheckbox]="true"
+  [entities]="data.meetings.slice(8,10)"
+  [inputType]="'reminder'"
+></app-input-table>
+  </div>
+  
+</form>
+
+

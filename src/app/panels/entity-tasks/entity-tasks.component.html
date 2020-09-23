@@ -1,0 +1,48 @@
+<div [hidden] = "isNew">
+<app-input-filter-add
+  [filterCount]="getCountFiltered()"
+  [showAdd]="!isNew"
+  [isAdd]="isNew"
+  [showCancel]="isNew"
+  (onFilter)="doFilter($event)"
+  (onAdd)="doAdd()"
+  (onCancel)="doCancel()"
+  (onT)="isFilterByTextToo = !isFilterByTextToo"
+  [showT]="false"
+  [title]="'Task'"
+  [titleT]="'Task values'"
+  [titlePlural]="'Tasks'"
+  [radioChoice]="'all'"
+  [showPlay]="true"
+  [titlePlay]="'Active Tasks'"
+  [countPlay]="getCount_Active()"
+  [showOk]="true"
+  [titleOk]="'Done'"
+  [countOk]="getCount_Done()"
+  [showAll]="true"
+  [titleAll]="'All Tasks'"
+  [countAll]="getCount_All()"
+  (onChoice)="rdoChoice = $event"
+></app-input-filter-add>
+</div>
+<div class="entities-tasks" [style.overflow-y]="isNew?'hidden':'scroll'">
+  <app-flow-task  [hidden]="!isNew" (onClose)="isNew=false"></app-flow-task>
+  <!-- <app-entity-task
+    style="margin-top: 0px;"
+    [hidden]="!isNew"
+    [task]="newTask"
+    [isEdit]="isNew"
+    (onClose)="isNew = false"
+    [isNarrow] = "isNarrow"
+  ></app-entity-task> -->
+    <div
+      *ngFor="let task of list; let i = index"
+      [hidden]="shouldHideTask(task) || isNew"
+    >
+      <app-entity-task
+        [task]="task"
+        [index]="i + 1"
+        [isNarrow]="isNarrow"
+      ></app-entity-task>
+    </div>
+</div>

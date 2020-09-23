@@ -1,0 +1,17 @@
+<app-input-panel
+  [title]="stepNumber + '.' + taskFlow.name"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+>
+  {{ taskFlow.description }}
+
+  <app-input-any *ngFor="let inp of taskFlow.inputs"
+    [type] = "inp.type"
+    [value] = 'getInputValue(inp)'
+    [title] = 'inp.title'
+    [placeholder] = 'inp.title'
+    [values] = "getEntities(inp.type,inp.fieldName)"
+  ></app-input-any>
+</app-input-panel>
+
