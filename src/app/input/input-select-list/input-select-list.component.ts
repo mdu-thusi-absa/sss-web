@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity } from '../../data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
+import * as S from '../../data/utils-scripts'
 
 @Component({
   selector: 'app-input-select-list',
@@ -44,6 +45,7 @@ export class InputSelectListComponent implements OnInit {
     if (i < this.keys.length - 1) {
       i++;
       this.selectedEntityKey = this.keysVisisble[i];
+      this.setFocusOnSelecetedElement()
     }
   }
   doArrowUp() {
@@ -51,8 +53,14 @@ export class InputSelectListComponent implements OnInit {
     if (i > 0) {
       i--;
       this.selectedEntityKey = this.keysVisisble[i--];
+      this.setFocusOnSelecetedElement()
     }
   }
+
+  setFocusOnSelecetedElement(){
+    let topPos = this.keysVisisble.indexOf(this.selectedEntityKey) * 31 //height of row
+    setTimeout(S.updateElementScroll, 50,'table-content-' + this.eid,topPos)
+  } 
 
   version = 0;
   doSelect(key: number) {
@@ -60,6 +68,10 @@ export class InputSelectListComponent implements OnInit {
     this.onSelect.emit(key);
     this.version++;
     this.filterText = '';
+  }
+
+  doFilter(event: string){
+    this.filterText = event
   }
 
   _filterText = '';

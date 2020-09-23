@@ -586,6 +586,55 @@ export class DataService {
     );
   }
 
+  getCommitteesForCountry(data: object){
+    return this.getEntities(E.EnumEntityType.Committee).select(
+      'countryKey',
+      data['countryKey']
+    );
+  }
+
+  getIndividualsForCommittee(data: object){
+    let individualsArray = this._getCommitteeMemberKeys(data)
+    let inds = this.getEntities(E.EnumEntityType.Individual)
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
+    _addMembers()
+    return r
+
+    function _addMembers(){
+      individualsArray.forEach((individualKey) => {
+        let ind = inds.get(individualKey) as K.EntityIndividual
+        r.add(ind)
+      });
+    }
+  }
+
+  private _getCommitteeMemberKeys(data: object): number[]{
+    let committeeKey = data['committeeKey']
+    let committee = this.getEntities(E.EnumEntityType.Committee).get(committeeKey)
+    return committee['individualKeys'] as Array<number>
+  }
+
+  getIndividualsNotOnCommittee(data: object){
+    let individualsArray = this._getCommitteeMemberKeys(data)
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
+    let inds = this.getEntities(E.EnumEntityType.Individual)
+    _addMissingIndividuals()
+    return r
+
+    function _addMissingIndividuals(){
+      inds.forEach((value,key,map)=>{
+        if (individualsArray.indexOf(key)==-1){
+          let v = value as K.EntityIndividual
+          r.add(v)
+        }
+      })
+    }
+  }
+
+
+
+
+
   getCountriesForTask(data: object) {
     let that = this;
     let d = _WorkflowForLastMenuChoice(data);

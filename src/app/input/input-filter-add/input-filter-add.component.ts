@@ -231,7 +231,6 @@ export class InputFilterAddComponent implements OnInit {
   }
 
   doKey(event: any) {
-    // without type info
     if (event.key === 'Escape') {
       this.doFilterClear();
     }

@@ -46,14 +46,16 @@ export class FlowTaskComponent implements OnInit {
     setTimeout(this.updateScroll, 100,this.panelBodyID);
   }
 
-  doSavePrev() {
-    if (this.workFlow.currentTaskIndex > 0) this.workFlow.moveToPrev();
-  }
-
   updateScroll(panelBodyID: string) {
     let elementPanelBody = document.getElementById(panelBodyID);
     elementPanelBody.scrollTop = +elementPanelBody.scrollHeight;
   }
+
+  doSavePrev() {
+    if (this.workFlow.currentTaskIndex > 0) this.workFlow.moveToPrev();
+  }
+
+  
 
   doMakePanelIED(event: any){
     this.panelBodyID = 'input-panel-' + event

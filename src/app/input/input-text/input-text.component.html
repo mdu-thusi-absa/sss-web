@@ -36,5 +36,8 @@
     data-placement="bottom"
     [title]="placeholder"
     [attr.id] = "this.eid"
+    [attr.autocomplete]="'net'"
+    autocomplete="new-password"
+    (keyup) = "doKey($event)"
   />
 </div>

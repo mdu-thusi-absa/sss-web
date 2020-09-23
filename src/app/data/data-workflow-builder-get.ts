@@ -301,11 +301,42 @@ export function getIndividual(data: DataService) {
   a.name = 'Individual';
   a.sourceType = E.EnumEntityType.Individual;
   a.thisEntityNameIsObjectName = true;
-  // parent.addNext(a);
   return a;
 }
 
-export function getIndividualEmployeeStatus(data: DataService) {
+getIndividualNotOnCommittee
+export function getIndividualForCommittee(data: DataService) {
+  let a = new W.TaskSelect(data, 'individualKey');
+  a.name = 'Individual';
+  a.sourceType = E.EnumEntityType.IndividualForCommittee;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+export function getIndividualNotOnCommittee(data: DataService) {
+  let a = new W.TaskSelect(data, 'individualKey');
+  a.name = 'Individual';
+  a.sourceType = E.EnumEntityType.IndividualNotOnCommittee;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+// export function getCommitteeMembershipForCommittee(data: DataService){
+//   //getSelectMulti
+//   let a = new W.TaskSelect(data, 'memberKeys');
+//   a.name = 'Committee membership';
+//   a.sourceType = E.EnumEntityType.CommitteeMembership;
+//   return a;
+// }
+
+export function getCommitteeForCountry(data: DataService){
+  let a = new W.TaskSelect(data, 'committeeKey');
+  a.name = 'Committee';
+  a.sourceType = E.EnumEntityType.CommitteeForCountry; //todo
+  return a;
+}
+
+export function getIndividualForEmployeeStatus(data: DataService) {
   let a = new W.TaskSelect(data, 'individualKey')
   a.name = 'Individual'
   a.sourceType = E.EnumEntityType.IndividualInternalEmployeeStatus;

@@ -74,6 +74,7 @@
         *ngIf="t.type == 'text'"
         [stepNumber]="i + 1"
         [taskFlow]="t"
+        (onEnter) = "doSaveNext()"
       ></app-flow-text>
       <app-flow-text
         *ngIf="t.type == 'number'"

@@ -5,6 +5,7 @@
   [showFilterCount]="true"
   (onFilter)="filterText = $event"
   [showInputFilter]="true"
+  [filterText] = "filterText"
 ></app-input-filter-add>
 <div
   [hidden]="fields.length < 10"

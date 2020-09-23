@@ -11,6 +11,7 @@ export class FlowTextComponent implements OnInit {
   @Input() taskFlow: TaskText;
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();
+  @Output() onEnter = new EventEmitter()
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
   @Input() stepNumber = 1
@@ -25,6 +26,9 @@ export class FlowTextComponent implements OnInit {
     return this.taskFlow.value
   }
 
+  doEnter(){
+    this.onEnter.emit()
+  }
   doSaveNext(){
     this.onSaveNext.emit();
   }

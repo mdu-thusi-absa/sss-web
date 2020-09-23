@@ -28,6 +28,9 @@ export class InputSelectCheckboxComponent implements OnInit {
   @Input() filterText = '';
   //@Input() value = [];
   @Input() doHideByFilter = false;
+  @Input() showHeading = true
+  @Input() selectedValues: number[] = [];
+  @Input() showSelectedOnly = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
@@ -52,8 +55,6 @@ export class InputSelectCheckboxComponent implements OnInit {
   doAdd = false;
   listFilterText = '';
   isShowingFilter = false;
-  @Input() selectedValues: number[] = [];
-  @Input() showSelectedOnly = false;
   showExpand = true;
 
   get countItems(){

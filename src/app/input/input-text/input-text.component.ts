@@ -22,16 +22,17 @@ export class InputTextComponent implements OnInit {
   @Input() disabled = false;
   @Input() value = '';
 
-  @Output() onFile = new EventEmitter();
-  @Output() onRecord = new EventEmitter();
-  @Output() onTask = new EventEmitter();
-  @Output() onChange = new EventEmitter();
-
+  
   @Input() showFlash = false;
   @Input() showPaperclip = false;
   @Input() showCD = false;
   @Input() showCheck = false;
- 
+  
+  @Output() onFile = new EventEmitter();
+  @Output() onRecord = new EventEmitter();
+  @Output() onTask = new EventEmitter();
+  @Output() onChange = new EventEmitter();
+  @Output() onEnter = new EventEmitter()
 
   doFile(){
     this.onFile.emit(this.title.replace('*',''));
@@ -87,6 +88,15 @@ export class InputTextComponent implements OnInit {
         if (e) e.focus();
         else setFocusForID(id, mills + 100);
       }, mills);
+    }
+  }
+
+  doKey(event: any) {
+    if (event.key === 'Escape') {
+      this.value = ''
+    }
+    if (event.key === 'Enter') {
+      this.onEnter.emit();
     }
   }
 

@@ -3,7 +3,7 @@
   [filterCount]="countFiltered"
   [showAdd]="false"
   [showFilterCount]="true"
-  (onFilter)="filterText = $event"
+  (onFilter)="doFilter($event)"
   [showInputFilter]="true"
   [autoFocus]="autoFocus_filter"
   (onEnter)="doEnter()"
@@ -11,7 +11,7 @@
   (onArrowDown) = "doArrowDown()"
   (onArrowUp) = "doArrowUp()"
 ></app-input-filter-add>
-<div class="table-content">
+<div class="table-content" [attr.id]="'table-content-'+eid">
   <table
     class="table table-condensed table-bordered less-bottom"
     style="margin: 0px; max-height: 40vh"

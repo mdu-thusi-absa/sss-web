@@ -1,0 +1,38 @@
+<app-input-panel
+  [title]="this.title"
+  [collapsed]="!taskFlow.isCurrent"
+  [panelDanger]="taskFlow.isCurrent"
+  [panelSuccess]="taskFlow.isDone"
+  (document:keydown.control.arrowright)="doNextValue()"
+  (document:keydown.control.arrowleft)="doPrevValue()"
+  [maxHeight] = "0"
+>
+
+<app-input-select-checkbox
+  [title]="title"
+  [selectedValues] = "taskFlow.value"
+  [values]="taskFlow.values"
+  (onChange) = "doChange($event)"
+  [showHeading] = "false"
+></app-input-select-checkbox>
+
+  <!-- <app-input-select-list
+    [hidden]="taskFlow.errorMessage != ''"
+    [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
+    [value]="taskFlow.value"
+    [values]="taskFlow.values"
+    (onSelect)="doChange($event)"
+    [autoFocus] = "taskFlow.isCurrent"
+    [showHeading] = "false"
+  ></app-input-select-list> -->
+  <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold">
+    <div
+      style="display: inline-block"
+    >
+      <mat-icon aria-hidden="true" aria-label="Entities" [title]="'Show more'"
+        >error_outline</mat-icon
+      >
+    </div>
+    <div style="display: inline-block;vertical-align: top;padding-left:2px;padding-top:2px"> {{ taskFlow.errorMessage }}</div>
+  </div>
+</app-input-panel>

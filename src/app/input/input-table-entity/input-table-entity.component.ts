@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AnyEntity, Entities } from 'src/app/data/data-entities';
 import { DataService } from 'src/app/data/data.service';
-import {EnumEntityType} from 'src/app/data/data-entity-types'
+import { EnumEntityType } from 'src/app/data/data-entity-types';
 import { EntityAddress } from 'src/app/data/data-entity-kids';
 
 @Component({
@@ -12,14 +12,13 @@ import { EntityAddress } from 'src/app/data/data-entity-kids';
 export class InputTableEntityComponent implements OnInit {
   _entity: AnyEntity;
   // @Input() entityTypeKey: EnumEntityType;
-  entityTypeKey: EnumEntityType
+  entityTypeKey: EnumEntityType;
   @Input() noPadding = false;
   headingsMap = new Map(); //lists headings in th
   headings: string[] = [];
   fields: string[] = [];
   values: any[] = [];
   filterText_ = '';
-  
 
   isHiddenMap = new Map();
   countFiltered = 0;
@@ -35,17 +34,22 @@ export class InputTableEntityComponent implements OnInit {
     this._entity = v;
     // if (this._entity)
     //   this._entity.event.addListener('change',(e)=>{this.onUpdateEntity(e,'')})
-    this._entity.addListener(this)
+    this._entity.addListener(this);
     this.loadValues();
   }
 
-  get entity(){
-    return this._entity
+  get entity() {
+    return this._entity;
   }
 
-  notify(...args){
-    console.log(...args);
-    this.loadValues()
+  notify(...args) {
+    try {
+      this.loadValues();
+      let fieldName_Updated = args[0][1];
+      this.filterText = this.headings[this.fields.indexOf(fieldName_Updated)];
+    } catch (e) {
+      console.log('Failed to reload on notify', args, e);
+    }
   }
 
   ngOnInit(): void {
@@ -65,10 +69,11 @@ export class InputTableEntityComponent implements OnInit {
     }
   }
 
-
-  getFieldValue(fieldName: string):string|Entities<AnyEntity>|EntityAddress {
-    let d = this.data.getEntityFieldValue(this.entity,fieldName) 
-    return d
+  getFieldValue(
+    fieldName: string
+  ): string | Entities<AnyEntity> | EntityAddress {
+    let d = this.data.getEntityFieldValue(this.entity, fieldName);
+    return d;
   }
 
   getType(v: any) {
@@ -85,38 +90,13 @@ export class InputTableEntityComponent implements OnInit {
     return this.filterText_;
   }
 
-  // checkForAll(checkValue: boolean){
-  //   this.isChecked.forEach((value: boolean, key: number) => {
-  //     this.isChecked.set(key, checkValue);
-  //   });
-  //   this.countSelected = this.getCountSelected();
-  // }
-
-  // checkItem(key: number, checkValue: boolean){
-  //   this.countSelected = this.countSelected + (checkValue ? 1:-1);
-  //   this.isChecked.set(key,checkValue)
-  // }
-
-  // checkField(key: number, checkValue: boolean,fieldName: string){
-  //   this.entities.get(key).set(fieldName,checkValue);
-  // }
-
-  // doEntityChoose(key: number) {
-  //   //do something when a row has been selected
-  //   let visible = true;
-  //   if (this.hideEditRow.has(key)) visible = this.hideEditRow.get(key);
-  //   visible = !visible;
-  //   this.hideEditRow.set(key, visible);
-  // }
-
   getDoLoad(e: AnyEntity) {
     return true;
   }
 
   hideItem(value: string) {
     if (this.filterText.length == 0) return false;
-    if (typeof value === 'object')
-      return true
+    if (typeof value === 'object') return true;
     else
       return value.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
@@ -149,11 +129,4 @@ export class InputTableEntityComponent implements OnInit {
     }
   }
 
-  // getCountSelected() {
-  //   if (this.entities) {
-  //     return [...this.isChecked.values()].filter((e) => e).length;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
 }

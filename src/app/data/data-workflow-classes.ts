@@ -158,7 +158,7 @@ export class Task {
 export class TaskSelect extends Task {
   type = 'select';
   sourceType: E.EnumEntityType;
-  value = 0; //the key of the selected item
+  value:any = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
   values: Entities<AnyEntity>;
   thisEntityNameIsSubjectName = false;
@@ -204,10 +204,10 @@ export class TaskSelect extends Task {
       // }
     }
   }
-  private _init_needs_update(): boolean {
+  protected _init_needs_update(): boolean {
     return !this.values || this.sourceType != null;
   }
-  private _init_verify_if_empty() {
+  protected _init_verify_if_empty() {
     if (this.values) {
       if (this.values.size > 0) return true;
       else {
@@ -238,6 +238,35 @@ export class TaskSelect extends Task {
             return true;
           }
     return false;
+  }
+}
+
+export class TaskSelectMulti extends TaskSelect {
+  type = 'select-multi';
+  selectedSourceType: E.EnumEntityType
+  value: number[] = []; //the key of the selected items
+  values: Entities<AnyEntity>;
+  minSelectedItems = 0
+
+  canMoveOn(): boolean {
+    return false //for now
+  }
+  
+  
+  init(): boolean {
+    super.init();
+    if (this._init_needs_update()) {
+      this.values = this.data.getEntities(
+        this.sourceType,
+        this.workflowValuesObject
+      );
+      this.value = [] ////get selected values from db source
+    }
+    return true;
+  }
+
+  verify(): boolean {
+    return true //for now
   }
 }
 
@@ -379,12 +408,6 @@ export class TaskDate extends Task {
     }
   }
 }
-
-// export class TaskDoc extends Task {
-//   type = 'doc';
-//   doc: string; // file name
-//   constructor(public fieldName: string,public heading: string){}
-// }
 
 export class TaskUpload extends Task {
   type = 'upload-docs';
@@ -544,10 +567,10 @@ export class TaskMessage extends Task {
   type = 'message';
 }
 
-export class TaskError extends Task {
-  type = 'error';
-  text = '';
-}
+// export class TaskError extends Task {
+//   type = 'error';
+//   text = '';
+// }
 
 // tasks[]: maintains the current state of the workflow/path, with each node = Task.
 // getNext, getPrev: Follows the path with
@@ -571,10 +594,6 @@ export class TaskWalker extends Task {
     return s;
   }
 
-  // set title(v: string){
-  //   super.name = v
-  // }
-
   addNext(taskFlow: Task) {
     // this.targetOfChange = taskFlow.targetOfChange
     this.rootTask = taskFlow;
@@ -594,11 +613,6 @@ export class TaskWalker extends Task {
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
-    // this.actionEntityName = '';
-    // this.actionObjectName = '';
-    // this.entity = null;
-    // this.actionName = '';
-    // this.workflowValuesObject = {};
     if (this.currentTask) this._currentTaskIndex = 0;
     //this.rootTask.init();
     this.tasks.forEach((t) => {
@@ -620,23 +634,25 @@ export class TaskWalker extends Task {
   // }
 
   private _buildNext(fromTask: Task): boolean {
+    let r = true
     if (this._currentTaskIndex == this.tasks.length - 1) {
-      if (fromTask) {
-        if (fromTask.isDone) {
-          this._ifTaskIsDone(fromTask,this)
-        }
-        return true;
-      }
-      return false;
+      r = fromTask?.isDone?this._ifTaskIsDone(fromTask,this):false
+      // if (fromTask) {
+      //   if (fromTask.isDone) {
+      //     this._ifTaskIsDone(fromTask,this)
+      //   }
+      //   return true;
+      // }
+      // return false;
     }
-    return true;
+    return r;
   }
 
   _canBeBuiltOn(task: Task): boolean {
     return task.isDone && task.subTasks.length > 0;
   }
 
-  _ifTaskIsDone(fromTask: Task, that: TaskWalker) {
+  _ifTaskIsDone(fromTask: Task, that: TaskWalker):boolean {
     if (fromTask.actionName) that.actionName = fromTask.actionName;
     if (fromTask.actionObjectName)
       that.actionObjectName = fromTask.actionObjectName;
@@ -649,6 +665,7 @@ export class TaskWalker extends Task {
       that._saveToTargetObject();
       that.start();
     }
+    return true
   }
 
   _addChildTask(fromTask:Task,that:TaskWalker){

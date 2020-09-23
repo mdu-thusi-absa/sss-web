@@ -246,18 +246,19 @@
         >done</mat-icon
       >
     </span>
-
+    <!--  -->
+    <!-- (keyup.alt.arrowdown) = "onArrowDown.emit()" -->
     <input
       [id] = "this.eid"
       type="text"
       class="form-control input-sm primary-color-input-reverse"
       [placeholder]="'Search ' + titlePlural"
       [(ngModel)]="filterText"
-      (keyup)="doKey($event)"
       style="font-weight: normal; width: 100%;z-index: 999;"
       [attr.autocomplete]="'net'"
       autocomplete="new-password"
       [title]="'Type text to filter items'"
+      (keyup)="doKey($event)"
     />
 
     <span

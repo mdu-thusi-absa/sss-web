@@ -49,16 +49,8 @@ export class InputAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.data.countries;
-    // this.countryIndex = this.countries.currentKey
-    if (!this.value)
-      this.value = new EntityAddress(this.data)
-    // if (this.value.cityKey<0)
-    //   this.value.init()
+    this.value = this.value ?? new EntityAddress(this.data)
     this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
-    
-    // if (this.value.countryKey < 0) {
-    //   this.value.countryKey = this.data.getDefault('countryKey');
-    // }
   }
 
   getID() {

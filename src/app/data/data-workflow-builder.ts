@@ -100,6 +100,31 @@ interface queFunction {
   ): W.Task;
 }
 
+function queCommitteeMembershipAdd(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data))
+  taskList.add(G.getCommitteeForCountry(data))
+  //taskList.add(G.getCommitteeMembership(data))
+  taskList.add(G.getIndividualNotOnCommittee(data)) //that is not on committee
+
+  _getFinaliseTask(data, taskList);
+  // create and save record, update object
+  //taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  return taskList.firstTask;
+}
+
+function queCommitteeMembershipRemove(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data))
+  taskList.add(G.getCommitteeForCountry(data))
+  taskList.add(G.getIndividualForCommittee(data)) //that is not on committee
+
+  _getFinaliseTask(data, taskList);
+  // create and save record, update object
+  //taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  return taskList.firstTask;
+}
+
 function queChangeAddressPhysical(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'physicalAddress','Physical address')}
 function queChangeAddressPostal(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'postalAddress','Postal address')}
 function _getChangeCompanyAddress(
@@ -379,6 +404,7 @@ function queChangeCodeLEINumber_Bloomberg(parentEntity: K.EntityWorkflow,parentT
 function queChangeCodeReuters(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'reutersCode','Reuters code')}
 function queChangeTextSuffix(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'suffix','Suffix')}
 function queChangeCodeRegulatorClientCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'regulatorClientCode','Regulator client code')}
+function queChangeTextShortDescription(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'description','Short description')}
 
 function _getChangeCompanyText(
   parentEntity: K.EntityWorkflow,
@@ -418,7 +444,7 @@ function queAppointmentDirector(
 
   taskList.add(G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false));
   taskList.add(G.getAppointmentAction(data));
-  taskList.add(G.getIndividualEmployeeStatus(data));
+  taskList.add(G.getIndividualForEmployeeStatus(data));
 
   let secreatryDownFileList = new Entities<K.EntityFileDownload>(
     K.EntityFileDownload
@@ -622,8 +648,7 @@ function _getApproval(
 }
 
 function _getFinaliseTask(data: DataService, taskList: G.TaskList) {
-  //TODO: put back after auditing is done: 
-  //taskList.add(G.getRecordDate(data, 'recordDate', 'Record date'));
+  taskList.add(G.getRecordDate(data, 'recordDate', 'Record date'));
   taskList.add(G.getConfirm(data, 'commitIs', 'Commit record', false, true));
 }
 
