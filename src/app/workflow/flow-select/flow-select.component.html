@@ -12,7 +12,8 @@
     [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
     [value]="taskFlow.value"
     [values]="taskFlow.values"
-    (onSelect)="doChange($event)"
+    (onSelect)="doSelect($event)"
+    (onChange) = "doChange($event)"
     [autoFocus] = "taskFlow.isCurrent"
     [showHeading] = "false"
   ></app-input-select-list>

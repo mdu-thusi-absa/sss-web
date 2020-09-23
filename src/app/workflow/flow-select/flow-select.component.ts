@@ -45,10 +45,15 @@ export class FlowSelectComponent implements OnInit {
     }
   }
 
-  doChange(event: any) {
+  doSelect(event:number){
     this.taskFlow.errorMessage = '';
     this.taskFlow.value = +event;
     this.onChange.emit(this.taskFlow.value);
+  }
+
+  doChange(event: any) {
+    this.taskFlow.errorMessage = '';
+    this.taskFlow.value = +event;
   }
 
   doSaveNext() {

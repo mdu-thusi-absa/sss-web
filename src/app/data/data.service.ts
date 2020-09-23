@@ -594,12 +594,9 @@ export class DataService {
   }
 
   getIndividualsForCompanyForCommitteType(data: object){
-    console.log(data)
-    console.log(this.getEntities(E.EnumEntityType.CommitteeIndividuals))
     let commInds = this.getEntities(E.EnumEntityType.CommitteeIndividuals)
       .select('companyKey',data['companyKey'])
       .select('committeeTypeKey',data['committeeTypeKey'])
-    console.log(commInds)
     let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
     let inds = this.getEntities(E.EnumEntityType.Individual)
     commInds.forEach((value,key,map)=>{
@@ -610,8 +607,6 @@ export class DataService {
   }  
 
   getIndividualsNotForCompanyForCommitteType(data: object){
-    console.log('in');
-    
     let indsOnCommittee = this.getIndividualsForCompanyForCommitteType(data)
     let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
     let inds = this.getEntities(E.EnumEntityType.Individual)
@@ -619,7 +614,6 @@ export class DataService {
     return r
 
     function _addMissingIndividuals(){
-      console.log(indsOnCommittee);
       inds.forEach((value,key,map)=>{
         if (!indsOnCommittee.has(key)){
           let v = value as K.EntityIndividual

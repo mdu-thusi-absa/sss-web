@@ -14,6 +14,8 @@ export class InputSelectListComponent implements OnInit {
   @Input() values: Entities<AnyEntity>;
   @Input() showHeading = true;
   @Output() onSelect = new EventEmitter();
+  @Output() onChange = new EventEmitter()
+  
   selectedEntityKey: number;
   isHiddenMap: Map<number, boolean> = new Map();
   lastVisibleKey: number;
@@ -44,7 +46,7 @@ export class InputSelectListComponent implements OnInit {
     let i = this.keysVisisble.indexOf(this.selectedEntityKey);
     if (i < this.keys.length - 1) {
       i++;
-      this.selectedEntityKey = this.keysVisisble[i];
+      this.doChange(this.keysVisisble[i])
       this.setFocusOnSelecetedElement()
     }
   }
@@ -52,7 +54,7 @@ export class InputSelectListComponent implements OnInit {
     let i = this.keysVisisble.indexOf(this.selectedEntityKey);
     if (i > 0) {
       i--;
-      this.selectedEntityKey = this.keysVisisble[i--];
+      this.doChange(this.keysVisisble[i--])
       this.setFocusOnSelecetedElement()
     }
   }
@@ -61,6 +63,11 @@ export class InputSelectListComponent implements OnInit {
     let topPos = this.keysVisisble.indexOf(this.selectedEntityKey) * 31 //height of row
     setTimeout(S.updateElementScroll, 50,'table-content-' + this.eid,topPos)
   } 
+
+  doChange(key: number){
+    this.selectedEntityKey = key
+    this.onChange.emit(key)
+  }
 
   version = 0;
   doSelect(key: number) {
