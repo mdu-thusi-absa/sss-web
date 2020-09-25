@@ -16,6 +16,7 @@
         [checked]="radioChoice == 'flash'"
         [class.active]="true"
         [class.focus]="radioChoice == 'flash'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >flash_on</mat-icon
@@ -43,6 +44,7 @@
         name="radioChoice"
         value="play"
         [checked]="radioChoice == 'play'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >play_arrow</mat-icon
@@ -70,6 +72,7 @@
         name="radioChoice"
         value="pause"
         [checked]="radioChoice == 'pause'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >pause</mat-icon
@@ -97,6 +100,7 @@
         name="radioChoice"
         value="ok"
         [checked]="radioChoice == 'ok'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >done</mat-icon
@@ -124,6 +128,7 @@
         name="radioChoice"
         value="eye-close"
         [checked]="radioChoice == 'eye-close'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >visibility_off</mat-icon
@@ -151,6 +156,7 @@
         name="radioChoice"
         value="eye-open"
         [checked]="radioChoice == 'eye-open'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >visibility</mat-icon
@@ -178,6 +184,7 @@
         name="radioChoice"
         value="all"
         [checked]="radioChoice == 'all'"
+        [disabled] = "disabled"
       />
       <mat-icon class="mat-icon-small" aria-hidden="true" aria-label="Entities"
         >all_inclusive</mat-icon
@@ -195,6 +202,7 @@
     [key] = "+listValue"
     (onChange) = "doListChange($event)"
     [marginTop] = "'2px'"
+    [disabled] = "disabled"
   ></app-input-dropdown>
   <!-- <select
     *ngIf="showList"
@@ -259,6 +267,7 @@
       autocomplete="new-password"
       [title]="'Type text to filter items'"
       (keyup)="doKey($event)"
+      [disabled] = "disabled"
     />
 
     <span

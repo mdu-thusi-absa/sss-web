@@ -13,9 +13,10 @@
     [class.btn-xs] = "showSmall"
     [class.a-small] = "showSmall"
     
-    (click)="doChange()"
+    (click)="doClick($event)"
     [class.disabled] = "disabled"
     [attr.id] = "eid + '-change'" 
+    (keydown) = "doKeyDown($event)"
   >
     <mat-icon
       [class.mat-icon-small]="showSmall"
@@ -46,7 +47,7 @@
     class="nobottom label-checkbox text-primary"
     [class.text-primary-bold] = "!showSmall"
     [class.disabled] = "disabled"
-    (click)="doChange()"
+    (click)="doClick($event)"
     [attr.id] = "eid + '-title'"
   >{{ title }}
   </label>

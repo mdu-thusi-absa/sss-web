@@ -24,20 +24,24 @@ function queKids(
   parentTask: W.Task,
   data: DataService
 ): W.Task {
-  let kids = _GetSubMenus(parentEntity, data);
+  let kids = _getSubMenusList(parentEntity, data);
   let task: W.Task;
   let f = parentEntity.functionName;
-  if (_BuildFromFunctionIs(kids)) {
-    task = _buildSubMenus(parentEntity, parentTask, data);
-    kids.forEach((value, key, map) => {
-      if (value.activeIs) queKids(value as K.EntityWorkflow, task, data);
-    });
+  if (_stillSubMenuesToBuild(kids)) {
+    task = _buildSubMenu(parentEntity, parentTask, data);
+    _genSubSubMenus(kids)
   } else {
-    task = _execFunction(data, parentTask, parentEntity, f);
+    task = _execTaskBuildingFunction(data, parentTask, parentEntity, f);
   }
   return task;
 
-  function _GetSubMenus(
+  function _genSubSubMenus(kids: Entities<AnyEntity>){
+    kids.forEach((value, key, map) => {
+      if (value.activeIs) queKids(value as K.EntityWorkflow, task, data);
+    });
+  }
+
+  function _getSubMenusList(
     parentEntity: K.EntityWorkflow,
     data: DataService
   ): Entities<AnyEntity> {
@@ -45,11 +49,11 @@ function queKids(
     return db.select('parentKey', parentEntity.key);
   }
 
-  function _BuildFromFunctionIs(kids: Entities<AnyEntity>): boolean {
+  function _stillSubMenuesToBuild(kids: Entities<AnyEntity>): boolean {
     return kids.size > 0;
   }
 
-  function _execFunction(
+  function _execTaskBuildingFunction(
     data: DataService,
     parentTask: W.Task,
     parentEntity: K.EntityWorkflow,
@@ -60,15 +64,15 @@ function queKids(
       return fun(parentEntity, parentTask, data);
     } catch {
       console.log(
-        'Error:',
-        'data-workflow-builder.ts:',
-        `Please implement function '${functionName}'`
+        'Warning',
+        'data-workflow-builder',
+        `Please implement function for full functionality: '${functionName}'`
       );
       return G.getFinalPage(data, parentTask, parentEntity);
     }
   }
 
-  function _buildSubMenus(
+  function _buildSubMenu(
     parentEntity: K.EntityWorkflow,
     parentTask: W.Task,
     data: DataService
@@ -80,10 +84,10 @@ function queKids(
       parentTask,
       parentEntity.key
     ) as W.TaskSelect;
-    a.values = _GetKids(data, parentEntity);
+    a.values = _getKids(data, parentEntity);
     return a;
 
-    function _GetKids(data: DataService, parentEntity: K.EntityWorkflow) {
+    function _getKids(data: DataService, parentEntity: K.EntityWorkflow) {
       let d = data.getEntities(E.EnumEntityType.WorkflowForParent, {
         parentKey: parentEntity.key,
       });
@@ -217,8 +221,6 @@ function queChangeSelectionLegalEntityExecutive_LEE(parentEntity: K.EntityWorkfl
   {return _getChangeCompanySelection(parentEntity,parentTask,data,'leeKey','Legal entity executive',E.EnumEntityType.Individual)}
 
 function queChangeSelectionCountryOfIncorporation(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
-  //change country & suffix
-  //return _getChangeCompanySelection(parentEntity,parentTask,data,'countryKey','Country of incorporation',E.EnumEntityType.Country)
   
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
@@ -414,6 +416,8 @@ function _getChangeCompanyText(
   fieldName: string,
   heading: string
 ) {
+  
+
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
@@ -650,7 +654,7 @@ function _getApproval(
 
 function _getFinaliseTask(data: DataService, taskList: G.TaskList) {
   taskList.add(G.getRecordDate(data, 'recordDate', 'Record date'));
-  taskList.add(G.getConfirm(data, 'commitIs', 'Commit record', false, true));
+  taskList.add(G.getConfirm(data, 'finaliseIs', 'Finalise record', false, true));
 }
 
 function _getAuthorisation(data: DataService, taskList: G.TaskList) {

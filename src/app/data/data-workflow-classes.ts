@@ -84,37 +84,45 @@ export class Task {
   errorMessage = '';
   entityFieldKeyName = ''; //to set the fieldNameKey to get entity to be worked on in the step
   entity: AnyEntity;
-  actionName_ = '';
+  protected _actionName = '';
   //amendmentSourceFieldName = '';
-  private actionEntityName_ = '';
-  private actionObjectName_ = '';
-  private workflowValuesObject_ = {};
+  protected _actionEntityName = '';
+  protected _actionObjectName = '';
+  private _workflowValuesObject = {};
   protected initialValue: any;
   get workflowValuesObject(): object {
-    return this.workflowValuesObject_;
+    return this._workflowValuesObject;
   }
   set workflowValuesObject(o: object) {
-    this.workflowValuesObject_ = o;
+    this._workflowValuesObject = o;
   }
 
   get actionEntityName(): string {
-    return this.actionEntityName_;
+    return this._actionEntityName;
   }
   set actionEntityName(v: string) {
-    this.actionEntityName_ = v;
+    this._actionEntityName = v;
   }
   get actionObjectName(): string {
-    return this.actionObjectName_;
+    return this._actionObjectName;
   }
   set actionObjectName(v: string) {
-    this.actionObjectName_ = v;
+    this._actionObjectName = v;
   }
   get actionName(): string {
-    return this.actionName_;
+    return this._actionName;
   }
   set actionName(v: string) {
-    this.actionName_ = v;
+    this._actionName = v;
   }
+  get actionRecordDateStr() {
+    return this._actionRecordDateStr;
+  }
+  _actionRecordDateStr = '';
+  set actionRecordDateStr(v: string) {
+    this._actionRecordDateStr = v;
+  }
+
   get skip(): boolean {
     return false;
   }
@@ -158,7 +166,7 @@ export class Task {
 export class TaskSelect extends Task {
   type = 'select';
   sourceType: E.EnumEntityType;
-  value:any = 0; //the key of the selected item
+  value: any = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
   values: Entities<AnyEntity>;
   thisEntityNameIsSubjectName = false;
@@ -243,16 +251,15 @@ export class TaskSelect extends Task {
 
 export class TaskSelectMulti extends TaskSelect {
   type = 'select-multi';
-  selectedSourceType: E.EnumEntityType
+  selectedSourceType: E.EnumEntityType;
   value: number[] = []; //the key of the selected items
   values: Entities<AnyEntity>;
-  minSelectedItems = 0
+  minSelectedItems = 0;
 
   canMoveOn(): boolean {
-    return false //for now
+    return false; //for now
   }
-  
-  
+
   init(): boolean {
     super.init();
     if (this._init_needs_update()) {
@@ -260,13 +267,13 @@ export class TaskSelectMulti extends TaskSelect {
         this.sourceType,
         this.workflowValuesObject
       );
-      this.value = [] ////get selected values from db source
+      this.value = []; ////get selected values from db source
     }
     return true;
   }
 
   verify(): boolean {
-    return true //for now
+    return true; //for now
   }
 }
 
@@ -398,6 +405,7 @@ export class TaskDate extends Task {
   type = 'date';
   value: Date = new Date();
   ensure = true; //value must be true to move on
+  thisValueIsRecordDate = false;
   verify(): boolean {
     if ((this.ensure && this.value) || this.skip) {
       this.errorMessage = '';
@@ -406,6 +414,11 @@ export class TaskDate extends Task {
       this.errorMessage = this.name + ' is required';
       return false;
     }
+  }
+  get actionRecordDateStr(): string {
+    if (this.thisValueIsRecordDate)
+      return this.value.toISOString().slice(0, 10);
+    return '';
   }
 }
 
@@ -583,19 +596,20 @@ export class TaskWalker extends Task {
   private _currentTaskIndex = -1;
   public tasks: Task[] = [];
   public que: Task[] = []; // que of tasks to come back to when isEnd taskFlow is true
+  public historyOfNames: string[] = [];
 
   get name(): string {
     let s = 'Workflow';
     if (this.whenStarted) s = this.whenStarted.toISOString().slice(0, 10);
     if (this.actionName) s = s + ': ' + this.actionName;
-    else s = s + ': New task';
+    else s = s + ': Task';
     if (this.actionEntityName) s = s + " for '" + this.actionEntityName + "'";
     if (this.actionObjectName) s = s + " of '" + this.actionObjectName + "'";
+    if (this.actionRecordDateStr) s = s + ' on ' + this.actionRecordDateStr;
     return s;
   }
 
   addNext(taskFlow: Task) {
-    // this.targetOfChange = taskFlow.targetOfChange
     this.rootTask = taskFlow;
   }
 
@@ -634,9 +648,9 @@ export class TaskWalker extends Task {
   // }
 
   private _buildNext(fromTask: Task): boolean {
-    let r = true
+    let r = true;
     if (this._currentTaskIndex == this.tasks.length - 1) {
-      r = fromTask?.isDone?this._ifTaskIsDone(fromTask,this):false
+      r = fromTask?.isDone ? this._ifTaskIsDone(fromTask, this) : false;
       // if (fromTask) {
       //   if (fromTask.isDone) {
       //     this._ifTaskIsDone(fromTask,this)
@@ -648,27 +662,50 @@ export class TaskWalker extends Task {
     return r;
   }
 
-  _canBeBuiltOn(task: Task): boolean {
+  private _canBeBuiltOn(task: Task): boolean {
     return task.isDone && task.subTasks.length > 0;
   }
 
-  _ifTaskIsDone(fromTask: Task, that: TaskWalker):boolean {
-    if (fromTask.actionName) that.actionName = fromTask.actionName;
-    if (fromTask.actionObjectName)
-      that.actionObjectName = fromTask.actionObjectName;
-    if (fromTask.actionEntityName)
-      that.actionEntityName = fromTask.actionEntityName;
-    fromTask.workflowValuesObject = that._collectValues();
+  private _ifTaskIsDone(fromTask: Task, that: TaskWalker): boolean {
+    collectValuesIntoThisWalkerFromTask(fromTask, that);
     if (that._canBeBuiltOn(fromTask)) {
-      that._addChildTask(fromTask,that)
+      that._addChildTask(fromTask, that);
     } else {
       that._saveToTargetObject();
       that.start();
     }
-    return true
+    return true;
+
+    function collectValuesIntoThisWalkerFromTask(
+      fromTask: Task,
+      that: TaskWalker
+    ) {
+      that.actionName = _returnNewIfNotEmpty(
+        that.actionName,
+        fromTask.actionName
+      );
+      that.actionObjectName = _returnNewIfNotEmpty(
+        that.actionObjectName,
+        fromTask.actionObjectName
+      );
+      that.actionEntityName = _returnNewIfNotEmpty(
+        that.actionEntityName,
+        fromTask.actionEntityName
+      );
+      that.actionRecordDateStr = _returnNewIfNotEmpty(
+        that.actionRecordDateStr,
+        fromTask.actionRecordDateStr
+      );
+      fromTask.workflowValuesObject = that._collectValues();
+
+      function _returnNewIfNotEmpty(oldText: string, text: string): string {
+        if (text) return text;
+        else return oldText;
+      }
+    }
   }
 
-  _addChildTask(fromTask:Task,that:TaskWalker){
+  private _addChildTask(fromTask: Task, that: TaskWalker) {
     if (!fromTask.hasFork) {
       that._addSubtask(that, fromTask, 0);
     } else {
@@ -680,7 +717,8 @@ export class TaskWalker extends Task {
       that._checkIfConditionalBuildHasAdded(fromTask, notAdded);
     }
   }
-  _findAndBuildNextChildTask(
+
+  private _findAndBuildNextChildTask(
     fromTask: Task,
     that: TaskWalker,
     subTaskIndex: number
@@ -694,20 +732,17 @@ export class TaskWalker extends Task {
       that._buildNext(t);
       return false;
     }
-    return true
+    return true;
   }
-  _checkIfConditionalBuildHasAdded(
-    parent: Task,
-    notAdded: boolean
-  ) {
+  private _checkIfConditionalBuildHasAdded(parent: Task, notAdded: boolean) {
     if (notAdded)
       parent.errorMessage =
         'No further steps are available for this option, please select another one';
     else parent.errorMessage = '';
   }
-  _addSubtask(
+  private _addSubtask(
     that: TaskWalker,
-    fromTask:Task,
+    fromTask: Task,
     subTaskIndex: number
   ): Task {
     let t = fromTask.subTasks[subTaskIndex].taskFlow;
@@ -718,20 +753,12 @@ export class TaskWalker extends Task {
   }
 
   private _collectValues(): object {
-    //returns JSON
     let o = {};
     this.tasks.forEach((e) => {
       o[e.fieldName] = e.value;
     });
     return o;
   }
-
-  // get entity(): AnyEntity{
-  //   let r = this.tasks.find((e)=>{
-  //     return e.entity
-  //   })
-  //   return r
-  // }
 
   private _moreTasksToDo() {
     return this._currentTaskIndex < this.tasks.length - 1;
@@ -754,13 +781,26 @@ export class TaskWalker extends Task {
   }
 
   private _saveToTargetObject() {
+    this._collectStateFromTasks();
+    _saveCollectedValuesToEachTarget(this);
+    this._addHistory();
+    this.notify('saved');
+
+    function _saveCollectedValuesToEachTarget(that: TaskWalker) {
+      that.targetsOfChange.forEach((target) => {
+        target.save(that.workflowValuesObject);
+      });
+    }
+  }
+
+  private _collectStateFromTasks() {
     this.workflowValuesObject = this._collectValues();
     this.targetsOfChange = this._collectTargetOfChange();
+  }
 
-    this.targetsOfChange.forEach((target) => {
-      target.save(this.workflowValuesObject);
-    });
-    this.notify('saved');
+  private _addHistory() {
+    this.historyOfNames.push(this.name);
+    this.historyOfNames.reverse();
   }
 
   listeners: any[] = [];
@@ -771,8 +811,12 @@ export class TaskWalker extends Task {
   notifyIs = false;
   notify(...args) {
     if (this.notifyIs) {
-      this.listeners.forEach((e) => {
-        e.notify(args[0], this);
+      _notifyEachListener(this)
+    }
+
+    function _notifyEachListener(that: TaskWalker){
+      that.listeners.forEach((e) => {
+        e.notify(args[0], that);
       });
     }
   }
@@ -814,21 +858,31 @@ export class TaskWalker extends Task {
 
   public moveToPrev(): Task {
     if (this.currentTask.parent) {
-      this.currentTask.isDone = false;
-      this.currentTask.isCurrent = false;
+      _markCurrentTaskAsDone(this)
       let parentValue = this.currentTask.parent.value;
-      if (this.currentTask.actionEntityName) this.actionEntityName = '';
-      if (this.currentTask.actionName) this.actionName = '';
-      if (this.currentTask.actionObjectName) this.actionObjectName = '';
+      _resetActionValues(this)
       this._currentTaskIndex--;
-      this.currentTask = this.tasks[this._currentTaskIndex];
-      this.currentTask.init();
-      this.currentTask.isCurrent = true;
+      _setCurrentTask(this)
       this.currentTask.value = parentValue;
       this.tasks = this._deleteSubsequentTasks();
       return this.currentTask;
     }
     return null;
+
+    function _markCurrentTaskAsDone(that:TaskWalker){
+      that.currentTask.isDone = false;
+      that.currentTask.isCurrent = false;
+    }
+    function _resetActionValues(that: TaskWalker){
+      if (that.currentTask.actionEntityName) that.actionEntityName = '';
+      if (that.currentTask.actionName) that.actionName = '';
+      if (that.currentTask.actionObjectName) that.actionObjectName = '';
+    }
+    function _setCurrentTask(that: TaskWalker){
+      that.currentTask = that.tasks[that._currentTaskIndex];
+      that.currentTask.init();
+      that.currentTask.isCurrent = true;
+    }
   }
 
   public get currentTaskIndex(): number {

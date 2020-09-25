@@ -37,7 +37,9 @@ export class InputTextareaComponent implements OnInit {
     this.eid = this.data.getID('',this.eid);
   }
 
+  valueOriginal = ''
   ngOnInit(): void {
+    this.valueOriginal = this.value
   }
 
   doTask(){
@@ -79,6 +81,17 @@ export class InputTextareaComponent implements OnInit {
         if (e) e.focus();
         else setFocusForID(id, mills + 100);
       }, mills);
+    }
+  }
+
+  @Output() onEnter = new EventEmitter()
+  doKey(event: any) {
+    if (event.key === 'Escape') {
+      this.value = this.valueOriginal
+      this.doChange(this.value)
+    }
+    if (event.key === 'Enter') {
+      this.onEnter.emit();
     }
   }
 

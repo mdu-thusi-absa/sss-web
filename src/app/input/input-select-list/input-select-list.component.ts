@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entity } from '../../data/data-entity-parent';
 import { DataService } from 'src/app/data/data.service';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
-import * as S from '../../data/utils-scripts'
+import * as S from '../../data/utils-scripts';
 
 @Component({
   selector: 'app-input-select-list',
@@ -13,9 +13,11 @@ export class InputSelectListComponent implements OnInit {
   @Input() value: number;
   @Input() values: Entities<AnyEntity>;
   @Input() showHeading = true;
+  @Input() disabled = false;
+
   @Output() onSelect = new EventEmitter();
-  @Output() onChange = new EventEmitter()
-  
+  @Output() onChange = new EventEmitter();
+
   selectedEntityKey: number;
   isHiddenMap: Map<number, boolean> = new Map();
   lastVisibleKey: number;
@@ -36,7 +38,7 @@ export class InputSelectListComponent implements OnInit {
     this.keys = this.values.all_keys;
     this.keys.sort();
     if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
-    this.calcIsHidden()
+    this.calcIsHidden();
   }
 
   doEnter() {
@@ -46,39 +48,43 @@ export class InputSelectListComponent implements OnInit {
     let i = this.keysVisisble.indexOf(this.selectedEntityKey);
     if (i < this.keys.length - 1) {
       i++;
-      this.doChange(this.keysVisisble[i])
-      this.setFocusOnSelecetedElement()
+      this.doChange(this.keysVisisble[i]);
+      this.setFocusOnSelecetedElement();
     }
   }
   doArrowUp() {
     let i = this.keysVisisble.indexOf(this.selectedEntityKey);
     if (i > 0) {
       i--;
-      this.doChange(this.keysVisisble[i--])
-      this.setFocusOnSelecetedElement()
+      this.doChange(this.keysVisisble[i--]);
+      this.setFocusOnSelecetedElement();
     }
   }
 
-  setFocusOnSelecetedElement(){
-    let topPos = this.keysVisisble.indexOf(this.selectedEntityKey) * 31 //height of row
-    setTimeout(S.updateElementScroll, 50,'table-content-' + this.eid,topPos)
-  } 
+  setFocusOnSelecetedElement() {
+    let topPos = this.keysVisisble.indexOf(this.selectedEntityKey) * 31; //height of row
+    setTimeout(S.updateElementScroll, 50, 'table-content-' + this.eid, topPos);
+  }
 
-  doChange(key: number){
-    this.selectedEntityKey = key
-    this.onChange.emit(key)
+  doChange(key: number) {
+    if (!this.disabled) {
+      this.selectedEntityKey = key;
+      this.onChange.emit(key);
+    }
   }
 
   version = 0;
   doSelect(key: number) {
-    this.value = key;
-    this.onSelect.emit(key);
-    this.version++;
-    this.filterText = '';
+    if (!this.disabled) {
+      this.value = key;
+      this.onSelect.emit(key);
+      this.version++;
+      this.filterText = '';
+    }
   }
 
-  doFilter(event: string){
-    this.filterText = event
+  doFilter(event: string) {
+    this.filterText = event;
   }
 
   _filterText = '';

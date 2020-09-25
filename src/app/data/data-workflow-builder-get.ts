@@ -6,10 +6,19 @@ import * as E from './data-entity-types';
 import { Entities } from './data-entities';
 
 //TODO: branch to various forms: 15.2, 25, 21.1...
-export function getFormForName(data: DataService, formName: string): W.TaskForm {
+export function getFormForName(
+  data: DataService,
+  formName: string
+): W.TaskForm {
   let t7 = new W.TaskForm(data, 'formCoR211');
   t7.name = formName;
-  t7.addInput('effectiveDate', 'date', 'Effective date of the amendment', '',new W.EntityValue(data,'','','',new Date()));
+  t7.addInput(
+    'effectiveDate',
+    'date',
+    'Effective date of the amendment',
+    '',
+    new W.EntityValue(data, '', '', '', new Date())
+  );
   // todo: add source type for each form and mapHeading
   return t7;
 }
@@ -54,17 +63,22 @@ export function getConfirm(
 ): W.TaskConfirm {
   let a = new W.TaskConfirm(data, fieldName);
   a.name = heading;
-  let entityValue = new W.EntityValue(data,'','','',defaultValue)
-  a.targetsOfChange.push(entityValue)
-  a.ensure = ensureValueIsTrue
+  let entityValue = new W.EntityValue(data, '', '', '', defaultValue);
+  a.targetsOfChange.push(entityValue);
+  a.ensure = ensureValueIsTrue;
   return a;
 }
 
 export class TaskList {
   private _list: W.Task[] = [];
   private _lastTask: W.Task;
-  constructor(public parentTask: W.Task, public parentWorkflow: K.EntityWorkflow) {
+  constructor(
+    public parentTask: W.Task,
+    public parentWorkflow: K.EntityWorkflow
+  ) {
     this._lastTask = parentTask;
+    let t = (parentTask as W.TaskSelect)
+    t.thisEntityNameIsAction = true
   }
   add(t: W.Task) {
     this._list.push(t);
@@ -77,24 +91,44 @@ export class TaskList {
       );
       let subTask = new W.Task_SubTask(t, [condition]);
       this._lastTask.addNextFork(subTask);
-    } else{
-      this._lastTask.addNext(t)
+    } else {
+      this._lastTask.addNext(t);
     }
     this._lastTask = t;
   }
+  addForParentChoiceValue(t: W.Task, lastTraskChoiceValue: any) {
+    console.log('addForParentChoiceValue','TODO: Test')
+    this._list.push(t);
+    let condition = new W.Task_SubTaskCondition(
+      this._lastTask.fieldName,
+      lastTraskChoiceValue,
+      '==',
+      typeof(lastTraskChoiceValue)
+    );
+    let subTask = new W.Task_SubTask(t, [condition]);
+    this._lastTask.addNextFork(subTask);
+    this._lastTask = t;
+  }
+
   get firstTask() {
     return this._list[0];
   }
 }
 
-export function getFinalPage(data: DataService,parent: W.Task, parentWorkflow: K.EntityWorkflow):W.Task{
-  let taskList = new TaskList(parent,parentWorkflow)
-  taskList.add(getMessage(
-    data,
-    parentWorkflow.name +
-      `: test page for end of workflow. Press 'Save & Next' to reset`
-  ))
-  return taskList.firstTask
+export function getFinalPage(
+  data: DataService,
+  parent: W.Task,
+  parentWorkflow: K.EntityWorkflow
+): W.Task {
+  let taskList = new TaskList(parent, parentWorkflow);
+  taskList.add(
+    getMessage(
+      data,
+      parentWorkflow.name +
+        `: test page for end of workflow. Press 'Save & Next' to reset`
+    )
+  );
+  return taskList.firstTask;
 }
 
 export function getRecordDate(
@@ -103,6 +137,7 @@ export function getRecordDate(
   heading: string
 ): W.TaskDate {
   let a = new W.TaskDate(data, fieldName);
+  a.thisValueIsRecordDate = true
   a.name = heading;
   return a;
 }
@@ -138,9 +173,9 @@ export function getInputSelection(
   sourceEnumEntityType: E.EnumEntityType
 ): W.TaskSelect {
   let a = new W.TaskSelect(data, fieldName);
-  a.sourceType = sourceEnumEntityType
+  a.sourceType = sourceEnumEntityType;
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -151,9 +186,9 @@ export function getInputMonth(
   valueEntity: W.EntityValue
 ): W.TaskSelect {
   let a = new W.TaskSelect(data, fieldName);
-  a.sourceType = E.EnumEntityType.Month
+  a.sourceType = E.EnumEntityType.Month;
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -165,7 +200,7 @@ export function getInputConfirm(
 ): W.TaskConfirm {
   let a = new W.TaskConfirm(data, fieldName);
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -177,8 +212,8 @@ export function getInputDecide(
 ): W.TaskConfirm {
   let a = new W.TaskConfirm(data, fieldName);
   a.name = heading;
-  a.ensure = false
-  a.targetsOfChange.push(valueEntity)
+  a.ensure = false;
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -190,7 +225,7 @@ export function getInputDate(
 ): W.TaskDate {
   let a = new W.TaskDate(data, fieldName);
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -203,8 +238,8 @@ export function getInputText(
 ): W.TaskText {
   let a = new W.TaskText(data, fieldName);
   a.name = heading;
-  a.mustChange = mustChange
-  a.targetsOfChange.push(valueEntity)
+  a.mustChange = mustChange;
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -216,7 +251,7 @@ export function getInputAddress(
 ): W.TaskAddress {
   let a = new W.TaskAddress(data, fieldName);
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -228,7 +263,7 @@ export function getInputNumber(
 ): W.TaskNumber {
   let a = new W.TaskNumber(data, fieldName);
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -240,7 +275,7 @@ export function getInputDesc(
 ): W.TaskDesc {
   let a = new W.TaskDesc(data, fieldName);
   a.name = heading;
-  a.targetsOfChange.push(valueEntity)
+  a.targetsOfChange.push(valueEntity);
   return a;
 }
 
@@ -251,7 +286,7 @@ export function getDownloadFiles(
   heading: string
 ) {
   let a = new W.TaskDownload(data, fieldName);
-  a.files = fileList
+  a.files = fileList;
   a.name = heading;
   return a;
 }
@@ -263,14 +298,12 @@ export function getUploadFiles(
   heading: string
 ) {
   let a = new W.TaskUpload(data, fieldName);
-  a.files = fileList
+  a.files = fileList;
   a.name = heading;
   return a;
 }
 
-export function getAppointmentAction(
-  data: DataService,
-) {
+export function getAppointmentAction(data: DataService) {
   let a = new W.TaskSelect(data, 'appointmentActionKey');
   a.name = 'Appointment action';
   a.sourceType = E.EnumEntityType.AppointmentAction;
@@ -283,9 +316,6 @@ export function getCompany(data: DataService) {
   a.name = 'Company';
   a.sourceType = E.EnumEntityType.CompaniesForCountry;
   a.thisEntityNameIsSubjectName = true;
-  // let s = new W.TaskFlowSubTask(a);
-
-  // parent.addNextFork(s);
   return a;
 }
 
@@ -328,16 +358,16 @@ export function getIndividualsForCountryForCommitteeType(data: DataService) {
 //   return a;
 // }
 
-export function getCommitteeTypesForCountry(data: DataService){
+export function getCommitteeTypesForCountry(data: DataService) {
   let a = new W.TaskSelect(data, 'committeeTypeKey');
   a.name = 'Committee name';
-  a.sourceType = E.EnumEntityType.CommitteeTypeForCountry
+  a.sourceType = E.EnumEntityType.CommitteeTypeForCountry;
   return a;
 }
 
 export function getIndividualForEmployeeStatus(data: DataService) {
-  let a = new W.TaskSelect(data, 'individualKey')
-  a.name = 'Individual'
+  let a = new W.TaskSelect(data, 'individualKey');
+  a.name = 'Individual';
   a.sourceType = E.EnumEntityType.IndividualInternalEmployeeStatus;
   a.thisEntityNameIsObjectName = true;
   return a;
@@ -346,7 +376,7 @@ export function getIndividualForEmployeeStatus(data: DataService) {
 export function getMessage(data: DataService, messageText: string) {
   let a = new W.TaskMessage(data, 'message');
   a.name = 'Message';
-  a.description = messageText
+  a.description = messageText;
   return a;
 }
 
@@ -362,12 +392,12 @@ export class ConfigWorkflow {
   ) {}
 }
 
-export function getCompany_EditAll(data: DataService){
+export function getCompany_EditAll(data: DataService) {
   let a = new W.TaskForm(data, 'companyDetails');
   a.name = 'The amendment';
   a.entityFieldKeyName = 'companyKey';
   a.inputObject = new K.EntityCompany('New Company');
-  return a
+  return a;
 }
 
 // export function getCountry(data: DataService, parent: W.TaskFlow) {
@@ -378,11 +408,11 @@ export function getCompany_EditAll(data: DataService){
 //   return a;
 // }
 
-export function getCountryForTask(data: DataService): W.TaskSelect{
+export function getCountryForTask(data: DataService): W.TaskSelect {
   let a = new W.TaskSelect(data, 'countryKey');
   a.name = 'Country';
   a.sourceType = E.EnumEntityType.CountryForTask;
-  return a
+  return a;
 }
 
 // export function getCountryForTask_AttachedToParentMenuSelection(data: DataService, parent: W.TaskFlow,parentFieldName: string, parentConditionKey: number) {
@@ -418,4 +448,3 @@ export function getCountryForTask(data: DataService): W.TaskSelect{
 //   // parent.addNext(t);
 //   return t;
 // }
-

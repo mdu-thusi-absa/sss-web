@@ -9,12 +9,13 @@ import { DataService } from 'src/app/data/data.service';
 })
 export class FlowDateComponent implements OnInit {
   @Input() taskFlow: TaskDate;
-  // value = false;
-  @Output() onSaveNext = new EventEmitter();
-  @Output() onSavePrev = new EventEmitter();
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
   @Input() stepNumber = 1
+  
+  @Output() onSaveNext = new EventEmitter();
+  @Output() onSavePrev = new EventEmitter();
+  @Output() onEnter = new EventEmitter();
 
   constructor(public data:DataService) {}
 

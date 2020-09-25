@@ -50,7 +50,9 @@ export class InputTextComponent implements OnInit {
     this.eid = this.data.getID('',this.eid);
   }
 
+  valueOriginal = ''  
   ngOnInit(): void {
+    this.valueOriginal = this.value
     if (this.placeholder === '') this.placeholder = this.title;
   }
 
@@ -59,7 +61,6 @@ export class InputTextComponent implements OnInit {
   }
 
   doChange(event: any){
-    //this.value = event;
     this.onChange.emit(event);
   }
 
@@ -70,13 +71,6 @@ export class InputTextComponent implements OnInit {
       this.setAutoFocus()
     }
   }
-
-  // setAutoFocus(){
-  //   let id = this.eid
-  //     setTimeout(() => {
-  //       document.getElementById(id).focus();
-  //     }, 50);
-  // }
 
   setAutoFocus() {
     let id = this.eid
@@ -93,7 +87,8 @@ export class InputTextComponent implements OnInit {
 
   doKey(event: any) {
     if (event.key === 'Escape') {
-      this.value = ''
+      this.value = this.valueOriginal
+      this.doChange(this.value)
     }
     if (event.key === 'Enter') {
       this.onEnter.emit();

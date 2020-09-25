@@ -20,9 +20,8 @@ export class InputFilterAddComponent implements OnInit {
   @Input() isAdd = false;
   @Input() isSaved = false;
 
-  
   @Input() filterCount = 0;
-  
+
   title_ = 'input-filter-add';
   @Input() set title(v: string) {
     this.title_ = Entity.sentanceCase(v);
@@ -30,16 +29,16 @@ export class InputFilterAddComponent implements OnInit {
   get title() {
     return this.title_;
   }
-  
+
   @Input() titlePlural = '';
   @Input() titleT = '';
-  
+
   @Input() listValues: Entities<AnyEntity>;
   @Input() listValue = 0;
-  
+
   showRadio = false;
   @Input() radioChoice = 'all';
-  
+
   //badges
   @Input() showFlash = false;
   @Input() showPlay = false;
@@ -62,7 +61,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showFilterCount = false;
   @Input() showInputFilter = true;
   @Input() showSearch = false;
-  
+
   @Input() disabledFlash = false;
   @Input() disabledPlay = false;
   @Input() disabledPause = false;
@@ -83,10 +82,10 @@ export class InputFilterAddComponent implements OnInit {
   @Input() disabledCancel = false;
   @Input() disabledFilterCount = false;
   @Input() disabledInputFilter = true;
-  
+
   @Input() isNarrow = false;
   @Input() isA = false;
-  
+
   //for radio values
   @Input() countFlash = 0;
   @Input() countPlay = 0;
@@ -95,7 +94,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() countAll = 0;
   @Input() countEyeClose = 0;
   @Input() countEyeOpen = 0;
-  
+
   @Input() titleFlash = '';
   @Input() titlePlay = '';
   @Input() titleOk = '';
@@ -105,7 +104,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleEyeOpen = '';
   @Input() titleA = '';
   @Input() titleList = '';
-  
+
   @Output() onListChange = new EventEmitter();
   @Output() onTick = new EventEmitter();
   @Output() onT = new EventEmitter();
@@ -120,8 +119,8 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onA = new EventEmitter();
   @Output() onSearch = new EventEmitter();
   @Output() onEnter = new EventEmitter();
-  @Output() onArrowDown = new EventEmitter()
-  @Output() onArrowUp = new EventEmitter()
+  @Output() onArrowDown = new EventEmitter();
+  @Output() onArrowUp = new EventEmitter();
 
   isT = false;
   isB = 'false';
@@ -135,6 +134,7 @@ export class InputFilterAddComponent implements OnInit {
   @Input() captionEyeOpen = '';
   @Input() captionEyeClose = '';
   @Input() captionOk = '';
+  @Input() disabled = false;
 
   eid = 'input-filter-add';
   constructor(public data: DataService) {
@@ -163,32 +163,38 @@ export class InputFilterAddComponent implements OnInit {
   }
 
   doDuplicate() {
-    this.onDuplicate.emit();
+    if (!this.disabled) this.onDuplicate.emit();
   }
 
   doDownload() {
-    this.onDownload.emit();
+    if (!this.disabled) this.onDownload.emit();
   }
 
   doShare() {}
 
   doRadio(choice: string) {
-    this.radioChoice = choice;
-    this.onChoice.emit(this.radioChoice);
+    if (!this.disabled) {
+      this.radioChoice = choice;
+      this.onChoice.emit(this.radioChoice);
+    }
   }
 
   doListChange(event: any) {
-    this.listValue = +event;
-    this.onListChange.emit(this.listValue);
+    if (!this.disabled) {
+      this.listValue = +event;
+      this.onListChange.emit(this.listValue);
+    }
   }
 
   doFilterClear() {
-    this.filterText = '';
-    this.doFilter();
+    if (!this.disabled) {
+      this.filterText = '';
+      this.doFilter();
+    }
   }
 
   doSearch() {
-    this.onSearch.emit(this.filterText);
+    if (!this.disabled) this.onSearch.emit(this.filterText);
   }
 
   doAdd() {
@@ -197,55 +203,61 @@ export class InputFilterAddComponent implements OnInit {
     // else this.isSaved = true;
     //if (this.isAdd) this.onCancel.emit();
     //else
-    this.onAdd.emit();
+    if (!this.disabled) this.onAdd.emit();
   }
 
   doCancel() {
-    this.onCancel.emit();
+    if (!this.disabled) this.onCancel.emit();
   }
 
   doDelete() {
-    this.onDelete.emit();
+    if (!this.disabled) this.onDelete.emit();
   }
 
   doSave() {
-    this.onSave.emit();
+    if (!this.disabled) this.onSave.emit();
   }
 
   doTick() {
-    this.onTick.emit();
+    if (!this.disabled) this.onTick.emit();
   }
 
   doA() {
-    this.isA = !this.isA;
-    this.onA.emit(this.isA);
+    if (!this.disabled) {
+      this.isA = !this.isA;
+      this.onA.emit(this.isA);
+    }
   }
 
   doT() {
-    this.isT = !this.isT;
-    this.onT.emit();
+    if (!this.disabled) {
+      this.isT = !this.isT;
+      this.onT.emit();
+    }
   }
 
   doFilter() {
-    this.onFilter.emit(this.filterText);
+    if (!this.disabled) this.onFilter.emit(this.filterText);
   }
 
   doKey(event: any) {
-    if (event.key === 'Escape') {
-      this.doFilterClear();
+    if (!this.disabled) {
+      if (event.key === 'Escape') {
+        this.doFilterClear();
+      }
+      if (event.key === 'Enter') {
+        this.doSearch();
+        this.onEnter.emit();
+      }
+      if (event.key === 'ArrowDown') {
+        this.onArrowDown.emit();
+        event.preventDefault();
+      }
+      if (event.key === 'ArrowUp') {
+        this.onArrowUp.emit();
+      }
+      this.doFilter();
     }
-    if (event.key === 'Enter') {
-      this.doSearch();
-      this.onEnter.emit();
-    }
-    if (event.key === 'ArrowDown') {
-      this.onArrowDown.emit();
-      event.preventDefault()
-    }
-    if (event.key === 'ArrowUp') {
-      this.onArrowUp.emit();
-    }
-    this.doFilter();
   }
 
   _autoFocus = false;

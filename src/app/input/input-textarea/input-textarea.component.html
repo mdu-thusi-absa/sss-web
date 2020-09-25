@@ -36,5 +36,6 @@
     [ngModel]="value"
     (ngModelChange)="doChange($event)"
     [attr.id] = "eid"
+    (keyup) = "doKey($event)"
   ></textarea>
 </div>

@@ -27,6 +27,7 @@
         [taskFlow]="t"
         [showSavePrev]="workFlow.currentTaskIndex > 0"
         [showSaveNext]="true"
+        (onEnter) = "doSaveNext()"
       ></app-flow-confirm>
       <app-flow-date
         *ngIf="t.type == 'date'"
@@ -34,6 +35,7 @@
         [taskFlow]="t"
         [showSavePrev]="workFlow.currentTaskIndex > 0"
         [showSaveNext]="true"
+        (onEnter) = "doSaveNext()"
       ></app-flow-date>
       <app-flow-select
         *ngIf="t.type == 'select'"
@@ -80,11 +82,13 @@
         *ngIf="t.type == 'number'"
         [stepNumber]="i + 1"
         [taskFlow]="t"
+        (onEnter) = "doSaveNext()"
       ></app-flow-text>
       <app-flow-textarea
         *ngIf="t.type == 'desc'"
         [stepNumber]="i + 1"
         [taskFlow]="t"
+        (onEnter) = "doSaveNext()"
       ></app-flow-textarea>
       <app-flow-address
         *ngIf="t.type == 'address'"
@@ -93,4 +97,7 @@
       ></app-flow-address>
     </div>
   </ng-container>
+  {{this.workFlow.historyOfNames}}
+  <div>{{this.workFlow.historyOfNames?.length==1?'Finalised task':(this.workFlow.historyOfNames.length>1?'Finalised tasks':'')}}</div>
+  <div *ngFor="let e of this.workFlow.historyOfNames">{{e}}</div>
 </app-input-panel>

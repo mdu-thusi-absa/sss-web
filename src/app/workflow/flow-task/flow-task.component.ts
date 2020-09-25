@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { TaskWalker } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
-// import { data } from 'jquery';
 
 @Component({
   selector: 'app-flow-task',

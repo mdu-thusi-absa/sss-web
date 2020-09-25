@@ -12,6 +12,7 @@ export class FlowConfirmComponent implements OnInit {
   // value = false;
   @Output() onSaveNext = new EventEmitter();
   @Output() onSavePrev = new EventEmitter();
+  @Output() onEnter = new EventEmitter();
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
   @Input() stepNumber = 1

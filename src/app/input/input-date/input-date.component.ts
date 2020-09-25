@@ -18,13 +18,14 @@ export class InputDateComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = true;
   @Input() placeholder = '';
-  @Input() value = new Date();
+  // @Input() value = new Date();
   @Input() disabled = false;
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onChange = new EventEmitter();
+  @Output() onEnter = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -33,16 +34,6 @@ export class InputDateComponent implements OnInit {
 
   @Input() inline = false;
   @Input() showTitle = true;
-
-  doKeyDown(event: any) {
-    let c = event.key;
-    if (c == 'Tab' ) {
-    }else if( c == 'Enter'){
-      // document.getElementById('dpDate').toggle();
-    } else{
-      return false;
-    }
-  }
 
   doFile() {
     this.onFile.emit(this.title);
@@ -59,7 +50,10 @@ export class InputDateComponent implements OnInit {
     this.eid = this.data.getID('',this.eid);
   }
 
-  ngOnInit(): void {}
+  valueOriginal: Date
+  ngOnInit(): void {
+    this.valueOriginal = this.value
+  }
 
   hideByFilter() {
     if (!this.doHideByFilter) return false;
@@ -73,16 +67,71 @@ export class InputDateComponent implements OnInit {
     this.value = new Date();
   }
 
-  get _value() {
-    return this.value;
+  _value = new Date()
+  get value() {
+    return this._value;
   }
 
-  set _value(v) {
-    this.value = v;
-    this.onChange.emit(this.value);
+  @Input() set value(v) {
+    this._value = v;
+    this.doChange();
   }
 
   doChange() {
     this.onChange.emit(this.value);
   }
+
+  _autoFocus = false
+  @Input() set autoFocus(v: boolean){
+    this._autoFocus = v
+    if (v){
+      this.setAutoFocus()
+    }
+  }
+
+  setAutoFocus() {
+    let id = this.eid
+    setFocusForID(id, 50);
+
+    function setFocusForID(id: string, mills: number) {
+      setTimeout(() => {
+        let e = document.getElementById(id);
+        if (e) e.focus();
+        else setFocusForID(id, mills + 100);
+      }, mills);
+    }
+  }
+
+  doEnter(event: any) {
+    console.log('Enter')
+    this.onEnter.emit();
+    this.setAutoFocus()
+  }
+
+  doKeyDown(event: any) {
+    if (event.key == ' ') this.doClick(event);
+    else if (event.key == 'Enter') this.doEnter(event);
+    else if (event.key === 'Escape') {
+      this.value = this.valueOriginal;
+      this.doChange()
+    }
+    event.preventDefault();
+  }
+
+  doClick(event: any) {
+    if (!this.disabled) {
+      this.doChange();
+    }
+  }
+
+  // doKeyDown(event: any) {
+  //   let c = event.key;
+  //   if (c == 'Tab' ) {
+  //   }else if( c == 'Enter'){
+  //     // document.getElementById('dpDate').toggle();
+  //   } else{
+  //     return false;
+  //   }
+  // }
+
 }

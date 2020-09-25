@@ -5,6 +5,8 @@ import * as WC from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { Entities, AnyEntity } from './data-entities';
 import { Entity } from './data-entity-parent';
+import { environment } from 'src/environments/environment';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 // import * as T from '../templates/doc-build';
 
 @Injectable({
@@ -109,12 +111,10 @@ export class DataService {
     }
   }
 
-
-
   getEntityFieldValue(
     entity: AnyEntity,
     fieldName: string
-  ): string | Entities<AnyEntity> | K.EntityAddress{
+  ): string | Entities<AnyEntity> | K.EntityAddress {
     if (entity) {
       let v = entity[fieldName];
       if (fieldName.slice(-3) == 'Key') {
@@ -146,9 +146,9 @@ export class DataService {
       } else if (fieldName.slice(-7) == 'Address') {
         if (v) {
           let a = new K.EntityAddress(this);
-          a.text = v.text
-          a.cityKey = v.cityKey
-          return a
+          a.text = v.text;
+          a.cityKey = v.cityKey;
+          return a;
         } else return new K.EntityAddress(this);
       } else {
         if (v != null) return v + '';
@@ -329,23 +329,34 @@ export class DataService {
     return r;
   }
 
-  dataID = 0;
+  dataID = environment.production ? 0 : Math.round(Math.random() * 10000);
+
   public getID(title?: string, prefix?: string): string {
+    //console.log(this.dataID);
     if (title) {
-      let s = / /g;
-      let t = title.toLowerCase().replace(s, '-');
-      s = /\//g;
-      t = t.toLowerCase().replace(s, '-');
-      s = /\:/g;
-      t = t.toLowerCase().replace(s, '-');
-      s = /\,/g;
-      t = t.toLowerCase().replace(s, '-');
-      s = /\-\-/g;
-      t = t.toLowerCase().replace(s, '-');
-      s = /\(/g;
-      t = t.toLowerCase().replace(s, '-');
-      s = /\)/g;
-      t = t.toLowerCase().replace(s, '-');
+      // let s = / /g;
+      //let t = title.toLowerCase().replace(s, '-');
+      // s = /\//g;
+      // t = t.toLowerCase().replace(s, '-');
+      // s = /\:/g;
+      // t = t.toLowerCase().replace(s, '-');
+      // s = /\,/g;
+      // t = t.toLowerCase().replace(s, '-');
+      // s = /\-\-/g;
+      // t = t.toLowerCase().replace(s, '-');
+      // s = /\(/g;
+      // t = t.toLowerCase().replace(s, '-');
+      // s = /\)/g;
+      // t = t.toLowerCase().replace(s, '-');
+      let t = title;
+      t = _replace(t, / /g);
+      t = _replace(t, /\//g);
+      t = _replace(t, /\:/g);
+      t = _replace(t, /\,/g);
+      t = _replace(t, /\-\-/g);
+      t = _replace(t, /\(/g);
+      t = _replace(t, /\)/g);
+
       return t;
     } else if (prefix) {
       this.dataID += 1;
@@ -353,6 +364,10 @@ export class DataService {
     } else {
       this.dataID += 1;
       return this.dataID + '';
+    }
+
+    function _replace(text: string, pattern: any) {
+      return text.toLowerCase().replace(pattern, '-');
     }
   }
 
@@ -586,46 +601,42 @@ export class DataService {
     );
   }
 
-  getCommitteeTypesForCountry(data: object){
+  getCommitteeTypesForCountry(data: object) {
     return this.getEntities(E.EnumEntityType.CommitteeType).select(
       'countryKey',
       data['countryKey']
     );
   }
 
-  getIndividualsForCompanyForCommitteType(data: object){
+  getIndividualsForCompanyForCommitteType(data: object) {
     let commInds = this.getEntities(E.EnumEntityType.CommitteeIndividuals)
-      .select('companyKey',data['companyKey'])
-      .select('committeeTypeKey',data['committeeTypeKey'])
-    let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
-    let inds = this.getEntities(E.EnumEntityType.Individual)
-    commInds.forEach((value,key,map)=>{
-      let v = inds.get(value['individualKey']) as K.EntityIndividual
-      r.add(v)  
-    })
-    return r
-  }  
-
-  getIndividualsNotForCompanyForCommitteType(data: object){
-    let indsOnCommittee = this.getIndividualsForCompanyForCommitteType(data)
-    let r = new Entities<K.EntityIndividual>(K.EntityIndividual)
-    let inds = this.getEntities(E.EnumEntityType.Individual)
-    _addMissingIndividuals()
-    return r
-
-    function _addMissingIndividuals(){
-      inds.forEach((value,key,map)=>{
-        if (!indsOnCommittee.has(key)){
-          let v = value as K.EntityIndividual
-          r.add(v)
-        }
-      })
-    }
+      .select('companyKey', data['companyKey'])
+      .select('committeeTypeKey', data['committeeTypeKey']);
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
+    let inds = this.getEntities(E.EnumEntityType.Individual);
+    commInds.forEach((value, key, map) => {
+      let v = inds.get(value['individualKey']) as K.EntityIndividual;
+      r.add(v);
+    });
+    return r;
   }
 
+  getIndividualsNotForCompanyForCommitteType(data: object) {
+    let indsOnCommittee = this.getIndividualsForCompanyForCommitteType(data);
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
+    let inds = this.getEntities(E.EnumEntityType.Individual);
+    _addMissingIndividuals();
+    return r;
 
-
-
+    function _addMissingIndividuals() {
+      inds.forEach((value, key, map) => {
+        if (!indsOnCommittee.has(key)) {
+          let v = value as K.EntityIndividual;
+          r.add(v);
+        }
+      });
+    }
+  }
 
   getCountriesForTask(data: object) {
     let that = this;

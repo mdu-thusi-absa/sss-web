@@ -12,6 +12,7 @@
     [autoFocus] = "taskFlow.isCurrent"
     [showSmall] = "true"
     (onEnter) = "doEnter()"
+    [disabled] = "!taskFlow.isCurrent"
   ></app-input-text>
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>
     <div

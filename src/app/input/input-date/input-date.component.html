@@ -35,7 +35,7 @@
         bsDatepicker
         class="form-control custom-today-class"
         #dpDate="bsDatepicker"
-        [(ngModel)]="_value"
+        [(ngModel)]="value"
         [bsConfig]="{
           dateInputFormat: 'YYYY/MM/DD',
           containerClass: 'theme-red',
@@ -51,7 +51,8 @@
         (onchange)="doChange()"
         (onchangeDate)="doChange()"
         readonly
-        (keydown) = "$event.key == 'Enter'? dpDate.toggle():''"
+        (keydown) = "$event.key == ' '? dpDate.toggle():doKeyDown($event)"
+        [attr.id] = "eid"
       />
       <span
         *ngIf="!disabled"

@@ -10,6 +10,8 @@
     [title]="'Please select'"
     [value]="taskFlow.value"
     (onChange) = "doChange($event)"
+    [autoFocus] = "taskFlow.isCurrent"
+    (onEnter) = "onEnter.emit()"
   ></app-input-date>
 
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>

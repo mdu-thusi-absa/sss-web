@@ -5,14 +5,14 @@ import { DataService } from 'src/app/data/data.service';
 @Component({
   selector: 'app-input-checkbox',
   templateUrl: './input-checkbox.component.html',
-  styleUrls: ['./input-checkbox.component.css']
+  styleUrls: ['./input-checkbox.component.css'],
 })
 export class InputCheckboxComponent implements OnInit {
   title_ = '';
-  @Input () set title(v: string){
+  @Input() set title(v: string) {
     this.title_ = Entity.sentanceCase(v);
   }
-  get title(){
+  get title() {
     return this.title_;
   }
   @Input() filterText = '';
@@ -27,6 +27,7 @@ export class InputCheckboxComponent implements OnInit {
   @Output() onRecord = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onChange = new EventEmitter();
+  @Output() onEnter = new EventEmitter();
 
   @Input() showFlash = false;
   @Input() showPaperclip = false;
@@ -35,42 +36,37 @@ export class InputCheckboxComponent implements OnInit {
   @Input() inline = false;
   @Input() showTitle = true;
   @Input() showEdit = false;
-  @Input() showDelete = false
+  @Input() showDelete = false;
   checked = true;
 
-  doChange(){
-    if (!this.disabled){
-      this.value = !this.value;
-     this.onChange.emit(this.value);
-    }
-  }
-
-  doFile(){
+  doFile() {
     this.onFile.emit(this.title);
   }
-  doTask(){
+  doTask() {
     this.onTask.emit(this.title);
   }
-  doRecord(){
+  doRecord() {
     this.onRecord.emit(this.title);
   }
 
-  eid = 'input-checkbox'
-  constructor(private data:DataService) {
-    this.eid = this.data.getID('',this.eid);
+  eid = 'input-checkbox';
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('', this.eid);
   }
 
-  ngOnInit(): void {    
-    if (this._autoFocus){
-      this.setAutoFocus()
+  valueOriginal: boolean;
+  ngOnInit(): void {
+    this.valueOriginal = this.value;
+    if (this._autoFocus) {
+      this.setAutoFocus();
     }
   }
 
-  _autoFocus = false
-  @Input() set autoFocus(v: boolean){
-    this._autoFocus = v
-    if (v){
-      this.setAutoFocus()
+  _autoFocus = false;
+  @Input() set autoFocus(v: boolean) {
+    this._autoFocus = v;
+    if (v) {
+      this.setAutoFocus();
     }
   }
 
@@ -88,9 +84,30 @@ export class InputCheckboxComponent implements OnInit {
   }
 
   hideByFilter() {
-    return (this.doHideByFilter ? this.filterText.length>0 && this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1 : false);
+    return this.doHideByFilter
+      ? this.filterText.length > 0 &&
+          this.title.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1
+      : false;
   }
 
-  
+  doEnter(event: any) {
+    this.onEnter.emit();
+  }
 
+  doKeyDown(event: any) {
+    if (event.key == ' ') this.doClick(event);
+    else if (event.key == 'Enter') this.doEnter(event);
+    else if (event.key === 'Escape') {
+      this.value = this.valueOriginal;
+      this.onChange.emit(this.value)
+    }
+    event.preventDefault();
+  }
+
+  doClick(event: any) {
+    if (!this.disabled) {
+      this.value = !this.value;
+      this.onChange.emit(this.value);
+    }
+  }
 }
