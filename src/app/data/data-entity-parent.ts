@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events';
 import { EnumEntityType } from './data-entity-types';
+import { DataService } from './data.service';
 
 export class RecordUpdate {
   key: number;
@@ -41,13 +41,25 @@ export class Entity {
   public activeIs = false;
   public suffix = '';
   listeners: any[] = []
-  protected headingsMap_: Map<string, string>;
+  protected _headingsMap: Map<string, string>;
   private _name: string;
   historyArray = new HistoryArray();
   //constructor(public name: string, public tasksCount: number, public suffix: string, public country: string, public isActive: boolean){}
-  constructor(name: string) {
-    if (!this.headingsMap_) this.headingsMap_ = this.getHeadingsMap();
+  constructor(name: string, public data?: DataService) {
+    if (!this._headingsMap) this._headingsMap = this.getHeadingsMap();
     this._name = name;
+  }
+
+  parseString(text: string): boolean {
+    if (text) {
+      let o = eval(text);
+      let attrs = Object.keys(o)
+      attrs.forEach((att)=>{
+        this[att] = o[att]
+      })
+      return true;
+    }
+    return false;
   }
 
   updateFieldValue(record: RecordUpdate) {
@@ -81,7 +93,7 @@ export class Entity {
   }
 
   get headingsMap() {
-    return this.headingsMap_;
+    return this._headingsMap;
   }
 
   get allName() {
@@ -177,4 +189,7 @@ export class Entity {
     console.log('Clicked',this);
     
   }
+
+  
+
 }

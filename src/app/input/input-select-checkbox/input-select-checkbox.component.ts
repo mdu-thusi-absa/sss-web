@@ -17,12 +17,12 @@ import { Entities, AnyEntity } from 'src/app/data/data-entities';
   styleUrls: ['./input-select-checkbox.component.css'],
 })
 export class InputSelectCheckboxComponent implements OnInit {
-  title_ = '';
+  private _title = '';
   @Input () set title(v: string){
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title(){
-    return this.title_;
+    return this._title;
   }
   @Input() values: Entities<AnyEntity>; //of entities
   @Input() filterText = '';

@@ -6,6 +6,7 @@
         class="col-xs-4"
         [class.col-sm-2]="showPanelRight"
         [class.col-sm-4]="!showPanelRight"
+        [hidden] = "!showPanelLeft"
       >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
@@ -39,9 +40,13 @@
       <!--column 2: Details of Entities, Records, Docs-->
       <div
         [class.hidden-xs]="showPanelRight"
-        [class.col-xs-8]="!showPanelRight"
-        [class.col-sm-5]="showPanelRight"
-        [class.col-sm-8]="!showPanelRight"
+        [class.col-xs-8]="!showPanelRight && showPanelLeft"
+        [class.col-sm-5]="showPanelRight && showPanelLeft"
+        [class.col-sm-8]="!showPanelRight  && showPanelLeft"
+
+        [class.col-xs-12]="!showPanelRight && !showPanelLeft"
+        [class.col-sm-6]="showPanelRight && !showPanelLeft"
+        [class.col-sm-12]="!showPanelRight && !showPanelLeft"
       >
         <!-- col 2: Entity Detail -->
         <div
@@ -52,6 +57,24 @@
           "
         >
           <div class="panel-heading mt3">
+            <app-buttons-toolbar-button
+                [title]="(showPanelRight ? 'Hide' : 'Show') + ' left panel'"
+                [placeholder]="
+                  (showPanelLeft ? 'Hide' : 'Show') + ' left panel'
+                "
+                [matIcon]="
+                  showPanelLeft
+                    ? 'keyboard_arrow_left'
+                    : 'keyboard_arrow_right'
+                "
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="showPanelLeft = !showPanelLeft"
+                [isNarrow]="true"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+
             <small [hidden]="isPage('dashboard') || isPage('search')">
               <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
 
@@ -499,7 +522,9 @@
       <div
         class="col-xs-8"
         [class.hidden-xs]="!showPanelRight"
-        [class.col-sm-5]="showPanelRight"
+        [class.col-sm-5]="showPanelRight && showPanelLeft"
+        [class.col-sm-6]="showPanelRight && !showPanelLeft"
+
         [style.visibility]="showPanelRight ? 'visible' : 'hidden'"
         *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
       >

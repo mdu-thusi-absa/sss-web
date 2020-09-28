@@ -22,12 +22,12 @@ export class InputFilterAddComponent implements OnInit {
 
   @Input() filterCount = 0;
 
-  title_ = 'input-filter-add';
+  private _title = 'input-filter-add';
   @Input() set title(v: string) {
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title() {
-    return this.title_;
+    return this._title;
   }
 
   @Input() titlePlural = '';

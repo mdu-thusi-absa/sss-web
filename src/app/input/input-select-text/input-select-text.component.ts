@@ -26,14 +26,14 @@ export class InputSelectTextComponent implements OnInit {
 
   @ViewChild('inputText') inputElement: ElementRef;
 
-  isDoInput_: boolean = false;
+  _isDoInput: boolean = false;
   get isDoInput(): boolean {
-    return this.isDoInput_;
+    return this._isDoInput;
   }
 
   @Input('isDoInput')
   set isDoInput(value: boolean) {
-    this.isDoInput_ = value;
+    this._isDoInput = value;
     if (value) this.setFocus();
   }
 

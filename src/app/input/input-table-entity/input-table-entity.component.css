@@ -1,5 +1,5 @@
 th, td {
-    padding: 0.25rem;
+    padding: 2px;
   }
 
   .table-content{
@@ -7,3 +7,4 @@ th, td {
     overflow-y: auto;
   }
 
+ 

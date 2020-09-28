@@ -16,7 +16,7 @@ export class InputTableComponent implements OnInit {
   @Input() withCheckbox = false;
   @Input() noPadding = false;
   @Input() checked = false;
-  filterText_ = '';
+  private _filterText = '';
 
   isHiddenMap = new Map();
   isChecked = new Map();
@@ -48,13 +48,13 @@ export class InputTableComponent implements OnInit {
   }
 
   set filterText(v: string) {
-    if (v != this.filterText_) {
-      this.filterText_ = v;
+    if (v != this._filterText) {
+      this._filterText = v;
       this.setCounts();
     }
   }
   get filterText() {
-    return this.filterText_;
+    return this._filterText;
   }
 
   checkForAll(checkValue: boolean) {

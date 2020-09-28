@@ -17,18 +17,18 @@ import { data } from 'jquery';
   styleUrls: ['./input-dropdown.component.css'],
 })
 export class InputDropdownComponent implements OnInit {
-  private filterText_ = '';
+  private _filterText = '';
   showDrop = true;
   position = { top: 0, left: 0 };
 
   viewAll = false;
   @Input() title = 'item';
-  sourceValues_: Entities<AnyEntity>;
+  private _sourceValues: Entities<AnyEntity>;
   @Input() set values(v: Entities<AnyEntity>) {
-    this.sourceValues_ = v;
-    this.values_ = this.sourceValues_.clone();
+    this._sourceValues = v;
+    this._values = this._sourceValues.clone();
   }
-  values_: Entities<AnyEntity>;
+  _values: Entities<AnyEntity>;
   @Input() key = -1;
   @Input() showNoSelection = false;
   @Input() onlyActive = false;
@@ -43,12 +43,12 @@ export class InputDropdownComponent implements OnInit {
   @Output() onEdit = new EventEmitter();
   @Output() onAdd = new EventEmitter();
 
-  sourceVersion_ = 0;
+  private _sourceVersion = 0;
   //refresh values if the source version changes
   @Input() set sourceVersion(v: number) {
-    if (v != this.sourceVersion_) {
-      this.sourceVersion_ = v;
-      this.values_ = this.sourceValues_.clone();
+    if (v != this._sourceVersion) {
+      this._sourceVersion = v;
+      this._values = this._sourceValues.clone();
     }
   }
 
@@ -98,14 +98,14 @@ export class InputDropdownComponent implements OnInit {
   }
 
   get filterText() {
-    return this.filterText_;
+    return this._filterText;
   }
 
   // countVisible = 0;
   set filterText(v: string) {
-    if (v != this.filterText_) {
-      this.filterText_ = v;
-      this.values_.filter(this.filterText_, false);
+    if (v != this._filterText) {
+      this._filterText = v;
+      this._values.filter(this._filterText, false);
       try {
         this.setPosition(true);
       } catch (e) {}
@@ -113,9 +113,9 @@ export class InputDropdownComponent implements OnInit {
   }
 
   get value() {
-    if (this.values_) {
+    if (this._values) {
       if (this.key == undefined) {
-        if (this.values_.size > 0) this.key = this.values_.firstKey;
+        if (this._values.size > 0) this.key = this._values.firstKey;
         else this.key = -1;
       }
     } else {
@@ -123,8 +123,8 @@ export class InputDropdownComponent implements OnInit {
     }
     if (this.key == -1) return 'Please select';
     else {
-      let v = this.values_.get(this.key);
-      if (v) return this.values_.get(this.key).allName;
+      let v = this._values.get(this.key);
+      if (v) return this._values.get(this.key).allName;
       else return null;
     }
   }
@@ -134,13 +134,13 @@ export class InputDropdownComponent implements OnInit {
 
     if (c == 'Tab') {
       if (this.dropUp) {
-        if (key == this.values_.lastKeyInFilter) {
+        if (key == this._values.lastKeyInFilter) {
           this.setFocus(event);
         }
       } else {
-        if (key == this.values_.lastKeyInFilter) {
-          if (this.values_.size < 6) {
-            this.setFocusItem(event, this.values_.firstKeyInFilter);
+        if (key == this._values.lastKeyInFilter) {
+          if (this._values.size < 6) {
+            this.setFocusItem(event, this._values.firstKeyInFilter);
           } else {
             this.setFocus(event);
           }
@@ -161,7 +161,7 @@ export class InputDropdownComponent implements OnInit {
   doSearchKeyDown(event: any) {
     if (event.key === 'Tab') {
       if (this.dropUp) {
-        this.setFocusItem(event, this.values_.firstKeyInFilter);
+        this.setFocusItem(event, this._values.firstKeyInFilter);
       }
     }
   }
@@ -188,12 +188,12 @@ export class InputDropdownComponent implements OnInit {
     var bottomPos =
       el[0].getBoundingClientRect().bottom + $(window)['scrollTop']();
 
-    this.searchInputHeight = 38 * (this.values_.size > rowsToShow ? 1 : 0);
+    this.searchInputHeight = 38 * (this._values.size > rowsToShow ? 1 : 0);
     this.filterHeight =
-      rowHeight * Math.min(this.values_.countInFilter, rowsToShow) +
+      rowHeight * Math.min(this._values.countInFilter, rowsToShow) +
       this.searchInputHeight;
     this.maxHeight =
-      rowHeight * Math.min(this.values_.size, rowsToShow) +
+      rowHeight * Math.min(this._values.size, rowsToShow) +
       this.searchInputHeight;
 
     let lowest = $(window).height() - this.maxHeight;
@@ -202,7 +202,7 @@ export class InputDropdownComponent implements OnInit {
     this.dropUp = lowest < topPos;
     if (this.dropUp) {
       top = bottomPos - this.filterHeight;
-      if (this.values_.countInFilter == 0) top = bottomPos - 48;
+      if (this._values.countInFilter == 0) top = bottomPos - 48;
     }
 
     dialog[0].style.left = leftPos + 'px';
@@ -235,8 +235,8 @@ export class InputDropdownComponent implements OnInit {
   }
 
   setFocus(event: any) {
-    if (this.values_.size < 6) {
-      this.setFocusItem(event, this.values_.firstKeyInFilter);
+    if (this._values.size < 6) {
+      this.setFocusItem(event, this._values.firstKeyInFilter);
     } else {
       setTimeout(() => {
         this.inputFilter.nativeElement.focus();

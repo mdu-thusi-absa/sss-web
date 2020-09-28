@@ -1,5 +1,5 @@
 <app-input-filter-add
-  [hidden]="fields.length < 10"
+  [hidden]="!this.showFilter"
   [filterCount]="countFiltered"
   [showAdd]="false"
   [showFilterCount]="true"
@@ -8,7 +8,7 @@
   [filterText] = "filterText"
 ></app-input-filter-add>
 <div
-  [hidden]="fields.length < 10"
+  [hidden]="!this.showFilter"
   style="padding-bottom: 5px"
   
 ></div>
@@ -22,7 +22,7 @@
   <tbody>
     <ng-container *ngFor="let e of fields | keyvalue; let i = index">
       <tr class="info" *ngIf="!isHiddenMap.get(i)">
-        <td style="width: 25%">
+        <td style="width: 25%;padding:2px 4px 2px 4px;">
           {{ headings[i] }}
         </td>
         <td style="padding: 0px" *ngIf="fields[i].slice(-4) == 'Keys'">
@@ -34,10 +34,10 @@
             [inputType]="'entity'"
           ></app-input-table>
         </td>
-        <td *ngIf="fields[i].slice(-4) != 'Keys' && fields[i].slice(-7) != 'Address'">
+        <td *ngIf="fields[i].slice(-4) != 'Keys' && fields[i].slice(-7) != 'Address'" style='padding:2px 4px 2px 4px;'>
           {{ values[i] }}
         </td>
-        <td *ngIf="fields[i].slice(-7) == 'Address'">
+        <td *ngIf="fields[i].slice(-7) == 'Address'" style='padding:2px 4px 2px 4px;'>
           {{ values[i].toString() }}
         </td>
       </tr>

@@ -20,7 +20,7 @@
   >
     <thead class="info">
       <tr>
-        <th *ngIf="withCheckbox" width="15px">
+        <th *ngIf="withCheckbox" width="15px" >
           <app-input-checkbox
             [noTitle]="true"
             [showSmall]="true"
@@ -28,7 +28,7 @@
             [value] = "checked"
           ></app-input-checkbox>
         </th>
-        <th *ngFor="let h of headings" class="info">
+        <th *ngFor="let h of headings" class="info" style="padding:2px 4px 2px 4px;">
           {{ h }}
         </th>
       </tr>
@@ -51,6 +51,7 @@
               [style.border-bottom]="
                 e.key == selectedEntityKey ? '1px solid black' : 'inherit'
               "
+              style="padding:2px 4px 2px 4px;"
             >
               <a
                 href="#"

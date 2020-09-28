@@ -30,6 +30,7 @@ export class EntitiesContainerComponent implements OnInit {
   public appVersion: string = version;
 
   showPanelRight = true;
+  showPanelLeft = false
   hidePosts = true;
   isHalf = false;
 

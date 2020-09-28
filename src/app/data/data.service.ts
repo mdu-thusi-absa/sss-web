@@ -21,12 +21,104 @@ export class DataService {
   workFlow: WC.TaskWalker;
   progress = 0;
 
+  constructor() {
+    // T.genTemplate()
+    this.loadEntityTypes();
+    this.loadEntityTypes_Init();
+    this.loadMenus();
+    this.loadCanHoldSharesIs();
+    this.workFlow = this.initWorkFlow();
+  }
+
+  private loadEntityTypes() {
+    // static and DB entities
+    try {
+      this.entityTypes.fromJSON(E.jsonEntityTypes); //load entityTypes constituents will be later to bootstrap other entities
+    } catch (e) {
+      console.log('dataService', 'Loading entityTypes from JSON', e);
+      throw e;
+    }
+  }
+
+  private loadMenus() {
+    let mTemp = new Map();
+    this.entityTypes.forEach((value, key, map) => {
+      if (value['dashboardIndex'] > -1) {
+        mTemp.set(value['dashboardIndex'], value);
+      }
+    });
+    for (let i = 0; i < mTemp.size; i++) {
+      let menu = mTemp.get(i);
+      this.menus.set(menu['key'], menu);
+    }
+  }
+
+  private loadCanHoldSharesIs() {
+    this.entityTypes.forEach((value, key, map) => {
+      if (value['canHoldSharesIs']) this.shareHolderTypes.set(key, value);
+    });
+  }
+  private loadEntityTypes_Init() {
+    this.entityTypes.forEach((value, key, map) => {
+      value.init(this);
+    });
+  }
+
   expandValues(data: object): object {
     let r = {};
     for (let fieldName in data) {
       _expandValues_forEachField(r, data, fieldName, '', this.entityTypes);
     }
+    r = _sunitiseMembers(r);
     return r;
+
+    function _sunitiseMembers(value: object): object {
+      let keys = Object.keys(value);
+      keys.forEach((mem) => {
+        if (value[mem] == null) value[mem] = '';
+        value[mem] = _dealDate(value, mem);
+        value[mem] = _dealAddress(value, mem);
+        value[mem] = _dealBoolean(value, mem);
+      });
+
+      let target = {};
+      keys.forEach((mem) => {
+        if (mem.indexOf('._') > -1) {
+          _dealUnderScore(target,value, mem);
+        } else {
+          target[mem] = value[mem]
+        }
+      });
+
+      return target
+
+      function _dealUnderScore(target: object, source: object, member: string) {
+        let fieldName = member.replace('._', '.');
+        target[fieldName] = source[member];
+      }
+
+      function _dealDate(o: object, member: string): string {
+        if (o[member]) {
+          if (member.slice(-4) == 'Date')
+            return value[member].toISOString().slice(0, 10);
+          else return o[member];
+        }
+        return '';
+      }
+
+      function _dealAddress(o: object, member: string): string {
+        if (o[member]) {
+          if (member.slice(-7) == 'Address') return value[member].toString();
+          else return o[member];
+        }
+        return '';
+      }
+
+      function _dealBoolean(o: object, member: string): string {
+        if (typeof o[member] == 'boolean') return o[member] ? 'Yes' : 'No';
+        return o[member];
+      }
+    }
 
     function _expandValues_forEachField(
       targetObject: object,
@@ -111,7 +203,7 @@ export class DataService {
     }
   }
 
-  getEntityFieldValue(
+  getEntityFieldTextOrEntity(
     entity: AnyEntity,
     fieldName: string
   ): string | Entities<AnyEntity> | K.EntityAddress {
@@ -127,7 +219,18 @@ export class DataService {
           return 'Empty list';
         }
       } else if (fieldName.slice(-4) == 'Keys') {
-        let d = this.getEntitiesByKeyField(fieldName, {}, [0, 1]);
+        let keyArray = entity[fieldName];
+        let d = null;
+        if (keyArray) {
+          //console.log(fieldName,keyArray);
+          d = this.getEntitiesByKeyField(fieldName, {}, keyArray);
+        } else {
+          let entityKeyName = this._getEntityKeyName(entity.entityTypeKey);
+          let o = {};
+          o[entityKeyName] = entity.key;
+          d = this.getEntitiesByKeyField(fieldName, o);
+        }
+
         if (d) return d;
         console.log('Entities for key not found:', fieldName);
       } else if (fieldName.slice(-4) == 'Set') {
@@ -139,7 +242,9 @@ export class DataService {
         else return 'No';
       } else if (fieldName.slice(-4) == 'Date') {
         if (v) {
-          let d = v as Date;
+          let d: Date;
+          if (typeof v == 'string') d = new Date(v);
+          else d = v;
           let s = d.toISOString().slice(0, 10);
           return s;
         } else return '';
@@ -158,49 +263,6 @@ export class DataService {
     return '';
   }
 
-  private loadEntityTypes() {
-    // static and DB entities
-    try {
-      this.entityTypes.fromJSON(E.jsonEntityTypes); //load entityTypes constituents will be later to bootstrap other entities
-    } catch (e) {
-      console.log('dataService', 'Loading entityTypes from JSON', e);
-      throw e;
-    }
-  }
-
-  private loadMenus() {
-    let mTemp = new Map();
-    this.entityTypes.forEach((value, key, map) => {
-      if (value['dashboardIndex'] > -1) {
-        mTemp.set(value['dashboardIndex'], value);
-      }
-    });
-    for (let i = 0; i < mTemp.size; i++) {
-      let menu = mTemp.get(i);
-      this.menus.set(menu['key'], menu);
-    }
-  }
-
-  private loadCanHoldSharesIs() {
-    this.entityTypes.forEach((value, key, map) => {
-      if (value['canHoldSharesIs']) this.shareHolderTypes.set(key, value);
-    });
-  }
-  private loadEntityTypes_Init() {
-    this.entityTypes.forEach((value, key, map) => {
-      value.init();
-    });
-  }
-
-  constructor() {
-    // T.genTemplate()
-    this.loadEntityTypes();
-    this.loadEntityTypes_Init();
-    this.loadMenus();
-    this.loadCanHoldSharesIs();
-    this.workFlow = this.initWorkFlow();
-  }
-
   getEntityTypeForName(entityTypeName: string): E.EnumEntityType {
     this.entityTypes.forEach((value, key, map) => {
       if (value.name == entityTypeName) {
@@ -210,13 +272,8 @@ export class DataService {
     return null;
   }
 
-  public getEntitiesByKeyField(
-    fieldNameKey: string,
-    optionsObject?: object,
-    keysArray?: any[]
-  ) {
+  private _getEntityEnumType(fieldNameKey: string) {
     let s: E.EnumEntityType;
-
     this.entityTypes.forEach((value, key, map) => {
       let keyName = value['keyName'];
       let keysName = keyName + 's';
@@ -229,6 +286,23 @@ export class DataService {
         s = key;
       }
     });
+    return s;
+  }
+
+  private _getEntityKeyName(enumType: E.EnumEntityType): string {
+    let s = '';
+    let e = this.entityTypes.get(enumType);
+    return e['keyName'];
+  }
+
+  public getEntitiesByKeyField(
+    fieldNameKey: string,
+    optionsObject?: object,
+    keysArray?: any[]
+  ) {
+    let s: E.EnumEntityType;
+
+    s = this._getEntityEnumType(fieldNameKey);
     let d = this.getEntities(s, optionsObject, keysArray);
 
     if (d) return d;
@@ -334,20 +408,6 @@ export class DataService {
   public getID(title?: string, prefix?: string): string {
     //console.log(this.dataID);
     if (title) {
-      // let s = / /g;
-      //let t = title.toLowerCase().replace(s, '-');
-      // s = /\//g;
-      // t = t.toLowerCase().replace(s, '-');
-      // s = /\:/g;
-      // t = t.toLowerCase().replace(s, '-');
-      // s = /\,/g;
-      // t = t.toLowerCase().replace(s, '-');
-      // s = /\-\-/g;
-      // t = t.toLowerCase().replace(s, '-');
-      // s = /\(/g;
-      // t = t.toLowerCase().replace(s, '-');
-      // s = /\)/g;
-      // t = t.toLowerCase().replace(s, '-');
       let t = title;
       t = _replace(t, / /g);
       t = _replace(t, /\//g);
@@ -388,7 +448,7 @@ export class DataService {
         v = 'select-entity';
         break;
       case 'Keys':
-        v = '';
+        v = ''; //TODO: add select checkbox element for Keys attribute
         break;
       case 'Address':
         v = 'address';
@@ -428,11 +488,6 @@ export class DataService {
     return this.getEntities(E.EnumEntityType.Month);
   }
 
-  // getEntityTypes() {
-  //   return this.entityTypes;
-  // }
-
-  //Business Area
   get businessAreas() {
     return this.getEntities(E.EnumEntityType.BusinessArea);
   }
@@ -608,36 +663,6 @@ export class DataService {
     );
   }
 
-  getIndividualsForCompanyForCommitteType(data: object) {
-    let commInds = this.getEntities(E.EnumEntityType.CommitteeIndividuals)
-      .select('companyKey', data['companyKey'])
-      .select('committeeTypeKey', data['committeeTypeKey']);
-    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
-    let inds = this.getEntities(E.EnumEntityType.Individual);
-    commInds.forEach((value, key, map) => {
-      let v = inds.get(value['individualKey']) as K.EntityIndividual;
-      r.add(v);
-    });
-    return r;
-  }
-
-  getIndividualsNotForCompanyForCommitteType(data: object) {
-    let indsOnCommittee = this.getIndividualsForCompanyForCommitteType(data);
-    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
-    let inds = this.getEntities(E.EnumEntityType.Individual);
-    _addMissingIndividuals();
-    return r;
-
-    function _addMissingIndividuals() {
-      inds.forEach((value, key, map) => {
-        if (!indsOnCommittee.has(key)) {
-          let v = value as K.EntityIndividual;
-          r.add(v);
-        }
-      });
-    }
-  }
-
   getCountriesForTask(data: object) {
     let that = this;
     let d = _WorkflowForLastMenuChoice(data);
@@ -667,9 +692,6 @@ export class DataService {
           }
         });
 
-        // for (let i = 0; i < 100; i++) {
-        //   if (data[i + '_Key']) lastMenuKey = i + '_Key';
-        // }
         return lastMenuKey + '_Key';
       }
     }
@@ -693,5 +715,77 @@ export class DataService {
       'name',
       data['1_Key']
     );
+  }
+
+  getCommitteesForCompany(data: object) {
+    return this.getEntities(E.EnumEntityType.Committee).select(
+      'companyKey',
+      data['companyKey']
+    );
+  }
+
+  getAppointmentsForCommittee(data: object) {
+    return this.getEntities(E.EnumEntityType.CommitteeAppointment).select(
+      'committeeKey',
+      data['committeeKey']
+    ) as Entities<K.EntityCommitteeAppointment>;
+  }
+
+  getCommitteeAppointmentsForCommittee(data: object) {
+    return this.getEntities(E.EnumEntityType.CommitteeAppointment).select(
+      'committeeKey',
+      data['committeeKey']
+    ) as Entities<K.EntityCommitteeAppointment>;
+  }
+
+  getCommitteeAppointmentActiveForCommittee(data: object) {
+    let d = this.getEntities(E.EnumEntityType.CommitteeAppointment).select(
+      'committeeKey',
+      data['committeeKey']
+    ) as Entities<K.EntityCommitteeAppointment>;
+    return d.select('endDate', (value) => {
+      return !value;
+    });
+  }
+
+  getCommitteeAppointmentNotActiveForCommittee(data: object) {
+    let d = this.getEntities(E.EnumEntityType.CommitteeAppointment).select(
+      'committeeKey',
+      data['committeeKey']
+    ) as Entities<K.EntityCommitteeAppointment>;
+    return d.select('endDate', (value) => {
+      return value;
+    });
+  }
+
+  getIndividualsForCommittee(data: object) {
+    let d = this.getEntities(E.EnumEntityType.CommitteeAppointment).select(
+      'committeeKey',
+      data['committeeKey']
+    ) as Entities<K.EntityCommitteeAppointment>;
+    let e = d.select('endDate', (value) => {
+      return !value;
+    });
+    let inds = this.getEntities(E.EnumEntityType.Individual) as Entities<
+      K.EntityIndividual
+    >;
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
+    e.forEach((value, key, map) => {
+      let ind = inds.get(value.individualKey);
+      r.add(ind);
+    });
+    return r;
+  }
+
+  getIndividualsNotForCommittee(data: object) {
+    let d = this.getIndividualsForCommittee(data);
+    let inds = this.getEntities(E.EnumEntityType.Individual) as Entities<
+      K.EntityIndividual
+    >;
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
+    inds.forEach((value, key, map) => {
+      if (!d.has(value.key)) r.add(value);
+    });
+    return r;
   }
 }

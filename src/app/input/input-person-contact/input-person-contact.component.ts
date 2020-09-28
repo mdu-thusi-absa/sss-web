@@ -11,12 +11,12 @@ export class InputPersonContactComponent implements OnInit {
   @Input() filterText = '';
   @Input() doHideByFilter = false;
   @Input() isNarrow = false;
-  title_ = 'Contact details';
+  private _title = 'Contact details';
   @Input () set title(v: string){
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title(){
-    return this.title_;
+    return this._title;
   }
   @Input() hideBody = true;
 

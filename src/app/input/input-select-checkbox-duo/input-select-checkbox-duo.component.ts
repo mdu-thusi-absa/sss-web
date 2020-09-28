@@ -12,12 +12,12 @@ export class InputSelectCheckboxDuoComponent implements OnInit {
   @Input() isNarrow = false;
   @Input() filterText='';
   @Input() doHideByFilter = false;
-  title_ = '';
+  private _title = '';
   @Input () set title(v: string){
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title(){
-    return this.title_;
+    return this._title;
   }
   @Input() values: Entities<AnyEntity>;
   @Input() selectedValues: number[] = [];

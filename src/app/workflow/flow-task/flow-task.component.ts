@@ -11,16 +11,30 @@ export class FlowTaskComponent implements OnInit {
   title = 'Workflow'
   workFlow: TaskWalker
   panelBodyID: string
-  showAll: boolean = false;
+  showAll: boolean = false
+  cancelTaskIs = false
   @Output() onClose = new EventEmitter()
 
-  constructor(public data: DataService) {}
+
+  eid = 'flow-task'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
     this.workFlow = this.data.workFlow;
     this.workFlow.notifyIs = true
   }
 
+  doReset(){
+    this.cancelTaskIs = false
+    this.workFlow.start()
+    this.onClose.emit('')
+  }
+
+  doClose(){
+    document.getElementById('button-100001').click()
+  }
 
   doSync(event: boolean){
     this.workFlow.notifyIs = event

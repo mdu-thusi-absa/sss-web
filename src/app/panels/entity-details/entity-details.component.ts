@@ -28,14 +28,14 @@ export class EntityDetailsComponent implements OnInit {
   @Input() hideReports = false;
   persons: Entities<EntityNatural>;
   @Input() panelRows = 1;
-  entityType_ = -1;
-  entityType_T = -2;
-  entityTypeName_ = '';
+  private _entityType = -1;
+  private _entityType_T = -2;
+  private _entityTypeName = '';
   @Input() entityTypes = this.data.entityTypes;
   @Input() entityKey = -1;
   entityKeyT = -1;
-  private entity_: AnyEntity;
-  private entity_BackUp: AnyEntity;
+  private _entity: AnyEntity;
+  private _entity_BackUp: AnyEntity;
   entities: Entities<AnyEntity>;
   dirty = false;
   isPageLoaded: string[] = [];
@@ -48,40 +48,30 @@ export class EntityDetailsComponent implements OnInit {
 
   constructor(public data: DataService) {}
 
-  // isType(entityTypeKey: EnumEntityType,typeName: string): boolean{
-  //   return this.entityTypes.get(entityTypeKey).name == typeName;
-  // }
-
-  // dashboardKey_ = 0;
-  // @Input() set dashboardKey(v: number){
-  //   this.dashboardKey_ = v;
-  //   this.entityType_ = v - 2;
-  // }
-
-  entityTypeKey_: EnumEntityType = EnumEntityType.Company;
+  _entityTypeKey: EnumEntityType = EnumEntityType.Company;
   @Input() set entityTypeKey(v: EnumEntityType) {
-    this.entityTypeKey_ = v;
-    this.entities = this.data.getEntities(this.entityTypeKey_);
+    this._entityTypeKey = v;
+    this.entities = this.data.getEntities(this._entityTypeKey);
 
-    this.entityTypeName_ = this.data.entityTypes
-      .get(this.entityTypeKey_)
+    this._entityTypeName = this.data.entityTypes
+      .get(this._entityTypeKey)
       .name.toLowerCase();
   }
 
-  entityKey_ = -1;
+  _entityKey = -1;
 
   get entityTypeKey() {
-    return this.entityTypeKey_;
+    return this._entityTypeKey;
   }
 
   get entityTypeName(): string {
-    if (this.entityType_ != this.entityType_T) {
-      this.entityTypeName_ = this.data.entityTypes
+    if (this._entityType != this._entityType_T) {
+      this._entityTypeName = this.data.entityTypes
         .get(this.entityTypeKey)
         .name.toLowerCase();
-      this.entityType_T = this.entityType_;
+      this._entityType_T = this._entityType;
     }
-    return this.entityTypeName_;
+    return this._entityTypeName;
   }
 
   get entityTypeNameCapitilised(): string {
@@ -148,25 +138,25 @@ export class EntityDetailsComponent implements OnInit {
     ) {
       if (!this.entities.has(this.entityKey)) {
         this.entityKey = this.entities.firstKey;
-      } else this.entity_ = this.entities.get(this.entityKey).copy();
+      } else this._entity = this.entities.get(this.entityKey).copy();
 
-      this.entity_BackUp = this.entity_.copy();
+      this._entity_BackUp = this._entity.copy();
       this.entityKeyT = this.entityKey;
       this.entityTypeKeyT = this.entityTypeKey;
     }
 
-    return this.entity_;
+    return this._entity;
   }
 
   doSave() {
     let t = this.entities.get(this.entityKey);
-    t = Object.assign(t, this.entity_);
+    t = Object.assign(t, this._entity);
     this.dirty = false;
   }
 
   doCancel() {
-    this.entity_ = this.entities.get(this.entityKey).copy();
-    this.entity_BackUp = this.entity_.copy();
+    this._entity = this.entities.get(this.entityKey).copy();
+    this._entity_BackUp = this._entity.copy();
     this.dirty = false;
   }
 

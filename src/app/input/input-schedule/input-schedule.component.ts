@@ -9,12 +9,12 @@ import { Entity } from 'src/app/data/data-entity-parent';
 })
 export class InputScheduleComponent implements OnInit {
   @Input() isNarrow = false;
-  title_ = '';
+  private _title = '';
   @Input () set title(v: string){
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title(){
-    return this.title_;
+    return this._title;
   }
   @Input() stepNumber = 0;
   @Input() hideBody = true;

@@ -10,12 +10,12 @@ import { EntityAddress, EntityCity } from 'src/app/data/data-entity-kids';
   styleUrls: ['./input-address.component.css'],
 })
 export class InputAddressComponent implements OnInit {
-  title_ = 'Address';
+  private _title = 'Address';
   @Input() set title(v: string) {
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title() {
-    return this.title_;
+    return this._title;
   }
 
   @Input() filterText = '';

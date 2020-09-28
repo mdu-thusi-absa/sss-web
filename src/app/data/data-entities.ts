@@ -11,8 +11,13 @@ import {
   EntityMeeting,
   EntityWorkflow,
   EntityShareCertificate,
-  EntityFile,EntityFileDownload, EntityFileUpload, EntityAddress
+  EntityFile,
+  EntityFileDownload,
+  EntityFileUpload,
+  EntityAddress,
+  EntityCommittee,
 } from './data-entity-kids';
+import { DataService } from './data.service';
 
 export type AnyEntity =
   | Entity
@@ -31,69 +36,79 @@ export type AnyEntity =
   | EntityFileDownload
   | EntityFileUpload
   | EntityAddress
+  | EntityCommittee;
 
 export class Entities<T extends AnyEntity> extends Map<number, T> {
-  currentKey_ = -1;
-  currentValue_: T = null;
+  _currentKey = -1;
+  _currentValue: T = null;
   staticIs = true; //should not allow changes, otherwise redirect to DB
   private inFilterMap = new Map();
-  private filterText_ = '';
-  private onlyActive_ = true;
-  private countInFilter_ = 0;
-  private version_ = 0;
-  private firstKey_ = -1;
-  private lastKey_ = -1;
-  private firstKeyInFilter_ = -1;
-  private lastKeyInFilter_ = -1;
+  private _filterText = '';
+  private _onlyActive = true;
+  private _countInFilter = 0;
+  private _version = 0;
+  private _firstKey = -1;
+  private _lastKey = -1;
+  private _firstKeyInFilter = -1;
+  private _lastKeyInFilter = -1;
 
-  constructor(private EntityType) {
+  constructor(private EntityType, public data?: DataService) {
     super();
   }
 
   select(fieldName: string, equalTo: any): Entities<T> {
     let ets = new Entities<T>(this.EntityType);
+    ets.data = this.data;
     this.forEach((value, key, map) => {
-      if (value[fieldName] === equalTo) {
-        let a = this.createEntity();
-        a = Object.assign(a, value);
-        ets.add(a);
+      if (typeof equalTo == 'function') {
+        if (equalTo(value[fieldName])) {
+          let a = this.createEntity();
+          a = Object.assign(a, value);
+          ets.add(a);
+        }
+      } else {
+        if (value[fieldName] === equalTo) {
+          let a = this.createEntity();
+          a = Object.assign(a, value);
+          ets.add(a);
+        }
       }
     });
     return ets;
   }
 
-  selectFirst(fieldName: string, equalTo: any):AnyEntity{
-    let ets = this.select(fieldName, equalTo)
-    return ets.firstValue
+  selectFirst(fieldName: string, equalTo: any): AnyEntity {
+    let ets = this.select(fieldName, equalTo);
+    return ets.firstValue;
   }
 
   get firstKey() {
-    if (this.firstKey_<0 && this.size>0){
-      this.firstKey_ = this.all_keys[0]
+    if (this._firstKey < 0 && this.size > 0) {
+      this._firstKey = this.all_keys[0];
     }
-    return this.firstKey_;
+    return this._firstKey;
   }
 
   get lastKey() {
-    return this.lastKey_;
+    return this._lastKey;
   }
 
   get firstKeyInFilter() {
-    return this.firstKeyInFilter_ == -1
+    return this._firstKeyInFilter == -1
       ? this.firstKey
-      : this.firstKeyInFilter_;
+      : this._firstKeyInFilter;
   }
 
   get lastKeyInFilter() {
-    return this.lastKeyInFilter_ == -1 ? this.lastKey : this.lastKeyInFilter_;
+    return this._lastKeyInFilter == -1 ? this.lastKey : this._lastKeyInFilter;
   }
 
   get version() {
-    return this.version_;
+    return this._version;
   }
   //increment version
   versionUp() {
-    this.version_ += 1;
+    this._version += 1;
   }
 
   getClearCopy() {
@@ -103,6 +118,7 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
 
   clone() {
     let e = new Entities<T>(this.EntityType);
+    e.data = this.data;
     this.forEach((value, key, map) => {
       e.add(value);
     });
@@ -110,27 +126,27 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   get countInFilter() {
-    if (this.filterText_ == '') return this.size;
+    if (this._filterText == '') return this.size;
     else {
-      return this.countInFilter_;
+      return this._countInFilter;
     }
   }
 
   filter(filterText: string, onlyActive: boolean): Entities<T> {
-    this.filterText_ = filterText;
-    this.onlyActive_ = onlyActive;
+    this._filterText = filterText;
+    this._onlyActive = onlyActive;
     let ets = new Entities<T>(this.EntityType);
     this.inFilterMap = new Map();
-    this.countInFilter_ = 0;
+    this._countInFilter = 0;
     this.forEach((value, key, map) => {
-      if (value.inFilter(this.filterText_, this.onlyActive_)) {
+      if (value.inFilter(this._filterText, this._onlyActive)) {
         let a = this.createEntity();
         a = Object.assign(a, value);
         ets.add(a);
         this.inFilterMap.set(key, true);
-        this.countInFilter_ += 1;
-        if (this.firstKeyInFilter_ == -1) this.firstKeyInFilter_ = key;
-        this.lastKeyInFilter_ = key;
+        this._countInFilter += 1;
+        if (this._firstKeyInFilter == -1) this._firstKeyInFilter = key;
+        this._lastKeyInFilter = key;
       } else {
         this.inFilterMap.set(key, false);
       }
@@ -139,7 +155,7 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   inFilter(key: number, viewAll: boolean) {
-    if (this.filterText_ == '') {
+    if (this._filterText == '') {
       if (viewAll) return true;
       else {
         return key < 10; //load only first 10 entities into a list, until required
@@ -155,7 +171,9 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   createEntity() {
-    return new this.EntityType();
+    let o = new this.EntityType();
+    o['data'] = this.data;
+    return o;
   }
 
   fromJSON(json: string, maxToLoad?: number, setType?: string) {
@@ -178,8 +196,44 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     for (let i = 0; i < L; i++) {
       let a = this.createEntity();
       a = Object.assign(a, array[i]);
+      //deal with Dates
       if (setType) a.type = setType;
       this.add(a);
+    }
+
+    function _dealConvertJsonToObjects(
+      that: Entities<AnyEntity>,
+      entity: object
+    ): object {
+      let attrs = Object.keys(entity);
+      attrs.forEach((att) => {
+        if (_needsConvertingToDate(entity, att)) {
+          entity[att] = _strToDate(entity[att]);
+        } else if (_needsConvertingToAddress(entity, att)) {
+          // entity[att] = _strToAddress(that,entity[att])
+        }
+      });
+      return entity;
+      function _needsConvertingToDate(entity: object, fieldName: string) {
+        return (
+          fieldName.slice(-4) == 'Date' && typeof entity[fieldName] == 'string'
+        );
+      }
+      function _strToDate(text: string): Date {
+        return new Date(text);
+      }
+      function _needsConvertingToAddress(entity: object, fieldName: string) {
+        return (
+          fieldName.slice(-4) == 'Date' && typeof entity[fieldName] == 'string'
+        );
+      }
+      function _strToAddress(that: Entities<Entity>, text: string): Entity {
+        let a = new Entity('');
+        if (text) {
+          a.parseString(text);
+        }
+        return a;
+      }
     }
   }
 
@@ -197,33 +251,34 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
   }
 
   get currentKey() {
-    if (this.size > 0 && this.currentKey_ < 0) {
-      this.currentKey_ = this.all_keys[0];
+    if (this.size > 0 && this._currentKey < 0) {
+      this._currentKey = this.all_keys[0];
     }
-    return this.currentKey_;
+    return this._currentKey;
   }
 
   set currentKey(v: number) {
-    this.currentKey_ = v;
-    this.currentValue_ = this.get(this.currentKey_);
+    this._currentKey = v;
+    this._currentValue = this.get(this._currentKey);
   }
 
   get currentValue() {
-    if (this.currentKey_ == -1 && this.size > 0) {
+    if (this._currentKey == -1 && this.size > 0) {
       this.currentKey = this.all_keys[0];
     }
-    return this.currentValue_;
+    return this._currentValue;
   }
 
-  get firstValue(){
-    return this.get(this.firstKey)
+  get firstValue() {
+    return this.get(this.firstKey);
   }
 
   add(value: T): Entities<T> {
     let key = this.lastKey + 1;
     if (value.key) key = value.key;
-    if (this.firstKey_ == -1) this.firstKey_ = value.key;
-    this.lastKey_ = key;
+    if (this._firstKey == -1) this._firstKey = value.key;
+    value['data'] = this.data;
+    this._lastKey = key;
     super.set(key, value);
     return this;
   }

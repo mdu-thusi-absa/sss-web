@@ -5,23 +5,22 @@ import * as W from './data-workflow-classes';
 import * as E from './data-entity-types';
 import { Entities } from './data-entities';
 
-//TODO: branch to various forms: 15.2, 25, 21.1...
-export function getFormForName(
-  data: DataService,
-  formName: string
-): W.TaskForm {
-  let t7 = new W.TaskForm(data, 'formCoR211');
-  t7.name = formName;
-  t7.addInput(
-    'effectiveDate',
-    'date',
-    'Effective date of the amendment',
-    '',
-    new W.EntityValue(data, '', '', '', new Date())
-  );
-  // todo: add source type for each form and mapHeading
-  return t7;
-}
+// export function getFormForName(
+//   data: DataService,
+//   formName: string
+// ): W.TaskForm {
+//   let t7 = new W.TaskForm(data, 'formCoR211');
+//   t7.name = formName;
+//   t7.addInput(
+//     'effectiveDate',
+//     'date',
+//     'Effective date of the amendment',
+//     '',
+//     new W.EntityValue(data, '')
+//   );
+//   // todo: add source type for each form and mapHeading
+//   return t7;
+// }
 
 // export function getCompany_ForParentSelection(config: ConfigWorkflow) {
 //   let t = new W.TaskFlowSelect(config.data, 'companyKey');
@@ -63,7 +62,8 @@ export function getConfirm(
 ): W.TaskConfirm {
   let a = new W.TaskConfirm(data, fieldName);
   a.name = heading;
-  let entityValue = new W.EntityValue(data, '', '', '', defaultValue);
+  let entityValue = new W.EntityValue(data)
+  entityValue.initValue('','',defaultValue)
   a.targetsOfChange.push(entityValue);
   a.ensure = ensureValueIsTrue;
   return a;
@@ -334,18 +334,48 @@ export function getIndividual(data: DataService) {
   return a;
 }
 
-export function getIndividualNotForCountryForCommitteeType(data: DataService) {
+export function getCommitteeForCompany(data: DataService) {
+  let a = new W.TaskSelect(data, 'committeeKey');
+  a.name = 'Committee';
+  a.sourceType = E.EnumEntityType.CommitteeForCompany;
+  // a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+export function getIndividualNotActiveOnCommittee(data: DataService) {
   let a = new W.TaskSelect(data, 'individualKey');
-  a.name = 'Individual';
-  a.sourceType = E.EnumEntityType.IndividualNotForCompanyForCommitteType;
+  a.name = 'Appointee to be added';
+  a.sourceType = E.EnumEntityType.IndividualNotForCommittee;
   a.thisEntityNameIsObjectName = true;
   return a;
 }
 
-export function getIndividualsForCountryForCommitteeType(data: DataService) {
+export function getAppointmentOnCommittee(data: DataService) {
+  let a = new W.TaskSelect(data, 'committeeAppointmentKey');
+  a.name = 'Appointee to be added';
+  a.sourceType = E.EnumEntityType.CommitteeAppointmentActiveForCommittee;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+export function getCapacity(data: DataService) {
+  let a = new W.TaskSelect(data, 'capacityKey');
+  a.name = 'Appointee capacity';
+  a.sourceType = E.EnumEntityType.Capacity;
+  return a;
+}
+// export function getIndividualNotForCountryForCommitteeType(data: DataService) {
+//   let a = new W.TaskSelect(data, 'individualKey');
+//   a.name = 'Individual';
+//   a.sourceType = E.EnumEntityType.IndividualNotForCompanyForCommitteType;
+//   a.thisEntityNameIsObjectName = true;
+//   return a;
+// }
+
+export function getIndividualsForCommittee(data: DataService) {
   let a = new W.TaskSelect(data, 'individualKey');
   a.name = 'Individual';
-  a.sourceType = E.EnumEntityType.IndividualForCompanyForCommitteType;
+  a.sourceType = E.EnumEntityType.IndividualForCommittee;
   a.thisEntityNameIsObjectName = true;
   return a;
 }

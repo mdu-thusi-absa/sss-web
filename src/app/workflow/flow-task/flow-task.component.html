@@ -10,7 +10,7 @@
   [showClose] = "true"
   [showSync] = "false"
   [syncValue] = "this.workFlow.notifyIs"
-  (onClose) = "onClose.emit('')"
+  (onClose) = "doClose()"
   (onShowAll) = "doShowAll($event)"
   (onSaveNext)="doSaveNext()"
   (onSavePrev)="doSavePrev()"
@@ -98,6 +98,56 @@
     </div>
   </ng-container>
   {{this.workFlow.historyOfNames}}
-  <div>{{this.workFlow.historyOfNames?.length==1?'Finalised task':(this.workFlow.historyOfNames.length>1?'Finalised tasks':'')}}</div>
-  <div *ngFor="let e of this.workFlow.historyOfNames">{{e}}</div>
+  <div style='margin-left:5px;margin-right:5px;margin-top:5px'>{{this.workFlow.historyOfNames.length==1?'Finalised 1 task':(this.workFlow.historyOfNames.length!=1?'Finalised ' + this.workFlow.historyOfNames.length + ' tasks':'')}}</div>
+  <div style='margin-left:5px;margin-right:5px;' *ngFor="let e of this.workFlow.historyOfNames">{{e}}</div>
 </app-input-panel>
+
+<button
+  style="visibility: hidden;"
+  id = 'button-100001'
+  type="button"
+  class="btn btn-info btn-lg"
+  data-toggle="modal"
+  [attr.data-target]="'#dialog-close' + eid"
+>
+  Open Modal
+</button>
+<app-input-modal [id]="'dialog-close' + eid">
+  <div class="modal-body">
+    <app-label-h [title]="'Secretariat Software Solution'"></app-label-h>
+    <div [hidden]="cancelTaskIs">
+      Would you like to close the workflow to continue later, cancel the
+      task or go back and carry on?
+    </div>
+    <app-input-textarea  [hidden]="!cancelTaskIs"
+        [title]="'Audit reason for canceling the task'"
+      ></app-input-textarea>
+  </div>
+
+  <div class="modal-footer" [hidden]="cancelTaskIs">
+    <button type="button primary-color" class="btn btn-default" data-dismiss="modal" (click)="doReset()">
+      Close to continue later
+    </button>
+    <button type="button primary-color" class="btn btn-default"  (click)="cancelTaskIs=true">
+      Cancel task
+    </button>
+    <button type="button primary-color" class="btn btn-default" data-dismiss="modal">
+      Back
+    </button>
+  </div>
+  <div [hidden]="!cancelTaskIs">
+    <!-- <div class="modal-body">
+      <app-input-textarea
+        [title]="'Audit reason for canceling the task'"
+      ></app-input-textarea>
+    </div> -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="doReset()">
+        Save the reason and cancel the task
+      </button>
+      <button type="button" class="btn btn-default" (click)="cancelTaskIs=false">
+        Back
+      </button>
+    </div>
+  </div>
+</app-input-modal>

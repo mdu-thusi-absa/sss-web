@@ -29,13 +29,13 @@ function queKids(
   let f = parentEntity.functionName;
   if (_stillSubMenuesToBuild(kids)) {
     task = _buildSubMenu(parentEntity, parentTask, data);
-    _genSubSubMenus(kids)
+    _genSubSubMenus(kids);
   } else {
     task = _execTaskBuildingFunction(data, parentTask, parentEntity, f);
   }
   return task;
 
-  function _genSubSubMenus(kids: Entities<AnyEntity>){
+  function _genSubSubMenus(kids: Entities<AnyEntity>) {
     kids.forEach((value, key, map) => {
       if (value.activeIs) queKids(value as K.EntityWorkflow, task, data);
     });
@@ -104,34 +104,85 @@ interface queFunction {
   ): W.Task;
 }
 
-function queCommitteeMembershipAdd(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
+function queCommitteeMembershipAdd(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
   let taskList = new G.TaskList(parentTask, parentEntity);
-  taskList.add(G.getCountryForTask(data))
-  taskList.add(G.getCommitteeTypesForCountry(data))
-  taskList.add(G.getCompany(data))
-  taskList.add(G.getIndividualNotForCountryForCommitteeType(data)) //that is not on committee
+  taskList.add(G.getCountryForTask(data));
+  taskList.add(G.getCompany(data));
+
+  taskList.add(G.getCommitteeForCompany(data));
+  taskList.add(G.getCapacity(data));
+  taskList.add(G.getIndividualNotActiveOnCommittee(data)); //that is not on committee
 
   _getFinaliseTask(data, taskList);
-  // create and save record, update object
-  //taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  // let actionInsert = new W.EntityValue(data, 'committeeAppointmentKey', '');
+  let actionInsert = new W.EntityValue(data);
+  actionInsert.addNotify('companyKey', 'committeeForCompanyKeys');
+  actionInsert.initInsert(
+    E.EnumEntityType.CommitteeAppointment,
+    ['committeeKey', 'individualKey', 'capacityKey', 'startDate'],
+    ['committeeKey', 'individualKey', 'capacityKey', 'recordDate']
+  );
+  taskList.firstTask.targetsOfChange.push(actionInsert);
   return taskList.firstTask;
 }
 
-function queCommitteeMembershipRemove(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
+function queCommitteeMembershipRemove(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
   let taskList = new G.TaskList(parentTask, parentEntity);
-  taskList.add(G.getCountryForTask(data))
-  taskList.add(G.getCommitteeTypesForCountry(data))
-  taskList.add(G.getCompany(data))
-  taskList.add(G.getIndividualsForCountryForCommitteeType(data)) //that is not on committee
+  taskList.add(G.getCountryForTask(data));
+  taskList.add(G.getCompany(data));
+
+  taskList.add(G.getCommitteeForCompany(data));
+  //taskList.add(G.getCapacity(data));
+  taskList.add(G.getAppointmentOnCommittee(data));
 
   _getFinaliseTask(data, taskList);
-  // create and save record, update object
-  //taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  let actionUpdate = new W.EntityValue(data);
+  // actionUpdate
+  //   .initNotify('companyKey', 'committeeForCompanyKeys')
+  //   .initUpdate('committeeAppointmentKey', 'endDate', 'recordDate');
+  actionUpdate
+    .addNotify('companyKey', 'committeeForCompanyKeys')
+    .addNotify('committeeKey', 'committeeAppointmentActiveForCommitteeKeys')
+    .addNotify('committeeKey', 'committeeAppointmentNotActiveForCommitteeKeys')
+    .initUpdate('committeeAppointmentKey', 'endDate', 'recordDate');
+  taskList.firstTask.targetsOfChange.push(actionUpdate);
   return taskList.firstTask;
 }
 
-function queChangeAddressPhysical(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'physicalAddress','Physical address')}
-function queChangeAddressPostal(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyAddress(parentEntity,parentTask,data,'postalAddress','Postal address')}
+function queChangeAddressPhysical(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyAddress(
+    parentEntity,
+    parentTask,
+    data,
+    'physicalAddress',
+    'Physical address'
+  );
+}
+function queChangeAddressPostal(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyAddress(
+    parentEntity,
+    parentTask,
+    data,
+    'postalAddress',
+    'Postal address'
+  );
+}
 function _getChangeCompanyAddress(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -142,25 +193,58 @@ function _getChangeCompanyAddress(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    new K.EntityAddress(data)
-  );
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, new K.EntityAddress(data))
+    .initUpdate('companyKey', fieldName, fieldName);
   taskList.add(G.getInputAddress(data, fieldName, heading, updateEntityValue));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-
-function queChangeWeightDirectParentPercentOwnership(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'parentHoldingWeight','Direct parent holding weight')}
-function queChangeWeightAbsaShareholdingInTheEntityPercent(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'clientHoldingWeight','Absa holding weight')}
-function queChangeWeightPIScore(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyNumber(parentEntity,parentTask,data,'piScore','PI score')}
+function queChangeWeightDirectParentPercentOwnership(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyNumber(
+    parentEntity,
+    parentTask,
+    data,
+    'parentHoldingWeight',
+    'Direct parent holding weight'
+  );
+}
+function queChangeWeightAbsaShareholdingInTheEntityPercent(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyNumber(
+    parentEntity,
+    parentTask,
+    data,
+    'clientHoldingWeight',
+    'Absa holding weight'
+  );
+}
+function queChangeWeightPIScore(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyNumber(
+    parentEntity,
+    parentTask,
+    data,
+    'piScore',
+    'PI score'
+  );
+}
 function _getChangeCompanyNumber(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -171,73 +255,257 @@ function _getChangeCompanyNumber(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    ''
-  );
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, '')
+    .initUpdate('companyKey', fieldName, fieldName);
   taskList.add(G.getInputNumber(data, fieldName, heading, updateEntityValue));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-
-// function queChangeSelectionAbsaInterconnectedEntityName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
+// function queChangeSelectionAbsaInterconnectedEntityName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService)
 //   {return _getChangeCompanySelection(parentEntity,parentTask,data,'clientInterconnectedEntityKey','Absa interconnected entity',E.EnumEntityType.Company)}
 // function queChangeSelectionAbsaShareholdingInEntityShareholder(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService)
 //   {return _getChangeCompanySelection(parentEntity,parentTask,data,'clientHoldingCompanyKey','Absa shareholding entity',E.EnumEntityType.Company)}
-function queChangeSelectionDirectParentownershipMajorShareholder(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'parentCompanyKey','Direct parent/major shareholder',E.EnumEntityType.Company)}
-function queChangeSelectionEntityStatusTiering(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'entityStatusTierKey','Entity status tier',E.EnumEntityType.EntityStatusTier)}
-function queChangeSelectionBusinessDivision(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'businessDivisionKey','Business division',E.EnumEntityType.BusinessDivision)}
-function queChangeSelectionAccountingClassification(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'accountingClassKey','Accounting classification',E.EnumEntityType.AccountingClass)}
-function queChangeSelectionAccountingClassificationTiering(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'accountingClassTierKey','Accounting classification tier',E.EnumEntityType.AccountingClassTier)}  
-function queChangeSelectionConsolidatednonconsolidated(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'consolidationKey','Consolidation status',E.EnumEntityType.Consolidation)}  
-function queChangeSelectionEntityStatus(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'entityStatusKey','Entity status',E.EnumEntityType.EntityStatus)}  
-function queChangeSelectionBusinessArea(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'businessAreaKey','Business area',E.EnumEntityType.BusinessArea)}  
-function queChangeSelectionAppointedCompanySecretary(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'secretariatKey','Appointed secretariat',E.EnumEntityType.Secretariat)}
-function queChangeSelectionCompanyType(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'companyTypeKey','Company type',E.EnumEntityType.CompanyType)}
-function queChangeSelectionAbsaGroupSecretariatRepresentative(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'secretaryKey','Absa secretary representative',E.EnumEntityType.Secretary)}
-function queChangeSelectionIndustry(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'industryKey','Industry',E.EnumEntityType.Industry)}
-function queChangeSelectionLegalClassification(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'legalClassKey','Legal classification',E.EnumEntityType.LegalClass)}
-function queChangeSelectionLegalEntityExecutive_LEE(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) 
-  {return _getChangeCompanySelection(parentEntity,parentTask,data,'leeKey','Legal entity executive',E.EnumEntityType.Individual)}
+function queChangeSelectionDirectParentownershipMajorShareholder(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'parentCompanyKey',
+    'Direct parent/major shareholder',
+    E.EnumEntityType.Company
+  );
+}
+function queChangeSelectionEntityStatusTiering(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'entityStatusTierKey',
+    'Entity status tier',
+    E.EnumEntityType.EntityStatusTier
+  );
+}
+function queChangeSelectionBusinessDivision(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'businessDivisionKey',
+    'Business division',
+    E.EnumEntityType.BusinessDivision
+  );
+}
+function queChangeSelectionAccountingClassification(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'accountingClassKey',
+    'Accounting classification',
+    E.EnumEntityType.AccountingClass
+  );
+}
+function queChangeSelectionAccountingClassificationTiering(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'accountingClassTierKey',
+    'Accounting classification tier',
+    E.EnumEntityType.AccountingClassTier
+  );
+}
+function queChangeSelectionConsolidatednonconsolidated(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'consolidationKey',
+    'Consolidation status',
+    E.EnumEntityType.Consolidation
+  );
+}
+function queChangeSelectionEntityStatus(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'entityStatusKey',
+    'Entity status',
+    E.EnumEntityType.EntityStatus
+  );
+}
+function queChangeSelectionBusinessArea(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'businessAreaKey',
+    'Business area',
+    E.EnumEntityType.BusinessArea
+  );
+}
+function queChangeSelectionAppointedCompanySecretary(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'secretariatKey',
+    'Appointed secretariat',
+    E.EnumEntityType.Secretariat
+  );
+}
+function queChangeSelectionCompanyType(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'companyTypeKey',
+    'Company type',
+    E.EnumEntityType.CompanyType
+  );
+}
+function queChangeSelectionAbsaGroupSecretariatRepresentative(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'secretaryKey',
+    'Absa secretary representative',
+    E.EnumEntityType.Secretary
+  );
+}
+function queChangeSelectionIndustry(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'industryKey',
+    'Industry',
+    E.EnumEntityType.Industry
+  );
+}
+function queChangeSelectionLegalClassification(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'legalClassKey',
+    'Legal classification',
+    E.EnumEntityType.LegalClass
+  );
+}
+function queChangeSelectionLegalEntityExecutive_LEE(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanySelection(
+    parentEntity,
+    parentTask,
+    data,
+    'leeKey',
+    'Legal entity executive',
+    E.EnumEntityType.Individual
+  );
+}
 
-function queChangeSelectionCountryOfIncorporation(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {
-  
+function queChangeSelectionCountryOfIncorporation(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue_Country = new W.EntityValue(data,'companyKey','countryKey','countryKey','');
-  let updateEntityValue_Suffix = new W.EntityValue(data,'companyKey','suffix','suffix','');
-  taskList.add(G.getInputSelection(data, 'countryKey', 'Country of incorporation', updateEntityValue_Country,E.EnumEntityType.Country));
-  taskList.add(G.getInputText(data, 'suffix', 'Suffix', updateEntityValue_Suffix,false));
-
+  let updateEntityValue_Country = new W.EntityValue(data);
+  updateEntityValue_Country
+    .addNotify('companyKey', 'countryKey')
+    .initValue('companyKey', 'countryKey', '')
+    .initUpdate('companyKey', 'countryKey', 'countryKey');
+  let updateEntityValue_Suffix = new W.EntityValue(data);
+  updateEntityValue_Suffix
+    .addNotify('companyKey', 'suffix')
+    .initValue('companyKey', 'suffix', 'suffix')
+    .initUpdate('companyKey', 'suffix', 'suffix');
+  taskList.add(
+    G.getInputSelection(
+      data,
+      'countryKey',
+      'Country of incorporation',
+      updateEntityValue_Country,
+      E.EnumEntityType.Country
+    )
+  );
+  taskList.add(
+    G.getInputText(data, 'suffix', 'Suffix', updateEntityValue_Suffix, false)
+  );
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue_Country)
-  taskList.firstTask.targetsOfChange.push(updateEntityValue_Suffix)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue_Country);
+  taskList.firstTask.targetsOfChange.push(updateEntityValue_Suffix);
   return taskList.firstTask;
 }
-
 
 function _getChangeCompanySelection(
   parentEntity: K.EntityWorkflow,
@@ -250,23 +518,53 @@ function _getChangeCompanySelection(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    ''
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, '')
+    .initUpdate('companyKey', fieldName, fieldName);
+  taskList.add(
+    G.getInputSelection(
+      data,
+      fieldName,
+      heading,
+      updateEntityValue,
+      sourceEnumEntityType
+    )
   );
-  taskList.add(G.getInputSelection(data, fieldName, heading, updateEntityValue,sourceEnumEntityType));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-function queChangeMonthAnniversary(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyMonth(parentEntity,parentTask,data,'anniversaryMonthKey','Anniversary month')}
-function queChangeMonthFinancialYearEnd(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyMonth(parentEntity,parentTask,data,'fyeMonthKey','Financial year end')}
+function queChangeMonthAnniversary(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyMonth(
+    parentEntity,
+    parentTask,
+    data,
+    'anniversaryMonthKey',
+    'Anniversary month'
+  );
+}
+function queChangeMonthFinancialYearEnd(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyMonth(
+    parentEntity,
+    parentTask,
+    data,
+    'fyeMonthKey',
+    'Financial year end'
+  );
+}
 
 function _getChangeCompanyMonth(
   parentEntity: K.EntityWorkflow,
@@ -278,26 +576,85 @@ function _getChangeCompanyMonth(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    ''
-  );
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, '')
+    .initUpdate('companyKey', fieldName, fieldName);
+
   taskList.add(G.getInputMonth(data, fieldName, heading, updateEntityValue));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-function queChangeStatusRepresentativeOffice(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'representativeOfficeIs','Is a representative office')}
-function queChangeStatusForeignBranch(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'foreignBranchIs','Is foreign branch')}
-function queChangeStatusCertificatesAreKept(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'holdsCertificatesIs','Are certificates kept')}
-function queChangeStatusInterconnectedWithinGroup(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'connectedEntityIs','is internconnected in group')}
-function queChangeStatusGroupCompany(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDecide(parentEntity,parentTask,data,'groupCompanyIs','Absa group')}
+function queChangeStatusRepresentativeOffice(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDecide(
+    parentEntity,
+    parentTask,
+    data,
+    'representativeOfficeIs',
+    'Is a representative office'
+  );
+}
+function queChangeStatusForeignBranch(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDecide(
+    parentEntity,
+    parentTask,
+    data,
+    'foreignBranchIs',
+    'Is foreign branch'
+  );
+}
+function queChangeStatusCertificatesAreKept(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDecide(
+    parentEntity,
+    parentTask,
+    data,
+    'holdsCertificatesIs',
+    'Are certificates kept'
+  );
+}
+function queChangeStatusInterconnectedWithinGroup(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDecide(
+    parentEntity,
+    parentTask,
+    data,
+    'connectedEntityIs',
+    'is internconnected in group'
+  );
+}
+function queChangeStatusGroupCompany(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDecide(
+    parentEntity,
+    parentTask,
+    data,
+    'groupCompanyIs',
+    'Absa group'
+  );
+}
 
 function _getChangeCompanyConfirm(
   parentEntity: K.EntityWorkflow,
@@ -309,18 +666,16 @@ function _getChangeCompanyConfirm(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    ''
-  );
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, fieldName)
+    .initUpdate('companyKey', fieldName, fieldName);
   taskList.add(G.getInputConfirm(data, fieldName, heading, updateEntityValue));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
@@ -334,22 +689,45 @@ function _getChangeCompanyDecide(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,true
-  );
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, true)
+    .initUpdate('companyKey', fieldName, fieldName);
   taskList.add(G.getInputDecide(data, fieldName, heading, updateEntityValue));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-function queChangeDateIncorporationDate(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDate(parentEntity,parentTask,data,'incorporationDate','Incorporation date')}
-function queChangeDateBusinessStart(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDate(parentEntity,parentTask,data,'businessStartDate','Business start date')}
+function queChangeDateIncorporationDate(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDate(
+    parentEntity,
+    parentTask,
+    data,
+    'incorporationDate',
+    'Incorporation date'
+  );
+}
+function queChangeDateBusinessStart(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDate(
+    parentEntity,
+    parentTask,
+    data,
+    'businessStartDate',
+    'Business start date'
+  );
+}
 
 function _getChangeCompanyDate(
   parentEntity: K.EntityWorkflow,
@@ -361,23 +739,45 @@ function _getChangeCompanyDate(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    ''
-  );
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, new Date())
+    .initUpdate('companyKey', fieldName, fieldName);
   taskList.add(G.getInputDate(data, fieldName, heading, updateEntityValue));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
-  taskList.firstTask.targetsOfChange.push(updateEntityValue)
+  taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-function queChangeTextNatureOfBusinessForAnnualFinancialStatements(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDesc(parentEntity,parentTask,data,'objectivePublishedDesc','Nature of business for annual financial statements')}
-function queChangeTextNatureOfBusinessActivitiesForMOI(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyDesc(parentEntity,parentTask,data,'objectiveRegisteredDesc','Nature of business for MOI')}
+function queChangeTextNatureOfBusinessForAnnualFinancialStatements(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDesc(
+    parentEntity,
+    parentTask,
+    data,
+    'objectivePublishedDesc',
+    'Nature of business for annual financial statements'
+  );
+}
+function queChangeTextNatureOfBusinessActivitiesForMOI(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyDesc(
+    parentEntity,
+    parentTask,
+    data,
+    'objectiveRegisteredDesc',
+    'Nature of business for MOI'
+  );
+}
 function _getChangeCompanyDesc(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -388,26 +788,186 @@ function _getChangeCompanyDesc(
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(data,'companyKey',fieldName,fieldName,'');
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, '')
+    .initUpdate('companyKey', fieldName, fieldName);
   taskList.add(G.getInputDesc(data, fieldName, heading, updateEntityValue));
   _getFinaliseTask(data, taskList);
   taskList.firstTask.targetsOfChange.push(updateEntityValue);
   return taskList.firstTask;
 }
 
-function queChangeTextCompanyName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'name','Entity name')}
-function queChangeCodeInternalCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'internalCode','Internal code')}
-function queChangeCodeLE(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leCode','LE code')}
-function queChangeCodeRegistrationNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'registrationCode','Registration number')}
-function queChangeCodeIncomeTaxNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'incomeTax','Income tax number')}
-function queChangeCodeValueAddedTaxNumber(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'vatCode','Value Added Tax number')}
-function queChangeCodeListedShareCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'listedCode','Listed share code')}
-function queChangeCodeISIN(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'isinCode','ISIN code')}
-function queChangeCodeLEINumber_Bloomberg(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'leiCode','LEI number (Bloomberg)')}
-function queChangeCodeReuters(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'reutersCode','Reuters code')}
-function queChangeTextSuffix(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'suffix','Suffix')}
-function queChangeCodeRegulatorClientCode(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'regulatorClientCode','Regulator client code')}
-function queChangeTextShortDescription(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService) {return _getChangeCompanyText(parentEntity,parentTask,data,'description','Short description')}
+function queChangeTextCompanyName(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'name',
+    'Entity name'
+  );
+}
+function queChangeCodeInternalCode(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'internalCode',
+    'Internal code'
+  );
+}
+function queChangeCodeLE(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'leCode',
+    'LE code'
+  );
+}
+function queChangeCodeRegistrationNumber(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'registrationCode',
+    'Registration number'
+  );
+}
+function queChangeCodeIncomeTaxNumber(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'incomeTax',
+    'Income tax number'
+  );
+}
+function queChangeCodeValueAddedTaxNumber(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'vatCode',
+    'Value Added Tax number'
+  );
+}
+function queChangeCodeListedShareCode(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'listedCode',
+    'Listed share code'
+  );
+}
+function queChangeCodeISIN(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'isinCode',
+    'ISIN code'
+  );
+}
+function queChangeCodeLEINumber_Bloomberg(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'leiCode',
+    'LEI number (Bloomberg)'
+  );
+}
+function queChangeCodeReuters(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'reutersCode',
+    'Reuters code'
+  );
+}
+function queChangeTextSuffix(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'suffix',
+    'Suffix'
+  );
+}
+function queChangeCodeRegulatorClientCode(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'regulatorClientCode',
+    'Regulator client code'
+  );
+}
+function queChangeTextShortDescription(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'description',
+    'Short description'
+  );
+}
 
 function _getChangeCompanyText(
   parentEntity: K.EntityWorkflow,
@@ -416,19 +976,17 @@ function _getChangeCompanyText(
   fieldName: string,
   heading: string
 ) {
-  
-
   let taskList = new G.TaskList(parentTask, parentEntity);
   _getCompany(data, taskList);
   //show show inputText to edit
-  let updateEntityValue = new W.EntityValue(
-    data,
-    'companyKey',
-    fieldName,
-    fieldName,
-    ''
+  let updateEntityValue = new W.EntityValue(data);
+  updateEntityValue
+    .addNotify('companyKey', fieldName)
+    .initValue('companyKey', fieldName, '')
+    .initUpdate('companyKey', fieldName, fieldName);
+  taskList.add(
+    G.getInputText(data, fieldName, heading, updateEntityValue, true)
   );
-  taskList.add(G.getInputText(data, fieldName, heading, updateEntityValue,true));
 
   _getFinaliseTask(data, taskList);
   // create and save record, update object
@@ -447,7 +1005,9 @@ function queAppointmentDirector(
 
   taskList.add(G.getDirectorType(data));
 
-  taskList.add(G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false));
+  taskList.add(
+    G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false)
+  );
   taskList.add(G.getAppointmentAction(data));
   taskList.add(G.getIndividualForEmployeeStatus(data));
 
@@ -455,8 +1015,8 @@ function queAppointmentDirector(
     K.EntityFileDownload
   );
   secreatryDownFileList
-    .add(new K.EntityFileDownload('Sec 1'))
-    .add(new K.EntityFileDownload('Sec 2'));
+    .add(new K.EntityFileDownload('Entity Details SA'))
+    .add(new K.EntityFileDownload('FSP 4B'));
   taskList.add(
     G.getDownloadFiles(
       data,
@@ -467,10 +1027,8 @@ function queAppointmentDirector(
   );
 
   let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
-    .add(new K.EntityFileUpload('Signed consent form from the director'))
-    .add(new K.EntityFileUpload('Filled director procedural guidelines'))
-    .add(new K.EntityFileUpload(`Person's ID`))
-    .add(new K.EntityFileUpload(`Person's CV`));
+    .add(new K.EntityFileUpload('Entity Details SA'))
+    .add(new K.EntityFileUpload('FSP 4B'))
   taskList.add(
     G.getUploadFiles(
       data,
@@ -484,8 +1042,9 @@ function queAppointmentDirector(
     K.EntityFileDownload
   );
   individualDownFileList
-    .add(new K.EntityFileDownload('Consent form for the director to sign'))
-    .add(new K.EntityFileDownload('Director procedural guideline pack'));
+    .add(new K.EntityFileDownload('Sign off, consent declaration privacy combined'))
+    .add(new K.EntityFileDownload('Abbreviated CV'))
+    .add(new K.EntityFileDownload('Skill assessment'))
   taskList.add(
     G.getDownloadFiles(
       data,
@@ -499,9 +1058,10 @@ function queAppointmentDirector(
     K.EntityFileUpload
   )
     .add(new K.EntityFileUpload('Signed consent form from the director'))
-    .add(new K.EntityFileUpload('Filled director procedural guidelines'))
-    .add(new K.EntityFileUpload(`Person's ID`))
-    .add(new K.EntityFileUpload(`Person's CV`));
+    .add(new K.EntityFileUpload('Filled abbreviated CV'))
+    .add(new K.EntityFileUpload(`Filled skill assessment`))
+    .add(new K.EntityFileUpload(`Individual's ID`))
+    .add(new K.EntityFileUpload(`Individual's Passport`))
   taskList.add(
     G.getUploadFiles(
       data,
@@ -591,21 +1151,25 @@ function queAppointmentDirector(
     )
   );
 
+  let ev = new W.EntityValue(data);
+  ev.initValue('', '', '-');
   taskList.add(
     G.getInputText(
       data,
       'regulatorSubmissionCode',
       'Regulator code for submission',
-      new W.EntityValue(data, '', '', '', ''),
+      ev,
       true
     )
   );
+  let ew = new W.EntityValue(data);
+  ew.initValue('', '', new Date());
   taskList.add(
     G.getInputDate(
       data,
       'regulatorSubmissionDate',
       'Date of submission to the regulator',
-      new W.EntityValue(data,'','','',new Date())
+      ew
     )
   );
   //taskList.add(G.getConfirm(data, taskList.lastTask,'regulatorSubmissionConfirmIs','Regulator submited',false));
@@ -654,7 +1218,9 @@ function _getApproval(
 
 function _getFinaliseTask(data: DataService, taskList: G.TaskList) {
   taskList.add(G.getRecordDate(data, 'recordDate', 'Record date'));
-  taskList.add(G.getConfirm(data, 'finaliseIs', 'Finalise record', false, true));
+  taskList.add(
+    G.getConfirm(data, 'finaliseIs', 'Finalise record', false, true)
+  );
 }
 
 function _getAuthorisation(data: DataService, taskList: G.TaskList) {
@@ -762,12 +1328,26 @@ function _useCompany_Amend_Specific(
   let a = new W.TaskForm(data, fieldName);
   a.entityFieldKeyName = 'companyKey'; //the form will retrieve the relevant object, if it needs to show any of it's fields
   a.name = 'The amendment';
+  // a.addInput(
+  //   fieldName,
+  //   data.getFieldTypeForFieldName(fieldName),
+  //   heading,
+  //   '',
+  //   new W.EntityValue(data, 'companyKey', 'companyKey', fieldName, '')
+  // );
+
+  let ev = new W.EntityValue(data);
+  ev.addNotify('companyKey', 'companyKey').initValue(
+    'companyKey',
+    'companyKey',
+    ''
+  );
   a.addInput(
     fieldName,
     data.getFieldTypeForFieldName(fieldName),
     heading,
     '',
-    new W.EntityValue(data, 'companyKey', 'companyKey', fieldName, '')
+    ev
   );
 
   taskList.add(a);
@@ -784,7 +1364,7 @@ function _useCompany_Amend_Specific(
   );
 
   //'CoR 21.1' or any other
-  taskList.add(G.getFormForName(data, 'Required inputs'));
+  //taskList.add(G.getFormForName(data, 'Required inputs'));
 
   let submitFileList = new Entities<K.EntityFileDownload>(
     K.EntityFileDownload

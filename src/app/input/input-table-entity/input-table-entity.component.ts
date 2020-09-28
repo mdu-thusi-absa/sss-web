@@ -18,7 +18,8 @@ export class InputTableEntityComponent implements OnInit {
   headings: string[] = [];
   fields: string[] = [];
   values: any[] = [];
-  filterText_ = '';
+  private _filterText = '';
+  showFilter = false
 
   isHiddenMap = new Map();
   countFiltered = 0;
@@ -32,8 +33,6 @@ export class InputTableEntityComponent implements OnInit {
 
   @Input() set entity(v: AnyEntity) {
     this._entity = v;
-    // if (this._entity)
-    //   this._entity.event.addListener('change',(e)=>{this.onUpdateEntity(e,'')})
     this._entity.addListener(this);
     this.loadValues();
   }
@@ -42,23 +41,36 @@ export class InputTableEntityComponent implements OnInit {
     return this._entity;
   }
 
-  notify(...args) {
-    try {
-      this.loadValues();
-      let fieldName_Updated = args[0][1];
-      this.filterText = this.headings[this.fields.indexOf(fieldName_Updated)];
-    } catch (e) {
-      console.log('Failed to reload on notify', args, e);
-    }
-  }
-
   ngOnInit(): void {
     this.headingsMap = this.entity.headingsMap;
     this.headings = Array.from(this.headingsMap.values());
     this.fields = Array.from(this.headingsMap.keys());
     this.countFiltered = this.headings.length;
     this.loadValues();
+    this.showFilter = this.fields.length>9
   }
+
+  notify(...args) {
+    try {
+      
+      let fieldName_Updated = args[0][1];
+      this.loadValue_Specific(fieldName_Updated)
+      if (this.showFilter)
+        this.filterText = this.headings[this.fields.indexOf(fieldName_Updated)];
+    } catch (e) {
+      console.log('Failed to reload on notify', args, e);
+    }
+  }
+
+  loadValue_Specific(fieldName: string){
+    if (this.entity) {
+      let i = this.fields.indexOf(fieldName)
+      this.values[i] = ''
+      this.values[i] = this.getFieldValue(fieldName)
+    }
+  }
+
+
 
   loadValues() {
     if (this.entity) {
@@ -72,7 +84,7 @@ export class InputTableEntityComponent implements OnInit {
   getFieldValue(
     fieldName: string
   ): string | Entities<AnyEntity> | EntityAddress {
-    let d = this.data.getEntityFieldValue(this.entity, fieldName);
+    let d = this.data.getEntityFieldTextOrEntity(this.entity, fieldName);
     return d;
   }
 
@@ -81,13 +93,13 @@ export class InputTableEntityComponent implements OnInit {
   }
 
   set filterText(v: string) {
-    if (v != this.filterText_) {
-      this.filterText_ = v;
+    if (v != this._filterText) {
+      this._filterText = v;
       this.setCounts();
     }
   }
   get filterText() {
-    return this.filterText_;
+    return this._filterText;
   }
 
   getDoLoad(e: AnyEntity) {
@@ -120,7 +132,7 @@ export class InputTableEntityComponent implements OnInit {
   }
 
   getCountFiltered() {
-    if (this.filterText_) {
+    if (this._filterText) {
       if (this.entity) {
         return [...this.isHiddenMap.values()].filter((e) => !e).length;
       }

@@ -109,6 +109,7 @@ import { FlowTextareaComponent } from './workflow/flow-textarea/flow-textarea.co
 import { FlowAddressComponent } from './workflow/flow-address/flow-address.component';
 import { InputSelectListComponent } from './input/input-select-list/input-select-list.component';
 import { FlowSelectMultiComponent } from './workflow/flow-select-multi/flow-select-multi.component';
+import { InputModalComponent } from './input/input-modal/input-modal.component';
 
 
 
@@ -212,6 +213,7 @@ import { FlowSelectMultiComponent } from './workflow/flow-select-multi/flow-sele
     FlowAddressComponent,
     InputSelectListComponent,
     FlowSelectMultiComponent,
+    InputModalComponent,
     
   ],
   imports: [

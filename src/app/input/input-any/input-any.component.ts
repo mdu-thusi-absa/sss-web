@@ -15,12 +15,12 @@ export class InputAnyComponent implements OnInit {
   @Input() doHideByFilter = true;
   @Input() showPanelHeading = true;
 
-  title_ = '';
+  private _title = '';
   @Input () set title(v: string){
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title(){
-    return this.title_;
+    return this._title;
   }
   @Input() placeholder = '';
   @Input() values: Entities<AnyEntity>; //: string[] | Person[] 

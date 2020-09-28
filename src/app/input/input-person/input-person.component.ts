@@ -18,12 +18,12 @@ import { EntityNatural } from 'src/app/data/data-entity-kids';
   styleUrls: ['./input-person.component.css'],
 })
 export class InputPersonComponent implements OnInit {
-  title_ = '';
+  private _title = '';
   @Input () set title(v: string){
-    this.title_ = Entity.sentanceCase(v);
+    this._title = Entity.sentanceCase(v);
   }
   get title(){
-    return this.title_;
+    return this._title;
   }
   @Input() filterText = '';
   @Input() doHideByFilter = false;
