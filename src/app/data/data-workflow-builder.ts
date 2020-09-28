@@ -969,6 +969,21 @@ function queChangeTextShortDescription(
   );
 }
 
+function queChangeCodeFSP(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  return _getChangeCompanyText(
+    parentEntity,
+    parentTask,
+    data,
+    'fspCode',
+    'Financial Services Provider registration number'
+  );
+}
+
+
 function _getChangeCompanyText(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
