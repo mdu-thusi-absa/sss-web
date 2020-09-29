@@ -238,6 +238,7 @@
                 >
                 Select pages
               </span>
+              
             </small>
 
             <small [hidden]="!isPage('dashboard')">
@@ -281,6 +282,7 @@
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
               ></app-buttons-toolbar-button> -->
+              {{entityName}}
               <app-buttons-toolbar-button
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="

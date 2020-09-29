@@ -475,15 +475,15 @@ export class EntityCompany extends EntityLegal {
 
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
-      ['boardAppointmentActiveForCompanyKeys', 'Board: Current'],
-      ['boardAppointmentNotActiveForCompanyKeys', 'Board: Previous'],
       ['name', 'Name'],
       ['description', 'Short business description'],
+      ['countryKey', 'Country of Incorporation'],
+      ['boardAppointmentActiveForCompanyKeys', 'Board: Current'],
+      ['boardAppointmentNotActiveForCompanyKeys', 'Board: Previous'],
       ['companyTypeKey', 'Company type'],
       ['internalCode', 'Internal code'],
       ['leCode', 'LE number'],
       ['registrationCode', 'Entity registration number'],
-      ['countryKey', 'Country of Incorporation'],
       ['representativeOfficeIs', 'Representative Office'],
       ['foreignBranchIs', 'Foreign Branch'],
       ['businessAreaKey', 'Business area'],

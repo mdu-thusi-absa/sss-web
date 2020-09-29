@@ -3,7 +3,7 @@ th, td {
   }
 
   .table-content{
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - 73px);
     overflow-y: auto;
   }
 

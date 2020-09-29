@@ -28,6 +28,7 @@ export class EntitiesContainerComponent implements OnInit {
   title = 'SSS';
   name: string = 'Max';
   public appVersion: string = version;
+  entityName = ''
 
   showPanelRight = true;
   showPanelLeft = false
@@ -154,16 +155,6 @@ export class EntitiesContainerComponent implements OnInit {
     for (let i = 0; i < btns.length; i++) {
       setTimeout(this.setHidePage, (i + 1) * 3, this, btns[i], needToHide);
     }
-
-    // setTimeout(this.setHidePage, 10, this, 'hidePrimary', needToHide);
-    // setTimeout(this.setHidePage, 20, this, 'hideSecondary', needToHide);
-    // setTimeout(this.setHidePage, 30, this, 'hideOptional', needToHide);
-    // setTimeout(this.setHidePage, 40, this, 'hideCustom', needToHide);
-    // setTimeout(this.setHidePage, 50, this, 'hideDetailFiles', needToHide);
-    // //setTimeout(this.setHidePage,10,//this.hideUsers needToHide;
-    // setTimeout(this.setHidePage, 60, this, 'hideContacts', needToHide);
-    // setTimeout(this.setHidePage, 80, this, 'hideMeetings', needToHide);
-    // setTimeout(this.setHidePage, 90, this, 'hideReminders', needToHide);
   }
 
   doLazy = false;
@@ -210,6 +201,7 @@ export class EntitiesContainerComponent implements OnInit {
 
   doEntityChange(event: any) {
     this.entityKey = +event;
+    this.entityName = this.data?.getEntities(this.entityTypeKey)?.get(this.entityKey).name
   }
 
   doSelectFields(selectedFields: string[]) {
@@ -356,4 +348,7 @@ export class EntitiesContainerComponent implements OnInit {
   isHalfPanel(): boolean {
     return this.panelRows == 0 ? false : this.panelRows == 2;
   }
+  // doNameChange(event: string){
+  //   setTimeout(this.entityName = event,100)
+  // }
 }

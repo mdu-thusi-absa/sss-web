@@ -44,7 +44,8 @@ export class EntityDetailsComponent implements OnInit {
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();
-  @Output() onTask = new EventEmitter();
+  @Output() onTask = new EventEmitter()
+  @Output() onNameChange = new EventEmitter()
 
   constructor(public data: DataService) {}
 
@@ -143,6 +144,7 @@ export class EntityDetailsComponent implements OnInit {
       this._entity_BackUp = this._entity.copy();
       this.entityKeyT = this.entityKey;
       this.entityTypeKeyT = this.entityTypeKey;
+      this.onNameChange.emit(this._entity.name)
     }
 
     return this._entity;
