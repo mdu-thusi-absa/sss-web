@@ -104,6 +104,51 @@ interface queFunction {
   ): W.Task;
 }
 
+function queBoardMembershipAdd(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data));
+  taskList.add(G.getCompany(data));
+
+  // taskList.add(G.getCommitteeForCompany(data));
+  taskList.add(G.getDirectorType(data));
+  taskList.add(G.getIndividualNotActiveOnBoard(data));
+
+  _getFinaliseTask(data, taskList);
+  let actionInsert = new W.EntityValue(data);
+  actionInsert.addNotify('companyKey', 'boardAppointmentActiveForCompanyKeys');
+  actionInsert.initInsert(
+    E.EnumEntityType.BoardAppointment,
+    ['companyKey', 'individualKey', 'directorTypeKey', 'startDate'],
+    ['companyKey', 'individualKey', 'directorTypeKey', 'recordDate']
+  );
+  taskList.firstTask.targetsOfChange.push(actionInsert);
+  return taskList.firstTask;
+}
+
+function queBoardMembershipRemove(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data));
+  taskList.add(G.getCompany(data));
+
+  taskList.add(G.getAppointmentOnBoard(data));
+
+  _getFinaliseTask(data, taskList);
+  let actionUpdate = new W.EntityValue(data);
+  actionUpdate
+    .addNotify('companyKey', 'boardAppointmentNotActiveForCompanyKeys')
+    .initUpdate('boardAppointmentKey', 'endDate', 'recordDate');
+  taskList.firstTask.targetsOfChange.push(actionUpdate);
+  return taskList.firstTask;
+}
+
 function queCommitteeMembershipAdd(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -1009,6 +1054,242 @@ function _getChangeCompanyText(
   return taskList.firstTask;
 }
 
+function queBoardMembershipAdd_SA(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data));
+  taskList.add(G.getCompany(data));
+
+  taskList.add(G.getDirectorType(data));
+
+  taskList.add(
+    G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false)
+  );
+  //taskList.add(G.getAppointmentAction(data));
+  taskList.add(G.getIndividualForEmployeeStatusNotOnBoard(data));
+
+  let secreatryDownFileList = new Entities<K.EntityFileDownload>(
+    K.EntityFileDownload
+  );
+  secreatryDownFileList
+    .add(new K.EntityFileDownload('Entity Details SA'))
+    .add(new K.EntityFileDownload('FSP 4B'));
+  taskList.add(
+    G.getDownloadFiles(
+      data,
+      secreatryDownFileList,
+      'secreatryDownFileList',
+      'Documents for the Company Secretary to fill'
+    )
+  );
+
+  let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
+    .add(new K.EntityFileUpload('Entity Details SA'))
+    .add(new K.EntityFileUpload('FSP 4B'))
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      secreatryUpFileList,
+      'secreatryUpFileList',
+      `Company secreatry filled files`
+    )
+  );
+
+  let individualDownFileList = new Entities<K.EntityFileDownload>(
+    K.EntityFileDownload
+  );
+  individualDownFileList
+    .add(new K.EntityFileDownload('Consent form for the director'))
+    .add(new K.EntityFileDownload('Abbreviated CV'))
+    .add(new K.EntityFileDownload('Skill assessment'))
+  taskList.add(
+    G.getDownloadFiles(
+      data,
+      individualDownFileList,
+      'individualDownFiles',
+      'Documents for the individual to fill'
+    )
+  );
+
+  let individualUpFileList = new Entities<K.EntityFileUpload>(
+    K.EntityFileUpload
+  )
+    .add(new K.EntityFileUpload('Signed consent form from the director'))
+    .add(new K.EntityFileUpload('Filled abbreviated CV'))
+    .add(new K.EntityFileUpload(`Filled skill assessment`))
+    .add(new K.EntityFileUpload(`Individual's ID`))
+    .add(new K.EntityFileUpload(`Individual's Passport`))
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      individualUpFileList,
+      'individualFiles',
+      `Individual's files`
+    )
+  );
+
+  _getAuthorisation(data, taskList);
+  _getApproval(
+    data,
+    taskList,
+    'approvalLegalDepartmentIs',
+    'Legal department approval'
+  );
+
+  let excoPackDownFileList = new Entities<K.EntityFileDownload>(
+    K.EntityFileDownload
+  );
+  excoPackDownFileList
+    .add(new K.EntityFileDownload('Exco endorsement cover sheet for Exco'))
+    .add(new K.EntityFileDownload('Exco supporting doc'));
+  taskList.add(
+    G.getDownloadFiles(
+      data,
+      excoPackDownFileList,
+      'excoPackFiles',
+      'Exco endorsement files'
+    )
+  );
+
+  taskList.add(
+    G.getConfirm(data, 'excoEndorsementApproveIs', 'Exco endorsed', true, true)
+  );
+
+  let excoEndorsementUpFileList = new Entities<K.EntityFileUpload>(
+    K.EntityFileUpload
+  ).add(new K.EntityFileUpload('Confirmation email file'));
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      excoEndorsementUpFileList,
+      'excoEndorsementUpFileList',
+      `Exco proof of endorsement`
+    )
+  );
+
+  let boardDownFileList = new Entities<K.EntityFileDownload>(
+    K.EntityFileDownload
+  );
+  boardDownFileList.add(new K.EntityFileDownload('Board approval'));
+  taskList.add(
+    G.getDownloadFiles(
+      data,
+      boardDownFileList,
+      'boardDownFileList',
+      'Board approval files'
+    )
+  );
+
+  let boardUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload);
+  boardUpFileList.add(new K.EntityFileUpload('Signed board resolution'));
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      boardUpFileList,
+      'boardUpFileList',
+      'Approved board approval files'
+    )
+  );
+
+  let regulatorDownFileList = new Entities<K.EntityFileDownload>(
+    K.EntityFileDownload
+  );
+  regulatorDownFileList
+    .add(new K.EntityFileDownload('CoR39'))
+    .add(new K.EntityFileDownload('Signed board resolution'))
+    .add(new K.EntityFileDownload('Signed director consent form'))
+    .add(new K.EntityFileDownload('Uploaded copy of director ID'));
+  taskList.add(
+    G.getDownloadFiles(
+      data,
+      regulatorDownFileList,
+      'regulatorDownFileList',
+      'Regulator submission files'
+    )
+  );
+
+  let ev = new W.EntityValue(data);
+  ev.initValue('', '', '-');
+  taskList.add(
+    G.getInputText(
+      data,
+      'regulatorSubmissionCode',
+      'Regulator code for submission',
+      ev,
+      true
+    )
+  );
+  let ew = new W.EntityValue(data);
+  ew.initValue('', '', new Date());
+  taskList.add(
+    G.getInputDate(
+      data,
+      'regulatorSubmissionDate',
+      'Date of submission to the regulator',
+      ew
+    )
+  );
+  taskList.add(
+    G.getReminder(
+      data,
+      'regulatorSubmissionConfirmIs',
+      'Regulator follow up reminder'
+    )
+  );
+  _getApproval(data, taskList, 'approvalRegulatortIs', 'Regulator approval');
+
+  let regulatorUpFileList = new Entities<K.EntityFileUpload>(
+    K.EntityFileUpload
+  );
+  regulatorUpFileList.add(
+    new K.EntityFileUpload('Approval CoR39 from the regulator')
+  );
+  taskList.add(
+    G.getUploadFiles(
+      data,
+      regulatorUpFileList,
+      'regulatorApprovalFileList',
+      'Regulator approval files'
+    )
+  );
+
+  _getFinaliseTask(data, taskList);
+  let actionInsert = new W.EntityValue(data);
+  actionInsert.addNotify('companyKey', 'boardAppointmentActiveForCompanyKeys');
+  actionInsert.initInsert(
+    E.EnumEntityType.BoardAppointment,
+    ['companyKey', 'individualKey', 'directorTypeKey', 'startDate'],
+    ['companyKey', 'individualKey', 'directorTypeKey', 'recordDate']
+  );
+  taskList.firstTask.targetsOfChange.push(actionInsert);
+  return taskList.firstTask;
+}
+
+function queBoardMembershipRemove_SA(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data));
+  taskList.add(G.getCompany(data));
+
+  taskList.add(G.getAppointmentOnBoard(data));
+
+
+  
+  _getFinaliseTask(data, taskList);
+  let actionUpdate = new W.EntityValue(data);
+  actionUpdate
+    .addNotify('companyKey', 'boardAppointmentNotActiveForCompanyKeys')
+    .initUpdate('boardAppointmentKey', 'endDate', 'recordDate');
+  taskList.firstTask.targetsOfChange.push(actionUpdate);
+  return taskList.firstTask;
+}
+
 function queAppointmentDirector(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -1049,7 +1330,7 @@ function queAppointmentDirector(
       data,
       secreatryUpFileList,
       'secreatryUpFileList',
-      `Company secreatry filed files`
+      `Company secreatry filled files`
     )
   );
 

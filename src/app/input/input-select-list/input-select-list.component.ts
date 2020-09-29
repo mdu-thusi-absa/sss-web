@@ -62,7 +62,7 @@ export class InputSelectListComponent implements OnInit {
   }
 
   setFocusOnSelecetedElement() {
-    let topPos = this.keysVisisble.indexOf(this.selectedEntityKey) * 31; //height of row
+    let topPos = (this.keysVisisble.indexOf(this.selectedEntityKey) - 4)* 31; //height of row
     setTimeout(S.updateElementScroll, 50, 'table-content-' + this.eid, topPos);
   }
 

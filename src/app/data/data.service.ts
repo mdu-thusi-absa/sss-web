@@ -84,13 +84,13 @@ export class DataService {
       let target = {};
       keys.forEach((mem) => {
         if (mem.indexOf('._') > -1) {
-          _dealUnderScore(target,value, mem);
+          _dealUnderScore(target, value, mem);
         } else {
-          target[mem] = value[mem]
+          target[mem] = value[mem];
         }
       });
 
-      return target
+      return target;
 
       function _dealUnderScore(target: object, source: object, member: string) {
         let fieldName = member.replace('._', '.');
@@ -222,7 +222,6 @@ export class DataService {
         let keyArray = entity[fieldName];
         let d = null;
         if (keyArray) {
-          //console.log(fieldName,keyArray);
           d = this.getEntitiesByKeyField(fieldName, {}, keyArray);
         } else {
           let entityKeyName = this._getEntityKeyName(entity.entityTypeKey);
@@ -406,7 +405,6 @@ export class DataService {
   dataID = environment.production ? 0 : Math.round(Math.random() * 10000);
 
   public getID(title?: string, prefix?: string): string {
-    //console.log(this.dataID);
     if (title) {
       let t = title;
       t = _replace(t, / /g);
@@ -649,7 +647,7 @@ export class DataService {
     return this.getEntities(E.EnumEntityType.TaskType).select('activeIs', true);
   }
 
-  getWorkflowForParent(data: object) {
+  getWorkflowsForParent(data: object) {
     return this.getEntities(E.EnumEntityType.Workflow).select(
       'parentKey',
       data['parentKey']
@@ -718,10 +716,11 @@ export class DataService {
   }
 
   getCommitteesForCompany(data: object) {
-    return this.getEntities(E.EnumEntityType.Committee).select(
+    let d = this.getEntities(E.EnumEntityType.Committee).select(
       'companyKey',
       data['companyKey']
     );
+    return d.select('committeeType', 0, false);
   }
 
   getAppointmentsForCommittee(data: object) {
@@ -787,5 +786,68 @@ export class DataService {
       if (!d.has(value.key)) r.add(value);
     });
     return r;
+  }
+
+  getIndividualsForBoard(data: object) {
+    let d = this.getEntities(E.EnumEntityType.BoardAppointment).select(
+      'companyKey',
+      data['companyKey']
+    ) as Entities<K.EntityBoardAppointment>;
+    let e = d.select('endDate', (value) => {
+      return !value;
+    });
+    let inds = this.getEntities(E.EnumEntityType.Individual) as Entities<
+      K.EntityIndividual
+    >;
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
+    e.forEach((value, key, map) => {
+      let ind = inds.get(value.individualKey);
+      r.add(ind);
+    });
+    return r;
+  }
+
+  getIndividualsNotForBoard(data: object) {
+    let d = this.getIndividualsForBoard(data);
+    let inds = this.getEntities(E.EnumEntityType.Individual) as Entities<
+      K.EntityIndividual
+    >;
+    let r = new Entities<K.EntityIndividual>(K.EntityIndividual);
+    inds.forEach((value, key, map) => {
+      if (!d.has(value.key)) r.add(value);
+    });    
+    return r;
+  }
+
+  getBoardAppointmentsActiveForCompany(data: object) {
+    let d = this.getEntities(E.EnumEntityType.BoardAppointment).select(
+      'companyKey',
+      data['companyKey']
+    ) as Entities<K.EntityBoardAppointment>;
+    let e = d.select('endDate', (value) => {
+      return !value;
+    });
+    return e;
+  }
+
+  getBoardAppointmentsNotActiveForCompany(data: object) {
+    let d = this.getEntities(E.EnumEntityType.BoardAppointment).select(
+      'companyKey',
+      data['companyKey']
+    ) as Entities<K.EntityBoardAppointment>;
+    let e = d.select('endDate', (value) => {
+      return value;
+    });
+    return e;
+  }
+
+  getIndividualInternalEmployeeStatusNotOnBoard(data: object) {
+    let d = this.getIndividualsNotForBoard(data)
+    let e = d.select(
+      'internalEmployeeIs',
+      data['internalEmployeeIs']
+    ) as Entities<K.EntityIndividual>;
+    
+    return e
   }
 }

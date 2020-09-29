@@ -186,6 +186,90 @@ export class EntityLegal extends EntityFunctional {
   }
 }
 
+export class EntityBoardAppointment extends Entity {
+  entityTypeKey = EnumEntityType.BoardAppointment;
+  companyKey = -1;
+  individualKey = -1;
+  directorTypeKey = -1;
+  private _startDate: Date;
+  private _endDate: Date
+  get endDate(): Date{
+    return this._endDate
+  }
+  set endDate(v){
+    if (typeof(v)=='string'){
+      if (v)
+        this._endDate = new Date(v)
+    }else{
+      this._endDate = v
+    }
+  }
+  get startDate(): Date{
+    return this._startDate
+  }
+  set startDate(v){
+    if (typeof(v)=='string'){
+      if (v)
+        this._startDate = new Date(v)
+    }else{
+      this._startDate = v
+    }
+  }
+
+  getHeadingsMap(): Map<string, string> {
+    return new Map([
+      ['directorTypeKey', 'Designation'],
+      ['individualKey', 'Individual'],
+      ['startDate', 'Date start'],
+      ['endDate', 'Date end'],
+    ]);
+  }
+
+  _designationName = '';
+  _individualName = '';
+  _endDateStr = ''
+  _startDateStr = ''
+  get name() {
+    let s = super.name;
+    s = 'Appointment';
+    // console.log('in');
+    //console.log(this)
+    if (this._initName()) {
+      let cap = this._designationName ?? this._designationName;
+      let ind = this._individualName ?? this._individualName;
+      let strD = this._startDateStr ?? this._startDateStr;
+      let endD = this._endDateStr ?? this._endDateStr;
+
+      if (cap && ind && strD) s = cap + ': ' + ind + '. ' + strD;
+      if (cap && ind && strD && endD) s = cap + ': ' + ind + '. ' + strD + '...' + endD;
+    }
+    return s;
+  }
+
+  private _initName(): boolean {
+    if (this.data) {
+      if (this.directorTypeKey > -1) {
+        this._designationName = this.data
+          .getEntities(EnumEntityType.DirectorType)
+          .get(this.directorTypeKey).name;
+      }
+      if (this.individualKey > -1) {
+        this._individualName = this.data
+          .getEntities(EnumEntityType.Individual)
+          .get(this.individualKey).name;
+      }
+      if (this._endDate) {
+        this._endDateStr = this._endDate.toISOString().slice(0,10)
+      }
+      if (this._startDate) {
+        this._startDateStr = this._startDate.toISOString().slice(0,10)
+      }
+    }
+    if (this._designationName || this._individualName) return true;
+    return false;
+  }
+}
+
 export class EntityCommitteeAppointment extends Entity {
   entityTypeKey = EnumEntityType.CommitteeAppointment;
   committeeKey = -1;
@@ -320,6 +404,7 @@ export class EntityCompany extends EntityLegal {
   financialOfficerKey: number = -1;
   anniversaryMonthKey: number;
   accountingClassTierKey: number = -1;
+  
   // parentHoldingCompanyKey: number = -1;
   // clientHoldingCompanyKey: number = -1;
   // clientInterconnectedEntityKey: number = -1
@@ -370,6 +455,10 @@ export class EntityCompany extends EntityLegal {
   propertyKeys: number[];
   shareCertificateKeys: number[];
   shareholderKeys: number[];
+  boardAppointmentActiveForCompanyKeys: number[]
+  boardAppointmentNotActiveForCompanyKey: number[]
+
+
 
   postalAddress: EntityAddress;
   physicalAddress: EntityAddress;
@@ -379,12 +468,17 @@ export class EntityCompany extends EntityLegal {
       ['clientInterconnectedEntityKey','Absa interconnected entity'],
       ['parentCompanyKey', 'Direct Parent/Ownership (Major Shareholder)'],
       ['parentHolding', 'Direct Parent - % ownership -'],
+
+      ['boardAppointmentActiveForCompanyKeys', 'Board: Current'],
+      ['boardAppointmentNotActiveForCompanyKeys', 'Board: Previous'],
   */
+
   getHeadingsMap(): Map<string, string> {
     let h = new Map([
-      ['committeeForCompanyKeys', 'Committees'],
+      ['boardAppointmentActiveForCompanyKeys', 'Board: Current'],
+      ['boardAppointmentNotActiveForCompanyKeys', 'Board: Previous'],
       ['name', 'Name'],
-      ['description', 'Short description'],
+      ['description', 'Short business description'],
       ['companyTypeKey', 'Company type'],
       ['internalCode', 'Internal code'],
       ['leCode', 'LE number'],
@@ -453,6 +547,7 @@ export class EntityCompany extends EntityLegal {
       ['propertyKeys', 'Properties'],
       ['shareholdingKeys', 'Shareholding'],
       ['shareCertificateKeys', 'Allotments'],
+      ['committeeForCompanyKeys', 'Committees'],
     ]);
     return h;
   }
@@ -920,8 +1015,11 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.Individual: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualForCountries: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualInternalEmployeeStatus: return new Entities<EntityIndividual>(EntityIndividual); break;
+	case EnumEntityType.IndividualInternalEmployeeStatusNotOnBoard: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualForCommittee: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.IndividualNotForCommittee: return new Entities<EntityIndividual>(EntityIndividual); break;
+	case EnumEntityType.IndividualForBoard: return new Entities<EntityIndividual>(EntityIndividual); break;
+	case EnumEntityType.IndividualNotForBoard: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.Industry: return new Entities<Entity>(Entity); break;
 	case EnumEntityType.LegalClass: return new Entities<EntityLegal>(EntityLegal); break;
 	case EnumEntityType.Month: return new Entities<Entity>(Entity); break;
@@ -982,4 +1080,7 @@ function initEntities(entityTypeKey: EnumEntityType){ switch (entityTypeKey){
 	case EnumEntityType.CommitteeAppointmentForCommittee: return new Entities<EntityCommitteeAppointment>(EntityCommitteeAppointment); break;
 	case EnumEntityType.IndividualForAppointment: return new Entities<EntityIndividual>(EntityIndividual); break;
 	case EnumEntityType.CommitteeAppointmentActiveForCommittee: return new Entities<EntityCommitteeAppointment>(EntityCommitteeAppointment); break;
-	case EnumEntityType.CommitteeAppointmentNotActiveForCommittee: return new Entities<EntityCommitteeAppointment>(EntityCommitteeAppointment); break;}}
+	case EnumEntityType.CommitteeAppointmentNotActiveForCommittee: return new Entities<EntityCommitteeAppointment>(EntityCommitteeAppointment); break;
+	case EnumEntityType.BoardAppointment: return new Entities<EntityBoardAppointment>(EntityBoardAppointment); break;
+	case EnumEntityType.BoardAppointmentActiveForCompany: return new Entities<EntityBoardAppointment>(EntityBoardAppointment); break;
+	case EnumEntityType.BoardAppointmentNotActiveForCompany: return new Entities<EntityBoardAppointment>(EntityBoardAppointment); break;}}

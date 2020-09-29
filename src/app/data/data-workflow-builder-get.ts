@@ -350,10 +350,34 @@ export function getIndividualNotActiveOnCommittee(data: DataService) {
   return a;
 }
 
+export function getIndividualNotActiveOnBoard(data: DataService) {
+  let a = new W.TaskSelect(data, 'individualKey');
+  a.name = 'Individual not on board';
+  a.sourceType = E.EnumEntityType.IndividualNotForBoard;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+export function getIndividualActiveOnBoard(data: DataService) {
+  let a = new W.TaskSelect(data, 'individualKey');
+  a.name = 'Director on board';
+  a.sourceType = E.EnumEntityType.IndividualForBoard;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
 export function getAppointmentOnCommittee(data: DataService) {
   let a = new W.TaskSelect(data, 'committeeAppointmentKey');
-  a.name = 'Appointee to be added';
+  a.name = 'Member on committee';
   a.sourceType = E.EnumEntityType.CommitteeAppointmentActiveForCommittee;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+export function getAppointmentOnBoard(data: DataService) {
+  let a = new W.TaskSelect(data, 'boardAppointmentKey');
+  a.name = 'Director on board';
+  a.sourceType = E.EnumEntityType.BoardAppointmentActiveForCompany
   a.thisEntityNameIsObjectName = true;
   return a;
 }
@@ -399,6 +423,14 @@ export function getIndividualForEmployeeStatus(data: DataService) {
   let a = new W.TaskSelect(data, 'individualKey');
   a.name = 'Individual';
   a.sourceType = E.EnumEntityType.IndividualInternalEmployeeStatus;
+  a.thisEntityNameIsObjectName = true;
+  return a;
+}
+
+export function getIndividualForEmployeeStatusNotOnBoard(data: DataService) {
+  let a = new W.TaskSelect(data, 'individualKey');
+  a.name = 'Individual';
+  a.sourceType = E.EnumEntityType.IndividualInternalEmployeeStatusNotOnBoard;
   a.thisEntityNameIsObjectName = true;
   return a;
 }
