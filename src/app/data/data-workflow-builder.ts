@@ -1135,8 +1135,8 @@ function queBoardMembershipAdd_SA(
   );
 
   let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
-    .add(new K.EntityFileUpload('Entity Details SA'))
-    .add(new K.EntityFileUpload('FSP 4B'));
+    .add(new K.EntityFileUpload('Filled: Entity Details SA'))
+    .add(new K.EntityFileUpload('Filled: FSP 4B'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1208,7 +1208,7 @@ function queBoardMembershipAdd_SA(
 
   let excoEndorsementUpFileList = new Entities<K.EntityFileUpload>(
     K.EntityFileUpload
-  ).add(new K.EntityFileUpload('Confirmation email file'));
+  ).add(new K.EntityFileUpload('Email file confirming endorsement'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1284,7 +1284,8 @@ function queBoardMembershipAdd_SA(
     G.getReminder(
       data,
       'regulatorSubmissionConfirmIs',
-      'Regulator follow up reminder'
+      'Regulator follow up reminder',
+      'regulatorSubmissionCode'
     )
   );
   _getApproval(data, taskList, 'approvalRegulatortIs', 'Regulator approval');
@@ -1370,8 +1371,8 @@ function queAppointmentDirector(
   );
 
   let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
-    .add(new K.EntityFileUpload('Entity Details SA'))
-    .add(new K.EntityFileUpload('FSP 4B'));
+    .add(new K.EntityFileUpload('Filled: Entity Details SA'))
+    .add(new K.EntityFileUpload('Filled: FSP 4B'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1445,7 +1446,7 @@ function queAppointmentDirector(
 
   let excoEndorsementUpFileList = new Entities<K.EntityFileUpload>(
     K.EntityFileUpload
-  ).add(new K.EntityFileUpload('Confirmation email file'));
+  ).add(new K.EntityFileUpload('Email file confirming endorsement'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1522,7 +1523,8 @@ function queAppointmentDirector(
     G.getReminder(
       data,
       'regulatorSubmissionConfirmIs',
-      'Regulator follow up reminder'
+      'Regulator follow up reminder',
+      'regulatorSubmissionCode'
     )
   );
   _getApproval(data, taskList, 'approvalRegulatortIs', 'Regulator approval');
@@ -1577,72 +1579,6 @@ function _getAuthorisation(data: DataService, taskList: G.TaskList) {
     G.getConfirm(data, 'receivedAuthoIs', 'Received authorisation', false, true)
   );
 }
-
-// function queAdoptNewMOI(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-// function queAmendJVAgreement(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-// function queAmendTrustDeed(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-// function queChangeArticleOfTheMOI(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-// function queChangeLocationOfRecords(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-// function queChangeMainBusiness(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-// function queChangeRegisteredAddress(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-
-// function queChangeFinancialYearEnd(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
-
-// function queChangeRingFencingConditionsInMOI(
-//   parentEntity: K.EntityWorkflow,
-//   parentTask: W.Task,
-//   data: DataService
-// ) {
-//   return _useCompany_Amend_Specific(data, parentTask, parentEntity);
-// }
 
 function queChangeAnyDetails(
   parentEntity: K.EntityWorkflow,
@@ -1738,7 +1674,8 @@ function _useCompany_Amend_Specific(
     G.getReminder(
       data,
       'reminderDate',
-      'Set reminder to follow up with the regulator'
+      'Set reminder to follow up with the regulator',
+      'regulatorSubmissionCode'
     )
   );
 

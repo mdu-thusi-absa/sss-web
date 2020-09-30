@@ -3,7 +3,7 @@
     <div class="row no-gutter">
       <!--column 1: Entities, Tasks, Records, Files-->
       <div
-        class="col-xs-4"
+        class="col-xs-12"
         [class.col-sm-2]="showPanelRight"
         [class.col-sm-4]="!showPanelRight"
         [hidden] = "!showPanelLeft"
@@ -522,7 +522,7 @@
       </div>
       <!-- column 3: Articles -->
       <div
-        class="col-xs-8"
+        class="col-xs-12"
         [class.hidden-xs]="!showPanelRight"
         [class.col-sm-5]="showPanelRight && showPanelLeft"
         [class.col-sm-6]="showPanelRight && !showPanelLeft"

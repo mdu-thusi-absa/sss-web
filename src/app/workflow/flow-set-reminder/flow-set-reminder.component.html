@@ -13,7 +13,7 @@
 
   <app-input-textarea
     [title]="'Reminder message'"
-    [value]="'Please follow up with CIPC regarding application #12345'"
+    [value]= "'Please follow up with CIPC regarding application #'  + taskFlow.referenceCode + '. Call: 012-394-9573'" 
   >
   </app-input-textarea>
 </app-input-panel>

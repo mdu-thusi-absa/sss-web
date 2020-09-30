@@ -157,10 +157,12 @@ export function getRecordDate(
 export function getReminder(
   data: DataService,
   fieldName: string,
-  heading: string
+  heading: string,
+  referenceFieldName: string
 ): W.TaskReminder {
   let a = new W.TaskReminder(data, fieldName);
   a.name = heading;
+  a.referenceFieldName = referenceFieldName
   a.offsetDays = 20;
   return a;
 }

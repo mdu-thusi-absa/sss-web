@@ -28,7 +28,7 @@
             [value] = "checked"
           ></app-input-checkbox>
         </th>
-        <th *ngFor="let h of headings" class="info" style="padding:2px 4px 2px 4px;">
+        <th *ngFor="let h of headings" class="info" style="padding:2px 4px 2px 4px;vertical-align: middle">
           {{ h }}
         </th>
       </tr>
@@ -51,7 +51,7 @@
               [style.border-bottom]="
                 e.key == selectedEntityKey ? '1px solid black' : 'inherit'
               "
-              style="padding:2px 4px 2px 4px;"
+              style="padding:2px 4px 2px 4px;vertical-align: middle"
             >
               <a
                 href="#"

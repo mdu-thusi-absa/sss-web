@@ -460,6 +460,19 @@ export class TaskReminder extends Task {
   type = 'set-reminder';
   _reminderDate = new Date();
   _offsetDays = 0;
+  _refferenceFieldName = ''
+
+  set referenceFieldName(v: string){
+    this._refferenceFieldName = v
+  }
+
+  get referenceFieldName(){
+    return this._refferenceFieldName
+  }
+
+  get referenceCode(){
+    return this.workflowValuesObject[this._refferenceFieldName]
+  }
 
   set offsetDays(v: number) {
     this._offsetDays = v;
