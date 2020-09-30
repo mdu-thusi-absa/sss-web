@@ -33,7 +33,7 @@ export class InputAddressComponent implements OnInit {
   @Output() onFile = new EventEmitter();
   @Output() onTask = new EventEmitter();
   @Output() onRecord = new EventEmitter();
-  @Output() onChange = new EventEmitter()
+  @Output() onChange = new EventEmitter();
 
   countries: Entities<Entity>;
   cities: Entities<EntityCity>;
@@ -49,7 +49,7 @@ export class InputAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.data.countries;
-    this.value = this.value ?? new EntityAddress(this.data)
+    this.value = this.value ?? new EntityAddress(this.data);
     this.cities = this.data.getCitiesForCountry(this.getCountryIndex());
   }
 
@@ -85,14 +85,14 @@ export class InputAddressComponent implements OnInit {
   }
 
   doChangeCountry(event: any) {
-    this.value.countryKey = +event
-    this.cities = this.value.cities
-    this.onChange.emit(this.value)
+    this.value.countryKey = +event;
+    this.cities = this.value.cities;
+    this.onChange.emit(this.value);
   }
 
   doChangeCity(event: any) {
     this.value.cityKey = +event;
-    this.onChange.emit(this.value)
+    this.onChange.emit(this.value);
   }
 
   getCountryIndex() {
@@ -100,10 +100,25 @@ export class InputAddressComponent implements OnInit {
     return this.countries.all_keys[0];
   }
 
-  doChangeText(event:string){
-    this.value.text = event
-    this.onChange.emit(this.value)
+  TEXT_MAX_LEN = 200;
+  doChangeText(event: string) {
+    if (event.length > this.TEXT_MAX_LEN)
+      this.value.text = event.slice(0, this.TEXT_MAX_LEN);
+    else {
+      this.value.text = event;
+      this.onChange.emit(this.value);
+    }
   }
 
   @Input() autoFocus = false;
+
+  CODE_MAX_LEN = 20;
+  doChangeAreaCode(event: string) {
+    if (event.length > this.CODE_MAX_LEN)
+      this.value.code = event.slice(0, this.CODE_MAX_LEN);
+    else {
+      this.value.code = event;
+      this.onChange.emit(this.value)
+    }
+  }
 }

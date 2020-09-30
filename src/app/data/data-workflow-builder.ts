@@ -123,7 +123,8 @@ function queBoardMembershipAdd(
   actionInsert.initInsert(
     E.EnumEntityType.BoardAppointment,
     ['companyKey', 'individualKey', 'directorTypeKey', 'startDate'],
-    ['companyKey', 'individualKey', 'directorTypeKey', 'recordDate']
+    ['companyKey', 'individualKey', 'directorTypeKey', 'recordDate'],
+    'boardAppoinmentKey'
   );
   taskList.firstTask.targetsOfChange.push(actionInsert);
   return taskList.firstTask;
@@ -169,7 +170,8 @@ function queCommitteeMembershipAdd(
   actionInsert.initInsert(
     E.EnumEntityType.CommitteeAppointment,
     ['committeeKey', 'individualKey', 'capacityKey', 'startDate'],
-    ['committeeKey', 'individualKey', 'capacityKey', 'recordDate']
+    ['committeeKey', 'individualKey', 'capacityKey', 'recordDate'],
+    'committeeAppointmentKey'
   );
   taskList.firstTask.targetsOfChange.push(actionInsert);
   return taskList.firstTask;
@@ -202,7 +204,7 @@ function queCommitteeMembershipRemove(
   return taskList.firstTask;
 }
 
-function queChangeAddressPhysical(
+function queChangePhysicalAddress(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -215,7 +217,7 @@ function queChangeAddressPhysical(
     'Physical address'
   );
 }
-function queChangeAddressPostal(
+function queChangePostalAddress(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -277,7 +279,7 @@ function queChangeWeightAbsaShareholdingInTheEntityPercent(
     'Absa holding weight'
   );
 }
-function queChangeWeightPIScore(
+function queChangePIScore(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -313,11 +315,11 @@ function _getChangeCompanyNumber(
   return taskList.firstTask;
 }
 
-// function queChangeSelectionAbsaInterconnectedEntityName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService)
+// function queChangeAbsaInterconnectedEntityName(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService)
 //   {return _getChangeCompanySelection(parentEntity,parentTask,data,'clientInterconnectedEntityKey','Absa interconnected entity',E.EnumEntityType.Company)}
-// function queChangeSelectionAbsaShareholdingInEntityShareholder(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService)
+// function queChangeAbsaShareholdingInEntityShareholder(parentEntity: K.EntityWorkflow,parentTask: W.Task,data: DataService)
 //   {return _getChangeCompanySelection(parentEntity,parentTask,data,'clientHoldingCompanyKey','Absa shareholding entity',E.EnumEntityType.Company)}
-function queChangeSelectionDirectParentownershipMajorShareholder(
+function queChangeDirectParentownershipMajorShareholder(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -331,7 +333,7 @@ function queChangeSelectionDirectParentownershipMajorShareholder(
     E.EnumEntityType.Company
   );
 }
-function queChangeSelectionEntityStatusTiering(
+function queChangeEntityStatusTiering(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -345,7 +347,7 @@ function queChangeSelectionEntityStatusTiering(
     E.EnumEntityType.EntityStatusTier
   );
 }
-function queChangeSelectionBusinessDivision(
+function queChangeBusinessDivision(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -359,7 +361,7 @@ function queChangeSelectionBusinessDivision(
     E.EnumEntityType.BusinessDivision
   );
 }
-function queChangeSelectionAccountingClassification(
+function queChangeAccountingClassification(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -373,7 +375,7 @@ function queChangeSelectionAccountingClassification(
     E.EnumEntityType.AccountingClass
   );
 }
-function queChangeSelectionAccountingClassificationTiering(
+function queChangeAccountingClassificationTiering(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -387,7 +389,7 @@ function queChangeSelectionAccountingClassificationTiering(
     E.EnumEntityType.AccountingClassTier
   );
 }
-function queChangeSelectionConsolidatednonconsolidated(
+function queChangeConsolidatednonconsolidated(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -401,7 +403,7 @@ function queChangeSelectionConsolidatednonconsolidated(
     E.EnumEntityType.Consolidation
   );
 }
-function queChangeSelectionEntityStatus(
+function queChangeEntityStatus(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -415,7 +417,7 @@ function queChangeSelectionEntityStatus(
     E.EnumEntityType.EntityStatus
   );
 }
-function queChangeSelectionBusinessArea(
+function queChangeBusinessArea(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -429,7 +431,7 @@ function queChangeSelectionBusinessArea(
     E.EnumEntityType.BusinessArea
   );
 }
-function queChangeSelectionAppointedCompanySecretary(
+function queChangeAppointedCompanySecretary(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -443,7 +445,7 @@ function queChangeSelectionAppointedCompanySecretary(
     E.EnumEntityType.Secretariat
   );
 }
-function queChangeSelectionCompanyType(
+function queChangeCompanyType(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -457,7 +459,7 @@ function queChangeSelectionCompanyType(
     E.EnumEntityType.CompanyType
   );
 }
-function queChangeSelectionAbsaGroupSecretariatRepresentative(
+function queChangeAbsaGroupSecretariatRepresentative(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -471,7 +473,7 @@ function queChangeSelectionAbsaGroupSecretariatRepresentative(
     E.EnumEntityType.Secretary
   );
 }
-function queChangeSelectionIndustry(
+function queChangeIndustry(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -485,7 +487,7 @@ function queChangeSelectionIndustry(
     E.EnumEntityType.Industry
   );
 }
-function queChangeSelectionLegalClassification(
+function queChangeLegalClassification(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -499,7 +501,7 @@ function queChangeSelectionLegalClassification(
     E.EnumEntityType.LegalClass
   );
 }
-function queChangeSelectionLegalEntityExecutive_LEE(
+function queChangeLegalEntityExecutive_LEE(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -514,7 +516,7 @@ function queChangeSelectionLegalEntityExecutive_LEE(
   );
 }
 
-function queChangeSelectionCountryOfIncorporation(
+function queChangeCountryOfIncorporation(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -584,7 +586,7 @@ function _getChangeCompanySelection(
   return taskList.firstTask;
 }
 
-function queChangeMonthAnniversary(
+function queChangeAnniversaryMonth(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -597,7 +599,7 @@ function queChangeMonthAnniversary(
     'Anniversary month'
   );
 }
-function queChangeMonthFinancialYearEnd(
+function queChangeFinancialYearEndMonth(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -635,7 +637,7 @@ function _getChangeCompanyMonth(
   return taskList.firstTask;
 }
 
-function queChangeStatusRepresentativeOffice(
+function queChangeRepresentativeOffice(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -648,7 +650,7 @@ function queChangeStatusRepresentativeOffice(
     'Is a representative office'
   );
 }
-function queChangeStatusForeignBranch(
+function queChangeForeignBranch(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -661,7 +663,7 @@ function queChangeStatusForeignBranch(
     'Is foreign branch'
   );
 }
-function queChangeStatusCertificatesAreKept(
+function queChangeCertificatesAreKept(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -674,7 +676,7 @@ function queChangeStatusCertificatesAreKept(
     'Are certificates kept'
   );
 }
-function queChangeStatusInterconnectedWithinGroup(
+function queChangeInterconnectedWithinGroup(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -687,7 +689,7 @@ function queChangeStatusInterconnectedWithinGroup(
     'is internconnected in group'
   );
 }
-function queChangeStatusGroupCompany(
+function queChangeGroupCompany(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -747,7 +749,7 @@ function _getChangeCompanyDecide(
   return taskList.firstTask;
 }
 
-function queChangeDateIncorporationDate(
+function queChangeIncorporationDate(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -760,7 +762,7 @@ function queChangeDateIncorporationDate(
     'Incorporation date'
   );
 }
-function queChangeDateBusinessStart(
+function queChangeBusinessStart(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -797,7 +799,7 @@ function _getChangeCompanyDate(
   return taskList.firstTask;
 }
 
-function queChangeTextNatureOfBusinessForAnnualFinancialStatements(
+function queChangeNatureOfBusinessForAnnualFinancialStatements(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -810,7 +812,7 @@ function queChangeTextNatureOfBusinessForAnnualFinancialStatements(
     'Nature of business for annual financial statements'
   );
 }
-function queChangeTextNatureOfBusinessActivitiesForMOI(
+function queChangeNatureOfBusinessActivitiesForMOI(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -844,7 +846,7 @@ function _getChangeCompanyDesc(
   return taskList.firstTask;
 }
 
-function queChangeTextCompanyName(
+function queChangeCompanyName(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -857,7 +859,7 @@ function queChangeTextCompanyName(
     'Entity name'
   );
 }
-function queChangeCodeInternalCode(
+function queChangeInternalCode(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -870,7 +872,7 @@ function queChangeCodeInternalCode(
     'Internal code'
   );
 }
-function queChangeCodeLE(
+function queChangeLE(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -883,7 +885,7 @@ function queChangeCodeLE(
     'LE code'
   );
 }
-function queChangeCodeRegistrationNumber(
+function queChangeRegistrationNumber(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -896,7 +898,7 @@ function queChangeCodeRegistrationNumber(
     'Registration number'
   );
 }
-function queChangeCodeIncomeTaxNumber(
+function queChangeIncomeTaxNumber(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -909,7 +911,7 @@ function queChangeCodeIncomeTaxNumber(
     'Income tax number'
   );
 }
-function queChangeCodeValueAddedTaxNumber(
+function queChangeValueAddedTaxNumber(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -922,7 +924,7 @@ function queChangeCodeValueAddedTaxNumber(
     'Value Added Tax number'
   );
 }
-function queChangeCodeListedShareCode(
+function queChangeListedShareCode(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -935,7 +937,7 @@ function queChangeCodeListedShareCode(
     'Listed share code'
   );
 }
-function queChangeCodeISIN(
+function queChangeISIN(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -948,7 +950,7 @@ function queChangeCodeISIN(
     'ISIN code'
   );
 }
-function queChangeCodeLEINumber_Bloomberg(
+function queChangeLEINumber_Bloomberg(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -961,7 +963,7 @@ function queChangeCodeLEINumber_Bloomberg(
     'LEI number (Bloomberg)'
   );
 }
-function queChangeCodeReuters(
+function queChangeReuters(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -974,7 +976,7 @@ function queChangeCodeReuters(
     'Reuters code'
   );
 }
-function queChangeTextSuffix(
+function queChangeSuffix(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -987,7 +989,7 @@ function queChangeTextSuffix(
     'Suffix'
   );
 }
-function queChangeCodeRegulatorClientCode(
+function queChangeRegulatorClientCode(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -1000,7 +1002,7 @@ function queChangeCodeRegulatorClientCode(
     'Regulator client code'
   );
 }
-function queChangeTextShortDescription(
+function queChangeShortDescription(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -1014,7 +1016,7 @@ function queChangeTextShortDescription(
   );
 }
 
-function queChangeCodeFSP(
+function queChangeFSP(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
   data: DataService
@@ -1027,7 +1029,6 @@ function queChangeCodeFSP(
     'Financial Services Provider registration number'
   );
 }
-
 
 function _getChangeCompanyText(
   parentEntity: K.EntityWorkflow,
@@ -1054,6 +1055,48 @@ function _getChangeCompanyText(
   return taskList.firstTask;
 }
 
+function _getNewIndividual(taskList: G.TaskList, data: DataService){
+  taskList.add(
+    G.getConfirm(data, 'addIndividualIs', 'Add individual', false, false)
+  );
+
+  let valueIndividual = new W.EntityValue(data);
+  valueIndividual.initValue('', '', '');
+  let firstNameTask = G.getInputText(
+    data,
+    'individual.firstName',
+    'First name',
+    valueIndividual,
+    true
+  );
+  firstNameTask.setSkipIf('addIndividualIs',true)
+  taskList.add(firstNameTask);
+
+  let insertIndividual = new W.EntityValue(data);
+  insertIndividual.actionAtFinish = false;
+  insertIndividual
+    .initInsert(
+      E.EnumEntityType.Individual,
+      ['surname', 'firstName', 'internalEmployeeIs'],
+      ['individual.surname', 'individual.firstName', 'internalEmployeeIs'],
+      'individualKey'
+    )
+    .initValue('', '', '');
+  let surnameTask = G.getInputText(
+    data,
+    'individual.surname',
+    'Surname',
+    insertIndividual,
+    true
+  )
+  surnameTask.setSkipIf('addIndividualIs',true)
+  taskList.add(surnameTask)
+
+  let d = G.getIndividualForEmployeeStatusNotOnBoard(data)
+  d.setSkipIf('addIndividualIs',false)
+  taskList.add(d)
+}
+
 function queBoardMembershipAdd_SA(
   parentEntity: K.EntityWorkflow,
   parentTask: W.Task,
@@ -1068,8 +1111,13 @@ function queBoardMembershipAdd_SA(
   taskList.add(
     G.getConfirm(data, 'internalEmployeeIs', 'Internal employee', true, false)
   );
-  //taskList.add(G.getAppointmentAction(data));
-  taskList.add(G.getIndividualForEmployeeStatusNotOnBoard(data));
+  //show if addIndividualIs
+
+  _getNewIndividual(taskList, data)
+
+  //first name
+  //
+  //taskList.add(G.getIndividualForEmployeeStatusNotOnBoard(data));
 
   let secreatryDownFileList = new Entities<K.EntityFileDownload>(
     K.EntityFileDownload
@@ -1088,7 +1136,7 @@ function queBoardMembershipAdd_SA(
 
   let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
     .add(new K.EntityFileUpload('Entity Details SA'))
-    .add(new K.EntityFileUpload('FSP 4B'))
+    .add(new K.EntityFileUpload('FSP 4B'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1104,7 +1152,7 @@ function queBoardMembershipAdd_SA(
   individualDownFileList
     .add(new K.EntityFileDownload('Consent form for the director'))
     .add(new K.EntityFileDownload('Abbreviated CV'))
-    .add(new K.EntityFileDownload('Skill assessment'))
+    .add(new K.EntityFileDownload('Skill assessment'));
   taskList.add(
     G.getDownloadFiles(
       data,
@@ -1121,7 +1169,7 @@ function queBoardMembershipAdd_SA(
     .add(new K.EntityFileUpload('Filled abbreviated CV'))
     .add(new K.EntityFileUpload(`Filled skill assessment`))
     .add(new K.EntityFileUpload(`Individual's ID`))
-    .add(new K.EntityFileUpload(`Individual's Passport`))
+    .add(new K.EntityFileUpload(`Individual's Passport`));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1212,7 +1260,7 @@ function queBoardMembershipAdd_SA(
   );
 
   let ev = new W.EntityValue(data);
-  ev.initValue('', '', '-');
+  ev.initValue('', '', '');
   taskList.add(
     G.getInputText(
       data,
@@ -1262,7 +1310,8 @@ function queBoardMembershipAdd_SA(
   actionInsert.initInsert(
     E.EnumEntityType.BoardAppointment,
     ['companyKey', 'individualKey', 'directorTypeKey', 'startDate'],
-    ['companyKey', 'individualKey', 'directorTypeKey', 'recordDate']
+    ['companyKey', 'individualKey', 'directorTypeKey', 'recordDate'],
+    'boardAppoinmentKey'
   );
   taskList.firstTask.targetsOfChange.push(actionInsert);
   return taskList.firstTask;
@@ -1279,8 +1328,6 @@ function queBoardMembershipRemove_SA(
 
   taskList.add(G.getAppointmentOnBoard(data));
 
-
-  
   _getFinaliseTask(data, taskList);
   let actionUpdate = new W.EntityValue(data);
   actionUpdate
@@ -1324,7 +1371,7 @@ function queAppointmentDirector(
 
   let secreatryUpFileList = new Entities<K.EntityFileUpload>(K.EntityFileUpload)
     .add(new K.EntityFileUpload('Entity Details SA'))
-    .add(new K.EntityFileUpload('FSP 4B'))
+    .add(new K.EntityFileUpload('FSP 4B'));
   taskList.add(
     G.getUploadFiles(
       data,
@@ -1338,9 +1385,11 @@ function queAppointmentDirector(
     K.EntityFileDownload
   );
   individualDownFileList
-    .add(new K.EntityFileDownload('Sign off, consent declaration privacy combined'))
+    .add(
+      new K.EntityFileDownload('Sign off, consent declaration privacy combined')
+    )
     .add(new K.EntityFileDownload('Abbreviated CV'))
-    .add(new K.EntityFileDownload('Skill assessment'))
+    .add(new K.EntityFileDownload('Skill assessment'));
   taskList.add(
     G.getDownloadFiles(
       data,
@@ -1357,7 +1406,7 @@ function queAppointmentDirector(
     .add(new K.EntityFileUpload('Filled abbreviated CV'))
     .add(new K.EntityFileUpload(`Filled skill assessment`))
     .add(new K.EntityFileUpload(`Individual's ID`))
-    .add(new K.EntityFileUpload(`Individual's Passport`))
+    .add(new K.EntityFileUpload(`Individual's Passport`));
   taskList.add(
     G.getUploadFiles(
       data,

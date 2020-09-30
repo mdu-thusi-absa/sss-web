@@ -1,11 +1,11 @@
 <div
   class="panel panel-default"
-  style="margin-bottom: 0px; margin-top: 5px;"
+  style="margin-bottom: 0px; margin-top: 5px"
   [hidden]="hideByFilter()"
 >
   <div
     class="panel panel-heading panel-info nobottom less-padding text-primary-bold"
-    style="vertical-align: middle; padding-bottom: 0px;"
+    style="vertical-align: middle; padding-bottom: 0px"
   >
     <a
       href="#"
@@ -17,11 +17,9 @@
         width: calc(100% - 145px);
         overflow: hidden;
       "
-      [attr.id] = "eid + '-title'" 
+      [attr.id]="eid + '-title'"
     >
-      <label class="nobottom label-bold"
-        >{{ title }}</label
-      >
+      <label class="nobottom label-bold">{{ title }}</label>
     </a>
 
     <div
@@ -31,11 +29,21 @@
       <!-- <label class="checkbox-inline text-primary-bold" style="padding-right: 8px;"
         ><input type="checkbox" value="" /><small>Default Address</small></label
       > -->
-      <small><app-input-checkbox [showSmall]="true" [title]="'Default Address'" ></app-input-checkbox></small>
+      <small
+        ><app-input-checkbox
+          [showSmall]="true"
+          [title]="'Default Address'"
+        ></app-input-checkbox
+      ></small>
     </div>
 
     <div class="form-group pull-right nobottom" [hidden]="!allowCopyOption">
-    <small><app-input-checkbox [showSmall]="true" [title]="'Copy from above'"></app-input-checkbox></small>
+      <small
+        ><app-input-checkbox
+          [showSmall]="true"
+          [title]="'Copy from above'"
+        ></app-input-checkbox
+      ></small>
     </div>
   </div>
 
@@ -43,7 +51,7 @@
     class="panel panel-body noborder nobottom less-padding collapse"
     [class.in]="hideBody"
     id="{{ 'address-' + getID() }}"
-    style="margin-top: 0px;padding-bottom: 5px;margin-bottom:0px"
+    style="margin-top: 0px; padding-bottom: 5px; margin-bottom: 0px"
   >
     <div class="container-flex">
       <div class="row">
@@ -54,10 +62,10 @@
             (onTask)="doTask()"
             (onFile)="doFile()"
             (onRecord)="doRecord()"
-            [showCheck] = "showCheck"
-            [value] = "this.value.text"
-            (onChange) = "doChangeText($event)"
-            [autoFocus] = "autoFocus"
+            [showCheck]="showCheck"
+            [value]="this.value.text"
+            (onChange)="doChangeText($event)"
+            [autoFocus]="autoFocus"
           ></app-input-textarea>
         </div>
         <div class="col-xl-12 col-sm-12 col-md-12 col-lg-6">
@@ -71,10 +79,10 @@
             (onEdit)="doEditCountry($event)"
             (onAdd)="doAddCountry($event)"
             (onSelect)="doChangeCountry($event)"
-            (onChange) = "doChangeCountry($event)"
-            [showAdd] = "true"
-            [showEdit] = "true"
-            [showDelete] = "true"
+            (onChange)="doChangeCountry($event)"
+            [showAdd]="true"
+            [showEdit]="true"
+            [showDelete]="true"
             [showSmall]="true"
           ></app-input-select-entity>
           <app-input-select-entity
@@ -84,13 +92,18 @@
             [showFlash]="false"
             [showPaperclip]="false"
             [showCD]="false"
-            (onChange) = "doChangeCity($event)"
-            [showAdd] = "true"
-            [showEdit] = "true"
-            [showDelete] = "true"
+            (onChange)="doChangeCity($event)"
+            [showAdd]="true"
+            [showEdit]="true"
+            [showDelete]="true"
             [showSmall]="true"
           >
           </app-input-select-entity>
+          <app-input-text
+            [title]="'Area code'"
+            [value]="value.code"
+            (onChange)="doChangeAreaCode($event)"
+          ></app-input-text>
         </div>
       </div>
     </div>

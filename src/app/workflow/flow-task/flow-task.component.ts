@@ -45,7 +45,13 @@ export class FlowTaskComponent implements OnInit {
   }
 
   showStep(index: number): boolean{
-    return index > this.workFlow.tasks.length-10 || this.showAll
+    let e = this.workFlow.tasks[index]
+    // console.log(e);
+    
+    let showOnConditionOfPreviousValues = e.getDoNotSkip()
+    // console.log(showOnConditionOfPreviousValues);
+    
+    return (index > this.workFlow.tasks.length-10 || this.showAll) && showOnConditionOfPreviousValues
   }
 
   doDrill(){

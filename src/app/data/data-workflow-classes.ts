@@ -123,10 +123,6 @@ export class Task {
   set actionRecordDateStr(v: string) {
     this._actionRecordDateStr = v;
   }
-
-  get skip(): boolean {
-    return false;
-  }
   constructor(protected data: DataService, public fieldName) {}
   init(): boolean {
     this.isDone = false;
@@ -140,6 +136,20 @@ export class Task {
   /*
       subTasks are there to provide the next task
     */
+  private _showIf_fieldName = '';
+  private _showIf_value: any = true;
+  setSkipIf(fieldName: string, showIfValue: any) {
+    this._showIf_fieldName = fieldName;
+    this._showIf_value = showIfValue;
+  }
+
+  getDoNotSkip(): boolean {
+    //sourceValuesObject: object
+    if (this._showIf_fieldName) {
+      return this.workflowValuesObject[this._showIf_fieldName] == this._showIf_value;
+    }
+    return true;
+  }
   canMoveOn(): boolean {
     // to be implemented by child classes, if they need to initialise data
     return false;
@@ -214,7 +224,8 @@ export class TaskSelect extends Task {
     }
   }
   protected _init_needs_update(): boolean {
-    return !this.values || this.sourceType != null;
+    //return !this.values || this.sourceType != null;
+    return this.sourceType != null;
   }
   protected _init_verify_if_empty() {
     if (this.values) {
@@ -228,6 +239,7 @@ export class TaskSelect extends Task {
   }
   init(): boolean {
     super.init();
+
     if (this._init_needs_update()) {
       this.values = this.data.getEntities(
         this.sourceType,
@@ -406,7 +418,7 @@ export class TaskDate extends Task {
   ensure = true; //value must be true to move on
   thisValueIsRecordDate = false;
   verify(): boolean {
-    if ((this.ensure && this.value) || this.skip) {
+    if (this.ensure && this.value) {
       this.errorMessage = '';
       return true;
     } else {
@@ -481,39 +493,44 @@ enum EnumEntityPersistType {
 
 export class EntityValue {
   actionType: EnumEntityPersistType;
-  constructor(
-    public data: DataService
-  ) {}
+  actionAtFinish = true;
+  overWrite_fieldName = ''
+  overWrite_value: any
+  constructor(public data: DataService) {}
 
-  
-  private notifySpecs: [string,string][] = []
-  addNotify(entityKeyFieldName: string, fieldName: string): EntityValue{
-    let note:[string,string] = [entityKeyFieldName,fieldName]
-    this.notifySpecs.push(note)
-    return this
+  private notifySpecs: [string, string][] = [];
+  addNotify(entityKeyFieldName: string, fieldName: string): EntityValue {
+    let note: [string, string] = [entityKeyFieldName, fieldName];
+    this.notifySpecs.push(note);
+    return this;
   }
-  private notify(sourceValuesObject: object){
-    this.notifySpecs.forEach((note)=>{
+  private notify(sourceValuesObject: object) {
+    this.notifySpecs.forEach((note) => {
       let notifyEntity = this._getEntity(note[0], sourceValuesObject);
       notifyEntity.notify(notifyEntity, note[1]);
-    })
+    });
   }
 
-  private _v_entityKeyFieldName: string
-  private _v_getValueFieldName: string
-  private _v_defaultValue: any
-  initValue( entityKeyFieldName: string,
-     getValueFieldName: string,
-     defaultValue: any):EntityValue{
-      this._v_entityKeyFieldName = entityKeyFieldName
-      this._v_getValueFieldName = getValueFieldName
-      this._v_defaultValue = defaultValue
-      return this
+  private _v_entityKeyFieldName: string;
+  private _v_getValueFieldName: string;
+  private _v_defaultValue: any;
+  initValue(
+    entityKeyFieldName: string,
+    getValueFieldName: string,
+    defaultValue: any
+  ): EntityValue {
+    this._v_entityKeyFieldName = entityKeyFieldName;
+    this._v_getValueFieldName = getValueFieldName;
+    this._v_defaultValue = defaultValue;
+    return this;
   }
 
   getValue(sourceValuesObject: object) {
     if (this._v_entityKeyFieldName) {
-      let entity = this._getEntity(this._v_entityKeyFieldName, sourceValuesObject);
+      let entity = this._getEntity(
+        this._v_entityKeyFieldName,
+        sourceValuesObject
+      );
       let v = this.data.getEntityFieldTextOrEntity(
         entity,
         this._v_getValueFieldName
@@ -530,53 +547,74 @@ export class EntityValue {
     console.log(...args);
   }
 
-  persist(sourceValuesObject: object) {
-    //console.log(this)
+  persist(sourceValuesObject: object): object {
+    let o = {};
     switch (this.actionType) {
       case EnumEntityPersistType.UPDATE:
-        this._update(sourceValuesObject);
+        o = this._update(sourceValuesObject);
         break;
       case EnumEntityPersistType.INSERT:
-        this._insert(sourceValuesObject);
+        o = this._insert(sourceValuesObject);
+        sourceValuesObject = _transferInfo(sourceValuesObject, o);
         break;
       case EnumEntityPersistType.DELETE:
         this._delete(sourceValuesObject);
         break;
     }
+    return sourceValuesObject;
+
+    function _transferInfo(target: object, source: object): object {
+      target[source['fieldName']] = source['key'];
+      return target;
+    }
   }
 
-  private _u_entityKeyFieldName: string
+  private _u_entityKeyFieldName: string;
   private _u_entityFieldName: string;
   private _u_sourceValuesObject_FieldName: string;
-  
-  initUpdate(entityKeyFieldName: string, entityFieldName: string, sourceValuesObject_FieldName: string): EntityValue {
-    this._u_entityKeyFieldName = entityKeyFieldName
+
+  initUpdate(
+    entityKeyFieldName: string,
+    entityFieldName: string,
+    sourceValuesObject_FieldName: string
+  ): EntityValue {
+    this._u_entityKeyFieldName = entityKeyFieldName;
     this._u_sourceValuesObject_FieldName = sourceValuesObject_FieldName;
     this._u_entityFieldName = entityFieldName;
     this.actionType = EnumEntityPersistType.UPDATE;
-    return this
+    return this;
   }
 
   private _update(sourceValuesObject: object) {
+    let o = {};
     if (_hasToBeSaved(this)) {
       if (this._u_sourceValuesObject_FieldName) {
-        let entity = this._getEntity(this._u_entityKeyFieldName, sourceValuesObject);
+        let entity = this._getEntity(
+          this._u_entityKeyFieldName,
+          sourceValuesObject
+        );
         entity.setValue(
           this._u_entityFieldName,
           sourceValuesObject[this._u_sourceValuesObject_FieldName]
-        )
-        this.notify(sourceValuesObject)
+        );
+        this.notify(sourceValuesObject);
+        o = {
+          fieldName: this._u_entityFieldName,
+          key: sourceValuesObject[this._u_sourceValuesObject_FieldName],
+        };
       } else {
         this._log('sourceValuesObject_FieldName was not provided', {
           sourceValuesObject_FieldName: this._u_sourceValuesObject_FieldName,
           sourceValuesObject,
         });
       }
+      return o;
     }
 
     function _hasToBeSaved(that: EntityValue) {
       return (
-        that._u_entityKeyFieldName.length > 0 && that._u_entityFieldName.length > 0
+        that._u_entityKeyFieldName.length > 0 &&
+        that._u_entityFieldName.length > 0
       );
     }
   }
@@ -584,29 +622,36 @@ export class EntityValue {
   private _i_insertFieldNames: string[] = [];
   private _i_sourceValuesObject_FieldNames: string[] = [];
   private _i_targetStoreEnum: E.EnumEntityType;
+  private _i_fieldName_forNewKey: string = '';
   initInsert(
     targetStore: E.EnumEntityType,
     entityFieldNames: string[],
-    sourceValuesObject_FieldNames: string[]
+    sourceValuesObject_FieldNames: string[],
+    fieldName_forNewKey: string
   ): EntityValue {
     this._i_insertFieldNames = entityFieldNames;
     this._i_sourceValuesObject_FieldNames = sourceValuesObject_FieldNames;
     this._i_targetStoreEnum = targetStore;
+    this._i_fieldName_forNewKey = fieldName_forNewKey;
     this.actionType = EnumEntityPersistType.INSERT;
-    return this
+    return this;
   }
-  private _insert(sourceValuesObject: object) {
+  private _insert(sourceValuesObject: object): object {
     //fields, sourceValuesObject_Fields, target store
     let d = this.data.getEntities(this._i_targetStoreEnum);
     let entity = d.createEntity();
-    // o['data'] = this.data
+
     this._i_insertFieldNames.forEach((value, index) => {
       entity[value] =
         sourceValuesObject[this._i_sourceValuesObject_FieldNames[index]];
     });
+    entity.key = d.lastKey + 1;
     d.add(entity);
-
-    this.notify(sourceValuesObject)
+    this.notify(sourceValuesObject);
+    let o = { fieldName: this._i_fieldName_forNewKey, key: entity.key };
+    this.overWrite_fieldName = this._i_fieldName_forNewKey
+    this.overWrite_value = entity.key
+    return o
   }
 
   initDelete(sourceValuesObject: object) {
@@ -618,7 +663,6 @@ export class EntityValue {
 
   private _getEntity(entityKeyFieldName: string, workflowValuesObject: object) {
     let entityKey = workflowValuesObject[entityKeyFieldName];
-    // console.log(workflowValuesObject,this.entityKeyFieldName);
     let elements = this.data.getEntitiesByKeyField(entityKeyFieldName);
     let entity = elements.get(entityKey);
     if (entity) return entity;
@@ -769,7 +813,7 @@ export class TaskWalker extends Task {
     if (that._canBeBuiltOn(fromTask)) {
       that._addChildTask(fromTask, that);
     } else {
-      that._saveToTargetObject();
+      that._saveToTargetObjectAtFinish();
       that.start();
     }
     return true;
@@ -815,7 +859,6 @@ export class TaskWalker extends Task {
       that._checkIfConditionalBuildHasAdded(fromTask, notAdded);
     }
   }
-
   private _findAndBuildNextChildTask(
     fromTask: Task,
     that: TaskWalker,
@@ -853,7 +896,11 @@ export class TaskWalker extends Task {
   private _collectValues(): object {
     let o = {};
     this.tasks.forEach((e) => {
-      o[e.fieldName] = e.value;
+      let doNotSkip = e.getDoNotSkip()      
+      if (doNotSkip) {
+        o[e.fieldName] = e.value
+      }
+      
     });
     return o;
   }
@@ -872,13 +919,13 @@ export class TaskWalker extends Task {
     let r: EntityValue[] = [];
     this.tasks.forEach((e) => {
       e.targetsOfChange.forEach((target) => {
-        r.push(target);
+        if (e.getDoNotSkip()) r.push(target);
       });
     });
     return r;
   }
 
-  private _saveToTargetObject() {
+  private _saveToTargetObjectAtFinish() {
     this._collectStateFromTasks();
     _saveCollectedValuesToEachTarget(this);
     this._addHistory();
@@ -886,7 +933,8 @@ export class TaskWalker extends Task {
 
     function _saveCollectedValuesToEachTarget(that: TaskWalker) {
       that.targetsOfChange.forEach((target) => {
-        target.persist(that.workflowValuesObject);
+        if (target.actionAtFinish)
+          that.workflowValuesObject = target.persist(that.workflowValuesObject);
       });
     }
   }
@@ -928,22 +976,42 @@ export class TaskWalker extends Task {
 
   private _moveToNext_DoVerified(): Task {
     this.currentTask.isDone = true;
+    this.workflowValuesObject = this._collectValues();
+    _saveRealTimeTargetsOfChange(this.currentTask, this.workflowValuesObject);
     if (this._buildNext(this.currentTask)) {
       this._moveToNext_DoCurrentTaskAfterBuild();
     }
     return this.currentTask;
+
+    function _saveRealTimeTargetsOfChange(
+      task: Task,
+      sourceValuesObject: object
+    ) {
+      task.targetsOfChange.forEach((target) => {
+        if (!target.actionAtFinish && task.getDoNotSkip()) {
+          sourceValuesObject = target.persist(sourceValuesObject);
+          if (target.overWrite_fieldName) task.fieldName = target.overWrite_fieldName
+          if (target.overWrite_value) task.value = target.overWrite_value
+        }
+      });
+    }
   }
 
   public moveToNext(): Task {
+    let showTask = true;
     do {
       this._moveToNext();
-    } while (this.currentTask.canMoveOn());
+      showTask = this.currentTask.getDoNotSkip();
+    } while (this.currentTask.canMoveOn() || !showTask);
     return this.currentTask;
   }
 
   private _moveToNext(): Task {
     this.currentTask.errorMessage = '';
-    if (this.currentTask.verify()) {
+    if (
+      this.currentTask.verify() ||
+      !this.currentTask.getDoNotSkip()
+    ) {
       return this._moveToNext_DoVerified();
     }
     return null;
@@ -956,16 +1024,22 @@ export class TaskWalker extends Task {
 
   public moveToPrev(): Task {
     if (this.currentTask.parent) {
-      _markCurrentTaskAsDone(this);
-      let parentValue = this.currentTask.parent.value;
-      _resetActionValues(this);
-      this._currentTaskIndex--;
-      _setCurrentTask(this);
-      this.currentTask.value = parentValue;
-      this.tasks = this._deleteSubsequentTasks();
+      do {
+        _stepToPrevTask(this);
+      } while (!this.currentTask.getDoNotSkip());
       return this.currentTask;
     }
     return null;
+
+    function _stepToPrevTask(that: TaskWalker) {
+      _markCurrentTaskAsDone(that);
+      let parentValue = that.currentTask.parent.value;
+      _resetActionValues(that);
+      that._currentTaskIndex--;
+      _setCurrentTask(that);
+      that.currentTask.value = parentValue;
+      that.tasks = that._deleteSubsequentTasks();
+    }
 
     function _markCurrentTaskAsDone(that: TaskWalker) {
       that.currentTask.isDone = false;

@@ -252,6 +252,7 @@ export class DataService {
           let a = new K.EntityAddress(this);
           a.text = v.text;
           a.cityKey = v.cityKey;
+          a.code = v.code
           return a;
         } else return new K.EntityAddress(this);
       } else {
