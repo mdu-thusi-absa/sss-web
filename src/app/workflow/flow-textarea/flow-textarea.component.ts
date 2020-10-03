@@ -42,6 +42,16 @@ export class FlowTextareaComponent implements OnInit {
     this.taskFlow.value = event
     //this.onChange.emit(this.value);
   }
+
+  getActionDescription(): string{
+    let s = ''
+    if (this.taskFlow.isCurrent){
+      s = 'Please amend'
+    }
+    else
+      s = 'Final text'
+    return s
+  }
 }
 
 

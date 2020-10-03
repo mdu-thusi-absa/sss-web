@@ -40,5 +40,15 @@ export class FlowDateComponent implements OnInit {
     this.taskFlow.value = event
     //this.onChange.emit(this.value);
   }
+
+  getActionDescription(): string{
+    let s = ''
+    if (this.taskFlow.isCurrent){
+      s = 'Please select a date'
+    }
+    else
+      s = 'Choisen date'
+    return s
+  }
 }
 

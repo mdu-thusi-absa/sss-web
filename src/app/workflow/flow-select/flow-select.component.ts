@@ -45,6 +45,17 @@ export class FlowSelectComponent implements OnInit {
     }
   }
 
+  getActionDescription(): string{
+    let s = ''
+    if (this.taskFlow.isCurrent){
+      let n = this.taskFlow.values.size
+      s = 'Please select' + (n<2?'':' 1 of ' + n)
+    }
+    else
+      s = 'Choisen item'
+    return s
+  }
+
   doSelect(event:number){
     this.taskFlow.errorMessage = '';
     this.taskFlow.value = +event;

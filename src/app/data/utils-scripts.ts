@@ -3,16 +3,23 @@
 //     setTimeout(this.updateScroll, 50,this.eid,topPos)
 //   }
 
-import { EntityAddress } from './data-entity-kids';
+// import { EntityAddress } from './data-entity-kids';
 
 export function getHtmlElementById_Top(id: string): number {
   let e = getHtmlElementById(id);
-  return getJQueryElementTop(e);
+  if (e)
+    return getJQueryElementTop(e);
+  else 
+    return 0
 }
 
-export function getHtmlElementById_Height(id: string): number {
+export function getHtmlElementById_Height(id: string,defaultValue: number): number {
+  try{
   let e = getHtmlElementById(id);
   return getJQueryElementHeight(e);
+  }catch(e){
+    return defaultValue
+  }
 }
 
 export function getHtmlElementById(id: string): JQuery<HTMLElement> {

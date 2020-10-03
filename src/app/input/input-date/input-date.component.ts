@@ -20,6 +20,7 @@ export class InputDateComponent implements OnInit {
   @Input() placeholder = '';
   // @Input() value = new Date();
   @Input() disabled = false;
+  @Input() showSmall = false
 
   @Output() onFile = new EventEmitter();
   @Output() onRecord = new EventEmitter();

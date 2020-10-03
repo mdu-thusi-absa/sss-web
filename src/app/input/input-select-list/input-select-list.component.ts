@@ -116,16 +116,11 @@ export class InputSelectListComponent implements OnInit {
   doKeyUp_ArrowUp(){}
 
   setFocusOnSelecetedElement() {
-    //let topPos = (this.keysVisisble.indexOf(this.selectedEntityKey) - 4)* 31; //height of row
     let n = this.keysVisisble.indexOf(this.selectedEntityKey)
     let topPos = 0
     for(let i=4; i<n; i++){
-      topPos = topPos + S.getHtmlElementById_Height(this.eid + '-tr-' + i)
+      topPos = topPos + S.getHtmlElementById_Height(this.eid + '-tr-' + i,31)
     }
-    // let topPos = S.getHtmlElementById_Top(this.eid + '-tr-' + this.selectedEntityKey)
-    console.log(topPos);
-    
-    //let topPos = S.getHtmlTopById(this.eid + '-tr-' + this.selectedEntityKey) - 120
     setTimeout(S.updateElementScroll, 50, 'table-content-' + this.eid, topPos);
   }
 

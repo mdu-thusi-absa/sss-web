@@ -6,7 +6,7 @@
 >
   {{ taskFlow.description }}
   <app-input-checkbox
-    [title]="'Please confirm'"
+    [title]="getActionDescription()"
     [value]="taskFlow.value"
     [showSmall]="true"
     (onChange) = "doChange($event)"

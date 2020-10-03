@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataService } from 'src/app/data/data.service';
+import { getHtmlElementById, getHtmlElementById_Height, getHtmlElementById_Top } from 'src/app/data/utils-scripts';
 
 
 @Component({
@@ -49,5 +50,23 @@ export class InputPanelComponent implements OnInit {
   //   let elementPanelBody = document.getElementById('input-panel-' + this.eid);
   //   console.log(elementPanelBody.scrollTop)
   // }
+  getBodyMaxHeight(){
+    // let t = getHtmlElementById_Top('input-panel-heading-' + this.eid)
+    // let h = getHtmlElementById_Height('input-panel-heading-' + this.eid)
+    // let tH = getHtmlElementById_Height('main-app-container')
+
+    //let m = document.getElementById('input-panel-heading-' + this.eid).
+    //let t = getHtmlElementById_Height('input-panel-heading-' + this.eid)
+    //let t = getHtmlElementById_Top(this.eid + '-title')
+    //let e = getHtmlElementById('input-panel-' + this.eid)
+    //let n = e.scrollTop()
+    // console.log(h,t,tH)
+    // if (n>0)
+    //   console.log(t,n)
+    //let topPos = getHtmlElementById_Top('input-panel-' + this.eid)
+    //console.log(topPos)
+    //"maxHeight == 0 ? '' : maxHeight"
+    return this.maxHeight?this.maxHeight:''
+  }
 
 }

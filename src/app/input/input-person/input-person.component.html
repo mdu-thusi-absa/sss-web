@@ -46,51 +46,6 @@
         (onAdd) = "doAdd()"
         [sourceVersion] = "values.version"
       ></app-input-dropdown>
-        <!-- <select
-          class="form-control input-sm collapse in"
-          style="font-size: small;"
-          (change)="doChange($event)"
-          style="padding-left: 6px; padding-right: 6px;"
-          (focus)="onScrollData($event)"
-        >
-        <option value="-1" [selected]="this.value<0">Please select</option>
-          <ng-container *ngFor="let e of values | keyvalue">
-            <option
-              *ngIf="isLoadAll || getDoLoad(e.key)"
-              [value]="e.key"
-              [selected]="e.key == value"
-              [hidden]="hideItem(e.value)"
-              ><small>{{ e.value.fullName }}</small></option
-            >
-          </ng-container>
-        </select>
-        <span
-          [hidden]="!showDelete"
-          [class.disabled] = "this.value < 0"
-          class="input-group-addon btn primary-color-reverse hidden-xs"
-          style="border-right: none;"
-          (click)="doDelete()"
-          [title]="'Delete the ' + title"
-        >
-          <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
-        </span>
-        <span
-          [hidden]="!showEdit"
-          [class.disabled] = "this.value < 0"
-          class="input-group-addon btn primary-color-reverse hidden-xs"
-          (click)="doEdit()"
-          [title]="'Edit the ' + title"
-        >
-          <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
-        </span>
-        <span
-          [hidden]="!showAdd"
-          class="input-group-addon btn primary-color-reverse hidden-xs"
-          (click)="doAdd()"
-          [title]="'Add an ' + title"
-        >
-          <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
-        </span> -->
       </div>
     </div>
     <div class="hidden-sm hidden-md hidden-lg">

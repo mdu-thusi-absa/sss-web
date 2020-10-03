@@ -49,55 +49,6 @@
         [sourceVersion] = "values.version"
         [autoFocus] = "autoFocus"
       ></app-input-dropdown>
-      <!-- <div class="input-group" style="width: 100%;">
-        <select
-          class="form-control input-sm collapse in"
-          style="font-size: small;"
-          (change)="doChange($event)"
-          style="padding-left: 6px; padding-right: 6px;"
-          (focus)="onScrollData($event)"
-        >
-        <option value="-1" [selected]="this.value<0">Please select</option>
-        <ng-container *ngFor="let e of values | keyvalue">
-          <option
-            *ngIf="(isLoadAll || getDoLoad(e.key))"
-            
-            [value]="e.key"
-            [selected] = "e.key == value"
-            [hidden]="hideItem(e.value)"
-            
-            ><small>{{e.value.name}}</small></option
-          >
-          </ng-container>
-        </select>
-        <span
-          *ngIf="showDelete && !disabled"
-          class="input-group-addon btn primary-color-reverse hidden-xs"
-          [class.disabled] = "this.value < 0"
-          style="border-right: none;"
-          (click)="doDelete()"
-          [title]="'Delete the ' + title"
-        >
-          <mat-icon aria-hidden="true" aria-label="Entities">clear</mat-icon>
-        </span>
-        <span
-          *ngIf="showEdit && !disabled"
-          [class.disabled] = "this.value < 0"
-          class="input-group-addon btn primary-color-reverse hidden-xs"
-          (click)="doEdit()"
-          [title]="'Edit the ' + title"
-        >
-          <mat-icon aria-hidden="true" aria-label="Entities">edit</mat-icon>
-        </span>
-        <span
-          *ngIf="showAdd && !disabled"
-          class="input-group-addon btn primary-color-reverse hidden-xs"
-          (click)="doAdd()"
-          [title]="'Add an ' + title"
-        >
-          <mat-icon aria-hidden="true" aria-label="Entities">add</mat-icon>
-        </span>
-      </div> -->
     </div>
     <!--render buttons for smaller screens-->
     <div class="hidden-sm hidden-md hidden-lg">

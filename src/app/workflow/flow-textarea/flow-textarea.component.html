@@ -6,7 +6,7 @@
 >
   {{ taskFlow.description }}
   <app-input-textarea
-    [title]="'Please amend'"
+    [title]="getActionDescription()"
     [value]="taskFlow.value"
     (onChange) = "doChange($event)"
     [autoFocus] = "taskFlow.isCurrent"

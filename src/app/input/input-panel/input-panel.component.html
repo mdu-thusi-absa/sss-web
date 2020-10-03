@@ -13,6 +13,7 @@
     style="vertical-align: middle; cursor: pointer"
     [attr.data-target]="'#input-panel-' + eid"
     [style.box-shadow]="collapsed ? '0px 4px 2px grey' : 'inherit'"
+    [attr.id] = "'input-panel-heading-' + eid"
   >
     <!-- <app-buttons-toolbar-button
       [hidden]="false"
@@ -131,9 +132,9 @@
     [class.panel-body-height]="maxHeight == 0"
     style="margin-bottom: 0px; position: relative; z-index: 9"
     [attr.id]="'input-panel-' + eid"
-    style="overflow-y: none; overflow-x: hidden; padding-bottom: 0px"
-    [style.max-height]="maxHeight == 0 ? '' : maxHeight + 'vh'"
+    style="overflow-y: auto; overflow-x: hidden; padding-bottom: 0px"
   >
     <ng-content></ng-content>
   </div>
 </div>
+<!-- [style.max-height]="getBodyMaxHeight()" -->

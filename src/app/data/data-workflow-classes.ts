@@ -167,9 +167,7 @@ export class Task {
   }
 
   hasAnswer(): boolean {
-    if (
-      Object.keys(this.workflowValuesObject).indexOf(this.fieldName) > -1
-    ) {
+    if (Object.keys(this.workflowValuesObject).indexOf(this.fieldName) > -1) {
       this.value = this.workflowValuesObject[this.fieldName];
       this.isDone = true;
       return true;
@@ -275,7 +273,7 @@ export class TaskSelect extends Task {
   }
 
   verify(): boolean {
-    if (this.needToVerify) return true
+    if (this.needToVerify) {
       if (this.value > -1)
         if (this.values)
           if (this.values.size > 0)
@@ -283,6 +281,9 @@ export class TaskSelect extends Task {
               this.entity = this.values.get(this.value);
               return true;
             }
+    } else {
+      return true;
+    }
     return false;
   }
 }
@@ -795,7 +796,7 @@ enum EnumTaskStatus {
 // rootTask: first Task. Build tree by using Task object add..., then assign to rootTask;
 export class TaskWalker extends Task {
   type = 'workflow';
-  isFinilised = false
+  isFinilised = false;
   private rootTask: Task = null;
   private currentTask: Task = null;
   //private lastAddedTask: Task = null;
@@ -840,7 +841,7 @@ export class TaskWalker extends Task {
     });
     this._buildNext(this.rootTask);
     this.currentTask.workflowValuesObject = this.workflowValuesObject;
-    if (this.currentTask.canMoveOn() || this.currentTask.hasAnswer()){
+    if (this.currentTask.canMoveOn() || this.currentTask.hasAnswer()) {
       this.moveToNext();
     }
     return true;
@@ -850,7 +851,7 @@ export class TaskWalker extends Task {
     if (typeof object == 'string') o = parseJson(object);
     else o = object;
     this.workflowValuesObject = o;
-    
+
     let keys = Object.keys(o);
     keys.forEach((fieldName, index) => {
       let a = o[fieldName];
@@ -945,13 +946,9 @@ export class TaskWalker extends Task {
       fromTask.workflowValuesObject = that._collectValues();
 
       function _returnNewIfNotEmpty(oldText: string, text: string): string {
-        if (oldText){
-          return oldText
-        } else
-          if (text)
-            return text
-          else
-            return oldText
+        //console.log(oldText,text);
+        if (text) return text;
+        else return oldText;
       }
     }
   }
@@ -1124,26 +1121,31 @@ export class TaskWalker extends Task {
       this._moveToNext();
       showTask = this.currentTask.getDoNotSkip();
     } while (
-      _canGoToNextTask(this,showTask) && this.currentTask.fieldName != 'finaliseIs' 
-    )
-    if (this.currentTask.hasAnswer() && this.currentTask.fieldName=='finaliseIs'){
-      this.isFinilised = true
-      this.moveToPrev()
-      this.currentTask.isDone = true
+      _canGoToNextTask(this, showTask) &&
+      this.currentTask.fieldName != 'finaliseIs'
+    );
+    if (
+      this.currentTask.hasAnswer() &&
+      this.currentTask.fieldName == 'finaliseIs'
+    ) {
+      this.isFinilised = true;
+      this.moveToPrev();
+      this.currentTask.isDone = true;
     }
     return this.currentTask;
 
-    function _canGoToNextTask(that: TaskWalker,showTask: boolean): boolean{
-      let b = that.currentTask.canMoveOn() ||
-      !showTask ||
-      that.currentTask.hasAnswer()
-      return b
+    function _canGoToNextTask(that: TaskWalker, showTask: boolean): boolean {
+      let b =
+        that.currentTask.canMoveOn() ||
+        !showTask ||
+        that.currentTask.hasAnswer();
+      return b;
     }
   }
 
   private _moveToNext(): Task {
     this.currentTask.errorMessage = '';
-    this.currentTask.needToVerify = this.needToVerify
+    this.currentTask.needToVerify = this.needToVerify;
 
     if (this.currentTask.verify() || !this.currentTask.getDoNotSkip()) {
       return this._moveToNext_DoVerified();
@@ -1168,9 +1170,9 @@ export class TaskWalker extends Task {
     function _stepToPrevTask(that: TaskWalker) {
       _markCurrentTaskAsDone(that);
       let parentValue = that.currentTask.parent.value;
-      console.log(that.actionEntityName)
-      console.log(that.actionEntityName)
+      _resetActionValues(that);
       that._currentTaskIndex--;
+      _setCurrentTask(that);
       that.currentTask.value = parentValue;
       that.tasks = that._deleteSubsequentTasks();
       that.workflowValuesObject = that._collectValues();

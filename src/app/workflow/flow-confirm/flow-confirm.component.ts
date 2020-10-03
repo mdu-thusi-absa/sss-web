@@ -15,29 +15,40 @@ export class FlowConfirmComponent implements OnInit {
   @Output() onEnter = new EventEmitter();
   @Input() showSavePrev = false;
   @Input() showSaveNext = false;
-  @Input() stepNumber = 1
+  @Input() stepNumber = 1;
 
-  constructor(public data:DataService) {}
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     // this.value = this.taskFlow.value;
   }
 
-  getValueString(){
-    if (this.taskFlow.value) return 'Yes'
-    return 'No'
+  getValueString() {
+    if (this.taskFlow.value) return 'Yes';
+    return 'No';
   }
 
-  doSaveNext(){
+  doSaveNext() {
     this.onSaveNext.emit();
   }
-  doSavePrev(){
+  doSavePrev() {
     this.onSavePrev.emit();
   }
 
-  doChange(event: any) { 
-    this.taskFlow.errorMessage = ''
-    this.taskFlow.value = event
+  doChange(event: any) {
+    this.taskFlow.errorMessage = '';
+    this.taskFlow.value = event;
     //this.onChange.emit(this.value);
+  }
+
+  getActionDescription(): string {
+    let s = '';
+    if (this.taskFlow.isCurrent) {
+      s = 'Please confirm';
+    } else {
+      if (this.taskFlow.value) s = 'Positive';
+      else s = 'Negative';
+    }
+    return s;
   }
 }

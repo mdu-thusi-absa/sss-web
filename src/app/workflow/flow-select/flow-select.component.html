@@ -9,7 +9,7 @@
 >
   <app-input-select-list
     [hidden]="taskFlow.errorMessage != ''"
-    [title]="'Please select' + (taskFlow.values.size<2?'':' 1 of ' + taskFlow.values.size)"
+    [title]="getActionDescription()"
     [value]="taskFlow.value"
     [values]="taskFlow.values"
     (onSelect)="doSelect($event)"

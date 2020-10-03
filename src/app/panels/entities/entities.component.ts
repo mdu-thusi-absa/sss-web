@@ -85,7 +85,7 @@ export class EntitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.doEntityTypeChange(this.entityTypeKey);
-    this.setCounts();
+    //this.setCounts();
     this.data.progress += 1;
     this.data.workFlow.addListener(this);
     //this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
@@ -120,7 +120,7 @@ export class EntitiesComponent implements OnInit {
           this.selectedEntityKey = k;
           this.doEntityChoose(this.selectedEntityKey);
           this.filterText = this.entities.get(this.selectedEntityKey).name;
-          this.doFilter(this.filterText)
+          //this.doFilter(this.filterText)
         }
       }
   }
@@ -165,11 +165,13 @@ export class EntitiesComponent implements OnInit {
   doEntityTypeChange(event: any) {
     this.isLoadAll = this.isLoadAll || this.entityTypeKey != +event;
     this.setEntityNames();
-    this.entities = this.data.getEntities(this.entityTypeKey);
+    this.getEntities()
+    this.doCounts()
+    //this.entities = this.data.getEntities(this.entityTypeKey);
     this.onDashboardChange.emit(this.entityTypeKey);
-    this.calcIsHidden();
-    this.setCounts();
-    if (this.verifyHiddenMap_HasSomething()) this.selectFirstVisibleRow();
+    //this.calcIsHidden();
+    //this.setCounts();
+    //if (this.verifyHiddenMap_HasSomething()) this.selectFirstVisibleRow();
   }
 
   private filterInText(text: string, filterText: string): boolean {
@@ -211,111 +213,111 @@ export class EntitiesComponent implements OnInit {
     return !doShow;
   }
 
-  isFullScreen() {
-    return this.panelRows === 1;
-  }
+  // isFullScreen() {
+  //   return this.panelRows === 1;
+  // }
 
-  isHalfScreen() {
-    return this.panelRows === 2;
-  }
+  // isHalfScreen() {
+  //   return this.panelRows === 2;
+  // }
 
-  isThirdScreen() {
-    return this.panelRows === 3;
-  }
+  // isThirdScreen() {
+  //   return this.panelRows === 3;
+  // }
 
-  getCount_Active() {
-    if (this.entities) {
-      return [...this.entities.values()].filter(
-        (e) => e['activeIs'] && e.entityTypeKey === this.entityTypeKey
-      ).length;
-    } else {
-      return 0;
-    }
-  }
+  // getCount_Active() {
+  //   if (this.entities) {
+  //     return [...this.entities.values()].filter(
+  //       (e) => e['activeIs'] && e.entityTypeKey === this.entityTypeKey
+  //     ).length;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
-  getCount_Dormant() {
-    if (this.entities) {
-      return [...this.entities.values()].filter(
-        (e) => !e['activeIs'] && e.entityTypeKey === this.entityTypeKey
-      ).length;
-    } else {
-      return 0;
-    }
-  }
+  // getCount_Dormant() {
+  //   if (this.entities) {
+  //     return [...this.entities.values()].filter(
+  //       (e) => !e['activeIs'] && e.entityTypeKey === this.entityTypeKey
+  //     ).length;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
-  getCount_Tasks() {
-    if (this.entities) {
-      return [...this.entities.values()].filter(
-        (e) => e['tasksCount'] > 0 && e.entityTypeKey === this.entityTypeKey
-      ).length;
-    } else {
-      return 0;
-    }
-  }
+  // getCount_Tasks() {
+  //   if (this.entities) {
+  //     return [...this.entities.values()].filter(
+  //       (e) => e['tasksCount'] > 0 && e.entityTypeKey === this.entityTypeKey
+  //     ).length;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
-  getCount_All() {
-    if (this.entities) {
-      return this.isHiddenMap.size;
-    } else {
-      return 0;
-    }
-  }
+  // getCount_All() {
+  //   if (this.entities) {
+  //     return this.isHiddenMap.size;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
-  doFilter(event: string) {
-    this.filterText = event;
-    this.isLoadAll = this.isLoadAll || this.filterText.length > 0;
-    this.setCounts();
-  }
+  // doFilter(event: string) {
+  //   this.filterText = event;
+  //   this.isLoadAll = this.isLoadAll || this.filterText.length > 0;
+  //   this.setCounts();
+  // }
 
-  doChangeShowActive(event: any) {
-    this.showActiveOnly = event;
+  // doChangeShowActive(event: any) {
+  //   this.showActiveOnly = event;
 
-    if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
-      this.rdoActiveDormantAll = 'all';
-    }
-    if (this.showActiveOnly && this.rdoActiveDormantAll === 'play') {
-      this.rdoActiveDormantAll = 'all';
-    }
-    this.setCounts();
-  }
+  //   if (this.showActiveOnly && this.rdoActiveDormantAll === 'pause') {
+  //     this.rdoActiveDormantAll = 'all';
+  //   }
+  //   if (this.showActiveOnly && this.rdoActiveDormantAll === 'play') {
+  //     this.rdoActiveDormantAll = 'all';
+  //   }
+  //   this.setCounts();
+  // }
 
-  setCounts() {
-    this.calcIsHidden();
-    this.countFiltered = this.getCountFiltered();
-    this.countAll = this.getCount_All();
-    this.countTasks = this.getCount_Tasks();
-    this.countDormant = this.getCount_Dormant();
-    this.countActive = this.getCount_Active();
-  }
+  // setCounts() {
+  //   this.calcIsHidden();
+  //   this.countFiltered = this.getCountFiltered();
+  //   this.countAll = this.getCount_All();
+  //   this.countTasks = this.getCount_Tasks();
+  //   this.countDormant = this.getCount_Dormant();
+  //   this.countActive = this.getCount_Active();
+  // }
 
-  getCountFiltered() {
-    if (this.entities) {
-      return [...this.isHiddenMap.values()].filter((e) => !e).length;
-    } else {
-      return 0;
-    }
-  }
+  // getCountFiltered() {
+  //   if (this.entities) {
+  //     return [...this.isHiddenMap.values()].filter((e) => !e).length;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
-  doChangeRdo(event: any) {
-    this.rdoActiveDormantAll = event;
-    this.setCounts();
-  }
+  // doChangeRdo(event: any) {
+  //   this.rdoActiveDormantAll = event;
+  //   this.setCounts();
+  // }
 
-  calcIsHidden() {
-    if (this.entities) {
-      this.isHiddenMap = new Map();
-      this.entities.forEach((value: EntityFunctional, key: number) => {
-        this.isHiddenMap.set(key, this.shouldBeHidden(value));
-      });
-    }
-  }
+  // calcIsHidden() {
+  //   if (this.entities) {
+  //     this.isHiddenMap = new Map();
+  //     this.entities.forEach((value: EntityFunctional, key: number) => {
+  //       this.isHiddenMap.set(key, this.shouldBeHidden(value));
+  //     });
+  //   }
+  // }
 
-  doAdd() {
-    this.isNewMessage = true;
-  }
-  doCancel() {
-    this.isNewMessage = false;
-  }
+  // doAdd() {
+  //   this.isNewMessage = true;
+  // }
+  // doCancel() {
+  //   this.isNewMessage = false;
+  // }
 
   doEntityChoose(entityKey: number) {
     if (this.selectFirstVisibleRow_DashboardIsShown()) {
@@ -325,4 +327,26 @@ export class EntitiesComponent implements OnInit {
       this.onEntityChange.emit(this.selectedEntityKey);
     }
   }
+
+  getEntities(){
+    let d = this.data.getEntities(this.entityTypeKey)
+    this.entities = d.select('activeIs',this._activeIs)
+    this.selectedEntityKey = this.entities.firstKey
+    //console.log(this.entities.firstValue.name);
+    this.onEntityChange.emit(this.selectedEntityKey)
+  }
+
+  private _activeIs = true
+  doRadioChoice(name: string){
+    this._activeIs = name=='ok'
+    this.getEntities()
+  }
+
+  countClosed = 0
+  doCounts(){
+    let d = this.data.getEntities(this.entityTypeKey)
+    this.countActive = d.select('activeIs',true).size
+    this.countClosed = d.select('activeIs',false).size
+  }
+
 }
