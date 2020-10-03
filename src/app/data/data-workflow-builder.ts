@@ -7,7 +7,7 @@ import { DataService } from './data.service';
 import { AnyEntity, Entities } from './data-entities';
 
 export function buildWorkFlow(data: DataService): W.TaskWalker {
-  let workFlow = new W.TaskWalker(this, 'workflow');
+  let workFlow = new W.TaskWalker(data, 'workflow');
   workFlow.description = 'Execute a company secretarial task';
 
   let db = data.getEntities(E.EnumEntityType.Workflow);

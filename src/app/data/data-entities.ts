@@ -56,7 +56,11 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     super();
   }
 
-  select(fieldName: string, equalTo: any, doEqualOrNot: boolean = true): Entities<T> {
+  select(
+    fieldName: string,
+    equalTo: any,
+    doEqualOrNot: boolean = true
+  ): Entities<T> {
     let ets = new Entities<T>(this.EntityType);
     ets.data = this.data;
     this.forEach((value, key, map) => {
@@ -67,7 +71,7 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
           ets.add(a);
         }
       } else {
-        if (_doSelect(value,fieldName,equalTo,doEqualOrNot)) {
+        if (_doSelect(value, fieldName, equalTo, doEqualOrNot)) {
           let a = this.createEntity();
           a = Object.assign(a, value);
           ets.add(a);
@@ -76,11 +80,19 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     });
     return ets;
 
-    function _doSelect(value: T,fieldName: string,equalTo: any,doEqualOrNot:boolean): boolean{
-        if (doEqualOrNot)
-          return value[fieldName] === equalTo
-        else
-          return value[fieldName] !== equalTo
+    function _doSelect(
+      value: T,
+      fieldName: string,
+      equalTo: any,
+      doEqualOrNot: boolean
+    ): boolean {
+      if (doEqualOrNot) {
+        if (typeof equalTo == 'string') {
+          return (
+            (value[fieldName] as string).toLowerCase() === equalTo.toLowerCase()
+          );
+        } else return value[fieldName] === equalTo;
+      } else return value[fieldName] !== equalTo;
     }
   }
 

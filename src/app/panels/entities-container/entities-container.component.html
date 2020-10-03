@@ -4,61 +4,19 @@
       <!--column 1: Entities, Tasks, Records, Files-->
       <div
         class="col-xs-12"
-        [class.col-sm-2]="showPanelRight"
-        [class.col-sm-4]="!showPanelRight"
-        [hidden] = "!showPanelLeft"
+        [class.col-sm-3]="showPanelRight"
+        [class.col-sm-6]="!showPanelRight"
+        [hidden]="!showPanelLeft"
       >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3">
-            <small>
-              <mat-icon aria-hidden="true" aria-label="Entities"
-                >verified_user</mat-icon
-              >
-              &nbsp;Entities
-            </small>
-
+          <!-- <div class="panel-heading mt3" style="padding: 0px;height:29px;vertical-align:text-bottom;">
             <div class="btn-group pull-right">
-              <span class="hidden-xs"> V:{{ env.version }} </span>
-            </div>
-          </div>
-          <div
-            class="panel-body mt3"
-            [class.container-panel-left-full]="panelRows == 1"
-            [class.container-panel-left-half]="panelRows == 2"
-          >
-            <app-entities
-              [panelRows]="panelRows"
-              [isNarrow]="showPanelRight"
-              [entityTypeKey]="entityTypeKey"
-              (onDashboardChange)="doDashboardChange($event)"
-              (onEntityChange)="doEntityChange($event)"
-            ></app-entities>
-          </div>
-        </div>
-      </div>
-      <!--column 2: Details of Entities, Records, Docs-->
-      <div
-        [class.hidden-xs]="showPanelRight"
-        [class.col-xs-8]="!showPanelRight && showPanelLeft"
-        [class.col-sm-5]="showPanelRight && showPanelLeft"
-        [class.col-sm-8]="!showPanelRight  && showPanelLeft"
-
-        [class.col-xs-12]="!showPanelRight && !showPanelLeft"
-        [class.col-sm-6]="showPanelRight && !showPanelLeft"
-        [class.col-sm-12]="!showPanelRight && !showPanelLeft"
-      >
-        <!-- col 2: Entity Detail -->
-        <div
-          class="panel panel-primary no-gutter nobottom"
-          [hidden]="
-            (expandHistoryDetail || expandFilesDetail) &&
-            (!hideHistory || !hideFiles)
-          "
-        >
-          <div class="panel-heading mt3">
-            <app-buttons-toolbar-button
-                [title]="(showPanelRight ? 'Hide' : 'Show') + ' left panel'"
+              {{ entityName }}
+              </div> -->
+          <div class="panel-heading mt3" style="height: 29px">
+            <!-- <app-buttons-toolbar-button
+                [title]="(showPanelLeft ? 'Hide' : 'Show') + ' left panel'"
                 [placeholder]="
                   (showPanelLeft ? 'Hide' : 'Show') + ' left panel'
                 "
@@ -73,44 +31,115 @@
                 (onClick)="showPanelLeft = !showPanelLeft"
                 [isNarrow]="true"
                 [showMe]="true"
-              ></app-buttons-toolbar-button>
+              ></app-buttons-toolbar-button> -->
+            <div style="display:inline-box">
+            <app-input-dropdown
+                [key]="this.entityTypeKey"
+                [values]="this.data.menus"
+                [textColor] = "'white'"
+                [paddingTop] = "'1px'"
+                (onChange)="doDashboardChange($event)"
+              ></app-input-dropdown>
+            </div>
+          </div>
+            <!-- <span style="vertical-align: middle;">SSS</span>
+            <div class="pull-right" style="display: inline-box; width:50%">
+              <app-input-dropdown
+                [key]="this.entityTypeKey"
+                [values]="this.data.menus"
+                (onChange)="doDashboardChange($event)"
+              ></app-input-dropdown>
+            </div> -->
+            <!-- <small>
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >verified_user</mat-icon
+              >
+              
+              &nbsp;Entities
+            </small> -->
 
-            <small [hidden]="isPage('dashboard') || isPage('search')">
-              <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon>
-
-              <!-- <svg
-              style="
-                background-position: center;
-                vertical-align:middle;
-                background-repeat: no-repeat;
-                height: 19px;
-                width: 19px;
-                color: white;
+            <!-- <div style="display: inline-block">
+              
+            </div> -->
+            <!-- <div class="btn-group pull-right">
+              <span class="hidden-xs"> V:{{ env.version }} </span>
+            </div> -->
+          
+          <div class="panel-body mt3 panel-body-height">
+            <app-entities
+              [panelRows]="panelRows"
+              [isNarrow]="showPanelRight"
+              [entityTypeKey]="entityTypeKey"
+              (onDashboardChange)="doDashboardChange($event)"
+              (onEntityChange)="doEntityChange($event)"
+            ></app-entities>
+          </div>
+        </div>
+      </div>
+      <!--column 2: Details of Entities, Records, Docs-->
+      <div
+        [class.hidden-xs]="showPanelRight"
+        [class.col-xs-5]="showPanelRight && showPanelLeft"
+        [class.col-sm-5]="showPanelRight && showPanelLeft"
+        [class.col-xs-6]="!showPanelRight && showPanelLeft"
+        [class.col-sm-6]="!showPanelRight && showPanelLeft"
+        [class.col-sm-6]="showPanelRight && !showPanelLeft"
+        [class.col-xs-12]="!showPanelRight && !showPanelLeft"
+        [class.col-sm-12]="!showPanelRight && !showPanelLeft"
+      >
+        <!-- col 2: Entity Detail -->
+        <div
+          class="panel panel-primary no-gutter nobottom"
+          [hidden]="
+            (expandHistoryDetail || expandFilesDetail) &&
+            (!hideHistory || !hideFiles)
+          "
+        >
+          <div class="panel-heading mt3" style="height: 29px">
+            <app-buttons-toolbar-button
+              [title]="(showPanelRight ? 'Hide' : 'Show') + ' left panel'"
+              [placeholder]="(showPanelLeft ? 'Hide' : 'Show') + ' left panel'"
+              [matIcon]="
+                showPanelLeft ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
               "
-              [style.background-image] = "'url(\'../assets/svg/Icon_List_SVG_Black.svg\')'"
-            ></svg> -->
+              [svgUrlPath]="
+                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+              "
+              (onClick)="showPanelLeft = !showPanelLeft"
+              [isNarrow]="true"
+              [showMe]="true"
+            ></app-buttons-toolbar-button>
 
-              <span
+            <span [hidden]="isPage('dashboard') || isPage('search')">
+              <!-- <mat-icon aria-hidden="true" aria-label="Entities">apps</mat-icon> -->
+              SSS: {{ entityName }}
+              <!-- <span
                 class="hidden-xs hidden-sm hidden-md"
                 [hidden]="showPanelRight"
                 >&nbsp;Entity details</span
-              >&nbsp;
-              <!-- <div class="btn-group"> -->
+              >&nbsp; -->
+              
+              </span>
+
+            <small [hidden]="!isPage('dashboard')">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >public</mat-icon
+              >
+              <span> &nbsp;Dashboard</span>
+            </small>
+
+            <small [hidden]="!isPage('search')">
+              <mat-icon aria-hidden="true" aria-label="Entities"
+                >search</mat-icon
+              >
+              <span> &nbsp;Search</span>
+            </small>
+
+            <div class="btn-group pull-right">
               <div
                 class="btn-group"
                 style="vertical-align: middle; height: 20px"
               >
-                <!-- <app-buttons-toggle
-                  [title]="'Info'"
-                  [placeholder]="'Headline Informaion'"
-                  [dataTarget]="'#page-header'"
-                  [matIcon]="'priority_high'"
-                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
-                  [toggleValue]="!hideHeader"
-                  (onToggle)="hideHeader = !hideHeader"
-                  [isNarrow]="showPanelRight"
-                  [showMe]="true"
-                ></app-buttons-toggle> -->
                 <app-buttons-toggle
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
@@ -124,32 +153,6 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
-                <!-- <app-buttons-toggle
-                  [title]="'Secondary'"
-                  [placeholder]="'Secondary page'"
-                  [matIcon]="'star_half'"
-                  [dataTarget]="'#page-secondary-' + dashboardName"
-                  [svgUrlPath]="
-                    '../assets/svg/Icon_Exclamation circle_SVG_Black.svg'
-                  "
-                  [toggleValue]="!hideSecondary"
-                  (onToggle)="hideSecondary = !hideSecondary"
-                  [isNarrow]="showPanelRight"
-                  [showMe]="entityTypeKey == 2 || entityTypeKey == 3"
-                >
-                </app-buttons-toggle> -->
-
-                <!-- <app-buttons-toggle
-                  [title]="'Optional'"
-                  [placeholder]="'Optional page'"
-                  [matIcon]="'more'"
-                  [dataTarget]="'#page-optional-' + dashboardName"
-                  [svgUrlPath]="'../assets/svg/Icon_Stationary_SVG_Black.svg'"
-                  [toggleValue]="!hideOptional"
-                  (onToggle)="hideOptional = !hideOptional"
-                  [isNarrow]="showPanelRight"
-                  [showMe]="entityTypeKey == 2"
-                ></app-buttons-toggle> -->
                 <app-buttons-toggle
                   [title]="'Contacts'"
                   [placeholder]="'Contact page'"
@@ -205,17 +208,6 @@
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
                 ></app-buttons-toggle>
-                <!-- <app-buttons-toggle
-                  [title]="'Reports'"
-                  [placeholder]="'Reports page'"
-                  [dataTarget]="'#page-reports'"
-                  [matIcon]="'print'"
-                  [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
-                  [toggleValue]="!hideReports"
-                  (onToggle)="hideReports = !hideReports"
-                  [isNarrow]="showPanelRight"
-                  [showMe]="true"
-                ></app-buttons-toggle> -->
               </div>
               <span
                 [style.display]="
@@ -238,51 +230,6 @@
                 >
                 Select pages
               </span>
-              
-            </small>
-
-            <small [hidden]="!isPage('dashboard')">
-              <mat-icon aria-hidden="true" aria-label="Entities"
-                >public</mat-icon
-              >
-              <span> &nbsp;Dashboard</span>
-            </small>
-
-            <small [hidden]="!isPage('search')">
-              <mat-icon aria-hidden="true" aria-label="Entities"
-                >search</mat-icon
-              >
-              <span> &nbsp;Search</span>
-            </small>
-
-            <!-- <small [hidden]="entityTypeKey != dashboards.size - 2">
-              <mat-icon aria-hidden="true" aria-label="Entities"
-                >assignment</mat-icon
-              >
-              <span>&nbsp;Templates</span>
-            </small>
-
-            <small [hidden]="entityTypeKey < dashboards.size - 1">
-              <mat-icon aria-hidden="true" aria-label="Entities"
-                >settings</mat-icon
-              >
-              <span>&nbsp;Settings</span>
-            </small> -->
-
-            <div class="btn-group pull-right">
-              <!-- <app-buttons-toolbar-button
-                [hidden]="entityTypeKey == data.menus.size - 1"
-                [title]="''"
-                [placeholder]="'Expand/Contract all pages'"
-                [matIcon]="pagesAreExpanded?'unfold_less':'unfold_more'"
-                [svgUrlPath]="
-                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-                "
-                (onClick)="expandContractAllPages()"
-                [isNarrow]="showPanelRight"
-                [showMe]="true"
-              ></app-buttons-toolbar-button> -->
-              {{entityName}}
               <app-buttons-toolbar-button
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="
@@ -303,9 +250,9 @@
             </div>
           </div>
           <div
-            class="panel-body mt3"
-            [class.container-panel-center-full]="panelRows == 1"
-            [class.container-panel-center-half]="panelRows == 2"
+            class="panel-body mt3 panel-body-height"
+            [class.container-panel-center-full]="panelRows == 3"
+            [class.container-panel-center-half]="panelRows == 3"
           >
             <div
               *ngIf="getIsLoaded(isPage('detail'), 'entities')"
@@ -401,137 +348,22 @@
               ></app-panel-glogal-search>
             </div>
           </div>
-
-          <!-- col 2: Record Detail -->
-          <!-- <div
-          class="panel panel-primary no-gutter nobottom"
-          [hidden]="hideHistory && hideFiles"
-        >
-          <div class="panel-heading mt3">
-            <small> {{ hideHistory ? "Docs" : "Record Details" }}</small>
-            <div class="btn-group pull-right">
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showHideHistory()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="'Minimise Detail panel'"
-              >
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="expandHistoryDetail = !expandHistoryDetail"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="
-                  (expandHistoryDetail ? 'Shrink' : 'Expand') + ' Detail panel'
-                "
-              >
-                
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showPanelRight = !showPanelRight"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-              >
-              </a>
-            </div>
-          </div>
-          <div
-            class="panel-body mt3"
-            [class.files-details-half]="panelRows == 2 && !expandHistoryDetail"
-            [class.container-panel-center-full]="
-              panelRows == 2 && expandHistoryDetail
-            "
-          >
-            <div [hidden]="hideHistory">
-              <app-record-details [panelRows]="panelRows"></app-record-details>
-            </div>
-            <div [hidden]="hideFiles">
-              <app-files-details
-                [panelRows]="panelRows"
-                [showFileFields]="showFileFields"
-              ></app-files-details>
-            </div>
-          </div>
-        </div> -->
-
-          <!-- col 2: Files Detail -->
-          <!-- <div
-          class="panel panel-primary no-gutter nobottom"
-          [hidden]="hideFiles"
-        >
-          <div class="panel-heading mt3">
-            <small
-              >
-            <div class="btn-group pull-right">
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showFilesAll()"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="'Minimise Detail panel'"
-              >
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="expandFilesDetail = !expandFilesDetail"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="
-                  (expandFilesDetail ? 'Shrink' : 'Expand') + ' Detail panel'
-                "
-              >
-              </a>
-              <a
-                href="#"
-                class="btn btn-info btn-xs"
-                (click)="showPanelRight = !showPanelRight"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
-              >
-                
-              </a>
-            </div>
-          </div>
-          <div
-            class="panel-body mt3"
-            [class.container-panel-center-half]="
-              panelRows == 2 && !expandFilesDetail
-            "
-            [class.container-panel-center-full]="
-              panelRows == 2 && expandFilesDetail
-            "
-            style="overflow-y: hidden; overflow-x: auto;"
-          >
-            <app-files-details
-              [panelRows]="panelRows"
-              [showFileFields]="showFileFields"
-            ></app-files-details>
-          </div>
-        </div> -->
         </div>
       </div>
       <!-- column 3: Articles -->
       <div
         class="col-xs-12"
         [class.hidden-xs]="!showPanelRight"
-        [class.col-sm-5]="showPanelRight && showPanelLeft"
+        [class.col-sm-4]="showPanelRight && showPanelLeft"
         [class.col-sm-6]="showPanelRight && !showPanelLeft"
-
         [style.visibility]="showPanelRight ? 'visible' : 'hidden'"
         *ngIf="getIsLoaded(showPanelRight, 'panelRight')"
       >
         <div class="panel panel-primary no-gutter nobottom">
-          <div class="panel-heading mt3" style="vertical-align: middle">
+          <div
+            class="panel-heading mt3"
+            style="vertical-align: middle; height: 29px"
+          >
             <small
               ><mat-icon
                 aria-hidden="true"
@@ -629,12 +461,13 @@
             </div>
           </div>
           <div
-            class="panel-body mt3"
+            class="panel-body mt3 panel-body-height"
             style="margin-bottom: 0px"
             *ngIf="getIsLoaded(!hideTasks, 'tasks')"
             [hidden]="hideTasks"
           >
-            <app-entity-tasks [isNarrow]="true"></app-entity-tasks>
+            <!-- <app-entity-tasks [isNarrow]="true"></app-entity-tasks> -->
+            <app-flow-task-list></app-flow-task-list>
           </div>
           <div
             class="panel-body mt3"

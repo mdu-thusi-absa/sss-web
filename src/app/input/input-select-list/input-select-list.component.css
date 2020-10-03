@@ -12,7 +12,17 @@
     outline: 1px solid var(--color-gray);
   } 
 
-  .table-content{
+
+  .table-content-part{
     max-height: calc(max(50vh,200px));
+    overflow-y: auto;
+  }
+  /* max-height: calc(100% - 30px); */
+  .table-content-full{
+    max-height: calc(100% - 50px);
+    overflow-y: auto;
+  }
+  .table-content-less1{
+    max-height: calc(100% - 78px);
     overflow-y: auto;
   }

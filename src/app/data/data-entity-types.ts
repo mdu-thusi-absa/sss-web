@@ -90,7 +90,8 @@ export const jsonEntityTypes = `[
 	{"key":88,"name":"CommitteeAppointmentNotActiveForCommittee","pluralName":"CommitteeAppointmentNotActiveForCommittee","dashboardIndex":-1,"activeIs":true,"keyName":"committeeAppointmentNotActiveForCommitteeKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getCommitteeAppointmentNotActiveForCommittee","headingsSource":""},
 	{"key":89,"name":"BoardAppointment","pluralName":"BoardAppointments","dashboardIndex":-1,"activeIs":true,"keyName":"boardAppointmentKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonBoardAppointments","storeName":"","headingsSource":""},
 	{"key":90,"name":"BoardAppointmentActiveForCompany","pluralName":"BoardAppointmentsActiveForCompany","dashboardIndex":-1,"activeIs":true,"keyName":"boardAppointmentActiveForCompanyKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getBoardAppointmentsActiveForCompany","headingsSource":""},
-	{"key":91,"name":"BoardAppointmentNotActiveForCompany","pluralName":"BoardAppointmentsNotActiveForCompany","dashboardIndex":-1,"activeIs":true,"keyName":"boardAppointmentNotActiveForCompanyKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getBoardAppointmentsNotActiveForCompany","headingsSource":""}]`
+	{"key":91,"name":"BoardAppointmentNotActiveForCompany","pluralName":"BoardAppointmentsNotActiveForCompany","dashboardIndex":-1,"activeIs":true,"keyName":"boardAppointmentNotActiveForCompanyKey","canHoldSharesIs":"false","sourceType":"function","jsonSource":"","storeName":"getBoardAppointmentsNotActiveForCompany","headingsSource":""},
+	{"key":92,"name":"TaskWalker","pluralName":"TaskWalkers","dashboardIndex":-1,"activeIs":true,"keyName":"taskWalkerKey","canHoldSharesIs":"false","sourceType":"json","jsonSource":"jsonTaskWalkers","storeName":"","headingsSource":""}]`
 export enum EnumEntityType{
 	AccountingClass,
 	AccountingClassTier,
@@ -183,4 +184,5 @@ export enum EnumEntityType{
 	CommitteeAppointmentNotActiveForCommittee,
 	BoardAppointment,
 	BoardAppointmentActiveForCompany,
-	BoardAppointmentNotActiveForCompany}
+	BoardAppointmentNotActiveForCompany,
+	TaskWalker}

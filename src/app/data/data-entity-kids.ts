@@ -4,6 +4,11 @@ import * as J from './data-json';
 import { Entities, AnyEntity } from './data-entities';
 import { makeDocForName } from './doc-build';
 import { DataService } from './data.service';
+import {
+  objectHasAttribute,
+  parseJson,
+  replaceDateStrWithDateInObject,
+} from './utils-scripts';
 // import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class EntityTask extends Entity {
@@ -16,6 +21,7 @@ export class EntityType extends Entity {
   public jsonSource = '';
   public sourceType = 'json'; //or function for on the fly or from DB
   public storeName = ''; //name of a variable to store data in
+  public pluralName = '';
 
   public entities: Entities<AnyEntity>;
   init(data: DataService) {
@@ -925,6 +931,15 @@ export class EntityAddress extends Entity {
   constructor(public data: DataService) {
     super('address');
   }
+  loadFromString(text: string) {
+    let o = eval(text);
+    this.loadFromObject(o);
+  }
+  loadFromObject(o: object) {
+    this.text = o['text'];
+    this.code = o['code'];
+    this.cityKey = o['cityKey'];
+  }
   set cityKey(v: number) {
     this._cityKey = v;
     this._countryKey = this.city.countryKey;
@@ -993,6 +1008,61 @@ export class EntityAddress extends Entity {
       .getEntities(EnumEntityType.City)
       .get(this._cityKey) as EntityCity;
     return this._city;
+  }
+}
+
+export class EntityTaskWalker extends Entity {
+  capturedDate: Date;
+  taskName = '';
+  forName = '';
+  recordDate: Date;
+  taskStatusKey: number;
+
+  get name(): string {
+    let s = 'Workflow';
+    s = this._getAttrStr('startDate', '', '');
+    let a = this._getAttrStr('actionName', '', '');
+    if (a) s = s + ': ' + a;
+    else s = s + ': Task';
+    s = s + this._getAttrStr('actionEntityName', " for '", "'");
+    s = s + this._getAttrStr('actionObjectName', " of '", "'");
+    s = s + this._getAttrStr('actionRecordDateStr', ' on ', '');
+    return s;
+  }
+  set name(v: string) {
+    //nothing
+  }
+
+  _value = {};
+  get value(): object {
+    return this._value;
+  }
+  set value(v: object) {
+    this._value = replaceDateStrWithDateInObject(v);
+    // console.log(v)
+    // console.log(this._value)
+  }
+
+  private _getAttrStr(
+    fieldName: string,
+    prefix: string,
+    suffix: string
+  ): string {
+    if (objectHasAttribute(this.value as object, fieldName)) {
+      let v = this.value[fieldName];
+      let s = v;
+      if (v){
+        if (fieldName.slice(-4) == 'Date') {
+          if (typeof v == 'string') {
+            v = new Date(v);
+          }
+          s = v.toISOString().slice(0, 10);
+        }
+        return prefix + s + suffix;
+      }
+      return s
+    }
+    return '';
   }
 }
 
@@ -1282,6 +1352,9 @@ function initEntities(entityTypeKey: EnumEntityType) {
       break;
     case EnumEntityType.BoardAppointmentNotActiveForCompany:
       return new Entities<EntityBoardAppointment>(EntityBoardAppointment);
+      break;
+    case EnumEntityType.TaskWalker:
+      return new Entities<EntityTaskWalker>(EntityTaskWalker);
       break;
   }
 }

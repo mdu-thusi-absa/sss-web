@@ -5,6 +5,7 @@
     vertical-align: middle;
     height: 28px;
     overflow: hidden;
+    
   "
   [style.margin-top] = "marginTop"
   [attr.id]="'dropdown-group-' + eid"
@@ -15,7 +16,9 @@
       href="#"
       [attr.id]="'dropdown-button-' + eid"
       class="btn btn-sm"
-      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;color:gray;padding-left:4px;padding-right:5px"
+      style="text-align: left; margin: 0px; display: inline-block;margin-top: 1px;padding-left:4px;padding-right:5px;"
+      [style.color] = "textColor"
+      [style.padding-top] = "paddingTop"
       [class.a-width-buttons]="showDelete || showEdit || showAdd"
       [style.border]="showDelete || showEdit || showAdd ? '1px white' : 'none'"
       (click)="doModal($event)"

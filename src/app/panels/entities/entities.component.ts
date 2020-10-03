@@ -25,7 +25,7 @@ export class EntitiesComponent implements OnInit {
   isNewMessage = false;
   @Input() panelRows = 1;
   @Input() isNarrow = false;
-  @Input() entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
+  // @Input() entityTypeKey: EnumEntityType = EnumEntityType.Dashboard;
   entities: Entities<AnyEntity>; // = new FunctionalEntities();
   //entitiesAll: FunctionalEntities;
   //entityType: EnumEntityType = EnumEntityType.Dashboard;
@@ -91,6 +91,15 @@ export class EntitiesComponent implements OnInit {
     //this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
 
+  _entityTypeKey = EnumEntityType.Dashboard
+  @Input() set entityTypeKey(v: EnumEntityType){
+    this._entityTypeKey = v
+    this.doEntityTypeChange(v);
+  }
+  get entityTypeKey(): EnumEntityType{
+    return this._entityTypeKey
+  }
+
   // ngAfterViewInit(): void {
   //   // + this.fragment
   //   // try {
@@ -154,7 +163,6 @@ export class EntitiesComponent implements OnInit {
   }
 
   doEntityTypeChange(event: any) {
-    this.entityTypeKey = +event;
     this.isLoadAll = this.isLoadAll || this.entityTypeKey != +event;
     this.setEntityNames();
     this.entities = this.data.getEntities(this.entityTypeKey);

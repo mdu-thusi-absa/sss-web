@@ -4,12 +4,13 @@ import { Entity } from './data-entity-parent';
 import { Entities, AnyEntity } from './data-entities';
 import {
   EntityAddress,
-  EntityFile,
   EntityFileDownload,
   EntityFileUpload,
+  EntityTaskWalker,
 } from './data-entity-kids';
 import { ThrowStmt } from '@angular/compiler';
 import { throwError } from 'rxjs';
+import { objectHasAttribute, parseJson } from './utils-scripts';
 // import * as D from './data.service'
 
 export class Task_SubTaskCondition {
@@ -70,15 +71,23 @@ export class Task {
   }
   targetsOfChange: EntityValue[] = [];
   description = '';
-  value: any = '';
-  whenStarted = new Date();
-  whenDone = new Date();
+  protected _value: any;
+  set value(v: any) {
+    this._value = v;
+  }
+  get value() {
+    return this._value;
+  }
+
+  startDate = new Date();
+  doneDate = new Date();
   whoCreated = '';
   isDone = false;
   isCurrent = false;
   isEnd = false;
   notes = '';
   parent: Task = null;
+  needToVerify = true;
 
   subTasks: Task_SubTask[] = [];
   hasFork = false;
@@ -146,7 +155,9 @@ export class Task {
   getDoNotSkip(): boolean {
     //sourceValuesObject: object
     if (this._showIf_fieldName) {
-      return this.workflowValuesObject[this._showIf_fieldName] == this._showIf_value;
+      return (
+        this.workflowValuesObject[this._showIf_fieldName] == this._showIf_value
+      );
     }
     return true;
   }
@@ -154,6 +165,18 @@ export class Task {
     // to be implemented by child classes, if they need to initialise data
     return false;
   }
+
+  hasAnswer(): boolean {
+    if (
+      Object.keys(this.workflowValuesObject).indexOf(this.fieldName) > -1
+    ) {
+      this.value = this.workflowValuesObject[this.fieldName];
+      this.isDone = true;
+      return true;
+    }
+    return false;
+  }
+
   verify(): boolean {
     // to be implemented by child classes, if they need to initialise data
     return true;
@@ -177,7 +200,8 @@ export class Task {
 export class TaskSelect extends Task {
   type = 'select';
   sourceType: E.EnumEntityType;
-  value: any = 0; //the key of the selected item
+  _value = 0;
+  //value: any = 0; //the key of the selected item
   customEntities: Entities<Entity> = null;
   values: Entities<AnyEntity>;
   thisEntityNameIsSubjectName = false;
@@ -251,67 +275,70 @@ export class TaskSelect extends Task {
   }
 
   verify(): boolean {
-    if (this.value > -1)
-      if (this.values)
-        if (this.values.size > 0)
-          if (this.values.has(this.value)) {
-            this.entity = this.values.get(this.value);
-            return true;
-          }
+    if (this.needToVerify) return true
+      if (this.value > -1)
+        if (this.values)
+          if (this.values.size > 0)
+            if (this.values.has(this.value)) {
+              this.entity = this.values.get(this.value);
+              return true;
+            }
     return false;
   }
 }
 
-export class TaskSelectMulti extends TaskSelect {
-  type = 'select-multi';
-  selectedSourceType: E.EnumEntityType;
-  value: number[] = []; //the key of the selected items
-  values: Entities<AnyEntity>;
-  minSelectedItems = 0;
+// export class TaskSelectMulti extends TaskSelect {
+//   type = 'select-multi';
+//   selectedSourceType: E.EnumEntityType;
+//   _value: number[] = []; //the key of the selected items
+//   values: Entities<AnyEntity>;
+//   minSelectedItems = 0;
 
-  canMoveOn(): boolean {
-    return false; //for now
-  }
+//   canMoveOn(): boolean {
+//     return false; //for now
+//   }
 
-  init(): boolean {
-    super.init();
-    if (this._init_needs_update()) {
-      this.values = this.data.getEntities(
-        this.sourceType,
-        this.workflowValuesObject
-      );
-      this.value = []; ////get selected values from db source
-    }
-    return true;
-  }
+//   init(): boolean {
+//     super.init();
+//     if (this._init_needs_update()) {
+//       this.values = this.data.getEntities(
+//         this.sourceType,
+//         this.workflowValuesObject
+//       );
+//       this.value = []; ////get selected values from db source
+//     }
+//     return true;
+//   }
 
-  verify(): boolean {
-    return true; //for now
-  }
-}
+//   verify(): boolean {
+//     return true; //for now
+//   }
+// }
 
 export class TaskConfirm extends Task {
   type = 'confirm';
-  value = false;
+  _value = false;
   ensure = true; //value must be true to move on
 
   init(): boolean {
     return super.init();
   }
   verify(): boolean {
-    if (this.ensure && !this.value) {
-      this.errorMessage = this.name + ' is required';
-      return false;
-    } else {
-      this.errorMessage = '';
-      return true;
-    }
+    if (this.needToVerify)
+      if (this.ensure && !this.value) {
+        this.errorMessage = this.name + ' is required';
+        return false;
+      } else {
+        this.errorMessage = '';
+        return true;
+      }
+    else return true;
   }
 }
 
 export class TaskText extends Task {
   type = 'text';
-  value: '';
+  _value: '';
   required = false;
   mustChange = false;
   minLen = 3; //value must be true to move on
@@ -322,28 +349,30 @@ export class TaskText extends Task {
     return super.init();
   }
   verify(): boolean {
-    if (this.required && !this.value) {
-      this.errorMessage = this.name + ' is required';
-      return false;
-    } else if (this.value.length < this.minLen) {
-      this.errorMessage = this.name + ' is too short';
-      return false;
-    } else if (this.value.length > this.maxLen) {
-      this.errorMessage = this.name + ' is too long';
-      return false;
-    } else if (this.mustChange && this.value === this.initialValue) {
-      this.errorMessage = this.name + ' did not change';
-      return false;
-    } else {
-      this.errorMessage = '';
-      return true;
-    }
+    if (this.needToVerify)
+      if (this.required && !this.value) {
+        this.errorMessage = this.name + ' is required';
+        return false;
+      } else if (this.value.length < this.minLen) {
+        this.errorMessage = this.name + ' is too short';
+        return false;
+      } else if (this.value.length > this.maxLen) {
+        this.errorMessage = this.name + ' is too long';
+        return false;
+      } else if (this.mustChange && this.value === this.initialValue) {
+        this.errorMessage = this.name + ' did not change';
+        return false;
+      } else {
+        this.errorMessage = '';
+        return true;
+      }
+    else return true;
   }
 }
 
 export class TaskAddress extends Task {
   type = 'address';
-  value: EntityAddress;
+  _value: EntityAddress;
   ensure = true;
   defaultValue = false;
 
@@ -351,27 +380,28 @@ export class TaskAddress extends Task {
     return super.init();
   }
   verify(): boolean {
-    if (this.ensure) {
-      if (this.value.countryKey < 0) {
-        this.errorMessage = 'Country is required';
-        return false;
+    if (this.needToVerify)
+      if (this.ensure) {
+        if (this.value.countryKey < 0) {
+          this.errorMessage = 'Country is required';
+          return false;
+        }
+        if (this.value.cityKey < 0) {
+          this.errorMessage = 'City is required';
+          return false;
+        }
+        if (this.value.text.trim().length == 0) {
+          this.errorMessage = 'Text is required';
+          return false;
+        }
       }
-      if (this.value.cityKey < 0) {
-        this.errorMessage = 'City is required';
-        return false;
-      }
-      if (this.value.text.trim().length == 0) {
-        this.errorMessage = 'Text is required';
-        return false;
-      }
-    }
     return true;
   }
 }
 
 export class TaskNumber extends Task {
   type = 'number';
-  value: string = '';
+  _value: string = '';
   ensure = true;
   minValue = 0;
   maxValue = 1000000000;
@@ -381,28 +411,30 @@ export class TaskNumber extends Task {
     return super.init();
   }
   verify(): boolean {
-    if (this.ensure && this.value.length == 0) {
-      this.errorMessage = this.name + ' is required';
-      return false;
-    } else if (!Number(this.value)) {
-      if (this.value == '0') {
-        if (+this.value == 0) this.value = '0';
-        return true;
-      } else {
-        this.errorMessage = this.name + ' is not a number';
+    if (this.needToVerify)
+      if (this.ensure && this.value.length == 0) {
+        this.errorMessage = this.name + ' is required';
         return false;
+      } else if (!Number(this.value)) {
+        if (this.value == '0') {
+          if (+this.value == 0) this.value = '0';
+          return true;
+        } else {
+          this.errorMessage = this.name + ' is not a number';
+          return false;
+        }
+      } else if (+this.value < this.minValue) {
+        this.errorMessage = this.name + ' is too low';
+        return false;
+      } else if (+this.value > this.maxValue) {
+        this.errorMessage = this.name + ' is too high';
+        return false;
+      } else {
+        this.errorMessage = '';
+        this.value = +this.value + '';
+        return true;
       }
-    } else if (+this.value < this.minValue) {
-      this.errorMessage = this.name + ' is too low';
-      return false;
-    } else if (+this.value > this.maxValue) {
-      this.errorMessage = this.name + ' is too high';
-      return false;
-    } else {
-      this.errorMessage = '';
-      this.value = +this.value + '';
-      return true;
-    }
+    return true;
   }
 }
 
@@ -414,22 +446,32 @@ export class TaskDesc extends TaskText {
 
 export class TaskDate extends Task {
   type = 'date';
-  value: Date = new Date();
   ensure = true; //value must be true to move on
   thisValueIsRecordDate = false;
   verify(): boolean {
-    if (this.ensure && this.value) {
-      this.errorMessage = '';
-      return true;
-    } else {
-      this.errorMessage = this.name + ' is required';
-      return false;
-    }
+    if (this.needToVerify)
+      if (this.ensure && this.value) {
+        this.errorMessage = '';
+        return true;
+      } else {
+        this.errorMessage = this.name + ' is required';
+        return false;
+      }
+    return true;
   }
   get actionRecordDateStr(): string {
-    if (this.thisValueIsRecordDate)
-      return this.value.toISOString().slice(0, 10);
+    if (this.thisValueIsRecordDate) {
+      return (this.value as Date).toISOString().slice(0, 10);
+    }
     return '';
+  }
+
+  get value(): Date {
+    return this._value;
+  }
+  set value(v: Date) {
+    if (typeof v == 'string') this._value = new Date(v);
+    else this._value = v;
   }
 }
 
@@ -460,18 +502,18 @@ export class TaskReminder extends Task {
   type = 'set-reminder';
   _reminderDate = new Date();
   _offsetDays = 0;
-  _refferenceFieldName = ''
+  _refferenceFieldName = '';
 
-  set referenceFieldName(v: string){
-    this._refferenceFieldName = v
+  set referenceFieldName(v: string) {
+    this._refferenceFieldName = v;
   }
 
-  get referenceFieldName(){
-    return this._refferenceFieldName
+  get referenceFieldName() {
+    return this._refferenceFieldName;
   }
 
-  get referenceCode(){
-    return this.workflowValuesObject[this._refferenceFieldName]
+  get referenceCode() {
+    return this.workflowValuesObject[this._refferenceFieldName];
   }
 
   set offsetDays(v: number) {
@@ -507,8 +549,8 @@ enum EnumEntityPersistType {
 export class EntityValue {
   actionType: EnumEntityPersistType;
   actionAtFinish = true;
-  overWrite_fieldName = ''
-  overWrite_value: any
+  overWrite_fieldName = '';
+  overWrite_value: any;
   constructor(public data: DataService) {}
 
   private notifySpecs: [string, string][] = [];
@@ -662,9 +704,9 @@ export class EntityValue {
     d.add(entity);
     this.notify(sourceValuesObject);
     let o = { fieldName: this._i_fieldName_forNewKey, key: entity.key };
-    this.overWrite_fieldName = this._i_fieldName_forNewKey
-    this.overWrite_value = entity.key
-    return o
+    this.overWrite_fieldName = this._i_fieldName_forNewKey;
+    this.overWrite_value = entity.key;
+    return o;
   }
 
   initDelete(sourceValuesObject: object) {
@@ -735,6 +777,14 @@ export class TaskMessage extends Task {
   type = 'message';
 }
 
+enum EnumTaskStatus {
+  Paused,
+  Finilised,
+  Cancelled,
+  Authorised,
+  AwaitingAuthorisation,
+}
+
 // export class TaskError extends Task {
 //   type = 'error';
 //   text = '';
@@ -745,6 +795,7 @@ export class TaskMessage extends Task {
 // rootTask: first Task. Build tree by using Task object add..., then assign to rootTask;
 export class TaskWalker extends Task {
   type = 'workflow';
+  isFinilised = false
   private rootTask: Task = null;
   private currentTask: Task = null;
   //private lastAddedTask: Task = null;
@@ -755,7 +806,7 @@ export class TaskWalker extends Task {
 
   get name(): string {
     let s = 'Workflow';
-    if (this.whenStarted) s = this.whenStarted.toISOString().slice(0, 10);
+    if (this.startDate) s = this.startDate.toISOString().slice(0, 10);
     if (this.actionName) s = s + ': ' + this.actionName;
     else s = s + ': Task';
     if (this.actionEntityName) s = s + " for '" + this.actionEntityName + "'";
@@ -768,29 +819,50 @@ export class TaskWalker extends Task {
     this.rootTask = taskFlow;
   }
 
-  init(): boolean {
-    this.actionEntityName = '';
-    this.actionName = '';
-    this.actionObjectName = '';
+  init(preserveWorkFlowObject: boolean = false): boolean {
     this.entity = null;
-    this.workflowValuesObject = {};
+    if (!preserveWorkFlowObject) {
+      this.actionEntityName = '';
+      this.actionName = '';
+      this.actionObjectName = '';
+      this.workflowValuesObject = {};
+    }
     return true;
   }
-  // loads the rootTask, and builds the obvious branch, until the first fork
-  public start(): boolean {
-    this.init();
+  public start(preserveWorkFlowObject: boolean = false): boolean {
+    this.init(preserveWorkFlowObject);
     this.tasks = [this.rootTask];
     this.currentTask = this.rootTask;
     this.currentTask.isCurrent = true;
     if (this.currentTask) this._currentTaskIndex = 0;
-    //this.rootTask.init();
     this.tasks.forEach((t) => {
-      //t.isDone = false;
       t.init();
     });
     this._buildNext(this.rootTask);
-    if (this.currentTask.canMoveOn()) this.moveToNext();
+    this.currentTask.workflowValuesObject = this.workflowValuesObject;
+    if (this.currentTask.canMoveOn() || this.currentTask.hasAnswer()){
+      this.moveToNext();
+    }
     return true;
+  }
+  public load(object: object | string) {
+    let o = {};
+    if (typeof object == 'string') o = parseJson(object);
+    else o = object;
+    this.workflowValuesObject = o;
+    
+    let keys = Object.keys(o);
+    keys.forEach((fieldName, index) => {
+      let a = o[fieldName];
+      this.workflowValuesObject[fieldName] = a;
+      if (objectHasAttribute(this, fieldName)) {
+        this[fieldName] = a;
+      }
+      if (objectHasAttribute(this, '_' + fieldName)) {
+        this['_' + fieldName] = a;
+      }
+    });
+    this.start(true);
   }
   // public loopFromQue() {
   //   //todo: test
@@ -821,12 +893,31 @@ export class TaskWalker extends Task {
     return task.isDone && task.subTasks.length > 0;
   }
 
+  addPaused() {
+    this._saveThisToDataSource(EnumTaskStatus.Paused);
+  }
+
+  private _saveThisToDataSource(taskStatusKey: EnumTaskStatus) {
+    let t = new EntityTaskWalker(this.name, this.data);
+    let s = (t.value = JSON.parse(JSON.stringify(this.workflowValuesObject)));
+    let d = this.data.getEntities(E.EnumEntityType.TaskWalker);
+    t.taskStatusKey = taskStatusKey;
+    if (objectHasAttribute(this.workflowValuesObject, 'key'))
+      d.set(this.workflowValuesObject['key'], t);
+    else d.add(t);
+  }
+
+  _addTaskWalkerDB_Finalised() {
+    this._saveThisToDataSource(EnumTaskStatus.Finilised);
+  }
+
   private _ifTaskIsDone(fromTask: Task, that: TaskWalker): boolean {
     collectValuesIntoThisWalkerFromTask(fromTask, that);
     if (that._canBeBuiltOn(fromTask)) {
       that._addChildTask(fromTask, that);
     } else {
       that._saveToTargetObjectAtFinish();
+      this._addTaskWalkerDB_Finalised();
       that.start();
     }
     return true;
@@ -854,8 +945,13 @@ export class TaskWalker extends Task {
       fromTask.workflowValuesObject = that._collectValues();
 
       function _returnNewIfNotEmpty(oldText: string, text: string): string {
-        if (text) return text;
-        else return oldText;
+        if (oldText){
+          return oldText
+        } else
+          if (text)
+            return text
+          else
+            return oldText
       }
     }
   }
@@ -907,13 +1003,24 @@ export class TaskWalker extends Task {
   }
 
   private _collectValues(): object {
-    let o = {};
+    let o = this.workflowValuesObject;
+    //o['currentTaskIndex'] = this.currentTaskIndex;
+    let keys = [
+      'currentTaskIndex',
+      'startDate',
+      'actionName',
+      'actionEntityName',
+      'actionObjectName',
+      'actionRecordDateStr',
+    ];
+    keys.forEach((fieldName) => {
+      o[fieldName] = this[fieldName];
+    });
     this.tasks.forEach((e) => {
-      let doNotSkip = e.getDoNotSkip()      
+      let doNotSkip = e.getDoNotSkip();
       if (doNotSkip) {
-        o[e.fieldName] = e.value
+        o[e.fieldName] = e.value;
       }
-      
     });
     return o;
   }
@@ -1003,8 +1110,9 @@ export class TaskWalker extends Task {
       task.targetsOfChange.forEach((target) => {
         if (!target.actionAtFinish && task.getDoNotSkip()) {
           sourceValuesObject = target.persist(sourceValuesObject);
-          if (target.overWrite_fieldName) task.fieldName = target.overWrite_fieldName
-          if (target.overWrite_value) task.value = target.overWrite_value
+          if (target.overWrite_fieldName)
+            task.fieldName = target.overWrite_fieldName;
+          if (target.overWrite_value) task.value = target.overWrite_value;
         }
       });
     }
@@ -1015,16 +1123,29 @@ export class TaskWalker extends Task {
     do {
       this._moveToNext();
       showTask = this.currentTask.getDoNotSkip();
-    } while (this.currentTask.canMoveOn() || !showTask);
+    } while (
+      _canGoToNextTask(this,showTask) && this.currentTask.fieldName != 'finaliseIs' 
+    )
+    if (this.currentTask.hasAnswer() && this.currentTask.fieldName=='finaliseIs'){
+      this.isFinilised = true
+      this.moveToPrev()
+      this.currentTask.isDone = true
+    }
     return this.currentTask;
+
+    function _canGoToNextTask(that: TaskWalker,showTask: boolean): boolean{
+      let b = that.currentTask.canMoveOn() ||
+      !showTask ||
+      that.currentTask.hasAnswer()
+      return b
+    }
   }
 
   private _moveToNext(): Task {
     this.currentTask.errorMessage = '';
-    if (
-      this.currentTask.verify() ||
-      !this.currentTask.getDoNotSkip()
-    ) {
+    this.currentTask.needToVerify = this.needToVerify
+
+    if (this.currentTask.verify() || !this.currentTask.getDoNotSkip()) {
       return this._moveToNext_DoVerified();
     }
     return null;
@@ -1047,11 +1168,12 @@ export class TaskWalker extends Task {
     function _stepToPrevTask(that: TaskWalker) {
       _markCurrentTaskAsDone(that);
       let parentValue = that.currentTask.parent.value;
-      _resetActionValues(that);
+      console.log(that.actionEntityName)
+      console.log(that.actionEntityName)
       that._currentTaskIndex--;
-      _setCurrentTask(that);
       that.currentTask.value = parentValue;
       that.tasks = that._deleteSubsequentTasks();
+      that.workflowValuesObject = that._collectValues();
     }
 
     function _markCurrentTaskAsDone(that: TaskWalker) {

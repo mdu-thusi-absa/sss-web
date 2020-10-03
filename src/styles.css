@@ -136,7 +136,7 @@ body {
 /*for entities, tasks, records: halfs*/
 
 .entities-full {
-  height: calc(100vh - 175px);
+  height: calc(100vh - 171px);
   overflow-y: auto;
 }
 

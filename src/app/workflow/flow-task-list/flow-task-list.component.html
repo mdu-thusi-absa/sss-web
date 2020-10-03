@@ -1,0 +1,37 @@
+<app-input-select-list
+    [hidden]="isNew"
+    [title]="'Please select a task'"
+    [value]="0"
+    [values]="values"
+    [autoFocus] = "true"
+    [showHeading] = "false"
+    [disabled] = "false"
+    [heightName] = "'full'"
+    [sortAsc] = "false"
+
+    [showAdd] = "true"
+    [showOk] = "true"
+    [showCancel] = "true"
+    [showPause] = "true"
+    [showThumbUp] = "true"
+    [showThumbUpDown] = "true"
+
+    [radioChoice] = "countAuthorised()>0?'thumb_up':'pause'"
+    [captionPause] = "'Paused'"
+    [captionOk] = "'Finilised'"
+    [captionCancel] = "'Cancelled'"
+    [captionThumbUp] ="'Authorised'"
+    [captionThumbUpDown] ="'Waiting'"
+
+    [countOk] = "countFinalised()"
+    [countPause] = "countPaused()"
+    [countCancel] = "countCancelled()"
+    [countThumbUp] = "countAuthorised()"
+    [countThumbUpDown] = "countWaitingAutho()"
+
+    (onChange) = "doChange($event)"
+    (onSelect)="doSelect($event)"
+    (onAdd) = "doAdd()"
+    (onRadioChoice) = "doRadioChoice($event)"
+  ></app-input-select-list>
+  <app-flow-task  [hidden]="!isNew" [entityTaskFlow] = "entityTaskFlow" (onClose)="this.isNew=!this.isNew"></app-flow-task>

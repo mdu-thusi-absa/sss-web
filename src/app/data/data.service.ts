@@ -49,7 +49,9 @@ export class DataService {
     });
     for (let i = 0; i < mTemp.size; i++) {
       let menu = mTemp.get(i);
-      this.menus.set(menu['key'], menu);
+      let e = new Entity(menu.pluralName)
+      e.key = menu.key
+      this.menus.add(e);
     }
   }
 
@@ -248,13 +250,17 @@ export class DataService {
           return s;
         } else return '';
       } else if (fieldName.slice(-7) == 'Address') {
+        let a = new K.EntityAddress(this);
         if (v) {
-          let a = new K.EntityAddress(this);
-          a.text = v.text;
-          a.cityKey = v.cityKey;
-          a.code = v.code
-          return a;
-        } else return new K.EntityAddress(this);
+          if (typeof(v)=='object'){
+            a.loadFromObject(v)
+            return a
+          }
+          else if (typeof(v)=='string'){
+            a.loadFromString(v)
+            return a
+          }
+        } else return a;
       } else {
         if (v != null) return v + '';
         else return 'Not set';

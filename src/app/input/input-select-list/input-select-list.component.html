@@ -1,18 +1,50 @@
 <app-input-filter-add
   [hidden]="!showFilter"
   [filterCount]="countFiltered"
-  [showAdd]="false"
+  [showAdd]="showAdd"
   [showFilterCount]="true"
-  (onFilter)="doFilter($event)"
+  [title]="''"
   [showInputFilter]="true"
   [autoFocus]="autoFocus_filter"
-  (onEnter)="doEnter()"
   [version]="version"
-  (onArrowDown) = "doArrowDown()"
-  (onArrowUp) = "doArrowUp()"
-  [disabled] = "disabled"
+  [disabled]="disabled"
+  [showPlay]="showPlay"
+  [showPause]="showPause"
+  [showRadioCancel]="showCancel"
+  [showOk]="showOk"
+  [radioChoice]="radioChoice"
+  [showRadioThumbUp] = "showThumbUp"
+  [showRadioThumbUpDown] = "showThumbUpDown"
+  
+  [countRadioCancel]="countCancel"
+  [countPlay]="countPlay"
+  [countPause]="countPause"
+  [countOk]="countOk"
+  [countRadioThumbUp] = "countThumbUp"
+  [countRadioThumbUpDown] = "countThumbUpDown"
+  
+  [captionPlay]="captionPlay"
+  [captionPause]="captionPause"
+  [captionOk]="captionOk"
+  [captionRadioCancel]="captionCancel"
+  [captionRadioThumbUp] = "captionThumbUp"
+  [captionRadioThumbUpDown] = "captionThumbUpDown"
+
+  (onKeyDown_ArrowUp)="doKeyDown_ArrowUp()"
+  (onKeyDown_ArrowDown)="doKeyDown_ArrowDown()"
+  (onKeyUp_ArrowUp)="doKeyUp_ArrowUp()"
+  (onKeyUp_ArrowDown)="doKeyUp_ArrowDown()"
+  (onEnter)="doEnter()"
+  (onFilter)="doFilter($event)"
+  (onAdd)="doAdd()"
+  (onChoice) = "doRadioChoice($event)"
 ></app-input-filter-add>
-<div class="table-content" [attr.id]="'table-content-'+eid">
+<div
+  [class.table-content-full]="heightName=='full'"
+  [class.table-content-part]="heightName=='part'"
+  [class.table-content-less1]="heightName=='less1'"
+  [attr.id]="'table-content-' + eid"
+>
   <table
     class="table table-condensed table-bordered less-bottom"
     style="margin: 0px; max-height: 40vh"
@@ -27,6 +59,7 @@
         *ngFor="let key of keys; let i = index"
         [class.tr-hide]="isHiddenMap.get(key)"
         [class.tr-show]="!isHiddenMap.get(key)"
+        [attr.id] = "eid + '-tr-' + key"
       >
         <td>
           <a
@@ -37,9 +70,11 @@
             [attr.name]="key"
             routerLink="."
             fragment="e.key"
-            ><span [class.text-bright]="key == selectedEntityKey">
-              {{ i + 1 }}. {{ values ? values.get(key).name : "" }}</span
             >
+            <!-- <span style="font-weight: bold;">{{ i + 1 }}. </span><span [class.text-bright]="key == selectedEntityKey">
+              {{ formatName(key) }}</span
+            > -->
+            {{ i + 1 }} - <span [innerHTML]="formatName(key)"  [class.text-bright]="key == selectedEntityKey"></span>
           </a>
         </td>
       </tr>

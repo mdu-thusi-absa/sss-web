@@ -2,6 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EnumEntityType } from 'src/app/data/data-entity-types';
 import { DataService } from 'src/app/data/data.service';
 import { Entities, AnyEntity } from 'src/app/data/data-entities';
+import {
+  getHtmlElementById,
+  getHtmlElementById_Height,
+} from 'src/app/data/utils-scripts';
 
 @Component({
   selector: 'app-input-table',
@@ -81,20 +85,25 @@ export class InputTableComponent implements OnInit {
     return true;
   }
 
-  _showHideRowDetails(key: number){
+  _showHideRowDetails(key: number) {
     let visible = true;
-      if (this.hideEditRow.has(key)) visible = this.hideEditRow.get(key);
-      visible = !visible;
-      this.hideEditRow.set(key, visible);
-      this.onDrill.emit(key);
+    if (this.hideEditRow.has(key)) visible = this.hideEditRow.get(key);
+    visible = !visible;
+    this.hideEditRow.set(key, visible);
+    this.onDrill.emit(key);
   }
 
   doEntityChoose(key: number) {
     //do something when a row has been selected
     if (this._showComponentUnderneath(key)) {
-      this._showHideRowDetails(key)
-    } else{
-      this.entities.get(key).click()
+      this._showHideRowDetails(key);
+    } else {
+      console.log(this.inputType);
+
+      if (this.inputType == 'upload-file') {
+        document.getElementById(this.eid + '-file').click()
+        //getHtmlElementById(this.eid + '-file').click()
+      } else this.entities.get(key).click();
     }
   }
 

@@ -15,7 +15,10 @@ export class FlowSubmitDocsComponent implements OnInit {
   @Input() stepNumber = 1
   @Output() onDrill = new EventEmitter()
   
-  constructor(public data: DataService) { }
+  eid = 'flow-submit-docs'
+  constructor(private data: DataService) {
+    this.eid = this.data.getID('',this.eid);
+  }
 
   ngOnInit(): void {
   }

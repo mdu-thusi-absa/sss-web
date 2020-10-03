@@ -61,6 +61,9 @@ export class InputFilterAddComponent implements OnInit {
   @Input() showFilterCount = false;
   @Input() showInputFilter = true;
   @Input() showSearch = false;
+  @Input() showRadioCancel = false
+  @Input() showRadioThumbUp = false
+  @Input() showRadioThumbUpDown = false
 
   @Input() disabledFlash = false;
   @Input() disabledPlay = false;
@@ -94,6 +97,9 @@ export class InputFilterAddComponent implements OnInit {
   @Input() countAll = 0;
   @Input() countEyeClose = 0;
   @Input() countEyeOpen = 0;
+  @Input() countRadioCancel = 0
+  @Input() countRadioThumbUp = 0
+  @Input() countRadioThumbUpDown = 0
 
   @Input() titleFlash = '';
   @Input() titlePlay = '';
@@ -104,6 +110,8 @@ export class InputFilterAddComponent implements OnInit {
   @Input() titleEyeOpen = '';
   @Input() titleA = '';
   @Input() titleList = '';
+  @Input() titleRadioCancel = ''
+  @Input() titleThumbUpDown = ''
 
   @Output() onListChange = new EventEmitter();
   @Output() onTick = new EventEmitter();
@@ -119,8 +127,11 @@ export class InputFilterAddComponent implements OnInit {
   @Output() onA = new EventEmitter();
   @Output() onSearch = new EventEmitter();
   @Output() onEnter = new EventEmitter();
-  @Output() onArrowDown = new EventEmitter();
-  @Output() onArrowUp = new EventEmitter();
+  @Output() onKeyDown_ArrowDown = new EventEmitter();
+  @Output() onKeyDown_ArrowUp = new EventEmitter();
+  @Output() onKeyUp_ArrowDown = new EventEmitter();
+  @Output() onKeyUp_ArrowUp = new EventEmitter();
+  @Output() onThumbUpDown = new EventEmitter()
 
   isT = false;
   isB = 'false';
@@ -134,6 +145,9 @@ export class InputFilterAddComponent implements OnInit {
   @Input() captionEyeOpen = '';
   @Input() captionEyeClose = '';
   @Input() captionOk = '';
+  @Input() captionRadioCancel = ''
+  @Input() captionRadioThumbUp = ''
+  @Input() captionRadioThumbUpDown = ''
   @Input() disabled = false;
 
   eid = 'input-filter-add';
@@ -240,7 +254,20 @@ export class InputFilterAddComponent implements OnInit {
     if (!this.disabled) this.onFilter.emit(this.filterText);
   }
 
-  doKey(event: any) {
+  doKeyUp(event: any) {
+    if (!this.disabled) {
+      if (event.key === 'ArrowDown') {
+        this.onKeyUp_ArrowDown.emit();
+        event.preventDefault();
+      }
+      if (event.key === 'ArrowUp') {
+        this.onKeyUp_ArrowUp.emit();
+      }
+      this.doFilter();
+    }
+  }
+
+  doKeyDown(event: any) {
     if (!this.disabled) {
       if (event.key === 'Escape') {
         this.doFilterClear();
@@ -248,13 +275,15 @@ export class InputFilterAddComponent implements OnInit {
       if (event.key === 'Enter') {
         this.doSearch();
         this.onEnter.emit();
+        this.doFilterClear();
+        event.preventDefault();
       }
       if (event.key === 'ArrowDown') {
-        this.onArrowDown.emit();
+        this.onKeyDown_ArrowDown.emit();
         event.preventDefault();
       }
       if (event.key === 'ArrowUp') {
-        this.onArrowUp.emit();
+        this.onKeyDown_ArrowUp.emit();
       }
       this.doFilter();
     }

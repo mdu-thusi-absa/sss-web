@@ -2,9 +2,12 @@ th, td {
     padding: 2px;
   }
 
-  .table-content{
+  /* .table-content{
     max-height: calc(100vh - 73px);
     overflow-y: auto;
-  }
+  } */
 
- 
+  .table-content{
+    max-height: calc(100% - 68px);
+    overflow-y: auto;
+  }

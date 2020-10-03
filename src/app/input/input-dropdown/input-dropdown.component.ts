@@ -37,6 +37,8 @@ export class InputDropdownComponent implements OnInit {
   @Input() showAdd = false;
   @Input() disabled = false;
   @Input() marginTop = '0';
+  @Input() textColor = 'grey'
+  @Input() paddingTop = '4px'
 
   @Output() onChange = new EventEmitter();
   @Output() onDelete = new EventEmitter();

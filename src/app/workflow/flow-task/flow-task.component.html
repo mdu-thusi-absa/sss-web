@@ -10,6 +10,7 @@
   [showClose] = "true"
   [showSync] = "false"
   [syncValue] = "this.workFlow.notifyIs"
+  [maxHeight] = "90"
   (onClose) = "doClose()"
   (onShowAll) = "doShowAll($event)"
   (onSaveNext)="doSaveNext()"
@@ -100,6 +101,7 @@
   {{this.workFlow.historyOfNames}}
   <div style='margin-left:5px;margin-right:5px;margin-top:5px'>{{this.workFlow.historyOfNames.length==1?'Finalised 1 task':(this.workFlow.historyOfNames.length!=1?'Finalised ' + this.workFlow.historyOfNames.length + ' tasks':'')}}</div>
   <div style='margin-left:5px;margin-right:5px;' *ngFor="let e of this.workFlow.historyOfNames">{{e}}</div>
+  {{this.workFlow.workflowValuesObject | json}}
 </app-input-panel>
 
 <button
@@ -126,7 +128,7 @@
 
   <div class="modal-footer" [hidden]="cancelTaskIs">
     <button type="button primary-color" class="btn btn-default" data-dismiss="modal" (click)="doReset()">
-      Close to continue later
+      Pause the task to continue later
     </button>
     <button type="button primary-color" class="btn btn-default"  (click)="cancelTaskIs=true">
       Cancel task

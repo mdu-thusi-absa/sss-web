@@ -31,7 +31,7 @@ export class EntitiesContainerComponent implements OnInit {
   entityName = ''
 
   showPanelRight = true;
-  showPanelLeft = false
+  showPanelLeft = true
   hidePosts = true;
   isHalf = false;
 
@@ -118,6 +118,10 @@ export class EntitiesContainerComponent implements OnInit {
       !this.hideReports
     );
   }
+
+  // doEntityTypeChange(key: number){
+  //   this.entityTypeKey = key
+  // }
 
   isPage(name: string) {
     let r = false;

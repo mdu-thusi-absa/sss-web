@@ -5,13 +5,13 @@
   [panelSuccess]="taskFlow.isDone"
 >
   {{ taskFlow.description }}
-  
   <app-input-date
     [title]="'Please select'"
     [value]="taskFlow.value"
     (onChange) = "doChange($event)"
     [autoFocus] = "taskFlow.isCurrent"
     (onEnter) = "onEnter.emit()"
+    [disabled] = "!taskFlow.isCurrent || taskFlow.isDone"
   ></app-input-date>
 
   <div [hidden]="taskFlow.errorMessage == ''" class="text-primary-bold" style='margin-top: 10px;'>

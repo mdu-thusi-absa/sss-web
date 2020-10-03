@@ -110,6 +110,7 @@ import { FlowAddressComponent } from './workflow/flow-address/flow-address.compo
 import { InputSelectListComponent } from './input/input-select-list/input-select-list.component';
 import { FlowSelectMultiComponent } from './workflow/flow-select-multi/flow-select-multi.component';
 import { InputModalComponent } from './input/input-modal/input-modal.component';
+import { FlowTaskListComponent } from './workflow/flow-task-list/flow-task-list.component';
 
 
 
@@ -214,6 +215,7 @@ import { InputModalComponent } from './input/input-modal/input-modal.component';
     InputSelectListComponent,
     FlowSelectMultiComponent,
     InputModalComponent,
+    FlowTaskListComponent,
     
   ],
   imports: [

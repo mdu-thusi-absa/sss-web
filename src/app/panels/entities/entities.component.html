@@ -1,55 +1,60 @@
-<div class="form-group">
+<app-input-select-list
+  [title]="'Please select an entity'"
+  [value]="0"
+  [values]="entities"
+  [autoFocus]="true"
+  [showHeading]="false"
+  [disabled]="false"
+  [heightName]="'full'"
+  [showOk]="true"
+  [showCancel]="true"
+  [radioChoice]="'ok'"
+  [captionOk]="'Active'"
+  [captionCancel]="'Closed'"
+  [countOk]="countActive"
+  [countCancel]="countDormant"
+  (onSelect)="doEntityChoose($event)"
+></app-input-select-list>
+
+<!-- <div class="form-group" style="margin: 0px">
+  <div>
+    
+    
+  </div>
   <app-input-filter-add
-    [filterCount]="countFiltered"
-    [showAdd]="false"
-    [showFilterCount]="true"
-    [filterText] = "this.filterText"
-    (onFilter)="doFilter($event)"
+    [showInputFilter]="false"
     [title]="entityTypeName"
     [titlePlural]="entityTypeNamePlural"
     [showList]="true"
     [listValues]="this.data.menus"
     [listValue]="entityTypeKey"
-    (onListChange)="doEntityTypeChange($event)"
-    [showFlash]="false"
-    [showPlay]="!this.showActiveOnly"
-    [showPause]="!this.showActiveOnly"
-    [showAll]="true"
     [radioChoice]="rdoActiveDormantAll"
-    [countFlash]="countTasks"
-    [countPause]="countDormant"
-    [countPlay]="countActive"
-    [countAll]="countAll"
-    (onChoice)="doChangeRdo($event)"
-    [titleFlash]="'Entities with active tasks'"
-    [titlePlay]="'Active Entities'"
-    [titleAll]="'All Entities'"
-    [titlePause]="'Dormant Entities'"
-    [captionFlash]="'With tasks'"
-    [captionPlay]="'Active'"
-    [captionAll]="'All'"
-    [captionPause]="'Inactive'"
     [isNarrow]="isNarrow"
-    [showInputFilter]="true"
-    [showA]="false"
-    [isA]="showActiveOnly"
-    (onA)="doChangeShowActive($event)"
-    [titleA]="'Active only ' + entityTypeNamePlural.toLowerCase()"
     [titleList]="'Select entity type'"
+    (onFilter)="doFilter($event)"
+    (onChoice)="doChangeRdo($event)"
+    (onListChange)="doEntityTypeChange($event)"
   ></app-input-filter-add>
-  <div >
-    <div
+  
+</div> -->
+
+<!-- <div
       [class.entities-full]="isFullScreen()"
       [class.entities-half]="isHalfScreen()"
-      style="overflow-y: scroll; overflow-x: auto; scrollbar-width: thin;"
+      style="overflow-y: hidden; overflow-x: auto; scrollbar-width: thin"
       (scroll)="onScrollTable($event)"
     >
       <ng-container *ngFor="let t of data.entityTypes | keyvalue">
-
+        <app-input-select-list
+          [values]="entities"
+          [hidden]="entityTypeKey != t.key"
+          [showHeading]="false"
+          (onSelect)="doEntityChoose($event)"
+        ></app-input-select-list>
         <table
           class="table table-condensed table-bordered less-bottom"
-          [class.table-show] = "entityTypeKey == t.key"
-          [class.table-hide] = "entityTypeKey != t.key"
+          [class.table-show]="entityTypeKey == t.key"
+          [class.table-hide]="entityTypeKey != t.key"
           [hidden]="entityTypeKey != t.key"
         >
           <thead class="info">
@@ -60,48 +65,47 @@
             </tr>
           </thead>
           <tbody>
-                <tr  *ngFor="let e of entities| keyvalue "
-                  [class.tr-hide]="isHiddenMap.get(e.key)"
-                  [class.tr-show]="!isHiddenMap.get(e.key)"
-                >
-                  <td
-                    [style.border-bottom]="
-                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
-                    "
+            <tr
+              *ngFor="let e of entities | keyvalue"
+              [class.tr-hide]="isHiddenMap.get(e.key)"
+              [class.tr-show]="!isHiddenMap.get(e.key)"
+            >
+              <td
+                [style.border-bottom]="
+                  e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                "
+              >
+                <a
+                  href="#"
+                  (click)="doEntityChoose(e.key)"
+                  [attr.id]="eid + '-a-' + e.key"
+                  [attr.name]="e.key"
+                  routerLink="."
+                  fragment="e.key"
+                  ><span [class.text-bright]="e.key == selectedEntityKey">
+                    {{ e.value.name }}</span
                   >
-                    <a
-                      href="#"
-                      (click)="doEntityChoose(e.key)"
-                      [attr.id]="eid + '-a-' + e.key"
-                      [attr.name]="e.key"
-                      routerLink="."
-                      fragment="e.key"
-                      ><span [class.text-bright]="e.key == selectedEntityKey">
-                        {{ e.value.name }}</span
-                      >
-                    </a>
-                  </td>
-                  <td
-                    [style.border-bottom]="
-                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
-                    "
-                  >
-                    <span
-                      [class.text-bright]="e.key == selectedEntityKey"
-                      >{{ e.value.tasksCount }}</span
-                    >
-                  </td>
-                  <td
-                    [style.border-bottom]="
-                      e.key == selectedEntityKey ? '1px solid black' : 'inherit'
-                    "
-                  >
-                    <span
-                      [class.text-bright]="e.key == selectedEntityKey"
-                      >{{ e.value.suffix }}</span
-                    >
-                  </td>
-                </tr>
+                </a>
+              </td>
+              <td
+                [style.border-bottom]="
+                  e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                "
+              >
+                <span [class.text-bright]="e.key == selectedEntityKey">{{
+                  e.value.tasksCount
+                }}</span>
+              </td>
+              <td
+                [style.border-bottom]="
+                  e.key == selectedEntityKey ? '1px solid black' : 'inherit'
+                "
+              >
+                <span [class.text-bright]="e.key == selectedEntityKey">{{
+                  e.value.suffix
+                }}</span>
+              </td>
+            </tr>
           </tbody>
         </table>
       </ng-container>
@@ -119,9 +123,9 @@
         {{ entityTypeNamePlural.toLowerCase() }}
         {{ rdoActiveDormantAll == "flash" ? " with outstanding tasks" : "" }}
       </small>
-    </div>
-  </div> 
-  <app-input-date
+    </div> -->
+
+<!-- <app-input-date
     [title]="'System Date'"
     [showFlash]="false"
     [showCD]="false"
@@ -130,25 +134,31 @@
     [showTitle]="true"
     [disabled]="true"
   >
-  </app-input-date>
+  </app-input-date> -->
 
-  <div class="wide btn-group input-group-sm" style="vertical-align: middle;">
-    <a [attr.id] = "eid + '-log-out'" href="#" class="btn primary-color-active btn-xs">
+<!-- <div class="wide btn-group input-group-sm" style="vertical-align: middle">
+    <a
+      [attr.id]="eid + '-log-out'"
+      href="#"
+      class="btn primary-color-active btn-xs"
+    >
       <small>
-        <mat-icon aria-hidden="true" aria-label="Entities">flight_takeoff</mat-icon>
+        <mat-icon aria-hidden="true" aria-label="Entities"
+          >flight_takeoff</mat-icon
+        >
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Log out</span
         >&nbsp;</small
       >
     </a>
-    <a [attr.id] = "eid + '-feedback'" href="#" class="btn primary-color-active btn-xs">
+    <a
+      [attr.id]="eid + '-feedback'"
+      href="#"
+      class="btn primary-color-active btn-xs"
+    >
       <small>
         <mat-icon aria-hidden="true" aria-label="Entities">reply</mat-icon>
         <span [hidden]="isNarrow" class="hidden-xs">&nbsp; Feedback</span
         >&nbsp;</small
       >
     </a>
-    
-  </div>
-</div>
-
-
+  </div> -->

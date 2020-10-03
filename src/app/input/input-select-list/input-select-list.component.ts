@@ -11,12 +11,36 @@ import * as S from '../../data/utils-scripts';
 })
 export class InputSelectListComponent implements OnInit {
   @Input() value: number;
-  @Input() values: Entities<AnyEntity>;
+  
   @Input() showHeading = true;
   @Input() disabled = false;
+  @Input() heightName = 'full'
+  @Input() showAdd = false
+  @Input() showPlay = false
+  @Input() showPause = false
+  @Input() radioChoice = ''
+  @Input() captionPlay = ''
+  @Input() captionPause = ''
+  @Input() countPlay = 0
+  @Input() countPause = 0
+  @Input() countOk = 0
+  @Input() countCancel = 0
+  @Input() countThumbUpDown = 0
+  @Input() captionOk = ''
+  @Input() captionCancel = ''
+  @Input() showCancel = false
+  @Input() showOk = false
+  @Input() showThumbUp = false
+  @Input() showThumbUpDown = false
+  @Input() countThumbUp = 0
+  @Input() captionThumbUp = ''
+  @Input() captionThumbUpDown = ''
+  @Input() sortAsc = true
 
   @Output() onSelect = new EventEmitter();
   @Output() onChange = new EventEmitter();
+  @Output() onAdd = new EventEmitter()
+  @Output() onRadioChoice = new EventEmitter()
 
   selectedEntityKey: number;
   isHiddenMap: Map<number, boolean> = new Map();
@@ -37,14 +61,41 @@ export class InputSelectListComponent implements OnInit {
     this.countFiltered = this.values.size;
     this.keys = this.values.all_keys;
     this.keys.sort();
+    if (!this.sortAsc)
+      this.keys = this.keys.reverse()
     if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
     this.calcIsHidden();
+  }
+
+  private _values:Entities<AnyEntity> 
+  @Input() set values(v: Entities<AnyEntity>){
+    this._values = v
+    this.firstVisibleKey = this._values.firstKey;
+    this.lastVisibleKey = this._values.lastKey;
+    this.countFiltered = this._values.size;
+    this.keys = this._values.all_keys;
+    this.keys.sort();
+    if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
+    this.calcIsHidden();
+    if (this.autoFocus) this.setFocus_FirstElement();
+  }
+  
+  get values(): Entities<AnyEntity>{
+    return this._values
+  }
+
+  doRadioChoice(name: string){
+    this.onRadioChoice.emit(name)
+  }
+
+  doAdd(){
+    this.onAdd.emit()
   }
 
   doEnter() {
     this.doSelect(this.selectedEntityKey);
   }
-  doArrowDown() {
+  doKeyDown_ArrowDown() {
     let i = this.keysVisisble.indexOf(this.selectedEntityKey);
     if (i < this.keys.length - 1) {
       i++;
@@ -52,7 +103,7 @@ export class InputSelectListComponent implements OnInit {
       this.setFocusOnSelecetedElement();
     }
   }
-  doArrowUp() {
+  doKeyDown_ArrowUp() {
     let i = this.keysVisisble.indexOf(this.selectedEntityKey);
     if (i > 0) {
       i--;
@@ -60,9 +111,21 @@ export class InputSelectListComponent implements OnInit {
       this.setFocusOnSelecetedElement();
     }
   }
+  //TODO: implement Arrow Up/Down hold
+  doKeyUp_ArrowDown(){}
+  doKeyUp_ArrowUp(){}
 
   setFocusOnSelecetedElement() {
-    let topPos = (this.keysVisisble.indexOf(this.selectedEntityKey) - 4)* 31; //height of row
+    //let topPos = (this.keysVisisble.indexOf(this.selectedEntityKey) - 4)* 31; //height of row
+    let n = this.keysVisisble.indexOf(this.selectedEntityKey)
+    let topPos = 0
+    for(let i=4; i<n; i++){
+      topPos = topPos + S.getHtmlElementById_Height(this.eid + '-tr-' + i)
+    }
+    // let topPos = S.getHtmlElementById_Top(this.eid + '-tr-' + this.selectedEntityKey)
+    console.log(topPos);
+    
+    //let topPos = S.getHtmlTopById(this.eid + '-tr-' + this.selectedEntityKey) - 120
     setTimeout(S.updateElementScroll, 50, 'table-content-' + this.eid, topPos);
   }
 
@@ -71,6 +134,14 @@ export class InputSelectListComponent implements OnInit {
       this.selectedEntityKey = key;
       this.onChange.emit(key);
     }
+  }
+
+  formatName(key: number){
+    if (this.values){
+      let v = this.values.get(key)
+      return v.name
+    }
+    return ''
   }
 
   version = 0;
@@ -128,7 +199,7 @@ export class InputSelectListComponent implements OnInit {
         const key = this.keys[i];
         const value = this.values.get(key);
         let hide = this.hideItem(value.name);
-        if (this.isFilterTextInStepNumber(i)) hide = false;
+        if (this.isFilterTextIsStepNumber(i)) hide = false;
         this.isHiddenMap.set(key, hide);
         if (!hide) this.setKeysOfVisibleItems(key);
       }
@@ -142,7 +213,7 @@ export class InputSelectListComponent implements OnInit {
     this.selectedEntityKey = this.firstVisibleKey;
   }
 
-  isFilterTextInStepNumber(step: number): boolean {
+  isFilterTextIsStepNumber(step: number): boolean {
     if (Number(this.filterText))
       if ((step + 1 + '').indexOf(this.filterText) > -1) return true;
   }
