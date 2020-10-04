@@ -294,7 +294,8 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
 
   add(value: T): Entities<T> {
     let key = this.lastKey + 1;
-    if (value.key) key = value.key;
+    if (value.key) key = value.key
+    else value.key = key
     if (this._firstKey == -1) this._firstKey = value.key;
     value['data'] = this.data;
     this._lastKey = key;

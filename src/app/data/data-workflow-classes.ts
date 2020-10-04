@@ -6,6 +6,7 @@ import {
   EntityAddress,
   EntityFileDownload,
   EntityFileUpload,
+  EntityTask,
   EntityTaskWalker,
 } from './data-entity-kids';
 import { ThrowStmt } from '@angular/compiler';
@@ -778,7 +779,7 @@ export class TaskMessage extends Task {
   type = 'message';
 }
 
-enum EnumTaskStatus {
+export enum EnumTaskStatus {
   Paused,
   Finilised,
   Cancelled,
@@ -1115,8 +1116,22 @@ export class TaskWalker extends Task {
     }
   }
 
+  private _entityTaskWalker: EntityTaskWalker
+  private _addPrimaryKeyIfNotThere(){
+    if (!objectHasAttribute(this.workflowValuesObject,'key')){
+      let d = this.data.getEntities(E.EnumEntityType.TaskWalker)
+      this._entityTaskWalker = new EntityTaskWalker(this.name,this.data)
+      this._entityTaskWalker.taskStatusKey = EnumTaskStatus.Paused
+      d.add(this._entityTaskWalker)
+      this.workflowValuesObject['key'] = this._entityTaskWalker.key
+      this.isFinilised = false
+      this._entityTaskWalker.value = this.workflowValuesObject
+    }
+  }
+
   public moveToNext(): Task {
-    let showTask = true;
+    let showTask = true
+    this._addPrimaryKeyIfNotThere()
     do {
       this._moveToNext();
       showTask = this.currentTask.getDoNotSkip();

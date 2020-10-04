@@ -1,4 +1,4 @@
-<div id='main-app-container'>
+<div id="main-app-container">
   <div class="container-fluid">
     <div class="row no-gutter">
       <!--column 1: Entities, Tasks, Records, Files-->
@@ -10,39 +10,33 @@
       >
         <!-- Entities -->
         <div class="panel panel-primary no-gutter nobottom">
-          <!-- <div class="panel-heading mt3" style="padding: 0px;height:29px;vertical-align:text-bottom;">
-            <div class="btn-group pull-right">
-              {{ entityName }}
-              </div> -->
           <div class="panel-heading mt3" style="height: 29px">
-            <!-- <app-buttons-toolbar-button
-                [title]="(showPanelLeft ? 'Hide' : 'Show') + ' left panel'"
-                [placeholder]="
-                  (showPanelLeft ? 'Hide' : 'Show') + ' left panel'
-                "
-                [matIcon]="
-                  showPanelLeft
-                    ? 'keyboard_arrow_left'
-                    : 'keyboard_arrow_right'
-                "
-                [svgUrlPath]="
-                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
-                "
-                (onClick)="showPanelLeft = !showPanelLeft"
-                [isNarrow]="true"
-                [showMe]="true"
-              ></app-buttons-toolbar-button> -->
-            <div style="display:inline-box">
-            <app-input-dropdown
+            <div style="display: inline-block; width: 100px">
+              <app-input-dropdown
                 [key]="this.entityTypeKey"
                 [values]="this.data.menus"
-                [textColor] = "'white'"
-                [paddingTop] = "'1px'"
+                [textColor]="'white'"
+                [paddingTop]="'1px'"
                 (onChange)="doDashboardChange($event)"
               ></app-input-dropdown>
             </div>
+            <div class="btn-group pull-right">
+              <app-buttons-toolbar-button
+              [title]="(showPanelRight ? 'Hide' : 'Show') + ' left panel'"
+              [placeholder]="(showPanelLeft ? 'Hide' : 'Show') + ' left panel'"
+              [matIcon]="
+                showPanelLeft ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
+              "
+              [svgUrlPath]="
+                '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+              "
+              (onClick)="showPanelLeft = !showPanelLeft"
+              [isNarrow]="true"
+              [showMe]="true"
+            ></app-buttons-toolbar-button>
+            </div>
           </div>
-            <!-- <span style="vertical-align: middle;">SSS</span>
+          <!-- <span style="vertical-align: middle;">SSS</span>
             <div class="pull-right" style="display: inline-box; width:50%">
               <app-input-dropdown
                 [key]="this.entityTypeKey"
@@ -50,7 +44,7 @@
                 (onChange)="doDashboardChange($event)"
               ></app-input-dropdown>
             </div> -->
-            <!-- <small>
+          <!-- <small>
               <mat-icon aria-hidden="true" aria-label="Entities"
                 >verified_user</mat-icon
               >
@@ -58,13 +52,13 @@
               &nbsp;Entities
             </small> -->
 
-            <!-- <div style="display: inline-block">
+          <!-- <div style="display: inline-block">
               
             </div> -->
-            <!-- <div class="btn-group pull-right">
+          <!-- <div class="btn-group pull-right">
               <span class="hidden-xs"> V:{{ env.version }} </span>
             </div> -->
-          
+
           <div class="panel-body mt3 panel-body-height">
             <app-entities
               [panelRows]="panelRows"
@@ -95,8 +89,9 @@
             (!hideHistory || !hideFiles)
           "
         >
-          <div class="panel-heading mt3" style="height: 29px">
+          <div class="panel-heading mt3" style="height: 29px;vertical-align: bottom;">
             <app-buttons-toolbar-button
+              [hidden] = "showPanelLeft"
               [title]="(showPanelRight ? 'Hide' : 'Show') + ' left panel'"
               [placeholder]="(showPanelLeft ? 'Hide' : 'Show') + ' left panel'"
               [matIcon]="
@@ -118,8 +113,7 @@
                 [hidden]="showPanelRight"
                 >&nbsp;Entity details</span
               >&nbsp; -->
-              
-              </span>
+            </span>
 
             <small [hidden]="!isPage('dashboard')">
               <mat-icon aria-hidden="true" aria-label="Entities"
@@ -140,7 +134,7 @@
                 class="btn-group"
                 style="vertical-align: middle; height: 20px"
               >
-                <app-buttons-toggle
+                <!-- <app-buttons-toggle
                   [title]="'Primary'"
                   [placeholder]="'Primary page'"
                   [dataTarget]="'#page-primary-' + dashboardName"
@@ -150,10 +144,31 @@
                   "
                   [toggleValue]="!hidePrimary"
                   (onToggle)="hidePrimary = !hidePrimary"
-                  [isNarrow]="showPanelRight"
+                  [isNarrow]="false"
                   [showMe]="true"
-                ></app-buttons-toggle>
-                <app-buttons-toggle
+                ></app-buttons-toggle> -->
+                <app-buttons-toolbar-button
+                [title]="'Primary'"
+                [placeholder]="'Primary page'"
+                [matIcon]="'star'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="hidePrimary=false;hideDetailFiles=true"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+              <app-buttons-toolbar-button
+                [title]="'Files'"
+                [placeholder]="'Files page'"
+                [matIcon]="'attachment'"
+                [svgUrlPath]="
+                  '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
+                "
+                (onClick)="hidePrimary=true;hideDetailFiles=false"
+                [showMe]="true"
+              ></app-buttons-toolbar-button>
+
+                <!-- <app-buttons-toggle
                   [title]="'Contacts'"
                   [placeholder]="'Contact page'"
                   [matIcon]="'contacts'"
@@ -163,8 +178,8 @@
                   (onToggle)="hideContacts = !hideContacts"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle>
-                <app-buttons-toggle
+                ></app-buttons-toggle> -->
+                <!-- <app-buttons-toggle
                   [title]="'Custom'"
                   [placeholder]="'Custom page'"
                   [matIcon]="'build'"
@@ -174,8 +189,8 @@
                   (onToggle)="hideCustom = !hideCustom"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle>
-                <app-buttons-toggle
+                ></app-buttons-toggle> -->
+                <!-- <app-buttons-toggle
                   [title]="'Files'"
                   [placeholder]="'Files page'"
                   [dataTarget]="'#page-file'"
@@ -183,10 +198,10 @@
                   [svgUrlPath]="'../assets/svg/Icon_Paper_Clip_SVG_Black.svg'"
                   [toggleValue]="!hideDetailFiles"
                   (onToggle)="hideDetailFiles = !hideDetailFiles"
-                  [isNarrow]="showPanelRight"
+                  [isNarrow]="false"
                   [showMe]="true"
-                ></app-buttons-toggle>
-                <app-buttons-toggle
+                ></app-buttons-toggle> -->
+                <!-- <app-buttons-toggle
                   [title]="'Meetings'"
                   [placeholder]="'Meetings page'"
                   [dataTarget]="'#page-meetings'"
@@ -207,7 +222,7 @@
                   (onToggle)="hideReminders = !hideReminders"
                   [isNarrow]="showPanelRight"
                   [showMe]="true"
-                ></app-buttons-toggle>
+                ></app-buttons-toggle> -->
               </div>
               <span
                 [style.display]="
@@ -231,6 +246,7 @@
                 Select pages
               </span>
               <app-buttons-toolbar-button
+                [hidden] = "showPanelRight"
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"
                 [placeholder]="
                   (showPanelRight ? 'Hide' : 'Show') + ' right panel'
@@ -244,7 +260,7 @@
                   '../assets/svg/Icon_Exclamation square_SVG_Black.svg'
                 "
                 (onClick)="showPanelRight = !showPanelRight"
-                [isNarrow]="showPanelRight"
+                [isNarrow]="true"
                 [showMe]="true"
               ></app-buttons-toolbar-button>
             </div>
@@ -383,21 +399,21 @@
                 [style.display]="hideAudits ? 'none' : 'inherit'"
                 >done_all</mat-icon
               >
-              <span
-                >{{
-                  hidePosts && hideAudits && hideTasks
-                    ? "&nbsp;"
-                    : hidePosts && hideAudits
-                    ? "Tasks"
-                    : hideAudits
-                    ? "Articles"
-                    : "Audit"
-                }}
-              </span>
             </small>
+            <span
+              >{{
+                hidePosts && hideAudits && hideTasks
+                  ? "&nbsp;"
+                  : hidePosts && hideAudits
+                  ? "Tasks"
+                  : hideAudits
+                  ? "Articles"
+                  : "Audit"
+              }}
+            </span>
 
             <div class="btn-group pull-right">
-              <app-buttons-toggle
+              <!-- <app-buttons-toggle
                 [title]="'Tasks'"
                 [placeholder]="'Tasks Page'"
                 [matIcon]="'flash_on'"
@@ -424,7 +440,7 @@
                 [isNarrow]="showPanelRight"
                 [showMe]="true"
                 [toggleValue]="!hideAudits"
-              ></app-buttons-toggle>
+              ></app-buttons-toggle> -->
 
               <app-buttons-toolbar-button
                 [title]="(showPanelRight ? 'Hide' : 'Show') + ' right panel'"

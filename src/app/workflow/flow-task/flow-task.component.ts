@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EntityTaskWalker } from 'src/app/data/data-entity-kids';
-import { TaskWalker } from 'src/app/data/data-workflow-classes';
+import { EnumTaskStatus, TaskWalker } from 'src/app/data/data-workflow-classes';
 import { DataService } from 'src/app/data/data.service';
 
 @Component({
@@ -25,12 +25,10 @@ export class FlowTaskComponent implements OnInit {
   @Input() set entityTaskFlow(v: EntityTaskWalker) {
     this._entityTaskFlow = v;
     if (this._entityTaskFlow && this.workFlow) {
-      this.workFlow.needToVerify = this._entityTaskFlow.taskStatusKey != 1;
-      //let t = JSON.stringify(this._entityTaskFlow.value) + ''
-      //console.log(t)
+      this.workFlow.needToVerify =
+        this._entityTaskFlow.taskStatusKey != EnumTaskStatus.Finilised &&
+        this._entityTaskFlow.taskStatusKey != EnumTaskStatus.Cancelled;
       this.workFlow.init(false);
-      //t = JSON.stringify(this._entityTaskFlow.value) + ''
-      //console.log(t)
       this.workFlow.load(this._entityTaskFlow.value);
     }
   }

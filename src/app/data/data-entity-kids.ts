@@ -9,6 +9,7 @@ import {
   parseJson,
   replaceDateStrWithDateInObject,
 } from './utils-scripts';
+import { EnumTaskStatus } from './data-workflow-classes';
 // import { SUPER_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class EntityTask extends Entity {
@@ -1016,7 +1017,7 @@ export class EntityTaskWalker extends Entity {
   taskName = '';
   forName = '';
   recordDate: Date;
-  taskStatusKey: number;
+  taskStatusKey: EnumTaskStatus;
 
   get name(): string {
     let s = 'Workflow';
