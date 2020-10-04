@@ -18,6 +18,7 @@ import {
   EntityCommittee,
 } from './data-entity-kids';
 import { DataService } from './data.service';
+import { objectHasAttribute } from './utils-scripts';
 
 export type AnyEntity =
   | Entity
@@ -294,8 +295,10 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
 
   add(value: T): Entities<T> {
     let key = this.lastKey + 1;
-    if (value.key) key = value.key
-    else value.key = key
+    if (objectHasAttribute(value,'key'))
+      key = value.key
+    //if (value.key>-1) 
+    else value.key = key;
     if (this._firstKey == -1) this._firstKey = value.key;
     value['data'] = this.data;
     this._lastKey = key;
@@ -329,12 +332,26 @@ export class Entities<T extends AnyEntity> extends Map<number, T> {
     return [...super.entries()];
   }
 
-  public sort() {
-    let v = this.all_values;
-    v.sort(Entity.compare);
+  private _init() {
     super.clear();
-    for (let i = 0; i < v.length; i++) {
-      this.add(v[i]);
+    this._firstKey = -1;
+    this._lastKey = -1;
+    this._filterText = '';
+    this._countInFilter = 0;
+    this._version = 0;
+    this._lastKey = -1;
+    this._firstKeyInFilter = -1;
+    this._lastKeyInFilter = -1;
+  }
+
+  public sort() {
+    if (this.size > 1) {
+      let v = this.all_values;
+      v.sort(Entity.compare);
+      this._init();
+      v.forEach((value)=>{
+        this.add(value);
+      })
     }
     return this;
   }

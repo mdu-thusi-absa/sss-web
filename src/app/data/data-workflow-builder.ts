@@ -10,7 +10,7 @@ export function buildWorkFlow(data: DataService): W.TaskWalker {
   let workFlow = new W.TaskWalker(data, 'workflow');
   workFlow.description = 'Execute a company secretarial task';
 
-  let db = data.getEntities(E.EnumEntityType.Workflow);
+  let db = data.getEntities(E.EnumEntityType.Workflow).select('activeIs',true);
   let kids = db.select('parentKey', -1);
   let child: K.EntityWorkflow = kids.get(kids.firstKey) as K.EntityWorkflow;
   let t = queKids(child, workFlow, data);
@@ -102,6 +102,29 @@ interface queFunction {
     parentTask: W.Task,
     data: DataService
   ): W.Task;
+}
+
+function queCreateNewEntity
+(
+  parentEntity: K.EntityWorkflow,
+  parentTask: W.Task,
+  data: DataService
+) {
+  let taskList = new G.TaskList(parentTask, parentEntity);
+  taskList.add(G.getCountryForTask(data));
+
+  let valueEntity = new W.EntityValue(data)
+  valueEntity.initValue('','','')
+  taskList.add(G.getInputText(data,'companyName','New company name',valueEntity,true))
+  _getFinaliseTask(data,taskList)
+
+  let insertEntity = new W.EntityValue(data)
+  insertEntity.initInsert(E.EnumEntityType.Company,
+    ['countryKey','name'],
+    ['countryKey','companyName'],
+    'companyKey')
+  taskList.firstTask.targetsOfChange.push(insertEntity);
+  return taskList.firstTask;
 }
 
 function queBoardMembershipAdd(

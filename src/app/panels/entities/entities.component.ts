@@ -12,6 +12,7 @@ import { DataService } from 'src/app/data/data.service';
 import { EnumEntityType } from 'src/app/data/data-entity-types';
 import { EntityFunctional } from 'src/app/data/data-entity-kids';
 import { TaskWalker } from 'src/app/data/data-workflow-classes';
+import { objectHasAttribute } from 'src/app/data/utils-scripts';
 // import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -85,10 +86,8 @@ export class EntitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.doEntityTypeChange(this.entityTypeKey);
-    //this.setCounts();
     this.data.progress += 1;
     this.data.workFlow.addListener(this);
-    //this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
   }
 
   _entityTypeKey = EnumEntityType.Dashboard
@@ -111,24 +110,35 @@ export class EntitiesComponent implements OnInit {
   // }
 
   notify(eventName: string, sourceObject: object) {
-    if (sourceObject['type'])
-      if (sourceObject['type'] == 'workflow') {
-        let w = sourceObject as TaskWalker;
-        let k = w.workflowValuesObject['companyKey'];
-        this.entityTypeKey = EnumEntityType.Company;
-        if (k || k == 0) {
-          this.selectedEntityKey = k;
-          this.doEntityChoose(this.selectedEntityKey);
-          this.filterText = this.entities.get(this.selectedEntityKey).name;
-          //this.doFilter(this.filterText)
-        }
-      }
+    if (objectHasAttribute(sourceObject,'companyName')){
+      this.filterText = sourceObject['companyName']
+    }
+    if (objectHasAttribute(sourceObject, 'companyKey')){
+      this.doEntityTypeChange(this.entityTypeKey)
+      this.selectedEntityKey = sourceObject['companyKey']
+      this.onEntityChange.emit(this.selectedEntityKey)
+      this.filterText = this.entities.get(this.selectedEntityKey).name
+    }
+
+    // console.log(this.selectedEntityKey)
+    // if (sourceObject['type'])
+    //   if (sourceObject['type'] == 'workflow') {
+    //     let w = sourceObject as TaskWalker;
+    //     let k = w.workflowValuesObject['companyKey'];
+    //     this.entityTypeKey = EnumEntityType.Company;
+    //     if (k || k == 0) {
+    //       this.selectedEntityKey = k;
+    //       this.doEntityChoose(this.selectedEntityKey);
+    //       this.filterText = this.entities.get(this.selectedEntityKey).name;
+    //       //this.doFilter(this.filterText)
+    //     }
+    //   }
   }
 
-  private selectFirstVisibleRow_GetKey() {
-    let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
-    return k;
-  }
+  // private selectFirstVisibleRow_GetKey() {
+  //   let [k, v] = [...this.isHiddenMap.entries()].find((e) => !e[1]);
+  //   return k;
+  // }
   private selectFirstVisibleRow_DashboardIsShown(): boolean {
     return (
       this.entityTypeKey == EnumEntityType.Dashboard ||
@@ -137,21 +147,21 @@ export class EntitiesComponent implements OnInit {
       this.entityTypeKey == EnumEntityType.Setting
     );
   }
-  private selectFirstVisibleRow() {
-    try {
-      this.selectedEntityKey = this.selectFirstVisibleRow_GetKey();
-      this.onEntityChange.emit(this.selectedEntityKey);
-    } catch (e) {
-      console.log('EntitiesComponent -> selectFirstVisibleRow -> e', e);
-    }
-  }
+  // private selectFirstVisibleRow() {
+  //   try {
+  //     this.selectedEntityKey = this.selectFirstVisibleRow_GetKey();
+  //     this.onEntityChange.emit(this.selectedEntityKey);
+  //   } catch (e) {
+  //     console.log('EntitiesComponent -> selectFirstVisibleRow -> e', e);
+  //   }
+  // }
 
-  private verifyHiddenMap_HasSomething() {
-    if (this.isHiddenMap)
-      if (this.isHiddenMap.size > 0)
-        if (this.isHiddenMap.entries()) return true;
-    return false;
-  }
+  // private verifyHiddenMap_HasSomething() {
+  //   if (this.isHiddenMap)
+  //     if (this.isHiddenMap.size > 0)
+  //       if (this.isHiddenMap.entries()) return true;
+  //   return false;
+  // }
 
   private setEntityNames() {
     this.entityTypeNamePlural = this.data.entityTypes.get(this.entityTypeKey)[
@@ -174,44 +184,44 @@ export class EntitiesComponent implements OnInit {
     //if (this.verifyHiddenMap_HasSomething()) this.selectFirstVisibleRow();
   }
 
-  private filterInText(text: string, filterText: string): boolean {
-    return text.toLowerCase().indexOf(filterText.toLowerCase()) > -1;
-  }
+  // private filterInText(text: string, filterText: string): boolean {
+  //   return text.toLowerCase().indexOf(filterText.toLowerCase()) > -1;
+  // }
 
-  shouldBeHidden_VsFilterText(e: EntityFunctional): boolean {
-    return (
-      this.filterInText(e.name, this.filterText) ||
-      this.filterInText(e.suffix, this.filterText)
-    );
-  }
+  // shouldBeHidden_VsFilterText(e: EntityFunctional): boolean {
+  //   return (
+  //     this.filterInText(e.name, this.filterText) ||
+  //     this.filterInText(e.suffix, this.filterText)
+  //   );
+  // }
 
-  shouldBeHidden(e: EntityFunctional): boolean {
-    let inFilter = true;
-    let isType = true;
-    let inStatus = true;
-    let inActive = true;
+  // shouldBeHidden(e: EntityFunctional): boolean {
+  //   let inFilter = true;
+  //   let isType = true;
+  //   let inStatus = true;
+  //   let inActive = true;
 
-    if (this.showActiveOnly) {
-      inActive = e.activeIs;
-    }
+  //   if (this.showActiveOnly) {
+  //     inActive = e.activeIs;
+  //   }
 
-    if (isType) {
-      if (this.rdoActiveDormantAll === 'all') inStatus = true;
-      else if (this.rdoActiveDormantAll === 'play') inStatus = e['activeIs'];
-      else if (this.rdoActiveDormantAll === 'pause') inStatus = !e['activeIs'];
-      else if (this.rdoActiveDormantAll === 'flash')
-        inStatus = e['tasksCount'] > 0;
+  //   if (isType) {
+  //     if (this.rdoActiveDormantAll === 'all') inStatus = true;
+  //     else if (this.rdoActiveDormantAll === 'play') inStatus = e['activeIs'];
+  //     else if (this.rdoActiveDormantAll === 'pause') inStatus = !e['activeIs'];
+  //     else if (this.rdoActiveDormantAll === 'flash')
+  //       inStatus = e['tasksCount'] > 0;
 
-      if (inStatus) {
-        if (this.filterText.length > 0) {
-          inFilter = this.shouldBeHidden_VsFilterText(e);
-        }
-      }
-    }
-    let doShow = inFilter && inStatus && isType && inActive;
+  //     if (inStatus) {
+  //       if (this.filterText.length > 0) {
+  //         inFilter = this.shouldBeHidden_VsFilterText(e);
+  //       }
+  //     }
+  //   }
+  //   let doShow = inFilter && inStatus && isType && inActive;
 
-    return !doShow;
-  }
+  //   return !doShow;
+  // }
 
   // isFullScreen() {
   //   return this.panelRows === 1;
@@ -324,6 +334,7 @@ export class EntitiesComponent implements OnInit {
       this.doEntityTypeChange(entityKey);
     } else {
       this.selectedEntityKey = entityKey;
+      console.log('emit')
       this.onEntityChange.emit(this.selectedEntityKey);
     }
   }

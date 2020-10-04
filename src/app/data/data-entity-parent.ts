@@ -128,10 +128,11 @@ export class Entity {
   }
 
   static compare(v: Entity, w: Entity): number {
-    let r = 0;
-    if (v.name > w.name) r = 1;
-    else if (v.name < w.name) r = -1;
-    return r;
+    let vL = v.name.toLowerCase()
+    let wL = w.name.toLowerCase()
+    if (vL > wL) return 1;
+    else if (vL < wL) return -1;
+    return 0;
   }
 
   public copy() {

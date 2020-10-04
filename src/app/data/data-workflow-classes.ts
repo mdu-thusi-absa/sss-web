@@ -947,7 +947,6 @@ export class TaskWalker extends Task {
       fromTask.workflowValuesObject = that._collectValues();
 
       function _returnNewIfNotEmpty(oldText: string, text: string): string {
-        //console.log(oldText,text);
         if (text) return text;
         else return oldText;
       }
@@ -1048,7 +1047,6 @@ export class TaskWalker extends Task {
     _saveCollectedValuesToEachTarget(this);
     this._addHistory();
     this.notify('saved');
-
     function _saveCollectedValuesToEachTarget(that: TaskWalker) {
       that.targetsOfChange.forEach((target) => {
         if (target.actionAtFinish)
@@ -1080,7 +1078,7 @@ export class TaskWalker extends Task {
 
     function _notifyEachListener(that: TaskWalker) {
       that.listeners.forEach((e) => {
-        e.notify(args[0], that);
+        e.notify(args[0], JSON.parse(JSON.stringify(that.workflowValuesObject)))
       });
     }
   }

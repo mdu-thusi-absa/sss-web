@@ -137,6 +137,9 @@ export function getRecordDate(
   heading: string
 ): W.TaskDate {
   let a = new W.TaskDate(data, fieldName);
+  let d = new W.EntityValue(data)
+  d.initValue('','',new Date())
+  a.targetsOfChange.push(d)
   a.thisValueIsRecordDate = true
   a.name = heading;
   return a;

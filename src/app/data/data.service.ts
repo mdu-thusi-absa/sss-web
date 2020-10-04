@@ -359,11 +359,12 @@ export class DataService {
       v = this.entityTypes.get(enumSource).entities;
     //has been preloaded from JSON stream in dataService constructor
     else if (sourceType == 'function') {
-      return this.getEntities_PopulateEntitiesFromType_ForFunctionName(
+      v = this.getEntities_PopulateEntitiesFromType_ForFunctionName(
         source.storeName,
         optionsObject
       );
     }
+    if (v??v.size>1) v.sort()
     return v;
   }
 

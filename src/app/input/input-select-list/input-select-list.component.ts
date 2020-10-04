@@ -59,11 +59,15 @@ export class InputSelectListComponent implements OnInit {
     this.lastVisibleKey = this.values.lastKey;
     if (this.autoFocus) this.setFocus_FirstElement();
     this.countFiltered = this.values.size;
-    this.keys = this.values.all_keys;
-    this.keys.sort();
-    if (!this.sortAsc)
-      this.keys = this.keys.reverse()
-    if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
+    // this.keys = this.values.all_keys;
+    // this.keys.sort();
+    // if (!this.sortAsc)
+    //   this.keys = this.keys.reverse()
+    
+    //this.values.sort()
+    // this.keys = this.values.all_keys
+    // if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
+    
     this.calcIsHidden();
   }
 
@@ -73,8 +77,8 @@ export class InputSelectListComponent implements OnInit {
     this.firstVisibleKey = this._values.firstKey;
     this.lastVisibleKey = this._values.lastKey;
     this.countFiltered = this._values.size;
+    //this._values.sort()
     this.keys = this._values.all_keys;
-    this.keys.sort();
     if (this.keys.length > 0) this.selectedEntityKey = this.keys[0];
     this.calcIsHidden();
     if (this.autoFocus) this.setFocus_FirstElement();
@@ -154,7 +158,7 @@ export class InputSelectListComponent implements OnInit {
   }
 
   _filterText = '';
-  set filterText(v: string) {
+  @Input() set filterText(v: string) {
     if (v != this._filterText) {
       this._filterText = v;
       this.setCounts();
@@ -214,7 +218,9 @@ export class InputSelectListComponent implements OnInit {
   }
 
   hideItem(value: string) {
-    if (this.filterText.length == 0) return false;
+    if (!this.filterText) return false
+    if (!value) return false
+    if (this.filterText?.length == 0) return false;
     return value.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1;
   }
 
