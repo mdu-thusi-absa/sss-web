@@ -24,7 +24,7 @@
     "@progress/kendo-file-saver": "^1.1.0",
     "@types/jquery": "^3.5.0",
     "bootstrap": "^3.4.1",
-    "docxtemplater": "^3.19.3",
+    "docxtemplater": "^3.31.5",
     "jquery": "^3.5.1",
     "jszip-utils": "^0.1.0",
     "juery": "^1.0.0",
